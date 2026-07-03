@@ -425,7 +425,7 @@ export function SlideStage({
   if (slide.kind === 'activity' && slide.activity) {
     const a = slide.activity;
     return (
-      <div className="flex h-full flex-col p-7">
+      <div className="flex h-full flex-col p-6">
         <TitleHead slide={slide} />
         <div className="mt-2 min-h-0 flex-1 overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'نشاط تدريبي'} />
@@ -450,9 +450,11 @@ export function SlideStage({
     return (
       <div className="flex h-full flex-col p-7">
         <TitleHead slide={slide} />
-        <div className="mx-auto mt-2 min-h-0 w-full max-w-4xl flex-1 overflow-hidden animate-fade-in">
+        <div className="mt-2 flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
-          <KnowledgeCheck quiz={slide.quiz} onComplete={onQuizComplete} />
+          <div className="min-h-0 flex-1">
+            <KnowledgeCheck quiz={slide.quiz} onComplete={onQuizComplete} />
+          </div>
         </div>
       </div>
     );
