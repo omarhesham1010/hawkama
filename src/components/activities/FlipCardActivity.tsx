@@ -37,8 +37,8 @@ export function FlipCardActivity({
   }, [allSeen, onDone]);
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-2.5">
-      <div className="grid min-h-0 flex-1 grid-cols-3 gap-2.5">
+    <div className="flex h-full min-h-0 flex-col gap-2">
+      <div className="grid min-h-0 flex-1 grid-cols-3 gap-2">
         {data.cards.map((card) => {
           const isFlipped = flipped[card.id];
           return (
@@ -58,11 +58,11 @@ export function FlipCardActivity({
               >
                 {/* Front */}
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-line bg-surface p-3.5 text-center shadow-card"
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-line bg-surface p-3 text-center shadow-card"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                   <IconBadge icon={card.icon} tone="brand" size="md" />
-                  <p className="text-[17px] font-extrabold leading-tight text-ink">{card.front}</p>
+                  <p className="text-[19px] font-extrabold leading-tight text-ink">{card.front}</p>
                   <span className="chip bg-surface-3 text-ink-muted text-xs">
                     <Icon name="sound" className="w-4 h-4" />
                     اقلب واستمع
@@ -70,18 +70,18 @@ export function FlipCardActivity({
                 </div>
                 {/* Back */}
                 <div
-                  className="absolute inset-0 flex flex-col justify-center gap-1.5 rounded-2xl border-2 border-brand/30 bg-surface p-3.5 text-right shadow-card"
+                  className="absolute inset-0 flex flex-col justify-center gap-1.5 rounded-2xl border-2 border-brand/30 bg-surface p-3 text-right shadow-card"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
                     transform: 'rotateY(180deg)',
                   }}
                 >
-                  <p className="flex items-center gap-1.5 text-[15px] font-extrabold text-brand">
+                  <p className="flex items-center gap-1.5 text-[16px] font-extrabold text-brand">
                     <Icon name="sound" className="w-4 h-4 animate-pulse" />
                     {card.front}
                   </p>
-                  <p className="text-[14px] font-semibold leading-snug text-ink">{card.back}</p>
+                  <p className="text-[15.5px] font-semibold leading-snug text-ink">{card.back}</p>
                 </div>
               </div>
             </button>

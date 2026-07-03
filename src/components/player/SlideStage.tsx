@@ -42,7 +42,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
     case 'lead':
       return (
         <p
-          className={`mx-auto inline-block rounded-2xl border-2 px-6 py-3 text-center text-xl font-extrabold leading-relaxed shadow-card transition-all duration-300 ${
+          className={`mx-auto inline-block rounded-2xl border-2 px-6 py-3 text-center text-[22px] font-extrabold leading-relaxed shadow-card transition-all duration-300 ${
             active ? `${ACTIVE_BOX} text-white` : `${a.border} bg-surface text-ink`
           }`}
         >
@@ -51,15 +51,15 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
       );
     case 'def':
       return (
-        <div className={`${shell} flex items-start gap-4 p-6`}>
+        <div className={`${shell} flex items-start gap-4 p-5`}>
           <span className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl text-4xl ${tile}`}>
             {unit.emoji}
           </span>
           <div>
-            <h3 className={`mb-1 text-xl font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
+            <h3 className={`mb-1 text-[22px] font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
               {unit.term}
             </h3>
-            <p className={`text-[19px] leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+            <p className={`text-[20px] font-semibold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
               {unit.text}
             </p>
           </div>
@@ -67,18 +67,18 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
       );
     case 'point':
       return (
-        <div className={`${shell} flex min-h-[64px] items-center gap-3.5 p-4`}>
+        <div className={`${shell} flex min-h-[64px] items-center gap-3 p-3.5`}>
           <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-3xl ${tile}`}>
             {unit.emoji}
           </span>
           <div className="min-w-0">
             {unit.title && (
-              <p className={`text-[18px] font-extrabold leading-tight ${active ? 'text-white' : 'text-ink'}`}>
+              <p className={`text-[20px] font-extrabold leading-tight ${active ? 'text-white' : 'text-ink'}`}>
                 {unit.title}
               </p>
             )}
             {unit.text && (
-              <p className={`text-[16px] font-semibold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+              <p className={`text-[18px] font-semibold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
                 {unit.text}
               </p>
             )}
@@ -97,9 +97,9 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
       const titleCls = isContrast || active ? 'text-white' : 'text-ink';
       const textCls = isContrast || active ? 'text-green-50' : 'text-ink-soft';
       return (
-        <div className={`min-h-[64px] rounded-2xl border-2 p-5 shadow-card transition-all duration-300 ${cls}`}>
-          {unit.title && <p className={`mb-1 text-xl font-extrabold ${titleCls}`}>{unit.title}</p>}
-          <p className={`text-[18px] font-semibold leading-relaxed ${textCls}`}>{unit.text}</p>
+        <div className={`min-h-[64px] rounded-2xl border-2 p-4 shadow-card transition-all duration-300 ${cls}`}>
+          {unit.title && <p className={`mb-1 text-[22px] font-extrabold ${titleCls}`}>{unit.title}</p>}
+          <p className={`text-[20px] font-semibold leading-relaxed ${textCls}`}>{unit.text}</p>
         </div>
       );
     }
@@ -162,7 +162,7 @@ function TargetGraphic() {
 function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
   return (
     <div
-      className={`relative grid h-full w-[300px] shrink-0 place-items-center overflow-hidden ${
+      className={`relative grid h-full w-[260px] shrink-0 place-items-center overflow-hidden ${
         alt ? 'rounded-[2.5rem]' : 'rounded-3xl'
       } border-2 border-green-500/35 shadow-card-lg ${
         alt
@@ -292,7 +292,7 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   });
 
   const verticalFlow = (
-    <div className="relative flex min-h-0 flex-1 flex-col justify-center gap-2.5">
+    <div className="relative flex min-h-0 flex-1 flex-col justify-center gap-3">
       {/* connecting spine */}
       <span
         className={`absolute bottom-7 top-7 z-0 w-1 rounded-full bg-gradient-to-b from-green-500/60 via-teal-500/55 to-gold-500/55 ${
@@ -304,14 +304,14 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   );
 
   const topDownFlow = (
-    <div className="relative grid min-h-0 flex-1 grid-cols-2 content-center gap-3">
+    <div className="relative grid min-h-0 flex-1 grid-cols-2 content-center gap-3.5">
       <span className="absolute left-6 right-6 top-1/2 z-0 h-1 -translate-y-1/2 rounded-full bg-gradient-to-l from-green-500/55 via-teal-500/45 to-gold-500/50" />
       {flowRows}
     </div>
   );
 
   return (
-    <div className="flex h-full flex-col px-10 py-6">
+    <div className="flex h-full flex-col px-9 py-6">
       {/* title (beat 0) */}
       <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
         <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-teal-600 text-2xl text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
