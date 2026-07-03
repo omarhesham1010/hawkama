@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
 
-const CPS = 13; // chars/sec estimate while speaking without word boundaries
-const NO_VOICE_FALLBACK = 2200; // ms: if the voice never starts, reveal anyway
+const CPS = 12.5; // chars/sec estimate while speaking without word boundaries
+const NO_VOICE_FALLBACK = 3500; // ms: if the voice never starts, reveal anyway
 
 export interface VoiceSync {
   spoken: number;
@@ -22,7 +22,7 @@ export function useVoiceSync(
   armed: boolean,
   resetKey: string,
 ): VoiceSync {
-  const { charIndex, isPlaying, isPaused, nowKey, status } = useNarrationContext();
+  const { charIndex, speechStartedAt, isPlaying, isPaused, nowKey, status } = useNarrationContext();
   const total = Math.max(1, totalChars);
 
   const [spoken, setSpoken] = useState(0);
@@ -41,6 +41,9 @@ export function useVoiceSync(
   const speakingRef = useRef(false);
   speakingRef.current = speaking;
 
+  const startedAtRef = useRef<number | null>(null);
+  startedAtRef.current = speechStartedAt;
+
   // Reset on slide change / replay.
   useEffect(() => {
     spokenRef.current = 0;
@@ -55,7 +58,7 @@ export function useVoiceSync(
     if (speaking) {
       if (speakStartRef.current == null) speakStartRef.current = performance.now();
     }
-    if (isThisSlide && status === 'idle' && charRef.current > 0) {
+    if (isThisSlide && status === 'idle' && (charRef.current > 0 || spokenRef.current > 0)) {
       spokenRef.current = total;
       setSpoken(total);
       setDone(true);
@@ -76,10 +79,11 @@ export function useVoiceSync(
     const tick = () => {
       let val = spokenRef.current;
       if (speakingRef.current) {
-        const start = speakStartRef.current ?? performance.now();
+        const start = startedAtRef.current ?? speakStartRef.current ?? performance.now();
         const el = (performance.now() - start) / 1000;
-        // follow real word boundaries when present, else a gentle estimate
-        val = charRef.current > 0 ? charRef.current : el * CPS;
+        // Follow real word boundaries when present. Safari/iOS often skips them,
+        // so keep a smooth estimated clock tied to the actual speech start.
+        val = Math.max(charRef.current, el * CPS);
       } else if (performance.now() - enterRef.current > NO_VOICE_FALLBACK && charRef.current === 0) {
         // voice never started → reveal everything
         val = total;

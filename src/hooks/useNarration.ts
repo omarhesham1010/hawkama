@@ -13,6 +13,12 @@ const TTS_LEAD_IN = '\u200f\u200c\u200c\u200c ';
 const SHAKER = /shaker|شاكر/i;
 const MALE_TOKENS = /shaker|naayf|nayf|hamed|majed|male|tarik|omar|khalid|rashid|hoss/i;
 const FEMALE_TOKENS = /hoda|salma|zariyah|amany|laila|female|zeina/i;
+const SHAKER_ALIASES = /shaker|shaakir|shakir|شاكر/i;
+
+function isIOSWebKit() {
+  if (typeof navigator === 'undefined') return false;
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
 
 function pickPreferredVoice(explicitURI: string | null): SpeechSynthesisVoice | null {
   const all = window.speechSynthesis?.getVoices?.() ?? [];
@@ -24,7 +30,7 @@ function pickPreferredVoice(explicitURI: string | null): SpeechSynthesisVoice | 
   const arabic = all.filter((v) => v.lang?.toLowerCase().startsWith('ar'));
   const pool = arabic.length ? arabic : all;
   return (
-    pool.find((v) => SHAKER.test(v.name)) ??
+    pool.find((v) => SHAKER.test(v.name) || SHAKER_ALIASES.test(v.name)) ??
     pool.find((v) => MALE_TOKENS.test(v.name) && !FEMALE_TOKENS.test(v.name)) ??
     arabic.find((v) => /ar-sa/i.test(v.lang) && !FEMALE_TOKENS.test(v.name)) ??
     arabic.find((v) => !FEMALE_TOKENS.test(v.name)) ??
@@ -37,6 +43,7 @@ export function useNarration() {
   const [status, setStatus] = useState<NarrationStatus>('idle');
   const [source, setSource] = useState<NarrationSource>(null);
   const [charIndex, setCharIndex] = useState(0); // position of the word being spoken (TTS)
+  const [speechStartedAt, setSpeechStartedAt] = useState<number | null>(null);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [voiceURI, setVoiceURIState] = useState<string | null>(
     () => (typeof window !== 'undefined' ? window.localStorage.getItem(VOICE_KEY) : null),
@@ -124,6 +131,7 @@ export function useNarration() {
     }
     utterRef.current = null;
     sourceRef.current = null;
+    setSpeechStartedAt(null);
   }, [clearKeepAlive, ttsSupported]);
 
   const speakTts = useCallback(
@@ -139,7 +147,7 @@ export function useNarration() {
         const spokenScript = `${TTS_LEAD_IN}${script}`;
         const u = new SpeechSynthesisUtterance(spokenScript);
         u.lang = 'ar-SA';
-        u.rate = rate;
+        u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
         u.pitch = 0.92;
         const voice = pickPreferredVoice(voiceURI);
         if (voice) u.voice = voice;
@@ -148,15 +156,18 @@ export function useNarration() {
           sourceRef.current = 'tts';
           setStatus('playing');
           setCharIndex(0);
+          setSpeechStartedAt(performance.now());
           startKeepAlive();
         };
         u.onboundary = (e) => setCharIndex(Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length));
         u.onend = () => {
           clearKeepAlive();
+          setSpeechStartedAt(null);
           setStatus('idle');
         };
         u.onerror = () => {
           clearKeepAlive();
+          setSpeechStartedAt(null);
           setStatus('idle');
         };
         utterRef.current = u;
@@ -180,6 +191,7 @@ export function useNarration() {
       stopInternal();
       lastRef.current = { key, script };
       setCharIndex(0);
+      setSpeechStartedAt(null);
 
       // No real MP3 for this key → go straight to TTS (instant, no probe delay).
       if (!hasAudio(key)) {
@@ -201,8 +213,12 @@ export function useNarration() {
         setSource('audio');
         sourceRef.current = 'audio';
         setStatus('playing');
+        setSpeechStartedAt(performance.now());
       });
-      audio.addEventListener('ended', () => setStatus('idle'));
+      audio.addEventListener('ended', () => {
+        setSpeechStartedAt(null);
+        setStatus('idle');
+      });
       audio.addEventListener('error', fallback);
       audio.play().catch(fallback);
     },
@@ -223,10 +239,12 @@ export function useNarration() {
   const resume = useCallback(() => {
     if (sourceRef.current === 'audio' && audioRef.current) {
       audioRef.current.play().catch(() => undefined);
+      setSpeechStartedAt(performance.now());
       setStatus('playing');
     } else if (sourceRef.current === 'tts' && ttsSupported) {
       window.speechSynthesis.resume();
       startKeepAlive();
+      setSpeechStartedAt(performance.now());
       setStatus('playing');
     }
   }, [startKeepAlive, ttsSupported]);
@@ -235,6 +253,7 @@ export function useNarration() {
     stopInternal();
     setStatus('idle');
     setSource(null);
+    setSpeechStartedAt(null);
   }, [stopInternal]);
 
   const replay = useCallback(() => {
@@ -250,6 +269,7 @@ export function useNarration() {
     isLoading: status === 'loading',
     isPaused: status === 'paused',
     charIndex,
+    speechStartedAt,
     ttsSupported,
     voices,
     voiceURI,
