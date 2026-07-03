@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Theme tokens — identity from the source PowerPoint (green + gold).
+   Values are space-separated RGB channels for Tailwind's
+   `rgb(var(--x) / <alpha>)` syntax.
+   ============================================================ */
+@layer base {
+  /* Single unified "luxury" identity — green + teal + gold blend (no dark mode). */
+  :root {
+    --canvas: 240 246 242; /* soft blended background */
+    --surface: 255 255 255; /* white cards */
+    --surface-2: 244 250 246; /* subtle raised */
+    --surface-3: 232 242 236; /* insets / tints */
+    --ink: 15 34 25; /* deep green-slate text */
+    --ink-soft: 40 62 51;
+    --ink-muted: 82 104 92;
+    --line: 205 224 213; /* visible greenish border */
+    --brand: 34 122 82; /* refined green */
+    --brand-soft: 52 152 118; /* green→teal blend */
+    --brand-strong: 24 82 55; /* deep green for headers */
+    --gold: 191 155 74;
+    --gold-soft: 216 184 102;
+  }
+
+  * {
+    border-color: rgb(var(--line));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    color: rgb(var(--ink));
+    font-family: 'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+    font-weight: 500; /* clearer, bolder Arabic text */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.01em;
+    /* creative blended mesh: green + teal + gold whispers over a soft canvas */
+    background-color: rgb(var(--canvas));
+    background-image:
+      radial-gradient(1100px 620px at 88% -8%, rgb(var(--brand-soft) / 0.14), transparent 60%),
+      radial-gradient(900px 560px at 6% 8%, rgb(var(--gold) / 0.1), transparent 60%),
+      radial-gradient(1000px 700px at 50% 118%, rgb(var(--brand) / 0.12), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgb(var(--brand) / 0.22);
+  }
+}
+
+@layer components {
+  /* Cards read clearly in BOTH themes: white on tinted canvas + border + shadow */
+  .card {
+    @apply rounded-2xl bg-surface border border-line shadow-card;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold
+      transition-all duration-200 select-none focus-visible:outline focus-visible:outline-2;
+  }
+
+  .btn-primary {
+    @apply btn text-white shadow-card;
+    background: linear-gradient(135deg, rgb(var(--brand-soft)), rgb(var(--brand)));
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 32px -14px rgb(var(--brand) / 0.7);
+  }
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn-ghost {
+    @apply btn bg-surface-2 text-ink border border-line hover:bg-surface-3;
+  }
+
+  /* Gold CTA — the PPT's second identity color */
+  .btn-gold {
+    @apply btn text-white shadow-card;
+    background: linear-gradient(135deg, #d8b866, #bf9b4a);
+  }
+  .btn-gold:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 32px -14px rgb(191 155 74 / 0.7);
+  }
+  .btn-gold:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Gilded text for premium headings */
+  .text-gilded {
+    background: linear-gradient(100deg, #bf9b4a, #e6d095, #bf9b4a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium;
+  }
+
+  /* Interactive lift for game-like cards */
+  .lift {
+    @apply transition-all duration-200;
+  }
+  .lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -22px rgb(21 56 38 / 0.5);
+  }
+
+  .scroll-slim::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-slim::-webkit-scrollbar-thumb {
+    background: rgb(var(--line));
+    border-radius: 999px;
+  }
+  .scroll-slim::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* Equalizer bars for the "speaking" narration state */
+.sound-bar {
+  transform-origin: bottom;
+  animation: sound-bar 0.9s ease-in-out infinite;
+}
+.sound-bar:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.sound-bar:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.sound-bar:nth-child(4) {
+  animation-delay: 0.45s;
+}
+@keyframes sound-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Confetti pieces (completion / quiz pass) */
+.confetti-piece {
+  position: absolute;
+  top: -12px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  animation: confetti-fall 1.6s ease-in forwards;
+}
+
+/* Staggered list reveal helper */
+.stagger > * {
+  opacity: 0;
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
