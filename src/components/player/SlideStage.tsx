@@ -7,6 +7,7 @@ import { ClassificationActivity } from '../activities/ClassificationActivity';
 import { FlipCardActivity } from '../activities/FlipCardActivity';
 import { DecisionSimulation } from '../activities/DecisionSimulation';
 import { KnowledgeCheck } from '../activities/KnowledgeCheck';
+import { Nasser, POSE_SRC, type NasserPose } from '../character/Nasser';
 import { toArabicDigits } from '../../lib/utils';
 
 export interface CompletionInfo {
@@ -30,6 +31,46 @@ const ACCENTS = [
 ];
 
 const ACTIVE_BOX = 'border-green-600 bg-gradient-to-br from-green-500 to-green-700 shadow-glow';
+
+function nasserGuide(slide: Slide): { pose: NasserPose; line: string; side: 'left' | 'right' } {
+  if (slide.kind === 'welcome') {
+    return {
+      pose: 'welcome',
+      side: 'right',
+      line: 'السلام عليكم ورحمة الله وبركاته، حياكم الله. أنا ناصر وبأكون معكم في هذه الرحلة التعليمية.',
+    };
+  }
+  if (slide.kind === 'quiz') {
+    return { pose: 'question', side: 'left', line: 'وش تتوقع؟ اختر الإجابة الأقرب، وبعدها بنراجع السبب بهدوء.' };
+  }
+  if (slide.kind === 'reflection') {
+    return { pose: 'thinking', side: 'right', line: 'فكر معي شوي. هنا ما نبحث عن درجة، نبحث عن نقاش وفهم أعمق.' };
+  }
+  if (slide.kind === 'completion') {
+    return { pose: 'completion', side: 'right', line: 'أحسنت. خلونا نراجع أهم ما أخذناه في هذه الوحدة.' };
+  }
+  if (slide.kind === 'activity') {
+    if (slide.activity?.kind === 'scenarioDecision') {
+      return { pose: 'warning', side: 'left', line: 'هذا موقف عملي. اقرأ الحالة، ثم اختَر مسار الإجراء الصحيح.' };
+    }
+    if (slide.activity?.kind === 'flipCards') {
+      return { pose: 'thinking', side: 'left', line: 'اقلب البطاقات واحدة واحدة، وخلّ المفهوم يرتبط بالمثال.' };
+    }
+    return { pose: 'question', side: 'left', line: 'مهمتك هنا تصنّف الإجراء: هل هو حوكمة أم امتثال؟' };
+  }
+
+  const side = slide.index % 3 === 0 ? 'right' : 'left';
+  const pointPose: NasserPose = side === 'left' ? 'pointRight' : 'pointLeft';
+  const tabletPose: NasserPose = side === 'left' ? 'tabletRight' : 'tabletLeft';
+
+  if ([6, 7, 9, 11].includes(slide.index)) {
+    return { pose: tabletPose, side, line: 'ركزوا معي هنا؛ هذه النقطة تربط المفهوم بالتطبيق داخل المنشأة الصحية.' };
+  }
+  if ([14, 15].includes(slide.index)) {
+    return { pose: 'thinking', side, line: 'فكر معي شوي في القرار، ثم اربطه بالسياسة والإفصاح والتوثيق.' };
+  }
+  return { pose: pointPose, side, line: 'جميل، ننتقل للنقطة التالية ونربطها بالحوكمة الصحية خطوة بخطوة.' };
+}
 
 function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; accent: number }) {
   const a = ACCENTS[accent % ACCENTS.length];
@@ -133,36 +174,13 @@ function BeatBox({
 // ---- Content (beat) slide --------------------------------------------------
 
 /** Concentric target/bullseye + arrow — for the roadmap slide (like the client). */
-function TargetGraphic() {
-  const rings = [
-    { r: 82, fill: '#63d3c9' },
-    { r: 66, fill: '#149a90' },
-    { r: 50, fill: '#0f6263' },
-    { r: 34, fill: '#124143' },
-    { r: 16, fill: '#0b1f15' },
-  ];
-  return (
-    <svg viewBox="0 0 220 220" className="w-full max-w-[240px] animate-scale-in">
-      <circle cx="110" cy="110" r="98" fill="none" stroke="#149a90" strokeOpacity="0.25" strokeWidth="2" strokeDasharray="3 8" />
-      {rings.map((ring, i) => (
-        <circle key={i} cx="110" cy="110" r={ring.r} fill={ring.fill} />
-      ))}
-      <circle cx="110" cy="110" r="6" fill="#eef6f1" />
-      {/* arrow */}
-      <g>
-        <line x1="176" y1="110" x2="112" y2="110" stroke="#eef6f1" strokeWidth="5" strokeLinecap="round" />
-        <path d="M176 110l14-8v16z" fill="#0f6263" />
-      </g>
-    </svg>
-  );
-}
-
 /** Always-present side graphic: an emoji "image" panel or the target. Alternates
  *  bubble shape / gradient angle per slide so consecutive slides don't look identical. */
 function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
+  const guide = nasserGuide(slide);
   return (
     <div
-      className={`relative grid h-full w-[260px] shrink-0 place-items-center overflow-hidden ${
+      className={`relative flex h-full w-[320px] shrink-0 flex-col justify-end overflow-hidden px-3 pt-4 ${
         alt ? 'rounded-[2.5rem]' : 'rounded-3xl'
       } border-2 border-green-500/35 shadow-card-lg ${
         alt
@@ -176,19 +194,9 @@ function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
         className="absolute inset-0 opacity-50"
         style={{ backgroundImage: 'radial-gradient(rgb(255 255 255 / 0.35) 1px, transparent 1px)', backgroundSize: '18px 18px' }}
       />
-      {slide.visualKind === 'target' ? (
-        <div className="relative">
-          <TargetGraphic />
-        </div>
-      ) : (
-        <div
-          className={`relative grid h-44 w-44 place-items-center bg-white/90 text-[6rem] shadow-card-lg animate-float ring-4 ring-white/40 ${
-            alt ? 'rounded-[2rem]' : 'rounded-full'
-          }`}
-        >
-          {slide.visual}
-        </div>
-      )}
+      <div className="relative z-10 flex flex-1 items-end justify-center">
+        <Nasser pose={guide.pose} line={guide.line} side={guide.side} size="md" />
+      </div>
     </div>
   );
 }
@@ -247,17 +255,19 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   let numCounter = 0;
 
   const visual = <SideVisual slide={slide} alt={alt} />;
+  const guide = nasserGuide(slide);
   const compactVisual = (
-    <div className="relative grid h-28 min-w-[220px] flex-1 place-items-center overflow-hidden rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 shadow-card">
+    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-hidden rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 px-5 shadow-card">
       <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(20 160 120 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-      <div className="relative flex items-center gap-4">
-        <span className="grid h-20 w-20 place-items-center rounded-2xl bg-white/90 text-5xl shadow-card ring-4 ring-white/40">
+      <div className="relative z-10 flex items-center gap-4 self-center">
+        <span className="grid h-[72px] w-[72px] place-items-center rounded-2xl bg-white/90 text-5xl shadow-card ring-4 ring-white/40">
           {slide.visual}
         </span>
         <span className="max-w-[360px] text-right text-lg font-extrabold leading-snug text-brand-strong">
           {slide.title}
         </span>
       </div>
+      <Nasser pose={guide.pose} line="خلّونا نمشيها خطوة بخطوة." side="right" size="sm" className="relative z-10" />
     </div>
   );
 
@@ -357,6 +367,25 @@ function TitleHead({ slide }: { slide: Slide }) {
   );
 }
 
+function NasserCoachNote({ slide }: { slide: Slide }) {
+  const guide = nasserGuide(slide);
+
+  return (
+    <div className="mb-2 mt-2 flex items-center gap-3 rounded-2xl border border-green-500/25 bg-surface-2 px-3 py-2 shadow-card">
+      <img
+        src={POSE_SRC[guide.pose]}
+        alt="ناصر المدرب"
+        className="h-20 w-20 shrink-0 object-contain object-bottom"
+        draggable={false}
+      />
+      <div className="min-w-0 text-right">
+        <p className="text-[13px] font-extrabold text-brand">ناصر</p>
+        <p className="text-[16px] font-bold leading-relaxed text-ink-soft">{guide.line}</p>
+      </div>
+    </div>
+  );
+}
+
 export function SlideStage({
   slide,
   spoken,
@@ -376,6 +405,7 @@ export function SlideStage({
 }) {
   // Welcome
   if (slide.kind === 'welcome') {
+    const guide = nasserGuide(slide);
     const highlights =
       slide.content?.highlights && slide.content.highlights.kind === 'points'
         ? slide.content.highlights.items
@@ -405,8 +435,11 @@ export function SlideStage({
           </button>
           <p className="mt-3 text-sm text-ink-muted">ثم اضغط «التالي» للانتقال بين الشرائح.</p>
         </div>
-        <div className="grid h-[420px] w-[420px] shrink-0 place-items-center">
-          <div className="relative grid h-72 w-72 place-items-center rounded-[36px] border border-line bg-gradient-to-br from-green-500/10 via-teal-400/10 to-gold-500/14 text-[8rem] shadow-card-lg animate-float">
+        <div className="relative flex h-[440px] w-[430px] shrink-0 items-end justify-center overflow-hidden rounded-[36px] border border-green-500/25 bg-gradient-to-br from-green-500/10 via-teal-400/10 to-gold-500/14 px-6 pt-6 shadow-card-lg">
+          <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-green-400/18 blur-3xl" />
+          <div className="absolute -left-8 -bottom-8 h-40 w-40 rounded-full bg-gold-400/18 blur-3xl" />
+          <Nasser pose={guide.pose} line={guide.line} side={guide.side} size="lg" className="relative z-10" />
+          <div className="hidden">
             <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-green-400/18 blur-3xl" />
             <div className="absolute -left-8 -bottom-8 h-40 w-40 rounded-full bg-gold-400/18 blur-3xl" />
             🎓
@@ -427,7 +460,8 @@ export function SlideStage({
     return (
       <div className="flex h-full flex-col p-6">
         <TitleHead slide={slide} />
-        <div className="mt-2 min-h-0 flex-1 overflow-hidden animate-fade-in">
+        <NasserCoachNote slide={slide} />
+        <div className="min-h-0 flex-1 overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'نشاط تدريبي'} />
           <div className="h-[calc(100%-2.5rem)] overflow-hidden">
             {a.kind === 'classification' && (
@@ -450,7 +484,8 @@ export function SlideStage({
     return (
       <div className="flex h-full flex-col p-7">
         <TitleHead slide={slide} />
-        <div className="mt-2 flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
+        <NasserCoachNote slide={slide} />
+        <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
           <div className="min-h-0 flex-1">
             <KnowledgeCheck quiz={slide.quiz} onComplete={onQuizComplete} />
@@ -465,6 +500,7 @@ export function SlideStage({
     return (
       <div className="flex h-full flex-col items-center justify-center p-8 text-center animate-fade-in">
         <TitleHead slide={slide} />
+        <NasserCoachNote slide={slide} />
         <p className="my-4 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-base font-semibold text-gold-600">
           <Icon name="sparkles" className="w-5 h-5" />
           أسئلة تأمّل مفتوحة — لا إجابة واحدة صحيحة، الهدف منها النقاش لا التقييم.
@@ -485,10 +521,12 @@ export function SlideStage({
 
   // Completion
   if (slide.kind === 'completion') {
+    const guide = nasserGuide(slide);
     return (
       <div className="relative flex h-full flex-col items-center justify-center p-10 text-center">
         <Confetti count={48} />
-        <div className="mb-3 flex justify-center animate-scale-in">
+        <div className="mb-3 flex items-end justify-center gap-4 animate-scale-in">
+          <Nasser pose={guide.pose} line={guide.line} side={guide.side} size="sm" />
           <CompletionMedallion className="h-24 w-24 animate-float" />
         </div>
         <h2 className="text-3xl font-extrabold text-brand-strong animate-fade-up">{slide.title}</h2>
