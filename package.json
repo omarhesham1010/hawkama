@@ -5,8 +5,9 @@
   "type": "module",
   "description": "وحدة تعليمية تفاعلية عن الحوكمة الصحية والامتثال — الفصل الأول",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "sync-audio": "node scripts/sync-audio-manifest.mjs",
+    "dev": "npm run sync-audio && vite",
+    "build": "npm run sync-audio && tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
