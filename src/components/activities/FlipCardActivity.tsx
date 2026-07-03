@@ -62,7 +62,7 @@ export function FlipCardActivity({
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                   <IconBadge icon={card.icon} tone="brand" size="md" />
-                  <p className="text-[15px] font-extrabold leading-tight text-ink">{card.front}</p>
+                  <p className="text-[17px] font-extrabold leading-tight text-ink">{card.front}</p>
                   <span className="chip bg-surface-3 text-ink-muted text-xs">
                     <Icon name="sound" className="w-4 h-4" />
                     اقلب واستمع
@@ -77,11 +77,11 @@ export function FlipCardActivity({
                     transform: 'rotateY(180deg)',
                   }}
                 >
-                  <p className="flex items-center gap-1.5 text-[13px] font-extrabold text-brand">
+                  <p className="flex items-center gap-1.5 text-[15px] font-extrabold text-brand">
                     <Icon name="sound" className="w-4 h-4 animate-pulse" />
                     {card.front}
                   </p>
-                  <p className="text-[12.5px] font-semibold leading-snug text-ink">{card.back}</p>
+                  <p className="text-[14px] font-semibold leading-snug text-ink">{card.back}</p>
                 </div>
               </div>
             </button>
@@ -90,7 +90,7 @@ export function FlipCardActivity({
       </div>
 
       <p
-        className={`shrink-0 rounded-xl px-3 py-1.5 text-center text-xs font-semibold ${
+        className={`shrink-0 rounded-xl px-3 py-1.5 text-center text-sm font-semibold ${
           allSeen ? 'bg-green-500/10 font-semibold text-green-700' : 'text-ink-muted'
         }`}
       >

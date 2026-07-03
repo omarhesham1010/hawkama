@@ -59,7 +59,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
             <h3 className={`mb-1 text-xl font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
               {unit.term}
             </h3>
-            <p className={`text-[17px] leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+            <p className={`text-[19px] leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
               {unit.text}
             </p>
           </div>
@@ -73,12 +73,12 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
           </span>
           <div className="min-w-0">
             {unit.title && (
-              <p className={`text-[17px] font-extrabold leading-tight ${active ? 'text-white' : 'text-ink'}`}>
+              <p className={`text-[18px] font-extrabold leading-tight ${active ? 'text-white' : 'text-ink'}`}>
                 {unit.title}
               </p>
             )}
             {unit.text && (
-              <p className={`text-[14px] leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+              <p className={`text-[16px] font-semibold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
                 {unit.text}
               </p>
             )}
@@ -98,8 +98,8 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
       const textCls = isContrast || active ? 'text-green-50' : 'text-ink-soft';
       return (
         <div className={`min-h-[64px] rounded-2xl border-2 p-5 shadow-card transition-all duration-300 ${cls}`}>
-          {unit.title && <p className={`mb-1 text-lg font-extrabold ${titleCls}`}>{unit.title}</p>}
-          <p className={`text-[16px] leading-relaxed ${textCls}`}>{unit.text}</p>
+          {unit.title && <p className={`mb-1 text-xl font-extrabold ${titleCls}`}>{unit.title}</p>}
+          <p className={`text-[18px] font-semibold leading-relaxed ${textCls}`}>{unit.text}</p>
         </div>
       );
     }
@@ -313,7 +313,7 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   return (
     <div className="flex h-full flex-col px-10 py-6">
       {/* title (beat 0) */}
-      <h2 className={`flex items-center gap-3 text-[28px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
+      <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
         <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-teal-600 text-2xl text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
           {slide.visual}
         </span>
@@ -339,7 +339,7 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
 
 function ActivityChip({ label }: { label: string }) {
   return (
-    <span className="chip mb-3 bg-brand/12 text-brand text-sm font-bold">
+    <span className="chip mb-2 bg-brand/12 text-brand text-base font-bold">
       <Icon name="target" className="w-4 h-4" />
       {label}
     </span>
@@ -348,7 +348,7 @@ function ActivityChip({ label }: { label: string }) {
 
 function TitleHead({ slide }: { slide: Slide }) {
   return (
-    <h2 className="flex items-center gap-3 text-[30px] font-extrabold leading-tight text-brand-strong animate-fade-up">
+    <h2 className="flex items-center gap-3 text-[32px] font-extrabold leading-tight text-brand-strong animate-fade-up">
       <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 text-3xl shadow-card">
         {slide.visual}
       </span>
@@ -465,7 +465,7 @@ export function SlideStage({
     return (
       <div className="flex h-full flex-col items-center justify-center p-8 text-center animate-fade-in">
         <TitleHead slide={slide} />
-        <p className="my-4 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-sm font-semibold text-gold-600">
+        <p className="my-4 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-base font-semibold text-gold-600">
           <Icon name="sparkles" className="w-5 h-5" />
           أسئلة تأمّل مفتوحة — لا إجابة واحدة صحيحة، الهدف منها النقاش لا التقييم.
         </p>
@@ -475,7 +475,7 @@ export function SlideStage({
               <span className="mb-2 grid h-9 w-9 place-items-center rounded-lg bg-gold-500/15 text-gold-600 font-bold tabular">
                 {toArabicDigits(i + 1)}
               </span>
-              <p className="font-bold leading-relaxed text-ink">{q}</p>
+              <p className="text-[20px] font-bold leading-relaxed text-ink">{q}</p>
             </div>
           ))}
         </div>

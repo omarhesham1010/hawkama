@@ -62,15 +62,15 @@ export function KnowledgeCheck({
           <Icon name={passed ? 'check' : 'target'} className="h-10 w-10" />
         </div>
         <p className="text-5xl font-extrabold text-ink tabular">{toArabicDigits(score.percent)}٪</p>
-        <p className="text-ink-soft">
+        <p className="text-lg font-semibold text-ink-soft">
           أجبت بشكل صحيح عن {toArabicDigits(score.correct)} من {toArabicDigits(total)} أسئلة
         </p>
-        <p className={`rounded-xl px-4 py-2 text-sm font-semibold ${passed ? 'bg-teal-500/10 text-teal-700' : 'bg-gold-500/10 text-gold-700'}`}>
+        <p className={`rounded-xl px-4 py-2 text-base font-semibold ${passed ? 'bg-teal-500/10 text-teal-700' : 'bg-gold-500/10 text-gold-700'}`}>
           {passed
             ? `مبروك! اجتزت الاختبار (${toArabicDigits(quiz.passScore)}٪ فأكثر).`
             : `تحتاج ${toArabicDigits(quiz.passScore)}٪ للاجتياز — حاول مرة أخرى.`}
         </p>
-        <button type="button" onClick={retry} className="btn-ghost px-6">
+        <button type="button" onClick={retry} className="btn-ghost px-6 text-base">
           <Icon name="flow" className="w-5 h-5" />
           إعادة الاختبار
         </button>
@@ -83,7 +83,7 @@ export function KnowledgeCheck({
   // ---- Question (fixed layout: header / options / pinned footer) ----
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="mb-2 flex items-center justify-between text-[15px]">
+      <div className="mb-2 flex items-center justify-between text-base">
         <span className="font-bold text-ink">
           السؤال {toArabicDigits(current + 1)} من {toArabicDigits(total)}
         </span>
@@ -91,7 +91,7 @@ export function KnowledgeCheck({
       </div>
       <ProgressBar percent={Math.round(((current + (answered ? 1 : 0)) / total) * 100)} />
 
-      <p className="mt-3 rounded-2xl border border-line bg-surface-2 px-4 py-3 text-[22px] font-extrabold leading-snug text-ink shadow-card">
+      <p className="mt-3 rounded-2xl border border-line bg-surface-2 px-4 py-3 text-[24px] font-extrabold leading-snug text-ink shadow-card">
         {q.prompt}
       </p>
 
@@ -111,7 +111,7 @@ export function KnowledgeCheck({
               type="button"
               disabled={answered}
               onClick={() => choose(i)}
-              className={`flex h-full items-center gap-3 rounded-2xl border-2 p-4 text-right text-[17px] font-bold leading-snug shadow-card transition-colors disabled:cursor-default ${cls}`}
+              className={`flex h-full items-center gap-3 rounded-2xl border-2 p-4 text-right text-[18px] font-bold leading-snug shadow-card transition-colors disabled:cursor-default ${cls}`}
             >
               <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base font-extrabold tabular ${answered && isRight ? 'bg-teal-500 text-white' : answered && isSel ? 'bg-rose-500 text-white' : 'bg-surface-3 text-ink-muted'}`}>
                 {answered && isRight ? <Icon name="check" className="h-5 w-5" /> : toArabicDigits(i + 1)}
@@ -125,12 +125,12 @@ export function KnowledgeCheck({
       {/* pinned footer: feedback + next (always visible) */}
       <div className="mt-3 flex shrink-0 items-stretch gap-3">
         {answered ? (
-          <div className={`flex flex-1 items-start gap-2 rounded-2xl border px-4 py-3 text-[15px] font-semibold leading-snug ${isCorrect ? 'border-teal-500/40 bg-teal-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
+          <div className={`flex flex-1 items-start gap-2 rounded-2xl border px-4 py-3 text-base font-semibold leading-snug ${isCorrect ? 'border-teal-500/40 bg-teal-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
             <Icon name={isCorrect ? 'check' : 'alert'} className={`mt-0.5 h-5 w-5 shrink-0 ${isCorrect ? 'text-teal-600' : 'text-rose-500'}`} />
             <span><b>{isCorrect ? 'إجابة صحيحة. ' : 'إجابة غير صحيحة. '}</b><span className="text-ink-soft">{q.explanation}</span></span>
           </div>
         ) : (
-          <div className="flex-1 rounded-2xl border border-line bg-surface-2 px-4 py-3 text-center text-[15px] font-semibold text-ink-muted">
+          <div className="flex-1 rounded-2xl border border-line bg-surface-2 px-4 py-3 text-center text-base font-semibold text-ink-muted">
             اختر الإجابة التي تراها صحيحة
           </div>
         )}

@@ -7,8 +7,8 @@ import { shuffle, toArabicDigits } from '../../lib/utils';
 
 function StageTitle({ n, text }: { n: string; text: string }) {
   return (
-    <h3 className="mb-2 flex items-center gap-2 text-[16px] font-extrabold text-ink">
-      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand text-xs text-white tabular">
+    <h3 className="mb-2 flex items-center gap-2 text-lg font-extrabold text-ink">
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-sm text-white tabular">
         {n}
       </span>
       {text}
@@ -48,17 +48,17 @@ export function DecisionSimulation({
   return (
     <div className="flex h-full min-h-0 flex-col gap-3">
       <div className="shrink-0 rounded-2xl border border-line bg-surface-2 p-3 shadow-card">
-        <p className="mb-1 flex items-center gap-2 text-sm font-bold text-brand">
+        <p className="mb-1 flex items-center gap-2 text-base font-bold text-brand">
           <Icon name="gavel" className="h-5 w-5" />
           السيناريو
         </p>
-        <p className="text-[13px] font-semibold leading-snug text-ink-soft">{data.scenario}</p>
+        <p className="text-[15px] font-semibold leading-snug text-ink-soft">{data.scenario}</p>
       </div>
 
       {showIdentify && (
         <div className="min-h-0">
           <StageTitle n={toArabicDigits(1)} text="تحديد المخالفة" />
-          <p className="mb-2 text-sm font-semibold text-ink-soft">{data.identify.question}</p>
+          <p className="mb-2 text-base font-semibold text-ink-soft">{data.identify.question}</p>
           <div className="flex flex-wrap gap-1.5">
             {data.identify.options.map((opt) => {
               const selected = identify === opt.id;
@@ -75,7 +75,7 @@ export function DecisionSimulation({
                   type="button"
                   disabled={reveal}
                   onClick={() => setIdentify(opt.id)}
-                  className={`rounded-xl border-2 px-3 py-2 text-sm font-bold transition-colors ${cls}`}
+                  className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors ${cls}`}
                 >
                   {opt.label}
                 </button>
@@ -91,7 +91,7 @@ export function DecisionSimulation({
               return (
                 <div className="mt-2 space-y-2">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-xs font-semibold text-ink-soft">تصنيفات ذات صلة:</span>
+                    <span className="text-sm font-semibold text-ink-soft">تصنيفات ذات صلة:</span>
                     {data.identify.tags.map((t) => (
                       <Chip key={t} tone="navy">
                         {t}
@@ -106,7 +106,7 @@ export function DecisionSimulation({
                         : `الإجابة الصحيحة هي: ${correctOpt?.label}`
                     }
                   >
-                    <p className="text-sm leading-snug">{data.identify.suggestedNote}</p>
+                    <p className="text-[15px] leading-snug">{data.identify.suggestedNote}</p>
                   </FeedbackBox>
                 </div>
               );
@@ -120,7 +120,7 @@ export function DecisionSimulation({
             n={showIdentify ? toArabicDigits(2) : toArabicDigits(1)}
             text="رتّب مسار الإجراء الصحيح"
           />
-          <p className="mb-2 text-sm font-semibold text-ink-soft">
+          <p className="mb-2 text-base font-semibold text-ink-soft">
             اضغط الخطوات بالترتيب الصحيح للاستجابة للحالة:
           </p>
 
@@ -147,7 +147,7 @@ export function DecisionSimulation({
                   </span>
                   {id ? (
                     <>
-                      <span className="flex-1 text-sm font-bold leading-tight text-ink">{stepLabel(id)}</span>
+                      <span className="flex-1 text-base font-bold leading-tight text-ink">{stepLabel(id)}</span>
                       {!pathChecked && (
                         <button
                           type="button"
@@ -175,7 +175,7 @@ export function DecisionSimulation({
                       )}
                     </>
                   ) : (
-                    <span className="text-xs font-semibold text-ink-muted">
+                    <span className="text-sm font-semibold text-ink-muted">
                       الخطوة {toArabicDigits(i + 1)}...
                     </span>
                   )}
@@ -191,7 +191,7 @@ export function DecisionSimulation({
                   key={s.id}
                   type="button"
                   onClick={() => setPath((p) => [...p, s.id])}
-                  className="rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-xs font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5"
+                  className="rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5"
                 >
                   {s.label}
                 </button>
@@ -205,7 +205,7 @@ export function DecisionSimulation({
                 type="button"
                 onClick={() => setPathChecked(true)}
                 disabled={!pathFull}
-                className="btn-primary px-5 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+                className="btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <Icon name="check" className="h-5 w-5" />
                 تحقّق من المسار
@@ -213,14 +213,14 @@ export function DecisionSimulation({
             </div>
           ) : pathCorrect ? (
             <FeedbackBox tone="success" title="مسار صحيح تماماً" className="mt-3">
-              <p className="text-sm leading-snug">
+              <p className="text-[15px] leading-snug">
                 الإفصاح، فالتنحّي عن القرار، فتوثيق الحالة، فإشراف لجنة الامتثال والأخلاقيات.
               </p>
             </FeedbackBox>
           ) : (
             <div className="mt-3 space-y-2">
               <FeedbackBox tone="error" title="المسار غير مرتّب بشكل صحيح.">
-                <p className="text-sm leading-snug">
+                <p className="text-[15px] leading-snug">
                   يبدأ الإجراء الصحيح بالإفصاح، وينتهي بإشراف لجنة الامتثال والأخلاقيات.
                 </p>
               </FeedbackBox>
@@ -231,7 +231,7 @@ export function DecisionSimulation({
                     setPath([]);
                     setPathChecked(false);
                   }}
-                  className="btn-ghost px-5 py-2 text-sm"
+                  className="btn-ghost px-5 py-2 text-base"
                 >
                   <Icon name="flow" className="h-5 w-5" />
                   إعادة الترتيب

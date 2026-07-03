@@ -84,7 +84,7 @@ export function ClassificationActivity({
   return (
     <div className="flex h-full flex-col gap-3">
       {/* scenario */}
-      <p className="rounded-xl border border-line bg-surface-2 px-4 py-2.5 text-sm leading-relaxed text-ink-soft">
+      <p className="rounded-xl border border-line bg-surface-2 px-4 py-2.5 text-base font-semibold leading-relaxed text-ink-soft">
         <span className="font-bold text-brand">السيناريو: </span>
         {data.scenario}
       </p>
@@ -99,7 +99,7 @@ export function ClassificationActivity({
               over === cat ? 'ring-2 ring-brand ' : ''
             }${zoneStyle[cat]}`}
           >
-            <p className="mb-2 flex items-center justify-center gap-2 font-bold text-ink">
+            <p className="mb-2 flex items-center justify-center gap-2 text-lg font-extrabold text-ink">
               {cat === 'governance' ? '🏛️' : '✅'} {catLabel(cat)}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -110,7 +110,7 @@ export function ClassificationActivity({
                   return (
                     <span
                       key={it.id}
-                      className={`inline-flex max-w-[220px] items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-semibold ${
+                      className={`inline-flex max-w-[240px] items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-sm font-semibold ${
                         ok
                           ? 'border-green-500/50 bg-green-500/10 text-green-700'
                           : 'border-rose-400/50 bg-rose-500/10 text-rose-700'
@@ -129,7 +129,7 @@ export function ClassificationActivity({
       {/* pool */}
       {pool.length > 0 ? (
         <div>
-          <p className="mb-1.5 text-center text-xs font-semibold text-ink-muted">
+          <p className="mb-1.5 text-center text-sm font-semibold text-ink-muted">
             اسحب البطاقة إلى تصنيفها الصحيح 👇 ({toArabicDigits(pool.length)} متبقّية)
           </p>
           <div className="flex flex-wrap justify-center gap-2">
@@ -147,7 +147,7 @@ export function ClassificationActivity({
                       : undefined,
                   zIndex: dragId === it.id ? 30 : undefined,
                 }}
-                className={`relative flex max-w-[280px] cursor-grab select-none items-center gap-2 rounded-xl border-2 bg-surface px-3 py-2 text-sm font-semibold text-ink shadow-card active:cursor-grabbing ${
+                className={`relative flex max-w-[310px] cursor-grab select-none items-center gap-2 rounded-xl border-2 bg-surface px-3 py-2 text-base font-bold text-ink shadow-card active:cursor-grabbing ${
                   dragId === it.id ? 'border-brand' : 'border-line'
                 }`}
               >
@@ -160,7 +160,7 @@ export function ClassificationActivity({
           </div>
         </div>
       ) : (
-        <div className="rounded-xl border border-teal-500/30 bg-teal-500/[0.06] px-4 py-2.5 text-center text-sm text-ink-soft">
+        <div className="rounded-xl border border-teal-500/30 bg-teal-500/[0.06] px-4 py-2.5 text-center text-base font-semibold text-ink-soft">
           أحسنت! صنّفت جميع الإجراءات — إجاباتك الصحيحة{' '}
           <b className="text-brand">
             {toArabicDigits(correctCount)} من {toArabicDigits(data.items.length)}
@@ -172,7 +172,7 @@ export function ClassificationActivity({
       {/* last feedback */}
       {lastItem && (
         <div
-          className={`rounded-xl border px-4 py-2 text-sm leading-relaxed ${
+          className={`rounded-xl border px-4 py-2 text-base font-semibold leading-relaxed ${
             lastCorrect ? 'border-green-500/40 bg-green-500/[0.06]' : 'border-rose-400/40 bg-rose-500/[0.06]'
           }`}
         >
