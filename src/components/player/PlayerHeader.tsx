@@ -101,9 +101,12 @@ export function PlayerHeader({
       </div>
 
       {/* section label pill (like the client's "الأهداف" tab) */}
-      <div className="flex justify-center">
+      <div className="flex items-start justify-center gap-3">
         <span className="-mt-px rounded-b-xl bg-teal-800/85 px-8 py-1 text-[13px] font-semibold text-white shadow-card">
           {sectionLabel}
+        </span>
+        <span className="-mt-px rounded-b-xl bg-white px-5 py-1 text-[13px] font-extrabold text-brand-strong shadow-card">
+          تحت إشراف أ/ ناصر
         </span>
       </div>
 
