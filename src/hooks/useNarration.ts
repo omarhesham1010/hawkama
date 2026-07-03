@@ -159,11 +159,6 @@ export function useNarration() {
         };
         utterRef.current = u;
         synth.speak(u);
-        // Chrome workaround: right after speak(), an immediate pause+resume kicks
-        // the audio pipeline into gear and prevents the brief mute/glitch that
-        // otherwise clips the very start of the utterance.
-        synth.pause();
-        synth.resume();
       };
 
       // Only cancel (and wait briefly for it to flush) if the engine is busy.

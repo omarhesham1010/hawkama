@@ -15,7 +15,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
     if (!el) return;
     const compute = () => {
       const { width, height } = el.getBoundingClientRect();
-      if (width && height) setScale(Math.min(width / CANVAS_W, height / CANVAS_H));
+      if (width && height) setScale(Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985);
     };
     compute();
     const ro = new ResizeObserver(compute);
@@ -29,13 +29,13 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
       const el = wrapRef.current;
       if (el) {
         const { width, height } = el.getBoundingClientRect();
-        if (width && height) setScale(Math.min(width / CANVAS_W, height / CANVAS_H));
+        if (width && height) setScale(Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985);
       }
     });
   }, []);
 
   return (
-    <div ref={wrapRef} className="flex h-full w-full items-center justify-center overflow-hidden">
+    <div ref={wrapRef} className="flex h-full w-full items-center justify-center overflow-hidden p-1">
       <CanvasScaleContext.Provider value={scale}>
         <div
           className="relative shrink-0 overflow-hidden rounded-[22px] border-2 border-green-500/20 shadow-card-lg"

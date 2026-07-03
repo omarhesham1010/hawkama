@@ -240,13 +240,58 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   const alt = slide.index % 2 === 0;
   const mirror = slide.index % 3 === 0; // occasionally swap which side the visual sits on
   const spineDashed = slide.index % 2 === 0;
+  const topFlow = slide.index % 4 === 1;
 
   // Running number counter — only 'number'-marked beats consume a digit, so a
   // mix of numbered steps and small-shape items can coexist naturally.
   let numCounter = 0;
 
   const visual = <SideVisual slide={slide} alt={alt} />;
-  const flow = (
+  const compactVisual = (
+    <div className="relative grid h-28 min-w-[220px] flex-1 place-items-center overflow-hidden rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 shadow-card">
+      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(20 160 120 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+      <div className="relative flex items-center gap-4">
+        <span className="grid h-20 w-20 place-items-center rounded-2xl bg-white/90 text-5xl shadow-card ring-4 ring-white/40">
+          {slide.visual}
+        </span>
+        <span className="max-w-[360px] text-right text-lg font-extrabold leading-snug text-brand-strong">
+          {slide.title}
+        </span>
+      </div>
+    </div>
+  );
+
+  const flowRows = bodyBeats.map(({ b, i }) => {
+    const active = activeIdx === i;
+    const isShape = b.marker === 'shape';
+    if (!isShape) numCounter++;
+    const node = isShape ? <ShapeNode active={active} /> : <NumberNode n={numCounter} active={active} />;
+    const connector = <span className={`h-0.5 w-4 shrink-0 rounded ${active ? 'bg-green-600' : 'bg-brand/40'}`} />;
+    const content = (
+      <div className="min-w-0 flex-1">
+        <BeatBox beat={b} revealed={revealed(i)} active={active} accent={i} />
+      </div>
+    );
+    return (
+      <div key={i} className="relative z-10 flex items-center gap-2.5">
+        {mirror ? (
+          <>
+            {content}
+            {connector}
+            {node}
+          </>
+        ) : (
+          <>
+            {node}
+            {connector}
+            {content}
+          </>
+        )}
+      </div>
+    );
+  });
+
+  const verticalFlow = (
     <div className="relative flex min-h-0 flex-1 flex-col justify-center gap-2.5">
       {/* connecting spine */}
       <span
@@ -254,53 +299,38 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
           mirror ? 'left-[19px]' : 'right-[19px]'
         } ${spineDashed ? 'opacity-70 [background-image:repeating-linear-gradient(180deg,rgb(20_160_120/0.6)_0_10px,transparent_10px_18px)] [background-color:transparent]' : ''}`}
       />
-      {bodyBeats.map(({ b, i }) => {
-        const active = activeIdx === i;
-        const isShape = b.marker === 'shape';
-        if (!isShape) numCounter++;
-        const node = isShape ? <ShapeNode active={active} /> : <NumberNode n={numCounter} active={active} />;
-        const connector = <span className={`h-0.5 w-4 shrink-0 rounded ${active ? 'bg-green-600' : 'bg-brand/40'}`} />;
-        const content = (
-          <div className="min-w-0 flex-1">
-            <BeatBox beat={b} revealed={revealed(i)} active={active} accent={i} />
-          </div>
-        );
-        // DOM-order swap (not flex-row-reverse) keeps RTL semantics predictable.
-        return (
-          <div key={i} className="relative z-10 flex items-center gap-2.5">
-            {mirror ? (
-              <>
-                {content}
-                {connector}
-                {node}
-              </>
-            ) : (
-              <>
-                {node}
-                {connector}
-                {content}
-              </>
-            )}
-          </div>
-        );
-      })}
+      {flowRows}
+    </div>
+  );
+
+  const topDownFlow = (
+    <div className="relative grid min-h-0 flex-1 grid-cols-2 content-center gap-3">
+      <span className="absolute left-6 right-6 top-1/2 z-0 h-1 -translate-y-1/2 rounded-full bg-gradient-to-l from-green-500/55 via-teal-500/45 to-gold-500/50" />
+      {flowRows}
     </div>
   );
 
   return (
-    <div className="flex h-full flex-col px-12 py-7">
+    <div className="flex h-full flex-col px-10 py-6">
       {/* title (beat 0) */}
-      <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
+      <h2 className={`flex items-center gap-3 text-[28px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
         <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-teal-600 text-2xl text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
           {slide.visual}
         </span>
         {slide.title}
       </h2>
 
-      <div className={`mt-4 flex min-h-0 flex-1 items-stretch gap-5 ${mirror ? 'flex-row-reverse' : ''}`}>
-        {visual}
-        {flow}
-      </div>
+      {topFlow ? (
+        <div className="mt-4 flex min-h-0 flex-1 flex-col gap-4">
+          {compactVisual}
+          {topDownFlow}
+        </div>
+      ) : (
+        <div className={`mt-4 flex min-h-0 flex-1 items-stretch gap-5 ${mirror ? 'flex-row-reverse' : ''}`}>
+          {visual}
+          {verticalFlow}
+        </div>
+      )}
     </div>
   );
 }

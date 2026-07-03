@@ -60,8 +60,8 @@ export function PlayerControls({
   sourceLabel: string | null;
 }) {
   return (
-    <div className="border-t border-line bg-surface/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl items-center gap-2 px-3 py-3 sm:gap-3 sm:px-5">
+    <div className="shrink-0 border-t border-line bg-surface/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-5xl items-center gap-1.5 px-2 py-2.5 sm:gap-3 sm:px-5 sm:py-3">
         {/* previous (points right in RTL = back) */}
         <CtrlButton onClick={onPrev} label="الشريحة السابقة" disabled={index === 0}>
           <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,7 +108,7 @@ export function PlayerControls({
         </CtrlButton>
 
         {/* timeline progress */}
-        <div className="mx-1 flex flex-1 items-center gap-3">
+        <div className="mx-0 flex min-w-0 flex-1 items-center gap-2 sm:mx-1 sm:gap-3">
           <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-3">
             <div
               className="h-full rounded-full transition-[width] duration-200 ease-linear"
@@ -118,7 +118,7 @@ export function PlayerControls({
               }}
             />
           </div>
-          <span className="shrink-0 text-xs font-semibold text-ink-muted tabular">
+          <span className="hidden shrink-0 text-xs font-semibold text-ink-muted tabular min-[420px]:inline">
             {toArabicDigits(index + 1)} / {toArabicDigits(total)}
           </span>
         </div>
@@ -134,7 +134,7 @@ export function PlayerControls({
           type="button"
           onClick={onNext}
           disabled={index === total - 1}
-          className="btn-primary shrink-0 px-4 py-2.5 text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+          className="btn-primary shrink-0 px-3 py-2.5 text-sm disabled:cursor-not-allowed disabled:opacity-40 sm:px-4"
         >
           <span className="hidden sm:inline">التالي</span>
           <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
