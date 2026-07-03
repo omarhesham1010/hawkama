@@ -6,7 +6,26 @@
 // across PC, iPhone, Android, and every browser.
 // ============================================================
 
-export const AUDIO_MANIFEST: string[] = [];
+export const AUDIO_MANIFEST: string[] = [
+  "slide-01",
+  "slide-02",
+  "slide-03",
+  "slide-04",
+  "slide-05",
+  "slide-06",
+  "slide-07",
+  "slide-08",
+  "slide-09",
+  "slide-10",
+  "slide-11",
+  "slide-12",
+  "slide-13",
+  "slide-14",
+  "slide-15",
+  "slide-16",
+  "slide-17",
+  "slide-18"
+];
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
