@@ -7,6 +7,7 @@ export type NarrationSource = 'audio' | 'tts' | null;
 const base = import.meta.env.BASE_URL || '/';
 const VOICE_KEY = 'gov-voice';
 const RATE_KEY = 'gov-voice-rate';
+const TTS_LEAD_IN = '\u200f\u200c\u200c\u200c ';
 
 // Voice preference: a "Shaker"-named voice first, then any clearly male Arabic voice.
 const SHAKER = /shaker|شاكر/i;
@@ -135,7 +136,8 @@ export function useNarration() {
       setStatus('loading');
 
       const doSpeak = () => {
-        const u = new SpeechSynthesisUtterance(script);
+        const spokenScript = `${TTS_LEAD_IN}${script}`;
+        const u = new SpeechSynthesisUtterance(spokenScript);
         u.lang = 'ar-SA';
         u.rate = rate;
         u.pitch = 0.92;
@@ -148,7 +150,7 @@ export function useNarration() {
           setCharIndex(0);
           startKeepAlive();
         };
-        u.onboundary = (e) => setCharIndex(e.charIndex ?? 0);
+        u.onboundary = (e) => setCharIndex(Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length));
         u.onend = () => {
           clearKeepAlive();
           setStatus('idle');

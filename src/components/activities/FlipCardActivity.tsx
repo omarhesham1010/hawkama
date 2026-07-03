@@ -37,8 +37,8 @@ export function FlipCardActivity({
   }, [allSeen, onDone]);
 
   return (
-    <div className="flex h-full flex-col gap-3">
-      <div className="grid flex-1 grid-cols-3 gap-3">
+    <div className="flex h-full min-h-0 flex-col gap-2.5">
+      <div className="grid min-h-0 flex-1 grid-cols-3 gap-2.5">
         {data.cards.map((card) => {
           const isFlipped = flipped[card.id];
           return (
@@ -50,7 +50,7 @@ export function FlipCardActivity({
               aria-pressed={isFlipped}
             >
               <div
-                className="relative h-full w-full transition-transform duration-500"
+                className="relative h-full w-full transition-transform duration-500 [transform:translateZ(0)]"
                 style={{
                   transformStyle: 'preserve-3d',
                   transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -58,11 +58,11 @@ export function FlipCardActivity({
               >
                 {/* Front */}
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 rounded-2xl border border-line bg-surface p-4 text-center shadow-card"
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-line bg-surface p-3.5 text-center shadow-card"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                   <IconBadge icon={card.icon} tone="brand" size="md" />
-                  <p className="text-base font-bold text-ink">{card.front}</p>
+                  <p className="text-[15px] font-extrabold leading-tight text-ink">{card.front}</p>
                   <span className="chip bg-surface-3 text-ink-muted text-xs">
                     <Icon name="sound" className="w-4 h-4" />
                     اقلب واستمع
@@ -70,18 +70,18 @@ export function FlipCardActivity({
                 </div>
                 {/* Back */}
                 <div
-                  className="absolute inset-0 flex flex-col justify-center gap-1 rounded-2xl border border-brand/30 bg-brand/8 p-4 text-right shadow-card"
+                  className="absolute inset-0 flex flex-col justify-center gap-1.5 rounded-2xl border-2 border-brand/30 bg-surface p-3.5 text-right shadow-card"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
                     transform: 'rotateY(180deg)',
                   }}
                 >
-                  <p className="flex items-center gap-1.5 text-sm font-bold text-brand">
+                  <p className="flex items-center gap-1.5 text-[13px] font-extrabold text-brand">
                     <Icon name="sound" className="w-4 h-4 animate-pulse" />
                     {card.front}
                   </p>
-                  <p className="text-[13px] leading-snug text-ink-soft">{card.back}</p>
+                  <p className="text-[12.5px] font-semibold leading-snug text-ink">{card.back}</p>
                 </div>
               </div>
             </button>
@@ -90,7 +90,7 @@ export function FlipCardActivity({
       </div>
 
       <p
-        className={`shrink-0 rounded-xl px-4 py-2 text-center text-sm ${
+        className={`shrink-0 rounded-xl px-3 py-1.5 text-center text-xs font-semibold ${
           allSeen ? 'bg-green-500/10 font-semibold text-green-700' : 'text-ink-muted'
         }`}
       >

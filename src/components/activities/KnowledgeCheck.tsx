@@ -91,9 +91,9 @@ export function KnowledgeCheck({
       </div>
       <ProgressBar percent={Math.round(((current + (answered ? 1 : 0)) / total) * 100)} />
 
-      <p className="mt-3 text-lg font-bold leading-snug text-ink">{q.prompt}</p>
+      <p className="mt-2 text-[17px] font-bold leading-snug text-ink">{q.prompt}</p>
 
-      <div className="mt-3 grid flex-1 grid-cols-2 content-start gap-2.5">
+      <div className="mt-2 grid min-h-0 flex-1 grid-cols-2 content-start gap-2">
         {q.options.map((opt, i) => {
           const isRight = i === q.correctIndex;
           const isSel = selected === i;
@@ -109,7 +109,7 @@ export function KnowledgeCheck({
               type="button"
               disabled={answered}
               onClick={() => choose(i)}
-              className={`flex items-center gap-2.5 rounded-xl border-2 p-3 text-right text-[15px] font-semibold shadow-card transition-colors disabled:cursor-default ${cls}`}
+              className={`flex items-center gap-2 rounded-xl border-2 p-2.5 text-right text-sm font-semibold shadow-card transition-colors disabled:cursor-default ${cls}`}
             >
               <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg text-sm font-bold tabular ${answered && isRight ? 'bg-teal-500 text-white' : answered && isSel ? 'bg-rose-500 text-white' : 'bg-surface-3 text-ink-muted'}`}>
                 {answered && isRight ? <Icon name="check" className="w-4 h-4" /> : toArabicDigits(i + 1)}
@@ -121,14 +121,14 @@ export function KnowledgeCheck({
       </div>
 
       {/* pinned footer: feedback + next (always visible) */}
-      <div className="mt-2 flex items-stretch gap-3">
+      <div className="mt-2 flex shrink-0 items-stretch gap-2">
         {answered ? (
-          <div className={`flex flex-1 items-start gap-2 rounded-xl border px-3 py-2 text-[13px] leading-snug ${isCorrect ? 'border-teal-500/40 bg-teal-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
+          <div className={`flex flex-1 items-start gap-2 rounded-xl border px-3 py-1.5 text-[12px] leading-snug ${isCorrect ? 'border-teal-500/40 bg-teal-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
             <Icon name={isCorrect ? 'check' : 'alert'} className={`mt-0.5 w-5 h-5 shrink-0 ${isCorrect ? 'text-teal-600' : 'text-rose-500'}`} />
             <span><b>{isCorrect ? 'إجابة صحيحة. ' : 'إجابة غير صحيحة. '}</b><span className="text-ink-soft">{q.explanation}</span></span>
           </div>
         ) : (
-          <div className="flex-1 rounded-xl border border-line bg-surface-2 px-3 py-2 text-center text-sm text-ink-muted">
+          <div className="flex-1 rounded-xl border border-line bg-surface-2 px-3 py-1.5 text-center text-sm text-ink-muted">
             اختر الإجابة التي تراها صحيحة
           </div>
         )}
@@ -136,7 +136,7 @@ export function KnowledgeCheck({
           type="button"
           onClick={next}
           disabled={!answered}
-          className="btn-primary shrink-0 self-stretch px-5 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+          className="btn-primary shrink-0 self-stretch px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
         >
           {current + 1 < total ? 'التالي' : 'إنهاء'}
           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

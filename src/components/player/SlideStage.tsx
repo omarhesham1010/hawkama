@@ -425,9 +425,9 @@ export function SlideStage({
   if (slide.kind === 'activity' && slide.activity) {
     const a = slide.activity;
     return (
-      <div className="flex h-full flex-col p-10">
+      <div className="flex h-full flex-col p-7">
         <TitleHead slide={slide} />
-        <div className="mt-3 min-h-0 flex-1 overflow-hidden animate-fade-in">
+        <div className="mt-2 min-h-0 flex-1 overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'نشاط تدريبي'} />
           <div className="h-[calc(100%-2.5rem)] overflow-hidden">
             {a.kind === 'classification' && (
@@ -448,9 +448,9 @@ export function SlideStage({
   // Quiz
   if (slide.kind === 'quiz' && slide.quiz) {
     return (
-      <div className="flex h-full flex-col p-10">
+      <div className="flex h-full flex-col p-7">
         <TitleHead slide={slide} />
-        <div className="mx-auto mt-3 min-h-0 w-full max-w-3xl flex-1 overflow-hidden animate-fade-in">
+        <div className="mx-auto mt-2 min-h-0 w-full max-w-4xl flex-1 overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
           <KnowledgeCheck quiz={slide.quiz} onComplete={onQuizComplete} />
         </div>
@@ -461,15 +461,15 @@ export function SlideStage({
   // Reflection
   if (slide.kind === 'reflection' && slide.reflection) {
     return (
-      <div className="flex h-full flex-col items-center justify-center p-12 text-center animate-fade-in">
+      <div className="flex h-full flex-col items-center justify-center p-8 text-center animate-fade-in">
         <TitleHead slide={slide} />
-        <p className="my-5 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-sm font-semibold text-gold-600">
+        <p className="my-4 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-sm font-semibold text-gold-600">
           <Icon name="sparkles" className="w-5 h-5" />
           أسئلة تأمّل مفتوحة — لا إجابة واحدة صحيحة، الهدف منها النقاش لا التقييم.
         </p>
-        <div className="grid w-full max-w-4xl grid-cols-3 gap-4">
+        <div className="grid w-full max-w-5xl grid-cols-3 gap-3">
           {slide.reflection.map((q, i) => (
-            <div key={i} className="rounded-2xl border border-line bg-surface p-5 text-right shadow-card">
+            <div key={i} className="rounded-2xl border border-line bg-surface p-4 text-right shadow-card">
               <span className="mb-2 grid h-9 w-9 place-items-center rounded-lg bg-gold-500/15 text-gold-600 font-bold tabular">
                 {toArabicDigits(i + 1)}
               </span>

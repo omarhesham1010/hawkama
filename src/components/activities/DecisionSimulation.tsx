@@ -7,8 +7,8 @@ import { shuffle, toArabicDigits } from '../../lib/utils';
 
 function StageTitle({ n, text }: { n: string; text: string }) {
   return (
-    <h3 className="mb-3 flex items-center gap-2.5 text-lg font-bold text-ink">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-white text-sm tabular">
+    <h3 className="mb-2 flex items-center gap-2 text-[16px] font-extrabold text-ink">
+      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand text-xs text-white tabular">
         {n}
       </span>
       {text}
@@ -16,10 +16,6 @@ function StageTitle({ n, text }: { n: string; text: string }) {
   );
 }
 
-/**
- * Slide-oriented conflict-of-interest simulation: identify the violation, then
- * order the correct response path. (Reflection prompts live on their own slide.)
- */
 export function DecisionSimulation({
   data,
   onDone,
@@ -41,8 +37,7 @@ export function DecisionSimulation({
 
   const showIdentify = mode !== 'path';
   const showPath = mode !== 'identify';
-  const done =
-    (!showIdentify || Boolean(identify)) && (!showPath || (pathChecked && pathCorrect));
+  const done = (!showIdentify || Boolean(identify)) && (!showPath || (pathChecked && pathCorrect));
 
   useEffect(() => {
     if (done) onDone();
@@ -51,179 +46,200 @@ export function DecisionSimulation({
   const stepLabel = (id: string) => data.correctPath.find((s) => s.id === id)?.label ?? '';
 
   return (
-    <div className="space-y-5">
-      <div className="rounded-2xl border border-line bg-surface-2 p-4 shadow-card">
+    <div className="flex h-full min-h-0 flex-col gap-3">
+      <div className="shrink-0 rounded-2xl border border-line bg-surface-2 p-3 shadow-card">
         <p className="mb-1 flex items-center gap-2 text-sm font-bold text-brand">
-          <Icon name="gavel" className="w-5 h-5" />
+          <Icon name="gavel" className="h-5 w-5" />
           السيناريو
         </p>
-        <p className="text-[15px] leading-relaxed text-ink-soft">{data.scenario}</p>
+        <p className="text-[13px] font-semibold leading-snug text-ink-soft">{data.scenario}</p>
       </div>
 
-      {/* Stage 1: Identify */}
       {showIdentify && (
-      <div>
-        <StageTitle n={toArabicDigits(1)} text="تحديد المخالفة" />
-        <p className="mb-3 text-ink-soft">{data.identify.question}</p>
-        <div className="flex flex-wrap gap-2">
-          {data.identify.options.map((opt) => {
-            const selected = identify === opt.id;
-            const reveal = Boolean(identify);
-            let cls = 'border-line bg-surface-2 text-ink-soft hover:border-brand/40';
-            if (reveal) {
-              if (opt.correct) cls = 'border-teal-500/60 bg-teal-500/10 text-teal-800';
-              else if (selected) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
-              else cls = 'border-line bg-surface-2 text-ink-muted opacity-60';
-            }
-            return (
-              <button
-                key={opt.id}
-                type="button"
-                disabled={reveal}
-                onClick={() => setIdentify(opt.id)}
-                className={`rounded-xl border-2 px-4 py-2.5 text-sm font-bold transition-colors ${cls}`}
-              >
-                {opt.label}
-              </button>
-            );
-          })}
-        </div>
-        {identify &&
-          (() => {
-            const chosen = data.identify.options.find((o) => o.id === identify);
-            const correctOpt = data.identify.options.find((o) => o.correct);
-            const ok = Boolean(chosen?.correct);
-            return (
-              <div className="mt-3 space-y-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-semibold text-ink-soft">تصنيفات ذات صلة:</span>
-                  {data.identify.tags.map((t) => (
-                    <Chip key={t} tone="navy">
-                      {t}
-                    </Chip>
-                  ))}
-                </div>
-                <FeedbackBox
-                  tone={ok ? 'success' : 'error'}
-                  title={
-                    ok
-                      ? `إجابة صحيحة — ${correctOpt?.label}`
-                      : `الإجابة الصحيحة هي: ${correctOpt?.label}`
-                  }
+        <div className="min-h-0">
+          <StageTitle n={toArabicDigits(1)} text="تحديد المخالفة" />
+          <p className="mb-2 text-sm font-semibold text-ink-soft">{data.identify.question}</p>
+          <div className="flex flex-wrap gap-1.5">
+            {data.identify.options.map((opt) => {
+              const selected = identify === opt.id;
+              const reveal = Boolean(identify);
+              let cls = 'border-line bg-surface-2 text-ink-soft hover:border-brand/40';
+              if (reveal) {
+                if (opt.correct) cls = 'border-teal-500/60 bg-teal-500/10 text-teal-800';
+                else if (selected) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
+                else cls = 'border-line bg-surface-2 text-ink-muted opacity-60';
+              }
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  disabled={reveal}
+                  onClick={() => setIdentify(opt.id)}
+                  className={`rounded-xl border-2 px-3 py-2 text-sm font-bold transition-colors ${cls}`}
                 >
-                  <p>{data.identify.suggestedNote}</p>
-                </FeedbackBox>
-              </div>
-            );
-          })()}
-      </div>
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {identify &&
+            (() => {
+              const chosen = data.identify.options.find((o) => o.id === identify);
+              const correctOpt = data.identify.options.find((o) => o.correct);
+              const ok = Boolean(chosen?.correct);
+              return (
+                <div className="mt-2 space-y-2">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-xs font-semibold text-ink-soft">تصنيفات ذات صلة:</span>
+                    {data.identify.tags.map((t) => (
+                      <Chip key={t} tone="navy">
+                        {t}
+                      </Chip>
+                    ))}
+                  </div>
+                  <FeedbackBox
+                    tone={ok ? 'success' : 'error'}
+                    title={
+                      ok
+                        ? `إجابة صحيحة — ${correctOpt?.label}`
+                        : `الإجابة الصحيحة هي: ${correctOpt?.label}`
+                    }
+                  >
+                    <p className="text-sm leading-snug">{data.identify.suggestedNote}</p>
+                  </FeedbackBox>
+                </div>
+              );
+            })()}
+        </div>
       )}
 
-      {/* Stage 2: Correct path */}
       {showPath && (
-      <div>
-        <StageTitle n={showIdentify ? toArabicDigits(2) : toArabicDigits(1)} text="رتّب مسار الإجراء الصحيح" />
-        <p className="mb-3 text-ink-soft">اضغط الخطوات بالترتيب الصحيح للاستجابة للحالة:</p>
-        <div className="mb-3 space-y-2">
-          {data.correctPath.map((_, i) => {
-            const id = path[i];
-            const isRight = pathChecked && id === correctIds[i];
-            const isWrong = pathChecked && id && id !== correctIds[i];
-            return (
-              <div
-                key={i}
-                className={`flex items-center gap-3 rounded-xl border-2 p-3 ${
-                  isRight
-                    ? 'border-teal-500/50 bg-teal-500/10'
-                    : isWrong
-                      ? 'border-rose-400/50 bg-rose-500/10'
-                      : id
-                        ? 'border-line bg-surface'
-                        : 'border-dashed border-line bg-surface-2'
-                }`}
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand/12 font-bold text-brand tabular">
-                  {toArabicDigits(i + 1)}
-                </span>
-                {id ? (
-                  <>
-                    <span className="flex-1 font-semibold text-ink">{stepLabel(id)}</span>
-                    {!pathChecked && (
-                      <button
-                        type="button"
-                        onClick={() => setPath((p) => p.filter((_, idx) => idx !== i))}
-                        className="text-ink-muted hover:text-rose-500"
-                        aria-label="إزالة"
-                      >
-                        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                          <path d="M6 6l12 12M18 6L6 18" />
-                        </svg>
-                      </button>
-                    )}
-                    {pathChecked && (
-                      <Icon name={isRight ? 'check' : 'alert'} className={`w-5 h-5 ${isRight ? 'text-teal-600 dark:text-teal-300' : 'text-rose-500'}`} />
-                    )}
-                  </>
-                ) : (
-                  <span className="text-sm text-ink-muted">الخطوة {toArabicDigits(i + 1)}…</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <div className="min-h-0">
+          <StageTitle
+            n={showIdentify ? toArabicDigits(2) : toArabicDigits(1)}
+            text="رتّب مسار الإجراء الصحيح"
+          />
+          <p className="mb-2 text-sm font-semibold text-ink-soft">
+            اضغط الخطوات بالترتيب الصحيح للاستجابة للحالة:
+          </p>
 
-        {pool.length > 0 && !pathChecked && (
-          <div className="flex flex-wrap gap-2">
-            {pool.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setPath((p) => [...p, s.id])}
-                className="rounded-xl border-2 border-line bg-surface-2 px-4 py-2.5 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5"
-              >
-                {s.label}
-              </button>
-            ))}
+          <div className="mb-2 grid grid-cols-2 gap-2">
+            {data.correctPath.map((_, i) => {
+              const id = path[i];
+              const isRight = pathChecked && id === correctIds[i];
+              const isWrong = pathChecked && id && id !== correctIds[i];
+              return (
+                <div
+                  key={i}
+                  className={`flex min-h-[58px] items-center gap-2 rounded-xl border-2 p-2 ${
+                    isRight
+                      ? 'border-teal-500/50 bg-teal-500/10'
+                      : isWrong
+                        ? 'border-rose-400/50 bg-rose-500/10'
+                        : id
+                          ? 'border-line bg-surface'
+                          : 'border-dashed border-line bg-surface-2'
+                  }`}
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand/12 text-sm font-bold text-brand tabular">
+                    {toArabicDigits(i + 1)}
+                  </span>
+                  {id ? (
+                    <>
+                      <span className="flex-1 text-sm font-bold leading-tight text-ink">{stepLabel(id)}</span>
+                      {!pathChecked && (
+                        <button
+                          type="button"
+                          onClick={() => setPath((p) => p.filter((_, idx) => idx !== i))}
+                          className="text-ink-muted hover:text-rose-500"
+                          aria-label="إزالة"
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          >
+                            <path d="M6 6l12 12M18 6L6 18" />
+                          </svg>
+                        </button>
+                      )}
+                      {pathChecked && (
+                        <Icon
+                          name={isRight ? 'check' : 'alert'}
+                          className={`h-5 w-5 ${isRight ? 'text-teal-600' : 'text-rose-500'}`}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <span className="text-xs font-semibold text-ink-muted">
+                      الخطوة {toArabicDigits(i + 1)}...
+                    </span>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        )}
 
-        {!pathChecked ? (
-          <div className="mt-4 flex justify-center">
-            <button
-              type="button"
-              onClick={() => setPathChecked(true)}
-              disabled={!pathFull}
-              className="btn-primary px-6 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <Icon name="check" className="w-5 h-5" />
-              تحقّق من المسار
-            </button>
-          </div>
-        ) : pathCorrect ? (
-          <FeedbackBox tone="success" title="مسار صحيح تماماً" className="mt-4">
-            <p>الإفصاح، فالتنحّي عن القرار، فتوثيق الحالة، فإشراف لجنة الامتثال والأخلاقيات.</p>
-          </FeedbackBox>
-        ) : (
-          <div className="mt-4 space-y-3">
-            <FeedbackBox tone="error" title="المسار غير مرتّب بشكل صحيح.">
-              <p>يبدأ الإجراء الصحيح بالإفصاح، وينتهي بإشراف لجنة الامتثال والأخلاقيات.</p>
-            </FeedbackBox>
-            <div className="flex justify-center">
+          {pool.length > 0 && !pathChecked && (
+            <div className="flex flex-wrap gap-1.5">
+              {pool.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setPath((p) => [...p, s.id])}
+                  className="rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-xs font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {!pathChecked ? (
+            <div className="mt-3 flex justify-center">
               <button
                 type="button"
-                onClick={() => {
-                  setPath([]);
-                  setPathChecked(false);
-                }}
-                className="btn-ghost px-6"
+                onClick={() => setPathChecked(true)}
+                disabled={!pathFull}
+                className="btn-primary px-5 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
               >
-                <Icon name="flow" className="w-5 h-5" />
-                إعادة الترتيب
+                <Icon name="check" className="h-5 w-5" />
+                تحقّق من المسار
               </button>
             </div>
-          </div>
-        )}
-      </div>
+          ) : pathCorrect ? (
+            <FeedbackBox tone="success" title="مسار صحيح تماماً" className="mt-3">
+              <p className="text-sm leading-snug">
+                الإفصاح، فالتنحّي عن القرار، فتوثيق الحالة، فإشراف لجنة الامتثال والأخلاقيات.
+              </p>
+            </FeedbackBox>
+          ) : (
+            <div className="mt-3 space-y-2">
+              <FeedbackBox tone="error" title="المسار غير مرتّب بشكل صحيح.">
+                <p className="text-sm leading-snug">
+                  يبدأ الإجراء الصحيح بالإفصاح، وينتهي بإشراف لجنة الامتثال والأخلاقيات.
+                </p>
+              </FeedbackBox>
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPath([]);
+                    setPathChecked(false);
+                  }}
+                  className="btn-ghost px-5 py-2 text-sm"
+                >
+                  <Icon name="flow" className="h-5 w-5" />
+                  إعادة الترتيب
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
