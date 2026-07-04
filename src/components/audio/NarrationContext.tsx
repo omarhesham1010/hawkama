@@ -8,6 +8,7 @@ interface NarrationContextValue {
   isLoading: boolean;
   isPaused: boolean;
   charIndex: number;
+  boundaryUpdatedAt: number | null;
   speechStartedAt: number | null;
   audioElapsed: number;
   audioDuration: number | null;
@@ -56,6 +57,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       isLoading: n.isLoading,
       isPaused: n.isPaused,
       charIndex: n.charIndex,
+      boundaryUpdatedAt: n.boundaryUpdatedAt,
       speechStartedAt: n.speechStartedAt,
       audioElapsed: n.audioElapsed,
       audioDuration: n.audioDuration,
@@ -82,6 +84,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       n.isLoading,
       n.isPaused,
       n.charIndex,
+      n.boundaryUpdatedAt,
       n.speechStartedAt,
       n.audioElapsed,
       n.audioDuration,

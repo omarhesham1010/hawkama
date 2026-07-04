@@ -98,7 +98,7 @@ export default function SlidePlayer({
   const voicePlaying = narration.isPlaying;
   const voicePaused = narration.isPaused;
   const showDialogue =
-    voicePlaying && narration.nowKey === slide.audioKey && sync.spoken < slide.narration.length;
+    voicePlaying && narration.nowKey === slide.audioKey && sync.spoken > 1 && sync.spoken < slide.narration.length;
 
   const handlePlayPause = useCallback(() => {
     if (!started) {

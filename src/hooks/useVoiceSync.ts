@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
 import { spokenFromAudioProgress } from '../lib/storyTiming';
 
-const CPS = 12.5; // chars/sec estimate while speaking without word boundaries
+const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 3500; // ms: if the voice never starts, reveal anyway
 
 export interface VoiceSync {
@@ -31,6 +31,7 @@ export function useVoiceSync(
     nowKey,
     status,
     source,
+    boundaryUpdatedAt,
     audioElapsed,
     audioDuration,
     audioUpdatedAt,
@@ -48,11 +49,13 @@ export function useVoiceSync(
   const audioElapsedRef = useRef(0);
   const audioDurationRef = useRef<number | null>(null);
   const audioUpdatedAtRef = useRef<number | null>(null);
+  const boundaryUpdatedAtRef = useRef<number | null>(null);
   const sourceRef = useRef<typeof source>(source);
   const textRef = useRef(narrationText);
   audioElapsedRef.current = audioElapsed;
   audioDurationRef.current = audioDuration;
   audioUpdatedAtRef.current = audioUpdatedAt;
+  boundaryUpdatedAtRef.current = boundaryUpdatedAt;
   sourceRef.current = source;
   textRef.current = narrationText;
 
@@ -108,10 +111,15 @@ export function useVoiceSync(
           val = duration && duration > 0 ? spokenFromAudioProgress(textRef.current, elapsed / duration) : charRef.current;
         } else {
           const start = startedAtRef.current ?? speakStartRef.current ?? performance.now();
-          const el = (performance.now() - start) / 1000;
+          const now = performance.now();
+          const el = Math.max(0, (now - start) / 1000);
+          const hasRecentBoundary =
+            charRef.current > 0 &&
+            boundaryUpdatedAtRef.current != null &&
+            now - boundaryUpdatedAtRef.current < 1400;
           // Follow real word boundaries when present. Safari/iOS often skips them,
-          // so keep a smooth estimated clock tied to the actual speech start.
-          val = Math.max(charRef.current, el * CPS);
+          // so only fall back to the smooth clock when no boundary data exists.
+          val = hasRecentBoundary ? charRef.current : Math.max(charRef.current, el * CPS);
         }
       } else if (performance.now() - enterRef.current > NO_VOICE_FALLBACK && charRef.current === 0) {
         // voice never started → reveal everything

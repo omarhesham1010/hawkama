@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { hasAudio } from '../data/audioManifest';
+import { storyCues } from '../lib/storyTiming';
 
 export type NarrationStatus = 'idle' | 'loading' | 'playing' | 'paused';
 export type NarrationSource = 'audio' | 'tts' | null;
@@ -8,6 +9,7 @@ const base = import.meta.env.BASE_URL || '/';
 const VOICE_KEY = 'gov-voice';
 const RATE_KEY = 'gov-voice-rate';
 const TTS_LEAD_IN = '\u200f\u200c\u200c\u200c ';
+const TTS_CPS = 10.8;
 
 // Voice preference: a "Shaker"-named voice first, then any clearly male Arabic voice.
 const SHAKER = /shaker|شاكر/i;
@@ -43,6 +45,7 @@ export function useNarration() {
   const [status, setStatus] = useState<NarrationStatus>('idle');
   const [source, setSource] = useState<NarrationSource>(null);
   const [charIndex, setCharIndex] = useState(0); // position of the word being spoken (TTS)
+  const [boundaryUpdatedAt, setBoundaryUpdatedAt] = useState<number | null>(null);
   const [speechStartedAt, setSpeechStartedAt] = useState<number | null>(null);
   const [audioElapsed, setAudioElapsed] = useState(0);
   const [audioDuration, setAudioDuration] = useState<number | null>(null);
@@ -61,6 +64,7 @@ export function useNarration() {
   const lastRef = useRef<{ key: string; script: string } | null>(null);
   const sourceRef = useRef<NarrationSource>(null);
   const keepAliveRef = useRef<number | null>(null);
+  const ttsProgressRef = useRef<number | null>(null);
   const playTokenRef = useRef(0);
 
   const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -111,6 +115,13 @@ export function useNarration() {
     }
   }, []);
 
+  const clearTtsProgress = useCallback(() => {
+    if (ttsProgressRef.current != null) {
+      clearInterval(ttsProgressRef.current);
+      ttsProgressRef.current = null;
+    }
+  }, []);
+
   // Chrome silently stops utterances longer than ~15s; pinging resume() keeps it alive.
   const startKeepAlive = useCallback(() => {
     clearKeepAlive();
@@ -124,6 +135,7 @@ export function useNarration() {
   const stopInternal = useCallback(() => {
     playTokenRef.current += 1;
     clearKeepAlive();
+    clearTtsProgress();
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -139,10 +151,11 @@ export function useNarration() {
     utterRef.current = null;
     sourceRef.current = null;
     setSpeechStartedAt(null);
+    setBoundaryUpdatedAt(null);
     setAudioElapsed(0);
     setAudioDuration(null);
     setAudioUpdatedAt(null);
-  }, [clearKeepAlive, ttsSupported]);
+  }, [clearKeepAlive, clearTtsProgress, ttsSupported]);
 
   const speakTts = useCallback(
     (script: string) => {
@@ -153,13 +166,17 @@ export function useNarration() {
       const synth = window.speechSynthesis;
       setStatus('loading');
       const token = playTokenRef.current;
+      const cues = storyCues(script);
+      let cueIndex = 0;
 
       const doSpeak = () => {
         if (token !== playTokenRef.current) return;
         setAudioElapsed(0);
         setAudioDuration(null);
         setAudioUpdatedAt(null);
-        const spokenScript = `${TTS_LEAD_IN}${script}`;
+        setBoundaryUpdatedAt(null);
+        const cue = cues[cueIndex] ?? { start: 0, end: script.length, text: script };
+        const spokenScript = `${TTS_LEAD_IN}${cue.text}`;
         const u = new SpeechSynthesisUtterance(spokenScript);
         u.lang = 'ar-SA';
         u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
@@ -171,21 +188,39 @@ export function useNarration() {
           setSource('tts');
           sourceRef.current = 'tts';
           setStatus('playing');
-          setCharIndex(0);
+          setCharIndex(cue.start);
+          setBoundaryUpdatedAt(null);
           setSpeechStartedAt(performance.now());
+          clearTtsProgress();
+          ttsProgressRef.current = window.setInterval(() => {
+            if (token !== playTokenRef.current || sourceRef.current !== 'tts') return;
+            if (window.speechSynthesis.paused) return;
+            setCharIndex((prev) => Math.min(cue.end, Math.max(cue.start, prev) + TTS_CPS * 0.12));
+          }, 120);
           startKeepAlive();
         };
         u.onboundary = (e) => {
-          if (token === playTokenRef.current) setCharIndex(Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length));
+          if (token === playTokenRef.current) {
+            setCharIndex(Math.min(cue.end, cue.start + Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length)));
+            setBoundaryUpdatedAt(performance.now());
+          }
         };
         u.onend = () => {
           if (token !== playTokenRef.current) return;
+          clearTtsProgress();
+          setCharIndex(cue.end);
+          cueIndex += 1;
+          if (cueIndex < cues.length) {
+            window.setTimeout(doSpeak, 80);
+            return;
+          }
           clearKeepAlive();
           setSpeechStartedAt(null);
           setStatus('idle');
         };
         u.onerror = () => {
           if (token !== playTokenRef.current) return;
+          clearTtsProgress();
           clearKeepAlive();
           setSpeechStartedAt(null);
           setStatus('idle');
@@ -203,7 +238,7 @@ export function useNarration() {
         doSpeak();
       }
     },
-    [rate, voiceURI, ttsSupported, startKeepAlive, clearKeepAlive],
+    [rate, voiceURI, ttsSupported, startKeepAlive, clearKeepAlive, clearTtsProgress],
   );
 
   const play = useCallback(
@@ -212,6 +247,7 @@ export function useNarration() {
       const token = playTokenRef.current;
       lastRef.current = { key, script };
       setCharIndex(0);
+      setBoundaryUpdatedAt(null);
       setSpeechStartedAt(null);
       setAudioElapsed(0);
       setAudioDuration(null);
@@ -330,6 +366,7 @@ export function useNarration() {
     isLoading: status === 'loading',
     isPaused: status === 'paused',
     charIndex,
+    boundaryUpdatedAt,
     speechStartedAt,
     audioElapsed,
     audioDuration,
