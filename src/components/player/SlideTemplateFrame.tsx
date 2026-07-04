@@ -7,6 +7,12 @@ export function SlideTemplateFrame() {
         className="h-full w-full object-cover"
         draggable={false}
       />
+      <img
+        src="/template-assets/vision-watermark.png"
+        alt=""
+        className="absolute -left-[18px] -top-[4px] h-[172px] w-[330px] object-contain opacity-[0.16]"
+        draggable={false}
+      />
     </div>
   );
 }

@@ -173,7 +173,7 @@ function NasserStoryLayer({
   const bubbleLift = compact ? 'mb-5' : 'mb-9';
 
   return (
-    <div className={`pointer-events-none absolute inset-x-0 bottom-[54px] z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
+    <div className={`pointer-events-none absolute inset-x-0 bottom-[38px] z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
         <div key={guide.key} className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
@@ -181,6 +181,10 @@ function NasserStoryLayer({
             src={POSE_SRC[guide.pose]}
             alt="ناصر المدرب"
             className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl`}
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 78%, rgb(0 0 0 / 0.72) 90%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, #000 0%, #000 78%, rgb(0 0 0 / 0.72) 90%, transparent 100%)',
+            }}
             draggable={false}
           />
           {showDialogue && (
