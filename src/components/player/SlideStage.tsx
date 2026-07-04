@@ -523,13 +523,89 @@ const PPT_ACCENTS: Record<NonNullable<PptCard['tone']>, string> = {
   gray: 'border-slate-300 bg-white',
 };
 
+const PPT_EMOJIS = [
+  { terms: ['سيناريو'], emoji: '🎬' },
+  { terms: ['مخالفة', 'خطر', 'تعارض'], emoji: '⚠️' },
+  { terms: ['الإجراء الصحيح', 'صحيح'], emoji: '✅' },
+  { terms: ['نقاط', 'نقاش'], emoji: '💬' },
+  { terms: ['أخلاقيات', 'نزاهة', 'حياد', 'عدالة'], emoji: '⚖️' },
+  { terms: ['تضارب', 'مصالح'], emoji: '⚠️' },
+  { terms: ['امتثال', 'التطبيق'], emoji: '✅' },
+  { terms: ['حوكمة', 'الإطار'], emoji: '🏛️' },
+  { terms: ['مجلس', 'إدارة'], emoji: '🧭' },
+  { terms: ['دفاع', 'مخاطر'], emoji: '🛡️' },
+  { terms: ['لجان', 'لجنة'], emoji: '👥' },
+  { terms: ['مصفوفة', 'صلاحيات', 'DoA'], emoji: '🗂️' },
+  { terms: ['سياسات', 'وثيقة'], emoji: '📜' },
+  { terms: ['إجراءات', 'ممارسة'], emoji: '⚙️' },
+  { terms: ['بيانات'], emoji: '🗄️' },
+  { terms: ['موارد', 'بشرية'], emoji: '👥' },
+  { terms: ['تدريب', 'تقييم'], emoji: '🎓' },
+  { terms: ['صحي', 'مستشفى', 'طبيب', 'أطباء', 'مرضى'], emoji: '🏥' },
+  { terms: ['إفصاح'], emoji: '📣' },
+  { terms: ['توثيق'], emoji: '📝' },
+];
+
+function cleanText(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function wordsOf(value: string) {
+  return cleanText(value).split(' ').filter((word) => word.length > 2);
+}
+
+function cardText(card: PptCard) {
+  return [card.title, card.text, ...(card.bullets ?? [])].filter(Boolean).join(' ');
+}
+
+function pptEmojiFor(card: PptCard, fallback?: string) {
+  const text = `${card.title} ${card.text ?? ''}`;
+  const match = PPT_EMOJIS.find((item) => item.terms.some((term) => text.includes(term)));
+  return match?.emoji ?? fallback ?? '💡';
+}
+
+function activePptCardIndex(cards: PptCard[], cueText: string) {
+  const cueWords = wordsOf(cueText);
+  if (!cueWords.length) return -1;
+
+  let best = { index: -1, score: 0 };
+  const cleanCue = cleanText(cueText);
+  cards.forEach((card, index) => {
+    const title = cleanText(card.title);
+    const body = cleanText(cardText(card));
+    let score = 0;
+
+    if (title && cleanCue.includes(title)) score += 8;
+    if (body && cleanCue.includes(body.slice(0, 42))) score += 4;
+    for (const word of cueWords) {
+      if (title.includes(word)) score += 2.2;
+      if (body.includes(word)) score += 1;
+    }
+
+    if (score > best.score) best = { index, score };
+  });
+
+  return best.score >= 5 ? best.index : -1;
+}
+
 function PptTitle({ slide }: { slide: Slide }) {
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
         <p className="mb-1 text-[15px] font-extrabold text-gold-600">{slide.ppt.eyebrow}</p>
       )}
-      <h2 className="text-[34px] font-extrabold leading-tight text-brand-strong">{slide.title}</h2>
+      <h2 className="inline-flex items-center justify-center gap-3 text-[34px] font-extrabold leading-tight text-brand-strong">
+        {slide.visual && (
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/20 bg-green-700/8 text-3xl shadow-sm">
+            {slide.visual}
+          </span>
+        )}
+        <span>{slide.title}</span>
+      </h2>
       {slide.ppt?.subtitle && (
         <p className="mt-1 text-[18px] font-bold leading-relaxed text-ink-soft">{slide.ppt.subtitle}</p>
       )}
@@ -541,12 +617,16 @@ function PptCardView({
   card,
   dense = false,
   density,
+  emoji,
+  active = false,
   reveal,
   onClick,
 }: {
   card: PptCard;
   dense?: boolean;
   density?: 'loose' | 'normal' | 'compact' | 'micro';
+  emoji?: string;
+  active?: boolean;
   reveal?: boolean;
   onClick?: () => void;
 }) {
@@ -570,33 +650,43 @@ function PptCardView({
         ? 'text-[14.8px] leading-snug'
         : level === 'loose'
           ? 'text-[19px] leading-relaxed'
-          : 'text-[17px] leading-relaxed';
+        : 'text-[17px] leading-relaxed';
   const bulletClass = level === 'micro' ? 'text-[13px] leading-snug' : level === 'compact' ? 'text-[14.5px] leading-snug' : 'text-[16px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[11px]' : 'h-8 w-8 text-[13px]';
+  const emojiSize = level === 'micro' ? 'h-7 w-7 text-[19px]' : level === 'compact' ? 'h-8 w-8 text-[22px]' : 'h-10 w-10 text-[28px]';
+  const activeShell = active ? 'scale-[1.025] border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-glow' : PPT_ACCENTS[tone];
+  const titleTone = active ? 'text-white' : 'text-brand-strong';
+  const bodyTone = active ? 'text-green-50' : 'text-ink';
+  const tileTone = active ? 'border-white/30 bg-white/20 text-white shadow-card' : tone === 'gold' ? 'border-gold-500/30 bg-gold-500/12' : 'border-green-700/20 bg-green-700/8';
+  const topBar = active ? 'bg-gold-400' : tone === 'gold' ? 'bg-gold-500' : 'bg-green-700';
   return (
     <button
       type="button"
       disabled={!clickable}
       onClick={onClick}
-      className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all ${
-        PPT_ACCENTS[tone]
+      className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 ${
+        activeShell
       } ${clickable ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
     >
-      <span className={`h-1.5 w-full shrink-0 ${tone === 'gold' ? 'bg-gold-500' : 'bg-green-700'}`} />
+      {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255_/_0.22),transparent_36%)]" />}
+      <span className={`relative h-1.5 w-full shrink-0 ${topBar}`} />
       <div className={`${padClass} flex min-h-0 flex-1 flex-col`}>
         <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
+          <span className={`grid ${emojiSize} shrink-0 place-items-center rounded-xl border ${tileTone}`}>
+            {emoji}
+          </span>
           {card.index && (
-            <span className={`grid ${indexSize} shrink-0 place-items-center rounded-full bg-green-700 font-extrabold text-white tabular`}>
+            <span className={`grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'}`}>
               {card.index}
             </span>
           )}
-          <h3 className={`${titleClass} font-extrabold text-brand-strong`}>
+          <h3 className={`${titleClass} font-extrabold ${titleTone}`}>
             {card.title}
           </h3>
         </div>
 
         {card.text && (
-          <p className={`${bodyClass} whitespace-pre-line font-bold text-ink`}>
+          <p className={`${bodyClass} whitespace-pre-line font-bold ${bodyTone}`}>
             {card.text}
           </p>
         )}
@@ -604,8 +694,8 @@ function PptCardView({
         {card.bullets && (
           <ul className={`${level === 'micro' ? 'mt-1 space-y-1' : 'mt-1.5 space-y-1.5'}`}>
             {card.bullets.map((bullet, i) => (
-              <li key={i} className={`${bulletClass} flex gap-2 font-bold text-ink`}>
-                <span className={`${level === 'micro' ? 'mt-1 h-1.5 w-1.5' : 'mt-1.5 h-2 w-2'} shrink-0 rounded-sm bg-gold-500`} />
+              <li key={i} className={`${bulletClass} flex gap-2 font-bold ${bodyTone}`}>
+                <span className={`${level === 'micro' ? 'mt-1 h-1.5 w-1.5' : 'mt-1.5 h-2 w-2'} shrink-0 rounded-sm ${active ? 'bg-gold-300' : 'bg-gold-500'}`} />
                 <span>{bullet}</span>
               </li>
             ))}
@@ -635,6 +725,8 @@ function PptActivitySlide({
   onActivityDone: (id: string) => void;
 }) {
   const cards = slide.ppt?.cards ?? [];
+  const currentCue = activeStoryCue(slide.narration, spoken).cue?.text ?? '';
+  const activeCard = activePptCardIndex(cards, currentCue);
   const [revealed, setRevealed] = useState<Set<number>>(() => new Set());
 
   const revealCard = (i: number) => {
@@ -656,7 +748,15 @@ function PptActivitySlide({
         </div>
         <div className="grid min-h-0 flex-1 auto-rows-fr grid-cols-2 gap-3">
           {cards.map((card, i) => (
-            <PptCardView key={i} card={card} density="compact" reveal={revealed.has(i)} onClick={() => revealCard(i)} />
+            <PptCardView
+              key={i}
+              card={card}
+              density="compact"
+              emoji={pptEmojiFor(card, slide.visual)}
+              active={activeCard === i}
+              reveal={revealed.has(i)}
+              onClick={() => revealCard(i)}
+            />
           ))}
         </div>
       </div>
@@ -686,6 +786,8 @@ function PptStyleSlide({
   }
 
   const cards = slide.ppt?.cards ?? [];
+  const currentCue = activeStoryCue(slide.narration, started ? spoken : 0).cue?.text ?? '';
+  const activeCard = activePptCardIndex(cards, currentCue);
   const isIntro = slide.layout === 'pptIntro';
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
@@ -728,7 +830,13 @@ function PptStyleSlide({
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
             <div className={`grid w-full max-w-5xl auto-rows-fr ${gridClass} gap-3`}>
               {cards.map((card, i) => (
-                <PptCardView key={i} card={card} density="normal" />
+                <PptCardView
+                  key={i}
+                  card={card}
+                  density="normal"
+                  emoji={pptEmojiFor(card, slide.visual)}
+                  active={activeCard === i}
+                />
               ))}
             </div>
             <div className="mt-4 flex items-center justify-center gap-3">
@@ -745,7 +853,14 @@ function PptStyleSlide({
         ) : (
           <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
             {cards.map((card, i) => (
-              <PptCardView key={i} card={card} dense={dense} density={cardDensity} />
+              <PptCardView
+                key={i}
+                card={card}
+                dense={dense}
+                density={cardDensity}
+                emoji={pptEmojiFor(card, slide.visual)}
+                active={activeCard === i}
+              />
             ))}
           </div>
         )}
