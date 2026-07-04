@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-3bCWxCKS.js" />
-      <file href="assets/index-Ck5JdyVV.css" />
+      <file href="assets/index-BWSAxYkN.css" />
+      <file href="assets/index-BX1_x6Lf.js" />
       <file href="audio/README.md" />
       <file href="audio/slide-01.mp3" />
       <file href="audio/slide-02.mp3" />
