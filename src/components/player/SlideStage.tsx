@@ -540,16 +540,39 @@ function PptTitle({ slide }: { slide: Slide }) {
 function PptCardView({
   card,
   dense = false,
+  density,
   reveal,
   onClick,
 }: {
   card: PptCard;
   dense?: boolean;
+  density?: 'loose' | 'normal' | 'compact' | 'micro';
   reveal?: boolean;
   onClick?: () => void;
 }) {
   const tone = card.tone ?? 'green';
   const clickable = Boolean(onClick);
+  const textSize = (card.title.length + (card.text?.length ?? 0) + (card.bullets?.join(' ').length ?? 0));
+  const level = density ?? (textSize > 180 ? 'micro' : textSize > 115 || dense ? 'compact' : 'normal');
+  const padClass = level === 'micro' ? 'p-2.5' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
+  const titleClass =
+    level === 'micro'
+      ? 'text-[15.5px] leading-snug'
+      : level === 'compact'
+        ? 'text-[17px] leading-snug'
+        : level === 'loose'
+          ? 'text-[22px] leading-tight'
+          : 'text-[20px] leading-tight';
+  const bodyClass =
+    level === 'micro'
+      ? 'text-[13.3px] leading-snug'
+      : level === 'compact'
+        ? 'text-[14.8px] leading-snug'
+        : level === 'loose'
+          ? 'text-[19px] leading-relaxed'
+          : 'text-[17px] leading-relaxed';
+  const bulletClass = level === 'micro' ? 'text-[13px] leading-snug' : level === 'compact' ? 'text-[14.5px] leading-snug' : 'text-[16px] leading-snug';
+  const indexSize = level === 'micro' ? 'h-7 w-7 text-[11px]' : 'h-8 w-8 text-[13px]';
   return (
     <button
       type="button"
@@ -560,29 +583,29 @@ function PptCardView({
       } ${clickable ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
     >
       <span className={`h-1.5 w-full shrink-0 ${tone === 'gold' ? 'bg-gold-500' : 'bg-green-700'}`} />
-      <div className={`${dense ? 'p-3.5' : 'p-4'} flex min-h-0 flex-1 flex-col`}>
-        <div className="mb-2 flex items-start gap-2">
+      <div className={`${padClass} flex min-h-0 flex-1 flex-col`}>
+        <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
           {card.index && (
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-green-700 text-[13px] font-extrabold text-white tabular">
+            <span className={`grid ${indexSize} shrink-0 place-items-center rounded-full bg-green-700 font-extrabold text-white tabular`}>
               {card.index}
             </span>
           )}
-          <h3 className={`${dense ? 'text-[18px]' : 'text-[21px]'} font-extrabold leading-tight text-brand-strong`}>
+          <h3 className={`${titleClass} font-extrabold text-brand-strong`}>
             {card.title}
           </h3>
         </div>
 
         {card.text && (
-          <p className={`${dense ? 'text-[16.5px]' : 'text-[18px]'} whitespace-pre-line font-bold leading-relaxed text-ink-soft`}>
+          <p className={`${bodyClass} whitespace-pre-line font-bold text-ink`}>
             {card.text}
           </p>
         )}
 
         {card.bullets && (
-          <ul className="mt-1.5 space-y-1.5">
+          <ul className={`${level === 'micro' ? 'mt-1 space-y-1' : 'mt-1.5 space-y-1.5'}`}>
             {card.bullets.map((bullet, i) => (
-              <li key={i} className={`${dense ? 'text-[16px]' : 'text-[16px]'} flex gap-2 font-bold leading-snug text-ink-soft`}>
-                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-gold-500" />
+              <li key={i} className={`${bulletClass} flex gap-2 font-bold text-ink`}>
+                <span className={`${level === 'micro' ? 'mt-1 h-1.5 w-1.5' : 'mt-1.5 h-2 w-2'} shrink-0 rounded-sm bg-gold-500`} />
                 <span>{bullet}</span>
               </li>
             ))}
@@ -631,9 +654,9 @@ function PptActivitySlide({
           <p className="text-[18px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
           <p className="mt-1 text-[16px] font-bold leading-relaxed text-ink-soft">{slide.ppt?.prompt}</p>
         </div>
-        <div className="grid min-h-0 flex-1 grid-cols-2 gap-3">
+        <div className="grid min-h-0 flex-1 auto-rows-fr grid-cols-2 gap-3">
           {cards.map((card, i) => (
-            <PptCardView key={i} card={card} dense reveal={revealed.has(i)} onClick={() => revealCard(i)} />
+            <PptCardView key={i} card={card} density="compact" reveal={revealed.has(i)} onClick={() => revealCard(i)} />
           ))}
         </div>
       </div>
@@ -666,16 +689,25 @@ function PptStyleSlide({
   const isIntro = slide.layout === 'pptIntro';
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
-  const isTwo = slide.layout === 'pptTwoPanels' || slide.layout === 'pptScenario';
-  const dense = slide.layout === 'pptThreeColumns' || slide.layout === 'pptSixCards';
+  const isTwoPanel = slide.layout === 'pptTwoPanels';
+  const isScenario = slide.layout === 'pptScenario';
+  const dense = slide.layout === 'pptThreeColumns' || slide.layout === 'pptSixCards' || slide.layout === 'pptTitleCards';
 
   const gridClass = isThree
-    ? 'grid-cols-3'
-    : isTwo
-      ? 'grid-cols-2'
+    ? 'grid-cols-3 grid-rows-1'
+    : isScenario
+      ? 'grid-cols-2 grid-rows-2'
+      : isTwoPanel
+        ? 'grid-cols-2 grid-rows-1'
       : cards.length <= 3
-        ? 'grid-cols-3'
-        : 'grid-cols-3';
+        ? 'grid-cols-3 grid-rows-1'
+        : 'grid-cols-3 grid-rows-2';
+  const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined =
+    slide.layout === 'pptThreeColumns' || slide.layout === 'pptTitleCards'
+      ? 'compact'
+      : isTwoPanel || isScenario
+        ? 'normal'
+          : undefined;
 
   return (
     <StorySlideShell slide={slide} spoken={started ? spoken : 0} showDialogue={showDialogue}>
@@ -694,9 +726,9 @@ function PptStyleSlide({
           </div>
         ) : isConclusion ? (
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
-            <div className={`grid w-full max-w-5xl ${gridClass} gap-3`}>
+            <div className={`grid w-full max-w-5xl auto-rows-fr ${gridClass} gap-3`}>
               {cards.map((card, i) => (
-                <PptCardView key={i} card={card} />
+                <PptCardView key={i} card={card} density="normal" />
               ))}
             </div>
             <div className="mt-4 flex items-center justify-center gap-3">
@@ -711,9 +743,9 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div className={`grid min-h-0 flex-1 ${gridClass} gap-3`}>
+          <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
             {cards.map((card, i) => (
-              <PptCardView key={i} card={card} dense={dense} />
+              <PptCardView key={i} card={card} dense={dense} density={cardDensity} />
             ))}
           </div>
         )}
