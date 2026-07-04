@@ -42,11 +42,10 @@ function Stat({ value, label }: { value: string; label: string }) {
 
 function trackProgress(track: Track): number {
   if (track.status !== 'available') return 0;
-  const p = readChapterProgress();
   // average completion across the 10 chapters (only ch1 is live)
   const readyContribution = track.chapters
     .filter((c) => c.status === 'ready')
-    .reduce((acc, c) => acc + (c.courseId ? p.percent : 0), 0);
+    .reduce((acc, c) => acc + (c.courseId ? readChapterProgress(c.courseId).percent : 0), 0);
   return Math.round(readyContribution / track.chapters.length);
 }
 
@@ -141,7 +140,7 @@ export function PlatformHome({
   onEnterChapter: (courseId: string) => void;
 }) {
   const [selected, setSelected] = useState<Track | null>(null);
-  const progress = useMemo(() => readChapterProgress(), []);
+  const progress = useMemo(() => readChapterProgress('governance-ch1'), []);
 
   const scrollToTracks = () =>
     document.getElementById('tracks')?.scrollIntoView({ behavior: 'smooth' });

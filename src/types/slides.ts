@@ -60,6 +60,35 @@ export type SlideKind =
   | 'reflection'
   | 'completion';
 
+export type PptLayout =
+  | 'pptIntro'
+  | 'pptAgenda'
+  | 'pptTitleCards'
+  | 'pptTwoPanels'
+  | 'pptThreeColumns'
+  | 'pptActivitySort'
+  | 'pptSixCards'
+  | 'pptScenario'
+  | 'pptConclusion';
+
+export interface PptCard {
+  index?: string;
+  title: string;
+  text?: string;
+  bullets?: string[];
+  answer?: string;
+  rationale?: string;
+  tone?: 'green' | 'gold' | 'blue' | 'gray';
+}
+
+export interface PptContent {
+  eyebrow?: string;
+  subtitle?: string;
+  intro?: string;
+  prompt?: string;
+  cards?: PptCard[];
+}
+
 export interface Slide {
   id: string; // 'slide-01'
   index: number; // 1-based
@@ -68,6 +97,9 @@ export interface Slide {
   narration: string;
   duration: number; // seconds (drives the simulated timeline)
   kind: SlideKind;
+  /** PowerPoint-matched layouts used by the source-deck chapter. */
+  layout?: PptLayout;
+  ppt?: PptContent;
   /** Large decorative emoji/graphic for the slide (replaces stock imagery). */
   visual?: string;
   /** Which side graphic to render for content slides. */

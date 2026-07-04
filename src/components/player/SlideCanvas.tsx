@@ -10,6 +10,7 @@ export const CANVAS_H = 720;
 export function SlideCanvas({ children }: { children: React.ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [origin, setOrigin] = useState('center center');
 
   useLayoutEffect(() => {
     const el = wrapRef.current;
@@ -17,7 +18,9 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
     const compute = () => {
       const { width, height } = el.getBoundingClientRect();
       if (!width || !height) return;
-      setScale(Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985);
+      const nextScale = Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985;
+      setScale(nextScale);
+      setOrigin(height - CANVAS_H * nextScale > 120 ? 'top center' : 'center center');
     };
     compute();
     const ro = new ResizeObserver(compute);
@@ -32,14 +35,16 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
       if (el) {
         const { width, height } = el.getBoundingClientRect();
         if (width && height) {
-          setScale(Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985);
+          const nextScale = Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985;
+          setScale(nextScale);
+          setOrigin(height - CANVAS_H * nextScale > 120 ? 'top center' : 'center center');
         }
       }
     });
   }, []);
 
   return (
-    <div ref={wrapRef} className="flex h-full w-full items-center justify-center overflow-hidden p-1">
+    <div ref={wrapRef} className="flex h-full w-full items-start justify-center overflow-hidden p-1 pt-3 sm:items-center sm:pt-1">
       <CanvasScaleContext.Provider value={scale}>
         <div
           className="relative shrink-0 overflow-hidden rounded-[22px] border border-green-700/15 bg-white shadow-card-lg"
@@ -47,7 +52,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
             width: CANVAS_W,
             height: CANVAS_H,
             transform: `scale(${scale})`,
-            transformOrigin: 'center center',
+            transformOrigin: origin,
           }}
         >
           <SlideTemplateFrame />

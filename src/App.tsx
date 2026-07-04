@@ -5,6 +5,7 @@ import SlidePlayer from './SlidePlayer';
 
 interface Route {
   view: 'home' | 'course';
+  courseId: string;
   slide: number; // 1-based
 }
 
@@ -12,10 +13,15 @@ function parseHash(): Route {
   const h = (window.location.hash || '').replace(/^#\/?/, '');
   const parts = h.split('/').filter(Boolean);
   if (parts[0] === 'course') {
-    const n = parseInt(parts[1] || '1', 10);
-    return { view: 'course', slide: Number.isNaN(n) ? 1 : n };
+    const legacySlide = parseInt(parts[1] || '1', 10);
+    if (!Number.isNaN(legacySlide)) {
+      return { view: 'course', courseId: 'governance-ch1', slide: legacySlide };
+    }
+    const courseId = parts[1] || 'governance-ch1';
+    const n = parseInt(parts[2] || '1', 10);
+    return { view: 'course', courseId, slide: Number.isNaN(n) ? 1 : n };
   }
-  return { view: 'home', slide: 1 };
+  return { view: 'home', courseId: 'governance-ch1', slide: 1 };
 }
 
 export default function App() {
@@ -34,8 +40,7 @@ export default function App() {
   }, [narration]);
 
   const enterChapter = useCallback((courseId: string) => {
-    if (courseId !== 'governance-ch1') return;
-    window.location.hash = '#/course/1';
+    window.location.hash = `#/course/${courseId}/1`;
   }, []);
 
   const exitToHome = useCallback(() => {
@@ -43,7 +48,7 @@ export default function App() {
   }, []);
 
   if (route.view === 'course') {
-    return <SlidePlayer initialSlide={route.slide} onExit={exitToHome} />;
+    return <SlidePlayer key={route.courseId} courseId={route.courseId} initialSlide={route.slide} onExit={exitToHome} />;
   }
   return <PlatformHome onEnterChapter={enterChapter} />;
 }

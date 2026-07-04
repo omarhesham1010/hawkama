@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { loadScormProgress, resetScormProgress, saveScormProgress, terminateScorm } from '../lib/scorm2004';
 
-const STORAGE_KEY = 'gov-progress-v1';
+const STORAGE_PREFIX = 'gov-progress-v2';
 
 export interface ProgressState {
   /** ids of sections the learner marked complete / passed through */
@@ -21,12 +21,18 @@ const EMPTY: ProgressState = {
   lastSectionId: null,
 };
 
-function load(): ProgressState {
+function storageKey(courseId: string) {
+  return `${STORAGE_PREFIX}:${courseId}`;
+}
+
+function load(courseId: string): ProgressState {
   if (typeof window === 'undefined') return EMPTY;
-  const scormState = loadScormProgress();
-  if (scormState) return { ...EMPTY, ...scormState };
+  if (courseId === 'governance-ch1') {
+    const scormState = loadScormProgress();
+    if (scormState) return { ...EMPTY, ...scormState };
+  }
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(storageKey(courseId));
     if (!raw) return EMPTY;
     return { ...EMPTY, ...(JSON.parse(raw) as Partial<ProgressState>) };
   } catch {
@@ -35,13 +41,17 @@ function load(): ProgressState {
 }
 
 /** Persistent learner progress: completion, activity badges, quiz score, resume point. */
-export function useProgress(totalSections: number) {
-  const [state, setState] = useState<ProgressState>(load);
+export function useProgress(totalSections: number, courseId = 'governance-ch1') {
+  const [state, setState] = useState<ProgressState>(() => load(courseId));
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    saveScormProgress(state, totalSections);
-  }, [state, totalSections]);
+    setState(load(courseId));
+  }, [courseId]);
+
+  useEffect(() => {
+    window.localStorage.setItem(storageKey(courseId), JSON.stringify(state));
+    if (courseId === 'governance-ch1') saveScormProgress(state, totalSections);
+  }, [courseId, state, totalSections]);
 
   useEffect(() => {
     const onUnload = () => terminateScorm();
@@ -75,9 +85,9 @@ export function useProgress(totalSections: number) {
 
   const reset = useCallback(() => {
     setState(EMPTY);
-    window.localStorage.removeItem(STORAGE_KEY);
-    resetScormProgress();
-  }, []);
+    window.localStorage.removeItem(storageKey(courseId));
+    if (courseId === 'governance-ch1') resetScormProgress();
+  }, [courseId]);
 
   const percent = useMemo(() => {
     if (totalSections === 0) return 0;

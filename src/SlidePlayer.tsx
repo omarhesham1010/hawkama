@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProgress } from './hooks/useProgress';
 import { useVoiceSync } from './hooks/useVoiceSync';
 import { useNarrationContext } from './components/audio/NarrationContext';
-import { slides, courseMeta } from './data/slides';
+import { getCourseMeta, getSlidesForCourse } from './data/slides';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
 import { PlayerHeader } from './components/player/PlayerHeader';
@@ -24,13 +24,17 @@ const SECTION_LABEL: Record<string, string> = {
 
 /** Articulate-Storyline-style narrated slide player (voice-synced reveal). */
 export default function SlidePlayer({
+  courseId = 'governance-ch1',
   initialSlide = 1,
   onExit,
 }: {
+  courseId?: string;
   initialSlide?: number;
   onExit: () => void;
 }) {
-  const progress = useProgress(slides.length);
+  const slides = useMemo(() => getSlidesForCourse(courseId), [courseId]);
+  const courseMeta = useMemo(() => getCourseMeta(courseId), [courseId]);
+  const progress = useProgress(slides.length, courseId);
   const narration = useNarrationContext();
 
   const clampedStart = Math.max(0, Math.min(initialSlide - 1, slides.length - 1));
@@ -43,14 +47,18 @@ export default function SlidePlayer({
   const skipNextAutoPlayRef = useRef(false);
 
   useEffect(() => {
-    window.history.replaceState(null, '', `#/course/${index + 1}`);
-  }, [index]);
+    window.history.replaceState(null, '', `#/course/${courseId}/${index + 1}`);
+  }, [courseId, index]);
 
   const slide = slides[index];
   const armed = started && !muted;
   const sync = useVoiceSync(slide.narration, slide.audioKey, armed, `${slide.id}#${replayNonce}`);
 
-  const totalActivities = useMemo(() => slides.filter((s) => s.kind === 'activity').length, []);
+  const totalActivities = useMemo(() => slides.filter((s) => s.kind === 'activity').length, [slides]);
+
+  useEffect(() => {
+    setIndex(Math.max(0, Math.min(initialSlide - 1, slides.length - 1)));
+  }, [initialSlide, slides.length]);
 
   const playNarration = useCallback(() => {
     if (!muted) {

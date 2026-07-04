@@ -78,8 +78,16 @@ export const platform: {
       title: 'الامتثال وإدارة المخاطر',
       short: 'بناء برامج الامتثال وضبط المخاطر التنظيمية',
       icon: 'scale',
-      status: 'soon',
-      chapters: soonChapters('الامتثال وإدارة المخاطر'),
+      status: 'available',
+      chapters: [
+        {
+          index: 1,
+          title: 'الفصل الأول المحفوظ من النسخة السابقة',
+          status: 'ready',
+          courseId: 'compliance-risk-ch1',
+        },
+        ...soonChapters('الامتثال وإدارة المخاطر').slice(1),
+      ],
     },
     {
       id: 'ethics',

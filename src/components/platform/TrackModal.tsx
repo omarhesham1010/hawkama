@@ -4,6 +4,7 @@ import type { ChapterProgress } from '../../lib/progressReader';
 import { Icon } from '../ui/Icon';
 import { ProgressBar } from '../layout/ProgressTracker';
 import { toArabicDigits } from '../../lib/utils';
+import { readChapterProgress } from '../../lib/progressReader';
 
 export function TrackModal({
   track,
@@ -54,6 +55,7 @@ export function TrackModal({
           <p className="mb-1 text-sm font-bold text-ink-soft">فصول الحقيبة ({toArabicDigits(10)})</p>
           {track.chapters.map((ch) => {
             const ready = ch.status === 'ready';
+            const chapterProgress = ch.courseId ? readChapterProgress(ch.courseId) : progress;
             return (
               <div
                 key={ch.index}
@@ -79,13 +81,13 @@ export function TrackModal({
                     <span className="text-xs text-ink-muted">الفصل {toArabicDigits(ch.index)} · </span>
                     {ch.title}
                   </p>
-                  {ready && progress.started && (
+                  {ready && chapterProgress.started && (
                     <div className="mt-1.5 flex items-center gap-2">
                       <div className="w-28">
-                        <ProgressBar percent={progress.percent} />
+                        <ProgressBar percent={chapterProgress.percent} />
                       </div>
                       <span className="text-xs font-bold text-brand tabular">
-                        {toArabicDigits(progress.percent)}٪
+                        {toArabicDigits(chapterProgress.percent)}٪
                       </span>
                     </div>
                   )}
@@ -97,7 +99,7 @@ export function TrackModal({
                     onClick={() => ch.courseId && onEnterChapter(ch.courseId)}
                     className="btn-primary shrink-0 px-4 py-2 text-sm"
                   >
-                    {progress.completed ? 'مراجعة' : progress.started ? 'متابعة' : 'ابدأ الفصل'}
+                    {chapterProgress.completed ? 'مراجعة' : chapterProgress.started ? 'متابعة' : 'ابدأ الفصل'}
                     <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M15 6l-6 6 6 6" />
                     </svg>

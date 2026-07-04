@@ -1,4 +1,5 @@
-import type { Beat, BeatUnit, Slide } from '../../types/slides';
+import { useState } from 'react';
+import type { Beat, BeatUnit, PptCard, Slide } from '../../types/slides';
 import { Icon } from '../ui/Icon';
 import { CompletionMedallion } from '../ui/Badge';
 import { Confetti } from '../ui/Confetti';
@@ -81,6 +82,17 @@ function contentPose(slide: Slide, beat: Beat | undefined, beatIndex: number, si
 }
 
 function nasserGuide(slide: Slide, spoken: number): NasserGuide {
+  if (slide.layout?.startsWith('ppt')) {
+    const { cue, index } = activeStoryCue(slide.narration, spoken);
+    const side: 'left' | 'right' = slide.index % 2 === 0 ? 'left' : 'right';
+    return {
+      pose: timedPose(['welcome', pointingPose(side), tabletPose(side), 'success'], index),
+      side,
+      key: `ppt-${slide.id}-${index}`,
+      line: clipDialogue(cue.text, 132),
+    };
+  }
+
   if (slide.kind === 'content') {
     const active = activeBeat(slide, spoken);
     const side: 'left' | 'right' = slide.index % 3 === 0 ? 'right' : 'left';
@@ -165,21 +177,24 @@ function NasserStoryLayer({
   showDialogue: boolean;
 }) {
   const guide = nasserGuide(slide, spoken);
-  const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const imageSize = compact ? 'h-[200px] w-[200px]' : 'h-[250px] w-[250px]';
-  const layerHeight = compact ? 'h-[178px]' : 'h-[212px]';
+  const isPpt = Boolean(slide.layout?.startsWith('ppt'));
+  const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
+  const imageSize = isPpt ? 'h-[218px] w-[218px]' : compact ? 'h-[200px] w-[200px]' : 'h-[250px] w-[250px]';
+  const layerHeight = isPpt ? 'h-[190px]' : compact ? 'h-[178px]' : 'h-[212px]';
+  const bottomOffset = isPpt ? 'bottom-[14px]' : 'bottom-[38px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = compact ? 'mb-5' : 'mb-9';
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
+  const displayPose = isPpt && !showDialogue ? 'welcome' : guide.pose;
 
   return (
-    <div className={`pointer-events-none absolute inset-x-0 bottom-[38px] z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
+    <div className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
         <div key={guide.key} className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
-            key={guide.pose}
-            src={POSE_SRC[guide.pose]}
+            key={displayPose}
+            src={POSE_SRC[displayPose]}
             alt="ناصر المدرب"
             className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl`}
             style={{
@@ -210,9 +225,10 @@ function StorySlideShell({
   showDialogue: boolean;
   children: React.ReactNode;
 }) {
+  const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const bottomSpace = compact ? 'pb-[254px]' : 'pb-[292px]';
-  const topSpace = compact ? 'pt-[92px]' : 'pt-[106px]';
+  const bottomSpace = isPpt ? 'pb-[232px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
+  const topSpace = isPpt ? 'pt-[86px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
 
   return (
     <div className="relative h-full overflow-hidden">
@@ -498,6 +514,214 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
   );
 }
 
+// ---- PowerPoint-matched chapter slides -------------------------------------
+
+const PPT_ACCENTS: Record<NonNullable<PptCard['tone']>, string> = {
+  green: 'border-green-600/30 bg-white',
+  gold: 'border-gold-500/45 bg-gold-50/80',
+  blue: 'border-sky-500/35 bg-sky-50/80',
+  gray: 'border-slate-300 bg-white',
+};
+
+function PptTitle({ slide }: { slide: Slide }) {
+  return (
+    <div className="mb-4 text-center">
+      {slide.ppt?.eyebrow && (
+        <p className="mb-1 text-[15px] font-extrabold text-gold-600">{slide.ppt.eyebrow}</p>
+      )}
+      <h2 className="text-[34px] font-extrabold leading-tight text-brand-strong">{slide.title}</h2>
+      {slide.ppt?.subtitle && (
+        <p className="mt-1 text-[18px] font-bold leading-relaxed text-ink-soft">{slide.ppt.subtitle}</p>
+      )}
+    </div>
+  );
+}
+
+function PptCardView({
+  card,
+  dense = false,
+  reveal,
+  onClick,
+}: {
+  card: PptCard;
+  dense?: boolean;
+  reveal?: boolean;
+  onClick?: () => void;
+}) {
+  const tone = card.tone ?? 'green';
+  const clickable = Boolean(onClick);
+  return (
+    <button
+      type="button"
+      disabled={!clickable}
+      onClick={onClick}
+      className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all ${
+        PPT_ACCENTS[tone]
+      } ${clickable ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
+    >
+      <span className={`h-1.5 w-full shrink-0 ${tone === 'gold' ? 'bg-gold-500' : 'bg-green-700'}`} />
+      <div className={`${dense ? 'p-3.5' : 'p-4'} flex min-h-0 flex-1 flex-col`}>
+        <div className="mb-2 flex items-start gap-2">
+          {card.index && (
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-green-700 text-[13px] font-extrabold text-white tabular">
+              {card.index}
+            </span>
+          )}
+          <h3 className={`${dense ? 'text-[18px]' : 'text-[21px]'} font-extrabold leading-tight text-brand-strong`}>
+            {card.title}
+          </h3>
+        </div>
+
+        {card.text && (
+          <p className={`${dense ? 'text-[16.5px]' : 'text-[18px]'} font-bold leading-relaxed text-ink-soft`}>
+            {card.text}
+          </p>
+        )}
+
+        {card.bullets && (
+          <ul className="mt-1.5 space-y-1.5">
+            {card.bullets.map((bullet, i) => (
+              <li key={i} className={`${dense ? 'text-[16px]' : 'text-[16px]'} flex gap-2 font-bold leading-snug text-ink-soft`}>
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-gold-500" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {reveal && card.answer && (
+          <div className="mt-auto rounded-md border border-green-700/25 bg-green-700/8 p-2.5">
+            <p className="text-[17px] font-extrabold text-green-800">{card.answer}</p>
+            {card.rationale && <p className="mt-1 text-[14px] font-bold leading-snug text-ink-soft">{card.rationale}</p>}
+          </div>
+        )}
+      </div>
+    </button>
+  );
+}
+
+function PptActivitySlide({
+  slide,
+  spoken,
+  showDialogue,
+  onActivityDone,
+}: {
+  slide: Slide;
+  spoken: number;
+  showDialogue: boolean;
+  onActivityDone: (id: string) => void;
+}) {
+  const cards = slide.ppt?.cards ?? [];
+  const [revealed, setRevealed] = useState<Set<number>>(() => new Set());
+
+  const revealCard = (i: number) => {
+    setRevealed((prev) => {
+      const next = new Set(prev);
+      next.add(i);
+      if (next.size === cards.length) onActivityDone(slide.id);
+      return next;
+    });
+  };
+
+  return (
+    <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
+      <div className="flex h-full min-h-0 flex-col px-8 py-3">
+        <PptTitle slide={slide} />
+        <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 p-3.5 text-right shadow-sm">
+          <p className="text-[18px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
+          <p className="mt-1 text-[16px] font-bold leading-relaxed text-ink-soft">{slide.ppt?.prompt}</p>
+        </div>
+        <div className="grid min-h-0 flex-1 grid-cols-2 gap-3">
+          {cards.map((card, i) => (
+            <PptCardView key={i} card={card} dense reveal={revealed.has(i)} onClick={() => revealCard(i)} />
+          ))}
+        </div>
+      </div>
+    </StorySlideShell>
+  );
+}
+
+function PptStyleSlide({
+  slide,
+  spoken,
+  started,
+  showDialogue,
+  onStart,
+  onActivityDone,
+  completion,
+}: {
+  slide: Slide;
+  spoken: number;
+  started: boolean;
+  showDialogue: boolean;
+  onStart: () => void;
+  onActivityDone: (id: string) => void;
+  completion: CompletionInfo;
+}) {
+  if (slide.layout === 'pptActivitySort') {
+    return <PptActivitySlide slide={slide} spoken={spoken} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
+  }
+
+  const cards = slide.ppt?.cards ?? [];
+  const isIntro = slide.layout === 'pptIntro';
+  const isConclusion = slide.layout === 'pptConclusion';
+  const isThree = slide.layout === 'pptThreeColumns';
+  const isTwo = slide.layout === 'pptTwoPanels' || slide.layout === 'pptScenario';
+  const dense = slide.layout === 'pptThreeColumns' || slide.layout === 'pptSixCards';
+
+  const gridClass = isThree
+    ? 'grid-cols-3'
+    : isTwo
+      ? 'grid-cols-2'
+      : cards.length <= 3
+        ? 'grid-cols-3'
+        : 'grid-cols-3';
+
+  return (
+    <StorySlideShell slide={slide} spoken={started ? spoken : 0} showDialogue={showDialogue}>
+      <div className="flex h-full min-h-0 flex-col px-8 py-3">
+        <PptTitle slide={slide} />
+
+        {isIntro ? (
+          <div className="flex min-h-0 flex-1 items-center justify-center">
+            <div className="w-full max-w-4xl rounded-lg border-2 border-green-700/25 bg-white/95 p-8 text-center shadow-sm">
+              <p className="text-[26px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
+              <button type="button" onClick={onStart} className="btn-gold mt-7 px-9 py-4 text-lg">
+                <Icon name="flag" className="h-6 w-6" />
+                {started ? 'استمع للمقدمة' : 'ابدأ الفصل'}
+              </button>
+            </div>
+          </div>
+        ) : isConclusion ? (
+          <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
+            <div className={`grid w-full max-w-5xl ${gridClass} gap-3`}>
+              {cards.map((card, i) => (
+                <PptCardView key={i} card={card} />
+              ))}
+            </div>
+            <div className="mt-4 flex items-center justify-center gap-3">
+              <button type="button" onClick={completion.onExit} className="btn-gold px-7 py-3 text-base">
+                <Icon name="flag" className="h-5 w-5" />
+                إنهاء والعودة للمنصة
+              </button>
+              <button type="button" onClick={completion.onRestart} className="btn-ghost px-7 py-3 text-base">
+                <Icon name="flow" className="h-5 w-5" />
+                إعادة الفصل
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className={`grid min-h-0 flex-1 ${gridClass} gap-3`}>
+            {cards.map((card, i) => (
+              <PptCardView key={i} card={card} dense={dense} />
+            ))}
+          </div>
+        )}
+      </div>
+    </StorySlideShell>
+  );
+}
+
 // ---- Stage -----------------------------------------------------------------
 
 function ActivityChip({ label }: { label: string }) {
@@ -539,6 +763,20 @@ export function SlideStage({
   onQuizComplete: (score: number) => void;
   completion: CompletionInfo;
 }) {
+  if (slide.layout?.startsWith('ppt')) {
+    return (
+      <PptStyleSlide
+        slide={slide}
+        spoken={spoken}
+        started={started}
+        showDialogue={showDialogue}
+        onStart={onStart}
+        onActivityDone={onActivityDone}
+        completion={completion}
+      />
+    );
+  }
+
   // Welcome
   if (slide.kind === 'welcome') {
     const highlights =
