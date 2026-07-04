@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-BU0bC3rf.js" />
-      <file href="assets/index-DSQWX13E.css" />
+      <file href="assets/index-DC1F3buS.css" />
+      <file href="assets/index-v4ch3Vaw.js" />
       <file href="audio/README.md" />
       <file href="audio/slide-01.mp3" />
       <file href="audio/slide-02.mp3" />
@@ -69,6 +69,7 @@
       <file href="template-assets/moh-capability-ab3ad.png" />
       <file href="template-assets/moh-logo-small.png" />
       <file href="template-assets/program-template-bg.png" />
+      <file href="template-assets/top-left-identity-mark.png" />
       <file href="template-assets/vision-2030-mark.png" />
       <file href="template-assets/vision-watermark.png" />
     </resource>

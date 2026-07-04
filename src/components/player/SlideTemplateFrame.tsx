@@ -8,9 +8,9 @@ export function SlideTemplateFrame() {
         draggable={false}
       />
       <img
-        src="/template-assets/vision-watermark.png"
+        src="/template-assets/top-left-identity-mark.png"
         alt=""
-        className="absolute -left-[18px] -top-[4px] h-[172px] w-[330px] object-contain opacity-100"
+        className="absolute left-0 top-0 h-[205px] w-[350px] object-contain opacity-100"
         draggable={false}
       />
     </div>
