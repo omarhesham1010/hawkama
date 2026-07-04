@@ -182,7 +182,7 @@ function NasserStoryLayer({
             key={guide.pose}
             src={POSE_SRC[guide.pose]}
             alt="ناصر المدرب"
-            className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl animate-nasser-enter`}
+            className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl`}
             draggable={false}
           />
           {showDialogue && (

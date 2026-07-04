@@ -55,7 +55,7 @@ export function Nasser({
       <img
         src={POSE_SRC[pose]}
         alt="ناصر المدرب"
-        className={`${imgSize} max-w-full object-contain object-bottom drop-shadow-2xl animate-nasser-enter`}
+        className={`${imgSize} max-w-full object-contain object-bottom drop-shadow-2xl`}
         draggable={false}
       />
     </div>
