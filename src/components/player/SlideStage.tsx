@@ -573,7 +573,7 @@ function PptCardView({
         </div>
 
         {card.text && (
-          <p className={`${dense ? 'text-[16.5px]' : 'text-[18px]'} font-bold leading-relaxed text-ink-soft`}>
+          <p className={`${dense ? 'text-[16.5px]' : 'text-[18px]'} whitespace-pre-line font-bold leading-relaxed text-ink-soft`}>
             {card.text}
           </p>
         )}
