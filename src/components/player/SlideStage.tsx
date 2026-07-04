@@ -207,10 +207,11 @@ function StorySlideShell({
 }) {
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
   const bottomSpace = compact ? 'pb-[210px]' : 'pb-[242px]';
+  const topSpace = compact ? 'pt-[92px]' : 'pt-[106px]';
 
   return (
     <div className="relative h-full overflow-hidden">
-      <div className={`h-full ${bottomSpace}`}>{children}</div>
+      <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} />
     </div>
   );

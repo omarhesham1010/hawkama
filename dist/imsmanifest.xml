@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-DHyzbBcy.css" />
-      <file href="assets/index-DIn2foec.js" />
+      <file href="assets/index-Dj5Se4JN.js" />
+      <file href="assets/index-FAfsjhvh.css" />
       <file href="audio/README.md" />
       <file href="audio/slide-01.mp3" />
       <file href="audio/slide-02.mp3" />
@@ -65,6 +65,11 @@
       <file href="nasser-assets/nasser-thinking.png" />
       <file href="nasser-assets/nasser-warning.png" />
       <file href="nasser-assets/nasser-welcome.png" />
+      <file href="template-assets/ministry-health.png" />
+      <file href="template-assets/moh-capability-ab3ad.png" />
+      <file href="template-assets/moh-logo-small.png" />
+      <file href="template-assets/vision-2030-mark.png" />
+      <file href="template-assets/vision-watermark.png" />
     </resource>
   </resources>
 </manifest>

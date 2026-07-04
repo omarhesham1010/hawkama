@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CanvasScaleContext } from '../../lib/canvasScale';
+import { SlideTemplateFrame } from './SlideTemplateFrame';
 
 // Fixed PowerPoint-style design surface (16:9). Everything is authored at this
 // size and uniformly scaled to fit the viewport, so the course never scrolls.
@@ -41,17 +42,15 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
     <div ref={wrapRef} className="flex h-full w-full items-center justify-center overflow-hidden p-1">
       <CanvasScaleContext.Provider value={scale}>
         <div
-          className="relative shrink-0 overflow-hidden rounded-[22px] border-2 border-green-500/20 shadow-card-lg"
+          className="relative shrink-0 overflow-hidden rounded-[22px] border border-green-700/15 bg-white shadow-card-lg"
           style={{
             width: CANVAS_W,
             height: CANVAS_H,
             transform: `scale(${scale})`,
             transformOrigin: 'center center',
-            backgroundColor: 'rgb(var(--surface))',
-            backgroundImage:
-              'radial-gradient(900px 520px at 100% 0%, rgb(20 160 120 / 0.09), transparent 60%), radial-gradient(820px 480px at 0% 100%, rgb(191 155 74 / 0.08), transparent 60%)',
           }}
         >
+          <SlideTemplateFrame />
           {children}
         </div>
       </CanvasScaleContext.Provider>
