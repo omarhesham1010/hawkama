@@ -1,45 +1,13 @@
 import { useMemo } from 'react';
 import { Icon } from '../ui/Icon';
 import { useNarrationContext } from '../audio/NarrationContext';
+import { activeStoryCue, storyCues } from '../../lib/storyTiming';
 
-interface Sentence {
-  start: number;
-  end: number;
-  text: string;
-}
-
-function splitSentences(text: string): Sentence[] {
-  const out: Sentence[] = [];
-  const re = /[.؟!\n]/g;
-  let start = 0;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(text))) {
-    const end = m.index + 1;
-    const t = text.slice(start, end).trim();
-    if (t) out.push({ start, end, text: t });
-    start = end;
-  }
-  if (start < text.length) {
-    const t = text.slice(start).trim();
-    if (t) out.push({ start, end: text.length, text: t });
-  }
-  return out;
-}
-
-export function CaptionBar({ text, audioKey }: { text: string; audioKey: string }) {
-  const { charIndex, isPlaying, nowKey } = useNarrationContext();
+export function CaptionBar({ text, audioKey, spoken }: { text: string; audioKey: string; spoken: number }) {
+  const { isPlaying, nowKey } = useNarrationContext();
   const active = isPlaying && nowKey === audioKey;
-  const sentences = useMemo(() => splitSentences(text), [text]);
-
-  const activeIdx = useMemo(() => {
-    if (!active) return -1;
-    for (let i = 0; i < sentences.length; i++) {
-      if (charIndex >= sentences[i].start && charIndex < sentences[i].end) return i;
-    }
-    return -1;
-  }, [active, charIndex, sentences]);
-
-  const shown = active && activeIdx >= 0 ? sentences[activeIdx].text : sentences[0]?.text ?? '';
+  const cues = useMemo(() => storyCues(text), [text]);
+  const shown = active ? activeStoryCue(text, spoken).cue?.text : cues[0]?.text ?? '';
 
   return (
     <div className="shrink-0 border-t border-line bg-surface-2/85 backdrop-blur-md">

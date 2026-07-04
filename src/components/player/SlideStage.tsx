@@ -10,6 +10,7 @@ import { KnowledgeCheck } from '../activities/KnowledgeCheck';
 import { POSE_SRC, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
+import { activeStoryCue } from '../../lib/storyTiming';
 
 export interface CompletionInfo {
   percent: number;
@@ -40,41 +41,10 @@ type NasserGuide = {
   key: string;
 };
 
-type NarrationSegment = {
-  start: number;
-  end: number;
-  text: string;
-};
-
 function clipDialogue(text: string, max = 112) {
   const clean = text.replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   return `${clean.slice(0, max).trim()}...`;
-}
-
-function narrationSegments(text: string): NarrationSegment[] {
-  const segments: NarrationSegment[] = [];
-  let start = 0;
-  const breakChars = '،؛.؟!';
-
-  for (let i = 0; i < text.length; i += 1) {
-    if (!breakChars.includes(text[i])) continue;
-    const raw = text.slice(start, i + 1).trim();
-    if (raw) segments.push({ start, end: i + 1, text: raw });
-    start = i + 1;
-  }
-
-  const tail = text.slice(start).trim();
-  if (tail) segments.push({ start, end: text.length, text: tail });
-  return segments.length ? segments : [{ start: 0, end: text.length, text }];
-}
-
-function activeNarrationSegment(text: string, spoken: number) {
-  const segments = narrationSegments(text);
-  const pos = Math.max(0, Math.min(text.length, spoken));
-  const found = segments.findIndex((segment) => pos >= segment.start && pos <= segment.end);
-  const index = found >= 0 ? found : segments.length - 1;
-  return { segment: segments[index] ?? segments[segments.length - 1], index };
 }
 
 function activeBeat(slide: Slide, spoken: number) {
@@ -124,7 +94,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
     };
   }
 
-  const { segment, index } = activeNarrationSegment(slide.narration, spoken);
+  const { cue, index } = activeStoryCue(slide.narration, spoken);
 
   if (slide.kind === 'welcome') {
     const side: 'left' | 'right' = 'right';
@@ -132,7 +102,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
       pose: timedPose(['welcome', pointingPose(side), tabletPose(side), 'success'], index),
       side,
       key: `welcome-${index}`,
-      line: clipDialogue(segment.text, 126),
+      line: clipDialogue(cue.text, 126),
     };
   }
   if (slide.kind === 'quiz') {
@@ -141,7 +111,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
       pose: timedPose(['question', 'thinking', tabletPose(side), 'success'], index),
       side,
       key: `quiz-${index}`,
-      line: clipDialogue(segment.text),
+      line: clipDialogue(cue.text),
     };
   }
   if (slide.kind === 'reflection') {
@@ -150,7 +120,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
       pose: timedPose(['thinking', pointingPose(side), tabletPose(side), 'success'], index),
       side,
       key: `reflection-${index}`,
-      line: clipDialogue(segment.text),
+      line: clipDialogue(cue.text),
     };
   }
   if (slide.kind === 'completion') {
@@ -159,7 +129,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
       pose: timedPose(['completion', 'success', tabletPose(side), 'welcome'], index),
       side,
       key: `completion-${index}`,
-      line: clipDialogue(segment.text, 126),
+      line: clipDialogue(cue.text, 126),
     };
   }
   if (slide.kind === 'activity') {
@@ -175,7 +145,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
       pose: timedPose(activityPoses, index),
       side,
       key: `activity-${index}`,
-      line: clipDialogue(segment.text),
+      line: clipDialogue(cue.text),
     };
   }
 

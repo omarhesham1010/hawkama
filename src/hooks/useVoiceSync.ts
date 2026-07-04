@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
+import { spokenFromAudioProgress } from '../lib/storyTiming';
 
 const CPS = 12.5; // chars/sec estimate while speaking without word boundaries
 const NO_VOICE_FALLBACK = 3500; // ms: if the voice never starts, reveal anyway
@@ -17,14 +18,24 @@ export interface VoiceSync {
  * installed), it falls back to revealing everything after a short wait.
  */
 export function useVoiceSync(
-  totalChars: number,
+  narrationText: string,
   audioKey: string,
   armed: boolean,
   resetKey: string,
 ): VoiceSync {
-  const { charIndex, speechStartedAt, isPlaying, isPaused, nowKey, status, source, audioElapsed, audioDuration } =
-    useNarrationContext();
-  const total = Math.max(1, totalChars);
+  const {
+    charIndex,
+    speechStartedAt,
+    isPlaying,
+    isPaused,
+    nowKey,
+    status,
+    source,
+    audioElapsed,
+    audioDuration,
+    audioUpdatedAt,
+  } = useNarrationContext();
+  const total = Math.max(1, narrationText.length);
 
   const [spoken, setSpoken] = useState(0);
   const [done, setDone] = useState(false);
@@ -36,10 +47,14 @@ export function useVoiceSync(
   charRef.current = charIndex;
   const audioElapsedRef = useRef(0);
   const audioDurationRef = useRef<number | null>(null);
+  const audioUpdatedAtRef = useRef<number | null>(null);
   const sourceRef = useRef<typeof source>(source);
+  const textRef = useRef(narrationText);
   audioElapsedRef.current = audioElapsed;
   audioDurationRef.current = audioDuration;
+  audioUpdatedAtRef.current = audioUpdatedAt;
   sourceRef.current = source;
+  textRef.current = narrationText;
 
   const isThisSlide = nowKey === audioKey;
   const speaking = isPlaying && isThisSlide;
@@ -87,10 +102,10 @@ export function useVoiceSync(
       let val = spokenRef.current;
       if (speakingRef.current) {
         if (sourceRef.current === 'audio') {
-          val =
-            audioDurationRef.current && audioDurationRef.current > 0
-              ? (audioElapsedRef.current / audioDurationRef.current) * total
-              : charRef.current;
+          const duration = audioDurationRef.current;
+          const clockDrift = audioUpdatedAtRef.current ? (performance.now() - audioUpdatedAtRef.current) / 1000 : 0;
+          const elapsed = audioElapsedRef.current + clockDrift;
+          val = duration && duration > 0 ? spokenFromAudioProgress(textRef.current, elapsed / duration) : charRef.current;
         } else {
           const start = startedAtRef.current ?? speakStartRef.current ?? performance.now();
           const el = (performance.now() - start) / 1000;

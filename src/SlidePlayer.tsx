@@ -48,7 +48,7 @@ export default function SlidePlayer({
 
   const slide = slides[index];
   const armed = started && !muted;
-  const sync = useVoiceSync(slide.narration.length, slide.audioKey, armed, `${slide.id}#${replayNonce}`);
+  const sync = useVoiceSync(slide.narration, slide.audioKey, armed, `${slide.id}#${replayNonce}`);
 
   const totalActivities = useMemo(() => slides.filter((s) => s.kind === 'activity').length, []);
 
@@ -188,7 +188,7 @@ export default function SlidePlayer({
         </div>
       </main>
 
-      <CaptionBar text={slide.narration} audioKey={slide.audioKey} />
+      <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
 
       <PlayerControls
         index={index}

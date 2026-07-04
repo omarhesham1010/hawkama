@@ -46,6 +46,7 @@ export function useNarration() {
   const [speechStartedAt, setSpeechStartedAt] = useState<number | null>(null);
   const [audioElapsed, setAudioElapsed] = useState(0);
   const [audioDuration, setAudioDuration] = useState<number | null>(null);
+  const [audioUpdatedAt, setAudioUpdatedAt] = useState<number | null>(null);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [voiceURI, setVoiceURIState] = useState<string | null>(
     () => (typeof window !== 'undefined' ? window.localStorage.getItem(VOICE_KEY) : null),
@@ -140,6 +141,7 @@ export function useNarration() {
     setSpeechStartedAt(null);
     setAudioElapsed(0);
     setAudioDuration(null);
+    setAudioUpdatedAt(null);
   }, [clearKeepAlive, ttsSupported]);
 
   const speakTts = useCallback(
@@ -156,6 +158,7 @@ export function useNarration() {
         if (token !== playTokenRef.current) return;
         setAudioElapsed(0);
         setAudioDuration(null);
+        setAudioUpdatedAt(null);
         const spokenScript = `${TTS_LEAD_IN}${script}`;
         const u = new SpeechSynthesisUtterance(spokenScript);
         u.lang = 'ar-SA';
@@ -212,6 +215,7 @@ export function useNarration() {
       setSpeechStartedAt(null);
       setAudioElapsed(0);
       setAudioDuration(null);
+      setAudioUpdatedAt(null);
 
       // No real MP3 for this key → go straight to TTS (instant, no probe delay).
       if (!hasAudio(key)) {
@@ -235,6 +239,7 @@ export function useNarration() {
         if (token !== playTokenRef.current) return;
         setAudioElapsed(audio.currentTime || 0);
         setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
+        setAudioUpdatedAt(performance.now());
       };
       audio.addEventListener('loadedmetadata', updateAudioTime);
       audio.addEventListener('durationchange', updateAudioTime);
@@ -255,6 +260,7 @@ export function useNarration() {
         if (token !== playTokenRef.current) return;
         setAudioElapsed(Number.isFinite(audio.duration) ? audio.duration : audio.currentTime || 0);
         setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
+        setAudioUpdatedAt(performance.now());
         setSpeechStartedAt(null);
         setStatus('idle');
       });
@@ -269,6 +275,7 @@ export function useNarration() {
         setSpeechStartedAt(null);
         setAudioElapsed(0);
         setAudioDuration(null);
+        setAudioUpdatedAt(null);
       });
     },
     [speakTts, stopInternal],
@@ -277,6 +284,7 @@ export function useNarration() {
   const pause = useCallback(() => {
     if (sourceRef.current === 'audio' && audioRef.current) {
       setAudioElapsed(audioRef.current.currentTime || 0);
+      setAudioUpdatedAt(performance.now());
       audioRef.current.pause();
       setStatus('paused');
     } else if (sourceRef.current === 'tts' && ttsSupported) {
@@ -290,6 +298,7 @@ export function useNarration() {
     if (sourceRef.current === 'audio' && audioRef.current) {
       setAudioElapsed(audioRef.current.currentTime || 0);
       setAudioDuration(Number.isFinite(audioRef.current.duration) ? audioRef.current.duration : null);
+      setAudioUpdatedAt(performance.now());
       audioRef.current.play().catch(() => undefined);
       setSpeechStartedAt(performance.now());
       setStatus('playing');
@@ -324,6 +333,7 @@ export function useNarration() {
     speechStartedAt,
     audioElapsed,
     audioDuration,
+    audioUpdatedAt,
     ttsSupported,
     voices,
     voiceURI,

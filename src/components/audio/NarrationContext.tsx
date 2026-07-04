@@ -11,6 +11,7 @@ interface NarrationContextValue {
   speechStartedAt: number | null;
   audioElapsed: number;
   audioDuration: number | null;
+  audioUpdatedAt: number | null;
   ttsSupported: boolean;
   nowLabel: string | null;
   nowKey: string | null;
@@ -58,6 +59,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       speechStartedAt: n.speechStartedAt,
       audioElapsed: n.audioElapsed,
       audioDuration: n.audioDuration,
+      audioUpdatedAt: n.audioUpdatedAt,
       ttsSupported: n.ttsSupported,
       nowLabel,
       nowKey,
@@ -83,6 +85,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       n.speechStartedAt,
       n.audioElapsed,
       n.audioDuration,
+      n.audioUpdatedAt,
       n.ttsSupported,
       n.voices,
       n.voiceURI,
