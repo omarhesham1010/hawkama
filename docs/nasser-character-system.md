@@ -41,6 +41,8 @@ The root-level `nasser-assets/` folder is ignored by git to avoid committing dup
 - Nasser appears inside the 16:9 slide canvas.
 - Nasser is larger than a decorative mascot and anchored to the bottom of each slide, with a transparent area behind the character.
 - The pose and speech bubble update as the current narration beat/sentence changes.
+- The speech bubble appears only while the slide narration is actively speaking, then disappears while Nasser remains visible.
+- The bubble tail is side-mounted so it points toward Nasser's position instead of pointing downward.
 - Slide content reserves bottom space so Nasser does not cover text, cards, or buttons.
 - Activities, quiz, and reflection use a more compact bottom layer to preserve interaction space.
 - Mobile keeps the same slide composition through a narrower 16:9 authored canvas, so animation timing stays identical while text, buttons, and Nasser remain easier to see.

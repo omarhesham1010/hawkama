@@ -183,17 +183,25 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   };
 }
 
-function NasserStoryLayer({ slide, spoken }: { slide: Slide; spoken: number }) {
+function NasserStoryLayer({
+  slide,
+  spoken,
+  showDialogue,
+}: {
+  slide: Slide;
+  spoken: number;
+  showDialogue: boolean;
+}) {
   const guide = nasserGuide(slide, spoken);
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const imageSize = compact ? 'h-[168px] w-[168px]' : 'h-[220px] w-[220px]';
-  const layerHeight = compact ? 'h-[152px]' : 'h-[188px]';
+  const imageSize = compact ? 'h-[200px] w-[200px]' : 'h-[250px] w-[250px]';
+  const layerHeight = compact ? 'h-[178px]' : 'h-[212px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = compact ? 'mb-5' : 'mb-9';
 
   return (
-    <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-30 ${layerHeight} overflow-visible px-7 pb-0`}>
+    <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
         <div key={guide.key} className={`flex max-w-[800px] items-end gap-3 ${rowDirection}`}>
           <img
@@ -203,23 +211,35 @@ function NasserStoryLayer({ slide, spoken }: { slide: Slide; spoken: number }) {
             className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl animate-nasser-enter`}
             draggable={false}
           />
-          <div className={bubbleLift}>
-            <SpeechBubble text={guide.line} side={guide.side} compact={compact} />
-          </div>
+          {showDialogue && (
+            <div className={bubbleLift}>
+              <SpeechBubble text={guide.line} side={guide.side} compact={compact} />
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-function StorySlideShell({ slide, spoken, children }: { slide: Slide; spoken: number; children: React.ReactNode }) {
+function StorySlideShell({
+  slide,
+  spoken,
+  showDialogue,
+  children,
+}: {
+  slide: Slide;
+  spoken: number;
+  showDialogue: boolean;
+  children: React.ReactNode;
+}) {
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const bottomSpace = compact ? 'pb-[148px]' : 'pb-[184px]';
+  const bottomSpace = compact ? 'pb-[174px]' : 'pb-[208px]';
 
   return (
     <div className="relative h-full overflow-hidden">
       <div className={`h-full ${bottomSpace}`}>{children}</div>
-      <NasserStoryLayer slide={slide} spoken={spoken} />
+      <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} />
     </div>
   );
 }
@@ -382,7 +402,7 @@ function ShapeNode({ active }: { active: boolean }) {
   );
 }
 
-function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
+function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: number; showDialogue: boolean }) {
   const beats = slide.beats ?? [];
   const total = slide.narration.length || 1;
 
@@ -474,7 +494,7 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   );
 
   return (
-    <StorySlideShell slide={slide} spoken={spoken}>
+    <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
       <div className="flex h-full flex-col px-9 py-5">
       {/* title (beat 0) */}
       <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
@@ -526,6 +546,7 @@ export function SlideStage({
   slide,
   spoken,
   started,
+  showDialogue,
   onStart,
   onActivityDone,
   onQuizComplete,
@@ -534,6 +555,7 @@ export function SlideStage({
   slide: Slide;
   spoken: number;
   started: boolean;
+  showDialogue: boolean;
   onStart: () => void;
   onActivityDone: (id: string) => void;
   onQuizComplete: (score: number) => void;
@@ -546,7 +568,7 @@ export function SlideStage({
         ? slide.content.highlights.items
         : [];
     return (
-      <StorySlideShell slide={slide} spoken={started ? spoken : 0}>
+      <StorySlideShell slide={slide} spoken={started ? spoken : 0} showDialogue={showDialogue}>
         <div className="flex h-full items-center gap-10 p-14">
         <div className="flex-1 animate-fade-up">
           <span className="chip mb-3 bg-gold-500/15 text-gold-600 text-sm font-bold">
@@ -587,14 +609,14 @@ export function SlideStage({
 
   // Content (beats)
   if (slide.kind === 'content' && slide.beats) {
-    return <BeatSlide slide={slide} spoken={spoken} />;
+    return <BeatSlide slide={slide} spoken={spoken} showDialogue={showDialogue} />;
   }
 
   // Activity
   if (slide.kind === 'activity' && slide.activity) {
     const a = slide.activity;
     return (
-      <StorySlideShell slide={slide} spoken={spoken}>
+      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="flex h-full flex-col p-6">
         <TitleHead slide={slide} />
         <div className="min-h-0 flex-1 overflow-hidden animate-fade-in">
@@ -619,7 +641,7 @@ export function SlideStage({
   // Quiz
   if (slide.kind === 'quiz' && slide.quiz) {
     return (
-      <StorySlideShell slide={slide} spoken={spoken}>
+      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="flex h-full flex-col p-7">
         <TitleHead slide={slide} />
         <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
@@ -636,7 +658,7 @@ export function SlideStage({
   // Reflection
   if (slide.kind === 'reflection' && slide.reflection) {
     return (
-      <StorySlideShell slide={slide} spoken={spoken}>
+      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="flex h-full flex-col items-center justify-center p-8 text-center animate-fade-in">
         <TitleHead slide={slide} />
         <p className="my-4 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-base font-semibold text-gold-600">
@@ -661,7 +683,7 @@ export function SlideStage({
   // Completion
   if (slide.kind === 'completion') {
     return (
-      <StorySlideShell slide={slide} spoken={spoken}>
+      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="relative flex h-full flex-col items-center justify-center p-10 text-center">
         <Confetti count={48} />
         <div className="mb-2 flex justify-center animate-scale-in">

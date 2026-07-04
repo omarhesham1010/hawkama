@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProgress } from './hooks/useProgress';
 import { useVoiceSync } from './hooks/useVoiceSync';
 import { useNarrationContext } from './components/audio/NarrationContext';
@@ -40,6 +40,7 @@ export default function SlidePlayer({
   const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [replayNonce, setReplayNonce] = useState(0);
+  const skipNextAutoPlayRef = useRef(false);
 
   useEffect(() => {
     window.history.replaceState(null, '', `#/course/${index + 1}`);
@@ -61,7 +62,11 @@ export default function SlidePlayer({
   // On each slide (once started) → narrate; reveal follows the voice.
   useEffect(() => {
     if (!started) return;
-    playNarration();
+    if (skipNextAutoPlayRef.current) {
+      skipNextAutoPlayRef.current = false;
+    } else {
+      playNarration();
+    }
     progress.markComplete(slide.id);
     progress.setLastSection(slide.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,17 +79,28 @@ export default function SlidePlayer({
 
   const start = useCallback(() => {
     narration.warmup();
+    skipNextAutoPlayRef.current = true;
     setStarted(true);
     setReplayNonce((n) => n + 1);
-  }, [narration]);
+    playNarration();
+    progress.markComplete(slide.id);
+    progress.setLastSection(slide.id);
+  }, [narration, playNarration, progress, slide]);
 
   const voicePlaying = narration.isPlaying;
   const voicePaused = narration.isPaused;
+  const showDialogue =
+    voicePlaying && narration.nowKey === slide.audioKey && sync.spoken < slide.narration.length;
 
   const handlePlayPause = useCallback(() => {
     if (!started) {
+      narration.warmup();
+      skipNextAutoPlayRef.current = true;
       setStarted(true);
       setReplayNonce((n) => n + 1);
+      playNarration();
+      progress.markComplete(slide.id);
+      progress.setLastSection(slide.id);
       return;
     }
     if (voicePlaying) narration.pause();
@@ -93,7 +109,7 @@ export default function SlidePlayer({
       setReplayNonce((n) => n + 1);
       playNarration();
     }
-  }, [narration, playNarration, started, voicePaused, voicePlaying]);
+  }, [narration, playNarration, progress, slide, started, voicePaused, voicePlaying]);
 
   const handleReplay = useCallback(() => {
     setReplayNonce((n) => n + 1);
@@ -150,6 +166,7 @@ export default function SlidePlayer({
               slide={slide}
               spoken={sync.spoken}
               started={started}
+              showDialogue={showDialogue}
               onStart={start}
               onActivityDone={(id) => progress.markActivityDone(id)}
               onQuizComplete={(score) => {

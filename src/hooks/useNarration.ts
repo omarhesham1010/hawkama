@@ -58,6 +58,7 @@ export function useNarration() {
   const lastRef = useRef<{ key: string; script: string } | null>(null);
   const sourceRef = useRef<NarrationSource>(null);
   const keepAliveRef = useRef<number | null>(null);
+  const playTokenRef = useRef(0);
 
   const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
@@ -118,10 +119,13 @@ export function useNarration() {
   }, [clearKeepAlive]);
 
   const stopInternal = useCallback(() => {
+    playTokenRef.current += 1;
     clearKeepAlive();
     if (audioRef.current) {
       audioRef.current.pause();
+      audioRef.current.currentTime = 0;
       audioRef.current.src = '';
+      audioRef.current.load();
       audioRef.current = null;
     }
     // Only cancel if something is actually speaking/queued — calling cancel()
@@ -142,8 +146,10 @@ export function useNarration() {
       }
       const synth = window.speechSynthesis;
       setStatus('loading');
+      const token = playTokenRef.current;
 
       const doSpeak = () => {
+        if (token !== playTokenRef.current) return;
         const spokenScript = `${TTS_LEAD_IN}${script}`;
         const u = new SpeechSynthesisUtterance(spokenScript);
         u.lang = 'ar-SA';
@@ -152,6 +158,7 @@ export function useNarration() {
         const voice = pickPreferredVoice(voiceURI);
         if (voice) u.voice = voice;
         u.onstart = () => {
+          if (token !== playTokenRef.current) return;
           setSource('tts');
           sourceRef.current = 'tts';
           setStatus('playing');
@@ -159,13 +166,17 @@ export function useNarration() {
           setSpeechStartedAt(performance.now());
           startKeepAlive();
         };
-        u.onboundary = (e) => setCharIndex(Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length));
+        u.onboundary = (e) => {
+          if (token === playTokenRef.current) setCharIndex(Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length));
+        };
         u.onend = () => {
+          if (token !== playTokenRef.current) return;
           clearKeepAlive();
           setSpeechStartedAt(null);
           setStatus('idle');
         };
         u.onerror = () => {
+          if (token !== playTokenRef.current) return;
           clearKeepAlive();
           setSpeechStartedAt(null);
           setStatus('idle');
@@ -189,6 +200,7 @@ export function useNarration() {
   const play = useCallback(
     (key: string, script: string) => {
       stopInternal();
+      const token = playTokenRef.current;
       lastRef.current = { key, script };
       setCharIndex(0);
       setSpeechStartedAt(null);
@@ -205,23 +217,31 @@ export function useNarration() {
       audioRef.current = audio;
       let handledFallback = false;
       const fallback = () => {
+        if (token !== playTokenRef.current) return;
         if (handledFallback) return;
         handledFallback = true;
         audioRef.current = null;
         speakTts(script);
       };
       audio.addEventListener('playing', () => {
+        if (token !== playTokenRef.current) {
+          audio.pause();
+          audio.src = '';
+          return;
+        }
         setSource('audio');
         sourceRef.current = 'audio';
         setStatus('playing');
         setSpeechStartedAt(performance.now());
       });
       audio.addEventListener('ended', () => {
+        if (token !== playTokenRef.current) return;
         setSpeechStartedAt(null);
         setStatus('idle');
       });
       audio.addEventListener('error', fallback);
       audio.play().catch(() => {
+        if (token !== playTokenRef.current) return;
         // If the browser blocks autoplay for an existing MP3, do not fall back
         // to device TTS; that would change Shakir's fixed voice on mobile.
         setStatus('idle');

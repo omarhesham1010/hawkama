@@ -9,7 +9,10 @@ export function SpeechBubble({
   side?: 'left' | 'right';
   compact?: boolean;
 }) {
-  const tail = side === 'right' ? 'right-5 border-l-surface' : 'left-5 border-r-surface';
+  const tail =
+    side === 'right'
+      ? '-right-[15px] top-1/2 -translate-y-1/2 border-y-[11px] border-l-[17px] border-y-transparent border-l-surface'
+      : '-left-[15px] top-1/2 -translate-y-1/2 border-y-[11px] border-r-[17px] border-y-transparent border-r-surface';
 
   return (
     <div
@@ -18,9 +21,7 @@ export function SpeechBubble({
       }`}
     >
       <span
-        className={`absolute -bottom-3 h-0 w-0 border-y-[10px] border-y-transparent ${
-          side === 'right' ? 'border-l-[16px]' : 'border-r-[16px]'
-        } ${tail}`}
+        className={`absolute h-0 w-0 drop-shadow-sm ${tail}`}
         aria-hidden="true"
       />
       <p className="mb-1 text-[13px] font-extrabold text-brand">{label}</p>
