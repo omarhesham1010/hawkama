@@ -39,8 +39,6 @@ export function Nasser({
   className?: string;
 }) {
   const imgSize = size === 'lg' ? 'h-[390px]' : size === 'sm' ? 'h-[210px]' : 'h-[300px]';
-  const bubbleSide = side === 'left' ? 'right' : 'left';
-
   return (
     <div
       className={`pointer-events-none relative flex shrink-0 flex-col items-center justify-end ${
@@ -49,7 +47,7 @@ export function Nasser({
     >
       {line && (
         <div className={`mb-2 ${side === 'right' ? 'ml-4' : 'mr-4'} animate-fade-up`}>
-          <SpeechBubble text={line} side={bubbleSide} compact={size === 'sm'} />
+          <SpeechBubble text={line} side={side} compact={size === 'sm'} />
         </div>
       )}
       <img

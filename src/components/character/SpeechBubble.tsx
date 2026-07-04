@@ -11,17 +11,17 @@ export function SpeechBubble({
 }) {
   const tail =
     side === 'right'
-      ? '-right-[15px] top-1/2 -translate-y-1/2 border-y-[11px] border-l-[17px] border-y-transparent border-l-surface'
-      : '-left-[15px] top-1/2 -translate-y-1/2 border-y-[11px] border-r-[17px] border-y-transparent border-r-surface';
+      ? '-right-[16px] top-1/2 -translate-y-1/2 [clip-path:polygon(0_0,100%_50%,0_100%)]'
+      : '-left-[16px] top-1/2 -translate-y-1/2 [clip-path:polygon(100%_0,0_50%,100%_100%)]';
 
   return (
     <div
       className={`relative min-w-[220px] rounded-2xl border-2 border-green-500/25 bg-surface px-4 py-3 text-right shadow-card animate-dialogue-pop ${
-        compact ? 'max-w-[300px]' : 'max-w-[430px]'
+        compact ? 'max-w-[calc(100vw-132px)] sm:max-w-[430px]' : 'max-w-[calc(100vw-132px)] sm:max-w-[620px]'
       }`}
     >
       <span
-        className={`absolute h-0 w-0 drop-shadow-sm ${tail}`}
+        className={`absolute h-[24px] w-[18px] bg-surface drop-shadow-sm ${tail}`}
         aria-hidden="true"
       />
       <p className="mb-1 text-[13px] font-extrabold text-brand">{label}</p>

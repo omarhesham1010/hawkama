@@ -41,10 +41,8 @@ type NasserGuide = {
   key: string;
 };
 
-function clipDialogue(text: string, max = 112) {
-  const clean = text.replace(/\s+/g, ' ').trim();
-  if (clean.length <= max) return clean;
-  return `${clean.slice(0, max).trim()}...`;
+function clipDialogue(text: string, _max = 112) {
+  return text.replace(/\s+/g, ' ').trim();
 }
 
 function activeBeat(slide: Slide, spoken: number) {
@@ -177,7 +175,7 @@ function NasserStoryLayer({
   return (
     <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
-        <div key={guide.key} className={`flex max-w-[800px] items-end gap-3 ${rowDirection}`}>
+        <div key={guide.key} className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
             key={guide.pose}
             src={POSE_SRC[guide.pose]}
