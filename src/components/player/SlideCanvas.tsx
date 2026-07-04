@@ -5,13 +5,10 @@ import { CanvasScaleContext } from '../../lib/canvasScale';
 // size and uniformly scaled to fit the viewport, so the course never scrolls.
 export const CANVAS_W = 1280;
 export const CANVAS_H = 720;
-const MOBILE_CANVAS_W = 1024;
-const MOBILE_CANVAS_H = 576;
 
 export function SlideCanvas({ children }: { children: React.ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  const [canvasSize, setCanvasSize] = useState({ width: CANVAS_W, height: CANVAS_H });
 
   useLayoutEffect(() => {
     const el = wrapRef.current;
@@ -19,13 +16,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
     const compute = () => {
       const { width, height } = el.getBoundingClientRect();
       if (!width || !height) return;
-      const nextSize = width < 640
-        ? { width: MOBILE_CANVAS_W, height: MOBILE_CANVAS_H }
-        : { width: CANVAS_W, height: CANVAS_H };
-      setCanvasSize((prev) =>
-        prev.width === nextSize.width && prev.height === nextSize.height ? prev : nextSize,
-      );
-      setScale(Math.min(width / nextSize.width, height / nextSize.height) * 0.985);
+      setScale(Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985);
     };
     compute();
     const ro = new ResizeObserver(compute);
@@ -40,13 +31,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
       if (el) {
         const { width, height } = el.getBoundingClientRect();
         if (width && height) {
-          const nextSize = width < 640
-            ? { width: MOBILE_CANVAS_W, height: MOBILE_CANVAS_H }
-            : { width: CANVAS_W, height: CANVAS_H };
-          setCanvasSize((prev) =>
-            prev.width === nextSize.width && prev.height === nextSize.height ? prev : nextSize,
-          );
-          setScale(Math.min(width / nextSize.width, height / nextSize.height) * 0.985);
+          setScale(Math.min(width / CANVAS_W, height / CANVAS_H) * 0.985);
         }
       }
     });
@@ -58,8 +43,8 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
         <div
           className="relative shrink-0 overflow-hidden rounded-[22px] border-2 border-green-500/20 shadow-card-lg"
           style={{
-            width: canvasSize.width,
-            height: canvasSize.height,
+            width: CANVAS_W,
+            height: CANVAS_H,
             transform: `scale(${scale})`,
             transformOrigin: 'center center',
             backgroundColor: 'rgb(var(--surface))',

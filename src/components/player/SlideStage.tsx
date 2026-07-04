@@ -206,7 +206,7 @@ function StorySlideShell({
   children: React.ReactNode;
 }) {
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const bottomSpace = compact ? 'pb-[174px]' : 'pb-[208px]';
+  const bottomSpace = compact ? 'pb-[210px]' : 'pb-[242px]';
 
   return (
     <div className="relative h-full overflow-hidden">
