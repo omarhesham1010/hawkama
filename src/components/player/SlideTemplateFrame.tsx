@@ -10,7 +10,7 @@ export function SlideTemplateFrame() {
       <img
         src="/template-assets/vision-watermark.png"
         alt=""
-        className="absolute -left-[18px] -top-[4px] h-[172px] w-[330px] object-contain opacity-[0.32]"
+        className="absolute -left-[18px] -top-[4px] h-[172px] w-[330px] object-contain opacity-100"
         draggable={false}
       />
     </div>
