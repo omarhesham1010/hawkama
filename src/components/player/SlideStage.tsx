@@ -33,64 +33,177 @@ const ACCENTS = [
 
 const ACTIVE_BOX = 'border-green-600 bg-gradient-to-br from-green-500 to-green-700 shadow-glow';
 
-function nasserGuide(slide: Slide): { pose: NasserPose; line: string; side: 'left' | 'right' } {
+type NasserGuide = {
+  pose: NasserPose;
+  line: string;
+  side: 'left' | 'right';
+  key: string;
+};
+
+type NarrationSegment = {
+  start: number;
+  end: number;
+  text: string;
+};
+
+function clipDialogue(text: string, max = 112) {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  return `${clean.slice(0, max).trim()}...`;
+}
+
+function narrationSegments(text: string): NarrationSegment[] {
+  const segments: NarrationSegment[] = [];
+  let start = 0;
+  const breakChars = '،؛.؟!';
+
+  for (let i = 0; i < text.length; i += 1) {
+    if (!breakChars.includes(text[i])) continue;
+    const raw = text.slice(start, i + 1).trim();
+    if (raw) segments.push({ start, end: i + 1, text: raw });
+    start = i + 1;
+  }
+
+  const tail = text.slice(start).trim();
+  if (tail) segments.push({ start, end: text.length, text: tail });
+  return segments.length ? segments : [{ start: 0, end: text.length, text }];
+}
+
+function activeNarrationSegment(text: string, spoken: number) {
+  const segments = narrationSegments(text);
+  const pos = Math.max(0, Math.min(text.length, spoken));
+  const found = segments.findIndex((segment) => pos >= segment.start && pos <= segment.end);
+  const index = found >= 0 ? found : segments.length - 1;
+  return { segment: segments[index] ?? segments[segments.length - 1], index };
+}
+
+function activeBeat(slide: Slide, spoken: number) {
+  const beats = slide.beats ?? [];
+  if (!beats.length) return null;
+
+  let acc = 0;
+  let index = 0;
+  for (let i = 0; i < beats.length; i += 1) {
+    if (acc <= spoken) index = i;
+    acc += beats[i].text.length + 1;
+  }
+
+  return { beat: beats[index], index };
+}
+
+function pointingPose(side: 'left' | 'right'): NasserPose {
+  return side === 'left' ? 'pointRight' : 'pointLeft';
+}
+
+function tabletPose(side: 'left' | 'right'): NasserPose {
+  return side === 'left' ? 'tabletRight' : 'tabletLeft';
+}
+
+function timedPose(poses: NasserPose[], index: number): NasserPose {
+  return poses[Math.min(index, poses.length - 1)] ?? 'welcome';
+}
+
+function contentPose(slide: Slide, beat: Beat | undefined, beatIndex: number, side: 'left' | 'right'): NasserPose {
+  const unit = beat?.unit;
+  if (!unit || unit.t === 'title') return beatIndex % 2 === 0 ? 'welcome' : pointingPose(side);
+  if (unit.t === 'def') return tabletPose(side);
+  if (unit.t === 'callout') return unit.tone === 'contrast' ? 'success' : 'thinking';
+  if ([6, 7, 8, 10, 11].includes(slide.index) && beatIndex % 2 === 0) return tabletPose(side);
+  return beatIndex % 3 === 0 ? tabletPose(side) : pointingPose(side);
+}
+
+function nasserGuide(slide: Slide, spoken: number): NasserGuide {
+  if (slide.kind === 'content') {
+    const active = activeBeat(slide, spoken);
+    const side: 'left' | 'right' = slide.index % 3 === 0 ? 'right' : 'left';
+    return {
+      pose: contentPose(slide, active?.beat, active?.index ?? 0, side),
+      side,
+      key: `beat-${active?.index ?? 0}`,
+      line: clipDialogue(active?.beat?.text ?? slide.title),
+    };
+  }
+
+  const { segment, index } = activeNarrationSegment(slide.narration, spoken);
+
   if (slide.kind === 'welcome') {
     return {
-      pose: 'welcome',
+      pose: timedPose(['welcome', 'pointLeft', 'tabletLeft', 'success'], index),
       side: 'right',
-      line: 'السلام عليكم ورحمة الله وبركاته، حياكم الله. أنا ناصر وبأكون معكم في هذه الرحلة التعليمية.',
+      key: `welcome-${index}`,
+      line: clipDialogue(segment.text, 126),
     };
   }
   if (slide.kind === 'quiz') {
-    return { pose: 'question', side: 'left', line: 'وش تتوقع؟ اختر الإجابة الأقرب، وبعدها بنراجع السبب بهدوء.' };
+    return {
+      pose: timedPose(['question', 'thinking', 'tabletRight', 'success'], index),
+      side: 'left',
+      key: `quiz-${index}`,
+      line: clipDialogue(segment.text),
+    };
   }
   if (slide.kind === 'reflection') {
-    return { pose: 'thinking', side: 'right', line: 'فكر معي شوي. هنا ما نبحث عن درجة، نبحث عن نقاش وفهم أعمق.' };
+    return {
+      pose: timedPose(['thinking', 'pointLeft', 'tabletLeft', 'success'], index),
+      side: 'right',
+      key: `reflection-${index}`,
+      line: clipDialogue(segment.text),
+    };
   }
   if (slide.kind === 'completion') {
-    return { pose: 'completion', side: 'right', line: 'أحسنت. خلونا نراجع أهم ما أخذناه في هذه الوحدة.' };
+    return {
+      pose: timedPose(['completion', 'success', 'tabletLeft', 'welcome'], index),
+      side: 'right',
+      key: `completion-${index}`,
+      line: clipDialogue(segment.text, 126),
+    };
   }
   if (slide.kind === 'activity') {
-    if (slide.activity?.kind === 'scenarioDecision') {
-      return { pose: 'warning', side: 'left', line: 'هذا موقف عملي. اقرأ الحالة، ثم اختَر مسار الإجراء الصحيح.' };
-    }
-    if (slide.activity?.kind === 'flipCards') {
-      return { pose: 'thinking', side: 'left', line: 'اقلب البطاقات واحدة واحدة، وخلّ المفهوم يرتبط بالمثال.' };
-    }
-    return { pose: 'question', side: 'left', line: 'مهمتك هنا تصنّف الإجراء: هل هو حوكمة أم امتثال؟' };
+    const side: 'left' | 'right' = slide.activity?.kind === 'classification' ? 'right' : 'left';
+    const activityPoses: NasserPose[] =
+      slide.activity?.kind === 'scenarioDecision'
+        ? ['warning', 'thinking', tabletPose(side), 'success']
+        : slide.activity?.kind === 'flipCards'
+          ? ['thinking', tabletPose(side), pointingPose(side), 'success']
+          : ['question', 'thinking', tabletPose(side), 'success'];
+
+    return {
+      pose: timedPose(activityPoses, index),
+      side,
+      key: `activity-${index}`,
+      line: clipDialogue(segment.text),
+    };
   }
 
-  const side = slide.index % 3 === 0 ? 'right' : 'left';
-  const pointPose: NasserPose = side === 'left' ? 'pointRight' : 'pointLeft';
-  const tabletPose: NasserPose = side === 'left' ? 'tabletRight' : 'tabletLeft';
-
-  if ([6, 7, 9, 11].includes(slide.index)) {
-    return { pose: tabletPose, side, line: 'ركزوا معي هنا؛ هذه النقطة تربط المفهوم بالتطبيق داخل المنشأة الصحية.' };
-  }
-  if ([14, 15].includes(slide.index)) {
-    return { pose: 'thinking', side, line: 'فكر معي شوي في القرار، ثم اربطه بالسياسة والإفصاح والتوثيق.' };
-  }
-  return { pose: pointPose, side, line: 'جميل، ننتقل للنقطة التالية ونربطها بالحوكمة الصحية خطوة بخطوة.' };
+  return {
+    pose: pointingPose('left'),
+    side: 'left',
+    key: 'fallback',
+    line: clipDialogue(slide.narration),
+  };
 }
 
-function NasserStoryLayer({ slide }: { slide: Slide }) {
-  const guide = nasserGuide(slide);
+function NasserStoryLayer({ slide, spoken }: { slide: Slide; spoken: number }) {
+  const guide = nasserGuide(slide, spoken);
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const imageSize = compact ? 'h-[116px] w-[116px]' : 'h-[150px] w-[150px]';
+  const imageSize = compact ? 'h-[168px] w-[168px]' : 'h-[220px] w-[220px]';
+  const layerHeight = compact ? 'h-[152px]' : 'h-[188px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
+  const bubbleLift = compact ? 'mb-5' : 'mb-9';
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[124px] bg-gradient-to-t from-surface via-surface/95 to-transparent px-7 pb-2">
+    <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-30 ${layerHeight} overflow-visible px-7 pb-0`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
-        <div className={`flex max-w-[760px] items-end gap-3 ${rowDirection}`}>
+        <div key={guide.key} className={`flex max-w-[800px] items-end gap-3 ${rowDirection}`}>
           <img
+            key={guide.pose}
             src={POSE_SRC[guide.pose]}
             alt="ناصر المدرب"
             className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl animate-nasser-enter`}
             draggable={false}
           />
-          <div className="mb-5">
+          <div className={bubbleLift}>
             <SpeechBubble text={guide.line} side={guide.side} compact={compact} />
           </div>
         </div>
@@ -99,14 +212,14 @@ function NasserStoryLayer({ slide }: { slide: Slide }) {
   );
 }
 
-function StorySlideShell({ slide, children }: { slide: Slide; children: React.ReactNode }) {
+function StorySlideShell({ slide, spoken, children }: { slide: Slide; spoken: number; children: React.ReactNode }) {
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const bottomSpace = compact ? 'pb-[104px]' : 'pb-[132px]';
+  const bottomSpace = compact ? 'pb-[148px]' : 'pb-[184px]';
 
   return (
     <div className="relative h-full overflow-hidden">
       <div className={`h-full ${bottomSpace}`}>{children}</div>
-      <NasserStoryLayer slide={slide} />
+      <NasserStoryLayer slide={slide} spoken={spoken} />
     </div>
   );
 }
@@ -361,7 +474,7 @@ function BeatSlide({ slide, spoken }: { slide: Slide; spoken: number }) {
   );
 
   return (
-    <StorySlideShell slide={slide}>
+    <StorySlideShell slide={slide} spoken={spoken}>
       <div className="flex h-full flex-col px-9 py-5">
       {/* title (beat 0) */}
       <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
@@ -433,7 +546,7 @@ export function SlideStage({
         ? slide.content.highlights.items
         : [];
     return (
-      <StorySlideShell slide={slide}>
+      <StorySlideShell slide={slide} spoken={started ? spoken : 0}>
         <div className="flex h-full items-center gap-10 p-14">
         <div className="flex-1 animate-fade-up">
           <span className="chip mb-3 bg-gold-500/15 text-gold-600 text-sm font-bold">
@@ -481,7 +594,7 @@ export function SlideStage({
   if (slide.kind === 'activity' && slide.activity) {
     const a = slide.activity;
     return (
-      <StorySlideShell slide={slide}>
+      <StorySlideShell slide={slide} spoken={spoken}>
         <div className="flex h-full flex-col p-6">
         <TitleHead slide={slide} />
         <div className="min-h-0 flex-1 overflow-hidden animate-fade-in">
@@ -506,7 +619,7 @@ export function SlideStage({
   // Quiz
   if (slide.kind === 'quiz' && slide.quiz) {
     return (
-      <StorySlideShell slide={slide}>
+      <StorySlideShell slide={slide} spoken={spoken}>
         <div className="flex h-full flex-col p-7">
         <TitleHead slide={slide} />
         <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
@@ -523,7 +636,7 @@ export function SlideStage({
   // Reflection
   if (slide.kind === 'reflection' && slide.reflection) {
     return (
-      <StorySlideShell slide={slide}>
+      <StorySlideShell slide={slide} spoken={spoken}>
         <div className="flex h-full flex-col items-center justify-center p-8 text-center animate-fade-in">
         <TitleHead slide={slide} />
         <p className="my-4 inline-flex items-center gap-2 rounded-full bg-gold-500/10 px-4 py-1.5 text-base font-semibold text-gold-600">
@@ -548,17 +661,17 @@ export function SlideStage({
   // Completion
   if (slide.kind === 'completion') {
     return (
-      <StorySlideShell slide={slide}>
+      <StorySlideShell slide={slide} spoken={spoken}>
         <div className="relative flex h-full flex-col items-center justify-center p-10 text-center">
         <Confetti count={48} />
-        <div className="mb-3 flex justify-center animate-scale-in">
-          <CompletionMedallion className="h-24 w-24 animate-float" />
+        <div className="mb-2 flex justify-center animate-scale-in">
+          <CompletionMedallion className="h-20 w-20 animate-float" />
         </div>
         <h2 className="text-3xl font-extrabold text-brand-strong animate-fade-up">{slide.title}</h2>
-        <div className="mt-5 w-full max-w-5xl animate-fade-up text-right">
+        <div className="mt-4 w-full max-w-5xl animate-fade-up text-right">
           {slide.content?.takeaways && <LessonBlockView block={slide.content.takeaways} />}
         </div>
-        <div className="mt-6 flex items-center justify-center gap-8">
+        <div className="mt-4 flex items-center justify-center gap-8">
           <div className="text-center">
             <p className="text-2xl font-extrabold text-ink tabular">{toArabicDigits(completion.percent)}٪</p>
             <p className="text-xs text-ink-muted">نسبة الإتمام</p>
@@ -576,12 +689,12 @@ export function SlideStage({
             <p className="text-xs text-ink-muted">الأنشطة المكتملة</p>
           </div>
         </div>
-        <div className="mt-7 flex items-center justify-center gap-3">
-          <button type="button" onClick={completion.onExit} className="btn-gold px-6 py-3">
+        <div className="mt-4 flex -translate-y-20 items-center justify-center gap-3">
+          <button type="button" onClick={completion.onExit} className="btn-gold px-7 py-4 text-lg">
             <Icon name="flag" className="w-5 h-5" />
             إنهاء والعودة للمنصة
           </button>
-          <button type="button" onClick={completion.onRestart} className="btn-ghost px-6 py-3">
+          <button type="button" onClick={completion.onRestart} className="btn-ghost px-7 py-4 text-lg">
             <Icon name="flow" className="w-5 h-5" />
             إعادة الدورة
           </button>

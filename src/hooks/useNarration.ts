@@ -201,6 +201,7 @@ export function useNarration() {
 
       setStatus('loading');
       const audio = new Audio(`${base}audio/${key}.mp3`);
+      audio.preload = 'auto';
       audioRef.current = audio;
       let handledFallback = false;
       const fallback = () => {
@@ -220,7 +221,14 @@ export function useNarration() {
         setStatus('idle');
       });
       audio.addEventListener('error', fallback);
-      audio.play().catch(fallback);
+      audio.play().catch(() => {
+        // If the browser blocks autoplay for an existing MP3, do not fall back
+        // to device TTS; that would change Shakir's fixed voice on mobile.
+        setStatus('idle');
+        setSource(null);
+        sourceRef.current = null;
+        setSpeechStartedAt(null);
+      });
     },
     [speakTts, stopInternal],
   );

@@ -13,8 +13,8 @@ export function SpeechBubble({
 
   return (
     <div
-      className={`relative rounded-2xl border-2 border-green-500/25 bg-surface px-4 py-3 text-right shadow-card ${
-        compact ? 'max-w-[260px]' : 'max-w-[360px]'
+      className={`relative min-w-[220px] rounded-2xl border-2 border-green-500/25 bg-surface px-4 py-3 text-right shadow-card animate-dialogue-pop ${
+        compact ? 'max-w-[300px]' : 'max-w-[430px]'
       }`}
     >
       <span
@@ -24,7 +24,7 @@ export function SpeechBubble({
         aria-hidden="true"
       />
       <p className="mb-1 text-[13px] font-extrabold text-brand">{label}</p>
-      <p className={`${compact ? 'text-[15px]' : 'text-[17px]'} font-bold leading-relaxed text-ink-soft`}>
+      <p className={`${compact ? 'text-[16px]' : 'text-[18px]'} font-bold leading-relaxed text-ink-soft`}>
         {text}
       </p>
     </div>

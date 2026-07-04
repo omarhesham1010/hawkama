@@ -22,7 +22,7 @@ The root-level `nasser-assets/` folder is ignored by git to avoid committing dup
   Renders short coaching lines beside Nasser.
 
 - `src/components/player/SlideStage.tsx`
-  Selects the right Nasser pose and line based on slide type and context, then renders him in a fixed bottom story layer inside the slide canvas.
+  Selects the right Nasser pose and line from the active narration beat/sentence, then renders him in a fixed transparent bottom story layer inside the slide canvas.
 
 ## Pose Usage
 
@@ -39,8 +39,9 @@ The root-level `nasser-assets/` folder is ignored by git to avoid committing dup
 ## UX Rules
 
 - Nasser appears inside the 16:9 slide canvas.
-- Nasser is anchored to the bottom of each slide, with the speech bubble beside him.
+- Nasser is larger than a decorative mascot and anchored to the bottom of each slide, with a transparent area behind the character.
+- The pose and speech bubble update as the current narration beat/sentence changes.
 - Slide content reserves bottom space so Nasser does not cover text, cards, or buttons.
 - Activities, quiz, and reflection use a more compact bottom layer to preserve interaction space.
-- Mobile keeps the same slide composition through the existing scaled 16:9 player.
+- Mobile keeps the same slide composition through a narrower 16:9 authored canvas, so animation timing stays identical while text, buttons, and Nasser remain easier to see.
 - Nasser's lines are short, Saudi-friendly, and professional.

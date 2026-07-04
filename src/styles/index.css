@@ -40,7 +40,7 @@
     font-weight: 500; /* clearer, bolder Arabic text */
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
     /* creative blended mesh: green + teal + gold whispers over a soft canvas */
     background-color: rgb(var(--canvas));
     background-image:
@@ -164,15 +164,34 @@
 }
 
 .animate-nasser-enter {
-  animation: nasser-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: nasser-enter 0.72s cubic-bezier(0.2, 1, 0.3, 1) both;
+}
+
+.animate-dialogue-pop {
+  animation: dialogue-pop 0.42s cubic-bezier(0.2, 1, 0.3, 1) both;
 }
 
 @keyframes nasser-enter {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(18px) scale(0.96);
+    transform: translateY(28px) scale(0.9);
   }
-  to {
+  64% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dialogue-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }

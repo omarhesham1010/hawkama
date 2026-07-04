@@ -138,7 +138,7 @@ export function KnowledgeCheck({
           type="button"
           onClick={next}
           disabled={!answered}
-          className="btn-primary min-w-[124px] shrink-0 self-stretch px-5 py-3 text-base disabled:cursor-not-allowed disabled:opacity-40"
+          className="btn-primary min-w-[150px] shrink-0 self-stretch px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40"
         >
           {current + 1 < total ? 'التالي' : 'إنهاء'}
           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
