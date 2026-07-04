@@ -4,6 +4,7 @@ import { spokenFromAudioProgress } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 3500; // ms: if the voice never starts, reveal anyway
+const TTS_START_GUARD = 850; // ms: browsers often fire onstart before audio is audible
 
 export interface VoiceSync {
   spoken: number;
@@ -112,14 +113,15 @@ export function useVoiceSync(
         } else {
           const start = startedAtRef.current ?? speakStartRef.current ?? performance.now();
           const now = performance.now();
-          const el = Math.max(0, (now - start) / 1000);
+          const heardStart = start + TTS_START_GUARD;
+          const el = Math.max(0, (now - heardStart) / 1000);
           const hasRecentBoundary =
             charRef.current > 0 &&
             boundaryUpdatedAtRef.current != null &&
             now - boundaryUpdatedAtRef.current < 1400;
           // Follow real word boundaries when present. Safari/iOS often skips them,
-          // so only fall back to the smooth clock when no boundary data exists.
-          val = hasRecentBoundary ? charRef.current : Math.max(charRef.current, el * CPS);
+          // so only fall back to the smooth clock after the audible-start guard.
+          val = hasRecentBoundary ? charRef.current : now < heardStart ? 0 : Math.max(charRef.current, el * CPS);
         }
       } else if (performance.now() - enterRef.current > NO_VOICE_FALLBACK && charRef.current === 0) {
         // voice never started → reveal everything
