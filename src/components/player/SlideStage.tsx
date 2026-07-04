@@ -171,6 +171,7 @@ function NasserStoryLayer({
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = compact ? 'mb-5' : 'mb-9';
+  const bubbleTail = guide.side === 'right' ? 'left' : 'right';
 
   return (
     <div className={`pointer-events-none absolute inset-x-0 bottom-[38px] z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
@@ -189,7 +190,7 @@ function NasserStoryLayer({
           />
           {showDialogue && (
             <div className={bubbleLift}>
-              <SpeechBubble text={guide.line} tailTo={guide.side} compact={compact} />
+              <SpeechBubble text={guide.line} tailTo={bubbleTail} compact={compact} />
             </div>
           )}
         </div>
