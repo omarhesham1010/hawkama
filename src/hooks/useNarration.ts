@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { hasAudio } from '../data/audioManifest';
+import { storyCues } from '../lib/storyTiming';
 
 export type NarrationStatus = 'idle' | 'loading' | 'playing' | 'paused';
 export type NarrationSource = 'audio' | 'tts' | null;
@@ -162,43 +163,54 @@ export function useNarration() {
         setAudioDuration(null);
         setAudioUpdatedAt(null);
         setBoundaryUpdatedAt(null);
-        const spokenScript = `${TTS_LEAD_IN}${script}`;
-        const u = new SpeechSynthesisUtterance(spokenScript);
-        u.lang = 'ar-SA';
-        u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
-        u.pitch = 0.92;
         const voice = pickPreferredVoice(voiceURI);
-        if (voice) u.voice = voice;
-        u.onstart = () => {
-          if (token !== playTokenRef.current) return;
-          setSource('tts');
-          sourceRef.current = 'tts';
-          setStatus('playing');
-          setCharIndex(0);
-          setBoundaryUpdatedAt(null);
-          setSpeechStartedAt(performance.now());
-          startKeepAlive();
-        };
-        u.onboundary = (e) => {
-          if (token === playTokenRef.current) {
-            setCharIndex(Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length));
+        const cues = storyCues(script);
+        const queue = cues.length ? cues : [{ start: 0, end: script.length, text: script }];
+
+        queue.forEach((cue, index) => {
+          const u = new SpeechSynthesisUtterance(`${TTS_LEAD_IN}${cue.text}`);
+          u.lang = 'ar-SA';
+          u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
+          u.pitch = 0.92;
+          if (voice) u.voice = voice;
+          u.onstart = () => {
+            if (token !== playTokenRef.current) return;
+            setSource('tts');
+            sourceRef.current = 'tts';
+            setStatus('playing');
+            setCharIndex(cue.start);
             setBoundaryUpdatedAt(performance.now());
-          }
-        };
-        u.onend = () => {
-          if (token !== playTokenRef.current) return;
-          clearKeepAlive();
-          setSpeechStartedAt(null);
-          setStatus('idle');
-        };
-        u.onerror = () => {
-          if (token !== playTokenRef.current) return;
-          clearKeepAlive();
-          setSpeechStartedAt(null);
-          setStatus('idle');
-        };
-        utterRef.current = u;
-        synth.speak(u);
+            if (index === 0) {
+              setSpeechStartedAt(performance.now());
+              startKeepAlive();
+            }
+          };
+          u.onboundary = (e) => {
+            if (token === playTokenRef.current) {
+              setCharIndex(Math.min(cue.end, cue.start + Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length)));
+              setBoundaryUpdatedAt(performance.now());
+            }
+          };
+          u.onend = () => {
+            if (token !== playTokenRef.current) return;
+            setCharIndex(cue.end);
+            if (index === queue.length - 1) {
+              clearKeepAlive();
+              setSpeechStartedAt(null);
+              setStatus('idle');
+            }
+          };
+          u.onerror = () => {
+            if (token !== playTokenRef.current) return;
+            if (index === queue.length - 1) {
+              clearKeepAlive();
+              setSpeechStartedAt(null);
+              setStatus('idle');
+            }
+          };
+          if (index === 0) utterRef.current = u;
+          synth.speak(u);
+        });
       };
 
       // Only cancel (and wait briefly for it to flush) if the engine is busy.
