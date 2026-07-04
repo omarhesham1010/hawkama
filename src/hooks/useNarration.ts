@@ -44,6 +44,8 @@ export function useNarration() {
   const [source, setSource] = useState<NarrationSource>(null);
   const [charIndex, setCharIndex] = useState(0); // position of the word being spoken (TTS)
   const [speechStartedAt, setSpeechStartedAt] = useState<number | null>(null);
+  const [audioElapsed, setAudioElapsed] = useState(0);
+  const [audioDuration, setAudioDuration] = useState<number | null>(null);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [voiceURI, setVoiceURIState] = useState<string | null>(
     () => (typeof window !== 'undefined' ? window.localStorage.getItem(VOICE_KEY) : null),
@@ -136,6 +138,8 @@ export function useNarration() {
     utterRef.current = null;
     sourceRef.current = null;
     setSpeechStartedAt(null);
+    setAudioElapsed(0);
+    setAudioDuration(null);
   }, [clearKeepAlive, ttsSupported]);
 
   const speakTts = useCallback(
@@ -150,6 +154,8 @@ export function useNarration() {
 
       const doSpeak = () => {
         if (token !== playTokenRef.current) return;
+        setAudioElapsed(0);
+        setAudioDuration(null);
         const spokenScript = `${TTS_LEAD_IN}${script}`;
         const u = new SpeechSynthesisUtterance(spokenScript);
         u.lang = 'ar-SA';
@@ -204,6 +210,8 @@ export function useNarration() {
       lastRef.current = { key, script };
       setCharIndex(0);
       setSpeechStartedAt(null);
+      setAudioElapsed(0);
+      setAudioDuration(null);
 
       // No real MP3 for this key → go straight to TTS (instant, no probe delay).
       if (!hasAudio(key)) {
@@ -223,12 +231,21 @@ export function useNarration() {
         audioRef.current = null;
         speakTts(script);
       };
+      const updateAudioTime = () => {
+        if (token !== playTokenRef.current) return;
+        setAudioElapsed(audio.currentTime || 0);
+        setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
+      };
+      audio.addEventListener('loadedmetadata', updateAudioTime);
+      audio.addEventListener('durationchange', updateAudioTime);
+      audio.addEventListener('timeupdate', updateAudioTime);
       audio.addEventListener('playing', () => {
         if (token !== playTokenRef.current) {
           audio.pause();
           audio.src = '';
           return;
         }
+        updateAudioTime();
         setSource('audio');
         sourceRef.current = 'audio';
         setStatus('playing');
@@ -236,6 +253,8 @@ export function useNarration() {
       });
       audio.addEventListener('ended', () => {
         if (token !== playTokenRef.current) return;
+        setAudioElapsed(Number.isFinite(audio.duration) ? audio.duration : audio.currentTime || 0);
+        setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
         setSpeechStartedAt(null);
         setStatus('idle');
       });
@@ -248,6 +267,8 @@ export function useNarration() {
         setSource(null);
         sourceRef.current = null;
         setSpeechStartedAt(null);
+        setAudioElapsed(0);
+        setAudioDuration(null);
       });
     },
     [speakTts, stopInternal],
@@ -255,6 +276,7 @@ export function useNarration() {
 
   const pause = useCallback(() => {
     if (sourceRef.current === 'audio' && audioRef.current) {
+      setAudioElapsed(audioRef.current.currentTime || 0);
       audioRef.current.pause();
       setStatus('paused');
     } else if (sourceRef.current === 'tts' && ttsSupported) {
@@ -266,6 +288,8 @@ export function useNarration() {
 
   const resume = useCallback(() => {
     if (sourceRef.current === 'audio' && audioRef.current) {
+      setAudioElapsed(audioRef.current.currentTime || 0);
+      setAudioDuration(Number.isFinite(audioRef.current.duration) ? audioRef.current.duration : null);
       audioRef.current.play().catch(() => undefined);
       setSpeechStartedAt(performance.now());
       setStatus('playing');
@@ -298,6 +322,8 @@ export function useNarration() {
     isPaused: status === 'paused',
     charIndex,
     speechStartedAt,
+    audioElapsed,
+    audioDuration,
     ttsSupported,
     voices,
     voiceURI,

@@ -92,11 +92,11 @@ function activeBeat(slide: Slide, spoken: number) {
 }
 
 function pointingPose(side: 'left' | 'right'): NasserPose {
-  return side === 'left' ? 'pointRight' : 'pointLeft';
+  return side === 'left' ? 'pointLeft' : 'pointRight';
 }
 
 function tabletPose(side: 'left' | 'right'): NasserPose {
-  return side === 'left' ? 'tabletRight' : 'tabletLeft';
+  return side === 'left' ? 'tabletLeft' : 'tabletRight';
 }
 
 function timedPose(poses: NasserPose[], index: number): NasserPose {
@@ -127,33 +127,37 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   const { segment, index } = activeNarrationSegment(slide.narration, spoken);
 
   if (slide.kind === 'welcome') {
+    const side: 'left' | 'right' = 'right';
     return {
-      pose: timedPose(['welcome', 'pointLeft', 'tabletLeft', 'success'], index),
-      side: 'right',
+      pose: timedPose(['welcome', pointingPose(side), tabletPose(side), 'success'], index),
+      side,
       key: `welcome-${index}`,
       line: clipDialogue(segment.text, 126),
     };
   }
   if (slide.kind === 'quiz') {
+    const side: 'left' | 'right' = 'left';
     return {
-      pose: timedPose(['question', 'thinking', 'tabletRight', 'success'], index),
-      side: 'left',
+      pose: timedPose(['question', 'thinking', tabletPose(side), 'success'], index),
+      side,
       key: `quiz-${index}`,
       line: clipDialogue(segment.text),
     };
   }
   if (slide.kind === 'reflection') {
+    const side: 'left' | 'right' = 'right';
     return {
-      pose: timedPose(['thinking', 'pointLeft', 'tabletLeft', 'success'], index),
-      side: 'right',
+      pose: timedPose(['thinking', pointingPose(side), tabletPose(side), 'success'], index),
+      side,
       key: `reflection-${index}`,
       line: clipDialogue(segment.text),
     };
   }
   if (slide.kind === 'completion') {
+    const side: 'left' | 'right' = 'right';
     return {
-      pose: timedPose(['completion', 'success', 'tabletLeft', 'welcome'], index),
-      side: 'right',
+      pose: timedPose(['completion', 'success', tabletPose(side), 'welcome'], index),
+      side,
       key: `completion-${index}`,
       line: clipDialogue(segment.text, 126),
     };
