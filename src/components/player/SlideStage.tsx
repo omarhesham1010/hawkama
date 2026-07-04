@@ -185,7 +185,7 @@ function NasserStoryLayer({
           />
           {showDialogue && (
             <div className={bubbleLift}>
-              <SpeechBubble text={guide.line} side={guide.side} compact={compact} />
+              <SpeechBubble text={guide.line} tailTo={guide.side} compact={compact} />
             </div>
           )}
         </div>

@@ -1,18 +1,18 @@
 export function SpeechBubble({
   label = 'ناصر',
   text,
-  side = 'right',
+  tailTo = 'right',
   compact = false,
 }: {
   label?: string;
   text: string;
-  side?: 'left' | 'right';
+  tailTo?: 'left' | 'right';
   compact?: boolean;
 }) {
   const tail =
-    side === 'right'
-      ? '-right-[16px] top-1/2 -translate-y-1/2 [clip-path:polygon(0_0,100%_50%,0_100%)]'
-      : '-left-[16px] top-1/2 -translate-y-1/2 [clip-path:polygon(100%_0,0_50%,100%_100%)]';
+    tailTo === 'right'
+      ? '-right-[17px] top-1/2 -translate-y-1/2 border-y-[12px] border-l-[18px] border-y-transparent border-l-surface'
+      : '-left-[17px] top-1/2 -translate-y-1/2 border-y-[12px] border-r-[18px] border-y-transparent border-r-surface';
 
   return (
     <div
@@ -20,14 +20,9 @@ export function SpeechBubble({
         compact ? 'max-w-[calc(100vw-132px)] sm:max-w-[430px]' : 'max-w-[calc(100vw-132px)] sm:max-w-[620px]'
       }`}
     >
-      <span
-        className={`absolute h-[24px] w-[18px] bg-surface drop-shadow-sm ${tail}`}
-        aria-hidden="true"
-      />
+      <span className={`absolute h-0 w-0 drop-shadow-sm ${tail}`} aria-hidden="true" />
       <p className="mb-1 text-[13px] font-extrabold text-brand">{label}</p>
-      <p className={`${compact ? 'text-[16px]' : 'text-[18px]'} font-bold leading-relaxed text-ink-soft`}>
-        {text}
-      </p>
+      <p className={`${compact ? 'text-[16px]' : 'text-[18px]'} font-bold leading-relaxed text-ink-soft`}>{text}</p>
     </div>
   );
 }

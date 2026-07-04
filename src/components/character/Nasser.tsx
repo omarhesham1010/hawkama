@@ -47,7 +47,7 @@ export function Nasser({
     >
       {line && (
         <div className={`mb-2 ${side === 'right' ? 'ml-4' : 'mr-4'} animate-fade-up`}>
-          <SpeechBubble text={line} side={side} compact={size === 'sm'} />
+          <SpeechBubble text={line} tailTo={side} compact={size === 'sm'} />
         </div>
       )}
       <img
