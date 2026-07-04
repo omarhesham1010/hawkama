@@ -4,6 +4,7 @@ node_modules/
 
 *.log
 *.tsbuildinfo
+governance-scorm2004.zip
 
 .env
 .env.*

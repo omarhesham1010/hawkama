@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { loadScormProgress, resetScormProgress, saveScormProgress, terminateScorm } from '../lib/scorm2004';
 
 const STORAGE_KEY = 'gov-progress-v1';
 
@@ -22,6 +23,8 @@ const EMPTY: ProgressState = {
 
 function load(): ProgressState {
   if (typeof window === 'undefined') return EMPTY;
+  const scormState = loadScormProgress();
+  if (scormState) return { ...EMPTY, ...scormState };
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return EMPTY;
@@ -37,7 +40,18 @@ export function useProgress(totalSections: number) {
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+    saveScormProgress(state, totalSections);
+  }, [state, totalSections]);
+
+  useEffect(() => {
+    const onUnload = () => terminateScorm();
+    window.addEventListener('beforeunload', onUnload);
+    window.addEventListener('pagehide', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+      window.removeEventListener('pagehide', onUnload);
+    };
+  }, []);
 
   const markComplete = useCallback((id: string) => {
     setState((s) =>
@@ -62,6 +76,7 @@ export function useProgress(totalSections: number) {
   const reset = useCallback(() => {
     setState(EMPTY);
     window.localStorage.removeItem(STORAGE_KEY);
+    resetScormProgress();
   }, []);
 
   const percent = useMemo(() => {
