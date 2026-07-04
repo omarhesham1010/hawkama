@@ -173,7 +173,7 @@ function NasserStoryLayer({
   const bubbleLift = compact ? 'mb-5' : 'mb-9';
 
   return (
-    <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
+    <div className={`pointer-events-none absolute inset-x-0 bottom-[54px] z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
         <div key={guide.key} className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
@@ -206,7 +206,7 @@ function StorySlideShell({
   children: React.ReactNode;
 }) {
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const bottomSpace = compact ? 'pb-[210px]' : 'pb-[242px]';
+  const bottomSpace = compact ? 'pb-[254px]' : 'pb-[292px]';
   const topSpace = compact ? 'pt-[92px]' : 'pt-[106px]';
 
   return (

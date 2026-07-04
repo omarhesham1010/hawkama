@@ -11,13 +11,13 @@ export function SlideTemplateFrame() {
       <img
         src="/template-assets/moh-capability-ab3ad.png"
         alt=""
-        className="absolute right-[136px] top-[12px] h-[86px] w-[240px] object-contain"
+        className="absolute right-[330px] top-[12px] h-[86px] w-[240px] object-contain"
         draggable={false}
       />
       <img
         src="/template-assets/ministry-health.png"
         alt=""
-        className="absolute right-[20px] top-[14px] h-[56px] w-[198px] object-contain"
+        className="absolute right-[8px] top-[14px] h-[56px] w-[198px] object-contain"
         draggable={false}
       />
 
