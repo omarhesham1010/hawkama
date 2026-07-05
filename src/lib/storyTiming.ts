@@ -124,3 +124,16 @@ export function spokenFromAudioProgress(text: string, progress: number) {
 
   return text.length;
 }
+
+export function spokenFromTtsCue(
+  cueStart: number,
+  cueEnd: number,
+  elapsedSeconds: number,
+  rate: number,
+  charsPerSecond = 10.8,
+) {
+  const start = Math.max(0, cueStart);
+  const end = Math.max(start, cueEnd);
+  const elapsed = Math.max(0, elapsedSeconds);
+  return Math.min(end, start + elapsed * charsPerSecond * Math.max(0.1, rate));
+}

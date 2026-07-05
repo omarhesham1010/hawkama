@@ -46,6 +46,8 @@ export function useNarration() {
   const [charIndex, setCharIndex] = useState(0); // position of the word being spoken (TTS)
   const [boundaryUpdatedAt, setBoundaryUpdatedAt] = useState<number | null>(null);
   const [speechStartedAt, setSpeechStartedAt] = useState<number | null>(null);
+  const [ttsCueStart, setTtsCueStart] = useState(0);
+  const [ttsCueEnd, setTtsCueEnd] = useState(0);
   const [audioElapsed, setAudioElapsed] = useState(0);
   const [audioDuration, setAudioDuration] = useState<number | null>(null);
   const [audioUpdatedAt, setAudioUpdatedAt] = useState<number | null>(null);
@@ -65,6 +67,7 @@ export function useNarration() {
   const sourceRef = useRef<NarrationSource>(null);
   const keepAliveRef = useRef<number | null>(null);
   const playTokenRef = useRef(0);
+  const pauseStartedRef = useRef<number | null>(null);
 
   const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
@@ -140,6 +143,9 @@ export function useNarration() {
     utterRef.current = null;
     sourceRef.current = null;
     setSpeechStartedAt(null);
+    setTtsCueStart(0);
+    setTtsCueEnd(0);
+    pauseStartedRef.current = null;
     setBoundaryUpdatedAt(null);
     setAudioElapsed(0);
     setAudioDuration(null);
@@ -179,9 +185,11 @@ export function useNarration() {
             sourceRef.current = 'tts';
             setStatus('playing');
             setCharIndex(cue.start);
-            setBoundaryUpdatedAt(performance.now());
+            setTtsCueStart(cue.start);
+            setTtsCueEnd(cue.end);
+            setSpeechStartedAt(performance.now());
+            setBoundaryUpdatedAt(null);
             if (index === 0) {
-              setSpeechStartedAt(performance.now());
               startKeepAlive();
             }
           };
@@ -236,6 +244,8 @@ export function useNarration() {
       setCharIndex(0);
       setBoundaryUpdatedAt(null);
       setSpeechStartedAt(null);
+      setTtsCueStart(0);
+      setTtsCueEnd(0);
       setAudioElapsed(0);
       setAudioDuration(null);
       setAudioUpdatedAt(null);
@@ -314,6 +324,7 @@ export function useNarration() {
       setStatus('paused');
     } else if (sourceRef.current === 'tts' && ttsSupported) {
       clearKeepAlive();
+      pauseStartedRef.current = performance.now();
       window.speechSynthesis.pause();
       setStatus('paused');
     }
@@ -328,9 +339,12 @@ export function useNarration() {
       setSpeechStartedAt(performance.now());
       setStatus('playing');
     } else if (sourceRef.current === 'tts' && ttsSupported) {
+      const resumedAt = performance.now();
+      const pausedFor = pauseStartedRef.current == null ? 0 : resumedAt - pauseStartedRef.current;
+      setSpeechStartedAt((startedAt) => startedAt == null ? resumedAt : startedAt + pausedFor);
+      pauseStartedRef.current = null;
       window.speechSynthesis.resume();
       startKeepAlive();
-      setSpeechStartedAt(performance.now());
       setStatus('playing');
     }
   }, [startKeepAlive, ttsSupported]);
@@ -357,6 +371,8 @@ export function useNarration() {
     charIndex,
     boundaryUpdatedAt,
     speechStartedAt,
+    ttsCueStart,
+    ttsCueEnd,
     audioElapsed,
     audioDuration,
     audioUpdatedAt,

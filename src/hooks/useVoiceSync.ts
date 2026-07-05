@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
-import { spokenFromAudioProgress } from '../lib/storyTiming';
+import { spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 10000; // ms: only simulate progress after a genuine start failure
@@ -27,6 +27,8 @@ export function useVoiceSync(
   const {
     charIndex,
     speechStartedAt,
+    ttsCueStart,
+    ttsCueEnd,
     isPlaying,
     isPaused,
     nowKey,
@@ -52,6 +54,8 @@ export function useVoiceSync(
   const audioDurationRef = useRef<number | null>(null);
   const audioUpdatedAtRef = useRef<number | null>(null);
   const boundaryUpdatedAtRef = useRef<number | null>(null);
+  const ttsCueStartRef = useRef(0);
+  const ttsCueEndRef = useRef(0);
   const sourceRef = useRef<typeof source>(source);
   const rateRef = useRef(rate);
   const textRef = useRef(narrationText);
@@ -59,6 +63,8 @@ export function useVoiceSync(
   audioDurationRef.current = audioDuration;
   audioUpdatedAtRef.current = audioUpdatedAt;
   boundaryUpdatedAtRef.current = boundaryUpdatedAt;
+  ttsCueStartRef.current = ttsCueStart;
+  ttsCueEndRef.current = ttsCueEnd;
   sourceRef.current = source;
   rateRef.current = rate;
   textRef.current = narrationText;
@@ -125,11 +131,18 @@ export function useVoiceSync(
           // Follow real word boundaries when present. Safari/iOS often skips them,
           // so only fall back to the smooth clock after the audible-start guard.
           const effectiveRate = /iphone|ipad|ipod/i.test(navigator.userAgent) ? Math.min(rateRef.current, 1.08) : rateRef.current;
+          const estimatedInCue = spokenFromTtsCue(
+            ttsCueStartRef.current,
+            ttsCueEndRef.current || total,
+            el,
+            effectiveRate,
+            CPS,
+          );
           val = hasRecentBoundary
             ? charRef.current
             : now < heardStart
-              ? 0
-              : Math.max(charRef.current, el * CPS * effectiveRate);
+              ? ttsCueStartRef.current
+              : Math.max(charRef.current, estimatedInCue);
         }
       } else if (performance.now() - enterRef.current > NO_VOICE_FALLBACK && charRef.current === 0) {
         // Voice failed to start: keep a gradual narrated sequence instead of

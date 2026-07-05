@@ -10,6 +10,8 @@ interface NarrationContextValue {
   charIndex: number;
   boundaryUpdatedAt: number | null;
   speechStartedAt: number | null;
+  ttsCueStart: number;
+  ttsCueEnd: number;
   audioElapsed: number;
   audioDuration: number | null;
   audioUpdatedAt: number | null;
@@ -60,6 +62,8 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       charIndex: n.charIndex,
       boundaryUpdatedAt: n.boundaryUpdatedAt,
       speechStartedAt: n.speechStartedAt,
+      ttsCueStart: n.ttsCueStart,
+      ttsCueEnd: n.ttsCueEnd,
       audioElapsed: n.audioElapsed,
       audioDuration: n.audioDuration,
       audioUpdatedAt: n.audioUpdatedAt,
@@ -88,6 +92,8 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       n.charIndex,
       n.boundaryUpdatedAt,
       n.speechStartedAt,
+      n.ttsCueStart,
+      n.ttsCueEnd,
       n.audioElapsed,
       n.audioDuration,
       n.audioUpdatedAt,

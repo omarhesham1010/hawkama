@@ -10,6 +10,7 @@
     "audio:generate": "node scripts/generate-elevenlabs-audio.js",
     "audio:generate:force": "node scripts/generate-elevenlabs-audio.js --force",
     "audio:generate:dry-run": "node scripts/generate-elevenlabs-audio.js --dry-run",
+    "test:sync": "node scripts/validate-slide-sync.js",
     "dev": "npm run sync-audio && vite",
     "build": "npm run sync-audio && tsc -b && vite build && node scripts/write-scorm-manifest.mjs",
     "package:scorm": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm.ps1",
