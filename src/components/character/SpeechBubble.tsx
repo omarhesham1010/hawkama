@@ -21,8 +21,8 @@ export function SpeechBubble({
       }`}
     >
       <span className={`absolute h-0 w-0 drop-shadow-sm ${tail}`} aria-hidden="true" />
-      <p className="mb-1 text-[13px] font-extrabold text-brand">{label}</p>
-      <p className={`${compact ? 'text-[16px]' : 'text-[18px]'} font-bold leading-relaxed text-ink-soft`}>{text}</p>
+      <p className="mb-1 text-[15px] font-extrabold text-brand">{label}</p>
+      <p className={`${compact ? 'text-[18px]' : 'text-[20px]'} font-bold leading-relaxed text-ink-soft`}>{text}</p>
     </div>
   );
 }

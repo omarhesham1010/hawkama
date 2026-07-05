@@ -715,9 +715,9 @@ function PptTitle({ slide }: { slide: Slide }) {
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
-        <p className="mb-1 text-[15px] font-extrabold text-gold-600">{slide.ppt.eyebrow}</p>
+        <p className="mb-1 text-[17px] font-extrabold text-gold-600">{slide.ppt.eyebrow}</p>
       )}
-      <h2 className="inline-flex items-center justify-center gap-3 text-[34px] font-extrabold leading-tight text-brand-strong">
+      <h2 className="inline-flex items-center justify-center gap-3 text-[36px] font-extrabold leading-tight text-brand-strong">
         {slide.visual && (
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/20 bg-green-700/8 text-3xl shadow-sm">
             {slide.visual}
@@ -726,7 +726,7 @@ function PptTitle({ slide }: { slide: Slide }) {
         <span>{slide.title}</span>
       </h2>
       {slide.ppt?.subtitle && (
-        <p className="mt-1 text-[18px] font-bold leading-relaxed text-ink-soft">{slide.ppt.subtitle}</p>
+        <p className="mt-1 text-[20px] font-bold leading-relaxed text-ink-soft">{slide.ppt.subtitle}</p>
       )}
     </div>
   );
@@ -759,25 +759,25 @@ function PptCardView({
   const clickable = Boolean(onClick);
   const textSize = (card.title.length + (card.text?.length ?? 0) + (card.bullets?.join(' ').length ?? 0));
   const level = density ?? (textSize > 130 ? 'micro' : textSize > 110 || dense ? 'compact' : 'normal');
-  const padClass = level === 'micro' ? 'p-2.5' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
+  const padClass = level === 'micro' ? 'p-2' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
   const titleClass =
     level === 'micro'
-      ? 'text-[15.5px] leading-snug'
+      ? 'text-[17px] leading-[1.28]'
       : level === 'compact'
-        ? 'text-[17px] leading-snug'
+        ? 'text-[18.5px] leading-snug'
         : level === 'loose'
-          ? 'text-[22px] leading-tight'
-          : 'text-[20px] leading-tight';
+          ? 'text-[23px] leading-tight'
+          : 'text-[21px] leading-tight';
   const bodyClass =
     level === 'micro'
-      ? 'text-[13.3px] leading-snug'
+      ? 'text-[14.5px] leading-[1.28]'
       : level === 'compact'
-        ? 'text-[14.8px] leading-snug'
+        ? 'text-[16px] leading-snug'
         : level === 'loose'
-          ? 'text-[19px] leading-relaxed'
-        : 'text-[17px] leading-relaxed';
-  const bulletClass = level === 'micro' ? 'text-[13px] leading-snug' : level === 'compact' ? 'text-[14.5px] leading-snug' : 'text-[16px] leading-snug';
-  const indexSize = level === 'micro' ? 'h-7 w-7 text-[11px]' : 'h-8 w-8 text-[13px]';
+          ? 'text-[20px] leading-relaxed'
+        : 'text-[18px] leading-relaxed';
+  const bulletClass = level === 'micro' ? 'text-[14px] leading-[1.28]' : level === 'compact' ? 'text-[15.5px] leading-snug' : 'text-[17px] leading-snug';
+  const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
   const emojiSize = level === 'micro' ? 'h-7 w-7 text-[19px]' : level === 'compact' ? 'h-8 w-8 text-[22px]' : 'h-10 w-10 text-[28px]';
   const activeShell = active ? 'scale-[1.025] border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-glow' : PPT_ACCENTS[tone];
   const titleTone = active ? 'text-white' : 'text-brand-strong';
@@ -817,7 +817,7 @@ function PptCardView({
 
         {showTrainingDetail ? (
           <div className={`mt-1 rounded-md border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/25 bg-green-700/8'}`}>
-            <p className={`${level === 'micro' ? 'text-[13px]' : 'text-[15px]'} font-bold leading-relaxed ${bodyTone}`}>
+            <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
               {detail}
             </p>
           </div>
@@ -916,8 +916,8 @@ function PptActivitySlide({
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
         <PptTitle slide={slide} />
         <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 p-3.5 text-right shadow-sm">
-          <p className="text-[18px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
-          <p className="mt-1 text-[16px] font-bold leading-relaxed text-ink-soft">{slide.ppt?.prompt}</p>
+          <p className="text-[20px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
+          <p className="mt-1 text-[18px] font-bold leading-relaxed text-ink-soft">{slide.ppt?.prompt}</p>
         </div>
         <div className="grid min-h-0 flex-1 grid-cols-[1fr_220px] gap-3">
           {currentCard && (
@@ -937,7 +937,7 @@ function PptActivitySlide({
               type="button"
               disabled={phase !== 'awaiting-answer'}
               onClick={() => answerQuestion('حوكمة')}
-              className={`rounded-lg border-2 px-4 py-3 text-[18px] font-extrabold transition-all ${selectedAnswer === 'حوكمة' ? 'border-green-700 bg-green-700 text-white' : 'border-green-700/25 bg-green-700/8 text-green-800 hover:bg-green-700/15'}`}
+              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all ${selectedAnswer === 'حوكمة' ? 'border-green-700 bg-green-700 text-white' : 'border-green-700/25 bg-green-700/8 text-green-800 hover:bg-green-700/15'}`}
             >
               حوكمة
             </button>
@@ -945,12 +945,12 @@ function PptActivitySlide({
               type="button"
               disabled={phase !== 'awaiting-answer'}
               onClick={() => answerQuestion('امتثال')}
-              className={`rounded-lg border-2 px-4 py-3 text-[18px] font-extrabold transition-all ${selectedAnswer === 'امتثال' ? 'border-gold-600 bg-gold-500 text-white' : 'border-gold-500/35 bg-gold-500/10 text-gold-700 hover:bg-gold-500/18'}`}
+              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all ${selectedAnswer === 'امتثال' ? 'border-gold-600 bg-gold-500 text-white' : 'border-gold-500/35 bg-gold-500/10 text-gold-700 hover:bg-gold-500/18'}`}
             >
               امتثال
             </button>
             {selectedAnswer && phase === 'awaiting-next' && (
-              <button type="button" onClick={nextQuestion} className="btn-gold mt-1 justify-center px-4 py-2.5 text-[15px]">
+              <button type="button" onClick={nextQuestion} className="btn-gold mt-1 justify-center px-4 py-2.5 text-[17px]">
                 {currentStep >= cards.length - 1 ? 'إكمال النشاط' : 'السؤال التالي'}
               </button>
             )}
@@ -1055,12 +1055,12 @@ function PptGuidedScenarioSlide({
         </div>
         <div className={`mt-3 flex h-12 shrink-0 items-center justify-center gap-3 transition-all ${ready ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
           {!complete && !revealed && questionReady && (
-            <button type="button" onClick={revealDiscussion} className="btn-gold px-7 py-2.5 text-[16px]">
+            <button type="button" onClick={revealDiscussion} className="btn-gold px-7 py-2.5 text-[17px]">
               ناقش الإجابة مع ناصر
             </button>
           )}
           {!complete && revealed && discussionReady && (
-            <button type="button" onClick={nextDiscussion} className="btn-gold px-7 py-2.5 text-[16px]">
+            <button type="button" onClick={nextDiscussion} className="btn-gold px-7 py-2.5 text-[17px]">
               {step >= questionCards.length - 1 ? 'إنهاء المناقشة' : 'السؤال التالي'}
             </button>
           )}
