@@ -36,6 +36,7 @@ export function useVoiceSync(
     audioElapsed,
     audioDuration,
     audioUpdatedAt,
+    rate,
   } = useNarrationContext();
   const total = Math.max(1, narrationText.length);
 
@@ -52,12 +53,14 @@ export function useVoiceSync(
   const audioUpdatedAtRef = useRef<number | null>(null);
   const boundaryUpdatedAtRef = useRef<number | null>(null);
   const sourceRef = useRef<typeof source>(source);
+  const rateRef = useRef(rate);
   const textRef = useRef(narrationText);
   audioElapsedRef.current = audioElapsed;
   audioDurationRef.current = audioDuration;
   audioUpdatedAtRef.current = audioUpdatedAt;
   boundaryUpdatedAtRef.current = boundaryUpdatedAt;
   sourceRef.current = source;
+  rateRef.current = rate;
   textRef.current = narrationText;
 
   const isThisSlide = nowKey === audioKey;
@@ -121,12 +124,17 @@ export function useVoiceSync(
             now - boundaryUpdatedAtRef.current < 1400;
           // Follow real word boundaries when present. Safari/iOS often skips them,
           // so only fall back to the smooth clock after the audible-start guard.
-          val = hasRecentBoundary ? charRef.current : now < heardStart ? 0 : Math.max(charRef.current, el * CPS);
+          const effectiveRate = /iphone|ipad|ipod/i.test(navigator.userAgent) ? Math.min(rateRef.current, 1.08) : rateRef.current;
+          val = hasRecentBoundary
+            ? charRef.current
+            : now < heardStart
+              ? 0
+              : Math.max(charRef.current, el * CPS * effectiveRate);
         }
       } else if (performance.now() - enterRef.current > NO_VOICE_FALLBACK && charRef.current === 0) {
         // Voice failed to start: keep a gradual narrated sequence instead of
         // revealing every element at once.
-        val = ((performance.now() - enterRef.current - NO_VOICE_FALLBACK) / 1000) * CPS;
+        val = ((performance.now() - enterRef.current - NO_VOICE_FALLBACK) / 1000) * CPS * rateRef.current;
       } else {
         val = 0; // waiting for the voice to begin (title only)
       }
