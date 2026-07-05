@@ -49,6 +49,7 @@ export function useNarration() {
   const [audioElapsed, setAudioElapsed] = useState(0);
   const [audioDuration, setAudioDuration] = useState<number | null>(null);
   const [audioUpdatedAt, setAudioUpdatedAt] = useState<number | null>(null);
+  const [completedKey, setCompletedKey] = useState<string | null>(null);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [voiceURI, setVoiceURIState] = useState<string | null>(
     () => (typeof window !== 'undefined' ? window.localStorage.getItem(VOICE_KEY) : null),
@@ -146,9 +147,10 @@ export function useNarration() {
   }, [clearKeepAlive, ttsSupported]);
 
   const speakTts = useCallback(
-    (script: string) => {
+    (script: string, key: string) => {
       if (!ttsSupported) {
         setStatus('idle');
+        setCompletedKey(key);
         return;
       }
       const synth = window.speechSynthesis;
@@ -196,6 +198,7 @@ export function useNarration() {
               clearKeepAlive();
               setSpeechStartedAt(null);
               setStatus('idle');
+              setCompletedKey(key);
             }
           };
           u.onerror = () => {
@@ -204,6 +207,7 @@ export function useNarration() {
               clearKeepAlive();
               setSpeechStartedAt(null);
               setStatus('idle');
+              setCompletedKey(key);
             }
           };
           if (index === 0) utterRef.current = u;
@@ -228,6 +232,7 @@ export function useNarration() {
       stopInternal();
       const token = playTokenRef.current;
       lastRef.current = { key, script };
+      setCompletedKey(null);
       setCharIndex(0);
       setBoundaryUpdatedAt(null);
       setSpeechStartedAt(null);
@@ -237,7 +242,7 @@ export function useNarration() {
 
       // No real MP3 for this key → go straight to TTS (instant, no probe delay).
       if (!hasAudio(key)) {
-        speakTts(script);
+        speakTts(script, key);
         return;
       }
 
@@ -251,7 +256,7 @@ export function useNarration() {
         if (handledFallback) return;
         handledFallback = true;
         audioRef.current = null;
-        speakTts(script);
+        speakTts(script, key);
       };
       const updateAudioTime = () => {
         if (token !== playTokenRef.current) return;
@@ -281,6 +286,7 @@ export function useNarration() {
         setAudioUpdatedAt(performance.now());
         setSpeechStartedAt(null);
         setStatus('idle');
+        setCompletedKey(key);
       });
       audio.addEventListener('error', fallback);
       audio.play().catch(() => {
@@ -294,6 +300,7 @@ export function useNarration() {
         setAudioElapsed(0);
         setAudioDuration(null);
         setAudioUpdatedAt(null);
+        setCompletedKey(key);
       });
     },
     [speakTts, stopInternal],
@@ -353,6 +360,7 @@ export function useNarration() {
     audioElapsed,
     audioDuration,
     audioUpdatedAt,
+    completedKey,
     ttsSupported,
     voices,
     voiceURI,

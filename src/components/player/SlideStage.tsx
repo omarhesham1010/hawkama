@@ -27,7 +27,7 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
   const narration = useNarrationContext();
   const [line, setLine] = useState<string | undefined>();
   const [speechKey, setSpeechKey] = useState<string | null>(null);
-  const [observed, setObserved] = useState(false);
+  const [started, setStarted] = useState(false);
   const completionRef = useRef<(() => void) | null>(null);
   const sequenceRef = useRef(0);
 
@@ -36,6 +36,7 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
       setLine(text);
       completionRef.current = onComplete;
       if (muted || !narration.ttsSupported) {
+        setStarted(true);
         completionRef.current = null;
         onComplete();
         return;
@@ -43,7 +44,7 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
 
       sequenceRef.current += 1;
       const key = `${slide.audioKey}-${kind}-${sequenceRef.current}`;
-      setObserved(false);
+      setStarted(false);
       setSpeechKey(key);
       narration.play(key, text, slide.title);
     },
@@ -52,22 +53,22 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
 
   useEffect(() => {
     if (!speechKey || narration.nowKey !== speechKey) return;
-    if (narration.isLoading || narration.isPlaying || narration.isPaused) {
-      setObserved(true);
-      return;
-    }
-    if (observed && narration.status === 'idle') {
+    if (narration.isPlaying) setStarted(true);
+    if (narration.completedKey === speechKey) {
       const complete = completionRef.current;
       completionRef.current = null;
       setSpeechKey(null);
       complete?.();
     }
-  }, [narration.isLoading, narration.isPaused, narration.isPlaying, narration.nowKey, narration.status, observed, speechKey]);
+  }, [narration.completedKey, narration.isPlaying, narration.nowKey, speechKey]);
+
+  const visibleLine = line && (!speechKey || started || muted || !narration.ttsSupported) ? line : undefined;
 
   return {
-    line,
+    line: visibleLine,
     speak,
     speaking: Boolean(speechKey),
+    started,
   };
 }
 
@@ -877,6 +878,10 @@ function PptActivitySlide({
 
   const interactionLine =
     guidedSpeech.line ?? (activityReady && currentCard && phase === 'awaiting-answer' ? questionText(currentCard, currentStep) : undefined);
+  const currentCardVisible = currentStep === 0
+    ? spoken >= slide.narration.length * 0.5
+    : phase !== 'asking-next' || guidedSpeech.started;
+  const answerVisible = Boolean(selectedAnswer) && (phase === 'awaiting-next' || (phase === 'feedback' && guidedSpeech.started));
 
   const answerQuestion = (answer: string) => {
     if (!activityReady || phase !== 'awaiting-answer' || selectedAnswer) return;
@@ -916,9 +921,9 @@ function PptActivitySlide({
               card={currentCard}
               density="normal"
               emoji={pptEmojiFor(currentCard, slide.visual, currentStep)}
-              active={Boolean(selectedAnswer)}
-              visible={activityReady}
-              reveal={Boolean(selectedAnswer)}
+              active={answerVisible}
+              visible={currentCardVisible}
+              reveal={answerVisible}
               revealAnimation={PPT_REVEAL_ANIMS[currentStep % PPT_REVEAL_ANIMS.length]}
             />
           )}
@@ -991,6 +996,7 @@ function PptGuidedScenarioSlide({
         ? questions[step]
         : undefined;
   const interactionLine = guidedSpeech.line ?? fallbackInteractionLine;
+  const discussionVisible = revealed && (guidedSpeech.started || discussionReady);
 
   const revealDiscussion = () => {
     if (!ready || revealed || complete) return;
@@ -1043,8 +1049,8 @@ function PptGuidedScenarioSlide({
               card={currentCard}
               density="compact"
               emoji={pptEmojiFor(currentCard, slide.visual, step + 1)}
-              active={revealed}
-              visible={revealed}
+              active={discussionVisible}
+              visible={discussionVisible}
               revealAnimation={PPT_REVEAL_ANIMS[(step + 1) % PPT_REVEAL_ANIMS.length]}
             />
           )}
