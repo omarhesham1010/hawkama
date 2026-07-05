@@ -38,7 +38,12 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
   const [speechKey, setSpeechKey] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
   const completionRef = useRef<(() => void) | null>(null);
+  const lingerTimerRef = useRef<number | null>(null);
   const sync = useVoiceSync(line ?? '', speechKey ?? '', Boolean(speechKey), speechKey ?? 'guided-idle');
+
+  useEffect(() => () => {
+    if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
+  }, []);
 
   const speak = useCallback(
     (audioKey: string, text: string, onComplete: () => void) => {
@@ -64,10 +69,14 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
     if (narration.completedKey === speechKey) {
       const complete = completionRef.current;
       completionRef.current = null;
-      setSpeechKey(null);
-      setLine(undefined);
-      setStarted(false);
-      complete?.();
+      if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
+      lingerTimerRef.current = window.setTimeout(() => {
+        setSpeechKey(null);
+        setLine(undefined);
+        setStarted(false);
+        lingerTimerRef.current = null;
+        complete?.();
+      }, 1500);
     }
   }, [narration.completedKey, narration.isPlaying, narration.nowKey, speechKey]);
 

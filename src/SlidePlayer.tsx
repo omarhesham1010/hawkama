@@ -44,6 +44,7 @@ export default function SlidePlayer({
   const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [replayNonce, setReplayNonce] = useState(0);
+  const [dialogueHolding, setDialogueHolding] = useState(false);
   const skipNextAutoPlayRef = useRef(false);
 
   useEffect(() => {
@@ -97,8 +98,17 @@ export default function SlidePlayer({
 
   const voicePlaying = narration.isPlaying;
   const voicePaused = narration.isPaused;
+  useEffect(() => {
+    setDialogueHolding(false);
+    if (narration.completedKey !== slide.audioKey || sync.spoken < slide.narration.length - 1) return;
+    setDialogueHolding(true);
+    const timer = window.setTimeout(() => setDialogueHolding(false), 1500);
+    return () => window.clearTimeout(timer);
+  }, [index, narration.completedKey, replayNonce, slide.audioKey, slide.narration.length, sync.spoken]);
+
   const showDialogue =
-    voicePlaying && narration.nowKey === slide.audioKey && sync.spoken > 1 && sync.spoken < slide.narration.length;
+    narration.nowKey === slide.audioKey && sync.spoken > 1 &&
+    ((voicePlaying && sync.spoken < slide.narration.length) || dialogueHolding);
 
   const handlePlayPause = useCallback(() => {
     if (!started) {

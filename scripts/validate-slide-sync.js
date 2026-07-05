@@ -73,6 +73,10 @@ check(
     !slideStageSource.includes('muted || !narration.ttsSupported'),
   'guided activity dialogue follows the active spoken cue and MP3 playback does not depend on browser TTS support',
 );
+check(
+  slidePlayerSource.includes('dialogueHolding') && slideStageSource.includes('lingerTimerRef'),
+  'the final Nasser cue remains readable briefly after main and guided audio completes',
+);
 
 for (const slide of slides) {
   const mainAudio = catalog.get(slide.audioKey);
