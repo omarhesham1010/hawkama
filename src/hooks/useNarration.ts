@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { hasAudio } from '../data/audioManifest';
-import { storyCues } from '../lib/storyTiming';
 
 export type NarrationStatus = 'idle' | 'loading' | 'playing' | 'paused';
 export type NarrationSource = 'audio' | 'tts' | null;
@@ -8,7 +7,6 @@ export type NarrationSource = 'audio' | 'tts' | null;
 const base = import.meta.env.BASE_URL || '/';
 const VOICE_KEY = 'gov-voice';
 const RATE_KEY = 'gov-voice-rate';
-const TTS_LEAD_IN = '';
 
 // Voice preference: a "Shaker"-named voice first, then any clearly male Arabic voice.
 const SHAKER = /shaker|شاكر/i;
@@ -170,57 +168,48 @@ export function useNarration() {
         setAudioUpdatedAt(null);
         setBoundaryUpdatedAt(null);
         const voice = pickPreferredVoice(voiceURI);
-        const cues = storyCues(script);
-        const queue = cues.length ? cues : [{ start: 0, end: script.length, text: script }];
-
-        queue.forEach((cue, index) => {
-          const u = new SpeechSynthesisUtterance(`${TTS_LEAD_IN}${cue.text}`);
-          u.lang = 'ar-SA';
-          u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
-          u.pitch = 0.92;
-          if (voice) u.voice = voice;
-          u.onstart = () => {
-            if (token !== playTokenRef.current) return;
-            setSource('tts');
-            sourceRef.current = 'tts';
-            setStatus('playing');
-            setCharIndex(cue.start);
-            setTtsCueStart(cue.start);
-            setTtsCueEnd(cue.end);
-            setSpeechStartedAt(performance.now());
-            setBoundaryUpdatedAt(null);
-            if (index === 0) {
-              startKeepAlive();
-            }
-          };
-          u.onboundary = (e) => {
-            if (token === playTokenRef.current) {
-              setCharIndex(Math.min(cue.end, cue.start + Math.max(0, (e.charIndex ?? 0) - TTS_LEAD_IN.length)));
-              setBoundaryUpdatedAt(performance.now());
-            }
-          };
-          u.onend = () => {
-            if (token !== playTokenRef.current) return;
-            setCharIndex(cue.end);
-            if (index === queue.length - 1) {
-              clearKeepAlive();
-              setSpeechStartedAt(null);
-              setStatus('idle');
-              setCompletedKey(key);
-            }
-          };
-          u.onerror = () => {
-            if (token !== playTokenRef.current) return;
-            if (index === queue.length - 1) {
-              clearKeepAlive();
-              setSpeechStartedAt(null);
-              setStatus('idle');
-              setCompletedKey(key);
-            }
-          };
-          if (index === 0) utterRef.current = u;
-          synth.speak(u);
-        });
+        // One exact utterance avoids the browser-inserted gap between queued
+        // sentences and guarantees that boundary indexes match `script` exactly.
+        const u = new SpeechSynthesisUtterance(script);
+        u.lang = 'ar-SA';
+        u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
+        u.pitch = 0.92;
+        if (voice) u.voice = voice;
+        u.onstart = () => {
+          if (token !== playTokenRef.current) return;
+          setSource('tts');
+          sourceRef.current = 'tts';
+          setStatus('playing');
+          setCharIndex(0);
+          setTtsCueStart(0);
+          setTtsCueEnd(script.length);
+          setSpeechStartedAt(performance.now());
+          setBoundaryUpdatedAt(null);
+          startKeepAlive();
+        };
+        u.onboundary = (e) => {
+          if (token === playTokenRef.current) {
+            setCharIndex(Math.min(script.length, Math.max(0, e.charIndex ?? 0)));
+            setBoundaryUpdatedAt(performance.now());
+          }
+        };
+        u.onend = () => {
+          if (token !== playTokenRef.current) return;
+          setCharIndex(script.length);
+          clearKeepAlive();
+          setSpeechStartedAt(null);
+          setStatus('idle');
+          setCompletedKey(key);
+        };
+        u.onerror = () => {
+          if (token !== playTokenRef.current) return;
+          clearKeepAlive();
+          setSpeechStartedAt(null);
+          setStatus('idle');
+          setCompletedKey(key);
+        };
+        utterRef.current = u;
+        synth.speak(u);
       };
 
       // Only cancel (and wait briefly for it to flush) if the engine is busy.

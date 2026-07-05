@@ -1,4 +1,5 @@
 import { createServer } from 'vite';
+import { readFile } from 'node:fs/promises';
 
 const failures = [];
 const checks = [];
@@ -24,9 +25,18 @@ const { slides } = slidesModule;
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
 const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue } = timing;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
+const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 
 check(slides.length === 8, `primary course has 8 slides (found ${slides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
+check(
+  narrationSource.includes('new SpeechSynthesisUtterance(script)'),
+  'TTS receives the exact runtime script without text reconstruction',
+);
+check(
+  !narrationSource.includes('queue.forEach') && !narrationSource.includes('TTS_LEAD_IN'),
+  'TTS uses one continuous utterance without browser-inserted inter-sentence gaps',
+);
 
 for (const slide of slides) {
   const mainAudio = catalog.get(slide.audioKey);
