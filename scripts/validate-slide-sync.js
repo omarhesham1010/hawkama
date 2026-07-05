@@ -29,6 +29,7 @@ const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue, tt
 const { pptCardCueIndexes, scorePptCardCue } = pptTiming;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
 const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
+const slideStageSource = await readFile('src/components/player/SlideStage.tsx', 'utf8');
 
 check(slides.length === 8, `primary course has 8 slides (found ${slides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
@@ -47,6 +48,10 @@ check(
 check(
   narrationSource.includes('ttsStartGuardRef') && narrationSource.includes('speakChunk(index, retry + 1)'),
   'TTS automatically resets and retries if the first audible start stalls',
+);
+check(
+  slideStageSource.includes('slide.narration.slice(narration.ttsCueStart, narration.ttsCueEnd)'),
+  'Nasser dialogue uses the exact same character range currently sent to TTS',
 );
 
 for (const slide of slides) {
@@ -75,7 +80,7 @@ for (const slide of slides) {
   }
   check(chunks.map((chunk) => chunk.text).join('') === slide.narration, `${slide.id}: TTS chunks reconstruct the exact narration character for character`);
   check(chunks[0]?.text.length <= 96, `${slide.id}: first TTS chunk is short enough for immediate startup`);
-  check(chunks.slice(1).every((chunk) => chunk.text.length <= 760), `${slide.id}: following TTS chunks remain bounded and pre-queueable`);
+  check(chunks.slice(1).every((chunk) => chunk.text.length <= 220), `${slide.id}: following TTS chunks fit Nasser's dialogue box`);
 
   let previous = -1;
   let monotonic = true;

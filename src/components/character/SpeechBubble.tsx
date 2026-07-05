@@ -17,7 +17,7 @@ export function SpeechBubble({
   return (
     <div
       className={`relative min-w-[220px] rounded-2xl border-2 border-green-500/25 bg-surface px-4 py-3 text-right shadow-card animate-dialogue-pop ${
-        compact ? 'max-w-[430px]' : 'max-w-[620px]'
+        compact ? 'max-w-[620px]' : 'max-w-[660px]'
       }`}
     >
       <span className={`absolute h-0 w-0 drop-shadow-sm ${tail}`} aria-hidden="true" />

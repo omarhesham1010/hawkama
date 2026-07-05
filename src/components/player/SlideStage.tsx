@@ -233,8 +233,16 @@ function NasserStoryLayer({
   showDialogue: boolean;
   dialogueOverride?: string;
 }) {
+  const narration = useNarrationContext();
   const guide = nasserGuide(slide, spoken);
-  const line = dialogueOverride ?? guide.line;
+  const exactTtsLine =
+    narration.source === 'tts' &&
+    narration.isPlaying &&
+    narration.nowKey === slide.audioKey &&
+    narration.ttsCueEnd > narration.ttsCueStart
+      ? slide.narration.slice(narration.ttsCueStart, narration.ttsCueEnd).trim()
+      : undefined;
+  const line = dialogueOverride ?? exactTtsLine ?? guide.line;
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
   const imageSize = isPpt ? 'h-[218px] w-[218px]' : compact ? 'h-[200px] w-[200px]' : 'h-[250px] w-[250px]';

@@ -155,7 +155,7 @@ function chunkEndNearBoundary(text: string, start: number, limit: number) {
   return space >= minimum ? Math.min(hardEnd, space + 1) : hardEnd;
 }
 
-export function ttsChunks(text: string, firstLimit = 96, followingLimit = 760): TtsChunk[] {
+export function ttsChunks(text: string, firstLimit = 96, followingLimit = 220): TtsChunk[] {
   if (!text) return [];
   const chunks: TtsChunk[] = [];
   let start = 0;
