@@ -99,7 +99,17 @@ activity is already part of its main slide narration, so it is not generated twi
 ELEVENLABS_API_KEY=your_api_key_here
 ELEVENLABS_VOICE_ID=your_voice_id_here
 ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+ELEVENLABS_STABILITY=0.62
+ELEVENLABS_SIMILARITY_BOOST=0.78
+ELEVENLABS_STYLE=0
+ELEVENLABS_SPEAKER_BOOST=true
+ELEVENLABS_SPEED=0.97
 ```
+
+The defaults favor clear, consistent academic Arabic. The generation script also
+normalizes colons and long dashes into natural Arabic pauses before sending text.
+Numbers and ambiguous abbreviations should be written as spoken words in the
+central catalog. Do not regenerate production audio without explicit approval.
 
 Preview the complete generation plan without an API key or API requests:
 
@@ -125,6 +135,16 @@ Generate only missing files, or deliberately regenerate every catalog file after
 npm run audio:generate
 npm run audio:generate:force
 ```
+
+For a low-credit quality pilot, regenerate only representative keys first:
+
+```bash
+node scripts/generate-elevenlabs-audio.js --preview --force --keys=ppt-intro,ppt-governance-models,ppt-activity-governance-or-compliance-feedback-1-correct
+```
+
+Pilot files are written to `public/audio-pilot/` and never replace production
+audio. Long scripts are split at sentence boundaries, generated with adjacent
+text context, joined with FFmpeg, and receive a short safe lead-in before speech.
 
 MP3 files are saved as `public/audio/<key>.mp3`. Existing files are skipped by
 default, failed downloads never replace a valid file, and transient API failures
@@ -193,8 +213,8 @@ docs/
 ## ✅ ملاحظات عن أمانة المحتوى / Content fidelity
 
 - المحتوى التعليمي مأخوذ حرفياً من العرض التقديمي؛ لم تُضَف قوانين أو حقائق خارجية.
-- الأنشطة التي لا يوفّر لها العرض مفتاح إجابة رسمياً تُعرض إجاباتها بوسم
-  **«إجابة مقترحة - تحتاج مراجعة»** (انظر [`docs/needs-review.md`](docs/needs-review.md)).
+- إجابات الأنشطة تظهر مباشرةً مع تفسير سبب الاختيار، وتبقى مبرراتها موثقة في
+  [`docs/needs-review.md`](docs/needs-review.md) للرجوع الداخلي.
 - أسئلة التأمّل تبقى مفتوحة للنقاش دون تصحيح صائب/خاطئ.
 
 ---

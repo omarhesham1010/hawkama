@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ScenarioDecisionData } from '../../types/course';
 import { Icon } from '../ui/Icon';
-import { Chip, NeedsReviewTag } from '../ui/Chip';
+import { Chip } from '../ui/Chip';
 import { FeedbackBox } from '../ui/FeedbackBox';
 import { shuffle, toArabicDigits } from '../../lib/utils';
 
@@ -93,7 +93,6 @@ export function ScenarioDecisionActivity({
             </div>
             <FeedbackBox tone="review" title="ملاحظة على التحديد">
               <p>{data.identify.suggestedNote}</p>
-              <NeedsReviewTag className="mt-2" />
             </FeedbackBox>
           </div>
         )}

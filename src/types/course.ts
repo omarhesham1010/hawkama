@@ -186,7 +186,7 @@ export interface ScenarioDecisionData {
   identify: {
     question: string;
     options: { id: string; label: string; correct: boolean }[];
-    suggestedNote: string; // "إجابة مقترحة - تحتاج مراجعة" note
+    suggestedNote: string; // Educational rationale shown after answering.
     tags: string[];
   };
   correctPath: DecisionStep[]; // ordered correct response
