@@ -18,7 +18,7 @@ function HeaderBtn({
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 text-white transition-colors hover:bg-white/30"
+      className="player-header-button inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 text-white transition-colors hover:bg-white/30"
     >
       {children}
     </button>
@@ -48,7 +48,7 @@ export function PlayerHeader({
 
   return (
     <header className="relative z-30 bg-gradient-to-l from-green-800 via-green-600 to-teal-600 shadow-card-lg">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
+      <div className="player-header-row mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
         {/* logo / org */}
         <div className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1.5">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/90 text-green-700">
@@ -101,7 +101,7 @@ export function PlayerHeader({
       </div>
 
       {/* section label pill (like the client's "الأهداف" tab) */}
-      <div className="flex items-start justify-center gap-3">
+      <div className="player-section-tabs flex items-start justify-center gap-3">
         <span className="-mt-px rounded-b-xl bg-teal-800/85 px-8 py-1 text-[13px] font-semibold text-white shadow-card">
           {sectionLabel}
         </span>

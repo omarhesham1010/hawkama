@@ -11,7 +11,7 @@ export function CaptionBar({ text, audioKey, spoken }: { text: string; audioKey:
 
   return (
     <div className="shrink-0 border-t border-line bg-surface-2/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-1.5">
+      <div className="player-caption-inner mx-auto flex max-w-4xl items-center gap-2 px-4 py-1.5">
         <span
           className={`grid h-6 w-6 shrink-0 place-items-center rounded-md ${
             active ? 'bg-brand text-white' : 'bg-surface-3 text-ink-muted'

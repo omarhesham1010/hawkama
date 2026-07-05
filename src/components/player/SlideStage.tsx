@@ -14,6 +14,7 @@ import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue } from '../../lib/storyTiming';
 import { activePptCardForCue, pptCardCueIndexes } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
+import { useVoiceSync } from '../../hooks/useVoiceSync';
 import {
   conflictScenarioCompletion,
   conflictScenarioDiscussions,
@@ -37,12 +38,13 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
   const [speechKey, setSpeechKey] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
   const completionRef = useRef<(() => void) | null>(null);
+  const sync = useVoiceSync(line ?? '', speechKey ?? '', Boolean(speechKey), speechKey ?? 'guided-idle');
 
   const speak = useCallback(
     (audioKey: string, text: string, onComplete: () => void) => {
       setLine(text);
       completionRef.current = onComplete;
-      if (muted || !narration.ttsSupported) {
+      if (muted) {
         setStarted(true);
         completionRef.current = null;
         onComplete();
@@ -63,11 +65,15 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
       const complete = completionRef.current;
       completionRef.current = null;
       setSpeechKey(null);
+      setLine(undefined);
+      setStarted(false);
       complete?.();
     }
   }, [narration.completedKey, narration.isPlaying, narration.nowKey, speechKey]);
 
-  const visibleLine = line && (!speechKey || started || muted || !narration.ttsSupported) ? line : undefined;
+  const visibleLine = line && speechKey && started
+    ? activeStoryCue(line, sync.spoken).cue?.text
+    : undefined;
 
   return {
     line: visibleLine,
@@ -920,13 +926,9 @@ function PptGuidedScenarioSlide({
   const ready = spoken >= slide.narration.length * 0.72;
   const questions = conflictScenarioQuestions;
   const discussions = conflictScenarioDiscussions;
-  const fallbackInteractionLine = complete
-    ? conflictScenarioCompletion
-    : revealed && currentCard
-      ? discussions[step]
-      : ready
-        ? questions[step]
-        : undefined;
+  const fallbackInteractionLine = ready && !complete && !revealed && questionReady
+    ? questions[step]
+    : undefined;
   const interactionLine = guidedSpeech.line ?? fallbackInteractionLine;
   const discussionVisible = revealed && (guidedSpeech.started || discussionReady);
 

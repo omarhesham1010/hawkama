@@ -20,7 +20,7 @@ function CtrlButton({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className={`inline-flex items-center justify-center rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+      className={`player-control-icon inline-flex items-center justify-center rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
         primary
           ? 'h-12 w-12 text-white shadow-card'
           : 'h-10 w-10 bg-surface-2 text-ink-soft hover:text-brand hover:bg-surface-3'
@@ -61,7 +61,7 @@ export function PlayerControls({
 }) {
   return (
     <div className="shrink-0 border-t border-line bg-surface/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl items-center gap-1.5 px-2 py-2.5 sm:gap-3 sm:px-5 sm:py-3">
+      <div className="player-controls-inner mx-auto flex max-w-5xl items-center gap-1.5 px-2 py-2.5 sm:gap-3 sm:px-5 sm:py-3">
         {/* previous (points right in RTL = back) */}
         <CtrlButton onClick={onPrev} label="الشريحة السابقة" disabled={index === 0}>
           <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -134,7 +134,7 @@ export function PlayerControls({
           type="button"
           onClick={onNext}
           disabled={index === total - 1}
-          className="btn-primary shrink-0 px-3 py-2.5 text-sm disabled:cursor-not-allowed disabled:opacity-40 sm:px-4"
+          className="player-next-button btn-primary shrink-0 px-3 py-2.5 text-sm disabled:cursor-not-allowed disabled:opacity-40 sm:px-4"
         >
           <span className="hidden sm:inline">التالي</span>
           <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

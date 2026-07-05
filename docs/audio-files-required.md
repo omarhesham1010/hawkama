@@ -4,6 +4,14 @@ Generated from `src/data/audioScripts.ts`. Total required: **25**.
 
 All files belong in `public/audio/`.
 
+These 25 files are already generated and are the complete audio set required by
+the current `governance-ch1` course. Do not regenerate them unless the approved
+script or voice changes and the user explicitly approves ElevenLabs API usage.
+
+The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived
+`compliance-risk-ch1` course. They are not selected by any current `ppt-*` key,
+but remain intentionally available for that preserved deep-link course.
+
 - `ppt-intro.mp3` - نماذج وهياكل الحوكمة الصحية
 - `ppt-governance-models.mp3` - نماذج وهياكل الحوكمة الصحية
 - `ppt-framework.mp3` - تطوير وتطبيق أطر الحوكمة

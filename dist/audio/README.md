@@ -10,9 +10,14 @@ Place your narration MP3 files here (a **male** Arabic voice is preferred).
 If a file exists, the player streams it (synced to the slide timeline). Otherwise it falls
 back to the browser's Arabic TTS — automatically preferring a **male** voice.
 
-## أسماء الملفات المتوقعة / Expected file names (one per slide — 18 slides)
+## ملفات الفصل الحالي والنسخة المحفوظة / Current and archived audio files
 
-أسماء الملفات تتبع ترتيب الشرائح تلقائياً (`slide-01` … `slide-18`).
+ملفات الفصل الحالي تستخدم مفاتيح ثابتة تبدأ بـ `ppt-`، والقائمة المعتمدة موجودة في
+[`docs/audio-files-required.md`](../../docs/audio-files-required.md). الملفات مولدة بالفعل ولا تُعاد
+إلا بعد تغيير النص أو الصوت وبموافقة صريحة، لأن التوليد يستهلك رصيد ElevenLabs.
+
+ملفات `slide-01.mp3` … `slide-18.mp3` أدناه تخص نسخة الحقيبة القديمة المحفوظة
+`compliance-risk-ch1`. لا يختارها الفصل الحالي، لكنها باقية عمدًا حتى يعمل رابط النسخة القديمة بصوتها الأصلي.
 
 | الملف / File     | الشريحة / Slide                          |
 | ---------------- | ---------------------------------------- |

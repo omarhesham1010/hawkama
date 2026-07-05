@@ -205,3 +205,42 @@
     scroll-behavior: auto !important;
   }
 }
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .player-header-row {
+    height: 44px;
+    gap: 8px;
+    padding-inline: 10px;
+  }
+
+  .player-header-button,
+  .player-control-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .player-section-tabs {
+    gap: 8px;
+  }
+
+  .player-section-tabs > span {
+    padding: 2px 18px;
+    font-size: 11px;
+  }
+
+  .player-main {
+    padding: 4px 8px;
+  }
+
+  .player-caption-inner {
+    padding-block: 2px;
+  }
+
+  .player-controls-inner {
+    padding-block: 5px;
+  }
+
+  .player-next-button {
+    padding-block: 7px;
+  }
+}

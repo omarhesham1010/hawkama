@@ -52,9 +52,9 @@ npm run preview
 
 ## 🎬 المشغّل التفاعلي (Storyline-style) / The slide player
 
-الفصل مبني كـ **١٦ شريحة** (`src/data/slides.ts`). لكل شريحة:
+الفصل الحالي مبني كـ **٨ شرائح** (`src/data/slides.ts`). لكل شريحة:
 
-- `narration` + `audioKey` (مثل `slide-02`) → يشغّل `/public/audio/slide-02.mp3` إن وُجد، وإلا قراءة آلية.
+- `narration` + `audioKey` (مثل `ppt-framework`) → يشغّل `/public/audio/ppt-framework.mp3` إن وُجد، وإلا قراءة آلية.
 - `duration` (بالثواني) و`timeline`: قائمة أحداث `{ time, element, animation }` تُظهر العناصر تدريجياً.
 - `content` (عناصر الشريحة) و/أو `activity` / `quiz` / `reflection`.
 
@@ -62,8 +62,8 @@ npm run preview
 `fade-up` · `fade-in` · `slide-in` · `scale-in`. عند إعادة الشريحة تُعاد الحركة من البداية،
 وعند الإيقاف المؤقت يتوقف الخط الزمني.
 
-> **مزامنة الصوت:** يُدار الخط الزمني بساعة مستقلة (لضمان عمل الحركة مع القراءة الآلية أيضاً)،
-> ويُشغَّل السرد بالتوازي. إن استخدمت ملفات MP3، اجعل `duration` مساوياً لطول التسجيل لأفضل تزامن.
+> **مزامنة الصوت:** ملف MP3 هو ساعة الخط الزمني الأساسية؛ لا تبدأ الحركات أو النص المتدرج قبل حدث
+> `playing`، وتتبع مدة الملف الفعلية. القراءة الآلية البديلة تستخدم حدود الكلمات أو تقديرًا محليًا فقط عند غياب MP3.
 
 ## 🔊 كيف يعمل الشرح الصوتي / How narration works
 
@@ -115,7 +115,11 @@ npm run audio:check
 npm run audio:check:strict
 ```
 
-Generate only missing files, or deliberately regenerate every catalog file:
+The 25 current ElevenLabs MP3 files are already generated and committed. Do not
+regenerate them unless the narration text or approved voice changes, and only
+after explicit user approval. Generation consumes ElevenLabs credits.
+
+Generate only missing files, or deliberately regenerate every catalog file after approval:
 
 ```bash
 npm run audio:generate
@@ -175,7 +179,7 @@ src/
   types/        course.ts · slides.ts
   styles/       index.css (الثيم + الأنيميشن)
 public/
-  audio/        ملفات الشرح الصوتي (slide-01.mp3 … slide-16.mp3)
+  audio/        ملفات الفصل الحالي (ppt-*.mp3) + ملفات الحقيبة القديمة المحفوظة (slide-*.mp3)
   favicon.svg
 docs/
   audio-scripts.md · content-coverage.md · needs-review.md

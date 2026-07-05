@@ -126,16 +126,14 @@ export default function SlidePlayer({
   }, [muted, narration, playNarration]);
 
   const toggleMute = useCallback(() => {
-    setMuted((prev) => {
-      const next = !prev;
-      if (next) narration.stop();
-      else {
-        setReplayNonce((n) => n + 1);
-        narration.play(slide.audioKey, slide.narration, slide.title);
-      }
-      return next;
-    });
-  }, [narration, slide]);
+    const next = !muted;
+    setMuted(next);
+    if (next) narration.stop();
+    else {
+      setReplayNonce((n) => n + 1);
+      narration.play(slide.audioKey, slide.narration, slide.title);
+    }
+  }, [muted, narration, slide]);
 
   const restartCourse = useCallback(() => {
     progress.reset();
@@ -167,8 +165,8 @@ export default function SlidePlayer({
       />
 
       {/* Fixed 16:9 stage — scales to fit, never scrolls */}
-      <main className="relative min-h-0 flex-1 overflow-hidden px-3 py-3 sm:px-6 sm:py-4">
-        <div key={slide.id} className="h-full animate-fade-in">
+      <main className="player-main relative min-h-0 flex-1 overflow-hidden px-3 py-3 sm:px-6 sm:py-4">
+        <div key={`${slide.id}#${replayNonce}`} className="h-full animate-fade-in">
           <SlideCanvas>
             <SlideStage
               slide={slide}

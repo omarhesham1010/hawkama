@@ -30,6 +30,7 @@ const { pptCardCueIndexes, scorePptCardCue } = pptTiming;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
 const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 const slideStageSource = await readFile('src/components/player/SlideStage.tsx', 'utf8');
+const slidePlayerSource = await readFile('src/SlidePlayer.tsx', 'utf8');
 
 check(slides.length === 8, `primary course has 8 slides (found ${slides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
@@ -50,8 +51,27 @@ check(
   'TTS automatically resets and retries if the first audible start stalls',
 );
 check(
+  narrationSource.includes('new Audio(`${base}audio/${key}.mp3`)') &&
+    narrationSource.includes("audio.addEventListener('playing'") &&
+    narrationSource.includes("setSource('audio')"),
+  'existing manifest keys load their exact MP3 path and start the visual clock only from the playing event',
+);
+check(
+  narrationSource.includes('if (!hasAudio(key))') && narrationSource.includes('speakTts(script, key)'),
+  'browser TTS is reserved for keys that are missing from the audio manifest',
+);
+check(
   !slideStageSource.includes('key={`${guide.key}-${dialogueOverride'),
   'Nasser dialogue updates in place without remounting and replaying its entrance animation',
+);
+check(
+  slidePlayerSource.includes('key={`${slide.id}#${replayNonce}`}'),
+  'replay remounts the slide so stale activity dialogue and answers cannot survive',
+);
+check(
+  slideStageSource.includes('activeStoryCue(line, sync.spoken)') &&
+    !slideStageSource.includes('muted || !narration.ttsSupported'),
+  'guided activity dialogue follows the active spoken cue and MP3 playback does not depend on browser TTS support',
 );
 
 for (const slide of slides) {
