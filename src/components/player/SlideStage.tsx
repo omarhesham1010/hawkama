@@ -885,6 +885,106 @@ function PptActivitySlide({
   );
 }
 
+function PptGuidedScenarioSlide({
+  slide,
+  spoken,
+  showDialogue,
+  onActivityDone,
+}: {
+  slide: Slide;
+  spoken: number;
+  showDialogue: boolean;
+  onActivityDone: (id: string) => void;
+}) {
+  const cards = slide.ppt?.cards ?? [];
+  const scenarioCard = cards[0];
+  const questionCards = cards.slice(1);
+  const [step, setStep] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const currentCard = questionCards[step];
+  const ready = spoken >= slide.narration.length * 0.72;
+  const questions = [
+    'بعد ما عرفت السيناريو، فكر بهدوء: ما نوع المخالفة هنا؟ وهل التضارب فعلي أم محتمل؟',
+    'الآن فكر كمسؤول امتثال: ما الإجراء المؤسسي الصحيح لحماية القرار؟',
+    'السؤال الأخير: هل يكفي الإفصاح وحده؟ وما الضوابط التي تمنع أن يصبح الامتثال شكليًا؟',
+  ];
+  const answerText = currentCard
+    ? [currentCard.text, ...(currentCard.bullets ?? [])].filter(Boolean).join(' ')
+    : '';
+  const interactionLine = complete
+    ? 'ممتاز. كذا حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. الأهم أن الإفصاح بداية المعالجة وليس نهايتها.'
+    : revealed && currentCard
+      ? `خلنا نناقش الإجابة: ${currentCard.title}. ${answerText}`
+      : ready
+        ? questions[step]
+        : undefined;
+
+  const revealDiscussion = () => {
+    if (!ready || revealed || complete) return;
+    setRevealed(true);
+  };
+
+  const nextDiscussion = () => {
+    if (!revealed) return;
+    if (step >= questionCards.length - 1) {
+      setComplete(true);
+      onActivityDone(slide.id);
+      return;
+    }
+    setStep((current) => current + 1);
+    setRevealed(false);
+  };
+
+  return (
+    <StorySlideShell
+      slide={slide}
+      spoken={spoken}
+      showDialogue={showDialogue || Boolean(interactionLine)}
+      dialogueOverride={interactionLine}
+    >
+      <div className="flex h-full min-h-0 flex-col px-8 py-3">
+        <PptTitle slide={slide} />
+        <div className="grid min-h-0 flex-1 grid-cols-2 gap-3">
+          {scenarioCard && (
+            <PptCardView
+              card={scenarioCard}
+              density="normal"
+              emoji={pptEmojiFor(scenarioCard, slide.visual, 0)}
+              active={!ready}
+              visible={spoken > 0}
+              revealAnimation="animate-slide-in"
+            />
+          )}
+          {currentCard && (
+            <PptCardView
+              key={step}
+              card={currentCard}
+              density="compact"
+              emoji={pptEmojiFor(currentCard, slide.visual, step + 1)}
+              active={revealed}
+              visible={revealed}
+              revealAnimation={PPT_REVEAL_ANIMS[(step + 1) % PPT_REVEAL_ANIMS.length]}
+            />
+          )}
+        </div>
+        <div className={`mt-3 flex h-12 shrink-0 items-center justify-center gap-3 transition-all ${ready ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+          {!complete && !revealed && (
+            <button type="button" onClick={revealDiscussion} className="btn-gold px-7 py-2.5 text-[16px]">
+              ناقش الإجابة مع ناصر
+            </button>
+          )}
+          {!complete && revealed && (
+            <button type="button" onClick={nextDiscussion} className="btn-gold px-7 py-2.5 text-[16px]">
+              {step >= questionCards.length - 1 ? 'إنهاء المناقشة' : 'السؤال التالي'}
+            </button>
+          )}
+        </div>
+      </div>
+    </StorySlideShell>
+  );
+}
+
 function PptStyleSlide({
   slide,
   spoken,
@@ -907,6 +1007,9 @@ function PptStyleSlide({
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
+  if (slide.layout === 'pptScenario') {
+    return <PptGuidedScenarioSlide slide={slide} spoken={spoken} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
+  }
 
   const cards = slide.ppt?.cards ?? [];
   const narrationPosition = started ? spoken : 0;
@@ -923,14 +1026,11 @@ function PptStyleSlide({
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
   const isTwoPanel = slide.layout === 'pptTwoPanels';
-  const isScenario = slide.layout === 'pptScenario';
   const dense = slide.layout === 'pptThreeColumns' || slide.layout === 'pptSixCards' || slide.layout === 'pptTitleCards';
 
   const gridClass = isThree
     ? 'grid-cols-3 grid-rows-1'
-    : isScenario
-      ? 'grid-cols-2 grid-rows-2'
-      : isTwoPanel
+    : isTwoPanel
         ? 'grid-cols-2 grid-rows-1'
       : cards.length <= 3
         ? 'grid-cols-3 grid-rows-1'
@@ -938,9 +1038,7 @@ function PptStyleSlide({
   const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined =
     slide.layout === 'pptThreeColumns'
       ? 'compact'
-      : isScenario
-        ? 'compact'
-        : isTwoPanel
+      : isTwoPanel
         ? 'normal'
           : undefined;
   const toggleCard = (i: number) => {

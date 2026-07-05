@@ -332,10 +332,16 @@ const pptSlides: Slide[] = [
   },
 ];
 
+const guidedNarrationOverrides: Partial<Record<string, string>> = {
+  'ppt-conflict-scenario':
+    'نأخذ الآن سيناريو تدريبيًا في تضارب المصالح. موظف في لجنة شراء أجهزة طبية لديه أسهم أو مصلحة تجارية مع إحدى الشركات المتنافسة. لاحظ أن الموظف يشارك في بيئة قرار قد تتأثر فيها المصلحة العامة بمصلحة شخصية. لا نستعجل الإجابة. فكر أولًا: ما نوع المخالفة هنا؟ وهل تضارب المصالح فعلي أم محتمل؟ بعد ما تحدد رأيك، اضغط زر مناقشة الإجابة حتى نحللها معًا.',
+};
+
 export const slides: Slide[] = pptSlides.map((slide, index) => ({
   ...slide,
   index: index + 1,
   audioKey: slide.audioKey || slide.id,
+  narration: guidedNarrationOverrides[slide.id] ?? slide.narration,
   timeline: slide.timeline ?? emptyTimeline,
 }));
 
