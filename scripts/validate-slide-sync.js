@@ -50,8 +50,8 @@ check(
   'TTS automatically resets and retries if the first audible start stalls',
 );
 check(
-  slideStageSource.includes('slide.narration.slice(narration.ttsCueStart, narration.ttsCueEnd)'),
-  'Nasser dialogue uses the exact same character range currently sent to TTS',
+  !slideStageSource.includes('key={`${guide.key}-${dialogueOverride'),
+  'Nasser dialogue updates in place without remounting and replaying its entrance animation',
 );
 
 for (const slide of slides) {
@@ -62,6 +62,7 @@ for (const slide of slides) {
   const cues = storyCues(slide.narration);
   const chunks = ttsChunks(slide.narration);
   check(cues.length > 0, `${slide.id}: narration has cues`);
+  check(cues.every((cue) => cue.text.length <= 118), `${slide.id}: dialogue cues stay compact enough for Nasser's box`);
   check(cues.every((cue) => cue.start >= 0 && cue.end > cue.start && cue.end <= slide.narration.length), `${slide.id}: cue bounds are valid`);
   check(cues.every((cue, index) => index === 0 || cue.start >= cues[index - 1].end), `${slide.id}: cues are ordered without overlap`);
 
