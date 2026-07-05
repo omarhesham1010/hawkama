@@ -595,13 +595,22 @@ function pptCardCueIndexes(cards: PptCard[], narration: string) {
     if (cardIndex >= 0 && direct[cardIndex] < 0) direct[cardIndex] = cueIndex;
   });
 
-  let previous = 0;
+  let previous = -1;
   return direct.map((cueIndex, cardIndex) => {
     const proportional = Math.floor(((cardIndex + 1) * cues.length) / (cards.length + 1));
-    const next = Math.max(previous, cueIndex >= 0 ? cueIndex : proportional);
+    const next = Math.max(previous + 1, cueIndex >= 0 ? cueIndex : proportional);
     previous = Math.min(cues.length - 1, next);
     return previous;
   });
+}
+
+function activePptCardForCue(revealCueIndexes: number[], cueIndex: number) {
+  let active = -1;
+  for (let index = 0; index < revealCueIndexes.length; index += 1) {
+    if (cueIndex < revealCueIndexes[index]) break;
+    active = index;
+  }
+  return active;
 }
 
 function pptDetailFor(card: PptCard) {
@@ -902,10 +911,12 @@ function PptStyleSlide({
   const cards = slide.ppt?.cards ?? [];
   const narrationPosition = started ? spoken : 0;
   const cueState = activeStoryCue(slide.narration, narrationPosition);
-  const currentCue = cueState.cue?.text ?? '';
-  const activeCard = activePptCardIndex(cards, currentCue);
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
   const narrationFinished = narrationPosition >= slide.narration.length - 1;
+  const activeCard =
+    narrationPosition > 0 && !narrationFinished
+      ? activePptCardForCue(revealCueIndexes, cueState.index)
+      : -1;
   const cardIsVisible = (index: number) =>
     narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const isIntro = slide.layout === 'pptIntro';
