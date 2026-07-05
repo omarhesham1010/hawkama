@@ -37,6 +37,14 @@ check(
   !narrationSource.includes('TTS_LEAD_IN'),
   'TTS does not add any prefix or suffix to narration text',
 );
+check(
+  narrationSource.includes('speakChunk(index + 1)') && !narrationSource.includes('chunks.forEach'),
+  'TTS queues each following chunk only after the current chunk ends',
+);
+check(
+  narrationSource.includes('ttsStartGuardRef') && narrationSource.includes('speakChunk(index, retry + 1)'),
+  'TTS automatically resets and retries if the first audible start stalls',
+);
 
 for (const slide of slides) {
   const mainAudio = catalog.get(slide.audioKey);

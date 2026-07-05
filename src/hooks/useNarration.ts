@@ -65,6 +65,7 @@ export function useNarration() {
   const lastRef = useRef<{ key: string; script: string } | null>(null);
   const sourceRef = useRef<NarrationSource>(null);
   const keepAliveRef = useRef<number | null>(null);
+  const ttsStartGuardRef = useRef<number | null>(null);
   const playTokenRef = useRef(0);
   const pauseStartedRef = useRef<number | null>(null);
 
@@ -114,6 +115,13 @@ export function useNarration() {
     }
   }, []);
 
+  const clearTtsStartGuard = useCallback(() => {
+    if (ttsStartGuardRef.current != null) {
+      clearTimeout(ttsStartGuardRef.current);
+      ttsStartGuardRef.current = null;
+    }
+  }, []);
+
   // Chrome silently stops utterances longer than ~15s; pinging resume() keeps it alive.
   const startKeepAlive = useCallback(() => {
     clearKeepAlive();
@@ -127,6 +135,7 @@ export function useNarration() {
   const stopInternal = useCallback(() => {
     playTokenRef.current += 1;
     clearKeepAlive();
+    clearTtsStartGuard();
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -149,7 +158,7 @@ export function useNarration() {
     setAudioElapsed(0);
     setAudioDuration(null);
     setAudioUpdatedAt(null);
-  }, [clearKeepAlive, ttsSupported]);
+  }, [clearKeepAlive, clearTtsStartGuard, ttsSupported]);
 
   const speakTts = useCallback(
     (script: string, key: string) => {
@@ -170,14 +179,36 @@ export function useNarration() {
         setBoundaryUpdatedAt(null);
         const voice = pickPreferredVoice(voiceURI);
         const chunks = ttsChunks(script);
-        chunks.forEach((chunk, index) => {
+        let activeAttempt = 0;
+
+        const finish = () => {
+          clearTtsStartGuard();
+          clearKeepAlive();
+          setSpeechStartedAt(null);
+          setStatus('idle');
+          setCompletedKey(key);
+        };
+
+        const speakChunk = (index: number, retry = 0) => {
+          if (token !== playTokenRef.current) return;
+          const chunk = chunks[index];
+          if (!chunk) {
+            finish();
+            return;
+          }
+
+          activeAttempt += 1;
+          const attempt = activeAttempt;
+          let started = false;
           const u = new SpeechSynthesisUtterance(chunk.text);
           u.lang = 'ar-SA';
           u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
           u.pitch = 0.92;
           if (voice) u.voice = voice;
           u.onstart = () => {
-            if (token !== playTokenRef.current) return;
+            if (token !== playTokenRef.current || attempt !== activeAttempt) return;
+            started = true;
+            clearTtsStartGuard();
             setSource('tts');
             sourceRef.current = 'tts';
             setStatus('playing');
@@ -189,33 +220,51 @@ export function useNarration() {
             if (index === 0) startKeepAlive();
           };
           u.onboundary = (e) => {
-            if (token === playTokenRef.current) {
+            if (token === playTokenRef.current && attempt === activeAttempt) {
               setCharIndex(Math.min(chunk.end, chunk.start + Math.max(0, e.charIndex ?? 0)));
               setBoundaryUpdatedAt(performance.now());
             }
           };
           u.onend = () => {
-            if (token !== playTokenRef.current) return;
+            if (token !== playTokenRef.current || attempt !== activeAttempt) return;
+            clearTtsStartGuard();
             setCharIndex(chunk.end);
             if (index === chunks.length - 1) {
-              clearKeepAlive();
-              setSpeechStartedAt(null);
-              setStatus('idle');
-              setCompletedKey(key);
+              finish();
+            } else {
+              speakChunk(index + 1);
             }
           };
           u.onerror = () => {
-            if (token !== playTokenRef.current) return;
-            if (index === chunks.length - 1) {
-              clearKeepAlive();
-              setSpeechStartedAt(null);
-              setStatus('idle');
-              setCompletedKey(key);
+            if (token !== playTokenRef.current || attempt !== activeAttempt) return;
+            clearTtsStartGuard();
+            if (!started && retry < 2) {
+              activeAttempt += 1;
+              window.setTimeout(() => speakChunk(index, retry + 1), 40);
+              return;
             }
+            finish();
           };
           if (index === 0) utterRef.current = u;
+          synth.resume();
           synth.speak(u);
-        });
+
+          const guardDelay = retry === 0 ? 1100 : retry === 1 ? 1700 : 2600;
+          ttsStartGuardRef.current = window.setTimeout(() => {
+            if (token !== playTokenRef.current || attempt !== activeAttempt || started) return;
+            activeAttempt += 1;
+            synth.cancel();
+            synth.resume();
+            clearTtsStartGuard();
+            if (retry < 2) {
+              window.setTimeout(() => speakChunk(index, retry + 1), 40);
+            } else {
+              finish();
+            }
+          }, guardDelay);
+        };
+
+        speakChunk(0);
       };
 
       // Only cancel (and wait briefly for it to flush) if the engine is busy.
@@ -227,7 +276,7 @@ export function useNarration() {
         doSpeak();
       }
     },
-    [rate, voiceURI, ttsSupported, startKeepAlive, clearKeepAlive],
+    [rate, voiceURI, ttsSupported, startKeepAlive, clearKeepAlive, clearTtsStartGuard],
   );
 
   const play = useCallback(
