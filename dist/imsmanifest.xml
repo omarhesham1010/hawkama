@@ -32,9 +32,34 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-BWQQQtX3.js" />
+      <file href="assets/index-0R0cFUeX.js" />
       <file href="assets/index-BZAsqRRS.css" />
       <file href="audio/README.md" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-1-correct.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-1-incorrect.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-2-correct.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-2-incorrect.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-3-correct.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-3-incorrect.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-4-correct.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-feedback-4-incorrect.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-question-2.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-question-3.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance-question-4.mp3" />
+      <file href="audio/ppt-activity-governance-or-compliance.mp3" />
+      <file href="audio/ppt-conclusion.mp3" />
+      <file href="audio/ppt-conflict-scenario-complete.mp3" />
+      <file href="audio/ppt-conflict-scenario-discussion-1.mp3" />
+      <file href="audio/ppt-conflict-scenario-discussion-2.mp3" />
+      <file href="audio/ppt-conflict-scenario-discussion-3.mp3" />
+      <file href="audio/ppt-conflict-scenario-question-2.mp3" />
+      <file href="audio/ppt-conflict-scenario-question-3.mp3" />
+      <file href="audio/ppt-conflict-scenario.mp3" />
+      <file href="audio/ppt-ethics-conflict.mp3" />
+      <file href="audio/ppt-framework.mp3" />
+      <file href="audio/ppt-governance-compliance.mp3" />
+      <file href="audio/ppt-governance-models.mp3" />
+      <file href="audio/ppt-intro.mp3" />
       <file href="audio/slide-01.mp3" />
       <file href="audio/slide-02.mp3" />
       <file href="audio/slide-03.mp3" />

@@ -5,6 +5,7 @@ import { createServer, loadEnv } from 'vite';
 const ROOT = process.cwd();
 const AUDIO_DIR = join(ROOT, 'public', 'audio');
 const DOCS_FILE = join(ROOT, 'docs', 'audio-scripts.md');
+const REQUIRED_DOCS_FILE = join(ROOT, 'docs', 'audio-files-required.md');
 const args = new Set(process.argv.slice(2));
 const force = args.has('--force');
 const dryRun = args.has('--dry-run');
@@ -61,7 +62,13 @@ async function writeDocumentation(items) {
     `| Key | Title | Category | Script text | Expected file |\n` +
     `| --- | --- | --- | --- | --- |\n${rows.join('\n')}\n`;
   await writeFile(DOCS_FILE, content, 'utf8');
+  const requiredFiles = items.map((entry) => `- \`${entry.key}.mp3\` - ${entry.title}`).join('\n');
+  const requiredContent = `# Required Audio Files\n\n` +
+    `Generated from \`src/data/audioScripts.ts\`. Total required: **${items.length}**.\n\n` +
+    `All files belong in \`public/audio/\`.\n\n${requiredFiles}\n`;
+  await writeFile(REQUIRED_DOCS_FILE, requiredContent, 'utf8');
   console.log(`documentation: ${DOCS_FILE}`);
+  console.log(`documentation: ${REQUIRED_DOCS_FILE}`);
 }
 
 async function exists(path) {

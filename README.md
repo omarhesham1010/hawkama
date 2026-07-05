@@ -107,6 +107,14 @@ Preview the complete generation plan without an API key or API requests:
 npm run audio:generate:dry-run
 ```
 
+Check current coverage before or after generation. Strict mode exits with a
+non-zero status while any required MP3 is missing:
+
+```bash
+npm run audio:check
+npm run audio:check:strict
+```
+
 Generate only missing files, or deliberately regenerate every catalog file:
 
 ```bash
