@@ -23,19 +23,19 @@ try {
 const { slides } = slidesModule;
 
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
-const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue } = timing;
+const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue, ttsChunks } = timing;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
 const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 
 check(slides.length === 8, `primary course has 8 slides (found ${slides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
 check(
-  narrationSource.includes('new SpeechSynthesisUtterance(script)'),
-  'TTS receives the exact runtime script without text reconstruction',
+  narrationSource.includes('ttsChunks(script)'),
+  'TTS uses fast-start chunks instead of waiting to prepare a full long narration',
 );
 check(
-  !narrationSource.includes('queue.forEach') && !narrationSource.includes('TTS_LEAD_IN'),
-  'TTS uses one continuous utterance without browser-inserted inter-sentence gaps',
+  !narrationSource.includes('TTS_LEAD_IN'),
+  'TTS does not add any prefix or suffix to narration text',
 );
 
 for (const slide of slides) {
@@ -44,9 +44,13 @@ for (const slide of slides) {
   check(mainAudio?.text === slide.narration, `${slide.id}: catalog text exactly matches runtime narration`);
 
   const cues = storyCues(slide.narration);
+  const chunks = ttsChunks(slide.narration);
   check(cues.length > 0, `${slide.id}: narration has cues`);
   check(cues.every((cue) => cue.start >= 0 && cue.end > cue.start && cue.end <= slide.narration.length), `${slide.id}: cue bounds are valid`);
   check(cues.every((cue, index) => index === 0 || cue.start >= cues[index - 1].end), `${slide.id}: cues are ordered without overlap`);
+  check(chunks.map((chunk) => chunk.text).join('') === slide.narration, `${slide.id}: TTS chunks reconstruct the exact narration character for character`);
+  check(chunks[0]?.text.length <= 220, `${slide.id}: first TTS chunk is short enough for fast startup`);
+  check(chunks.slice(1).every((chunk) => chunk.text.length <= 760), `${slide.id}: following TTS chunks remain bounded and pre-queueable`);
 
   let previous = -1;
   let monotonic = true;

@@ -137,3 +137,33 @@ export function spokenFromTtsCue(
   const elapsed = Math.max(0, elapsedSeconds);
   return Math.min(end, start + elapsed * charsPerSecond * Math.max(0.1, rate));
 }
+
+export interface TtsChunk {
+  start: number;
+  end: number;
+  text: string;
+}
+
+function chunkEndNearBoundary(text: string, start: number, limit: number) {
+  const hardEnd = Math.min(text.length, start + limit);
+  if (hardEnd >= text.length) return text.length;
+  const minimum = start + Math.floor(limit * 0.55);
+  for (let index = hardEnd; index >= minimum; index -= 1) {
+    if (/[.؟!؛،\n]/.test(text[index - 1] ?? '')) return index;
+  }
+  const space = text.lastIndexOf(' ', hardEnd);
+  return space >= minimum ? space + 1 : hardEnd;
+}
+
+export function ttsChunks(text: string, firstLimit = 220, followingLimit = 760): TtsChunk[] {
+  if (!text) return [];
+  const chunks: TtsChunk[] = [];
+  let start = 0;
+  while (start < text.length) {
+    const limit = chunks.length === 0 ? firstLimit : followingLimit;
+    const end = chunkEndNearBoundary(text, start, limit);
+    chunks.push({ start, end, text: text.slice(start, end) });
+    start = end;
+  }
+  return chunks;
+}
