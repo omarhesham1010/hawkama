@@ -171,12 +171,15 @@ function NasserStoryLayer({
   slide,
   spoken,
   showDialogue,
+  dialogueOverride,
 }: {
   slide: Slide;
   spoken: number;
   showDialogue: boolean;
+  dialogueOverride?: string;
 }) {
   const guide = nasserGuide(slide, spoken);
+  const line = dialogueOverride ?? guide.line;
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
   const imageSize = isPpt ? 'h-[218px] w-[218px]' : compact ? 'h-[200px] w-[200px]' : 'h-[250px] w-[250px]';
@@ -191,7 +194,7 @@ function NasserStoryLayer({
   return (
     <div className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
-        <div key={guide.key} className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
+        <div key={`${guide.key}-${dialogueOverride ?? ''}`} className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
             key={displayPose}
             src={POSE_SRC[displayPose]}
@@ -205,7 +208,7 @@ function NasserStoryLayer({
           />
           {showDialogue && (
             <div className={bubbleLift}>
-              <SpeechBubble text={guide.line} tailTo={bubbleTail} compact={compact} />
+              <SpeechBubble text={line} tailTo={bubbleTail} compact={compact} />
             </div>
           )}
         </div>
@@ -218,11 +221,13 @@ function StorySlideShell({
   slide,
   spoken,
   showDialogue,
+  dialogueOverride,
   children,
 }: {
   slide: Slide;
   spoken: number;
   showDialogue: boolean;
+  dialogueOverride?: string;
   children: React.ReactNode;
 }) {
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
@@ -233,7 +238,7 @@ function StorySlideShell({
   return (
     <div className="relative h-full overflow-hidden">
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
-      <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} />
+      <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
   );
 }
@@ -568,6 +573,26 @@ function pptEmojiFor(card: PptCard, fallback?: string) {
   return match?.emoji ?? fallback ?? '💡';
 }
 
+function pptDetailFor(card: PptCard) {
+  const text = `${card.title} ${card.text ?? ''}`;
+  if (text.includes('حوكمة') || text.includes('الإطار')) {
+    return 'حدد صاحب القرار، جهة المراجعة، ودليل التوثيق.';
+  }
+  if (text.includes('امتثال') || text.includes('التطبيق')) {
+    return 'حول المتطلب إلى ضابط قابل للقياس وتابع الفجوة.';
+  }
+  if (text.includes('أخلاقيات') || text.includes('نزاهة') || text.includes('تضارب')) {
+    return 'تحقق من الحياد والإفصاح وتوثيق المعالجة.';
+  }
+  if (text.includes('سيناريو') || text.includes('مخالفة')) {
+    return 'اربط الحالة بالمخاطر ثم اختر الإجراء الأنسب.';
+  }
+  if (text.includes('مجلس') || text.includes('لجنة') || text.includes('لجان')) {
+    return 'ميز بين التوجيه والتنفيذ والرقابة.';
+  }
+  return 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
+}
+
 function activePptCardIndex(cards: PptCard[], cueText: string) {
   const cueWords = wordsOf(cueText);
   if (!cueWords.length) return -1;
@@ -619,6 +644,7 @@ function PptCardView({
   density,
   emoji,
   active = false,
+  detail,
   reveal,
   onClick,
 }: {
@@ -627,13 +653,14 @@ function PptCardView({
   density?: 'loose' | 'normal' | 'compact' | 'micro';
   emoji?: string;
   active?: boolean;
+  detail?: string;
   reveal?: boolean;
   onClick?: () => void;
 }) {
   const tone = card.tone ?? 'green';
   const clickable = Boolean(onClick);
   const textSize = (card.title.length + (card.text?.length ?? 0) + (card.bullets?.join(' ').length ?? 0));
-  const level = density ?? (textSize > 180 ? 'micro' : textSize > 115 || dense ? 'compact' : 'normal');
+  const level = density ?? (textSize > 130 ? 'micro' : textSize > 110 || dense ? 'compact' : 'normal');
   const padClass = level === 'micro' ? 'p-2.5' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
   const titleClass =
     level === 'micro'
@@ -659,11 +686,15 @@ function PptCardView({
   const bodyTone = active ? 'text-green-50' : 'text-ink';
   const tileTone = active ? 'border-white/30 bg-white/20 text-white shadow-card' : tone === 'gold' ? 'border-gold-500/30 bg-gold-500/12' : 'border-green-700/20 bg-green-700/8';
   const topBar = active ? 'bg-gold-400' : tone === 'gold' ? 'bg-gold-500' : 'bg-green-700';
+  const showAnswerDetail = reveal && Boolean(card.answer);
+  const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
   return (
     <button
       type="button"
       disabled={!clickable}
       onClick={onClick}
+      data-ppt-card="true"
+      aria-label={clickable ? `${card.title} - ${showTrainingDetail ? 'العودة للنص الأساسي' : 'عرض التفصيل'}` : card.title}
       className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 ${
         activeShell
       } ${clickable ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
@@ -680,18 +711,24 @@ function PptCardView({
               {card.index}
             </span>
           )}
-          <h3 className={`${titleClass} font-extrabold ${titleTone}`}>
-            {card.title}
+          <h3 className={`${showAnswerDetail ? 'text-[18px] leading-tight' : titleClass} font-extrabold ${titleTone}`}>
+            {showAnswerDetail ? `التصنيف: ${card.answer}` : card.title}
           </h3>
         </div>
 
-        {card.text && (
+        {showTrainingDetail ? (
+          <div className={`mt-1 rounded-md border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/25 bg-green-700/8'}`}>
+            <p className={`${level === 'micro' ? 'text-[13px]' : 'text-[15px]'} font-bold leading-relaxed ${bodyTone}`}>
+              {detail}
+            </p>
+          </div>
+        ) : card.text && (
           <p className={`${bodyClass} whitespace-pre-line font-bold ${bodyTone}`}>
             {card.text}
           </p>
         )}
 
-        {card.bullets && (
+        {!showTrainingDetail && !showAnswerDetail && card.bullets && (
           <ul className={`${level === 'micro' ? 'mt-1 space-y-1' : 'mt-1.5 space-y-1.5'}`}>
             {card.bullets.map((bullet, i) => (
               <li key={i} className={`${bulletClass} flex gap-2 font-bold ${bodyTone}`}>
@@ -702,12 +739,12 @@ function PptCardView({
           </ul>
         )}
 
-        {reveal && card.answer && (
-          <div className="mt-auto rounded-md border border-green-700/25 bg-green-700/8 p-2.5">
-            <p className="text-[17px] font-extrabold text-green-800">{card.answer}</p>
-            {card.rationale && <p className="mt-1 text-[14px] font-bold leading-snug text-ink-soft">{card.rationale}</p>}
-          </div>
+        {clickable && !card.answer && (
+          <span className={`mt-auto inline-grid h-6 w-6 place-items-center self-end rounded-full text-[15px] font-extrabold ${active ? 'bg-white/20 text-white' : 'bg-green-700/10 text-green-800'}`}>
+            {showTrainingDetail ? '↩' : '+'}
+          </span>
         )}
+
       </div>
     </button>
   );
@@ -728,8 +765,14 @@ function PptActivitySlide({
   const currentCue = activeStoryCue(slide.narration, spoken).cue?.text ?? '';
   const activeCard = activePptCardIndex(cards, currentCue);
   const [revealed, setRevealed] = useState<Set<number>>(() => new Set());
+  const [lastChoice, setLastChoice] = useState<number | null>(null);
+  const interactionLine =
+    lastChoice !== null && cards[lastChoice]?.answer
+      ? `ممتاز. هذه الحالة تصنف كـ ${cards[lastChoice].answer}. ${cards[lastChoice].rationale ?? 'قارنها بباقي الحالات وحدد طبيعة القرار أو المتابعة.'}`
+      : undefined;
 
   const revealCard = (i: number) => {
+    setLastChoice(i);
     setRevealed((prev) => {
       const next = new Set(prev);
       next.add(i);
@@ -739,7 +782,7 @@ function PptActivitySlide({
   };
 
   return (
-    <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
+    <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue || Boolean(interactionLine)} dialogueOverride={interactionLine}>
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
         <PptTitle slide={slide} />
         <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 p-3.5 text-right shadow-sm">
@@ -753,7 +796,7 @@ function PptActivitySlide({
               card={card}
               density="compact"
               emoji={pptEmojiFor(card, slide.visual)}
-              active={activeCard === i}
+              active={activeCard === i || revealed.has(i)}
               reveal={revealed.has(i)}
               onClick={() => revealCard(i)}
             />
@@ -781,6 +824,8 @@ function PptStyleSlide({
   onActivityDone: (id: string) => void;
   completion: CompletionInfo;
 }) {
+  const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
+
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
@@ -805,11 +850,17 @@ function PptStyleSlide({
         ? 'grid-cols-3 grid-rows-1'
         : 'grid-cols-3 grid-rows-2';
   const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined =
-    slide.layout === 'pptThreeColumns' || slide.layout === 'pptTitleCards'
+    slide.layout === 'pptThreeColumns'
       ? 'compact'
-      : isTwoPanel || isScenario
+      : isScenario
+        ? 'compact'
+        : isTwoPanel
         ? 'normal'
           : undefined;
+  const toggleCard = (i: number) => {
+    const key = `${slide.id}:${i}`;
+    setExpandedCardKey((current) => (current === key ? null : key));
+  };
 
   return (
     <StorySlideShell slide={slide} spoken={started ? spoken : 0} showDialogue={showDialogue}>
@@ -835,7 +886,10 @@ function PptStyleSlide({
                   card={card}
                   density="normal"
                   emoji={pptEmojiFor(card, slide.visual)}
-                  active={activeCard === i}
+                  active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
+                  detail={pptDetailFor(card)}
+                  reveal={expandedCardKey === `${slide.id}:${i}`}
+                  onClick={() => toggleCard(i)}
                 />
               ))}
             </div>
@@ -859,7 +913,10 @@ function PptStyleSlide({
                 dense={dense}
                 density={cardDensity}
                 emoji={pptEmojiFor(card, slide.visual)}
-                active={activeCard === i}
+                active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
+                detail={pptDetailFor(card)}
+                reveal={expandedCardKey === `${slide.id}:${i}`}
+                onClick={() => toggleCard(i)}
               />
             ))}
           </div>
