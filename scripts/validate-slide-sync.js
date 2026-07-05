@@ -13,10 +13,12 @@ const server = await createServer({ appType: 'custom', logLevel: 'error', server
 let slidesModule;
 let audioModule;
 let timing;
+let pptTiming;
 try {
   slidesModule = await server.ssrLoadModule('/src/data/slides.ts');
   audioModule = await server.ssrLoadModule('/src/data/audioScripts.ts');
   timing = await server.ssrLoadModule('/src/lib/storyTiming.ts');
+  pptTiming = await server.ssrLoadModule('/src/lib/pptTiming.ts');
 } finally {
   await server.close();
 }
@@ -24,6 +26,7 @@ const { slides } = slidesModule;
 
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
 const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue, ttsChunks } = timing;
+const { pptCardCueIndexes, scorePptCardCue } = pptTiming;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
 const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 
@@ -56,6 +59,20 @@ for (const slide of slides) {
   check(cues.length > 0, `${slide.id}: narration has cues`);
   check(cues.every((cue) => cue.start >= 0 && cue.end > cue.start && cue.end <= slide.narration.length), `${slide.id}: cue bounds are valid`);
   check(cues.every((cue, index) => index === 0 || cue.start >= cues[index - 1].end), `${slide.id}: cues are ordered without overlap`);
+
+  if (slide.ppt?.cards && !['pptActivitySort', 'pptScenario'].includes(slide.layout)) {
+    const indexes = pptCardCueIndexes(slide.ppt.cards, slide.narration);
+    check(
+      indexes.every((cueIndex, index) => index === 0 || cueIndex > indexes[index - 1]),
+      `${slide.id}: cards reveal once and in presentation order`,
+    );
+    indexes.forEach((cueIndex, cardIndex) => {
+      check(
+        scorePptCardCue(slide.ppt.cards[cardIndex], cues[cueIndex]?.text ?? '') >= 5,
+        `${slide.id}: card ${cardIndex + 1} starts on a matching narration cue`,
+      );
+    });
+  }
   check(chunks.map((chunk) => chunk.text).join('') === slide.narration, `${slide.id}: TTS chunks reconstruct the exact narration character for character`);
   check(chunks[0]?.text.length <= 96, `${slide.id}: first TTS chunk is short enough for immediate startup`);
   check(chunks.slice(1).every((chunk) => chunk.text.length <= 760), `${slide.id}: following TTS chunks remain bounded and pre-queueable`);

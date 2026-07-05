@@ -11,7 +11,8 @@ import { KnowledgeCheck } from '../activities/KnowledgeCheck';
 import { POSE_SRC, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
-import { activeStoryCue, storyCues } from '../../lib/storyTiming';
+import { activeStoryCue } from '../../lib/storyTiming';
+import { activePptCardForCue, pptCardCueIndexes } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import {
   conflictScenarioCompletion,
@@ -605,22 +606,6 @@ const PPT_EMOJIS = [
   { terms: ['توثيق'], emoji: '📝' },
 ];
 
-function cleanText(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s]+/gu, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function wordsOf(value: string) {
-  return cleanText(value).split(' ').filter((word) => word.length > 2);
-}
-
-function cardText(card: PptCard) {
-  return [card.title, card.text, ...(card.bullets ?? [])].filter(Boolean).join(' ');
-}
-
 const PPT_EMOJI_VARIANTS: Record<string, string[]> = {
   '🏛️': ['🏛️', '🧭', '🗂️', '👥', '🔗', '🛡️'],
   '✅': ['✅', '🔍', '📋', '📊', '🛡️', '⚙️'],
@@ -637,34 +622,6 @@ function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   const base = match?.emoji ?? fallback ?? '💡';
   const variants = PPT_EMOJI_VARIANTS[base];
   return variants?.[index % variants.length] ?? base;
-}
-
-function pptCardCueIndexes(cards: PptCard[], narration: string) {
-  const cues = storyCues(narration);
-  if (!cues.length) return cards.map(() => 0);
-
-  const direct = cards.map(() => -1);
-  cues.forEach((cue, cueIndex) => {
-    const cardIndex = activePptCardIndex(cards, cue.text);
-    if (cardIndex >= 0 && direct[cardIndex] < 0) direct[cardIndex] = cueIndex;
-  });
-
-  let previous = -1;
-  return direct.map((cueIndex, cardIndex) => {
-    const proportional = Math.floor(((cardIndex + 1) * cues.length) / (cards.length + 1));
-    const next = Math.max(previous + 1, cueIndex >= 0 ? cueIndex : proportional);
-    previous = Math.min(cues.length - 1, next);
-    return previous;
-  });
-}
-
-function activePptCardForCue(revealCueIndexes: number[], cueIndex: number) {
-  let active = -1;
-  for (let index = 0; index < revealCueIndexes.length; index += 1) {
-    if (cueIndex < revealCueIndexes[index]) break;
-    active = index;
-  }
-  return active;
 }
 
 function pptDetailFor(card: PptCard) {
@@ -685,30 +642,6 @@ function pptDetailFor(card: PptCard) {
     return 'ميز بين التوجيه والتنفيذ والرقابة.';
   }
   return 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
-}
-
-function activePptCardIndex(cards: PptCard[], cueText: string) {
-  const cueWords = wordsOf(cueText);
-  if (!cueWords.length) return -1;
-
-  let best = { index: -1, score: 0 };
-  const cleanCue = cleanText(cueText);
-  cards.forEach((card, index) => {
-    const title = cleanText(card.title);
-    const body = cleanText(cardText(card));
-    let score = 0;
-
-    if (title && cleanCue.includes(title)) score += 8;
-    if (body && cleanCue.includes(body.slice(0, 42))) score += 4;
-    for (const word of cueWords) {
-      if (title.includes(word)) score += 2.2;
-      if (body.includes(word)) score += 1;
-    }
-
-    if (score > best.score) best = { index, score };
-  });
-
-  return best.score >= 5 ? best.index : -1;
 }
 
 function PptTitle({ slide }: { slide: Slide }) {
