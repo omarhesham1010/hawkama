@@ -92,14 +92,35 @@ function numericSetting(env, key, fallback, min, max) {
   return value;
 }
 
-function voiceSettingsFromEnv(env) {
+function voiceSettingsFromEnv(env, modelId) {
+  const similarityBoost = numericSetting(
+    env,
+    'ELEVENLABS_SIMILARITY_BOOST',
+    DEFAULT_VOICE_SETTINGS.similarity_boost,
+    0,
+    1,
+  );
+  if (modelId === 'eleven_v3') {
+    return {
+      stability: 1,
+      similarity_boost: similarityBoost,
+    };
+  }
   return {
     stability: numericSetting(env, 'ELEVENLABS_STABILITY', DEFAULT_VOICE_SETTINGS.stability, 0, 1),
-    similarity_boost: numericSetting(env, 'ELEVENLABS_SIMILARITY_BOOST', DEFAULT_VOICE_SETTINGS.similarity_boost, 0, 1),
+    similarity_boost: similarityBoost,
     style: numericSetting(env, 'ELEVENLABS_STYLE', DEFAULT_VOICE_SETTINGS.style, 0, 1),
     use_speaker_boost: env.ELEVENLABS_SPEAKER_BOOST?.trim().toLowerCase() !== 'false',
     speed: numericSetting(env, 'ELEVENLABS_SPEED', DEFAULT_VOICE_SETTINGS.speed, 0.7, 1.2),
   };
+}
+
+function outputFormatFromEnv(env) {
+  const format = env.ELEVENLABS_OUTPUT_FORMAT?.trim() || 'mp3_44100_128';
+  if (format !== 'mp3_44100_128') {
+    throw new Error('ELEVENLABS_OUTPUT_FORMAT must be mp3_44100_128 for this course.');
+  }
+  return format;
 }
 
 function splitLongSentence(sentence, limit) {
@@ -225,8 +246,9 @@ async function requestSpeech({
   previousText,
   nextText,
   seed,
+  outputFormat,
 }) {
-  const endpoint = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}?output_format=mp3_44100_128`;
+  const endpoint = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}?output_format=${encodeURIComponent(outputFormat)}`;
   let lastError;
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
@@ -243,8 +265,10 @@ async function requestSpeech({
           text: speechReadyText(text),
           model_id: modelId,
           voice_settings: voiceSettings,
-          previous_text: previousText || undefined,
-          next_text: nextText || undefined,
+          ...(modelId === 'eleven_v3' ? {} : {
+            previous_text: previousText || undefined,
+            next_text: nextText || undefined,
+          }),
           seed,
         }),
       });
@@ -256,7 +280,11 @@ async function requestSpeech({
       }
 
       const body = (await response.text()).slice(0, 500);
-      const error = new Error(`ElevenLabs HTTP ${response.status}: ${body}`);
+      const quotaExceeded = response.status === 401 && body.includes('quota_exceeded');
+      const error = new Error(quotaExceeded
+        ? 'ElevenLabs API quota is exhausted. Add credits or increase the API key quota, then resume generation.'
+        : `ElevenLabs HTTP ${response.status}: ${body}`);
+      error.quotaExceeded = quotaExceeded;
       if (response.status !== 429 && response.status < 500) {
         error.nonRetryable = true;
         throw error;
@@ -276,7 +304,7 @@ async function requestSpeech({
   throw lastError ?? new Error('ElevenLabs request failed.');
 }
 
-async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, outputDir }) {
+async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, outputFormat, outputDir }) {
   const chunks = speechChunks(entry.text);
   const workDir = join(outputDir, `.tmp-${entry.key}-${Date.now()}`);
   const processedPath = join(workDir, `${entry.key}.mp3`);
@@ -295,6 +323,7 @@ async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, o
         previousText: chunks[chunkIndex - 1],
         nextText: chunks[chunkIndex + 1],
         seed: stableSeed(`${entry.key}:${chunkIndex}`),
+        outputFormat,
       });
       await writeFile(partPath, bytes);
       partPaths.push(partPath);
@@ -333,7 +362,8 @@ async function main() {
   const apiKey = env.ELEVENLABS_API_KEY?.trim();
   const voiceId = env.ELEVENLABS_VOICE_ID?.trim();
   const modelId = env.ELEVENLABS_MODEL_ID?.trim() || 'eleven_multilingual_v2';
-  const voiceSettings = voiceSettingsFromEnv(env);
+  const voiceSettings = voiceSettingsFromEnv(env, modelId);
+  const outputFormat = outputFormatFromEnv(env);
 
   if (!dryRun && (!apiKey || !voiceId)) {
     throw new Error('Missing ELEVENLABS_API_KEY or ELEVENLABS_VOICE_ID. Copy .env.example to .env and fill both values.');
@@ -342,13 +372,13 @@ async function main() {
   const outputDir = preview ? PILOT_AUDIO_DIR : PRODUCTION_AUDIO_DIR;
   await mkdir(outputDir, { recursive: true });
   console.log(`output: ${outputDir}`);
-  console.log(
-    `voice settings: stability=${voiceSettings.stability}, similarity=${voiceSettings.similarity_boost}, ` +
-    `style=${voiceSettings.style}, speed=${voiceSettings.speed}, speaker_boost=${voiceSettings.use_speaker_boost}`,
-  );
+  console.log(`model: ${modelId}`);
+  console.log(`output format: ${outputFormat}`);
+  console.log(`voice settings: ${JSON.stringify(voiceSettings)}`);
   let generated = 0;
   let skipped = 0;
   let failed = 0;
+  let quotaExhausted = false;
 
   for (const [index, entry] of selectedItems.entries()) {
     const outputPath = join(outputDir, `${entry.key}.mp3`);
@@ -364,18 +394,33 @@ async function main() {
 
     console.log(`[${index + 1}/${selectedItems.length}] generating: ${entry.key}`);
     try {
-      const size = await generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, outputDir });
+      const size = await generateEntry({
+        entry,
+        apiKey,
+        voiceId,
+        modelId,
+        voiceSettings,
+        outputFormat,
+        outputDir,
+      });
       generated += 1;
       console.log(`  completed: ${entry.key}.mp3 (${size} bytes)`);
     } catch (error) {
       failed += 1;
       console.error(`  failed: ${entry.key} - ${error instanceof Error ? error.message : String(error)}`);
+      if (error?.quotaExceeded) {
+        quotaExhausted = true;
+        console.error('  stopped: no further API requests will be made until quota is available');
+        break;
+      }
     }
 
     if (index < selectedItems.length - 1) await sleep(REQUEST_DELAY_MS);
   }
 
-  console.log(`completed: generated=${generated}, skipped=${skipped}, failed=${failed}, total=${selectedItems.length}, model=${modelId}`);
+  const unprocessed = selectedItems.length - generated - skipped - failed;
+  console.log(`completed: generated=${generated}, skipped=${skipped}, failed=${failed}, unprocessed=${unprocessed}, total=${selectedItems.length}, model=${modelId}`);
+  if (quotaExhausted) console.log('resume: rerun with --force after increasing the ElevenLabs API quota');
   if (failed > 0) process.exitCode = 1;
 }
 
