@@ -90,17 +90,15 @@ export function useNarration() {
     window.localStorage.setItem(RATE_KEY, String(r));
   }, []);
 
-  // Spin up the TTS engine on first user gesture so the first real utterance
-  // starts with far less latency.
+  // Load the voice list on the first user gesture. Speaking a silent utterance
+  // here used to delay the real first sentence on Safari/iOS and some Chromium builds.
   const warmedRef = useRef(false);
   const warmup = useCallback(() => {
     if (!ttsSupported || warmedRef.current) return;
     warmedRef.current = true;
     try {
       window.speechSynthesis.getVoices();
-      const u = new SpeechSynthesisUtterance(' ');
-      u.volume = 0;
-      window.speechSynthesis.speak(u);
+      window.speechSynthesis.resume();
     } catch {
       /* no-op */
     }

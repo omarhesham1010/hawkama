@@ -3,8 +3,8 @@ import { useNarrationContext } from '../components/audio/NarrationContext';
 import { spokenFromAudioProgress } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
-const NO_VOICE_FALLBACK = 3500; // ms: if the voice never starts, reveal anyway
-const TTS_START_GUARD = 850; // ms: browsers often fire onstart before audio is audible
+const NO_VOICE_FALLBACK = 10000; // ms: only simulate progress after a genuine start failure
+const TTS_START_GUARD = 300; // short audible-start guard without making Nasser feel late
 
 export interface VoiceSync {
   spoken: number;
@@ -124,8 +124,9 @@ export function useVoiceSync(
           val = hasRecentBoundary ? charRef.current : now < heardStart ? 0 : Math.max(charRef.current, el * CPS);
         }
       } else if (performance.now() - enterRef.current > NO_VOICE_FALLBACK && charRef.current === 0) {
-        // voice never started → reveal everything
-        val = total;
+        // Voice failed to start: keep a gradual narrated sequence instead of
+        // revealing every element at once.
+        val = ((performance.now() - enterRef.current - NO_VOICE_FALLBACK) / 1000) * CPS;
       } else {
         val = 0; // waiting for the voice to begin (title only)
       }
