@@ -151,11 +151,11 @@ function chunkEndNearBoundary(text: string, start: number, limit: number) {
   for (let index = hardEnd; index >= minimum; index -= 1) {
     if (/[.؟!؛،\n]/.test(text[index - 1] ?? '')) return index;
   }
-  const space = text.lastIndexOf(' ', hardEnd);
-  return space >= minimum ? space + 1 : hardEnd;
+  const space = text.lastIndexOf(' ', hardEnd - 1);
+  return space >= minimum ? Math.min(hardEnd, space + 1) : hardEnd;
 }
 
-export function ttsChunks(text: string, firstLimit = 220, followingLimit = 760): TtsChunk[] {
+export function ttsChunks(text: string, firstLimit = 96, followingLimit = 760): TtsChunk[] {
   if (!text) return [];
   const chunks: TtsChunk[] = [];
   let start = 0;

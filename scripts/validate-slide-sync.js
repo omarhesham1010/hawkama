@@ -49,7 +49,7 @@ for (const slide of slides) {
   check(cues.every((cue) => cue.start >= 0 && cue.end > cue.start && cue.end <= slide.narration.length), `${slide.id}: cue bounds are valid`);
   check(cues.every((cue, index) => index === 0 || cue.start >= cues[index - 1].end), `${slide.id}: cues are ordered without overlap`);
   check(chunks.map((chunk) => chunk.text).join('') === slide.narration, `${slide.id}: TTS chunks reconstruct the exact narration character for character`);
-  check(chunks[0]?.text.length <= 220, `${slide.id}: first TTS chunk is short enough for fast startup`);
+  check(chunks[0]?.text.length <= 96, `${slide.id}: first TTS chunk is short enough for immediate startup`);
   check(chunks.slice(1).every((chunk) => chunk.text.length <= 760), `${slide.id}: following TTS chunks remain bounded and pre-queueable`);
 
   let previous = -1;
