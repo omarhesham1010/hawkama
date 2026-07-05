@@ -6,6 +6,10 @@
   "description": "وحدة تعليمية تفاعلية عن الحوكمة الصحية والامتثال — الفصل الأول",
   "scripts": {
     "sync-audio": "node scripts/sync-audio-manifest.mjs",
+    "audio:docs": "node scripts/generate-elevenlabs-audio.js --docs-only",
+    "audio:generate": "node scripts/generate-elevenlabs-audio.js",
+    "audio:generate:force": "node scripts/generate-elevenlabs-audio.js --force",
+    "audio:generate:dry-run": "node scripts/generate-elevenlabs-audio.js --dry-run",
     "dev": "npm run sync-audio && vite",
     "build": "npm run sync-audio && tsc -b && vite build && node scripts/write-scorm-manifest.mjs",
     "package:scorm": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm.ps1",

@@ -83,6 +83,51 @@ npm run preview
 أزرار التحكم متوفرة في كل قسم: **تشغيل الشرح · إيقاف · إعادة · عرض النص**، مع شريط تحكم
 عائم يظهر أثناء التشغيل.
 
+## ElevenLabs Audio Generation
+
+The production voice files can be generated from the centralized catalog in
+`src/data/audioScripts.ts`. The catalog contains the eight main slide narrations
+and every activity question, correct/incorrect feedback, scenario discussion,
+and spoken completion that is used at runtime. The first question of each guided
+activity is already part of its main slide narration, so it is not generated twice.
+
+1. Join the client's ElevenLabs workspace and create an API key with Text to Speech access.
+2. Copy the required voice ID from the voice page or the ElevenLabs API.
+3. Copy `.env.example` to `.env` and replace the placeholder values:
+
+```env
+ELEVENLABS_API_KEY=your_api_key_here
+ELEVENLABS_VOICE_ID=your_voice_id_here
+ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+```
+
+Preview the complete generation plan without an API key or API requests:
+
+```bash
+npm run audio:generate:dry-run
+```
+
+Generate only missing files, or deliberately regenerate every catalog file:
+
+```bash
+npm run audio:generate
+npm run audio:generate:force
+```
+
+MP3 files are saved as `public/audio/<key>.mp3`. Existing files are skipped by
+default, failed downloads never replace a valid file, and transient API failures
+are retried with a delay. Run `npm run build` after generation; `sync-audio`
+automatically adds every MP3 to `src/data/audioManifest.ts` and the SCORM build.
+
+At runtime the app uses a listed MP3 before browser TTS. To verify that no TTS is
+used, generate all catalog files, run `npm run build`, confirm the build reports
+the expected MP3 count, and test every activity path while the audio source label
+shows a fixed audio file. Temporarily renaming one generated MP3 and rebuilding is
+the safest way to verify the Web Speech fallback. Restore the file and rebuild
+before packaging SCORM.
+
+Never commit `.env` or an API key. Only `.env.example` belongs in Git.
+
 ---
 
 ## ✏️ تعديل المحتوى / Editing content

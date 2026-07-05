@@ -8,6 +8,7 @@ governance-scorm2004.zip
 
 .env
 .env.*
+!.env.example
 
 .DS_Store
 Thumbs.db

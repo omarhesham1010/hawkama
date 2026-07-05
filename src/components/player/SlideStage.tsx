@@ -13,6 +13,13 @@ import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues } from '../../lib/storyTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
+import {
+  conflictScenarioCompletion,
+  conflictScenarioDiscussions,
+  conflictScenarioQuestions,
+  governanceFeedbackText,
+  governanceQuestionText,
+} from '../../data/audioScripts';
 
 export interface CompletionInfo {
   percent: number;
@@ -29,10 +36,9 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
   const [speechKey, setSpeechKey] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
   const completionRef = useRef<(() => void) | null>(null);
-  const sequenceRef = useRef(0);
 
   const speak = useCallback(
-    (kind: string, text: string, onComplete: () => void) => {
+    (audioKey: string, text: string, onComplete: () => void) => {
       setLine(text);
       completionRef.current = onComplete;
       if (muted || !narration.ttsSupported) {
@@ -42,11 +48,9 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
         return;
       }
 
-      sequenceRef.current += 1;
-      const key = `${slide.audioKey}-${kind}-${sequenceRef.current}`;
       setStarted(false);
-      setSpeechKey(key);
-      narration.play(key, text, slide.title);
+      setSpeechKey(audioKey);
+      narration.play(audioKey, text, slide.title);
     },
     [muted, narration, slide.audioKey, slide.title],
   );
@@ -867,8 +871,7 @@ function PptActivitySlide({
   const selectedAnswer = answers[currentStep];
   const activityReady = spoken >= slide.narration.length - 1;
   const questionText = useCallback(
-    (card: PptCard, index: number) =>
-      `السؤال ${index + 1} من ${cards.length}: ${card.text} هل هذا قرار حوكمة أم إجراء امتثال؟ فكر ثم اختر إجابتك.`,
+    (card: PptCard, index: number) => governanceQuestionText(card, index, cards.length),
     [cards.length],
   );
 
@@ -887,10 +890,11 @@ function PptActivitySlide({
     if (!activityReady || phase !== 'awaiting-answer' || selectedAnswer) return;
     setAnswers((current) => ({ ...current, [currentStep]: answer }));
     setPhase('feedback');
-    const feedback = answer === currentCard?.answer
-      ? `ممتاز، اختيارك صحيح. ${currentCard?.rationale ?? ''}`
-      : `خلنا نراجعها معًا. التصنيف الصحيح هو ${currentCard?.answer}. ${currentCard?.rationale ?? ''}`;
-    guidedSpeech.speak(`feedback-${currentStep}`, feedback, () => setPhase('awaiting-next'));
+    if (!currentCard) return;
+    const correctness = answer === currentCard.answer ? 'correct' : 'incorrect';
+    const feedback = governanceFeedbackText(currentCard, answer);
+    const key = `${slide.audioKey}-feedback-${currentStep + 1}-${correctness}`;
+    guidedSpeech.speak(key, feedback, () => setPhase('awaiting-next'));
   };
 
   const nextQuestion = () => {
@@ -903,7 +907,8 @@ function PptActivitySlide({
     const nextCard = cards[nextStep];
     setCurrentStep(nextStep);
     setPhase('asking-next');
-    guidedSpeech.speak(`question-${nextStep}`, questionText(nextCard, nextStep), () => setPhase('awaiting-answer'));
+    const key = `${slide.audioKey}-question-${nextStep + 1}`;
+    guidedSpeech.speak(key, questionText(nextCard, nextStep), () => setPhase('awaiting-answer'));
   };
 
   return (
@@ -980,18 +985,10 @@ function PptGuidedScenarioSlide({
   const guidedSpeech = useGuidedSpeech(slide, muted);
   const currentCard = questionCards[step];
   const ready = spoken >= slide.narration.length * 0.72;
-  const questions = [
-    'بعد ما عرفت السيناريو، فكر بهدوء: ما نوع المخالفة هنا؟ وهل التضارب فعلي أم محتمل؟',
-    'الآن فكر كمسؤول امتثال: ما الإجراء المؤسسي الصحيح لحماية القرار؟',
-    'السؤال الأخير: هل يكفي الإفصاح وحده؟ وما الضوابط التي تمنع أن يصبح الامتثال شكليًا؟',
-  ];
-  const discussions = [
-    'الإجابة هنا أن الحالة تمثل تضارب مصالح فعليًا وقائمًا، وليست مجرد احتمال مستقبلي؛ لأن الموظف يملك مصلحة تجارية بالفعل مع شركة متنافسة، وفي الوقت نفسه يشارك في لجنة تؤثر في قرار الشراء. هذا الوضع يخل بالحياد، وقد يفتح مجالًا لاستغلال النفوذ حتى لو لم يثبت أنه وجّه القرار لمصلحته.',
-    'المعالجة المؤسسية الصحيحة تبدأ بالإفصاح الرسمي عن المصلحة، ثم تنحي الموظف بالكامل عن مناقشة القرار والتصويت عليه. بعد ذلك توثق الحالة والإجراءات المتخذة، وتتولى لجنة الامتثال والأخلاقيات الإشراف والمراجعة؛ حتى يكون القرار مستقلًا وقابلًا للتحقق والمساءلة.',
-    'الإفصاح وحده لا يكفي؛ لأنه يكشف التعارض لكنه لا يزيل أثره عن القرار. الحماية الفعلية تحتاج إلى التنحي، وفصل الصلاحيات، وتوثيق القرار، ومراجعة مستقلة، ومتابعة دورية للتأكد من تطبيق الضوابط. بهذه الآليات يصبح الامتثال ممارسة مؤسسية حقيقية، وليس إجراءً شكليًا.',
-  ];
+  const questions = conflictScenarioQuestions;
+  const discussions = conflictScenarioDiscussions;
   const fallbackInteractionLine = complete
-    ? 'ممتاز. كذا حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. الأهم أن الإفصاح بداية المعالجة وليس نهايتها.'
+    ? conflictScenarioCompletion
     : revealed && currentCard
       ? discussions[step]
       : ready
@@ -1006,15 +1003,14 @@ function PptGuidedScenarioSlide({
     setQuestionReady(false);
     setDiscussionReady(false);
     const discussion = discussions[step];
-    guidedSpeech.speak(`scenario-feedback-${step}`, discussion, () => setDiscussionReady(true));
+    guidedSpeech.speak(`${slide.audioKey}-discussion-${step + 1}`, discussion, () => setDiscussionReady(true));
   };
 
   const nextDiscussion = () => {
     if (!revealed || !discussionReady) return;
     if (step >= questionCards.length - 1) {
       setComplete(true);
-      const closing = 'ممتاز. كذا حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. الأهم أن الإفصاح بداية المعالجة وليس نهايتها.';
-      guidedSpeech.speak('scenario-complete', closing, () => onActivityDone(slide.id));
+      guidedSpeech.speak(`${slide.audioKey}-complete`, conflictScenarioCompletion, () => onActivityDone(slide.id));
       return;
     }
     const nextStep = step + 1;
@@ -1022,7 +1018,7 @@ function PptGuidedScenarioSlide({
     setRevealed(false);
     setDiscussionReady(false);
     setQuestionReady(false);
-    guidedSpeech.speak(`scenario-question-${nextStep}`, questions[nextStep], () => setQuestionReady(true));
+    guidedSpeech.speak(`${slide.audioKey}-question-${nextStep + 1}`, questions[nextStep], () => setQuestionReady(true));
   };
 
   return (
