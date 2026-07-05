@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Beat, BeatUnit, PptCard, Slide } from '../../types/slides';
 import { Icon } from '../ui/Icon';
 import { CompletionMedallion } from '../ui/Badge';
@@ -12,6 +12,7 @@ import { POSE_SRC, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues } from '../../lib/storyTiming';
+import { useNarrationContext } from '../audio/NarrationContext';
 
 export interface CompletionInfo {
   percent: number;
@@ -20,6 +21,54 @@ export interface CompletionInfo {
   totalActivities: number;
   onRestart: () => void;
   onExit: () => void;
+}
+
+function useGuidedSpeech(slide: Slide, muted: boolean) {
+  const narration = useNarrationContext();
+  const [line, setLine] = useState<string | undefined>();
+  const [speechKey, setSpeechKey] = useState<string | null>(null);
+  const [observed, setObserved] = useState(false);
+  const completionRef = useRef<(() => void) | null>(null);
+  const sequenceRef = useRef(0);
+
+  const speak = useCallback(
+    (kind: string, text: string, onComplete: () => void) => {
+      setLine(text);
+      completionRef.current = onComplete;
+      if (muted || !narration.ttsSupported) {
+        completionRef.current = null;
+        onComplete();
+        return;
+      }
+
+      sequenceRef.current += 1;
+      const key = `${slide.audioKey}-${kind}-${sequenceRef.current}`;
+      setObserved(false);
+      setSpeechKey(key);
+      narration.play(key, text, slide.title);
+    },
+    [muted, narration, slide.audioKey, slide.title],
+  );
+
+  useEffect(() => {
+    if (!speechKey || narration.nowKey !== speechKey) return;
+    if (narration.isLoading || narration.isPlaying || narration.isPaused) {
+      setObserved(true);
+      return;
+    }
+    if (observed && narration.status === 'idle') {
+      const complete = completionRef.current;
+      completionRef.current = null;
+      setSpeechKey(null);
+      complete?.();
+    }
+  }, [narration.isLoading, narration.isPaused, narration.isPlaying, narration.nowKey, narration.status, observed, speechKey]);
+
+  return {
+    line,
+    speak,
+    speaking: Boolean(speechKey),
+  };
 }
 
 // ---- Beat unit renderers -----------------------------------------------------
@@ -798,41 +847,58 @@ function PptCardView({
 function PptActivitySlide({
   slide,
   spoken,
+  muted,
   showDialogue,
   onActivityDone,
 }: {
   slide: Slide;
   spoken: number;
+  muted: boolean;
   showDialogue: boolean;
   onActivityDone: (id: string) => void;
 }) {
   const cards = slide.ppt?.cards ?? [];
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [phase, setPhase] = useState<'intro' | 'awaiting-answer' | 'feedback' | 'awaiting-next' | 'asking-next'>('intro');
+  const guidedSpeech = useGuidedSpeech(slide, muted);
   const currentCard = cards[currentStep];
   const selectedAnswer = answers[currentStep];
-  const activityReady = spoken >= slide.narration.length * 0.68;
-  const isCorrect = Boolean(selectedAnswer && selectedAnswer === currentCard?.answer);
-  const interactionLine = selectedAnswer
-    ? isCorrect
-      ? `ممتاز، اختيارك صحيح. ${currentCard?.rationale ?? ''}`
-      : `خلنا نراجعها معًا. التصنيف الصحيح هو ${currentCard?.answer}. ${currentCard?.rationale ?? ''}`
-    : activityReady && currentCard
-      ? `السؤال ${currentStep + 1} من ${cards.length}: ${currentCard.text} هل هذا قرار حوكمة أم إجراء امتثال؟ اختر إجابتك.`
-      : undefined;
+  const activityReady = spoken >= slide.narration.length - 1;
+  const questionText = useCallback(
+    (card: PptCard, index: number) =>
+      `السؤال ${index + 1} من ${cards.length}: ${card.text} هل هذا قرار حوكمة أم إجراء امتثال؟ فكر ثم اختر إجابتك.`,
+    [cards.length],
+  );
+
+  useEffect(() => {
+    if (activityReady && phase === 'intro') setPhase('awaiting-answer');
+  }, [activityReady, phase]);
+
+  const interactionLine =
+    guidedSpeech.line ?? (activityReady && currentCard && phase === 'awaiting-answer' ? questionText(currentCard, currentStep) : undefined);
 
   const answerQuestion = (answer: string) => {
-    if (!activityReady || selectedAnswer) return;
+    if (!activityReady || phase !== 'awaiting-answer' || selectedAnswer) return;
     setAnswers((current) => ({ ...current, [currentStep]: answer }));
+    setPhase('feedback');
+    const feedback = answer === currentCard?.answer
+      ? `ممتاز، اختيارك صحيح. ${currentCard?.rationale ?? ''}`
+      : `خلنا نراجعها معًا. التصنيف الصحيح هو ${currentCard?.answer}. ${currentCard?.rationale ?? ''}`;
+    guidedSpeech.speak(`feedback-${currentStep}`, feedback, () => setPhase('awaiting-next'));
   };
 
   const nextQuestion = () => {
-    if (!selectedAnswer) return;
+    if (!selectedAnswer || phase !== 'awaiting-next') return;
     if (currentStep >= cards.length - 1) {
       onActivityDone(slide.id);
       return;
     }
-    setCurrentStep((step) => step + 1);
+    const nextStep = currentStep + 1;
+    const nextCard = cards[nextStep];
+    setCurrentStep(nextStep);
+    setPhase('asking-next');
+    guidedSpeech.speak(`question-${nextStep}`, questionText(nextCard, nextStep), () => setPhase('awaiting-answer'));
   };
 
   return (
@@ -859,7 +925,7 @@ function PptActivitySlide({
           <div className={`flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-3 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
             <button
               type="button"
-              disabled={Boolean(selectedAnswer)}
+              disabled={phase !== 'awaiting-answer'}
               onClick={() => answerQuestion('حوكمة')}
               className={`rounded-lg border-2 px-4 py-3 text-[18px] font-extrabold transition-all ${selectedAnswer === 'حوكمة' ? 'border-green-700 bg-green-700 text-white' : 'border-green-700/25 bg-green-700/8 text-green-800 hover:bg-green-700/15'}`}
             >
@@ -867,13 +933,13 @@ function PptActivitySlide({
             </button>
             <button
               type="button"
-              disabled={Boolean(selectedAnswer)}
+              disabled={phase !== 'awaiting-answer'}
               onClick={() => answerQuestion('امتثال')}
               className={`rounded-lg border-2 px-4 py-3 text-[18px] font-extrabold transition-all ${selectedAnswer === 'امتثال' ? 'border-gold-600 bg-gold-500 text-white' : 'border-gold-500/35 bg-gold-500/10 text-gold-700 hover:bg-gold-500/18'}`}
             >
               امتثال
             </button>
-            {selectedAnswer && (
+            {selectedAnswer && phase === 'awaiting-next' && (
               <button type="button" onClick={nextQuestion} className="btn-gold mt-1 justify-center px-4 py-2.5 text-[15px]">
                 {currentStep >= cards.length - 1 ? 'إكمال النشاط' : 'السؤال التالي'}
               </button>
@@ -888,11 +954,13 @@ function PptActivitySlide({
 function PptGuidedScenarioSlide({
   slide,
   spoken,
+  muted,
   showDialogue,
   onActivityDone,
 }: {
   slide: Slide;
   spoken: number;
+  muted: boolean;
   showDialogue: boolean;
   onActivityDone: (id: string) => void;
 }) {
@@ -902,6 +970,9 @@ function PptGuidedScenarioSlide({
   const [step, setStep] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [complete, setComplete] = useState(false);
+  const [questionReady, setQuestionReady] = useState(true);
+  const [discussionReady, setDiscussionReady] = useState(false);
+  const guidedSpeech = useGuidedSpeech(slide, muted);
   const currentCard = questionCards[step];
   const ready = spoken >= slide.narration.length * 0.72;
   const questions = [
@@ -912,28 +983,38 @@ function PptGuidedScenarioSlide({
   const answerText = currentCard
     ? [currentCard.text, ...(currentCard.bullets ?? [])].filter(Boolean).join(' ')
     : '';
-  const interactionLine = complete
+  const fallbackInteractionLine = complete
     ? 'ممتاز. كذا حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. الأهم أن الإفصاح بداية المعالجة وليس نهايتها.'
     : revealed && currentCard
       ? `خلنا نناقش الإجابة: ${currentCard.title}. ${answerText}`
       : ready
         ? questions[step]
         : undefined;
+  const interactionLine = guidedSpeech.line ?? fallbackInteractionLine;
 
   const revealDiscussion = () => {
     if (!ready || revealed || complete) return;
     setRevealed(true);
+    setQuestionReady(false);
+    setDiscussionReady(false);
+    const discussion = `خلنا نناقش الإجابة: ${currentCard.title}. ${answerText}`;
+    guidedSpeech.speak(`scenario-feedback-${step}`, discussion, () => setDiscussionReady(true));
   };
 
   const nextDiscussion = () => {
-    if (!revealed) return;
+    if (!revealed || !discussionReady) return;
     if (step >= questionCards.length - 1) {
       setComplete(true);
-      onActivityDone(slide.id);
+      const closing = 'ممتاز. كذا حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. الأهم أن الإفصاح بداية المعالجة وليس نهايتها.';
+      guidedSpeech.speak('scenario-complete', closing, () => onActivityDone(slide.id));
       return;
     }
-    setStep((current) => current + 1);
+    const nextStep = step + 1;
+    setStep(nextStep);
     setRevealed(false);
+    setDiscussionReady(false);
+    setQuestionReady(false);
+    guidedSpeech.speak(`scenario-question-${nextStep}`, questions[nextStep], () => setQuestionReady(true));
   };
 
   return (
@@ -969,12 +1050,12 @@ function PptGuidedScenarioSlide({
           )}
         </div>
         <div className={`mt-3 flex h-12 shrink-0 items-center justify-center gap-3 transition-all ${ready ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-          {!complete && !revealed && (
+          {!complete && !revealed && questionReady && (
             <button type="button" onClick={revealDiscussion} className="btn-gold px-7 py-2.5 text-[16px]">
               ناقش الإجابة مع ناصر
             </button>
           )}
-          {!complete && revealed && (
+          {!complete && revealed && discussionReady && (
             <button type="button" onClick={nextDiscussion} className="btn-gold px-7 py-2.5 text-[16px]">
               {step >= questionCards.length - 1 ? 'إنهاء المناقشة' : 'السؤال التالي'}
             </button>
@@ -989,6 +1070,7 @@ function PptStyleSlide({
   slide,
   spoken,
   started,
+  muted,
   showDialogue,
   onStart,
   onActivityDone,
@@ -997,6 +1079,7 @@ function PptStyleSlide({
   slide: Slide;
   spoken: number;
   started: boolean;
+  muted: boolean;
   showDialogue: boolean;
   onStart: () => void;
   onActivityDone: (id: string) => void;
@@ -1005,10 +1088,10 @@ function PptStyleSlide({
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
 
   if (slide.layout === 'pptActivitySort') {
-    return <PptActivitySlide slide={slide} spoken={spoken} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
+    return <PptActivitySlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
   if (slide.layout === 'pptScenario') {
-    return <PptGuidedScenarioSlide slide={slide} spoken={spoken} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
+    return <PptGuidedScenarioSlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
 
   const cards = slide.ppt?.cards ?? [];
@@ -1150,6 +1233,7 @@ export function SlideStage({
   slide,
   spoken,
   started,
+  muted,
   showDialogue,
   onStart,
   onActivityDone,
@@ -1159,6 +1243,7 @@ export function SlideStage({
   slide: Slide;
   spoken: number;
   started: boolean;
+  muted: boolean;
   showDialogue: boolean;
   onStart: () => void;
   onActivityDone: (id: string) => void;
@@ -1171,6 +1256,7 @@ export function SlideStage({
         slide={slide}
         spoken={spoken}
         started={started}
+        muted={muted}
         showDialogue={showDialogue}
         onStart={onStart}
         onActivityDone={onActivityDone}

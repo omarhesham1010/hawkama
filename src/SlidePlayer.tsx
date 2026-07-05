@@ -174,6 +174,7 @@ export default function SlidePlayer({
               slide={slide}
               spoken={sync.spoken}
               started={started}
+              muted={muted}
               showDialogue={showDialogue}
               onStart={start}
               onActivityDone={(id) => progress.markActivityDone(id)}
