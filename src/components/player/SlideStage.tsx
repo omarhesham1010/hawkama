@@ -795,10 +795,21 @@ function pptDetailFor(card: PptCard) {
 }
 
 function PptTitle({ slide }: { slide: Slide }) {
+  const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
         <p className="mb-1 text-[17px] font-extrabold text-gold-600">{slide.ppt.eyebrow}</p>
+      )}
+      {slide.ppt?.courseName && (
+        <p className="mb-2 text-[22px] font-extrabold leading-relaxed text-ink">
+          {slide.ppt.courseName}
+        </p>
+      )}
+      {slide.ppt?.subtitle && slide.ppt?.courseName && (
+        <p className="mx-auto mb-2 w-fit rounded-full border border-green-700/20 bg-green-50 px-5 py-1 text-[18px] font-extrabold text-green-800">
+          {slide.ppt.subtitle}
+        </p>
       )}
       <h2 className="inline-flex items-center justify-center gap-3 text-[36px] font-extrabold leading-tight text-brand-strong">
         {slide.visual && (
@@ -806,9 +817,9 @@ function PptTitle({ slide }: { slide: Slide }) {
             {slide.visual}
           </span>
         )}
-        <span>{slide.title}</span>
+        <span>{displayTitle}</span>
       </h2>
-      {slide.ppt?.subtitle && (
+      {slide.ppt?.subtitle && !slide.ppt?.courseName && (
         <p className="mt-1 text-[20px] font-bold leading-relaxed text-ink-soft">{slide.ppt.subtitle}</p>
       )}
     </div>

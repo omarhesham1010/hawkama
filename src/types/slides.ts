@@ -83,6 +83,8 @@ export interface PptCard {
 
 export interface PptContent {
   eyebrow?: string;
+  courseName?: string;
+  unitTitle?: string;
   subtitle?: string;
   intro?: string;
   prompt?: string;
