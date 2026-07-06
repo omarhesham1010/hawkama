@@ -363,14 +363,14 @@ function NasserStoryLayer({
 }
 
 const SLIDE_ORNAMENTS: Record<string, readonly string[]> = {
-  'ppt-intro': ['🏥', '🛡️', '⚖️', '🎓'],
+  'ppt-intro': ['🏥', '🛡️', '⚖️', '🎓', '📘', '✨'],
   'ppt-governance-models': ['🏛️', '🧭', '👥', '🗂️', '📊', '🔗'],
-  'ppt-framework': ['🧩', '🧱', '⚙️', '📋', '🎯'],
-  'ppt-governance-compliance': ['🏛️', '✅', '🤝', '🛡️', '📈'],
-  'ppt-activity-governance-or-compliance': ['🧠', '🗳️', '🔍', '✅'],
+  'ppt-framework': ['🧩', '🧱', '⚙️', '📋', '🎯', '🔄'],
+  'ppt-governance-compliance': ['🏛️', '✅', '🤝', '🛡️', '📈', '🧭'],
+  'ppt-activity-governance-or-compliance': ['🧠', '🗳️', '🔍', '✅', '📋', '💡'],
   'ppt-ethics-conflict': ['⚖️', '🤝', '🔎', '🛡️', '📣', '🏥'],
-  'ppt-conflict-scenario': ['🔍', '⚠️', '💡', '🛡️'],
-  'ppt-conclusion': ['🎯', '✅', '🏆', '✨'],
+  'ppt-conflict-scenario': ['🔍', '⚠️', '💡', '🛡️', '🧭', '📋'],
+  'ppt-conclusion': ['🎯', '✅', '🏆', '✨', '🎓', '🤝'],
 };
 
 function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
@@ -380,6 +380,8 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   const primary = symbols[cueIndex % symbols.length];
   const secondary = symbols[(cueIndex + 1) % symbols.length];
   const tertiary = symbols[(cueIndex + 2) % symbols.length];
+  const quaternary = symbols[(cueIndex + 3) % symbols.length];
+  const quinary = symbols[(cueIndex + 4) % symbols.length];
   // Nasser's flex alignment is logical in the RTL canvas: guide.left renders
   // physically on the right, so the matching physical opposite is also left.
   const ornamentSide = guide.side;
@@ -388,25 +390,33 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   return (
     <div
       key={`${slide.id}-${cueIndex}-${primary}`}
-      className="pointer-events-none absolute bottom-[66px] z-20 h-[142px] w-[132px] animate-scale-in"
+      className="pointer-events-none absolute bottom-[56px] z-20 h-[164px] w-[176px] animate-scale-in"
       style={oppositeSide}
       data-ornament-side={ornamentSide}
       aria-hidden="true"
     >
-      <span className="absolute left-[13px] top-[13px] h-[104px] w-[104px] rounded-full border border-dashed border-green-700/30" />
-      <span className="absolute left-[25px] top-[25px] grid h-[82px] w-[82px] place-items-center rounded-full border-[3px] border-white bg-white/95 text-[46px] shadow-card-lg ring-2 ring-green-600/25">
+      <span className="absolute left-[34px] top-[19px] h-[112px] w-[112px] rounded-full border border-dashed border-green-700/30" />
+      <span className="absolute left-[49px] top-[34px] grid h-[82px] w-[82px] place-items-center rounded-full border-[3px] border-white bg-white/95 text-[46px] shadow-card-lg ring-2 ring-green-600/25">
         {primary}
         <span className="absolute -right-2 top-0 h-4 w-4 rounded-full border-[3px] border-white bg-gold-400" />
       </span>
-      <span className="absolute bottom-[8px] left-[4px] grid h-11 w-11 rotate-[-8deg] place-items-center rounded-full border-2 border-white bg-green-50/95 text-[25px] shadow-card ring-1 ring-green-600/20">
+      <span className="absolute bottom-[10px] left-[11px] grid h-11 w-11 rotate-[-8deg] place-items-center rounded-full border-2 border-white bg-green-50/95 text-[25px] shadow-card ring-1 ring-green-600/20">
         {secondary}
       </span>
-      <span className="absolute bottom-[3px] right-[5px] grid h-10 w-10 rotate-[9deg] place-items-center rounded-full border-2 border-white bg-gold-50/95 text-[22px] shadow-card ring-1 ring-gold-500/25">
+      <span className="absolute bottom-[3px] right-[15px] grid h-10 w-10 rotate-[9deg] place-items-center rounded-full border-2 border-white bg-gold-50/95 text-[22px] shadow-card ring-1 ring-gold-500/25">
         {tertiary}
       </span>
-      <span className="absolute right-[5px] top-[12px] text-[22px] font-black text-gold-500">
+      <span className="absolute left-[3px] top-[38px] grid h-10 w-10 rotate-[7deg] place-items-center rounded-full border-2 border-white bg-sky-50/95 text-[22px] shadow-card ring-1 ring-sky-500/20">
+        {quaternary}
+      </span>
+      <span className="absolute right-[2px] top-[32px] grid h-9 w-9 rotate-[-9deg] place-items-center rounded-full border-2 border-white bg-green-50/95 text-[20px] shadow-card ring-1 ring-green-600/20">
+        {quinary}
+      </span>
+      <span className="absolute right-[18px] top-[5px] text-[22px] font-black text-gold-500">
         ✦
       </span>
+      <span className="absolute left-[27px] top-[4px] text-[15px] font-black text-green-600/65">◆</span>
+      <span className="absolute bottom-[14px] left-[77px] text-[13px] font-black text-sky-500/70">✦</span>
     </div>
   );
 }
