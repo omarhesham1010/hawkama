@@ -131,24 +131,99 @@ function activeBeat(slide: Slide, spoken: number) {
 }
 
 function pointingPose(side: 'left' | 'right'): NasserPose {
-  return side === 'left' ? 'pointLeft' : 'pointRight';
+  return side === 'left' ? 'pointRight' : 'pointLeft';
 }
 
 function tabletPose(side: 'left' | 'right'): NasserPose {
-  return side === 'left' ? 'tabletLeft' : 'tabletRight';
+  return side === 'left' ? 'tabletRight' : 'tabletLeft';
 }
 
-function timedPose(poses: NasserPose[], index: number): NasserPose {
-  return poses[Math.min(index, poses.length - 1)] ?? 'welcome';
+function hasAny(text: string, terms: string[]) {
+  return terms.some((term) => text.includes(term));
+}
+
+function semanticPose(
+  text: string,
+  side: 'left' | 'right',
+  fallback: NasserPose,
+  cueIndex = 0,
+): NasserPose {
+  const line = text.replace(/\s+/g, ' ').trim();
+
+  if (hasAny(line, ['أشكركم', 'حسن الاستماع', 'نلتقي', 'أتممت', 'أكملت', 'ختام الفصل'])) {
+    return 'completion';
+  }
+  if (hasAny(line, ['السلام عليكم', 'حياكم الله', 'معكم ناصر', 'بسم الله نبدأ'])) {
+    return 'welcome';
+  }
+  if (hasAny(line, ['ممتاز', 'اختيارك صحيح', 'إجابة صحيحة', 'أحسنت', 'بشكل صحيح'])) {
+    return 'success';
+  }
+  if (
+    line.includes('؟') ||
+    hasAny(line, ['السؤال', 'فكر', 'اختر', 'صنّف', 'صنف', 'هل هذا', 'هل يكفي', 'ما نوع', 'لماذا', 'كيف نضمن'])
+  ) {
+    return 'question';
+  }
+  if (hasAny(line, ['خلنا نراجع', 'نراجعها معًا', 'نحلل', 'نناقش', 'نقاط النقاش', 'تأمل', 'قارن'])) {
+    return 'thinking';
+  }
+  if (
+    hasAny(line, [
+      'خطر',
+      'مخالفة',
+      'إخلال',
+      'استغلال نفوذ',
+      'غير صحيح',
+      'لا يكفي',
+      'رشوة',
+      'تعارض فيها',
+      'تضارب مصالح فعلي',
+    ])
+  ) {
+    return 'warning';
+  }
+  if (
+    hasAny(line, [
+      'أولًا',
+      'ثانيًا',
+      'ثالثًا',
+      'رابعًا',
+      'خامسًا',
+      'سادسًا',
+      'الإطار',
+      'الخطوات',
+      'المكونات',
+      'السياسة',
+      'الإجراء الصحيح',
+      'نظام ',
+      'وثيقة',
+      'التوثيق',
+      'مصفوفة الصلاحيات',
+    ])
+  ) {
+    return tabletPose(side);
+  }
+  if (hasAny(line, ['التكامل', 'استدامة', 'يحميان المنشأة', 'يبني ثقة', 'القدوة من القيادة'])) {
+    return 'success';
+  }
+
+  if (fallback !== 'welcome') return fallback;
+  return cueIndex % 3 === 1 ? tabletPose(side) : pointingPose(side);
 }
 
 function contentPose(slide: Slide, beat: Beat | undefined, beatIndex: number, side: 'left' | 'right'): NasserPose {
   const unit = beat?.unit;
-  if (!unit || unit.t === 'title') return beatIndex % 2 === 0 ? 'welcome' : pointingPose(side);
-  if (unit.t === 'def') return tabletPose(side);
-  if (unit.t === 'callout') return unit.tone === 'contrast' ? 'success' : 'thinking';
-  if ([6, 7, 8, 10, 11].includes(slide.index) && beatIndex % 2 === 0) return tabletPose(side);
-  return beatIndex % 3 === 0 ? tabletPose(side) : pointingPose(side);
+  const fallback = !unit || unit.t === 'title'
+    ? beatIndex % 2 === 0 ? 'welcome' : pointingPose(side)
+    : unit.t === 'def'
+      ? tabletPose(side)
+      : unit.t === 'callout'
+        ? unit.tone === 'contrast' ? 'success' : 'thinking'
+        : [6, 7, 8, 10, 11].includes(slide.index) && beatIndex % 2 === 0
+          ? tabletPose(side)
+          : beatIndex % 3 === 0 ? tabletPose(side) : pointingPose(side);
+  return semanticPose(beat?.text ?? slide.title, side, fallback, beatIndex);
 }
 
 function nasserGuide(slide: Slide, spoken: number): NasserGuide {
@@ -156,7 +231,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
     const { cue, index } = activeStoryCue(slide.narration, spoken);
     const side: 'left' | 'right' = slide.index % 2 === 0 ? 'left' : 'right';
     return {
-      pose: timedPose(['welcome', pointingPose(side), tabletPose(side), 'success'], index),
+      pose: semanticPose(cue.text, side, index % 2 === 0 ? pointingPose(side) : tabletPose(side), index),
       side,
       key: `ppt-${slide.id}-${index}`,
       line: clipDialogue(cue.text, 132),
@@ -179,7 +254,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   if (slide.kind === 'welcome') {
     const side: 'left' | 'right' = 'right';
     return {
-      pose: timedPose(['welcome', pointingPose(side), tabletPose(side), 'success'], index),
+      pose: semanticPose(cue.text, side, index === 0 ? 'welcome' : pointingPose(side), index),
       side,
       key: `welcome-${index}`,
       line: clipDialogue(cue.text, 126),
@@ -188,7 +263,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   if (slide.kind === 'quiz') {
     const side: 'left' | 'right' = 'left';
     return {
-      pose: timedPose(['question', 'thinking', tabletPose(side), 'success'], index),
+      pose: semanticPose(cue.text, side, index === 0 ? 'question' : 'thinking', index),
       side,
       key: `quiz-${index}`,
       line: clipDialogue(cue.text),
@@ -197,7 +272,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   if (slide.kind === 'reflection') {
     const side: 'left' | 'right' = 'right';
     return {
-      pose: timedPose(['thinking', pointingPose(side), tabletPose(side), 'success'], index),
+      pose: semanticPose(cue.text, side, index === 0 ? 'thinking' : pointingPose(side), index),
       side,
       key: `reflection-${index}`,
       line: clipDialogue(cue.text),
@@ -206,7 +281,7 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   if (slide.kind === 'completion') {
     const side: 'left' | 'right' = 'right';
     return {
-      pose: timedPose(['completion', 'success', tabletPose(side), 'welcome'], index),
+      pose: semanticPose(cue.text, side, index === 0 ? 'success' : 'completion', index),
       side,
       key: `completion-${index}`,
       line: clipDialogue(cue.text, 126),
@@ -214,15 +289,14 @@ function nasserGuide(slide: Slide, spoken: number): NasserGuide {
   }
   if (slide.kind === 'activity') {
     const side: 'left' | 'right' = slide.activity?.kind === 'classification' ? 'right' : 'left';
-    const activityPoses: NasserPose[] =
-      slide.activity?.kind === 'scenarioDecision'
-        ? ['warning', 'thinking', tabletPose(side), 'success']
-        : slide.activity?.kind === 'flipCards'
-          ? ['thinking', tabletPose(side), pointingPose(side), 'success']
-          : ['question', 'thinking', tabletPose(side), 'success'];
+    const fallback = slide.activity?.kind === 'scenarioDecision'
+      ? index === 0 ? 'warning' : 'thinking'
+      : slide.activity?.kind === 'flipCards'
+        ? index === 0 ? 'thinking' : tabletPose(side)
+        : index === 0 ? 'question' : 'thinking';
 
     return {
-      pose: timedPose(activityPoses, index),
+      pose: semanticPose(cue.text, side, fallback, index),
       side,
       key: `activity-${index}`,
       line: clipDialogue(cue.text),
@@ -259,7 +333,8 @@ function NasserStoryLayer({
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = compact ? 'mb-5' : 'mb-9';
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
-  const displayPose = isPpt && !showDialogue ? 'welcome' : guide.pose;
+  const speakingPose = semanticPose(line, guide.side, guide.pose);
+  const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
 
   return (
     <div className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
