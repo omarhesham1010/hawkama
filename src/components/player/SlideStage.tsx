@@ -362,6 +362,50 @@ function NasserStoryLayer({
   );
 }
 
+const SLIDE_ORNAMENTS: Record<string, readonly string[]> = {
+  'ppt-intro': ['🏥', '🛡️', '⚖️', '🎓'],
+  'ppt-governance-models': ['🏛️', '🧭', '👥', '🗂️', '📊', '🔗'],
+  'ppt-framework': ['🧩', '🧱', '⚙️', '📋', '🎯'],
+  'ppt-governance-compliance': ['🏛️', '✅', '🤝', '🛡️', '📈'],
+  'ppt-activity-governance-or-compliance': ['🧠', '🗳️', '🔍', '✅'],
+  'ppt-ethics-conflict': ['⚖️', '🤝', '🔎', '🛡️', '📣', '🏥'],
+  'ppt-conflict-scenario': ['🔍', '⚠️', '💡', '🛡️'],
+  'ppt-conclusion': ['🎯', '✅', '🏆', '✨'],
+};
+
+function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
+  const guide = nasserGuide(slide, spoken);
+  const cueIndex = activeStoryCue(slide.narration, spoken).index;
+  const symbols = SLIDE_ORNAMENTS[slide.id] ?? [slide.visual ?? '✨', '✦', '•'];
+  const primary = symbols[cueIndex % symbols.length];
+  const secondary = symbols[(cueIndex + 1) % symbols.length];
+  const tertiary = symbols[(cueIndex + 2) % symbols.length];
+  const oppositeSide = guide.side === 'right' ? { left: 8 } : { right: 8 };
+
+  return (
+    <div
+      key={`${slide.id}-${cueIndex}-${primary}`}
+      className="pointer-events-none absolute top-[188px] z-[8] flex w-[54px] flex-col items-center animate-scale-in"
+      style={oppositeSide}
+      aria-hidden="true"
+    >
+      <span className="h-12 w-px bg-gradient-to-b from-transparent via-green-500/45 to-gold-500/70" />
+      <span className="relative grid h-[54px] w-[54px] place-items-center rounded-full border-2 border-white bg-white/90 text-[30px] shadow-card ring-2 ring-green-600/20">
+        {primary}
+        <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-gold-400" />
+      </span>
+      <span className="mt-2 flex items-center gap-1.5">
+        <span className="grid h-7 w-7 rotate-[-8deg] place-items-center rounded-full border border-green-600/20 bg-green-50/95 text-[16px] shadow-sm">
+          {secondary}
+        </span>
+        <span className="grid h-6 w-6 rotate-[9deg] place-items-center rounded-full border border-gold-500/25 bg-gold-50/95 text-[14px] shadow-sm">
+          {tertiary}
+        </span>
+      </span>
+    </div>
+  );
+}
+
 function StorySlideShell({
   slide,
   spoken,
@@ -382,6 +426,7 @@ function StorySlideShell({
 
   return (
     <div className="relative h-full overflow-hidden">
+      <ContextOrnament slide={slide} spoken={spoken} />
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
