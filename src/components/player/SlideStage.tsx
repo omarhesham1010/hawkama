@@ -380,27 +380,32 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   const primary = symbols[cueIndex % symbols.length];
   const secondary = symbols[(cueIndex + 1) % symbols.length];
   const tertiary = symbols[(cueIndex + 2) % symbols.length];
-  const oppositeSide = guide.side === 'right' ? { left: 8 } : { right: 8 };
+  // Nasser's flex alignment is logical in the RTL canvas: guide.left renders
+  // physically on the right, so the matching physical opposite is also left.
+  const ornamentSide = guide.side;
+  const oppositeSide = ornamentSide === 'left' ? { left: 28 } : { right: 28 };
 
   return (
     <div
       key={`${slide.id}-${cueIndex}-${primary}`}
-      className="pointer-events-none absolute top-[188px] z-[8] flex w-[54px] flex-col items-center animate-scale-in"
+      className="pointer-events-none absolute bottom-[66px] z-20 h-[142px] w-[132px] animate-scale-in"
       style={oppositeSide}
+      data-ornament-side={ornamentSide}
       aria-hidden="true"
     >
-      <span className="h-12 w-px bg-gradient-to-b from-transparent via-green-500/45 to-gold-500/70" />
-      <span className="relative grid h-[54px] w-[54px] place-items-center rounded-full border-2 border-white bg-white/90 text-[30px] shadow-card ring-2 ring-green-600/20">
+      <span className="absolute left-[13px] top-[13px] h-[104px] w-[104px] rounded-full border border-dashed border-green-700/30" />
+      <span className="absolute left-[25px] top-[25px] grid h-[82px] w-[82px] place-items-center rounded-full border-[3px] border-white bg-white/95 text-[46px] shadow-card-lg ring-2 ring-green-600/25">
         {primary}
-        <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-gold-400" />
+        <span className="absolute -right-2 top-0 h-4 w-4 rounded-full border-[3px] border-white bg-gold-400" />
       </span>
-      <span className="mt-2 flex items-center gap-1.5">
-        <span className="grid h-7 w-7 rotate-[-8deg] place-items-center rounded-full border border-green-600/20 bg-green-50/95 text-[16px] shadow-sm">
-          {secondary}
-        </span>
-        <span className="grid h-6 w-6 rotate-[9deg] place-items-center rounded-full border border-gold-500/25 bg-gold-50/95 text-[14px] shadow-sm">
-          {tertiary}
-        </span>
+      <span className="absolute bottom-[8px] left-[4px] grid h-11 w-11 rotate-[-8deg] place-items-center rounded-full border-2 border-white bg-green-50/95 text-[25px] shadow-card ring-1 ring-green-600/20">
+        {secondary}
+      </span>
+      <span className="absolute bottom-[3px] right-[5px] grid h-10 w-10 rotate-[9deg] place-items-center rounded-full border-2 border-white bg-gold-50/95 text-[22px] shadow-card ring-1 ring-gold-500/25">
+        {tertiary}
+      </span>
+      <span className="absolute right-[5px] top-[12px] text-[22px] font-black text-gold-500">
+        ✦
       </span>
     </div>
   );
