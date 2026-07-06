@@ -125,6 +125,28 @@ export function spokenFromAudioProgress(text: string, progress: number) {
   return text.length;
 }
 
+export function spokenFromAudioAlignment(
+  textLength: number,
+  elapsedSeconds: number,
+  anchors: readonly (readonly [number, number, number])[],
+) {
+  if (!anchors.length || elapsedSeconds < anchors[0][1]) return 0;
+
+  let low = 0;
+  let high = anchors.length - 1;
+  while (low <= high) {
+    const middle = (low + high) >> 1;
+    if (anchors[middle][1] <= elapsedSeconds) low = middle + 1;
+    else high = middle - 1;
+  }
+
+  const anchor = anchors[Math.max(0, high)];
+  const next = anchors[Math.min(anchors.length - 1, high + 1)];
+  const span = Math.max(0.001, next[1] - anchor[1]);
+  const fraction = Math.max(0, Math.min(1, (elapsedSeconds - anchor[1]) / span));
+  return Math.min(textLength, anchor[0] + (next[0] - anchor[0]) * fraction + 1);
+}
+
 export function spokenFromTtsCue(
   cueStart: number,
   cueEnd: number,

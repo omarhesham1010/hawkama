@@ -15,6 +15,7 @@ interface NarrationContextValue {
   audioElapsed: number;
   audioDuration: number | null;
   audioUpdatedAt: number | null;
+  getAudioClock: ReturnType<typeof useNarration>['getAudioClock'];
   completedKey: string | null;
   ttsSupported: boolean;
   nowLabel: string | null;
@@ -67,6 +68,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       audioElapsed: n.audioElapsed,
       audioDuration: n.audioDuration,
       audioUpdatedAt: n.audioUpdatedAt,
+      getAudioClock: n.getAudioClock,
       completedKey: n.completedKey,
       ttsSupported: n.ttsSupported,
       nowLabel,
@@ -97,6 +99,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       n.audioElapsed,
       n.audioDuration,
       n.audioUpdatedAt,
+      n.getAudioClock,
       n.completedKey,
       n.ttsSupported,
       n.voices,

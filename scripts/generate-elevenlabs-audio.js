@@ -9,6 +9,7 @@ const PRODUCTION_AUDIO_DIR = join(ROOT, 'public', 'audio');
 const PILOT_AUDIO_DIR = join(ROOT, 'public', 'audio-pilot');
 const DOCS_FILE = join(ROOT, 'docs', 'audio-scripts.md');
 const REQUIRED_DOCS_FILE = join(ROOT, 'docs', 'audio-files-required.md');
+const ALIGNMENTS_FILE = join(ROOT, 'src', 'data', 'audioAlignments.ts');
 const args = new Set(process.argv.slice(2));
 const force = args.has('--force');
 const dryRun = args.has('--dry-run');
@@ -55,6 +56,18 @@ async function loadAudioScripts() {
   }
 }
 
+async function loadExistingAlignments() {
+  const server = await createServer({ appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
+  try {
+    const module = await server.ssrLoadModule('/src/data/audioAlignments.ts');
+    return { ...(module.audioAlignments ?? {}) };
+  } catch {
+    return {};
+  } finally {
+    await server.close();
+  }
+}
+
 function validateCatalog(items) {
   if (!Array.isArray(items) || items.length === 0) throw new Error('Audio catalog is empty.');
   const seen = new Set();
@@ -80,6 +93,31 @@ function speechReadyText(text) {
     .replace(/\s*،\s*/g, '، ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function speechReadyTextWithMap(source) {
+  const characters = [];
+  const sourceIndexes = [];
+  let pendingSpace = false;
+  let pendingSpaceIndex = 0;
+  for (let index = 0; index < source.length; index += 1) {
+    const original = source[index];
+    if (/\s/.test(original)) {
+      if (characters.length) {
+        pendingSpace = true;
+        pendingSpaceIndex = index;
+      }
+      continue;
+    }
+    if (pendingSpace) {
+      characters.push(' ');
+      sourceIndexes.push(pendingSpaceIndex);
+      pendingSpace = false;
+    }
+    characters.push(/[:：—–]/.test(original) ? '،' : original);
+    sourceIndexes.push(index);
+  }
+  return { text: characters.join(''), sourceIndexes };
 }
 
 function numericSetting(env, key, fallback, min, max) {
@@ -206,6 +244,15 @@ async function assembleAudio(partPaths, outputPath, workDir) {
   if (!info.isFile() || info.size < 1000) throw new Error('FFmpeg produced an invalid MP3 file.');
 }
 
+async function audioDuration(path) {
+  const { stdout } = await runFile('ffprobe', [
+    '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', path,
+  ], { windowsHide: true });
+  const duration = Number(stdout.trim());
+  if (!Number.isFinite(duration) || duration <= 0) throw new Error(`Cannot read audio duration: ${path}`);
+  return duration;
+}
+
 async function writeDocumentation(items) {
   const rows = items.map((entry) =>
     `| \`${entry.key}\` | ${markdownCell(entry.title)} | ${markdownCell(entry.category)} | ${markdownCell(speechReadyText(entry.text))} | \`${entry.key}.mp3\` |`,
@@ -248,7 +295,7 @@ async function requestSpeech({
   seed,
   outputFormat,
 }) {
-  const endpoint = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}?output_format=${encodeURIComponent(outputFormat)}`;
+  const endpoint = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}/with-timestamps?output_format=${encodeURIComponent(outputFormat)}`;
   let lastError;
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
@@ -257,7 +304,7 @@ async function requestSpeech({
         method: 'POST',
         signal: AbortSignal.timeout(120000),
         headers: {
-          Accept: 'audio/mpeg',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
           'xi-api-key': apiKey,
         },
@@ -274,9 +321,12 @@ async function requestSpeech({
       });
 
       if (response.ok) {
-        const bytes = Buffer.from(await response.arrayBuffer());
+        const payload = await response.json();
+        const bytes = Buffer.from(payload.audio_base64, 'base64');
         if (bytes.length === 0) throw new Error('ElevenLabs returned an empty audio file.');
-        return bytes;
+        const alignment = payload.alignment ?? payload.normalized_alignment;
+        if (!alignment?.characters?.length) throw new Error('ElevenLabs returned audio without timestamps.');
+        return { bytes, alignment };
       }
 
       const body = (await response.text()).slice(0, 500);
@@ -306,15 +356,19 @@ async function requestSpeech({
 
 async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, outputFormat, outputDir }) {
   const chunks = speechChunks(entry.text);
+  const prepared = speechReadyTextWithMap(entry.text);
   const workDir = join(outputDir, `.tmp-${entry.key}-${Date.now()}`);
   const processedPath = join(workDir, `${entry.key}.mp3`);
   await mkdir(workDir, { recursive: true });
   try {
     const partPaths = [];
+    const anchors = [];
+    let normalizedCursor = 0;
+    let audioOffset = 0.18;
     console.log(`  chunks: ${chunks.length}`);
     for (let chunkIndex = 0; chunkIndex < chunks.length; chunkIndex += 1) {
       const partPath = join(workDir, `part-${String(chunkIndex + 1).padStart(2, '0')}.mp3`);
-      const bytes = await requestSpeech({
+      const { bytes, alignment } = await requestSpeech({
         apiKey,
         voiceId,
         modelId,
@@ -327,6 +381,19 @@ async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, o
       });
       await writeFile(partPath, bytes);
       partPaths.push(partPath);
+      const chunkStart = prepared.text.indexOf(chunks[chunkIndex], normalizedCursor);
+      if (chunkStart < 0) throw new Error(`Cannot map timestamp text for chunk ${chunkIndex + 1}.`);
+      const alignedText = alignment.characters.join('');
+      if (alignedText !== chunks[chunkIndex]) throw new Error(`ElevenLabs timestamp text mismatch in chunk ${chunkIndex + 1}.`);
+      for (let index = 0; index < alignment.characters.length; index += 1) {
+        anchors.push([
+          prepared.sourceIndexes[chunkStart + index],
+          Number((audioOffset + alignment.character_start_times_seconds[index]).toFixed(4)),
+          Number((audioOffset + alignment.character_end_times_seconds[index]).toFixed(4)),
+        ]);
+      }
+      normalizedCursor = chunkStart + chunks[chunkIndex].length;
+      audioOffset += await audioDuration(partPath);
       console.log(`  chunk ${chunkIndex + 1}/${chunks.length}: ${bytes.length} bytes`);
       if (chunkIndex < chunks.length - 1) await sleep(CHUNK_DELAY_MS);
     }
@@ -334,7 +401,7 @@ async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, o
     const outputPath = join(outputDir, `${entry.key}.mp3`);
     const size = (await stat(processedPath)).size;
     await replaceFileSafely(processedPath, outputPath);
-    return size;
+    return { size, alignment: { anchors } };
   } finally {
     await rm(workDir, { recursive: true, force: true });
   }
@@ -379,6 +446,7 @@ async function main() {
   let skipped = 0;
   let failed = 0;
   let quotaExhausted = false;
+  const generatedAlignments = preview ? {} : await loadExistingAlignments();
 
   for (const [index, entry] of selectedItems.entries()) {
     const outputPath = join(outputDir, `${entry.key}.mp3`);
@@ -394,7 +462,7 @@ async function main() {
 
     console.log(`[${index + 1}/${selectedItems.length}] generating: ${entry.key}`);
     try {
-      const size = await generateEntry({
+      const { size, alignment } = await generateEntry({
         entry,
         apiKey,
         voiceId,
@@ -404,6 +472,7 @@ async function main() {
         outputDir,
       });
       generated += 1;
+      generatedAlignments[entry.key] = alignment;
       console.log(`  completed: ${entry.key}.mp3 (${size} bytes)`);
     } catch (error) {
       failed += 1;
@@ -419,6 +488,14 @@ async function main() {
   }
 
   const unprocessed = selectedItems.length - generated - skipped - failed;
+  if (!preview && generated > 0 && failed === 0) {
+    const output = `// Auto-generated by scripts/generate-elevenlabs-audio.js. Do not edit manually.\n` +
+      `export type AudioAlignmentAnchor = readonly [sourceIndex: number, startSeconds: number, endSeconds: number];\n` +
+      `export interface AudioAlignment { readonly anchors: readonly AudioAlignmentAnchor[]; }\n` +
+      `export const audioAlignments: Readonly<Record<string, AudioAlignment>> = ${JSON.stringify(generatedAlignments)};\n`;
+    await writeFile(ALIGNMENTS_FILE, output, 'utf8');
+    console.log(`alignments: ${ALIGNMENTS_FILE}`);
+  }
   console.log(`completed: generated=${generated}, skipped=${skipped}, failed=${failed}, unprocessed=${unprocessed}, total=${selectedItems.length}, model=${modelId}`);
   if (quotaExhausted) console.log('resume: rerun with --force after increasing the ElevenLabs API quota');
   if (failed > 0) process.exitCode = 1;

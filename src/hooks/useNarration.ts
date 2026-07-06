@@ -404,6 +404,16 @@ export function useNarration() {
     if (lastRef.current) play(lastRef.current.key, lastRef.current.script);
   }, [play]);
 
+  const getAudioClock = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || sourceRef.current !== 'audio') return null;
+    return {
+      elapsed: audio.currentTime || 0,
+      duration: Number.isFinite(audio.duration) ? audio.duration : null,
+      paused: audio.paused,
+    };
+  }, []);
+
   useEffect(() => () => stopInternal(), [stopInternal]);
 
   return {
@@ -420,6 +430,7 @@ export function useNarration() {
     audioElapsed,
     audioDuration,
     audioUpdatedAt,
+    getAudioClock,
     completedKey,
     ttsSupported,
     voices,

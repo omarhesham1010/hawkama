@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
-import { spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
+import { audioAlignments } from '../data/audioAlignments';
+import { spokenFromAudioAlignment, spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 10000; // ms: only simulate progress after a genuine start failure
@@ -37,8 +38,8 @@ export function useVoiceSync(
     boundaryUpdatedAt,
     audioElapsed,
     audioDuration,
-    audioUpdatedAt,
     rate,
+    getAudioClock,
   } = useNarrationContext();
   const total = Math.max(1, narrationText.length);
 
@@ -52,7 +53,6 @@ export function useVoiceSync(
   charRef.current = charIndex;
   const audioElapsedRef = useRef(0);
   const audioDurationRef = useRef<number | null>(null);
-  const audioUpdatedAtRef = useRef<number | null>(null);
   const boundaryUpdatedAtRef = useRef<number | null>(null);
   const ttsCueStartRef = useRef(0);
   const ttsCueEndRef = useRef(0);
@@ -61,7 +61,6 @@ export function useVoiceSync(
   const textRef = useRef(narrationText);
   audioElapsedRef.current = audioElapsed;
   audioDurationRef.current = audioDuration;
-  audioUpdatedAtRef.current = audioUpdatedAt;
   boundaryUpdatedAtRef.current = boundaryUpdatedAt;
   ttsCueStartRef.current = ttsCueStart;
   ttsCueEndRef.current = ttsCueEnd;
@@ -115,10 +114,15 @@ export function useVoiceSync(
       let val = spokenRef.current;
       if (speakingRef.current) {
         if (sourceRef.current === 'audio') {
-          const duration = audioDurationRef.current;
-          const clockDrift = audioUpdatedAtRef.current ? (performance.now() - audioUpdatedAtRef.current) / 1000 : 0;
-          const elapsed = audioElapsedRef.current + clockDrift;
-          val = duration && duration > 0 ? spokenFromAudioProgress(textRef.current, elapsed / duration) : charRef.current;
+          const liveClock = getAudioClock();
+          const duration = liveClock?.duration ?? audioDurationRef.current;
+          const elapsed = liveClock?.elapsed ?? audioElapsedRef.current;
+          const alignment = audioAlignments[audioKey];
+          val = alignment
+            ? spokenFromAudioAlignment(total, elapsed, alignment.anchors)
+            : duration && duration > 0
+              ? spokenFromAudioProgress(textRef.current, elapsed / duration)
+              : charRef.current;
         } else {
           const start = startedAtRef.current ?? speakStartRef.current ?? performance.now();
           const now = performance.now();
@@ -160,7 +164,7 @@ export function useVoiceSync(
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [armed, done, paused, total, resetKey]);
+  }, [armed, audioKey, done, getAudioClock, paused, total, resetKey]);
 
   // Muted / not armed → reveal all.
   useEffect(() => {

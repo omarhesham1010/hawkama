@@ -12,11 +12,13 @@ function check(condition, message) {
 const server = await createServer({ appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
 let slidesModule;
 let audioModule;
+let alignmentModule;
 let timing;
 let pptTiming;
 try {
   slidesModule = await server.ssrLoadModule('/src/data/slides.ts');
   audioModule = await server.ssrLoadModule('/src/data/audioScripts.ts');
+  alignmentModule = await server.ssrLoadModule('/src/data/audioAlignments.ts');
   timing = await server.ssrLoadModule('/src/lib/storyTiming.ts');
   pptTiming = await server.ssrLoadModule('/src/lib/pptTiming.ts');
 } finally {
@@ -25,6 +27,7 @@ try {
 const { slides } = slidesModule;
 
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
+const { audioAlignments } = alignmentModule;
 const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue, ttsChunks } = timing;
 const { pptCardCueIndexes, scorePptCardCue } = pptTiming;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
@@ -34,6 +37,22 @@ const slidePlayerSource = await readFile('src/SlidePlayer.tsx', 'utf8');
 
 check(slides.length === 8, `primary course has 8 slides (found ${slides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
+check(Object.keys(audioAlignments).length === audioScripts.length, 'every audio script has exact ElevenLabs timestamps');
+for (const entry of audioScripts) {
+  const alignment = audioAlignments[entry.key];
+  check(Boolean(alignment?.anchors?.length), `${entry.key} has timestamp anchors`);
+  let previousIndex = -1;
+  let previousStart = -1;
+  for (const [sourceIndex, start, end] of alignment.anchors) {
+    check(sourceIndex >= previousIndex, `${entry.key} source indexes are monotonic`);
+    check(start >= previousStart, `${entry.key} timestamps are monotonic`);
+    check(end >= start, `${entry.key} character timestamp has a valid duration`);
+    check(sourceIndex >= 0 && sourceIndex < entry.text.length, `${entry.key} timestamp maps inside its transcript`);
+    previousIndex = sourceIndex;
+    previousStart = start;
+  }
+  check(previousIndex >= entry.text.trimEnd().length - 2, `${entry.key} timestamps cover the complete transcript`);
+}
 check(
   narrationSource.includes('ttsChunks(script)'),
   'TTS uses fast-start chunks instead of waiting to prepare a full long narration',
