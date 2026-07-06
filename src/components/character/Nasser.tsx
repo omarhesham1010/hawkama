@@ -14,12 +14,12 @@ export type NasserPose =
 
 export const POSE_SRC: Record<NasserPose, string> = {
   welcome: '/nasser-assets/nasser-welcome.png',
-  pointLeft: '/nasser-assets/nasser-point-left.png',
-  pointRight: '/nasser-assets/nasser-point-right.png',
+  pointLeft: '/nasser-assets/nasser-point-right.png',
+  pointRight: '/nasser-assets/nasser-point-left.png',
   question: '/nasser-assets/nasser-question.png',
   success: '/nasser-assets/nasser-success.png',
-  tabletLeft: '/nasser-assets/nasser-tablet-left.png',
-  tabletRight: '/nasser-assets/nasser-tablet-right.png',
+  tabletLeft: '/nasser-assets/nasser-tablet-right.png',
+  tabletRight: '/nasser-assets/nasser-tablet-left.png',
   thinking: '/nasser-assets/nasser-thinking.png',
   warning: '/nasser-assets/nasser-warning.png',
   completion: '/nasser-assets/nasser-completion.png',
