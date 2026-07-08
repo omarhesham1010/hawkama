@@ -874,7 +874,18 @@ function PptCardView({
   const tone = card.tone ?? 'green';
   const clickable = Boolean(onClick);
   const textSize = (card.title.length + (card.text?.length ?? 0) + (card.bullets?.join(' ').length ?? 0));
-  const level = density ?? (textSize > 130 ? 'micro' : textSize > 110 || dense ? 'compact' : 'normal');
+  const bulletCount = card.bullets?.length ?? 0;
+  const level = density ?? (
+    textSize > 155 || bulletCount >= 7 || (dense && textSize > 125)
+      ? 'micro'
+      : textSize > 110 || bulletCount >= 5
+        ? 'compact'
+        : dense
+          ? textSize < 82 ? 'normal' : 'compact'
+          : textSize < 76 && bulletCount <= 3
+            ? 'loose'
+            : 'normal'
+  );
   const padClass = level === 'micro' ? 'p-2' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
   const titleClass =
     level === 'micro'
@@ -1226,7 +1237,7 @@ function PptStyleSlide({
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
   const isTwoPanel = slide.layout === 'pptTwoPanels';
-  const dense = slide.layout === 'pptThreeColumns' || slide.layout === 'pptSixCards' || slide.layout === 'pptTitleCards';
+  const dense = cards.length > 4;
 
   const gridClass = isThree
     ? 'grid-cols-3 grid-rows-1'
@@ -1235,12 +1246,7 @@ function PptStyleSlide({
       : cards.length <= 3
         ? 'grid-cols-3 grid-rows-1'
         : 'grid-cols-3 grid-rows-2';
-  const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined =
-    slide.layout === 'pptThreeColumns'
-      ? 'compact'
-      : isTwoPanel
-        ? 'normal'
-          : undefined;
+  const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined = undefined;
   const toggleCard = (i: number) => {
     const key = `${slide.id}:${i}`;
     if (expandedCardKey === key) {
@@ -1291,7 +1297,6 @@ function PptStyleSlide({
                 <PptCardView
                   key={i}
                   card={card}
-                  density="normal"
                   emoji={pptEmojiFor(card, slide.visual, i)}
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
                   visible={cardIsVisible(i)}

@@ -52,6 +52,13 @@ check(slides.length === 12, `chapter one has 12 slides including its quiz (found
 check(allNarratedSlides.length === 33, `governance bag has 33 slides including three quizzes (found ${allNarratedSlides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
 const quizSlides = allNarratedSlides.filter((slide) => slide.kind === 'quiz');
+const narrationOpenings = allNarratedSlides.map(
+  (slide) => slide.narration.split(/(?<=[.!؟])/u)[0]?.trim() ?? '',
+);
+check(
+  new Set(narrationOpenings).size === narrationOpenings.length,
+  'every slide starts with a distinct narration opening',
+);
 check(quizSlides.length === 3, `one quiz exists at the end of each chapter (found ${quizSlides.length})`);
 for (const slide of quizSlides) {
   const questions = slide.quiz?.questions ?? [];

@@ -4,12 +4,29 @@ import type { QuizData } from '../types/course';
 const emptyTimeline: Slide['timeline'] = [];
 
 const CARD_BRIDGES = [
-  'نبدأ بالفكرة الأولى، وهي',
   'وبعد ما اتضحت البداية، ننتقل إلى',
   'والخطوة التالية هي',
   'وهنا نربط ما سبق بفكرة',
   'بعد ذلك نصل إلى',
   'وتكتمل الصورة مع',
+];
+
+const OPENING_BRIDGES = [
+  'خلونا نفكك الموضوع، وأول فكرة معنا هي',
+  'الصورة تبدأ من',
+  'أول زاوية نحتاج نفهمها هي',
+  'عشان تتضح الفكرة من أساسها، نبدأ بـ',
+  'في البداية نركز على',
+  'مدخلنا لهذا الموضوع هو',
+];
+
+const TITLE_BRIDGES = [
+  'خلونا نركز في هذه الشريحة على',
+  'محورنا هنا هو',
+  'في هذه المحطة بنتكلم عن',
+  'موضوعنا الآن هو',
+  'الصورة في هذه الشريحة تدور حول',
+  'ننتقل الآن إلى',
 ];
 
 const POINT_BRIDGES = [
@@ -29,6 +46,9 @@ const DETAIL_BRIDGES = [
   'والدور هنا يتمثل في',
   'والخلاصة فيها أن',
 ];
+
+let cardOpeningSequence = 0;
+let slideOpeningSequence = 0;
 
 function withStop(value: string) {
   const text = value.trim();
@@ -56,8 +76,10 @@ function explainPoints(points: string[]) {
     .join(' ');
 }
 
-function cardNarration(card: PptCard, index: number) {
-  const bridge = CARD_BRIDGES[index] ?? 'ونكمل الآن مع';
+function cardNarration(card: PptCard, index: number, variation: number) {
+  const bridge = index === 0
+    ? OPENING_BRIDGES[variation % OPENING_BRIDGES.length]
+    : CARD_BRIDGES[(index + variation - 1) % CARD_BRIDGES.length];
   const parts = [`${bridge} ${card.title}.`];
 
   if (card.text) {
@@ -78,7 +100,11 @@ function cardNarration(card: PptCard, index: number) {
 }
 
 function fullNarration(lead: string, cards: PptCard[], close = '') {
-  return [lead, ...cards.map(cardNarration), close].filter(Boolean).join(' ');
+  const variation = cardOpeningSequence % OPENING_BRIDGES.length;
+  cardOpeningSequence += 1;
+  return [lead, ...cards.map((card, index) => cardNarration(card, index, variation)), close]
+    .filter(Boolean)
+    .join(' ');
 }
 
 function narrationCoversTitle(title: string, narration: string) {
@@ -127,9 +153,11 @@ function makeSlide({
   subtitle?: string;
   unitTitle?: string;
 }): Slide {
+  const titleVariation = slideOpeningSequence % TITLE_BRIDGES.length;
+  slideOpeningSequence += 1;
   const completeNarration = narrationCoversTitle(title, narration)
     ? narration
-    : `في هذه الشريحة نركز على ${title}. ${narration}`;
+    : `${TITLE_BRIDGES[titleVariation]} ${title}. ${narration}`;
 
   return {
     id,
@@ -716,7 +744,7 @@ export const governanceChapterOneSlides = indexSlides([
     audioKey: 'ch1-welcome',
     title: 'الحوكمة التنظيمية والامتثال',
     narration:
-      'السلام عليكم ورحمة الله وبركاته. حيّاكم الله في الحوكمة والمخاطر والامتثال، وتحديدًا في الفصل الأول: الحوكمة التنظيمية والامتثال. المحاور عندنا هي: التخطيط، ثم أنظمة القيادة، ثم تنسيق المعلومات. بنبني في هذا الفصل الأساس اللي تعتمد عليه بقية الحقيبة؛ نبدأ بالتخطيط، ونفهم أنظمة القيادة، ثم نوضح كيف تنتقل المعلومات والمسؤوليات داخل المنشأة. وبإذن الله نربط كل مفهوم بموقف عملي، لأن الحوكمة تظهر في القرار اليومي، وليست مجرد وثائق.',
+      'حيّاكم الله من جديد، والسلام عليكم ورحمة الله وبركاته. نبدأ الحوكمة والمخاطر والامتثال، وتحديدًا الفصل الأول: الحوكمة التنظيمية والامتثال. المحاور عندنا هي: التخطيط، ثم أنظمة القيادة، ثم تنسيق المعلومات. بنبني في هذا الفصل الأساس اللي تعتمد عليه بقية الحقيبة؛ نبدأ بالتخطيط، ونفهم أنظمة القيادة، ثم نوضح كيف تنتقل المعلومات والمسؤوليات داخل المنشأة. وبإذن الله نربط كل مفهوم بموقف عملي، لأن الحوكمة تظهر في القرار اليومي، وليست مجرد وثائق.',
     visual: '🏛️',
     layout: 'pptIntro',
     kind: 'welcome',
@@ -1062,7 +1090,7 @@ export const governanceChapterTwoSlides = indexSlides([
     audioKey: 'ch2-welcome',
     title: 'الامتثال والتدقيق والضوابط',
     narration:
-      'السلام عليكم ورحمة الله وبركاته. حيّاكم الله في الحوكمة والمخاطر والامتثال، وتحديدًا في الفصل الثاني: الامتثال والتدقيق والضوابط. المحاور عندنا هي: إدارة الامتثال، ثم مراقبة الضوابط، ثم التدريب والتوعية. مثل ما تكلمنا في الفصل الأول عن الحوكمة وتوزيع الأدوار وحماية القرار، اليوم ننتقل للسؤال العملي: كيف نتأكد أن الأنظمة والسياسات مطبقة فعلًا؟ نبدأ مستعينين بالله.',
+      'بسم الله نواصل رحلتنا، والسلام عليكم ورحمة الله وبركاته. وصلنا في الحوكمة والمخاطر والامتثال إلى الفصل الثاني: الامتثال والتدقيق والضوابط. المحاور عندنا هي: إدارة الامتثال، ثم مراقبة الضوابط، ثم التدريب والتوعية. مثل ما تكلمنا في الفصل الأول عن الحوكمة وتوزيع الأدوار وحماية القرار، اليوم ننتقل للسؤال العملي: كيف نتأكد أن الأنظمة والسياسات مطبقة فعلًا؟ نبدأ مستعينين بالله.',
     visual: '✅',
     layout: 'pptIntro',
     kind: 'welcome',
@@ -1357,7 +1385,7 @@ export const governanceChapterThreeSlides = indexSlides([
     audioKey: 'ch3-welcome',
     title: 'إدارة المخاطر المؤسسية',
     narration:
-      'السلام عليكم ورحمة الله وبركاته. حيّاكم الله في الحوكمة والمخاطر والامتثال، وتحديدًا في الفصل الثالث: إدارة المخاطر المؤسسية. المحاور عندنا هي: إطار أيزو 31000، ثم إدارة المخاطر والضوابط، ثم تحليل المخاطر. بعد ما بنينا الحوكمة في الفصل الأول، وتأكدنا من التطبيق وفعالية الضوابط في الفصل الثاني، نصل اليوم للسؤال القيادي: أين يمكن أن نتعثر، وما القرار المناسب قبل ما يتحول الاحتمال إلى أثر؟ نبدأ على بركة الله.',
+      'أهلًا وسهلًا بكم، والسلام عليكم ورحمة الله وبركاته. نصل اليوم في الحوكمة والمخاطر والامتثال إلى الفصل الثالث: إدارة المخاطر المؤسسية. المحاور عندنا هي: إطار أيزو 31000، ثم إدارة المخاطر والضوابط، ثم تحليل المخاطر. بعد ما بنينا الحوكمة في الفصل الأول، وتأكدنا من التطبيق وفعالية الضوابط في الفصل الثاني، نصل للسؤال القيادي: أين يمكن أن نتعثر، وما القرار المناسب قبل ما يتحول الاحتمال إلى أثر؟ نبدأ على بركة الله.',
     visual: '🛡️',
     layout: 'pptIntro',
     kind: 'welcome',
