@@ -50,9 +50,11 @@ export function TrackModal({
           </button>
         </div>
 
-        {/* Chapters */}
+        {/* Course units */}
         <div className="scroll-slim flex-1 space-y-2.5 overflow-y-auto p-5">
-          <p className="mb-1 text-sm font-bold text-ink-soft">فصول الحقيبة ({toArabicDigits(10)})</p>
+          <p className="mb-1 text-sm font-bold text-ink-soft">
+            محتويات الحقيبة ({toArabicDigits(track.chapters.length)})
+          </p>
           {track.chapters.map((ch) => {
             const ready = ch.status === 'ready';
             const chapterProgress = ch.courseId ? readChapterProgress(ch.courseId) : progress;
@@ -78,7 +80,7 @@ export function TrackModal({
 
                 <div className="min-w-0 flex-1">
                   <p className={`font-semibold ${ready ? 'text-ink' : 'text-ink-muted'}`}>
-                    <span className="text-xs text-ink-muted">الفصل {toArabicDigits(ch.index)} · </span>
+                    <span className="text-xs text-ink-muted">{ch.label} · </span>
                     {ch.title}
                   </p>
                   {ready && chapterProgress.started && (
@@ -99,7 +101,7 @@ export function TrackModal({
                     onClick={() => ch.courseId && onEnterChapter(ch.courseId)}
                     className="btn-primary shrink-0 px-4 py-2 text-sm"
                   >
-                    {chapterProgress.completed ? 'مراجعة' : chapterProgress.started ? 'متابعة' : 'ابدأ الفصل'}
+                    {chapterProgress.completed ? 'مراجعة' : chapterProgress.started ? 'متابعة' : 'ابدأ'}
                     <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M15 6l-6 6 6 6" />
                     </svg>
@@ -117,7 +119,7 @@ export function TrackModal({
         {/* Footer note */}
         <div className="border-t border-line bg-surface-2 px-5 py-3 text-center text-xs text-ink-muted">
           <Icon name="sparkles" className="me-1 inline w-3.5 h-3.5 text-gold-500" />
-          يُفتح فصلٌ جديد تِباعاً — الفصل الأول متاح الآن بالكامل بأنشطته وشرحه الصوتي.
+          المقدمة والفصول الثلاثة متاحة الآن بمحتواها التدريبي التفاعلي.
         </div>
       </div>
     </div>

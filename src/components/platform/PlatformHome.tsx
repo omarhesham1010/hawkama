@@ -42,11 +42,13 @@ function Stat({ value, label }: { value: string; label: string }) {
 
 function trackProgress(track: Track): number {
   if (track.status !== 'available') return 0;
-  // average completion across the 10 chapters (only ch1 is live)
-  const readyContribution = track.chapters
-    .filter((c) => c.status === 'ready')
-    .reduce((acc, c) => acc + (c.courseId ? readChapterProgress(c.courseId).percent : 0), 0);
-  return Math.round(readyContribution / track.chapters.length);
+  const readyChapters = track.chapters.filter((chapter) => chapter.status === 'ready');
+  if (!readyChapters.length) return 0;
+  const completed = readyChapters.reduce(
+    (sum, chapter) => sum + (chapter.courseId ? readChapterProgress(chapter.courseId).percent : 0),
+    0,
+  );
+  return Math.round(completed / readyChapters.length);
 }
 
 function TrackCard({ track, onOpen }: { track: Track; onOpen: (t: Track) => void }) {
@@ -101,7 +103,7 @@ function TrackCard({ track, onOpen }: { track: Track; onOpen: (t: Track) => void
 
       <div className="mt-auto space-y-2">
         <div className="flex items-center justify-between text-xs text-ink-muted">
-          <span>{toArabicDigits(10)} فصول · {toArabicDigits(readyCount)} متاح</span>
+          <span>{toArabicDigits(track.chapters.length)} وحدات · {toArabicDigits(readyCount)} متاح</span>
           <span className="font-bold text-brand tabular">{toArabicDigits(percent)}٪</span>
         </div>
         <ProgressBar percent={percent} />
@@ -140,7 +142,7 @@ export function PlatformHome({
   onEnterChapter: (courseId: string) => void;
 }) {
   const [selected, setSelected] = useState<Track | null>(null);
-  const progress = useMemo(() => readChapterProgress('governance-ch1'), []);
+  const progress = useMemo(() => readChapterProgress('governance-intro'), []);
 
   const scrollToTracks = () =>
     document.getElementById('tracks')?.scrollIntoView({ behavior: 'smooth' });
@@ -173,11 +175,11 @@ export function PlatformHome({
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                onClick={() => onEnterChapter('governance-ch1')}
+                onClick={() => onEnterChapter('governance-intro')}
                 className="btn-gold px-7 py-3.5 text-base"
               >
                 <Icon name="flag" className="w-5 h-5" />
-                {progress.started ? 'تابع الفصل المتاح' : 'ابدأ الفصل المتاح'}
+                {progress.started ? 'تابع الحقيبة الأولى' : 'ابدأ الحقيبة الأولى'}
               </button>
               <button type="button" onClick={scrollToTracks} className="btn-ghost px-6 py-3.5 text-base">
                 <Icon name="compass" className="w-5 h-5" />
@@ -190,7 +192,7 @@ export function PlatformHome({
               <div className="mt-5 flex items-center gap-3 rounded-xl border border-brand/30 bg-brand/5 p-3">
                 <Icon name="flow" className="w-5 h-5 text-brand" />
                 <span className="text-sm text-ink-soft">
-                  أكملت <b className="text-brand">{toArabicDigits(progress.percent)}٪</b> من الفصل الأول
+                  أكملت <b className="text-brand">{toArabicDigits(progress.percent)}٪</b> من مقدمة الحقيبة
                 </span>
                 <div className="ms-auto w-24">
                   <ProgressBar percent={progress.percent} />
@@ -200,7 +202,7 @@ export function PlatformHome({
             {progress.completed && (
               <div className="mt-5 flex items-center gap-2 rounded-xl border border-green-500/30 bg-green-500/5 p-3 text-sm font-semibold text-green-700 dark:text-green-300">
                 <Icon name="check" className="w-5 h-5" />
-                أتممت الفصل الأول — يمكنك مراجعته في أي وقت.
+                أتممت مقدمة الحقيبة — يمكنك بدء الفصل الأول من محتويات الحقيبة.
               </div>
             )}
           </div>
@@ -215,9 +217,9 @@ export function PlatformHome({
         {/* Stats */}
         <section className="grid grid-cols-2 gap-4 rounded-2xl border border-line bg-surface p-6 shadow-card sm:grid-cols-4">
           <Stat value={`${toArabicDigits(10)}`} label="حقائب تدريبية" />
-          <Stat value={`${toArabicDigits(100)}`} label="فصل تفاعلي" />
-          <Stat value={`${toArabicDigits(6)}+`} label="أنشطة وألعاب" />
-          <Stat value="شهادة" label="إتمام لكل فصل" />
+          <Stat value={`${toArabicDigits(3)}`} label="فصول في الحقيبة الأولى" />
+          <Stat value={`${toArabicDigits(6)}+`} label="أنشطة وتطبيقات" />
+          <Stat value="SCORM" label="متوافق مع أنظمة LMS" />
         </section>
 
         {/* Tracks */}
@@ -226,7 +228,7 @@ export function PlatformHome({
             <div>
               <span className="mb-1 block h-1 w-14 rounded-full bg-gold-500" />
               <h2 className="text-2xl font-bold text-brand-strong">الحقائب التدريبية</h2>
-              <p className="text-sm text-ink-muted">اختر حقيبة لاستعراض فصولها</p>
+              <p className="text-sm text-ink-muted">اختر حقيبة لاستعراض محتواها</p>
             </div>
             <span className="chip bg-surface-3 text-ink-soft text-sm">
               {toArabicDigits(platform.tracks.length)} حقائب

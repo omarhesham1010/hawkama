@@ -16,6 +16,7 @@ import { activePptCardForCue, pptCardCueIndexes } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
 import {
+  activityCardDiscussion,
   conflictScenarioCompletion,
   conflictScenarioDiscussions,
   conflictScenarioQuestions,
@@ -85,7 +86,7 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
     : undefined;
 
   return {
-    line: visibleLine,
+    line: muted && line ? line : visibleLine,
     speak,
     speaking: Boolean(speechKey),
     started,
@@ -787,6 +788,7 @@ function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
 }
 
 function pptDetailFor(card: PptCard) {
+  if (card.rationale) return card.rationale;
   const text = `${card.title} ${card.text ?? ''}`;
   if (text.includes('حوكمة') || text.includes('الإطار')) {
     return 'حدد صاحب القرار، جهة المراجعة، ودليل التوثيق.';
@@ -1192,6 +1194,7 @@ function PptStyleSlide({
   completion: CompletionInfo;
 }) {
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
+  const guidedSpeech = useGuidedSpeech(slide, muted);
 
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
@@ -1232,13 +1235,26 @@ function PptStyleSlide({
           : undefined;
   const toggleCard = (i: number) => {
     const key = `${slide.id}:${i}`;
-    setExpandedCardKey((current) => (current === key ? null : key));
+    if (expandedCardKey === key) {
+      setExpandedCardKey(null);
+      return;
+    }
+    setExpandedCardKey(key);
+    if (slide.kind === 'activity') {
+      guidedSpeech.speak(
+        `${slide.audioKey}-detail-${i + 1}`,
+        activityCardDiscussion(cards[i]),
+        () => undefined,
+      );
+    }
   };
   const expandedCardIndex = cards.findIndex((_, index) => expandedCardKey === `${slide.id}:${index}`);
   const expandedCard = expandedCardIndex >= 0 ? cards[expandedCardIndex] : undefined;
-  const interactionLine = expandedCard
-    ? `خلنا نربط هذه النقطة بالتطبيق: ${pptDetailFor(expandedCard)} فكر كيف تظهر في بيئة عملك قبل الانتقال للنقطة التالية.`
-    : undefined;
+  const interactionLine = guidedSpeech.line ?? (expandedCard
+    ? slide.kind === 'activity'
+      ? activityCardDiscussion(expandedCard)
+      : `خلنا نربط هذه النقطة بالتطبيق: ${pptDetailFor(expandedCard)} فكر كيف تظهر في بيئة عملك قبل الانتقال للنقطة التالية.`
+    : undefined);
 
   return (
     <StorySlideShell

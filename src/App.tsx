@@ -15,13 +15,13 @@ function parseHash(): Route {
   if (parts[0] === 'course') {
     const legacySlide = parseInt(parts[1] || '1', 10);
     if (!Number.isNaN(legacySlide)) {
-      return { view: 'course', courseId: 'governance-ch1', slide: legacySlide };
+      return { view: 'course', courseId: 'governance-intro', slide: legacySlide };
     }
-    const courseId = parts[1] || 'governance-ch1';
+    const courseId = parts[1] || 'governance-intro';
     const n = parseInt(parts[2] || '1', 10);
     return { view: 'course', courseId, slide: Number.isNaN(n) ? 1 : n };
   }
-  return { view: 'home', courseId: 'governance-ch1', slide: 1 };
+  return { view: 'home', courseId: 'governance-intro', slide: 1 };
 }
 
 export default function App() {

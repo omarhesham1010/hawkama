@@ -15,19 +15,22 @@ let audioModule;
 let alignmentModule;
 let timing;
 let pptTiming;
+let manifestModule;
 try {
   slidesModule = await server.ssrLoadModule('/src/data/slides.ts');
   audioModule = await server.ssrLoadModule('/src/data/audioScripts.ts');
   alignmentModule = await server.ssrLoadModule('/src/data/audioAlignments.ts');
+  manifestModule = await server.ssrLoadModule('/src/data/audioManifest.ts');
   timing = await server.ssrLoadModule('/src/lib/storyTiming.ts');
   pptTiming = await server.ssrLoadModule('/src/lib/pptTiming.ts');
 } finally {
   await server.close();
 }
-const { slides } = slidesModule;
+const { slides, allNarratedSlides } = slidesModule;
 
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
 const { audioAlignments } = alignmentModule;
+const { hasAudio } = manifestModule;
 const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue, ttsChunks } = timing;
 const { pptCardCueIndexes, scorePptCardCue } = pptTiming;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
@@ -35,12 +38,17 @@ const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 const slideStageSource = await readFile('src/components/player/SlideStage.tsx', 'utf8');
 const slidePlayerSource = await readFile('src/SlidePlayer.tsx', 'utf8');
 
-check(slides.length === 8, `primary course has 8 slides (found ${slides.length})`);
+check(slides.length === 11, `chapter one has 11 slides (found ${slides.length})`);
+check(allNarratedSlides.length === 30, `governance bag has 30 slides (found ${allNarratedSlides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
-check(Object.keys(audioAlignments).length === audioScripts.length, 'every audio script has exact ElevenLabs timestamps');
 for (const entry of audioScripts) {
+  if (!hasAudio(entry.key)) {
+    check(!audioAlignments[entry.key], `${entry.key} correctly uses TTS until its ElevenLabs file is generated`);
+    continue;
+  }
   const alignment = audioAlignments[entry.key];
   check(Boolean(alignment?.anchors?.length), `${entry.key} has timestamp anchors`);
+  if (!alignment?.anchors?.length) continue;
   let previousIndex = -1;
   let previousStart = -1;
   for (const [sourceIndex, start, end] of alignment.anchors) {
@@ -97,7 +105,7 @@ check(
   'the final Nasser cue remains readable briefly after main and guided audio completes',
 );
 
-for (const slide of slides) {
+for (const slide of allNarratedSlides) {
   const mainAudio = catalog.get(slide.audioKey);
   check(Boolean(mainAudio), `${slide.id}: main audio key exists`);
   check(mainAudio?.text === slide.narration, `${slide.id}: catalog text exactly matches runtime narration`);
@@ -144,7 +152,7 @@ for (const slide of slides) {
   }
 }
 
-const governanceSlide = slides.find((slide) => slide.id === 'ppt-activity-governance-or-compliance');
+const governanceSlide = allNarratedSlides.find((slide) => slide.id === 'ppt-activity-governance-or-compliance');
 const governanceCards = governanceSlide?.ppt?.cards ?? [];
 check(governanceCards.length === 4, `governance activity has 4 questions (found ${governanceCards.length})`);
 governanceCards.forEach((card, index) => {
@@ -160,7 +168,7 @@ governanceCards.forEach((card, index) => {
   }
 });
 
-const scenarioSlide = slides.find((slide) => slide.id === 'ppt-conflict-scenario');
+const scenarioSlide = allNarratedSlides.find((slide) => slide.id === 'ppt-conflict-scenario');
 const scenarioSteps = (scenarioSlide?.ppt?.cards?.length ?? 1) - 1;
 check(conflictScenarioQuestions.length === scenarioSteps, `scenario has ${scenarioSteps} question scripts`);
 check(conflictScenarioDiscussions.length === scenarioSteps, `scenario has ${scenarioSteps} discussion scripts`);
@@ -180,4 +188,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Slide sync validation passed: ${checks.length} checks, ${slides.length} slides, ${audioScripts.length} audio scripts.`);
+console.log(`Slide sync validation passed: ${checks.length} checks, ${allNarratedSlides.length} slides, ${audioScripts.length} audio scripts.`);

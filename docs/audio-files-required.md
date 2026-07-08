@@ -1,33 +1,71 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **25**.
+Generated from `src/data/audioScripts.ts`. Total required: **63**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
 The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived `compliance-risk-ch1` course.
 
-- `ppt-intro.mp3` - نماذج وهياكل الحوكمة الصحية
-- `ppt-governance-models.mp3` - نماذج وهياكل الحوكمة الصحية
-- `ppt-framework.mp3` - تطوير وتطبيق أطر الحوكمة
-- `ppt-governance-compliance.mp3` - العلاقة بين الحوكمة والامتثال
-- `ppt-activity-governance-or-compliance.mp3` - نشاط: الحوكمة أم الامتثال؟ — تمييز الأدوار
-- `ppt-ethics-conflict.mp3` - أخلاقيات العمل وتضارب المصالح
-- `ppt-conflict-scenario.mp3` - سيناريو تضارب المصالح
-- `ppt-conclusion.mp3` - خاتمة الفصل
-- `ppt-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
-- `ppt-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
-- `ppt-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
-- `ppt-activity-governance-or-compliance-feedback-1-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 1 صحيحة
-- `ppt-activity-governance-or-compliance-feedback-1-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 1 غير صحيحة
-- `ppt-activity-governance-or-compliance-feedback-2-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 2 صحيحة
-- `ppt-activity-governance-or-compliance-feedback-2-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 2 غير صحيحة
-- `ppt-activity-governance-or-compliance-feedback-3-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 3 صحيحة
-- `ppt-activity-governance-or-compliance-feedback-3-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة
-- `ppt-activity-governance-or-compliance-feedback-4-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 4 صحيحة
-- `ppt-activity-governance-or-compliance-feedback-4-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة
-- `ppt-conflict-scenario-question-2.mp3` - سيناريو تضارب المصالح - السؤال 2
-- `ppt-conflict-scenario-question-3.mp3` - سيناريو تضارب المصالح - السؤال 3
-- `ppt-conflict-scenario-discussion-1.mp3` - سيناريو تضارب المصالح - المناقشة 1
-- `ppt-conflict-scenario-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
-- `ppt-conflict-scenario-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
-- `ppt-conflict-scenario-complete.mp3` - سيناريو تضارب المصالح - الختام
+- `program-welcome.mp3` - الحوكمة والمخاطر والامتثال
+- `program-map.mp3` - محتويات البرنامج التدريبي
+- `ch1-welcome.mp3` - الحوكمة التنظيمية والامتثال
+- `ch1-overview.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال
+- `ch1-regulatory-framework.mp3` - الإطار التنظيمي للقطاع الصحي
+- `ch1-health-policies.mp3` - صياغة وتطوير السياسات الصحية
+- `ch1-policy-activity.mp3` - نشاط: تطوير سياسة صحية
+- `ch1-governance-models.mp3` - نماذج وهياكل الحوكمة الصحية
+- `ch1-framework.mp3` - تطوير وتطبيق أطر الحوكمة
+- `ch1-governance-compliance.mp3` - العلاقة بين الحوكمة والامتثال
+- `ch1-activity-governance-or-compliance.mp3` - نشاط: الحوكمة أم الامتثال؟ — تمييز الأدوار
+- `ch1-ethics-conflict.mp3` - أخلاقيات العمل وتضارب المصالح
+- `ch1-conflict-scenario.mp3` - نشاط: سيناريوهات تضارب المصالح
+- `ch2-welcome.mp3` - الامتثال والتدقيق والضوابط
+- `ch2-overview.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط
+- `ch2-compliance-concept.mp3` - مفهوم الامتثال وأهميته ووظيفته
+- `ch2-pdca.mp3` - أيزو 37301 – دورة PDCA للامتثال
+- `ch2-self-assessment.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال
+- `ch2-monitoring.mp3` - مراقبة الامتثال واختبار الضوابط
+- `ch2-culture.mp3` - بناء ثقافة الامتثال وبرامج التوعية
+- `ch2-action-plan.mp3` - نشاط: بناء خطة العمل القيادي
+- `ch3-welcome.mp3` - إدارة المخاطر المؤسسية
+- `ch3-overview.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية
+- `ch3-risk-definition.mp3` - تعريف الخطر ومبادئ أيزو 31000
+- `ch3-risk-process.mp3` - مراحل عملية إدارة المخاطر
+- `ch3-risk-register.mp3` - سجل المخاطر وإعداد التقارير التحليلية
+- `ch3-risk-activity.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر
+- `program-summary.mp3` - الخلاصة – أبرز ما تعلمناه
+- `program-final-message.mp3` - الامتثال بلا حوكمة.. شكلٌ بلا روح
+- `program-leadership-questions.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
+- `ch1-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
+- `ch1-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
+- `ch1-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
+- `ch1-policy-activity-detail-4.mp3` - نشاط: تطوير سياسة صحية - مناقشة 4
+- `ch1-policy-activity-detail-5.mp3` - نشاط: تطوير سياسة صحية - مناقشة 5
+- `ch2-self-assessment-detail-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 1
+- `ch2-self-assessment-detail-2.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 2
+- `ch2-self-assessment-detail-3.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 3
+- `ch2-self-assessment-detail-4.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 4
+- `ch2-self-assessment-detail-5.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 5
+- `ch2-action-plan-detail-1.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 1
+- `ch2-action-plan-detail-2.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 2
+- `ch2-action-plan-detail-3.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 3
+- `ch3-risk-activity-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
+- `ch3-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
+- `ch3-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
+- `ch1-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
+- `ch1-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
+- `ch1-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
+- `ch1-activity-governance-or-compliance-feedback-1-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 1 صحيحة
+- `ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 1 غير صحيحة
+- `ch1-activity-governance-or-compliance-feedback-2-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 2 صحيحة
+- `ch1-activity-governance-or-compliance-feedback-2-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 2 غير صحيحة
+- `ch1-activity-governance-or-compliance-feedback-3-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 3 صحيحة
+- `ch1-activity-governance-or-compliance-feedback-3-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة
+- `ch1-activity-governance-or-compliance-feedback-4-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 4 صحيحة
+- `ch1-activity-governance-or-compliance-feedback-4-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة
+- `ch1-conflict-scenario-question-2.mp3` - سيناريو تضارب المصالح - السؤال 2
+- `ch1-conflict-scenario-question-3.mp3` - سيناريو تضارب المصالح - السؤال 3
+- `ch1-conflict-scenario-discussion-1.mp3` - سيناريو تضارب المصالح - المناقشة 1
+- `ch1-conflict-scenario-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
+- `ch1-conflict-scenario-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
+- `ch1-conflict-scenario-complete.mp3` - سيناريو تضارب المصالح - الختام

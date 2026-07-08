@@ -1,7 +1,7 @@
-# وحدة الحوكمة الصحية التفاعلية — الفصل الأول
+# حقيبة الحوكمة والمخاطر والامتثال التفاعلية
 
-> Premium Arabic (RTL) interactive e‑learning module — **نماذج وهياكل الحوكمة الصحية**
-> Built from the source presentation `الحوكمة-تعليم-الكتروني-الفصل-الاول.pptx`.
+> Premium Arabic (RTL) interactive e-learning course — **الحوكمة والمخاطر والامتثال**
+> Built from the source presentation `الحوكمة والمخاطر والامتثال_العرض التقديمي.pptx`.
 
 وحدة تدريبية تفاعلية كاملة تحوّل محتوى العرض التقديمي إلى تجربة تعلّم إلكترونية احترافية
 جاهزة لأنظمة إدارة التعلّم (LMS): دروس، أنشطة وألعاب تدريبية، محاكاة قرار، اختبار معرفة،
@@ -19,7 +19,7 @@
 - **هوية موحّدة فاخرة**: مزيج أخضر + تركوازي + ذهبي من العرض التقديمي (بلا وضع داكن)، إيموجي ورسومات رقمية تُوضّح المعاني وتُغني عن الصور، وخلفية متحركة أنيقة.
 - **محتوى مبني على البيانات** (`slides.ts`) يسهل تعديله، مع سرد **يغطي كل النص المكتوب** على الشريحة.
 
-> **ملاحظة عن الكتالوج:** عناوين الحقائب والفصول في الصفحة الرئيسية هي عناصر كتالوج تنظيمية (Placeholders) وليست محتوى تعليمياً — المحتوى التعليمي الحقيقي هو الفصل الأول فقط، المأخوذ بأمانة من العرض التقديمي.
+> **ملاحظة عن الكتالوج:** الحقيبة الأولى متاحة باسمها ومحتواها المعتمد: المقدمة وثلاثة فصول. الحقائب من الثانية إلى العاشرة معروضة بأرقامها فقط إلى أن تصل أسماؤها وموادها المعتمدة.
 
 ---
 
@@ -52,7 +52,8 @@ npm run preview
 
 ## 🎬 المشغّل التفاعلي (Storyline-style) / The slide player
 
-الفصل الحالي مبني كـ **٨ شرائح** (`src/data/slides.ts`). لكل شريحة:
+الحقيبة الأولى مبنية كـ **٣٠ شريحة** موزعة على المقدمة وثلاثة فصول
+(`src/data/governanceProgram.ts`). لكل شريحة:
 
 - `narration` + `audioKey` (مثل `ppt-framework`) → يشغّل `/public/audio/ppt-framework.mp3` إن وُجد، وإلا قراءة آلية.
 - `duration` (بالثواني) و`timeline`: قائمة أحداث `{ time, element, animation }` تُظهر العناصر تدريجياً.
@@ -86,9 +87,9 @@ npm run preview
 ## ElevenLabs Audio Generation
 
 The production voice files can be generated from the centralized catalog in
-`src/data/audioScripts.ts`. The catalog contains the eight main slide narrations
+`src/data/audioScripts.ts`. The catalog contains all 30 slide narrations
 and every activity question, correct/incorrect feedback, scenario discussion,
-and spoken completion that is used at runtime. The first question of each guided
+and spoken completion used at runtime. The first question of each guided
 activity is already part of its main slide narration, so it is not generated twice.
 
 1. Join the client's ElevenLabs workspace and create an API key with Text to Speech access.
@@ -125,9 +126,11 @@ npm run audio:check
 npm run audio:check:strict
 ```
 
-The 25 current ElevenLabs MP3 files are already generated and committed. Do not
-regenerate them unless the narration text or approved voice changes, and only
-after explicit user approval. Generation consumes ElevenLabs credits.
+The expanded 30-slide program intentionally uses browser TTS until its revised
+narration is approved. The MP3 files from the previous chapter version remain
+in the repository and are not regenerated or reused by the new audio keys.
+Do not generate the new production audio without explicit approval because
+generation consumes ElevenLabs credits.
 
 Generate only missing files, or deliberately regenerate every catalog file after approval:
 

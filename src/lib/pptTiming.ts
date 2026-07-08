@@ -35,6 +35,15 @@ export function pptCardCueIndexes(cards: PptCard[], narration: string) {
 
   let previous = -1;
   return cards.map((card, cardIndex) => {
+    const title = cleanText(card.title);
+    const exactTitleCue = cues.findIndex(
+      (cue, cueIndex) => cueIndex > previous && title && cleanText(cue.text).includes(title),
+    );
+    if (exactTitleCue >= 0) {
+      previous = exactTitleCue;
+      return previous;
+    }
+
     let best = { cueIndex: -1, score: 0 };
     for (let cueIndex = previous + 1; cueIndex < cues.length; cueIndex += 1) {
       const score = scorePptCardCue(card, cues[cueIndex].text);

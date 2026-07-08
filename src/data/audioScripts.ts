@@ -1,5 +1,5 @@
 import type { PptCard } from '../types/slides';
-import { slides } from './slides';
+import { allNarratedSlides as slides } from './slides';
 
 export type AudioCategory =
   | 'slide'
@@ -33,6 +33,11 @@ export function governanceFeedbackText(card: PptCard, answer: string) {
     ? `ممتاز، اختيارك صحيح. ${card.rationale ?? ''}`
     : `خلنا نراجعها معًا. التصنيف الصحيح هو ${card.answer}. ${card.rationale ?? ''}`;
   return response;
+}
+
+export function activityCardDiscussion(card: PptCard) {
+  const discussion = card.rationale ?? 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
+  return `خلنا نناقشها معًا. ${discussion}`;
 }
 
 export const conflictScenarioQuestions = [
@@ -70,6 +75,24 @@ function item(
 const mainSlideItems = slides.map((slide) =>
   item(slide.audioKey, slide.title, slide.narration, 'slide', slide.id),
 );
+
+const genericActivityDetailItems = slides
+  .filter(
+    (slide) =>
+      slide.kind === 'activity' &&
+      !['pptActivitySort', 'pptScenario'].includes(slide.layout ?? ''),
+  )
+  .flatMap((slide) =>
+    (slide.ppt?.cards ?? []).map((card, index) =>
+      item(
+        `${slide.audioKey}-detail-${index + 1}`,
+        `${slide.title} - مناقشة ${index + 1}`,
+        activityCardDiscussion(card),
+        'activity-feedback',
+        slide.id,
+      ),
+    ),
+  );
 
 const governanceSlide = slides.find((slide) => slide.id === 'ppt-activity-governance-or-compliance');
 const governanceCards = governanceSlide?.ppt?.cards ?? [];
@@ -138,6 +161,7 @@ const scenarioItems = [
 
 export const audioScripts: AudioScriptItem[] = [
   ...mainSlideItems,
+  ...genericActivityDetailItems,
   ...governanceQuestionItems,
   ...governanceFeedbackItems,
   ...scenarioItems,

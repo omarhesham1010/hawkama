@@ -24,7 +24,7 @@ const SECTION_LABEL: Record<string, string> = {
 
 /** Articulate-Storyline-style narrated slide player (voice-synced reveal). */
 export default function SlidePlayer({
-  courseId = 'governance-ch1',
+  courseId = 'governance-intro',
   initialSlide = 1,
   onExit,
 }: {
@@ -211,7 +211,7 @@ export default function SlidePlayer({
         index={index}
         total={slides.length}
         onPrev={() => goTo(index - 1)}
-        onNext={() => goTo(index + 1)}
+        onNext={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
         onPlayPause={handlePlayPause}
         onReplay={handleReplay}
         onToggleMute={toggleMute}

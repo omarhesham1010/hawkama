@@ -19,9 +19,9 @@
 
   <organizations default="ORG-GOVERNANCE">
     <organization identifier="ORG-GOVERNANCE" adlseq:objectivesGlobalToSystem="false">
-      <title>نماذج وهياكل الحوكمة الصحية</title>
+      <title>الحوكمة والمخاطر والامتثال</title>
       <item identifier="ITEM-GOVERNANCE-CH1" identifierref="RES-GOVERNANCE-CH1" isvisible="true">
-        <title>الفصل الأول - نماذج وهياكل الحوكمة الصحية</title>
+        <title>الحوكمة والمخاطر والامتثال - المقدمة والفصول الثلاثة</title>
         <imsss:sequencing>
           <imsss:controlMode choice="true" flow="true" />
           <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-B-7QZigv.js" />
       <file href="assets/index-Bs8aKGsP.css" />
+      <file href="assets/index-CnjgJVAi.js" />
       <file href="audio/README.md" />
       <file href="audio/ppt-activity-governance-or-compliance-feedback-1-correct.mp3" />
       <file href="audio/ppt-activity-governance-or-compliance-feedback-1-incorrect.mp3" />

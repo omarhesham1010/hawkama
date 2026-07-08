@@ -1,22 +1,14 @@
 import type { IconKey } from '../types/course';
 
-// ============================================================
-//  بنية المنصة التعليمية (الكتالوج).
-//  عناوين الحقائب والفصول هنا هي عناصر كتالوج تنظيمية (Placeholders)
-//  وليست محتوى تعليمياً. الفصل الوحيد الجاهز والقابل للدخول هو:
-//  الحقيبة الأولى ← الفصل الأول (courseId: 'governance-ch1')
-//  وهو الوحدة الكاملة التي بنيناها من العرض التقديمي.
-//  بقية الفصول موسومة «قريباً».
-// ============================================================
-
 export type ChapterStatus = 'ready' | 'soon';
 export type TrackStatus = 'available' | 'soon';
 
 export interface PlatformChapter {
   index: number;
+  label: string;
   title: string;
   status: ChapterStatus;
-  courseId?: string; // set only for the ready chapter
+  courseId?: string;
 }
 
 export interface Track {
@@ -29,28 +21,61 @@ export interface Track {
   chapters: PlatformChapter[];
 }
 
-/** Generic "coming soon" chapters for tracks that aren't published yet. */
-function soonChapters(prefix: string): PlatformChapter[] {
-  return Array.from({ length: 10 }, (_, i) => ({
-    index: i + 1,
-    title: `${prefix} — الفصل ${i + 1}`,
-    status: 'soon' as const,
-  }));
-}
-
-// Track 1 — the published track. Chapter 1 is our real module.
-const track1Chapters: PlatformChapter[] = [
-  { index: 1, title: 'نماذج وهياكل الحوكمة الصحية', status: 'ready', courseId: 'governance-ch1' },
-  { index: 2, title: 'أطر الحوكمة ولوائح الصلاحيات', status: 'soon' },
-  { index: 3, title: 'مجلس الإدارة واللجان المتخصصة', status: 'soon' },
-  { index: 4, title: 'المساءلة والشفافية المؤسسية', status: 'soon' },
-  { index: 5, title: 'حوكمة البيانات الصحية', status: 'soon' },
-  { index: 6, title: 'حوكمة المخاطر المؤسسية', status: 'soon' },
-  { index: 7, title: 'حوكمة الجودة وسلامة المرضى', status: 'soon' },
-  { index: 8, title: 'التقارير ومؤشرات الأداء', status: 'soon' },
-  { index: 9, title: 'حوكمة العقود والمشتريات', status: 'soon' },
-  { index: 10, title: 'مراجعة وتقييم منظومة الحوكمة', status: 'soon' },
+const governanceChapters: PlatformChapter[] = [
+  {
+    index: 1,
+    label: 'المقدمة',
+    title: 'مقدمة الحقيبة ومحاور البرنامج',
+    status: 'ready',
+    courseId: 'governance-intro',
+  },
+  {
+    index: 2,
+    label: 'الفصل الأول',
+    title: 'الحوكمة التنظيمية والامتثال',
+    status: 'ready',
+    courseId: 'governance-ch1',
+  },
+  {
+    index: 3,
+    label: 'الفصل الثاني',
+    title: 'الامتثال والتدقيق والضوابط',
+    status: 'ready',
+    courseId: 'governance-ch2',
+  },
+  {
+    index: 4,
+    label: 'الفصل الثالث',
+    title: 'إدارة المخاطر المؤسسية',
+    status: 'ready',
+    courseId: 'governance-ch3',
+  },
 ];
+
+const genericIcons: IconKey[] = [
+  'scale',
+  'integrity',
+  'clipboard',
+  'building',
+  'committee',
+  'eye',
+  'matrix',
+  'compass',
+  'flag',
+];
+
+const comingTracks: Track[] = Array.from({ length: 9 }, (_, offset) => {
+  const index = offset + 2;
+  return {
+    id: `bag-${index}`,
+    index,
+    title: `الحقيبة ${['الثانية', 'الثالثة', 'الرابعة', 'الخامسة', 'السادسة', 'السابعة', 'الثامنة', 'التاسعة', 'العاشرة'][offset]}`,
+    short: 'سيُضاف اسم الحقيبة ومحتواها بعد استلام المادة التدريبية المعتمدة.',
+    icon: genericIcons[offset],
+    status: 'soon' as const,
+    chapters: [],
+  };
+});
 
 export const platform: {
   name: string;
@@ -61,105 +86,17 @@ export const platform: {
   name: 'أكاديمية الحوكمة والامتثال',
   tagline: 'منصة تدريب احترافية للقطاع الصحي والمؤسسي',
   intro:
-    'عشر حقائب تدريبية متكاملة، تضم مئة فصل تفاعلي، تنقلك خطوة بخطوة في عالم الحوكمة والامتثال والجودة والنزاهة المؤسسية — بأنشطة وألعاب تدريبية وشرح صوتي وشهادات إتمام.',
+    'عشر حقائب تدريبية ضمن تجربة تعلم إلكتروني تفاعلية. الحقيبة الأولى متاحة الآن بمقدمتها وفصولها الثلاثة، ويُضاف محتوى بقية الحقائب بعد اعتماده.',
   tracks: [
     {
       id: 'governance',
       index: 1,
-      title: 'الحوكمة الصحية',
-      short: 'نماذج الحوكمة وهياكلها وعلاقتها بالامتثال والأخلاقيات',
+      title: 'الحوكمة والمخاطر والامتثال',
+      short: 'الحوكمة التنظيمية، الامتثال والتدقيق والضوابط، وإدارة المخاطر المؤسسية.',
       icon: 'shield',
       status: 'available',
-      chapters: track1Chapters,
+      chapters: governanceChapters,
     },
-    {
-      id: 'compliance-risk',
-      index: 2,
-      title: 'الامتثال وإدارة المخاطر',
-      short: 'بناء برامج الامتثال وضبط المخاطر التنظيمية',
-      icon: 'scale',
-      status: 'available',
-      chapters: [
-        {
-          index: 1,
-          title: 'الفصل الأول المحفوظ من النسخة السابقة',
-          status: 'ready',
-          courseId: 'compliance-risk-ch1',
-        },
-        ...soonChapters('الامتثال وإدارة المخاطر').slice(1),
-      ],
-    },
-    {
-      id: 'ethics',
-      index: 3,
-      title: 'أخلاقيات المهنة والنزاهة',
-      short: 'القيم المهنية وتضارب المصالح والنزاهة المؤسسية',
-      icon: 'integrity',
-      status: 'soon',
-      chapters: soonChapters('أخلاقيات المهنة'),
-    },
-    {
-      id: 'quality',
-      index: 4,
-      title: 'الجودة وسلامة المرضى',
-      short: 'أنظمة الجودة ومؤشرات سلامة المرضى والتحسين المستمر',
-      icon: 'clipboard',
-      status: 'soon',
-      chapters: soonChapters('الجودة وسلامة المرضى'),
-    },
-    {
-      id: 'leadership',
-      index: 5,
-      title: 'القيادة والحوكمة المؤسسية',
-      short: 'مهارات القيادة الإدارية والحوكمة الرشيدة',
-      icon: 'building',
-      status: 'soon',
-      chapters: soonChapters('القيادة المؤسسية'),
-    },
-    {
-      id: 'hr',
-      index: 6,
-      title: 'إدارة الموارد البشرية الصحية',
-      short: 'إدارة الكفاءات والأداء في المؤسسات الصحية',
-      icon: 'committee',
-      status: 'soon',
-      chapters: soonChapters('الموارد البشرية'),
-    },
-    {
-      id: 'data-security',
-      index: 7,
-      title: 'أمن المعلومات وحماية البيانات',
-      short: 'حماية البيانات الصحية والخصوصية والأمن السيبراني',
-      icon: 'eye',
-      status: 'soon',
-      chapters: soonChapters('أمن المعلومات'),
-    },
-    {
-      id: 'digital',
-      index: 8,
-      title: 'التحول الرقمي الصحي',
-      short: 'رقمنة الخدمات والحوكمة الرقمية في الرعاية الصحية',
-      icon: 'matrix',
-      status: 'soon',
-      chapters: soonChapters('التحول الرقمي'),
-    },
-    {
-      id: 'strategy',
-      index: 9,
-      title: 'التخطيط الاستراتيجي والأداء',
-      short: 'بناء الاستراتيجية وقياس الأداء المؤسسي',
-      icon: 'compass',
-      status: 'soon',
-      chapters: soonChapters('التخطيط الاستراتيجي'),
-    },
-    {
-      id: 'accreditation',
-      index: 10,
-      title: 'الاعتماد والمعايير الدولية',
-      short: 'متطلبات الاعتماد والمواءمة مع المعايير العالمية',
-      icon: 'flag',
-      status: 'soon',
-      chapters: soonChapters('الاعتماد والمعايير'),
-    },
+    ...comingTracks,
   ],
 };

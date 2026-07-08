@@ -50,9 +50,9 @@ const manifest = `<?xml version="1.0" encoding="UTF-8"?>
 
   <organizations default="ORG-GOVERNANCE">
     <organization identifier="ORG-GOVERNANCE" adlseq:objectivesGlobalToSystem="false">
-      <title>نماذج وهياكل الحوكمة الصحية</title>
+      <title>الحوكمة والمخاطر والامتثال</title>
       <item identifier="ITEM-GOVERNANCE-CH1" identifierref="RES-GOVERNANCE-CH1" isvisible="true">
-        <title>الفصل الأول - نماذج وهياكل الحوكمة الصحية</title>
+        <title>الحوكمة والمخاطر والامتثال - المقدمة والفصول الثلاثة</title>
         <imsss:sequencing>
           <imsss:controlMode choice="true" flow="true" />
           <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />

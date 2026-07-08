@@ -133,12 +133,11 @@ export function PlayerControls({
         <button
           type="button"
           onClick={onNext}
-          disabled={index === total - 1}
-          className="player-next-button btn-primary shrink-0 px-3 py-2.5 text-sm disabled:cursor-not-allowed disabled:opacity-40 sm:px-4"
+          className="player-next-button btn-primary shrink-0 px-3 py-2.5 text-sm sm:px-4"
         >
-          <span className="hidden sm:inline">التالي</span>
+          <span className="hidden sm:inline">{index === total - 1 ? 'إنهاء الوحدة' : 'التالي'}</span>
           <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 6l-6 6 6 6" />
+            {index === total - 1 ? <path d="M5 12h14M13 6l6 6-6 6" /> : <path d="M15 6l-6 6 6 6" />}
           </svg>
         </button>
       </div>
