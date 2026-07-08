@@ -38,6 +38,16 @@ const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 const slideStageSource = await readFile('src/components/player/SlideStage.tsx', 'utf8');
 const slidePlayerSource = await readFile('src/SlidePlayer.tsx', 'utf8');
 
+function spokenWords(value) {
+  return value
+    .normalize('NFKC')
+    .toLowerCase()
+    .replace(/\p{M}/gu, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .split(/\s+/)
+    .filter((word) => word.length > 1);
+}
+
 check(slides.length === 12, `chapter one has 12 slides including its quiz (found ${slides.length})`);
 check(allNarratedSlides.length === 33, `governance bag has 33 slides including three quizzes (found ${allNarratedSlides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
@@ -152,6 +162,30 @@ for (const slide of allNarratedSlides) {
   check(chunks.map((chunk) => chunk.text).join('') === slide.narration, `${slide.id}: TTS chunks reconstruct the exact narration character for character`);
   check(chunks[0]?.text.length <= 96, `${slide.id}: first TTS chunk is short enough for immediate startup`);
   check(chunks.slice(1).every((chunk) => chunk.text.length <= 220), `${slide.id}: following TTS chunks fit Nasser's dialogue box`);
+
+  if (slide.ppt) {
+    const visibleFields = [
+      slide.title,
+      slide.ppt.courseName,
+      slide.ppt.subtitle,
+      slide.ppt.unitTitle,
+      slide.ppt.intro,
+      slide.ppt.prompt,
+      ...(slide.ppt.cards ?? []).flatMap((card) => [card.title, card.text, ...(card.bullets ?? [])]),
+    ].filter(Boolean);
+    const spokenCorpus = audioScripts
+      .filter((entry) => entry.relatedSlide === slide.id)
+      .map((entry) => entry.text)
+      .join(' ');
+    const corpusWords = new Set(spokenWords(spokenCorpus));
+    const missingWords = [...new Set(visibleFields.flatMap((field) => spokenWords(field)))].filter(
+      (word) => !/\d/.test(word) && !corpusWords.has(word),
+    );
+    check(
+      missingWords.length === 0,
+      `${slide.id}: Nasser covers every visible slide word${missingWords.length ? ` (missing: ${missingWords.join(', ')})` : ''}`,
+    );
+  }
 
   let previous = -1;
   let monotonic = true;
