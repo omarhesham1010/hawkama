@@ -326,13 +326,20 @@ function NasserStoryLayer({
   const guide = nasserGuide(slide, spoken);
   const line = dialogueOverride ?? guide.line;
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
+  const isQuiz = slide.kind === 'quiz';
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const imageSize = isPpt ? 'h-[218px] w-[218px]' : compact ? 'h-[200px] w-[200px]' : 'h-[250px] w-[250px]';
-  const layerHeight = isPpt ? 'h-[190px]' : compact ? 'h-[178px]' : 'h-[212px]';
-  const bottomOffset = isPpt ? 'bottom-[14px]' : 'bottom-[38px]';
+  const imageSize = isPpt
+    ? 'h-[218px] w-[218px]'
+    : isQuiz
+      ? 'h-[160px] w-[160px]'
+      : compact
+        ? 'h-[200px] w-[200px]'
+        : 'h-[250px] w-[250px]';
+  const layerHeight = isPpt ? 'h-[190px]' : isQuiz ? 'h-[140px]' : compact ? 'h-[178px]' : 'h-[212px]';
+  const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[38px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
-  const bubbleLift = compact ? 'mb-5' : 'mb-9';
+  const bubbleLift = isQuiz ? 'mb-2' : compact ? 'mb-5' : 'mb-9';
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
@@ -448,9 +455,10 @@ function StorySlideShell({
   children: React.ReactNode;
 }) {
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
+  const isQuiz = slide.kind === 'quiz';
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
-  const bottomSpace = isPpt ? 'pb-[232px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
-  const topSpace = isPpt ? 'pt-[86px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
+  const bottomSpace = isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
+  const topSpace = isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
 
   return (
     <div className="relative h-full overflow-hidden">

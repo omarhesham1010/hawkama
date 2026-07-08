@@ -52,7 +52,8 @@ npm run preview
 
 ## 🎬 المشغّل التفاعلي (Storyline-style) / The slide player
 
-الحقيبة الأولى مبنية كـ **٣٠ شريحة** موزعة على المقدمة وثلاثة فصول
+الحقيبة الأولى مبنية كـ **٣٣ شريحة** موزعة على المقدمة وثلاثة فصول،
+وتشمل اختبارًا ختاميًا من خمسة أسئلة لكل فصل
 (`src/data/governanceProgram.ts`). لكل شريحة:
 
 - `narration` + `audioKey` (مثل `ppt-framework`) → يشغّل `/public/audio/ppt-framework.mp3` إن وُجد، وإلا قراءة آلية.
@@ -87,7 +88,7 @@ npm run preview
 ## ElevenLabs Audio Generation
 
 The production voice files can be generated from the centralized catalog in
-`src/data/audioScripts.ts`. The catalog contains all 30 slide narrations
+`src/data/audioScripts.ts`. The catalog contains all 33 slide narrations
 and every activity question, correct/incorrect feedback, scenario discussion,
 and spoken completion used at runtime. The first question of each guided
 activity is already part of its main slide narration, so it is not generated twice.
@@ -126,7 +127,7 @@ npm run audio:check
 npm run audio:check:strict
 ```
 
-The expanded 30-slide program intentionally uses browser TTS until its revised
+The expanded 33-slide program intentionally uses browser TTS until its revised
 narration is approved. The MP3 files from the previous chapter version remain
 in the repository and are not regenerated or reused by the new audio keys.
 Do not generate the new production audio without explicit approval because

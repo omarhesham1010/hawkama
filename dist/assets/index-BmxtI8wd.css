@@ -1211,6 +1211,12 @@ video {
 .h-\[120px\] {
   height: 120px;
 }
+.h-\[140px\] {
+  height: 140px;
+}
+.h-\[160px\] {
+  height: 160px;
+}
 .h-\[178px\] {
   height: 178px;
 }
@@ -1360,6 +1366,9 @@ video {
 }
 .w-\[120px\] {
   width: 120px;
+}
+.w-\[160px\] {
+  width: 160px;
 }
 .w-\[200px\] {
   width: 200px;
@@ -2683,6 +2692,9 @@ video {
 .pb-3 {
   padding-bottom: 0.75rem;
 }
+.pb-\[172px\] {
+  padding-bottom: 172px;
+}
 .pb-\[232px\] {
   padding-bottom: 232px;
 }
@@ -2709,6 +2721,9 @@ video {
 }
 .pt-\[106px\] {
   padding-top: 106px;
+}
+.pt-\[68px\] {
+  padding-top: 68px;
 }
 .pt-\[86px\] {
   padding-top: 86px;

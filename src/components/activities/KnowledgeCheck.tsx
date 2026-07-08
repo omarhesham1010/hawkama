@@ -56,7 +56,7 @@ export function KnowledgeCheck({
   if (finished) {
     const passed = score.percent >= quiz.passScore;
     return (
-      <div className="relative flex h-full animate-scale-in flex-col items-center justify-center gap-3 text-center">
+      <div data-quiz-result="true" className="relative flex h-full animate-scale-in flex-col items-center justify-center gap-3 text-center">
         {passed && <Confetti count={44} />}
         <div className={`grid h-20 w-20 place-items-center rounded-full ${passed ? 'bg-teal-500/15 text-teal-600' : 'bg-gold-500/15 text-gold-600'}`}>
           <Icon name={passed ? 'check' : 'target'} className="h-10 w-10" />
@@ -70,7 +70,7 @@ export function KnowledgeCheck({
             ? `مبروك! اجتزت الاختبار (${toArabicDigits(quiz.passScore)}٪ فأكثر).`
             : `تحتاج ${toArabicDigits(quiz.passScore)}٪ للاجتياز — حاول مرة أخرى.`}
         </p>
-        <button type="button" onClick={retry} className="btn-ghost px-6 text-base">
+        <button data-quiz-retry="true" type="button" onClick={retry} className="btn-ghost px-6 text-base">
           <Icon name="flow" className="w-5 h-5" />
           إعادة الاختبار
         </button>
@@ -108,6 +108,7 @@ export function KnowledgeCheck({
           return (
             <button
               key={i}
+              data-quiz-option={i}
               type="button"
               disabled={answered}
               onClick={() => choose(i)}
@@ -135,6 +136,7 @@ export function KnowledgeCheck({
           </div>
         )}
         <button
+          data-quiz-next="true"
           type="button"
           onClick={next}
           disabled={!answered}

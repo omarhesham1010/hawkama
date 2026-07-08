@@ -38,9 +38,28 @@ const narrationSource = await readFile('src/hooks/useNarration.ts', 'utf8');
 const slideStageSource = await readFile('src/components/player/SlideStage.tsx', 'utf8');
 const slidePlayerSource = await readFile('src/SlidePlayer.tsx', 'utf8');
 
-check(slides.length === 11, `chapter one has 11 slides (found ${slides.length})`);
-check(allNarratedSlides.length === 30, `governance bag has 30 slides (found ${allNarratedSlides.length})`);
+check(slides.length === 12, `chapter one has 12 slides including its quiz (found ${slides.length})`);
+check(allNarratedSlides.length === 33, `governance bag has 33 slides including three quizzes (found ${allNarratedSlides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
+const quizSlides = allNarratedSlides.filter((slide) => slide.kind === 'quiz');
+check(quizSlides.length === 3, `one quiz exists at the end of each chapter (found ${quizSlides.length})`);
+for (const slide of quizSlides) {
+  const questions = slide.quiz?.questions ?? [];
+  check(questions.length === 5, `${slide.id}: quiz contains exactly 5 questions`);
+  check(new Set(questions.map((question) => question.id)).size === questions.length, `${slide.id}: question IDs are unique`);
+  check(
+    questions.every(
+      (question) =>
+        question.options.length === 4 &&
+        question.correctIndex >= 0 &&
+        question.correctIndex < question.options.length &&
+        Boolean(question.explanation.trim()) &&
+        Boolean(question.source.trim()),
+    ),
+    `${slide.id}: every question has four options, a valid answer, explanation, and source`,
+  );
+  check(slide.quiz?.passScore === 60, `${slide.id}: passing score is 60%`);
+}
 for (const entry of audioScripts) {
   if (!hasAudio(entry.key)) {
     check(!audioAlignments[entry.key], `${entry.key} correctly uses TTS until its ElevenLabs file is generated`);
