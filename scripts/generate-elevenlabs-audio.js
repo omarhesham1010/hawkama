@@ -456,14 +456,24 @@ async function generateContinuousPreview({
   outputFormat,
   outputDir,
   fixedSeed,
+  bridgeText,
 }) {
   const texts = entries.map((entry) => speechReadyText(entry.text));
-  const combinedText = texts.join(' ');
+  const normalizedBridge = bridgeText ? speechReadyText(bridgeText) : '';
   const boundaries = [];
-  let cursor = 0;
-  for (const text of texts) {
-    boundaries.push({ start: cursor, end: cursor + text.length });
-    cursor += text.length + 1;
+  const bridgeBoundaries = [];
+  let combinedText = '';
+  const appendPart = (text) => {
+    if (combinedText) combinedText += ' ';
+    const start = combinedText.length;
+    combinedText += text;
+    return { start, end: combinedText.length };
+  };
+  for (const [index, text] of texts.entries()) {
+    if (index > 0 && normalizedBridge) {
+      bridgeBoundaries[index - 1] = appendPart(normalizedBridge);
+    }
+    boundaries.push(appendPart(text));
   }
 
   const workDir = join(outputDir, `.tmp-continuous-${variant}-${Date.now()}`);
@@ -488,17 +498,21 @@ async function generateContinuousPreview({
       throw new Error('ElevenLabs timestamp text does not match the continuous pilot text.');
     }
     const duration = await audioDuration(combinedPath);
-    const splitTimes = boundaries.map((boundary, index) => {
-      if (index === 0) return 0;
-      const previousCharacter = boundary.start - 2;
+    const splitBefore = (characterIndex) => {
+      const previousCharacter = characterIndex - 2;
       const previousEnd = alignment.character_end_times_seconds[previousCharacter];
-      const nextStart = alignment.character_start_times_seconds[boundary.start];
+      const nextStart = alignment.character_start_times_seconds[characterIndex];
       return Number(((previousEnd + nextStart) / 2).toFixed(4));
-    });
+    };
 
     for (const [index, entry] of entries.entries()) {
-      const start = splitTimes[index];
-      const end = splitTimes[index + 1] ?? duration;
+      const start = index === 0 ? 0 : splitBefore(boundaries[index].start);
+      const nextBridge = bridgeBoundaries[index];
+      const end = nextBridge
+        ? splitBefore(nextBridge.start)
+        : index + 1 < boundaries.length
+          ? splitBefore(boundaries[index + 1].start)
+          : duration;
       const outputPath = join(outputDir, `${entry.key}--${variant}.mp3`);
       await runFile('ffmpeg', [
         '-hide_banner', '-loglevel', 'error', '-y',
@@ -569,6 +583,7 @@ async function main() {
       outputFormat,
       outputDir,
       fixedSeed,
+      bridgeText: env.ELEVENLABS_BRIDGE_TEXT?.trim() || '',
     });
     console.log(`completed: continuous preview with ${selectedItems.length} audio item(s)`);
     return;
