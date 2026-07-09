@@ -31,6 +31,8 @@ const MAX_ATTEMPTS = 3;
 const REQUEST_DELAY_MS = 900;
 const CHUNK_DELAY_MS = 350;
 const MAX_CHUNK_CHARS = 520;
+const ARABIC_DIACRITICS = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g;
+const ARABIC_DIACRITIC = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
 const runFile = promisify(execFile);
 const DEFAULT_VOICE_SETTINGS = {
   stability: 0.62,
@@ -121,6 +123,7 @@ function markdownCell(value) {
 
 function speechReadyText(text) {
   return text
+    .replace(ARABIC_DIACRITICS, '')
     .replace(/[:：]/g, '،')
     .replace(/[—–]/g, '،')
     .replace(/\s*؛\s*/g, '؛ ')
@@ -135,6 +138,13 @@ function speechReadyTextWithMap(source) {
   let sourceCursor = 0;
 
   for (const character of text) {
+    while (
+      sourceCursor < source.length &&
+      ARABIC_DIACRITIC.test(source[sourceCursor])
+    ) {
+      sourceCursor += 1;
+    }
+
     if (character === ' ') {
       const whitespaceIndex = source.slice(sourceCursor).search(/\s/);
       if (whitespaceIndex === 0) {
