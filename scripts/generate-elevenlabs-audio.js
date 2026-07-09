@@ -16,11 +16,15 @@ const dryRun = args.has('--dry-run');
 const docsOnly = args.has('--docs-only');
 const preview = args.has('--preview');
 const keysArg = [...args].find((arg) => arg.startsWith('--keys='));
+const variantArg = [...args].find((arg) => arg.startsWith('--variant='));
+const variant = variantArg?.slice('--variant='.length).trim() || '';
 const selectedKeys = keysArg
   ? new Set(keysArg.slice('--keys='.length).split(',').map((key) => key.trim()).filter(Boolean))
   : null;
 const unknownArgs = [...args].filter((arg) =>
-  !['--force', '--dry-run', '--docs-only', '--preview'].includes(arg) && !arg.startsWith('--keys='),
+  !['--force', '--dry-run', '--docs-only', '--preview'].includes(arg) &&
+  !arg.startsWith('--keys=') &&
+  !arg.startsWith('--variant='),
 );
 const MAX_ATTEMPTS = 3;
 const REQUEST_DELAY_MS = 900;
@@ -37,6 +41,10 @@ const DEFAULT_VOICE_SETTINGS = {
 
 if (unknownArgs.length) {
   console.error(`Unknown option(s): ${unknownArgs.join(', ')}`);
+  process.exit(1);
+}
+if (variant && (!preview || !/^[a-z0-9-]+$/.test(variant))) {
+  console.error('--variant requires --preview and may contain lowercase letters, numbers, and hyphens only.');
   process.exit(1);
 }
 
@@ -167,7 +175,7 @@ function voiceSettingsFromEnv(env, modelId) {
   );
   if (modelId === 'eleven_v3') {
     return {
-      stability: 1,
+      stability: numericSetting(env, 'ELEVENLABS_STABILITY', 1, 0, 1),
       similarity_boost: similarityBoost,
     };
   }
@@ -369,11 +377,21 @@ async function requestSpeech({
   throw lastError ?? new Error('ElevenLabs request failed.');
 }
 
-async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, outputFormat, outputDir }) {
+async function generateEntry({
+  entry,
+  outputKey,
+  apiKey,
+  voiceId,
+  modelId,
+  voiceSettings,
+  outputFormat,
+  outputDir,
+  fixedSeed,
+}) {
   const chunks = speechChunks(entry.text);
   const prepared = speechReadyTextWithMap(entry.text);
-  const workDir = join(outputDir, `.tmp-${entry.key}-${Date.now()}`);
-  const processedPath = join(workDir, `${entry.key}.mp3`);
+  const workDir = join(outputDir, `.tmp-${outputKey}-${Date.now()}`);
+  const processedPath = join(workDir, `${outputKey}.mp3`);
   await mkdir(workDir, { recursive: true });
   try {
     const partPaths = [];
@@ -391,7 +409,7 @@ async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, o
         voiceSettings,
         previousText: chunks[chunkIndex - 1],
         nextText: chunks[chunkIndex + 1],
-        seed: stableSeed(`${entry.key}:${chunkIndex}`),
+        seed: fixedSeed ?? stableSeed(`${entry.key}:${chunkIndex}`),
         outputFormat,
       });
       await writeFile(partPath, bytes);
@@ -413,7 +431,7 @@ async function generateEntry({ entry, apiKey, voiceId, modelId, voiceSettings, o
       if (chunkIndex < chunks.length - 1) await sleep(CHUNK_DELAY_MS);
     }
     await assembleAudio(partPaths, processedPath, workDir);
-    const outputPath = join(outputDir, `${entry.key}.mp3`);
+    const outputPath = join(outputDir, `${outputKey}.mp3`);
     const size = (await stat(processedPath)).size;
     await replaceFileSafely(processedPath, outputPath);
     return { size, alignment: { anchors } };
@@ -446,6 +464,9 @@ async function main() {
   const modelId = env.ELEVENLABS_MODEL_ID?.trim() || 'eleven_multilingual_v2';
   const voiceSettings = voiceSettingsFromEnv(env, modelId);
   const outputFormat = outputFormatFromEnv(env);
+  const fixedSeed = env.ELEVENLABS_SEED?.trim()
+    ? numericSetting(env, 'ELEVENLABS_SEED', 0, 0, 2147483647)
+    : null;
 
   if (!dryRun && (!apiKey || !voiceId)) {
     throw new Error('Missing ELEVENLABS_API_KEY or ELEVENLABS_VOICE_ID. Copy .env.example to .env and fill both values.');
@@ -457,6 +478,7 @@ async function main() {
   console.log(`model: ${modelId}`);
   console.log(`output format: ${outputFormat}`);
   console.log(`voice settings: ${JSON.stringify(voiceSettings)}`);
+  console.log(`seed: ${fixedSeed ?? 'per-file deterministic'}`);
   let generated = 0;
   let skipped = 0;
   let failed = 0;
@@ -464,7 +486,8 @@ async function main() {
   const generatedAlignments = preview ? {} : await loadExistingAlignments();
 
   for (const [index, entry] of selectedItems.entries()) {
-    const outputPath = join(outputDir, `${entry.key}.mp3`);
+    const outputKey = variant ? `${entry.key}--${variant}` : entry.key;
+    const outputPath = join(outputDir, `${outputKey}.mp3`);
     const hasReusableOutput = await exists(outputPath) && (preview || generatedAlignments[entry.key]?.anchors?.length);
     if (!force && hasReusableOutput) {
       skipped += 1;
@@ -480,17 +503,19 @@ async function main() {
     try {
       const { size, alignment } = await generateEntry({
         entry,
+        outputKey,
         apiKey,
         voiceId,
         modelId,
         voiceSettings,
         outputFormat,
         outputDir,
+        fixedSeed,
       });
       generated += 1;
       generatedAlignments[entry.key] = alignment;
       if (!preview) await writeAlignments(generatedAlignments);
-      console.log(`  completed: ${entry.key}.mp3 (${size} bytes)`);
+      console.log(`  completed: ${outputKey}.mp3 (${size} bytes)`);
     } catch (error) {
       failed += 1;
       console.error(`  failed: ${entry.key} - ${error instanceof Error ? error.message : String(error)}`);
