@@ -26,7 +26,7 @@ try {
 } finally {
   await server.close();
 }
-const { slides, allNarratedSlides } = slidesModule;
+const { slides, allNarratedSlides, courseCatalog } = slidesModule;
 
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
 const { audioAlignments } = alignmentModule;
@@ -48,10 +48,25 @@ function spokenWords(value) {
     .filter((word) => word.length > 1);
 }
 
-check(slides.length === 12, `chapter one has 12 slides including its quiz (found ${slides.length})`);
-check(allNarratedSlides.length === 33, `governance bag has 33 slides including three quizzes (found ${allNarratedSlides.length})`);
+check(slides.length === 13, `chapter one has 13 slides including its quiz and closing (found ${slides.length})`);
+check(allNarratedSlides.length === 36, `governance bag has 36 slides including three quizzes and closings (found ${allNarratedSlides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
 const quizSlides = allNarratedSlides.filter((slide) => slide.kind === 'quiz');
+const chapterEntries = ['governance-ch1', 'governance-ch2', 'governance-ch3'].map(
+  (courseId) => courseCatalog[courseId],
+);
+for (const chapter of chapterEntries) {
+  const chapterSlides = chapter.slides;
+  const closing = chapterSlides.at(-1);
+  const quiz = chapterSlides.at(-2);
+  check(quiz?.kind === 'quiz', `${chapter.meta.chapter}: quiz is immediately before the closing slide`);
+  check(closing?.kind === 'completion', `${chapter.meta.chapter}: closing slide is the final slide`);
+  check(Boolean(closing?.content?.takeaways), `${chapter.meta.chapter}: closing slide includes a visual summary`);
+  check(
+    closing?.narration.includes('شكرًا لحسن استماعكم'),
+    `${chapter.meta.chapter}: Nasser thanks the learner in the closing narration`,
+  );
+}
 const narrationOpenings = allNarratedSlides.map(
   (slide) => slide.narration.split(/(?<=[.!؟])/u)[0]?.trim() ?? '',
 );

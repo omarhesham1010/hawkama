@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **96**.
+Generated from `src/data/audioScripts.ts`. Total required: **99**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -20,6 +20,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `ch1-ethics-conflict.mp3` - أخلاقيات العمل وتضارب المصالح
 - `ch1-conflict-scenario.mp3` - نشاط: سيناريوهات تضارب المصالح
 - `ch1-quiz.mp3` - اختبار الفصل الأول
+- `ch1-closing.mp3` - ختام الفصل الأول
 - `ch2-welcome.mp3` - الامتثال والتدقيق والضوابط
 - `ch2-overview.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط
 - `ch2-compliance-concept.mp3` - مفهوم الامتثال وأهميته ووظيفته
@@ -29,6 +30,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `ch2-culture.mp3` - بناء ثقافة الامتثال وبرامج التوعية
 - `ch2-action-plan.mp3` - نشاط: بناء خطة العمل القيادي
 - `ch2-quiz.mp3` - اختبار الفصل الثاني
+- `ch2-closing.mp3` - ختام الفصل الثاني
 - `ch3-welcome.mp3` - إدارة المخاطر المؤسسية
 - `ch3-overview.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية
 - `ch3-risk-definition.mp3` - تعريف الخطر ومبادئ أيزو 31000
@@ -39,6 +41,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `program-final-message.mp3` - الامتثال بلا حوكمة.. شكلٌ بلا روح
 - `program-leadership-questions.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
 - `ch3-quiz.mp3` - اختبار الفصل الثالث
+- `ch3-closing.mp3` - ختام الفصل الثالث والحقيبة
 - `ch1-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `ch1-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
 - `ch1-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3

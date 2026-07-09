@@ -1623,7 +1623,7 @@ export function SlideStage({
           </button>
           <button type="button" onClick={completion.onRestart} className="btn-ghost px-7 py-4 text-lg">
             <Icon name="flow" className="w-5 h-5" />
-            إعادة الدورة
+            إعادة الفصل
           </button>
         </div>
       </div>
