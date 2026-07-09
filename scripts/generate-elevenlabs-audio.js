@@ -85,7 +85,19 @@ function validateCatalog(items) {
     }
     if (!/^[a-z0-9-]+$/.test(entry.key)) throw new Error(`Unsafe audio key: ${entry.key}`);
     if (seen.has(entry.key)) throw new Error(`Duplicate audio key: ${entry.key}`);
-    speechReadyTextWithMap(entry.text);
+    const prepared = speechReadyTextWithMap(entry.text);
+    let cursor = 0;
+    for (const [chunkIndex, chunk] of speechChunks(entry.text).entries()) {
+      const start = prepared.text.indexOf(chunk, cursor);
+      if (start < 0) {
+        throw new Error(
+          `${entry.key}: cannot pre-map chunk ${chunkIndex + 1}; ` +
+          `prepared=${JSON.stringify(prepared.text.slice(cursor, cursor + 160))}; ` +
+          `chunk=${JSON.stringify(chunk.slice(0, 160))}`,
+        );
+      }
+      cursor = start + chunk.length;
+    }
     seen.add(entry.key);
   }
 }
@@ -176,41 +188,29 @@ function outputFormatFromEnv(env) {
   return format;
 }
 
-function splitLongSentence(sentence, limit) {
-  const words = sentence.split(/\s+/).filter(Boolean);
-  const parts = [];
-  let current = '';
-  for (const word of words) {
-    const next = current ? `${current} ${word}` : word;
-    if (current && next.length > limit) {
-      parts.push(current);
-      current = word;
-    } else {
-      current = next;
-    }
+function chunkEndNearBoundary(text, start, limit) {
+  const hardEnd = Math.min(text.length, start + limit);
+  if (hardEnd >= text.length) return text.length;
+  const minimum = start + Math.floor(limit * 0.55);
+  for (let index = hardEnd; index >= minimum; index -= 1) {
+    if (/[.؟!؛،\n]/.test(text[index - 1] ?? '')) return index;
   }
-  if (current) parts.push(current);
-  return parts;
+  const space = text.lastIndexOf(' ', hardEnd - 1);
+  return space >= minimum ? Math.min(hardEnd, space + 1) : hardEnd;
 }
 
 function speechChunks(text, limit = MAX_CHUNK_CHARS) {
   const prepared = speechReadyText(text);
-  const sentences = prepared.match(/[^.؟!]+[.؟!]*/g)?.map((part) => part.trim()).filter(Boolean) ?? [prepared];
-  const units = sentences.flatMap((sentence) =>
-    sentence.length > limit ? splitLongSentence(sentence, limit) : [sentence],
-  );
   const chunks = [];
-  let current = '';
-  for (const unit of units) {
-    const next = current ? `${current} ${unit}` : unit;
-    if (current && next.length > limit) {
-      chunks.push(current);
-      current = unit;
-    } else {
-      current = next;
-    }
+  let start = 0;
+  while (start < prepared.length) {
+    while (start < prepared.length && /\s/.test(prepared[start])) start += 1;
+    if (start >= prepared.length) break;
+    const end = chunkEndNearBoundary(prepared, start, limit);
+    const chunk = prepared.slice(start, end).trimEnd();
+    if (chunk) chunks.push(chunk);
+    start = end;
   }
-  if (current) chunks.push(current);
   return chunks;
 }
 
