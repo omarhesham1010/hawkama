@@ -16,11 +16,13 @@ let alignmentModule;
 let timing;
 let pptTiming;
 let manifestModule;
+let routeModule;
 try {
   slidesModule = await server.ssrLoadModule('/src/data/slides.ts');
   audioModule = await server.ssrLoadModule('/src/data/audioScripts.ts');
   alignmentModule = await server.ssrLoadModule('/src/data/audioAlignments.ts');
   manifestModule = await server.ssrLoadModule('/src/data/audioManifest.ts');
+  routeModule = await server.ssrLoadModule('/src/lib/courseRoutes.ts');
   timing = await server.ssrLoadModule('/src/lib/storyTiming.ts');
   pptTiming = await server.ssrLoadModule('/src/lib/pptTiming.ts');
 } finally {
@@ -31,6 +33,7 @@ const { slides, allNarratedSlides, courseCatalog } = slidesModule;
 const { audioScripts, governanceFeedbackText, governanceQuestionText, conflictScenarioQuestions, conflictScenarioDiscussions } = audioModule;
 const { audioAlignments } = alignmentModule;
 const { hasAudio } = manifestModule;
+const { courseHash, courseIdFromLocation } = routeModule;
 const { storyCues, activeStoryCue, spokenFromAudioProgress, spokenFromTtsCue, ttsChunks } = timing;
 const { pptCardCueIndexes, scorePptCardCue } = pptTiming;
 const catalog = new Map(audioScripts.map((entry) => [entry.key, entry]));
@@ -51,6 +54,10 @@ function spokenWords(value) {
 check(slides.length === 13, `chapter one has 13 slides including its quiz and closing (found ${slides.length})`);
 check(allNarratedSlides.length === 36, `governance bag has 36 slides including three quizzes and closings (found ${allNarratedSlides.length})`);
 check(catalog.size === audioScripts.length, 'audio catalog keys are unique');
+const courseHashes = Object.keys(courseCatalog).map((courseId) => courseHash(courseId));
+check(new Set(courseHashes).size === courseHashes.length, 'every course has a unique canonical bag/chapter URL');
+check(courseHash('governance-intro') === '#/bag/1/chapter/0/slide/1', 'the introduction uses chapter zero');
+check(courseIdFromLocation(1, 3) === 'governance-ch3', 'bag and chapter numbers resolve to the correct course');
 const quizSlides = allNarratedSlides.filter((slide) => slide.kind === 'quiz');
 const chapterEntries = ['governance-ch1', 'governance-ch2', 'governance-ch3'].map(
   (courseId) => courseCatalog[courseId],

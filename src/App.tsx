@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { PlatformHome } from './components/platform/PlatformHome';
+import { courseHash, courseIdFromLocation } from './lib/courseRoutes';
 import SlidePlayer from './SlidePlayer';
 
 interface Route {
@@ -12,6 +13,16 @@ interface Route {
 function parseHash(): Route {
   const h = (window.location.hash || '').replace(/^#\/?/, '');
   const parts = h.split('/').filter(Boolean);
+  if (parts[0] === 'bag' && parts[2] === 'chapter') {
+    const bag = Number.parseInt(parts[1] || '', 10);
+    const chapter = Number.parseInt(parts[3] || '', 10);
+    const slidePart = parts[4] === 'slide' ? parts[5] : '1';
+    const slide = Number.parseInt(slidePart || '1', 10);
+    const courseId = courseIdFromLocation(bag, chapter);
+    if (courseId) {
+      return { view: 'course', courseId, slide: Number.isNaN(slide) ? 1 : Math.max(1, slide) };
+    }
+  }
   if (parts[0] === 'course') {
     const legacySlide = parseInt(parts[1] || '1', 10);
     if (!Number.isNaN(legacySlide)) {
@@ -28,6 +39,12 @@ export default function App() {
   const narration = useNarrationContext();
   const [route, setRoute] = useState<Route>(() => parseHash());
 
+  useEffect(() => {
+    if (route.view !== 'course') return;
+    const canonical = courseHash(route.courseId, route.slide);
+    if (window.location.hash !== canonical) window.history.replaceState(null, '', canonical);
+  }, [route]);
+
   // Keep the view in sync with the URL so links are shareable / deep-linkable.
   useEffect(() => {
     const onHash = () => {
@@ -40,7 +57,7 @@ export default function App() {
   }, [narration]);
 
   const enterChapter = useCallback((courseId: string) => {
-    window.location.hash = `#/course/${courseId}/1`;
+    window.location.hash = courseHash(courseId);
   }, []);
 
   const exitToHome = useCallback(() => {

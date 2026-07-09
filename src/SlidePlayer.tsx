@@ -3,6 +3,7 @@ import { useProgress } from './hooks/useProgress';
 import { useVoiceSync } from './hooks/useVoiceSync';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { getCourseMeta, getSlidesForCourse } from './data/slides';
+import { courseHash } from './lib/courseRoutes';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
 import { PlayerHeader } from './components/player/PlayerHeader';
@@ -48,7 +49,7 @@ export default function SlidePlayer({
   const skipNextAutoPlayRef = useRef(false);
 
   useEffect(() => {
-    window.history.replaceState(null, '', `#/course/${courseId}/${index + 1}`);
+    window.history.replaceState(null, '', courseHash(courseId, index + 1));
   }, [courseId, index]);
 
   const slide = slides[index];
