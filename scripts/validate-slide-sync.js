@@ -46,8 +46,10 @@ function spokenWords(value) {
     .normalize('NFKC')
     .toLowerCase()
     .replace(/\p{M}/gu, '')
+    .replace(/[أإآ]/g, 'ا')
     .replace(/[^\p{L}\p{N}]+/gu, ' ')
     .split(/\s+/)
+    .map((word) => word.startsWith('و') && word.length > 3 ? word.slice(1) : word)
     .filter((word) => word.length > 1);
 }
 
