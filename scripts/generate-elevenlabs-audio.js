@@ -15,6 +15,7 @@ const force = args.has('--force');
 const dryRun = args.has('--dry-run');
 const docsOnly = args.has('--docs-only');
 const preview = args.has('--preview');
+const continuous = args.has('--continuous');
 const keysArg = [...args].find((arg) => arg.startsWith('--keys='));
 const variantArg = [...args].find((arg) => arg.startsWith('--variant='));
 const variant = variantArg?.slice('--variant='.length).trim() || '';
@@ -22,7 +23,7 @@ const selectedKeys = keysArg
   ? new Set(keysArg.slice('--keys='.length).split(',').map((key) => key.trim()).filter(Boolean))
   : null;
 const unknownArgs = [...args].filter((arg) =>
-  !['--force', '--dry-run', '--docs-only', '--preview'].includes(arg) &&
+  !['--force', '--dry-run', '--docs-only', '--preview', '--continuous'].includes(arg) &&
   !arg.startsWith('--keys=') &&
   !arg.startsWith('--variant='),
 );
@@ -45,6 +46,10 @@ if (unknownArgs.length) {
 }
 if (variant && (!preview || !/^[a-z0-9-]+$/.test(variant))) {
   console.error('--variant requires --preview and may contain lowercase letters, numbers, and hyphens only.');
+  process.exit(1);
+}
+if (continuous && (!preview || !variant)) {
+  console.error('--continuous requires --preview and a --variant name.');
   process.exit(1);
 }
 
@@ -442,6 +447,78 @@ async function generateEntry({
   }
 }
 
+async function generateContinuousPreview({
+  entries,
+  apiKey,
+  voiceId,
+  modelId,
+  voiceSettings,
+  outputFormat,
+  outputDir,
+  fixedSeed,
+}) {
+  const texts = entries.map((entry) => speechReadyText(entry.text));
+  const combinedText = texts.join(' ');
+  const boundaries = [];
+  let cursor = 0;
+  for (const text of texts) {
+    boundaries.push({ start: cursor, end: cursor + text.length });
+    cursor += text.length + 1;
+  }
+
+  const workDir = join(outputDir, `.tmp-continuous-${variant}-${Date.now()}`);
+  const combinedPath = join(workDir, 'continuous.mp3');
+  await mkdir(workDir, { recursive: true });
+  try {
+    const { bytes, alignment } = await requestSpeech({
+      apiKey,
+      voiceId,
+      modelId,
+      text: combinedText,
+      voiceSettings,
+      previousText: '',
+      nextText: '',
+      seed: fixedSeed ?? stableSeed(`continuous:${entries.map((entry) => entry.key).join(':')}`),
+      outputFormat,
+    });
+    await writeFile(combinedPath, bytes);
+
+    const alignedText = alignment.characters.join('');
+    if (alignedText !== combinedText) {
+      throw new Error('ElevenLabs timestamp text does not match the continuous pilot text.');
+    }
+    const duration = await audioDuration(combinedPath);
+    const splitTimes = boundaries.map((boundary, index) => {
+      if (index === 0) return 0;
+      const previousCharacter = boundary.start - 2;
+      const previousEnd = alignment.character_end_times_seconds[previousCharacter];
+      const nextStart = alignment.character_start_times_seconds[boundary.start];
+      return Number(((previousEnd + nextStart) / 2).toFixed(4));
+    });
+
+    for (const [index, entry] of entries.entries()) {
+      const start = splitTimes[index];
+      const end = splitTimes[index + 1] ?? duration;
+      const outputPath = join(outputDir, `${entry.key}--${variant}.mp3`);
+      await runFile('ffmpeg', [
+        '-hide_banner', '-loglevel', 'error', '-y',
+        '-i', combinedPath,
+        '-ss', String(start),
+        '-to', String(end),
+        '-af', 'adelay=180:all=1,apad=pad_dur=0.12',
+        '-ar', '44100',
+        '-b:a', '128k',
+        outputPath,
+      ], { windowsHide: true, maxBuffer: 1024 * 1024 });
+      const info = await stat(outputPath);
+      if (!info.isFile() || info.size < 1000) throw new Error(`Invalid continuous output: ${entry.key}.`);
+      console.log(`  completed: ${entry.key}--${variant}.mp3 (${info.size} bytes)`);
+    }
+  } finally {
+    await rm(workDir, { recursive: true, force: true });
+  }
+}
+
 async function main() {
   const items = await loadAudioScripts();
   validateCatalog(items);
@@ -481,6 +558,21 @@ async function main() {
   console.log(`output format: ${outputFormat}`);
   console.log(`voice settings: ${JSON.stringify(voiceSettings)}`);
   console.log(`seed: ${fixedSeed ?? 'per-file deterministic'}`);
+  if (continuous) {
+    if (selectedItems.length < 2) throw new Error('--continuous requires at least two selected audio keys.');
+    await generateContinuousPreview({
+      entries: selectedItems,
+      apiKey,
+      voiceId,
+      modelId,
+      voiceSettings,
+      outputFormat,
+      outputDir,
+      fixedSeed,
+    });
+    console.log(`completed: continuous preview with ${selectedItems.length} audio item(s)`);
+    return;
+  }
   let generated = 0;
   let skipped = 0;
   let failed = 0;
