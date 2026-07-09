@@ -4,20 +4,20 @@ import type { QuizData } from '../types/course';
 const emptyTimeline: Slide['timeline'] = [];
 
 const CARD_BRIDGES = [
-  'وبعد ما اتضحت البداية، ننتقل إلى',
-  'والخطوة التالية هي',
+  'وبعد ما اتضحت البداية، تعالوا نشوف السبب اللي يودّينا لـ',
+  'وطبيعي إن السؤال اللي يجي بعد كده هو',
   'وهنا نربط ما سبق بفكرة',
-  'بعد ذلك نصل إلى',
-  'وتكتمل الصورة مع',
+  'وعشان الصورة تكتمل، لازم نضيف',
+  'وده يوصّلنا مباشرة لنقطة مهمة، وهي',
 ];
 
 const OPENING_BRIDGES = [
-  'خلونا نفكك الموضوع، وأول فكرة معنا هي',
-  'الصورة تبدأ من',
-  'أول زاوية نحتاج نفهمها هي',
-  'عشان تتضح الفكرة من أساسها، نبدأ بـ',
-  'في البداية نركز على',
-  'مدخلنا لهذا الموضوع هو',
+  'خلونا نفكك الموضوع سوا، وأول حاجة تستاهل وقفة هي',
+  'قبل أي تفاصيل، السؤال الأهم اللي نبدأ بيه هو',
+  'أول زاوية نحتاج نفهمها كويس هي',
+  'عشان تتضح الفكرة من أساسها، خلينا نبدأ بـ',
+  'في البداية، ركّزوا معايا على',
+  'مدخلنا الطبيعي لهذا الموضوع هو',
 ];
 
 const TITLE_BRIDGES = [
@@ -30,22 +30,67 @@ const TITLE_BRIDGES = [
 ];
 
 const POINT_BRIDGES = [
-  'الفكرة الأولى هنا:',
-  'ثم تتبعها فكرة:',
-  'ويتكامل معها:',
-  'كما يظهر عنصر آخر:',
-  'بعدها نصل إلى:',
-  'وتكتمل الصورة مع:',
+  'أول حاجة تستاهل وقفة:',
+  'وده يجرّنا لنقطة تانية مهمة:',
+  'وزي ما توقعتوا، يكمّلها:',
+  'وفي نفس السياق، لاحظوا:',
+  'وأخيرًا، عشان الصورة تكتمل:',
+  'وما ينفعش نغفل عن:',
 ];
 
 const DETAIL_BRIDGES = [
-  'ومعناها ببساطة أن',
-  'وهنا نركز على أن',
-  'وعمليًا، تشمل',
-  'ولو ربطناها بالواقع، نجد أن',
-  'والدور هنا يتمثل في',
-  'والخلاصة فيها أن',
+  'وببساطة، اللي بيحصل فعليًا إن',
+  'يعني عمليًا، المطلوب إن',
+  'وده معناه، على أرض الواقع، إن',
+  'ولو ربطناها بشغلكم اليومي، هتلاقوا إن',
+  'والدور الحقيقي هنا يتمثل في إن',
+  'والخلاصة اللي محتاجين نمسكها إن',
 ];
+
+/** A short, grounded "so what does this mean in practice" closer — reuses
+ *  only the topic language already present in the card, never invents new
+ *  facts, but frames it as reasoning/application instead of another bullet. */
+const PRACTICAL_OPENERS = [
+  'وعشان تطبّقها في شغلك،',
+  'فكروا فيها كده:',
+  'وأقرب مثال عملي لها:',
+  'وفي موقف حقيقي، ده معناه إن',
+];
+
+function practicalTakeaway(card: PptCard) {
+  if (!card.rationale) return '';
+  const opener = PRACTICAL_OPENERS[(card.title.length + (card.text?.length ?? 0)) % PRACTICAL_OPENERS.length];
+  return `${opener} ${withStop(card.rationale)}`;
+}
+
+/** Grounded "so what does this mean day-to-day" closer for cards that have
+ *  no authored rationale — keyword-matched to the card's own topic so it
+ *  reads like a teacher connecting the idea to practice, not a bullet re-read.
+ *  Never introduces facts beyond generic professional-application language. */
+function spokenTakeaway(card: PptCard) {
+  if (card.rationale) return practicalTakeaway(card);
+  const opener = PRACTICAL_OPENERS[card.title.length % PRACTICAL_OPENERS.length];
+  const text = `${card.title} ${card.text ?? ''}`;
+  if (text.includes('حوكمة') || text.includes('الإطار')) {
+    return `${opener} حدد مين صاحب القرار، ومين اللي يراجعه، وإيه دليل التوثيق اللي يثبت إنه اتنفذ صح.`;
+  }
+  if (text.includes('امتثال') || text.includes('التطبيق') || text.includes('ضوابط')) {
+    return `${opener} حوّل المتطلب لضابط تقدر تقيسه فعلًا، وتابع أي فجوة فيه أول بأول.`;
+  }
+  if (text.includes('أخلاقيات') || text.includes('نزاهة') || text.includes('تضارب')) {
+    return `${opener} تأكد من الحياد والإفصاح المبكر، ووثّق أي معالجة قبل ما تتحول لمشكلة.`;
+  }
+  if (text.includes('مخاطر') || text.includes('خطر')) {
+    return `${opener} قدّر الاحتمالية والأثر الأول، وبعدين اختار الإجراء المناسب.`;
+  }
+  if (text.includes('مجلس') || text.includes('لجنة') || text.includes('لجان')) {
+    return `${opener} ميّز بوضوح بين مين بيوجّه القرار، ومين بينفذه، ومين بيراقبه.`;
+  }
+  if (text.includes('تدريب') || text.includes('توعية') || text.includes('ثقافة')) {
+    return `${opener} قيس الأثر بتغيّر السلوك الفعلي، مش بس بعدد الحاضرين في القاعة.`;
+  }
+  return '';
+}
 
 let cardOpeningSequence = 0;
 let slideOpeningSequence = 0;
@@ -117,6 +162,11 @@ function cardNarration(card: PptCard, index: number, variation: number) {
   }
   if (card.bullets?.length) {
     parts.push(`وتتضح تفاصيلها من خلال عناصر مترابطة. ${explainPoints(card.bullets)}`);
+  }
+
+  if (!card.text?.includes('؟')) {
+    const takeaway = spokenTakeaway(card);
+    if (takeaway) parts.push(takeaway);
   }
 
   return parts.join(' ');
@@ -844,14 +894,6 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🏥',
     layout: 'pptSixCards',
     cards: regulatoryCards,
-    checks: [
-      quickCheck({
-        title: 'سؤال تطبيقي: أين تبدأ ترجمة التنظيم داخل المنشأة؟',
-        text: 'هل تكفي معرفة الجهة التنظيمية، أم نحتاج تحويلها لمسؤولية وإجراء؟',
-        answer: 'تحويل المتطلب إلى سياسة وإجراء ومسؤول ومؤشر متابعة',
-        rationale: 'النص التنظيمي وحده لا يغير الأداء؛ أثره يظهر عندما يصبح قابلًا للتنفيذ والقياس.',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -900,15 +942,6 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🏛️',
     layout: 'pptTitleCards',
     cards: governanceModelCards,
-    checks: [
-      quickCheck({
-        title: 'توقف سريع: من يقرر ومن يراقب؟',
-        text: 'لو نفس الجهة تقرر وتنفذ وتراجع، أين المشكلة؟',
-        answer: 'ضعف الفصل بين التوجيه والتنفيذ والرقابة',
-        rationale: 'الحوكمة الصحية القوية توزع الصلاحيات بوضوح حتى لا يختلط القرار بالرقابة.',
-        tone: 'gold',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -943,15 +976,6 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🔗',
     layout: 'pptThreeColumns',
     cards: governanceComplianceCards,
-    checks: [
-      quickCheck({
-        title: 'هل الحوكمة والامتثال نفس الشيء؟',
-        text: 'فكر في الفرق بين من يحدد الاتجاه ومن يتأكد من الالتزام به.',
-        answer: 'لا، الحوكمة تحدد الاتجاه والامتثال يتحقق من التطبيق',
-        rationale: 'الحوكمة تسأل: من يقرر ولماذا؟ والامتثال يسأل: هل طبقنا المطلوب كما ينبغي؟',
-        tone: 'gold',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ppt-activity-governance-or-compliance',
@@ -1260,15 +1284,6 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '📋',
     layout: 'pptTitleCards',
     cards: complianceConceptCards,
-    checks: [
-      quickCheck({
-        title: 'سؤال سريع: هل وظيفة الامتثال رقابية فقط؟',
-        text: 'فكر في دور الامتثال قبل وقوع المخالفة وبعدها.',
-        answer: 'لا، هي وقائية واستشارية ورقابية',
-        rationale: 'الامتثال الفعال يساعد على فهم المتطلب قبل الخطأ، ثم يراقب التطبيق ويقترح التحسين.',
-        tone: 'gold',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1317,14 +1332,6 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '🔍',
     layout: 'pptSixCards',
     cards: monitoringCards,
-    checks: [
-      quickCheck({
-        title: 'ماذا يعني اختبار الضابط؟',
-        text: 'لا تسأل فقط هل لدينا سياسة؛ اسأل عن الدليل العملي.',
-        answer: 'يعني التأكد أن الضابط مطبق ومفهوم وله دليل إثبات',
-        rationale: 'الضابط غير المثبت لا يكفي؛ نحتاج أثرًا واضحًا في السجلات والسلوك والنتائج.',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1609,15 +1616,6 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '🛡️',
     layout: 'pptTitleCards',
     cards: isoRiskCards,
-    checks: [
-      quickCheck({
-        title: 'هل الخطر دائمًا شيء سلبي؟',
-        text: 'راجع تعريف أيزو: تأثير عدم اليقين على الأهداف.',
-        answer: 'لا، قد يكون تهديدًا أو فرصة',
-        rationale: 'الخطر يعني أثر عدم اليقين؛ قد يفتح فرصة إذا أُدير بوعي، وقد يسبب تهديدًا إذا أُهمل.',
-        tone: 'gold',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ch3-risk-process',
@@ -1652,14 +1650,6 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '📊',
     layout: 'pptSixCards',
     cards: riskRegisterCards,
-    checks: [
-      quickCheck({
-        title: 'ما قيمة سجل المخاطر الحقيقية؟',
-        text: 'هل القيمة في عدد الصفوف، أم في القرار الذي يدعمه السجل؟',
-        answer: 'في توضيح الخطر المتبقي والمالك والقرار المطلوب',
-        rationale: 'السجل الجيد لا يجمع بيانات فقط؛ يوجه الأولويات ويكشف ما يحتاج قرارًا أو تصعيدًا.',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ch3-risk-activity',

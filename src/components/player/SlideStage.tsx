@@ -400,10 +400,27 @@ const SLIDE_ORNAMENTS: Record<string, readonly string[]> = {
   'ppt-conclusion': ['🎯', '✅', '🏆', '✨', '🎓', '🤝', '📘', '🛡️'],
 };
 
+/** Picks the ornament's floating icon set. Prefers icons drawn straight from
+ *  the slide's own cards (via pptEmojiFor, defined further below — hoisted)
+ *  so the decoration next to Nasser actually reflects what he's saying,
+ *  instead of an arbitrary/generic symbol set. */
+function ornamentSymbolsFor(slide: Slide): string[] {
+  const cards = slide.ppt?.cards;
+  if (cards && cards.length >= 2) {
+    const derived = cards.map((card, i) => pptEmojiFor(card, slide.visual, i));
+    const pool = Array.from(new Set(derived));
+    if (slide.visual && !pool.includes(slide.visual)) pool.unshift(slide.visual);
+    const out: string[] = [];
+    for (let i = 0; i < 8; i++) out.push(pool[i % pool.length]);
+    return out;
+  }
+  return [...(SLIDE_ORNAMENTS[slide.id] ?? [slide.visual ?? '✨', '✦', '•'])];
+}
+
 function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   const guide = nasserGuide(slide, spoken);
   const cueIndex = activeStoryCue(slide.narration, spoken).index;
-  const symbols = SLIDE_ORNAMENTS[slide.id] ?? [slide.visual ?? '✨', '✦', '•'];
+  const symbols = ornamentSymbolsFor(slide);
   const primary = symbols[cueIndex % symbols.length];
   const secondary = symbols[(cueIndex + 1) % symbols.length];
   const tertiary = symbols[(cueIndex + 2) % symbols.length];
@@ -775,25 +792,50 @@ const PPT_ACCENTS: Record<NonNullable<PptCard['tone']>, string> = {
 
 const PPT_EMOJIS = [
   { terms: ['سيناريو'], emoji: '🎬' },
-  { terms: ['مخالفة', 'خطر', 'تعارض'], emoji: '⚠️' },
+  { terms: ['مخالفة', 'تعارض'], emoji: '⚠️' },
   { terms: ['الإجراء الصحيح', 'صحيح'], emoji: '✅' },
-  { terms: ['نقاط', 'نقاش'], emoji: '💬' },
+  { terms: ['نقاط للنقاش', 'نقاش'], emoji: '💬' },
+  { terms: ['أسئلة', 'سؤال'], emoji: '❓' },
   { terms: ['أخلاقيات', 'نزاهة', 'حياد', 'عدالة'], emoji: '⚖️' },
   { terms: ['تضارب', 'مصالح'], emoji: '⚠️' },
-  { terms: ['امتثال', 'التطبيق'], emoji: '✅' },
+  { terms: ['امتثال', 'التطبيق', 'ضوابط قابلة للقياس'], emoji: '✅' },
   { terms: ['حوكمة', 'الإطار'], emoji: '🏛️' },
-  { terms: ['مجلس', 'إدارة'], emoji: '🧭' },
-  { terms: ['دفاع', 'مخاطر'], emoji: '🛡️' },
+  { terms: ['مجلس'], emoji: '🧭' },
+  { terms: ['دفاع'], emoji: '🛡️' },
   { terms: ['لجان', 'لجنة'], emoji: '👥' },
   { terms: ['مصفوفة', 'صلاحيات', 'DoA'], emoji: '🗂️' },
-  { terms: ['سياسات', 'وثيقة'], emoji: '📜' },
+  { terms: ['سياسات', 'وثيقة', 'دليل الامتثال', 'مدونة السلوك'], emoji: '📜' },
   { terms: ['إجراءات', 'ممارسة'], emoji: '⚙️' },
   { terms: ['بيانات'], emoji: '🗄️' },
   { terms: ['موارد', 'بشرية'], emoji: '👥' },
-  { terms: ['تدريب', 'تقييم'], emoji: '🎓' },
+  { terms: ['تدريب', 'توعية', 'أدوات التوعية'], emoji: '🎓' },
   { terms: ['صحي', 'مستشفى', 'طبيب', 'أطباء', 'مرضى'], emoji: '🏥' },
   { terms: ['إفصاح'], emoji: '📣' },
   { terms: ['توثيق'], emoji: '📝' },
+  { terms: ['رؤية 2030', 'تحول'], emoji: '🚀' },
+  { terms: ['اعتماد', 'جودة'], emoji: '🏅' },
+  { terms: ['تدقيق', 'اختبار حقيقة الضوابط', 'اختبار الضوابط'], emoji: '🔍' },
+  { terms: ['التخطيط', 'Plan', 'تخطيط المراقبة'], emoji: '🗓️' },
+  { terms: ['التنفيذ', 'Do'], emoji: '⚙️' },
+  { terms: ['التحقق', 'Check', 'اختبار فهمك'], emoji: '🔎' },
+  { terms: ['الاستجابة', 'Act', 'تحسين مستمر'], emoji: '🔁' },
+  { terms: ['قيادة', 'القيادة'], emoji: '🧑‍💼' },
+  { terms: ['استدامة'], emoji: '🌱' },
+  { terms: ['فجوة', 'فجوات'], emoji: '🧩' },
+  { terms: ['خطة عمل', 'خطة العمل'], emoji: '🗺️' },
+  { terms: ['تحليل المخاطر', 'تحليل وإدارة المخاطر'], emoji: '🔬' },
+  { terms: ['تقييم المخاطر', 'تقييم الذاتي'], emoji: '📐' },
+  { terms: ['معالجة المخاطر', 'معالجة'], emoji: '🧯' },
+  { terms: ['المراقبة والمراجعة', 'مراجعة'], emoji: '🗒️' },
+  { terms: ['سجل المخاطر', 'Risk Register', 'سجل'], emoji: '📊' },
+  { terms: ['الكامن'], emoji: '🔥' },
+  { terms: ['المتبقي'], emoji: '🌡️' },
+  { terms: ['مؤشرات المخاطر', 'KRI', 'مؤشرات'], emoji: '📈' },
+  { terms: ['تقارير', 'تقرير'], emoji: '📄' },
+  { terms: ['أيزو', 'ISO', 'المبادئ الثمانية'], emoji: '🏷️' },
+  { terms: ['النطاق', 'السياق', 'المعايير'], emoji: '🎯' },
+  { terms: ['استراتيجية'], emoji: '♟️' },
+  { terms: ['خطر', 'مخاطر'], emoji: '🛡️' },
 ];
 
 const PPT_EMOJI_VARIANTS: Record<string, string[]> = {
@@ -835,77 +877,69 @@ function pptDetailFor(card: PptCard) {
   return 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
 }
 
-function pptVisualTerms(slide: Slide) {
-  const cards = slide.ppt?.cards ?? [];
-  return cards.slice(0, 3).map((card, index) => ({
-    label: card.title.length > 24 ? `${card.title.slice(0, 24)}…` : card.title,
-    emoji: pptEmojiFor(card, slide.visual, index),
-  }));
-}
+const CHECK_INTROS = [
+  'طيب، قبل ما نكمل، وقفة سريعة عندي سؤال لك:',
+  'خليني أتأكد إنك ماسك الفكرة معي:',
+  'ثانية بس، عندي سؤال يوضح النقطة أكثر:',
+  'وهنا أحب أختبر فهمك سريعًا:',
+];
 
-function PptLearningVisual({ slide }: { slide: Slide }) {
-  const terms = pptVisualTerms(slide);
-  return (
-    <div className="relative flex h-full min-h-[92px] overflow-hidden rounded-lg border-2 border-green-700/20 bg-white/92 p-3 shadow-sm">
-      <div className="absolute inset-y-0 right-0 w-1.5 bg-green-700" />
-      <div className="relative grid h-full w-24 shrink-0 place-items-center rounded-lg border border-green-700/18 bg-green-700/8 text-[48px] shadow-sm">
-        {slide.visual}
-      </div>
-      <div className="relative mr-3 flex min-w-0 flex-1 flex-col justify-center gap-2">
-        <p className="text-[15px] font-extrabold text-green-800">صورة ذهنية للشرح</p>
-        <div className="grid grid-cols-3 gap-2">
-          {terms.map((item, index) => (
-            <div key={`${item.label}-${index}`} className="flex min-w-0 items-center gap-1.5 rounded-md border border-green-700/12 bg-green-50/80 px-2 py-1.5">
-              <span className="text-[20px]">{item.emoji}</span>
-              <span className="truncate text-[12.5px] font-extrabold text-ink-soft">{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+type CheckPhase = 'idle' | 'asking' | 'ready' | 'revealed';
 
-function PptQuickCheck({
+/** A question Nasser raises verbally only after he finishes explaining the
+ *  slide: a centered popup over the canvas (never silent text sitting beside
+ *  him). He introduces + asks it aloud, the popup fades in while he talks,
+ *  and once the learner clicks he speaks the correct answer and explains it. */
+function PptQuickCheckPopup({
   check,
-  revealed,
-  onToggle,
+  phase,
+  onReveal,
 }: {
   check: PptCard;
-  revealed: boolean;
-  onToggle: () => void;
+  phase: CheckPhase;
+  onReveal: () => void;
 }) {
+  if (phase === 'idle') return null;
+  const revealed = phase === 'revealed';
+  const ready = phase === 'ready';
   return (
-    <button
-      type="button"
-      onClick={onToggle}
-      className={`group relative flex h-full min-h-[92px] overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card ${
-        revealed
-          ? 'border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white'
-          : 'border-gold-500/45 bg-gold-50/90 text-ink'
-      }`}
-    >
-      <span className={`absolute inset-y-0 right-0 w-1.5 ${revealed ? 'bg-gold-400' : 'bg-gold-500'}`} />
-      <div className="grid h-full w-24 shrink-0 place-items-center border-l border-white/40 text-[42px]">
-        {revealed ? '✅' : '❓'}
-      </div>
-      <div className="flex min-w-0 flex-1 flex-col justify-center p-3">
-        <div className="mb-1 flex items-center gap-2">
-          <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-extrabold ${revealed ? 'bg-white/18 text-white' : 'bg-green-700/10 text-green-800'}`}>
-            سؤال تفاعلي
-          </span>
-          <span className={`text-[12px] font-bold ${revealed ? 'text-green-50' : 'text-ink-muted'}`}>
-            {revealed ? 'اضغط للعودة للسؤال' : 'فكّر ثم اضغط'}
+    <div className="pointer-events-none absolute inset-0 z-20 grid place-items-start pt-[64px]" aria-live="polite">
+      <div className="absolute inset-0 bg-ink/35 backdrop-blur-[2px] animate-fade-in" />
+      <div
+        className={`pointer-events-auto relative mx-auto w-full max-w-[720px] animate-scale-in overflow-hidden rounded-2xl border-2 shadow-card-lg transition-colors duration-500 ${
+          revealed
+            ? 'border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white'
+            : 'border-gold-500/60 bg-white text-ink'
+        }`}
+      >
+        <div className={`flex items-center gap-2 border-b px-5 py-2.5 ${revealed ? 'border-white/20 bg-white/10' : 'border-gold-500/25 bg-gold-50'}`}>
+          <span className="text-[20px]">{revealed ? '✅' : phase === 'asking' ? '🎙️' : '🤔'}</span>
+          <span className={`text-[13px] font-extrabold ${revealed ? 'text-white' : 'text-green-800'}`}>
+            سؤال ناصر التفاعلي
           </span>
         </div>
-        <h3 className={`text-[18px] font-extrabold leading-tight ${revealed ? 'text-white' : 'text-brand-strong'}`}>
-          {revealed ? check.answer : check.title}
-        </h3>
-        <p className={`mt-1 line-clamp-2 text-[14.5px] font-bold leading-snug ${revealed ? 'text-green-50' : 'text-ink-soft'}`}>
-          {revealed ? check.rationale : check.text}
-        </p>
+        <div className="px-6 py-5 text-center">
+          <h3 className={`text-[24px] font-extrabold leading-snug ${revealed ? 'text-white' : 'text-brand-strong'}`}>
+            {revealed ? check.answer : check.title}
+          </h3>
+          <p className={`mt-2 text-[16px] font-bold leading-relaxed ${revealed ? 'text-green-50' : 'text-ink-soft'}`}>
+            {revealed ? check.rationale : check.text}
+          </p>
+        </div>
+        {!revealed && (
+          <div className="flex justify-center pb-5">
+            <button
+              type="button"
+              disabled={!ready}
+              onClick={onReveal}
+              className="rounded-lg bg-green-700 px-6 py-3 text-[16px] font-extrabold text-white shadow-card transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {ready ? 'فكّرت.. اكشف الإجابة' : 'استمع للسؤال…'}
+            </button>
+          </div>
+        )}
       </div>
-    </button>
+    </div>
   );
 }
 
@@ -1312,7 +1346,7 @@ function PptStyleSlide({
   completion: CompletionInfo;
 }) {
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
-  const [revealedCheckKey, setRevealedCheckKey] = useState<string | null>(null);
+  const [checkPhase, setCheckPhase] = useState<CheckPhase>('idle');
   const guidedSpeech = useGuidedSpeech(slide, muted);
 
   if (slide.layout === 'pptActivitySort') {
@@ -1365,14 +1399,31 @@ function PptStyleSlide({
   };
   const expandedCardIndex = cards.findIndex((_, index) => expandedCardKey === `${slide.id}:${index}`);
   const expandedCard = expandedCardIndex >= 0 ? cards[expandedCardIndex] : undefined;
-  const activeCheck = checks.find((_, index) => revealedCheckKey === `${slide.id}:check:${index}`);
+  const check = checks[0];
+
+  // Nasser only brings up the quick check once he finishes explaining the
+  // slide — never a silent card sitting next to him from the start.
+  useEffect(() => {
+    if (!check || checkPhase !== 'idle' || !narrationFinished) return;
+    setCheckPhase('asking');
+    const intro = CHECK_INTROS[slide.index % CHECK_INTROS.length];
+    guidedSpeech.speak(`${slide.audioKey}-check-ask`, `${intro} ${check.title}`, () => setCheckPhase('ready'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [check, narrationFinished, checkPhase]);
+
+  const revealCheck = useCallback(() => {
+    if (!check || checkPhase !== 'ready') return;
+    setExpandedCardKey(null);
+    setCheckPhase('revealed');
+    const answerLine = check.rationale ? `${check.answer}. ${check.rationale}` : check.answer ?? '';
+    guidedSpeech.speak(`${slide.audioKey}-check-answer`, answerLine, () => undefined);
+  }, [check, checkPhase, guidedSpeech, slide.audioKey]);
+
   const interactionLine = guidedSpeech.line ?? (expandedCard
     ? slide.kind === 'activity'
       ? activityCardDiscussion(expandedCard)
       : `خلنا نربط هذه النقطة بالتطبيق: ${pptDetailFor(expandedCard)} فكر كيف تظهر في بيئة عملك قبل الانتقال للنقطة التالية.`
-    : activeCheck
-      ? `خلنا نناقش السؤال سريعًا. الإجابة الأقرب هي: ${activeCheck.answer}. ${activeCheck.rationale ?? ''}`
-      : undefined);
+    : undefined);
 
   return (
     <StorySlideShell
@@ -1423,43 +1474,26 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div className="flex min-h-0 flex-1 flex-col gap-3">
-            {checks.length > 0 && (
-              <div className="grid h-[112px] shrink-0 grid-cols-[minmax(0,1fr)_minmax(280px,0.9fr)] gap-3">
-                <PptQuickCheck
-                  check={checks[0]}
-                  revealed={revealedCheckKey === `${slide.id}:check:0`}
-                  onToggle={() => {
-                    setExpandedCardKey(null);
-                    setRevealedCheckKey((current) => current === `${slide.id}:check:0` ? null : `${slide.id}:check:0`);
-                  }}
-                />
-                <PptLearningVisual slide={slide} />
-              </div>
-            )}
-            <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
-              {cards.map((card, i) => (
-                <PptCardView
-                  key={i}
-                  card={card}
-                  dense={dense}
-                  density={cardDensity}
-                  emoji={pptEmojiFor(card, slide.visual, i)}
-                  active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
-                  visible={cardIsVisible(i)}
-                  revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                  detail={pptDetailFor(card)}
-                  reveal={expandedCardKey === `${slide.id}:${i}`}
-                  onClick={() => {
-                    setRevealedCheckKey(null);
-                    toggleCard(i);
-                  }}
-                />
-              ))}
-            </div>
+          <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
+            {cards.map((card, i) => (
+              <PptCardView
+                key={i}
+                card={card}
+                dense={dense}
+                density={cardDensity}
+                emoji={pptEmojiFor(card, slide.visual, i)}
+                active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
+                visible={cardIsVisible(i)}
+                revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+                detail={pptDetailFor(card)}
+                reveal={expandedCardKey === `${slide.id}:${i}`}
+                onClick={() => toggleCard(i)}
+              />
+            ))}
           </div>
         )}
       </div>
+      {check && <PptQuickCheckPopup check={check} phase={checkPhase} onReveal={revealCheck} />}
     </StorySlideShell>
   );
 }
