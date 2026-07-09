@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { QuizData } from '../../types/course';
+import type { QuizData, QuizQuestion } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { Confetti } from '../ui/Confetti';
 import { ProgressBar } from '../layout/ProgressTracker';
@@ -8,9 +8,15 @@ import { toArabicDigits } from '../../lib/utils';
 export function KnowledgeCheck({
   quiz,
   onComplete,
+  onAnswer,
+  onAdvance,
+  feedbackPending = false,
 }: {
   quiz: QuizData;
   onComplete: (scorePercent: number) => void;
+  onAnswer?: (question: QuizQuestion, selectedIndex: number, correct: boolean) => void;
+  onAdvance?: () => void;
+  feedbackPending?: boolean;
 }) {
   const total = quiz.questions.length;
   const [current, setCurrent] = useState(0);
@@ -33,9 +39,11 @@ export function KnowledgeCheck({
     if (answered) return;
     setSelected(i);
     setAnswers((a) => ({ ...a, [q.id]: i }));
+    onAnswer?.(q, i, i === q.correctIndex);
   };
 
   const next = () => {
+    onAdvance?.();
     if (current + 1 < total) {
       setCurrent((c) => c + 1);
       setSelected(null);
@@ -46,6 +54,7 @@ export function KnowledgeCheck({
   };
 
   const retry = () => {
+    onAdvance?.();
     setCurrent(0);
     setSelected(null);
     setAnswers({});
@@ -139,10 +148,10 @@ export function KnowledgeCheck({
           data-quiz-next="true"
           type="button"
           onClick={next}
-          disabled={!answered}
+          disabled={!answered || feedbackPending}
           className="btn-primary min-w-[150px] shrink-0 self-stretch px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {current + 1 < total ? 'التالي' : 'إنهاء'}
+          {feedbackPending ? 'ناصر يناقش الإجابة' : current + 1 < total ? 'التالي' : 'إنهاء'}
           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 6l-6 6 6 6" />
           </svg>

@@ -977,6 +977,9 @@ video {
 .top-\[55px\] {
   top: 55px;
 }
+.isolate {
+  isolation: isolate;
+}
 .-z-10 {
   z-index: -10;
 }

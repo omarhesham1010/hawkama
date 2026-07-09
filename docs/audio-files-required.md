@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **66**.
+Generated from `src/data/audioScripts.ts`. Total required: **96**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -72,3 +72,33 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `ch1-conflict-scenario-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
 - `ch1-conflict-scenario-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
 - `ch1-conflict-scenario-complete.mp3` - سيناريو تضارب المصالح - الختام
+- `ch1-quiz-feedback-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
+- `ch1-quiz-feedback-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
+- `ch1-quiz-feedback-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
+- `ch1-quiz-feedback-ch1-q2-incorrect.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة غير صحيحة
+- `ch1-quiz-feedback-ch1-q3-correct.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة صحيحة
+- `ch1-quiz-feedback-ch1-q3-incorrect.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة غير صحيحة
+- `ch1-quiz-feedback-ch1-q4-correct.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة صحيحة
+- `ch1-quiz-feedback-ch1-q4-incorrect.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة غير صحيحة
+- `ch1-quiz-feedback-ch1-q5-correct.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة صحيحة
+- `ch1-quiz-feedback-ch1-q5-incorrect.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة غير صحيحة
+- `ch2-quiz-feedback-ch2-q1-correct.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة صحيحة
+- `ch2-quiz-feedback-ch2-q1-incorrect.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة غير صحيحة
+- `ch2-quiz-feedback-ch2-q2-correct.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة صحيحة
+- `ch2-quiz-feedback-ch2-q2-incorrect.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة غير صحيحة
+- `ch2-quiz-feedback-ch2-q3-correct.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة صحيحة
+- `ch2-quiz-feedback-ch2-q3-incorrect.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة غير صحيحة
+- `ch2-quiz-feedback-ch2-q4-correct.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة صحيحة
+- `ch2-quiz-feedback-ch2-q4-incorrect.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة غير صحيحة
+- `ch2-quiz-feedback-ch2-q5-correct.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة صحيحة
+- `ch2-quiz-feedback-ch2-q5-incorrect.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة غير صحيحة
+- `ch3-quiz-feedback-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
+- `ch3-quiz-feedback-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
+- `ch3-quiz-feedback-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
+- `ch3-quiz-feedback-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
+- `ch3-quiz-feedback-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
+- `ch3-quiz-feedback-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
+- `ch3-quiz-feedback-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
+- `ch3-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
+- `ch3-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
+- `ch3-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة

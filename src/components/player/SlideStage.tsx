@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Beat, BeatUnit, PptCard, Slide } from '../../types/slides';
+import type { QuizQuestion } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { CompletionMedallion } from '../ui/Badge';
 import { Confetti } from '../ui/Confetti';
@@ -22,6 +23,7 @@ import {
   conflictScenarioQuestions,
   governanceFeedbackText,
   governanceQuestionText,
+  quizFeedbackText,
 } from '../../data/audioScripts';
 
 export interface CompletionInfo {
@@ -46,6 +48,15 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
     if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
   }, []);
 
+  const clear = useCallback(() => {
+    if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
+    lingerTimerRef.current = null;
+    completionRef.current = null;
+    setSpeechKey(null);
+    setLine(undefined);
+    setStarted(false);
+  }, []);
+
   const speak = useCallback(
     (audioKey: string, text: string, onComplete: () => void) => {
       setLine(text);
@@ -54,6 +65,12 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
         setStarted(true);
         completionRef.current = null;
         onComplete();
+        if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
+        lingerTimerRef.current = window.setTimeout(() => {
+          setLine(undefined);
+          setStarted(false);
+          lingerTimerRef.current = null;
+        }, 1500);
         return;
       }
 
@@ -70,13 +87,13 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
     if (narration.completedKey === speechKey) {
       const complete = completionRef.current;
       completionRef.current = null;
+      complete?.();
       if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
       lingerTimerRef.current = window.setTimeout(() => {
         setSpeechKey(null);
         setLine(undefined);
         setStarted(false);
         lingerTimerRef.current = null;
-        complete?.();
       }, 1500);
     }
   }, [narration.completedKey, narration.isPlaying, narration.nowKey, speechKey]);
@@ -88,6 +105,7 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
   return {
     line: muted && line ? line : visibleLine,
     speak,
+    clear,
     speaking: Boolean(speechKey),
     started,
   };
@@ -401,7 +419,7 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   return (
     <div
       key={`${slide.id}-${cueIndex}-${primary}`}
-      className="pointer-events-none absolute bottom-[42px] z-20 h-[190px] w-[230px] animate-scale-in"
+      className="pointer-events-none absolute bottom-[42px] z-0 h-[190px] w-[230px] animate-scale-in"
       style={oppositeSide}
       data-ornament-side={ornamentSide}
       aria-hidden="true"
@@ -461,7 +479,7 @@ function StorySlideShell({
   const topSpace = isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div className="relative isolate h-full overflow-hidden">
       <ContextOrnament slide={slide} spoken={spoken} />
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
@@ -1364,6 +1382,58 @@ function TitleHead({ slide }: { slide: Slide }) {
   );
 }
 
+function QuizStorySlide({
+  slide,
+  spoken,
+  muted,
+  showDialogue,
+  onQuizComplete,
+}: {
+  slide: Slide;
+  spoken: number;
+  muted: boolean;
+  showDialogue: boolean;
+  onQuizComplete: (score: number) => void;
+}) {
+  const guidedSpeech = useGuidedSpeech(slide, muted);
+  const [feedbackPending, setFeedbackPending] = useState(false);
+
+  const handleAnswer = (question: QuizQuestion, _selectedIndex: number, correct: boolean) => {
+    const result = correct ? 'correct' : 'incorrect';
+    setFeedbackPending(true);
+    guidedSpeech.speak(
+      `${slide.audioKey}-feedback-${question.id}-${result}`,
+      quizFeedbackText(question, correct),
+      () => setFeedbackPending(false),
+    );
+  };
+
+  return (
+    <StorySlideShell
+      slide={slide}
+      spoken={spoken}
+      showDialogue={showDialogue || Boolean(guidedSpeech.line)}
+      dialogueOverride={guidedSpeech.line}
+    >
+      <div className="flex h-full flex-col p-7">
+        <TitleHead slide={slide} />
+        <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
+          <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
+          <div className="min-h-0 flex-1">
+            <KnowledgeCheck
+              quiz={slide.quiz!}
+              onComplete={onQuizComplete}
+              onAnswer={handleAnswer}
+              onAdvance={guidedSpeech.clear}
+              feedbackPending={feedbackPending}
+            />
+          </div>
+        </div>
+      </div>
+    </StorySlideShell>
+  );
+}
+
 export function SlideStage({
   slide,
   spoken,
@@ -1480,17 +1550,13 @@ export function SlideStage({
   // Quiz
   if (slide.kind === 'quiz' && slide.quiz) {
     return (
-      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
-        <div className="flex h-full flex-col p-7">
-        <TitleHead slide={slide} />
-        <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
-          <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
-          <div className="min-h-0 flex-1">
-            <KnowledgeCheck quiz={slide.quiz} onComplete={onQuizComplete} />
-          </div>
-        </div>
-      </div>
-      </StorySlideShell>
+      <QuizStorySlide
+        slide={slide}
+        spoken={spoken}
+        muted={muted}
+        showDialogue={showDialogue}
+        onQuizComplete={onQuizComplete}
+      />
     );
   }
 

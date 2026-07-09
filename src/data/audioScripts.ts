@@ -1,4 +1,5 @@
 import type { PptCard } from '../types/slides';
+import type { QuizQuestion } from '../types/course';
 import { allNarratedSlides as slides } from './slides';
 
 export type AudioCategory =
@@ -7,7 +8,8 @@ export type AudioCategory =
   | 'activity-feedback'
   | 'scenario-question'
   | 'scenario-discussion'
-  | 'scenario-completion';
+  | 'scenario-completion'
+  | 'quiz-feedback';
 
 export interface AudioScriptItem {
   key: string;
@@ -38,6 +40,14 @@ export function governanceFeedbackText(card: PptCard, answer: string) {
 export function activityCardDiscussion(card: PptCard) {
   const discussion = card.rationale ?? 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
   return `خلنا نناقشها معًا. ${discussion}`;
+}
+
+export function quizFeedbackText(question: QuizQuestion, correct: boolean) {
+  if (correct) {
+    return `ممتاز، إجابتك صحيحة. ${question.explanation}`;
+  }
+
+  return `خلنا نراجعها معًا. إجابتك غير صحيحة. الإجابة الصحيحة هي: ${question.options[question.correctIndex]}. ${question.explanation}`;
 }
 
 export const conflictScenarioQuestions = [
@@ -159,12 +169,34 @@ const scenarioItems = [
   ),
 ];
 
+const quizFeedbackItems = slides
+  .filter((slide) => slide.kind === 'quiz' && slide.quiz)
+  .flatMap((slide) =>
+    (slide.quiz?.questions ?? []).flatMap((question, index) => [
+      item(
+        `${slide.audioKey}-feedback-${question.id}-correct`,
+        `${slide.title} - السؤال ${index + 1} - إجابة صحيحة`,
+        quizFeedbackText(question, true),
+        'quiz-feedback',
+        slide.id,
+      ),
+      item(
+        `${slide.audioKey}-feedback-${question.id}-incorrect`,
+        `${slide.title} - السؤال ${index + 1} - إجابة غير صحيحة`,
+        quizFeedbackText(question, false),
+        'quiz-feedback',
+        slide.id,
+      ),
+    ]),
+  );
+
 export const audioScripts: AudioScriptItem[] = [
   ...mainSlideItems,
   ...genericActivityDetailItems,
   ...governanceQuestionItems,
   ...governanceFeedbackItems,
   ...scenarioItems,
+  ...quizFeedbackItems,
 ];
 
 export function audioScriptByKey(key: string) {
