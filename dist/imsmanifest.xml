@@ -32,12 +32,22 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-DZY6n9Ts.js" />
       <file href="assets/index-Xom6vYl3.css" />
+      <file href="assets/index-kNX5wf6O.js" />
       <file href="audio-pilot/index.html" />
+      <file href="audio-pilot/program-map--continuous-conversational-88.mp3" />
+      <file href="audio-pilot/program-map--continuous-robust-88.mp3" />
+      <file href="audio-pilot/program-map--continuous-saudi-warmup-88.mp3" />
+      <file href="audio-pilot/program-map--continuous-warmup-88.mp3" />
       <file href="audio-pilot/program-map--natural-78.mp3" />
       <file href="audio-pilot/program-map--natural-88.mp3" />
       <file href="audio-pilot/program-map--robust-78.mp3" />
+      <file href="audio-pilot/program-map--tone-anchor-formal-88.mp3" />
+      <file href="audio-pilot/program-map--tone-anchor-rewrite-88.mp3" />
+      <file href="audio-pilot/program-welcome--continuous-conversational-88.mp3" />
+      <file href="audio-pilot/program-welcome--continuous-robust-88.mp3" />
+      <file href="audio-pilot/program-welcome--continuous-saudi-warmup-88.mp3" />
+      <file href="audio-pilot/program-welcome--continuous-warmup-88.mp3" />
       <file href="audio-pilot/program-welcome--natural-78.mp3" />
       <file href="audio-pilot/program-welcome--natural-88.mp3" />
       <file href="audio-pilot/program-welcome--robust-78.mp3" />
