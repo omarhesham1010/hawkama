@@ -1,15 +1,21 @@
-import { readdirSync, writeFileSync } from 'node:fs';
+import { readdirSync, statSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 
 const audioDir = join(process.cwd(), 'public', 'audio');
 const manifestPath = join(process.cwd(), 'src', 'data', 'audioManifest.ts');
 
 let keys = [];
+let version = 'empty';
 try {
-  keys = readdirSync(audioDir)
+  const files = readdirSync(audioDir)
     .filter((file) => file.toLowerCase().endsWith('.mp3'))
-    .map((file) => file.replace(/\.mp3$/i, ''))
     .sort((a, b) => a.localeCompare(b, 'en'));
+  keys = files.map((file) => file.replace(/\.mp3$/i, ''));
+  version = createHash('sha256')
+    .update(files.map((file) => `${file}:${statSync(join(audioDir, file)).size}`).join('|'))
+    .digest('hex')
+    .slice(0, 12);
 } catch {
   keys = [];
 }
@@ -22,6 +28,7 @@ const content = `// ============================================================
 // ============================================================
 
 export const AUDIO_MANIFEST: string[] = ${JSON.stringify(keys, null, 2)};
+export const AUDIO_MANIFEST_VERSION = '${version}';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

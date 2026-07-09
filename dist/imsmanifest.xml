@@ -32,10 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-C8aIeQ8H.js" />
+      <file href="assets/index-CMjjbefY.js" />
       <file href="assets/index-Xom6vYl3.css" />
-      <file href="audio/.tmp-ch3-quiz-feedback-ch3-q4-incorrect-1783584669058/concat.txt" />
-      <file href="audio/.tmp-ch3-quiz-feedback-ch3-q4-incorrect-1783584669058/part-01.mp3" />
       <file href="audio/README.md" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-correct.mp3" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3" />

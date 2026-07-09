@@ -151,7 +151,8 @@ check(
   'Nasser keeps vocalized narration while displaying dialogue without diacritics',
 );
 check(
-  narrationSource.includes('new Audio(`${base}audio/${key}.mp3`)') &&
+  narrationSource.includes('new Audio(narrationAudioUrl(key))') &&
+    narrationSource.includes('AUDIO_MANIFEST_VERSION') &&
     narrationSource.includes("audio.addEventListener('playing'") &&
     narrationSource.includes("setSource('audio')"),
   'existing manifest keys load their exact MP3 path and start the visual clock only from the playing event',

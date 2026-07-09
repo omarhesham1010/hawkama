@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { hasAudio } from '../data/audioManifest';
+import { AUDIO_MANIFEST_VERSION, hasAudio } from '../data/audioManifest';
 import { ttsChunks } from '../lib/storyTiming';
 
 export type NarrationStatus = 'idle' | 'loading' | 'playing' | 'paused';
 export type NarrationSource = 'audio' | 'tts' | null;
 
-const base = import.meta.env.BASE_URL || '/';
 const VOICE_KEY = 'gov-voice';
 const RATE_KEY = 'gov-voice-rate';
 
@@ -22,10 +21,14 @@ function isIOSWebKit() {
 
 const preloadedAudio = new Map<string, HTMLAudioElement>();
 
+function narrationAudioUrl(key: string) {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}audio/${key}.mp3?v=${AUDIO_MANIFEST_VERSION}`;
+}
+
 export function preloadNarrationAudio(key: string) {
   if (typeof window === 'undefined' || !hasAudio(key) || preloadedAudio.has(key)) return;
-  const base = import.meta.env.BASE_URL || '/';
-  const audio = new Audio(`${base}audio/${key}.mp3`);
+  const audio = new Audio(narrationAudioUrl(key));
   audio.preload = 'auto';
   audio.load();
   preloadedAudio.set(key, audio);
@@ -318,7 +321,7 @@ export function useNarration() {
       }
 
       setStatus('loading');
-      const audio = preloadedAudio.get(key) ?? new Audio(`${base}audio/${key}.mp3`);
+      const audio = preloadedAudio.get(key) ?? new Audio(narrationAudioUrl(key));
       preloadedAudio.delete(key);
       audio.preload = 'auto';
       audioRef.current = audio;
