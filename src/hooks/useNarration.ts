@@ -179,6 +179,7 @@ export function useNarration() {
         setBoundaryUpdatedAt(null);
         const voice = pickPreferredVoice(voiceURI);
         const chunks = ttsChunks(script);
+        const iosWebKit = isIOSWebKit();
         let activeAttempt = 0;
 
         const finish = () => {
@@ -202,7 +203,7 @@ export function useNarration() {
           let started = false;
           const u = new SpeechSynthesisUtterance(chunk.text);
           u.lang = 'ar-SA';
-          u.rate = isIOSWebKit() ? Math.min(rate, 1.08) : rate;
+          u.rate = iosWebKit ? Math.min(rate, 1.08) : rate;
           u.pitch = 0.92;
           if (voice) u.voice = voice;
           u.onstart = () => {
@@ -249,7 +250,12 @@ export function useNarration() {
           synth.resume();
           synth.speak(u);
 
-          const guardDelay = retry === 0 ? 1100 : retry === 1 ? 1700 : 2600;
+          // Safari/iOS often reports `onstart` late. Cancelling after one second
+          // restarts an utterance that is already warming up and causes the
+          // audible first-word stutter this guard is meant to prevent.
+          const guardDelay = iosWebKit
+            ? retry === 0 ? 6000 : retry === 1 ? 9000 : 12000
+            : retry === 0 ? 1800 : retry === 1 ? 2800 : 4200;
           ttsStartGuardRef.current = window.setTimeout(() => {
             if (token !== playTokenRef.current || attempt !== activeAttempt || started) return;
             activeAttempt += 1;

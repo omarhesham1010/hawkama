@@ -136,6 +136,10 @@ check(
   'TTS automatically resets and retries if the first audible start stalls',
 );
 check(
+  narrationSource.includes('iosWebKit') && narrationSource.includes('? retry === 0 ? 6000'),
+  'iOS TTS start guard does not restart an utterance during Safari voice warmup',
+);
+check(
   narrationSource.includes('new Audio(`${base}audio/${key}.mp3`)') &&
     narrationSource.includes("audio.addEventListener('playing'") &&
     narrationSource.includes("setSource('audio')"),
