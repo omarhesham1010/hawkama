@@ -76,6 +76,29 @@ function explainPoints(points: string[]) {
     .join(' ');
 }
 
+function quickCheck({
+  title,
+  text,
+  answer,
+  rationale,
+  tone = 'blue',
+}: {
+  title: string;
+  text: string;
+  answer: string;
+  rationale: string;
+  tone?: PptCard['tone'];
+}): PptCard {
+  return {
+    index: 'تفاعل',
+    title,
+    text,
+    answer,
+    rationale,
+    tone,
+  };
+}
+
 function cardNarration(card: PptCard, index: number, variation: number) {
   const bridge = index === 0
     ? OPENING_BRIDGES[variation % OPENING_BRIDGES.length]
@@ -137,6 +160,7 @@ function makeSlide({
   kind = 'content',
   intro,
   prompt,
+  checks,
   courseName,
   subtitle,
   unitTitle,
@@ -151,6 +175,7 @@ function makeSlide({
   kind?: SlideKind;
   intro?: string;
   prompt?: string;
+  checks?: PptCard[];
   courseName?: string;
   subtitle?: string;
   unitTitle?: string;
@@ -180,6 +205,7 @@ function makeSlide({
       intro,
       prompt,
       cards,
+      checks,
     },
   };
 }
@@ -797,6 +823,14 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🧭',
     layout: 'pptThreeColumns',
     cards: chapterOneOverview,
+    checks: [
+      quickCheck({
+        title: 'قبل ما نبدأ: أي محور يحمي نزاهة القرار؟',
+        text: 'اختر ذهنيًا المحور الأقرب لحماية القرار من التحيز قبل كشف الإجابة.',
+        answer: 'إدارة الأخلاقيات وتضارب المصالح',
+        rationale: 'لأن الحوكمة والامتثال يضعان الإطار، لكن تضارب المصالح يختبر نزاهة القرار وقت التطبيق.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch1-regulatory-framework',
@@ -810,6 +844,14 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🏥',
     layout: 'pptSixCards',
     cards: regulatoryCards,
+    checks: [
+      quickCheck({
+        title: 'سؤال تطبيقي: أين تبدأ ترجمة التنظيم داخل المنشأة؟',
+        text: 'هل تكفي معرفة الجهة التنظيمية، أم نحتاج تحويلها لمسؤولية وإجراء؟',
+        answer: 'تحويل المتطلب إلى سياسة وإجراء ومسؤول ومؤشر متابعة',
+        rationale: 'النص التنظيمي وحده لا يغير الأداء؛ أثره يظهر عندما يصبح قابلًا للتنفيذ والقياس.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -823,6 +865,14 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '📜',
     layout: 'pptTitleCards',
     cards: policyCards,
+    checks: [
+      quickCheck({
+        title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
+        text: 'فكر في سياسة مكتوبة عندك: هل يعرف الموظف ماذا يفعل بعدها مباشرة؟',
+        answer: 'واضحة وقابلة للتطبيق والمراجعة',
+        rationale: 'إذا بقيت السياسة عامة بلا إجراء أو مالك أو مراجعة، تتحول إلى وثيقة ساكنة لا تضبط السلوك.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch1-policy-activity',
@@ -850,6 +900,15 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🏛️',
     layout: 'pptTitleCards',
     cards: governanceModelCards,
+    checks: [
+      quickCheck({
+        title: 'توقف سريع: من يقرر ومن يراقب؟',
+        text: 'لو نفس الجهة تقرر وتنفذ وتراجع، أين المشكلة؟',
+        answer: 'ضعف الفصل بين التوجيه والتنفيذ والرقابة',
+        rationale: 'الحوكمة الصحية القوية توزع الصلاحيات بوضوح حتى لا يختلط القرار بالرقابة.',
+        tone: 'gold',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -863,6 +922,14 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🧩',
     layout: 'pptTwoPanels',
     cards: frameworkCards,
+    checks: [
+      quickCheck({
+        title: 'سؤال ربط: ما أول شيء نبحث عنه في أي إطار حوكمة؟',
+        text: 'لا تبدأ بالنماذج الجميلة؛ ابدأ بما يثبت أن الإطار يعمل.',
+        answer: 'وضوح الأدوار والصلاحيات وآلية المساءلة',
+        rationale: 'أي إطار بلا أدوار ومساءلة يتحول إلى شكل تنظيمي، وليس نظامًا يحكم القرار.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ppt-governance-compliance',
@@ -876,6 +943,15 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🔗',
     layout: 'pptThreeColumns',
     cards: governanceComplianceCards,
+    checks: [
+      quickCheck({
+        title: 'هل الحوكمة والامتثال نفس الشيء؟',
+        text: 'فكر في الفرق بين من يحدد الاتجاه ومن يتأكد من الالتزام به.',
+        answer: 'لا، الحوكمة تحدد الاتجاه والامتثال يتحقق من التطبيق',
+        rationale: 'الحوكمة تسأل: من يقرر ولماذا؟ والامتثال يسأل: هل طبقنا المطلوب كما ينبغي؟',
+        tone: 'gold',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ppt-activity-governance-or-compliance',
@@ -903,6 +979,14 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '⚖️',
     layout: 'pptSixCards',
     cards: ethicsCards,
+    checks: [
+      quickCheck({
+        title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
+        text: 'هل يبدأ الخطر عند وقوع الضرر، أم قبل ذلك؟',
+        answer: 'عند وجود احتمال تأثير المصلحة على القرار',
+        rationale: 'لذلك نطلب الإفصاح والحياد مبكرًا؛ الحماية تبدأ قبل وقوع الضرر أو الشبهة.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ppt-conflict-scenario',
@@ -1155,6 +1239,14 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '🧭',
     layout: 'pptThreeColumns',
     cards: chapterTwoOverview,
+    checks: [
+      quickCheck({
+        title: 'قبل التفاصيل: ما سؤال الفصل الثاني الرئيسي؟',
+        text: 'الحوكمة قالت لنا من يقرر. ماذا يسأل الامتثال؟',
+        answer: 'هل طبقنا المطلوب كما ينبغي وبالدليل؟',
+        rationale: 'الامتثال يحول السياسات إلى تحقق وقياس ومعالجة فجوات، وليس مجرد معرفة بالمتطلبات.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch2-compliance-concept',
@@ -1168,6 +1260,15 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '📋',
     layout: 'pptTitleCards',
     cards: complianceConceptCards,
+    checks: [
+      quickCheck({
+        title: 'سؤال سريع: هل وظيفة الامتثال رقابية فقط؟',
+        text: 'فكر في دور الامتثال قبل وقوع المخالفة وبعدها.',
+        answer: 'لا، هي وقائية واستشارية ورقابية',
+        rationale: 'الامتثال الفعال يساعد على فهم المتطلب قبل الخطأ، ثم يراقب التطبيق ويقترح التحسين.',
+        tone: 'gold',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1181,6 +1282,14 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '🔄',
     layout: 'pptTitleCards',
     cards: pdcaCards,
+    checks: [
+      quickCheck({
+        title: 'أين يقع التعلم الحقيقي في دورة PDCA؟',
+        text: 'هل يكفي أن ننفذ الخطة، أم نحتاج خطوة تكشف الفجوة؟',
+        answer: 'في التحقق والتحسين بعد التنفيذ',
+        rationale: 'التنفيذ يعطي نشاطًا، لكن التحقق والتحسين يحولان النشاط إلى تعلم مؤسسي يمنع تكرار الخلل.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch2-self-assessment',
@@ -1208,6 +1317,14 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '🔍',
     layout: 'pptSixCards',
     cards: monitoringCards,
+    checks: [
+      quickCheck({
+        title: 'ماذا يعني اختبار الضابط؟',
+        text: 'لا تسأل فقط هل لدينا سياسة؛ اسأل عن الدليل العملي.',
+        answer: 'يعني التأكد أن الضابط مطبق ومفهوم وله دليل إثبات',
+        rationale: 'الضابط غير المثبت لا يكفي؛ نحتاج أثرًا واضحًا في السجلات والسلوك والنتائج.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1221,6 +1338,15 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '🎓',
     layout: 'pptSixCards',
     cards: cultureCards,
+    checks: [
+      quickCheck({
+        title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
+        text: 'هل نقيس الحضور فقط، أم نبحث عن تغير السلوك؟',
+        answer: 'نقيس تغير السلوك ومؤشرات البلاغات والمخالفات ونتائج الاختبارات',
+        rationale: 'الحضور مؤشر بداية، لكن الثقافة تظهر في القرار تحت الضغط وفي الإبلاغ الطوعي وانخفاض المخالفات.',
+        tone: 'gold',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch2-action-plan',
@@ -1462,6 +1588,14 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '🧭',
     layout: 'pptThreeColumns',
     cards: chapterThreeOverview,
+    checks: [
+      quickCheck({
+        title: 'سؤال افتتاحي: لماذا نربط المخاطر بالقرار؟',
+        text: 'فكر في قرار قيادي بدون قراءة للمخاطر: ماذا ينقصه؟',
+        answer: 'ينقصه تقدير الاحتمالية والأثر قبل الالتزام بالقرار',
+        rationale: 'إدارة المخاطر لا تعطل القرار؛ تجعل القرار أوضح وأقرب للواقع.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch3-risk-definition',
@@ -1475,6 +1609,15 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '🛡️',
     layout: 'pptTitleCards',
     cards: isoRiskCards,
+    checks: [
+      quickCheck({
+        title: 'هل الخطر دائمًا شيء سلبي؟',
+        text: 'راجع تعريف أيزو: تأثير عدم اليقين على الأهداف.',
+        answer: 'لا، قد يكون تهديدًا أو فرصة',
+        rationale: 'الخطر يعني أثر عدم اليقين؛ قد يفتح فرصة إذا أُدير بوعي، وقد يسبب تهديدًا إذا أُهمل.',
+        tone: 'gold',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch3-risk-process',
@@ -1488,6 +1631,14 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '🔄',
     layout: 'pptSixCards',
     cards: riskProcessCards,
+    checks: [
+      quickCheck({
+        title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
+        text: 'فكر في خطأ شائع: اختيار إجراء سريع قبل فهم السبب والأثر.',
+        answer: 'لا، نحدد السياق ثم نحلل ونقيّم وبعدها نعالج',
+        rationale: 'المعالجة قبل التحليل قد تبدو سريعة، لكنها قد تعالج العرض وتترك السبب الحقيقي.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch3-risk-register',
@@ -1501,6 +1652,14 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '📊',
     layout: 'pptSixCards',
     cards: riskRegisterCards,
+    checks: [
+      quickCheck({
+        title: 'ما قيمة سجل المخاطر الحقيقية؟',
+        text: 'هل القيمة في عدد الصفوف، أم في القرار الذي يدعمه السجل؟',
+        answer: 'في توضيح الخطر المتبقي والمالك والقرار المطلوب',
+        rationale: 'السجل الجيد لا يجمع بيانات فقط؛ يوجه الأولويات ويكشف ما يحتاج قرارًا أو تصعيدًا.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
@@ -1528,6 +1687,15 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '✨',
     layout: 'pptThreeColumns',
     cards: summaryCards,
+    checks: [
+      quickCheck({
+        title: 'الخلاصة الكبرى: ما العلاقة بين الثلاثة؟',
+        text: 'حوكمة، امتثال، مخاطر. حاول تلخصها في جملة واحدة قبل الكشف.',
+        answer: 'الحوكمة توجه، والامتثال يثبت، والمخاطر تحمي القرار',
+        rationale: 'هذه هي الفكرة التي نريد نقلها للعمل: منظومة واحدة لا ثلاث جزر منفصلة.',
+        tone: 'gold',
+      }),
+    ],
   }),
   makeSlide({
     id: 'program-final-message',

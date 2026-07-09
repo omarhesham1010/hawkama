@@ -89,6 +89,7 @@ export interface PptContent {
   intro?: string;
   prompt?: string;
   cards?: PptCard[];
+  checks?: PptCard[];
 }
 
 export interface Slide {

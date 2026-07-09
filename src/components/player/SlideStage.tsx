@@ -835,6 +835,80 @@ function pptDetailFor(card: PptCard) {
   return 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
 }
 
+function pptVisualTerms(slide: Slide) {
+  const cards = slide.ppt?.cards ?? [];
+  return cards.slice(0, 3).map((card, index) => ({
+    label: card.title.length > 24 ? `${card.title.slice(0, 24)}…` : card.title,
+    emoji: pptEmojiFor(card, slide.visual, index),
+  }));
+}
+
+function PptLearningVisual({ slide }: { slide: Slide }) {
+  const terms = pptVisualTerms(slide);
+  return (
+    <div className="relative flex h-full min-h-[92px] overflow-hidden rounded-lg border-2 border-green-700/20 bg-white/92 p-3 shadow-sm">
+      <div className="absolute inset-y-0 right-0 w-1.5 bg-green-700" />
+      <div className="relative grid h-full w-24 shrink-0 place-items-center rounded-lg border border-green-700/18 bg-green-700/8 text-[48px] shadow-sm">
+        {slide.visual}
+      </div>
+      <div className="relative mr-3 flex min-w-0 flex-1 flex-col justify-center gap-2">
+        <p className="text-[15px] font-extrabold text-green-800">صورة ذهنية للشرح</p>
+        <div className="grid grid-cols-3 gap-2">
+          {terms.map((item, index) => (
+            <div key={`${item.label}-${index}`} className="flex min-w-0 items-center gap-1.5 rounded-md border border-green-700/12 bg-green-50/80 px-2 py-1.5">
+              <span className="text-[20px]">{item.emoji}</span>
+              <span className="truncate text-[12.5px] font-extrabold text-ink-soft">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PptQuickCheck({
+  check,
+  revealed,
+  onToggle,
+}: {
+  check: PptCard;
+  revealed: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className={`group relative flex h-full min-h-[92px] overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card ${
+        revealed
+          ? 'border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white'
+          : 'border-gold-500/45 bg-gold-50/90 text-ink'
+      }`}
+    >
+      <span className={`absolute inset-y-0 right-0 w-1.5 ${revealed ? 'bg-gold-400' : 'bg-gold-500'}`} />
+      <div className="grid h-full w-24 shrink-0 place-items-center border-l border-white/40 text-[42px]">
+        {revealed ? '✅' : '❓'}
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col justify-center p-3">
+        <div className="mb-1 flex items-center gap-2">
+          <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-extrabold ${revealed ? 'bg-white/18 text-white' : 'bg-green-700/10 text-green-800'}`}>
+            سؤال تفاعلي
+          </span>
+          <span className={`text-[12px] font-bold ${revealed ? 'text-green-50' : 'text-ink-muted'}`}>
+            {revealed ? 'اضغط للعودة للسؤال' : 'فكّر ثم اضغط'}
+          </span>
+        </div>
+        <h3 className={`text-[18px] font-extrabold leading-tight ${revealed ? 'text-white' : 'text-brand-strong'}`}>
+          {revealed ? check.answer : check.title}
+        </h3>
+        <p className={`mt-1 line-clamp-2 text-[14.5px] font-bold leading-snug ${revealed ? 'text-green-50' : 'text-ink-soft'}`}>
+          {revealed ? check.rationale : check.text}
+        </p>
+      </div>
+    </button>
+  );
+}
+
 function PptTitle({ slide }: { slide: Slide }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   return (
@@ -957,11 +1031,17 @@ function PptCardView({
             </span>
           )}
           <h3 className={`${showAnswerDetail ? 'text-[18px] leading-tight' : titleClass} font-extrabold ${titleTone}`}>
-            {showAnswerDetail ? `التصنيف: ${card.answer}` : card.title}
+            {showAnswerDetail ? `الإجابة: ${card.answer}` : card.title}
           </h3>
         </div>
 
-        {showTrainingDetail ? (
+        {showAnswerDetail ? (
+          <div className={`mt-1 rounded-md border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/25 bg-green-700/8'}`}>
+            <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
+              {card.rationale ?? 'اربط الإجابة بالهدف التدريبي ثم انتقل للنقطة التالية.'}
+            </p>
+          </div>
+        ) : showTrainingDetail ? (
           <div className={`mt-1 rounded-md border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/25 bg-green-700/8'}`}>
             <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
               {detail}
@@ -984,9 +1064,9 @@ function PptCardView({
           </ul>
         )}
 
-        {clickable && !card.answer && (
+        {clickable && (
           <span className={`mt-auto inline-grid h-6 w-6 place-items-center self-end rounded-full text-[15px] font-extrabold ${active ? 'bg-white/20 text-white' : 'bg-green-700/10 text-green-800'}`}>
-            {showTrainingDetail ? '↩' : '+'}
+            {showTrainingDetail || showAnswerDetail ? '↩' : '+'}
           </span>
         )}
 
@@ -1232,6 +1312,7 @@ function PptStyleSlide({
   completion: CompletionInfo;
 }) {
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
+  const [revealedCheckKey, setRevealedCheckKey] = useState<string | null>(null);
   const guidedSpeech = useGuidedSpeech(slide, muted);
 
   if (slide.layout === 'pptActivitySort') {
@@ -1242,6 +1323,7 @@ function PptStyleSlide({
   }
 
   const cards = slide.ppt?.cards ?? [];
+  const checks = slide.ppt?.checks ?? [];
   const narrationPosition = started ? spoken : 0;
   const cueState = activeStoryCue(slide.narration, narrationPosition);
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
@@ -1283,11 +1365,14 @@ function PptStyleSlide({
   };
   const expandedCardIndex = cards.findIndex((_, index) => expandedCardKey === `${slide.id}:${index}`);
   const expandedCard = expandedCardIndex >= 0 ? cards[expandedCardIndex] : undefined;
+  const activeCheck = checks.find((_, index) => revealedCheckKey === `${slide.id}:check:${index}`);
   const interactionLine = guidedSpeech.line ?? (expandedCard
     ? slide.kind === 'activity'
       ? activityCardDiscussion(expandedCard)
       : `خلنا نربط هذه النقطة بالتطبيق: ${pptDetailFor(expandedCard)} فكر كيف تظهر في بيئة عملك قبل الانتقال للنقطة التالية.`
-    : undefined);
+    : activeCheck
+      ? `خلنا نناقش السؤال سريعًا. الإجابة الأقرب هي: ${activeCheck.answer}. ${activeCheck.rationale ?? ''}`
+      : undefined);
 
   return (
     <StorySlideShell
@@ -1338,22 +1423,40 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
-            {cards.map((card, i) => (
-              <PptCardView
-                key={i}
-                card={card}
-                dense={dense}
-                density={cardDensity}
-                emoji={pptEmojiFor(card, slide.visual, i)}
-                active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
-                visible={cardIsVisible(i)}
-                revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                detail={pptDetailFor(card)}
-                reveal={expandedCardKey === `${slide.id}:${i}`}
-                onClick={() => toggleCard(i)}
-              />
-            ))}
+          <div className="flex min-h-0 flex-1 flex-col gap-3">
+            {checks.length > 0 && (
+              <div className="grid h-[112px] shrink-0 grid-cols-[minmax(0,1fr)_minmax(280px,0.9fr)] gap-3">
+                <PptQuickCheck
+                  check={checks[0]}
+                  revealed={revealedCheckKey === `${slide.id}:check:0`}
+                  onToggle={() => {
+                    setExpandedCardKey(null);
+                    setRevealedCheckKey((current) => current === `${slide.id}:check:0` ? null : `${slide.id}:check:0`);
+                  }}
+                />
+                <PptLearningVisual slide={slide} />
+              </div>
+            )}
+            <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
+              {cards.map((card, i) => (
+                <PptCardView
+                  key={i}
+                  card={card}
+                  dense={dense}
+                  density={cardDensity}
+                  emoji={pptEmojiFor(card, slide.visual, i)}
+                  active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
+                  visible={cardIsVisible(i)}
+                  revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+                  detail={pptDetailFor(card)}
+                  reveal={expandedCardKey === `${slide.id}:${i}`}
+                  onClick={() => {
+                    setRevealedCheckKey(null);
+                    toggleCard(i);
+                  }}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
