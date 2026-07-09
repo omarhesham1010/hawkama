@@ -142,6 +142,15 @@ check(
   'iOS TTS start guard does not restart an utterance during Safari voice warmup',
 );
 check(
+  narrationSource.includes('preloadedAudio.get(key)') &&
+    slidePlayerSource.includes('preloadNarrationAudio(slide.audioKey)'),
+  'current narration reuses its preloaded MP3 instead of starting a second network request',
+);
+check(
+  slideStageSource.includes("line.normalize('NFKD').replace(/\\p{M}/gu, '')"),
+  'Nasser keeps vocalized narration while displaying dialogue without diacritics',
+);
+check(
   narrationSource.includes('new Audio(`${base}audio/${key}.mp3`)') &&
     narrationSource.includes("audio.addEventListener('playing'") &&
     narrationSource.includes("setSource('audio')"),

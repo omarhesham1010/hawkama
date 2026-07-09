@@ -20,6 +20,17 @@ function isIOSWebKit() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent);
 }
 
+const preloadedAudio = new Map<string, HTMLAudioElement>();
+
+export function preloadNarrationAudio(key: string) {
+  if (typeof window === 'undefined' || !hasAudio(key) || preloadedAudio.has(key)) return;
+  const base = import.meta.env.BASE_URL || '/';
+  const audio = new Audio(`${base}audio/${key}.mp3`);
+  audio.preload = 'auto';
+  audio.load();
+  preloadedAudio.set(key, audio);
+}
+
 function pickPreferredVoice(explicitURI: string | null): SpeechSynthesisVoice | null {
   const all = window.speechSynthesis?.getVoices?.() ?? [];
   if (!all.length) return null;
@@ -307,7 +318,8 @@ export function useNarration() {
       }
 
       setStatus('loading');
-      const audio = new Audio(`${base}audio/${key}.mp3`);
+      const audio = preloadedAudio.get(key) ?? new Audio(`${base}audio/${key}.mp3`);
+      preloadedAudio.delete(key);
       audio.preload = 'auto';
       audioRef.current = audio;
       let handledFallback = false;

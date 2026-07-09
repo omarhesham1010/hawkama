@@ -4,6 +4,7 @@ import { useVoiceSync } from './hooks/useVoiceSync';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { getCourseMeta, getSlidesForCourse } from './data/slides';
 import { courseHash } from './lib/courseRoutes';
+import { preloadNarrationAudio } from './hooks/useNarration';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
 import { PlayerHeader } from './components/player/PlayerHeader';
@@ -57,6 +58,12 @@ export default function SlidePlayer({
   const sync = useVoiceSync(slide.narration, slide.audioKey, armed, `${slide.id}#${replayNonce}`);
 
   const totalActivities = useMemo(() => slides.filter((s) => s.kind === 'activity').length, [slides]);
+
+  useEffect(() => {
+    preloadNarrationAudio(slide.audioKey);
+    const nextSlide = slides[index + 1];
+    if (nextSlide) preloadNarrationAudio(nextSlide.audioKey);
+  }, [index, slide.audioKey, slides]);
 
   useEffect(() => {
     setIndex(Math.max(0, Math.min(initialSlide - 1, slides.length - 1)));

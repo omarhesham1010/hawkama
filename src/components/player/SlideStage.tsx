@@ -361,6 +361,7 @@ function NasserStoryLayer({
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
+  const displayLine = line.normalize('NFKD').replace(/\p{M}/gu, '');
 
   return (
     <div className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
@@ -379,7 +380,7 @@ function NasserStoryLayer({
           />
           {showDialogue && (
             <div className={bubbleLift}>
-              <SpeechBubble text={line} tailTo={bubbleTail} compact={compact} />
+              <SpeechBubble text={displayLine} tailTo={bubbleTail} compact={compact} />
             </div>
           )}
         </div>
