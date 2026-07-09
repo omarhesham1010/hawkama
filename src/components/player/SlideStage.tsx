@@ -442,6 +442,13 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
       data-ornament-side={ornamentSide}
       aria-hidden="true"
     >
+      {/* Separate inner scale (composes with the outer entrance animation's
+          own transform) — makes the decoration read as a clear, sizeable
+          visual instead of a small cluster of badges. */}
+      <div
+        className="relative h-full w-full"
+        style={{ transform: 'scale(1.22)', transformOrigin: ornamentSide === 'left' ? 'bottom left' : 'bottom right' }}
+      >
       <span className="absolute left-[58px] top-[27px] h-[120px] w-[120px] rounded-full border border-dashed border-green-700/30" />
       <span className="absolute left-[74px] top-[43px] grid h-[88px] w-[88px] place-items-center rounded-full border-[3px] border-white bg-white/95 text-[49px] shadow-card-lg ring-2 ring-green-600/25">
         {primary}
@@ -473,6 +480,7 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
       </span>
       <span className="absolute left-[24px] top-[24px] text-[15px] font-black text-green-600/65">◆</span>
       <span className="absolute bottom-[18px] right-[86px] text-[13px] font-black text-sky-500/70">✦</span>
+      </div>
     </div>
   );
 }
@@ -1032,7 +1040,18 @@ function PptCardView({
         : 'text-[18px] leading-relaxed';
   const bulletClass = level === 'micro' ? 'text-[14px] leading-[1.28]' : level === 'compact' ? 'text-[15.5px] leading-snug' : 'text-[17px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
-  const emojiSize = level === 'micro' ? 'h-7 w-7 text-[19px]' : level === 'compact' ? 'h-8 w-8 text-[22px]' : 'h-10 w-10 text-[28px]';
+  const emojiSize =
+    level === 'micro'
+      ? 'h-7 w-7 text-[19px]'
+      : level === 'compact'
+        ? 'h-8 w-8 text-[22px]'
+        : level === 'loose'
+          ? 'h-12 w-12 text-[32px]'
+          : 'h-10 w-10 text-[28px]';
+  // Short/sparse cards (little text, no bullets) sit in a grid cell sized for
+  // the row's tallest card — center their content instead of pinning it to
+  // the top so the box doesn't read as mostly empty relative to the text.
+  const centerContent = !card.bullets?.length && (level === 'loose' || (level === 'normal' && (card.text?.length ?? 0) < 60));
   const activeShell = active ? 'scale-[1.025] border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-glow' : PPT_ACCENTS[tone];
   const titleTone = active ? 'text-white' : 'text-brand-strong';
   const bodyTone = active ? 'text-green-50' : 'text-ink';
@@ -1054,7 +1073,7 @@ function PptCardView({
     >
       {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255_/_0.22),transparent_36%)]" />}
       <span className={`relative h-1.5 w-full shrink-0 ${topBar}`} />
-      <div className={`${padClass} flex min-h-0 flex-1 flex-col`}>
+      <div className={`${padClass} flex min-h-0 flex-1 flex-col ${centerContent ? 'justify-center' : ''}`}>
         <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
           <span className={`grid ${emojiSize} shrink-0 place-items-center rounded-xl border ${tileTone}`}>
             {emoji}
