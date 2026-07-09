@@ -417,18 +417,25 @@ function ornamentSymbolsFor(slide: Slide): string[] {
   return [...(SLIDE_ORNAMENTS[slide.id] ?? [slide.visual ?? '✨', '✦', '•'])];
 }
 
+/** One clear, deliberate icon (+ a small companion badge) instead of a
+ *  cluster of eight — sized by how much open canvas the slide actually has
+ *  (fewer cards → more room → go big; a dense 5-6 card grid → stay modest
+ *  so it doesn't compete with the content) so it always reads as a real
+ *  illustration paired with the current sentence, not decorative clutter. */
 function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   const guide = nasserGuide(slide, spoken);
   const cueIndex = activeStoryCue(slide.narration, spoken).index;
   const symbols = ornamentSymbolsFor(slide);
   const primary = symbols[cueIndex % symbols.length];
   const secondary = symbols[(cueIndex + 1) % symbols.length];
-  const tertiary = symbols[(cueIndex + 2) % symbols.length];
-  const quaternary = symbols[(cueIndex + 3) % symbols.length];
-  const quinary = symbols[(cueIndex + 4) % symbols.length];
-  const senary = symbols[(cueIndex + 5) % symbols.length];
-  const septenary = symbols[(cueIndex + 6) % symbols.length];
-  const octonary = symbols[(cueIndex + 7) % symbols.length];
+
+  const cardCount = slide.ppt?.cards?.length ?? 0;
+  const size = cardCount === 0 || cardCount <= 3
+    ? { wrap: 200, primaryBox: 150, primaryText: 80, secondaryBox: 58, secondaryText: 30 }
+    : cardCount === 4
+      ? { wrap: 176, primaryBox: 128, primaryText: 68, secondaryBox: 50, secondaryText: 26 }
+      : { wrap: 152, primaryBox: 108, primaryText: 56, secondaryBox: 44, secondaryText: 22 };
+
   // Nasser's flex alignment is logical in the RTL canvas: guide.left renders
   // physically on the right, so the matching physical opposite is also left.
   const ornamentSide = guide.side;
@@ -437,50 +444,28 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   return (
     <div
       key={`${slide.id}-${cueIndex}-${primary}`}
-      className="pointer-events-none absolute bottom-[42px] z-0 h-[190px] w-[230px] animate-scale-in"
-      style={oppositeSide}
+      className="pointer-events-none absolute bottom-[42px] z-0 animate-scale-in"
+      style={{ ...oppositeSide, height: size.wrap, width: size.wrap }}
       data-ornament-side={ornamentSide}
       aria-hidden="true"
     >
-      {/* Separate inner scale (composes with the outer entrance animation's
-          own transform) — makes the decoration read as a clear, sizeable
-          visual instead of a small cluster of badges. */}
-      <div
-        className="relative h-full w-full"
-        style={{ transform: 'scale(1.22)', transformOrigin: ornamentSide === 'left' ? 'bottom left' : 'bottom right' }}
+      <span
+        className="absolute inset-0 m-auto rounded-full border border-dashed border-green-700/25"
+        style={{ height: size.primaryBox + 44, width: size.primaryBox + 44 }}
+      />
+      <span
+        className="absolute inset-0 m-auto grid place-items-center rounded-full border-[3px] border-white bg-white/95 shadow-card-lg ring-2 ring-green-600/25"
+        style={{ height: size.primaryBox, width: size.primaryBox, fontSize: size.primaryText }}
       >
-      <span className="absolute left-[58px] top-[27px] h-[120px] w-[120px] rounded-full border border-dashed border-green-700/30" />
-      <span className="absolute left-[74px] top-[43px] grid h-[88px] w-[88px] place-items-center rounded-full border-[3px] border-white bg-white/95 text-[49px] shadow-card-lg ring-2 ring-green-600/25">
         {primary}
-        <span className="absolute -right-2 top-0 h-4 w-4 rounded-full border-[3px] border-white bg-gold-400" />
+        <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full border-[3px] border-white bg-gold-400" />
       </span>
-      <span className="absolute bottom-[8px] left-[25px] grid h-11 w-11 rotate-[-8deg] place-items-center rounded-full border-2 border-white bg-green-50/95 text-[25px] shadow-card ring-1 ring-green-600/20">
+      <span
+        className="absolute bottom-0 left-0 grid -rotate-[8deg] place-items-center rounded-full border-2 border-white bg-green-50/95 shadow-card ring-1 ring-green-600/20"
+        style={{ height: size.secondaryBox, width: size.secondaryBox, fontSize: size.secondaryText }}
+      >
         {secondary}
       </span>
-      <span className="absolute bottom-[2px] right-[25px] grid h-10 w-10 rotate-[9deg] place-items-center rounded-full border-2 border-white bg-gold-50/95 text-[22px] shadow-card ring-1 ring-gold-500/25">
-        {tertiary}
-      </span>
-      <span className="absolute left-[15px] top-[55px] grid h-10 w-10 rotate-[7deg] place-items-center rounded-full border-2 border-white bg-sky-50/95 text-[22px] shadow-card ring-1 ring-sky-500/20">
-        {quaternary}
-      </span>
-      <span className="absolute right-[14px] top-[48px] grid h-9 w-9 rotate-[-9deg] place-items-center rounded-full border-2 border-white bg-green-50/95 text-[20px] shadow-card ring-1 ring-green-600/20">
-        {quinary}
-      </span>
-      <span className="absolute left-[48px] top-[2px] grid h-9 w-9 rotate-[-6deg] place-items-center rounded-full border-2 border-white bg-gold-50/95 text-[20px] shadow-card ring-1 ring-gold-500/25">
-        {senary}
-      </span>
-      <span className="absolute right-[42px] top-[1px] grid h-10 w-10 rotate-[8deg] place-items-center rounded-full border-2 border-white bg-sky-50/95 text-[22px] shadow-card ring-1 ring-sky-500/20">
-        {septenary}
-      </span>
-      <span className="absolute bottom-[11px] left-[94px] grid h-9 w-9 rotate-[5deg] place-items-center rounded-full border-2 border-white bg-white/95 text-[20px] shadow-card ring-1 ring-green-600/20">
-        {octonary}
-      </span>
-      <span className="absolute right-[18px] top-[22px] text-[22px] font-black text-gold-500">
-        ✦
-      </span>
-      <span className="absolute left-[24px] top-[24px] text-[15px] font-black text-green-600/65">◆</span>
-      <span className="absolute bottom-[18px] right-[86px] text-[13px] font-black text-sky-500/70">✦</span>
-      </div>
     </div>
   );
 }
@@ -1021,7 +1006,7 @@ function PptCardView({
             ? 'loose'
             : 'normal'
   );
-  const padClass = level === 'micro' ? 'p-2' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
+  const padClass = level === 'micro' ? 'p-2.5' : level === 'compact' ? 'p-3.5' : level === 'loose' ? 'p-5' : 'p-4';
   const titleClass =
     level === 'micro'
       ? 'text-[17px] leading-[1.28]'
@@ -1048,10 +1033,6 @@ function PptCardView({
         : level === 'loose'
           ? 'h-12 w-12 text-[32px]'
           : 'h-10 w-10 text-[28px]';
-  // Short/sparse cards (little text, no bullets) sit in a grid cell sized for
-  // the row's tallest card — center their content instead of pinning it to
-  // the top so the box doesn't read as mostly empty relative to the text.
-  const centerContent = !card.bullets?.length && (level === 'loose' || (level === 'normal' && (card.text?.length ?? 0) < 60));
   const activeShell = active ? 'scale-[1.025] border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-glow' : PPT_ACCENTS[tone];
   const titleTone = active ? 'text-white' : 'text-brand-strong';
   const bodyTone = active ? 'text-green-50' : 'text-ink';
@@ -1067,13 +1048,13 @@ function PptCardView({
       data-ppt-card="true"
       aria-hidden={!visible}
       aria-label={clickable ? `${card.title} - ${showTrainingDetail ? 'العودة للنص الأساسي' : 'عرض التفصيل'}` : card.title}
-      className={`relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 ${
+      className={`relative flex h-fit w-full max-h-full min-h-0 flex-col self-center overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 ${
         activeShell
       } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${clickable && visible ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
     >
       {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255_/_0.22),transparent_36%)]" />}
       <span className={`relative h-1.5 w-full shrink-0 ${topBar}`} />
-      <div className={`${padClass} flex min-h-0 flex-1 flex-col ${centerContent ? 'justify-center' : ''}`}>
+      <div className={`${padClass} flex min-h-0 flex-col`}>
         <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
           <span className={`grid ${emojiSize} shrink-0 place-items-center rounded-xl border ${tileTone}`}>
             {emoji}
@@ -1198,7 +1179,7 @@ function PptActivitySlide({
           <p className="text-[20px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
           <p className="mt-1 text-[18px] font-bold leading-relaxed text-ink-soft">{slide.ppt?.prompt}</p>
         </div>
-        <div className="grid min-h-0 flex-1 grid-cols-[1fr_220px] gap-3">
+        <div className="grid min-h-0 flex-1 items-center grid-cols-[1fr_220px] gap-3">
           {currentCard && (
             <PptCardView
               key={currentStep}
@@ -1466,7 +1447,7 @@ function PptStyleSlide({
           </div>
         ) : isConclusion ? (
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
-            <div className={`grid w-full max-w-5xl auto-rows-fr ${gridClass} gap-3`}>
+            <div className={`grid w-full max-w-5xl items-center auto-rows-fr ${gridClass} gap-3`}>
               {cards.map((card, i) => (
                 <PptCardView
                   key={i}
@@ -1493,7 +1474,7 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div className={`grid min-h-0 flex-1 auto-rows-fr ${gridClass} gap-3`}>
+          <div className={`grid min-h-0 flex-1 items-center auto-rows-fr ${gridClass} gap-3`}>
             {cards.map((card, i) => (
               <PptCardView
                 key={i}
