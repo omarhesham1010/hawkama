@@ -1,5 +1,8 @@
 # حقيبة الحوكمة والمخاطر والامتثال التفاعلية
 
+> أي حقيبة أو فصل جديد يجب أن يتبع
+> [`docs/chapter-production-playbook.md`](docs/chapter-production-playbook.md).
+
 > Premium Arabic (RTL) interactive e-learning course — **الحوكمة والمخاطر والامتثال**
 > Built from the source presentation `الحوكمة والمخاطر والامتثال_العرض التقديمي.pptx`.
 
