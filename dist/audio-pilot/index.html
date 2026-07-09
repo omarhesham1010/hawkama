@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مقارنة صوت مقدمة ناصر</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f4f7f5;
+        color: #17372c;
+        font-family: Arial, sans-serif;
+      }
+      main {
+        width: min(760px, calc(100% - 32px));
+        margin: 48px auto;
+      }
+      h1 {
+        margin-bottom: 8px;
+        font-size: 28px;
+      }
+      p {
+        color: #5b6f67;
+        line-height: 1.8;
+      }
+      section {
+        margin-top: 16px;
+        border: 1px solid #d8e2dd;
+        border-radius: 8px;
+        background: white;
+        padding: 18px;
+      }
+      h2 {
+        margin: 0 0 6px;
+        font-size: 19px;
+      }
+      audio {
+        width: 100%;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>مقارنة مقدمة ناصر</h1>
+      <p>نفس النص، ونفس الصوت، ونفس Seed. الاختلاف في إعدادات الثبات والتشابه فقط.</p>
+
+      <section>
+        <h2>1. Robust 78</h2>
+        <p>Stability 1، Similarity 0.78</p>
+        <strong>الشريحة الأولى</strong>
+        <audio controls preload="metadata" src="program-welcome--robust-78.mp3"></audio>
+        <strong>الشريحة الثانية</strong>
+        <audio controls preload="metadata" src="program-map--robust-78.mp3"></audio>
+      </section>
+
+      <section>
+        <h2>2. Natural 78</h2>
+        <p>Stability 0.5، Similarity 0.78</p>
+        <strong>الشريحة الأولى</strong>
+        <audio controls preload="metadata" src="program-welcome--natural-78.mp3"></audio>
+        <strong>الشريحة الثانية</strong>
+        <audio controls preload="metadata" src="program-map--natural-78.mp3"></audio>
+      </section>
+
+      <section>
+        <h2>3. Natural 88</h2>
+        <p>Stability 0.5، Similarity 0.88</p>
+        <strong>الشريحة الأولى</strong>
+        <audio controls preload="metadata" src="program-welcome--natural-88.mp3"></audio>
+        <strong>الشريحة الثانية</strong>
+        <audio controls preload="metadata" src="program-map--natural-88.mp3"></audio>
+      </section>
+    </main>
+  </body>
+</html>

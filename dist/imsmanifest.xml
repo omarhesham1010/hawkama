@@ -32,8 +32,15 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-CMjjbefY.js" />
+      <file href="assets/index-DZY6n9Ts.js" />
       <file href="assets/index-Xom6vYl3.css" />
+      <file href="audio-pilot/index.html" />
+      <file href="audio-pilot/program-map--natural-78.mp3" />
+      <file href="audio-pilot/program-map--natural-88.mp3" />
+      <file href="audio-pilot/program-map--robust-78.mp3" />
+      <file href="audio-pilot/program-welcome--natural-78.mp3" />
+      <file href="audio-pilot/program-welcome--natural-88.mp3" />
+      <file href="audio-pilot/program-welcome--robust-78.mp3" />
       <file href="audio/README.md" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-correct.mp3" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3" />

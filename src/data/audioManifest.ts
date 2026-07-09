@@ -149,7 +149,7 @@ export const AUDIO_MANIFEST: string[] = [
   "slide-17",
   "slide-18"
 ];
-export const AUDIO_MANIFEST_VERSION = '8322c2cba737';
+export const AUDIO_MANIFEST_VERSION = '8b7a00d48a37';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

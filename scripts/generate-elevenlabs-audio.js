@@ -387,6 +387,8 @@ async function generateEntry({
   outputFormat,
   outputDir,
   fixedSeed,
+  previousEntryText,
+  nextEntryText,
 }) {
   const chunks = speechChunks(entry.text);
   const prepared = speechReadyTextWithMap(entry.text);
@@ -407,8 +409,8 @@ async function generateEntry({
         modelId,
         text: chunks[chunkIndex],
         voiceSettings,
-        previousText: chunks[chunkIndex - 1],
-        nextText: chunks[chunkIndex + 1],
+        previousText: chunks[chunkIndex - 1] ?? previousEntryText,
+        nextText: chunks[chunkIndex + 1] ?? nextEntryText,
         seed: fixedSeed ?? stableSeed(`${entry.key}:${chunkIndex}`),
         outputFormat,
       });
@@ -486,6 +488,7 @@ async function main() {
   const generatedAlignments = preview ? {} : await loadExistingAlignments();
 
   for (const [index, entry] of selectedItems.entries()) {
+    const catalogIndex = items.findIndex((item) => item.key === entry.key);
     const outputKey = variant ? `${entry.key}--${variant}` : entry.key;
     const outputPath = join(outputDir, `${outputKey}.mp3`);
     const hasReusableOutput = await exists(outputPath) && (preview || generatedAlignments[entry.key]?.anchors?.length);
@@ -511,6 +514,8 @@ async function main() {
         outputFormat,
         outputDir,
         fixedSeed,
+        previousEntryText: catalogIndex > 0 ? speechReadyText(items[catalogIndex - 1].text) : '',
+        nextEntryText: catalogIndex + 1 < items.length ? speechReadyText(items[catalogIndex + 1].text) : '',
       });
       generated += 1;
       generatedAlignments[entry.key] = alignment;
