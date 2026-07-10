@@ -14,6 +14,7 @@ import { SlideStage } from './components/player/SlideStage';
 import { SlideCanvas } from './components/player/SlideCanvas';
 import { CaptionBar } from './components/player/CaptionBar';
 import { HelpOverlay } from './components/player/HelpOverlay';
+import { Icon } from './components/ui/Icon';
 
 const SECTION_LABEL: Record<string, string> = {
   welcome: 'مقدمة الوحدة',
@@ -212,6 +213,23 @@ export default function SlidePlayer({
           </SlideCanvas>
         </div>
       </main>
+
+      {/* The closing screen's exit/restart buttons live inside the fixed
+          16:9 canvas, so on a narrow phone they shrink down with everything
+          else and become too small to tap reliably. This duplicates them at
+          a real, always-tappable size — mobile only, canvas design untouched. */}
+      {(slide.kind === 'completion' || slide.layout === 'pptConclusion') && (
+        <div className="flex shrink-0 items-center justify-center gap-3 px-4 pb-2 sm:hidden">
+          <button type="button" onClick={exit} className="btn-gold min-h-[48px] flex-1 max-w-[220px] justify-center text-[15px]">
+            <Icon name="flag" className="h-5 w-5" />
+            إنهاء والعودة للمنصة
+          </button>
+          <button type="button" onClick={restartCourse} className="btn-ghost min-h-[48px] flex-1 max-w-[220px] justify-center text-[15px]">
+            <Icon name="flow" className="h-5 w-5" />
+            إعادة الفصل
+          </button>
+        </div>
+      )}
 
       <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
 

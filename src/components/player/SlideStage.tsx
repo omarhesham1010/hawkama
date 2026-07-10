@@ -485,9 +485,17 @@ function ContextOrnament({
   const anim = ORNAMENT_ANIMS[pseudoShuffle(cueIndex + slide.id.length, ORNAMENT_ANIMS.length)];
 
   const cardCount = slide.ppt?.cards?.length ?? 0;
+  // Slides with no `ppt.cards` aren't necessarily empty — quiz questions,
+  // knowledge checks, and the classification/decision/flip-card activities
+  // all render their own dense custom UI (options, drag zones, feedback)
+  // that the ornament must stay clear of. Only genuinely sparse layouts
+  // (the bag/chapter intro) earn the "roomy" treatment by default.
+  const isRoomyEmpty = cardCount === 0 && (slide.layout === 'pptIntro' || slide.kind === 'welcome');
   // 1 = canvas still empty (nothing/little revealed) → 0 = fully populated.
-  const openness = cardCount > 0 ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount) : 1;
-  const baseline = cardCount === 0 || cardCount <= 3
+  const openness = cardCount > 0
+    ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount)
+    : isRoomyEmpty ? 1 : 0;
+  const baseline = isRoomyEmpty || (cardCount > 0 && cardCount <= 3)
     ? { wrap: 240, primaryBox: 176, primaryText: 92, secondaryBox: 64, secondaryText: 33 }
     : cardCount === 4
       ? { wrap: 212, primaryBox: 152, primaryText: 80, secondaryBox: 56, secondaryText: 29 }
@@ -554,7 +562,7 @@ function StorySlideShell({
 }) {
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const isQuiz = slide.kind === 'quiz';
-  const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
+  const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection' || slide.kind === 'completion';
   const bottomSpace = isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
   const topSpace = isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
 
@@ -1540,13 +1548,13 @@ function PptStyleSlide({
                 />
               ))}
             </div>
-            <div className="mt-4 flex items-center justify-center gap-3">
-              <button type="button" onClick={completion.onExit} className="btn-gold px-7 py-3 text-base">
-                <Icon name="flag" className="h-5 w-5" />
+            <div className="mt-5 flex items-center justify-center gap-4">
+              <button type="button" onClick={completion.onExit} className="btn-gold px-9 py-4 text-lg">
+                <Icon name="flag" className="h-6 w-6" />
                 إنهاء والعودة للمنصة
               </button>
-              <button type="button" onClick={completion.onRestart} className="btn-ghost px-7 py-3 text-base">
-                <Icon name="flow" className="h-5 w-5" />
+              <button type="button" onClick={completion.onRestart} className="btn-ghost px-9 py-4 text-lg">
+                <Icon name="flow" className="h-6 w-6" />
                 إعادة الفصل
               </button>
             </div>
@@ -1812,16 +1820,16 @@ export function SlideStage({
   if (slide.kind === 'completion') {
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
-        <div className="relative flex h-full flex-col items-center justify-center p-10 text-center">
+        <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-6 text-center">
         <Confetti count={48} />
-        <div className="mb-2 flex justify-center animate-scale-in">
+        <div className="flex justify-center animate-scale-in">
           <CompletionMedallion className="h-20 w-20 animate-float" />
         </div>
         <h2 className="text-3xl font-extrabold text-brand-strong animate-fade-up">{slide.title}</h2>
-        <div className="mt-4 w-full max-w-5xl animate-fade-up text-right">
+        <div className="w-full max-w-5xl animate-fade-up text-right">
           {slide.content?.takeaways && <LessonBlockView block={slide.content.takeaways} />}
         </div>
-        <div className="mt-4 flex items-center justify-center gap-8">
+        <div className="flex items-center justify-center gap-8">
           <div className="text-center">
             <p className="text-2xl font-extrabold text-ink tabular">{toArabicDigits(completion.percent)}٪</p>
             <p className="text-xs text-ink-muted">نسبة الإتمام</p>
@@ -1839,7 +1847,7 @@ export function SlideStage({
             <p className="text-xs text-ink-muted">الأنشطة المكتملة</p>
           </div>
         </div>
-        <div className="mt-4 flex -translate-y-20 items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <button type="button" onClick={completion.onExit} className="btn-gold px-7 py-4 text-lg">
             <Icon name="flag" className="w-5 h-5" />
             إنهاء والعودة للمنصة
