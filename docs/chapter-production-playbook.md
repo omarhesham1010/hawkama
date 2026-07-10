@@ -97,7 +97,7 @@ Production settings:
 ```text
 stability: 1
 similarity_boost: 0.78
-output_format: mp3_44100_128
+output_format: mp3_44100_192
 ```
 
 Workflow:
@@ -143,7 +143,7 @@ quota, and resumes without regenerating completed aligned files. Do not use
 ## 10. Loading Performance
 
 - Preload only current and next audio, not the full bag.
-- Keep MP3 at 44.1 kHz and 128 kbps.
+- Keep MP3 at 44.1 kHz and 192 kbps.
 - Use cache-busted stable URLs.
 - Show loading without advancing dialogue or animation.
 - Measure first-play startup on desktop and mobile after a clean cache.

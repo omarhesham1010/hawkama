@@ -104,14 +104,15 @@ activity is already part of its main slide narration, so it is not generated twi
 ELEVENLABS_API_KEY=your_api_key_here
 ELEVENLABS_VOICE_ID=your_voice_id_here
 ELEVENLABS_MODEL_ID=eleven_v3
-ELEVENLABS_OUTPUT_FORMAT=mp3_44100_128
+ELEVENLABS_OUTPUT_FORMAT=mp3_44100_192
 ELEVENLABS_STABILITY=1
 ELEVENLABS_SIMILARITY_BOOST=0.78
 ```
 
 For `eleven_v3`, the generator always uses Robust stability (`1`) and omits
 Speaker Boost and the legacy speed/style controls that v3 does not use in the
-same way. Output is fixed to MP3 44.1 kHz at 128kbps. The generation script also
+same way. Output defaults to MP3 44.1 kHz at 192kbps (`mp3_44100_128` is also
+accepted). The generation script also
 normalizes colons and long dashes into natural Arabic pauses before sending text.
 Numbers and ambiguous abbreviations should be written as spoken words in the
 central catalog. Do not regenerate production audio without explicit approval.

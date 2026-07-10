@@ -1,6 +1,7 @@
 import type { PptCard } from '../types/slides';
 import type { QuizQuestion } from '../types/course';
 import { allNarratedSlides as slides } from './slides';
+import { CHECK_INTROS } from './narrationPhrases';
 
 export type AudioCategory =
   | 'slide'
@@ -190,6 +191,29 @@ const quizFeedbackItems = slides
     ]),
   );
 
+const checkItems = slides.flatMap((slide) => {
+  const check = slide.ppt?.checks?.[0];
+  if (!check) return [];
+  const intro = CHECK_INTROS[slide.index % CHECK_INTROS.length];
+  const answerLine = check.rationale ? `${check.answer}. ${check.rationale}` : check.answer ?? '';
+  return [
+    item(
+      `${slide.audioKey}-check-ask`,
+      `${slide.title} - سؤال تفاعلي`,
+      `${intro} ${check.title}`,
+      'activity-question',
+      slide.id,
+    ),
+    item(
+      `${slide.audioKey}-check-answer`,
+      `${slide.title} - إجابة السؤال التفاعلي`,
+      answerLine,
+      'activity-feedback',
+      slide.id,
+    ),
+  ];
+});
+
 export const audioScripts: AudioScriptItem[] = [
   ...mainSlideItems,
   ...genericActivityDetailItems,
@@ -197,6 +221,7 @@ export const audioScripts: AudioScriptItem[] = [
   ...governanceFeedbackItems,
   ...scenarioItems,
   ...quizFeedbackItems,
+  ...checkItems,
 ];
 
 export function audioScriptByKey(key: string) {

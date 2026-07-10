@@ -25,6 +25,7 @@ import {
   governanceQuestionText,
   quizFeedbackText,
 } from '../../data/audioScripts';
+import { CHECK_INTROS } from '../../data/narrationPhrases';
 
 export interface CompletionInfo {
   percent: number;
@@ -916,13 +917,6 @@ function pptDetailFor(card: PptCard) {
   }
   return 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
 }
-
-const CHECK_INTROS = [
-  'طيب، قبل ما نكمل، وقفة سريعة عندي سؤال لك:',
-  'خليني أتأكد إنك ماسك الفكرة معي:',
-  'ثانية بس، عندي سؤال يوضح النقطة أكثر:',
-  'وهنا أحب أختبر فهمك سريعًا:',
-];
 
 type CheckPhase = 'idle' | 'asking' | 'ready' | 'revealed' | 'done';
 

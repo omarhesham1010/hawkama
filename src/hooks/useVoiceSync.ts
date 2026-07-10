@@ -110,7 +110,31 @@ export function useVoiceSync(
     }
 
     let raf = 0;
+    let throttleTimer: number | null = null;
+    // Defensive guard against a pathological requestAnimationFrame burst
+    // (many callbacks firing back-to-back without a real paint in between —
+    // observed in automated/CDP-driven browsers under heavy load). A real
+    // ~60fps cadence never comes close to this many ticks in 50ms; if it
+    // ever does, skip the state-update work for a moment via a throttled
+    // timeout instead of hammering setState fast enough to trip React's
+    // nested-update warning.
+    let burstWindowStart = performance.now();
+    let burstTicks = 0;
     const tick = () => {
+      const now0 = performance.now();
+      if (now0 - burstWindowStart < 50) {
+        burstTicks += 1;
+        if (burstTicks > 40) {
+          throttleTimer = window.setTimeout(() => {
+            throttleTimer = null;
+            raf = requestAnimationFrame(tick);
+          }, 32);
+          return;
+        }
+      } else {
+        burstWindowStart = now0;
+        burstTicks = 0;
+      }
       let val = spokenRef.current;
       if (speakingRef.current) {
         if (sourceRef.current === 'audio') {
@@ -163,7 +187,10 @@ export function useVoiceSync(
       if (next < total) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (throttleTimer != null) window.clearTimeout(throttleTimer);
+    };
   }, [armed, audioKey, done, getAudioClock, paused, total, resetKey]);
 
   // Muted / not armed → reveal all.

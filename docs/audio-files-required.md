@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **99**.
+Generated from `src/data/audioScripts.ts`. Total required: **119**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -105,3 +105,23 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `ch3-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
 - `ch3-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
 - `ch3-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `ch1-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
+- `ch1-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
+- `ch1-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
+- `ch1-health-policies-check-answer.mp3` - صياغة وتطوير السياسات الصحية - إجابة السؤال التفاعلي
+- `ch1-framework-check-ask.mp3` - تطوير وتطبيق أطر الحوكمة - سؤال تفاعلي
+- `ch1-framework-check-answer.mp3` - تطوير وتطبيق أطر الحوكمة - إجابة السؤال التفاعلي
+- `ch1-ethics-conflict-check-ask.mp3` - أخلاقيات العمل وتضارب المصالح - سؤال تفاعلي
+- `ch1-ethics-conflict-check-answer.mp3` - أخلاقيات العمل وتضارب المصالح - إجابة السؤال التفاعلي
+- `ch2-overview-check-ask.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - سؤال تفاعلي
+- `ch2-overview-check-answer.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - إجابة السؤال التفاعلي
+- `ch2-pdca-check-ask.mp3` - أيزو 37301 – دورة PDCA للامتثال - سؤال تفاعلي
+- `ch2-pdca-check-answer.mp3` - أيزو 37301 – دورة PDCA للامتثال - إجابة السؤال التفاعلي
+- `ch2-culture-check-ask.mp3` - بناء ثقافة الامتثال وبرامج التوعية - سؤال تفاعلي
+- `ch2-culture-check-answer.mp3` - بناء ثقافة الامتثال وبرامج التوعية - إجابة السؤال التفاعلي
+- `ch3-overview-check-ask.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - سؤال تفاعلي
+- `ch3-overview-check-answer.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - إجابة السؤال التفاعلي
+- `ch3-risk-process-check-ask.mp3` - مراحل عملية إدارة المخاطر - سؤال تفاعلي
+- `ch3-risk-process-check-answer.mp3` - مراحل عملية إدارة المخاطر - إجابة السؤال التفاعلي
+- `program-summary-check-ask.mp3` - الخلاصة – أبرز ما تعلمناه - سؤال تفاعلي
+- `program-summary-check-answer.mp3` - الخلاصة – أبرز ما تعلمناه - إجابة السؤال التفاعلي

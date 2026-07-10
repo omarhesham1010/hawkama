@@ -203,10 +203,12 @@ function voiceSettingsFromEnv(env, modelId) {
   };
 }
 
+const ALLOWED_OUTPUT_FORMATS = ['mp3_44100_128', 'mp3_44100_192'];
+
 function outputFormatFromEnv(env) {
-  const format = env.ELEVENLABS_OUTPUT_FORMAT?.trim() || 'mp3_44100_128';
-  if (format !== 'mp3_44100_128') {
-    throw new Error('ELEVENLABS_OUTPUT_FORMAT must be mp3_44100_128 for this course.');
+  const format = env.ELEVENLABS_OUTPUT_FORMAT?.trim() || 'mp3_44100_192';
+  if (!ALLOWED_OUTPUT_FORMATS.includes(format)) {
+    throw new Error(`ELEVENLABS_OUTPUT_FORMAT must be one of: ${ALLOWED_OUTPUT_FORMATS.join(', ')}.`);
   }
   return format;
 }
@@ -268,7 +270,12 @@ async function replaceFileSafely(sourcePath, outputPath) {
   }
 }
 
-async function assembleAudio(partPaths, outputPath, workDir) {
+function bitrateFromFormat(format) {
+  const match = /_(\d+)$/.exec(format ?? '');
+  return match ? `${match[1]}k` : '128k';
+}
+
+async function assembleAudio(partPaths, outputPath, workDir, bitrate = '128k') {
   const listPath = join(workDir, 'concat.txt');
   const content = partPaths.map((path) => `file '${ffmpegPath(path)}'`).join('\n');
   await writeFile(listPath, content, 'utf8');
@@ -276,7 +283,7 @@ async function assembleAudio(partPaths, outputPath, workDir) {
     '-hide_banner', '-loglevel', 'error', '-y',
     '-f', 'concat', '-safe', '0', '-i', listPath,
     '-af', 'adelay=180:all=1,apad=pad_dur=0.12',
-    '-ar', '44100', '-b:a', '128k', outputPath,
+    '-ar', '44100', '-b:a', bitrate, outputPath,
   ], { windowsHide: true, maxBuffer: 1024 * 1024 });
   const info = await stat(outputPath);
   if (!info.isFile() || info.size < 1000) throw new Error('FFmpeg produced an invalid MP3 file.');
@@ -447,7 +454,7 @@ async function generateEntry({
       console.log(`  chunk ${chunkIndex + 1}/${chunks.length}: ${bytes.length} bytes`);
       if (chunkIndex < chunks.length - 1) await sleep(CHUNK_DELAY_MS);
     }
-    await assembleAudio(partPaths, processedPath, workDir);
+    await assembleAudio(partPaths, processedPath, workDir, bitrateFromFormat(outputFormat));
     const outputPath = join(outputDir, `${outputKey}.mp3`);
     const size = (await stat(processedPath)).size;
     await replaceFileSafely(processedPath, outputPath);
@@ -531,7 +538,7 @@ async function generateContinuousPreview({
         '-to', String(end),
         '-af', 'adelay=180:all=1,apad=pad_dur=0.12',
         '-ar', '44100',
-        '-b:a', '128k',
+        '-b:a', bitrateFromFormat(outputFormat),
         outputPath,
       ], { windowsHide: true, maxBuffer: 1024 * 1024 });
       const info = await stat(outputPath);
