@@ -344,6 +344,19 @@ function NasserStoryLayer({
 }) {
   const guide = nasserGuide(slide, spoken);
   const line = dialogueOverride ?? guide.line;
+  // Split the active cue at the real spoken position (from the audio clock)
+  // so the bubble reveals word by word in step with the voice instead of
+  // popping the whole sentence in at once. Only meaningful for the main
+  // narration line — a dialogueOverride (guided Q&A) already resolves to a
+  // plain string with its own sync, so it renders as a single block.
+  const cueSpokenSplit = !dialogueOverride
+    ? (() => {
+        const { cue } = activeStoryCue(slide.narration, spoken);
+        if (!cue) return null;
+        const relative = Math.max(0, Math.min(cue.text.length, spoken - cue.start));
+        return { spokenPart: cue.text.slice(0, relative), remainingPart: cue.text.slice(relative) };
+      })()
+    : null;
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const isQuiz = slide.kind === 'quiz';
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
@@ -362,7 +375,10 @@ function NasserStoryLayer({
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
-  const displayLine = line.normalize('NFKD').replace(/\p{M}/gu, '');
+  const stripDiacritics = (value: string) => value.normalize('NFKD').replace(/\p{M}/gu, '');
+  const displayLine = stripDiacritics(line);
+  const displaySpokenPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.spokenPart) : displayLine;
+  const displayRemainingPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.remainingPart) : '';
 
   return (
     <div className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
@@ -381,7 +397,12 @@ function NasserStoryLayer({
           />
           {showDialogue && (
             <div className={bubbleLift}>
-              <SpeechBubble text={displayLine} tailTo={bubbleTail} compact={compact} />
+              <SpeechBubble
+                text={displaySpokenPart}
+                remainingText={displayRemainingPart}
+                tailTo={bubbleTail}
+                compact={compact}
+              />
             </div>
           )}
         </div>

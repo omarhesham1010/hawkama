@@ -2856,6 +2856,9 @@ video {
   --tw-text-opacity: 1;
   color: rgb(var(--brand-strong) / var(--tw-text-opacity, 1));
 }
+.text-brand-strong\/40 {
+  color: rgb(var(--brand-strong) / 0.4);
+}
 .text-brand\/60 {
   color: rgb(var(--brand) / 0.6);
 }
@@ -2916,6 +2919,9 @@ video {
 .text-ink-soft {
   --tw-text-opacity: 1;
   color: rgb(var(--ink-soft) / var(--tw-text-opacity, 1));
+}
+.text-ink-soft\/45 {
+  color: rgb(var(--ink-soft) / 0.45);
 }
 .text-rose-500 {
   --tw-text-opacity: 1;

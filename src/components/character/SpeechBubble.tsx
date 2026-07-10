@@ -1,11 +1,17 @@
 export function SpeechBubble({
   label = 'ناصر',
   text,
+  remainingText = '',
   tailTo = 'right',
   compact = false,
 }: {
   label?: string;
+  /** Already-spoken portion — rendered at full emphasis. */
   text: string;
+  /** Not-yet-spoken portion of the same sentence — rendered dimmed, live
+   *  karaoke-style, so the bubble visibly tracks the voice word by word
+   *  instead of popping in a whole sentence at once. */
+  remainingText?: string;
   tailTo?: 'left' | 'right';
   compact?: boolean;
 }) {
@@ -22,7 +28,10 @@ export function SpeechBubble({
     >
       <span className={`absolute h-0 w-0 drop-shadow-sm ${tail}`} aria-hidden="true" />
       <p className="mb-1 text-[15px] font-extrabold text-brand">{label}</p>
-      <p className={`${compact ? 'text-[18px]' : 'text-[20px]'} font-bold leading-relaxed text-ink-soft`}>{text}</p>
+      <p className={`${compact ? 'text-[18px]' : 'text-[20px]'} font-bold leading-relaxed text-ink-soft`}>
+        <span>{text}</span>
+        {remainingText && <span className="text-ink-soft/45">{remainingText}</span>}
+      </p>
     </div>
   );
 }

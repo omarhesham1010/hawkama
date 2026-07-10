@@ -7,7 +7,13 @@ export function CaptionBar({ text, audioKey, spoken }: { text: string; audioKey:
   const { isPlaying, nowKey } = useNarrationContext();
   const active = isPlaying && nowKey === audioKey;
   const cues = useMemo(() => storyCues(text), [text]);
-  const shown = active ? activeStoryCue(text, spoken).cue?.text : cues[0]?.text ?? '';
+  const activeCue = active ? activeStoryCue(text, spoken).cue : cues[0];
+  const cueText = activeCue?.text ?? '';
+  // Reveal the caption word-by-word in step with the real audio position
+  // instead of popping the whole sentence in at once.
+  const relative = activeCue ? Math.max(0, Math.min(cueText.length, spoken - activeCue.start)) : 0;
+  const spokenPart = active ? cueText.slice(0, relative) : cueText;
+  const remainingPart = active ? cueText.slice(relative) : '';
 
   return (
     <div className="shrink-0 border-t border-line bg-surface-2/85 backdrop-blur-md">
@@ -25,7 +31,10 @@ export function CaptionBar({ text, audioKey, spoken }: { text: string; audioKey:
           }`}
         >
           {active ? (
-            <span className="rounded-md bg-brand/12 px-1.5 py-0.5 text-brand-strong">{shown}</span>
+            <span className="rounded-md bg-brand/12 px-1.5 py-0.5">
+              <span className="text-brand-strong">{spokenPart}</span>
+              {remainingPart && <span className="text-brand-strong/40">{remainingPart}</span>}
+            </span>
           ) : (
             <span>الشرح الصوتي</span>
           )}
