@@ -418,11 +418,21 @@ function ornamentSymbolsFor(slide: Slide): string[] {
 }
 
 /** One clear, deliberate icon (+ a small companion badge) instead of a
- *  cluster of eight — sized by how much open canvas the slide actually has
- *  (fewer cards → more room → go big; a dense 5-6 card grid → stay modest
- *  so it doesn't compete with the content) so it always reads as a real
- *  illustration paired with the current sentence, not decorative clutter. */
-function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
+ *  cluster of eight — sized continuously by how much of the canvas is
+ *  still empty *right now*. Anchored to the same bottom-side spot beside
+ *  Nasser throughout, so as fewer cards are revealed it simply grows
+ *  upward and fills the open space; as each card lands it shrinks back
+ *  down step by step, like a shot reframing as new elements enter rather
+ *  than a static sticker at one fixed size. */
+function ContextOrnament({
+  slide,
+  spoken,
+  revealedCount,
+}: {
+  slide: Slide;
+  spoken: number;
+  revealedCount?: number;
+}) {
   const guide = nasserGuide(slide, spoken);
   const cueIndex = activeStoryCue(slide.narration, spoken).index;
   const symbols = ornamentSymbolsFor(slide);
@@ -430,22 +440,32 @@ function ContextOrnament({ slide, spoken }: { slide: Slide; spoken: number }) {
   const secondary = symbols[(cueIndex + 1) % symbols.length];
 
   const cardCount = slide.ppt?.cards?.length ?? 0;
-  const size = cardCount === 0 || cardCount <= 3
-    ? { wrap: 200, primaryBox: 150, primaryText: 80, secondaryBox: 58, secondaryText: 30 }
+  // 1 = canvas still empty (nothing/little revealed) → 0 = fully populated.
+  const openness = cardCount > 0 ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount) : 1;
+  const baseline = cardCount === 0 || cardCount <= 3
+    ? { wrap: 190, primaryBox: 140, primaryText: 74, secondaryBox: 54, secondaryText: 28 }
     : cardCount === 4
-      ? { wrap: 176, primaryBox: 128, primaryText: 68, secondaryBox: 50, secondaryText: 26 }
-      : { wrap: 152, primaryBox: 108, primaryText: 56, secondaryBox: 44, secondaryText: 22 };
+      ? { wrap: 168, primaryBox: 122, primaryText: 64, secondaryBox: 48, secondaryText: 25 }
+      : { wrap: 148, primaryBox: 104, primaryText: 54, secondaryBox: 42, secondaryText: 21 };
+  const grow = 1 + openness * 0.5; // up to +50% bigger while the canvas is still open
+  const size = {
+    wrap: Math.round(baseline.wrap * grow),
+    primaryBox: Math.round(baseline.primaryBox * grow),
+    primaryText: Math.round(baseline.primaryText * grow),
+    secondaryBox: Math.round(baseline.secondaryBox * grow),
+    secondaryText: Math.round(baseline.secondaryText * grow),
+  };
 
   // Nasser's flex alignment is logical in the RTL canvas: guide.left renders
   // physically on the right, so the matching physical opposite is also left.
   const ornamentSide = guide.side;
-  const oppositeSide = ornamentSide === 'left' ? { left: 28 } : { right: 28 };
+  const sideOffset = ornamentSide === 'left' ? { left: 28 } : { right: 28 };
 
   return (
     <div
       key={`${slide.id}-${cueIndex}-${primary}`}
-      className="pointer-events-none absolute bottom-[42px] z-0 animate-scale-in"
-      style={{ ...oppositeSide, height: size.wrap, width: size.wrap }}
+      className="pointer-events-none absolute bottom-[42px] z-0 animate-scale-in transition-[height,width] duration-500 ease-out"
+      style={{ ...sideOffset, height: size.wrap, width: size.wrap }}
       data-ornament-side={ornamentSide}
       aria-hidden="true"
     >
@@ -475,12 +495,16 @@ function StorySlideShell({
   spoken,
   showDialogue,
   dialogueOverride,
+  revealedCount,
   children,
 }: {
   slide: Slide;
   spoken: number;
   showDialogue: boolean;
   dialogueOverride?: string;
+  /** How many of the slide's cards are currently revealed — lets the
+   *  ornament fill the still-empty canvas before the first card appears. */
+  revealedCount?: number;
   children: React.ReactNode;
 }) {
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
@@ -491,7 +515,7 @@ function StorySlideShell({
 
   return (
     <div className="relative isolate h-full overflow-hidden">
-      <ContextOrnament slide={slide} spoken={spoken} />
+      <ContextOrnament slide={slide} spoken={spoken} revealedCount={revealedCount} />
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
@@ -877,7 +901,7 @@ const CHECK_INTROS = [
   'وهنا أحب أختبر فهمك سريعًا:',
 ];
 
-type CheckPhase = 'idle' | 'asking' | 'ready' | 'revealed';
+type CheckPhase = 'idle' | 'asking' | 'ready' | 'revealed' | 'done';
 
 /** A question Nasser raises verbally only after he finishes explaining the
  *  slide: a centered popup over the canvas (never silent text sitting beside
@@ -887,17 +911,25 @@ function PptQuickCheckPopup({
   check,
   phase,
   onReveal,
+  onDismiss,
 }: {
   check: PptCard;
   phase: CheckPhase;
   onReveal: () => void;
+  onDismiss: () => void;
 }) {
-  if (phase === 'idle') return null;
+  if (phase === 'idle' || phase === 'done') return null;
   const revealed = phase === 'revealed';
   const ready = phase === 'ready';
   return (
-    <div className="pointer-events-none absolute inset-0 z-20 grid place-items-start pt-[64px]" aria-live="polite">
-      <div className="absolute inset-0 bg-ink/35 backdrop-blur-[2px] animate-fade-in" />
+    <div className="absolute inset-0 z-20 grid place-items-start pt-[64px]" aria-live="polite">
+      {/* Once Nasser has answered, tapping anywhere outside the card dismisses
+          it and returns to the normal slide view — only active post-reveal
+          so the learner can't skip past the question itself. */}
+      <div
+        className={`absolute inset-0 bg-ink/35 backdrop-blur-[2px] animate-fade-in ${revealed ? 'cursor-pointer' : 'pointer-events-none'}`}
+        onClick={revealed ? onDismiss : undefined}
+      />
       <div
         className={`pointer-events-auto relative mx-auto w-full max-w-[720px] animate-scale-in overflow-hidden rounded-2xl border-2 shadow-card-lg transition-colors duration-500 ${
           revealed
@@ -919,7 +951,7 @@ function PptQuickCheckPopup({
             {revealed ? check.rationale : check.text}
           </p>
         </div>
-        {!revealed && (
+        {!revealed ? (
           <div className="flex justify-center pb-5">
             <button
               type="button"
@@ -928,6 +960,12 @@ function PptQuickCheckPopup({
               className="rounded-lg bg-green-700 px-6 py-3 text-[16px] font-extrabold text-white shadow-card transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {ready ? 'فكّرت.. اكشف الإجابة' : 'استمع للسؤال…'}
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-center pb-4">
+            <button type="button" onClick={onDismiss} className="text-[13px] font-bold text-green-50/80 underline underline-offset-2">
+              اضغط في أي مكان للمتابعة
             </button>
           </div>
         )}
@@ -1368,6 +1406,7 @@ function PptStyleSlide({
       : -1;
   const cardIsVisible = (index: number) =>
     narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
+  const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
@@ -1431,6 +1470,7 @@ function PptStyleSlide({
       spoken={started ? spoken : 0}
       showDialogue={showDialogue || Boolean(interactionLine)}
       dialogueOverride={interactionLine}
+      revealedCount={revealedCount}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
         <PptTitle slide={slide} />
@@ -1493,7 +1533,14 @@ function PptStyleSlide({
           </div>
         )}
       </div>
-      {check && <PptQuickCheckPopup check={check} phase={checkPhase} onReveal={revealCheck} />}
+      {check && (
+        <PptQuickCheckPopup
+          check={check}
+          phase={checkPhase}
+          onReveal={revealCheck}
+          onDismiss={() => setCheckPhase('done')}
+        />
+      )}
     </StorySlideShell>
   );
 }
