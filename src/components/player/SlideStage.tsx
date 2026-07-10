@@ -546,6 +546,7 @@ function ContextOrnament({
     </div>
   );
 }
+void ContextOrnament;
 
 function StorySlideShell({
   slide,
@@ -569,10 +570,10 @@ function StorySlideShell({
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection' || slide.kind === 'completion';
   const bottomSpace = isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
   const topSpace = isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
+  void revealedCount;
 
   return (
     <div className="relative isolate h-full overflow-hidden">
-      <ContextOrnament slide={slide} spoken={spoken} revealedCount={revealedCount} />
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
@@ -600,8 +601,8 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
     case 'def':
       return (
         <div className={`${shell} flex items-start gap-4 p-5`}>
-          <span className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl text-4xl ${tile}`}>
-            {unit.emoji}
+          <span className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl p-2 ${tile}`}>
+            <CourseGlyph kind={courseGlyphKind(`${unit.term} ${unit.text}`)} active={active} />
           </span>
           <div>
             <h3 className={`mb-1 text-[22px] font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
@@ -616,8 +617,8 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
     case 'point':
       return (
         <div className={`${shell} flex min-h-[64px] items-center gap-3 p-3.5`}>
-          <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-3xl ${tile}`}>
-            {unit.emoji}
+          <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl p-2 ${tile}`}>
+            <CourseGlyph kind={courseGlyphKind(`${unit.title ?? ''} ${unit.text ?? ''}`)} active={active} />
           </span>
           <div className="min-w-0">
             {unit.title && (
@@ -684,6 +685,7 @@ function BeatBox({
 /** Always-present side graphic: an emoji "image" panel or the target. Alternates
  *  bubble shape / gradient angle per slide so consecutive slides don't look identical. */
 function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
+  const glyphKind = courseGlyphKind(`${slide.title} ${slide.narration}`);
   return (
     <div
       className={`relative grid h-full w-[220px] shrink-0 place-items-center overflow-hidden ${
@@ -701,11 +703,11 @@ function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
         style={{ backgroundImage: 'radial-gradient(rgb(255 255 255 / 0.35) 1px, transparent 1px)', backgroundSize: '18px 18px' }}
       />
       <div
-        className={`relative grid h-36 w-36 place-items-center bg-white/90 text-[5rem] shadow-card-lg animate-float ring-4 ring-white/40 ${
+        className={`relative grid h-36 w-36 place-items-center bg-white/90 p-6 shadow-card-lg animate-float ring-4 ring-white/40 ${
           alt ? 'rounded-[2rem]' : 'rounded-full'
         }`}
       >
-        {slide.visual}
+        <CourseGlyph kind={glyphKind} />
       </div>
     </div>
   );
@@ -769,8 +771,8 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
     <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-hidden rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 px-5 shadow-card">
       <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(20 160 120 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
       <div className="relative z-10 flex items-center gap-4 self-center">
-        <span className="grid h-[72px] w-[72px] place-items-center rounded-2xl bg-white/90 text-5xl shadow-card ring-4 ring-white/40">
-          {slide.visual}
+        <span className="grid h-[72px] w-[72px] place-items-center rounded-2xl bg-white/90 p-3 shadow-card ring-4 ring-white/40">
+          <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} />
         </span>
         <span className="max-w-[360px] text-right text-lg font-extrabold leading-snug text-brand-strong">
           {slide.title}
@@ -833,8 +835,8 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
       <div className="flex h-full flex-col px-9 py-5">
       {/* title (beat 0) */}
       <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
-        <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-teal-600 text-2xl text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
-          {slide.visual}
+      <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-teal-600 p-2 text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
+          <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} active compact />
         </span>
         {slide.title}
       </h2>
@@ -863,6 +865,7 @@ const PPT_ACCENTS: Record<NonNullable<PptCard['tone']>, string> = {
   blue: 'border-sky-500/35 bg-sky-50/80',
   gray: 'border-slate-300 bg-white',
 };
+void PPT_ACCENTS;
 
 const PPT_EMOJIS = [
   { terms: ['سيناريو'], emoji: '🎬' },
@@ -1075,36 +1078,36 @@ function IntroMotionScene({
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[-1%] top-[7%] w-[42%]',
+      className: 'right-[5%] top-[11%] w-[30%]',
       visible: !started || reveal(0.06),
-      transform: `translate3d(${(1 - visualProgress) * 28}px, ${Math.sin(visualProgress * Math.PI * 2) * 4}px, 0) scale(${0.92 + visualProgress * 0.1})`,
+      transform: `translate3d(${(1 - visualProgress) * 18}px, ${Math.sin(visualProgress * Math.PI * 2) * 3}px, 0) scale(${0.96 + visualProgress * 0.04})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[18%] top-[31%] w-[32%]',
+      className: 'right-[27%] top-[34%] w-[24%]',
       visible: reveal(0.36),
-      transform: `translate3d(${(0.46 - visualProgress) * 36}px, ${Math.cos(visualProgress * Math.PI * 2) * 3}px, 0) scale(${0.9 + visualProgress * 0.09})`,
+      transform: `translate3d(${(0.46 - visualProgress) * 22}px, ${Math.cos(visualProgress * Math.PI * 2) * 3}px, 0) scale(${0.95 + visualProgress * 0.04})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[-2%] bottom-[4%] w-[36%]',
+      className: 'right-[6%] bottom-[11%] w-[26%]',
       visible: reveal(0.64),
-      transform: `translate3d(${(0.74 - visualProgress) * 38}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 4}px, 0) scale(${0.9 + visualProgress * 0.08})`,
+      transform: `translate3d(${(0.74 - visualProgress) * 20}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 3}px, 0) scale(${0.95 + visualProgress * 0.04})`,
     },
   ];
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-[-1%] top-[5%] h-[78%] w-[50%] rounded-[45%] bg-white/35 blur-xl" />
-        <div className="absolute right-[11%] top-[15%] h-[58%] w-[34%] animate-pulse-soft rounded-full border border-dashed border-green-700/25" />
-        <div className="absolute right-[5%] top-[21%] h-[42%] w-[28%] animate-spin-slow rounded-full border border-dashed border-gold-500/25" />
-        <svg className="absolute right-[4%] top-[23%] h-[44%] w-[39%] overflow-visible" viewBox="0 0 420 260" aria-hidden="true">
+        <div className="absolute right-[3%] top-[10%] h-[70%] w-[45%] rounded-[45%] bg-white/22 blur-xl" />
+        <div className="absolute right-[16%] top-[20%] h-[46%] w-[26%] animate-pulse-soft rounded-full border border-dashed border-green-700/16" />
+        <div className="absolute right-[9%] top-[27%] h-[34%] w-[22%] animate-spin-slow rounded-full border border-dashed border-gold-500/16" />
+        <svg className="absolute right-[8%] top-[26%] h-[34%] w-[32%] overflow-visible opacity-70" viewBox="0 0 420 260" aria-hidden="true">
           <path
             d="M370 40 C280 20 236 74 204 128 C162 198 96 210 34 174"
             fill="none"
             stroke="rgb(47 132 87 / 0.38)"
-            strokeWidth="4"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeDasharray="10 12"
           />
@@ -1112,7 +1115,7 @@ function IntroMotionScene({
             d="M360 180 C270 132 220 150 172 188 C126 224 80 220 42 202"
             fill="none"
             stroke="rgb(191 155 74 / 0.42)"
-            strokeWidth="3"
+            strokeWidth="2.5"
             strokeLinecap="round"
             strokeDasharray="7 12"
           />
@@ -1123,24 +1126,24 @@ function IntroMotionScene({
             src={layer.src}
             alt=""
             draggable={false}
-            className={`absolute ${layer.className} drop-shadow-[0_24px_35px_rgb(24_82_55_/_0.20)] transition-all duration-700 ease-out ${
+            className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-700 ease-out ${
               layer.visible ? 'opacity-100 blur-0' : 'translate-x-12 scale-90 opacity-0 blur-sm'
             } ${index === activeIndex ? 'motion-layer-focus' : ''}`}
             style={{ transform: layer.visible ? layer.transform : undefined }}
           />
         ))}
         {pillars.map((pillar, index) => {
-          const positions = ['right-[35%] top-[16%]', 'right-[40%] top-[47%]', 'right-[4%] bottom-[24%]'];
+          const positions = ['right-[37%] top-[18%]', 'right-[42%] top-[48%]', 'right-[10%] bottom-[26%]'];
           const shown = !started ? index === 0 : reveal(index * 0.28 + 0.08);
           const active = index === activeIndex;
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`absolute ${positions[index]} min-w-[132px] rounded-full border px-4 py-2 text-center shadow-card backdrop-blur-md transition-all duration-500 ${
+              className={`absolute ${positions[index]} min-w-[126px] rounded-full border px-4 py-2 text-center shadow-sm backdrop-blur-md transition-all duration-500 ${
                 shown ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               } ${
                 active
-                  ? 'border-gold-500/50 bg-green-700 text-white'
+                  ? 'border-gold-500/45 bg-green-800/92 text-white'
                   : 'border-green-700/18 bg-white/82 text-green-900'
               }`}
             >
@@ -1152,7 +1155,7 @@ function IntroMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col justify-between p-5 text-right">
-        <div className="mr-auto w-[49%] animate-fade-up">
+        <div className="mr-auto w-[50%] animate-fade-up">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
               تحت إشراف أ/ ناصر
@@ -1176,17 +1179,11 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-4 right-5 left-5 flex items-center gap-4">
-          <div className="h-2 flex-1 overflow-hidden rounded-full bg-green-900/10">
-            <span
-              className="block h-full rounded-full bg-gradient-to-l from-gold-500 via-brand-soft to-brand transition-[width] duration-300"
-              style={{ width: `${Math.max(3, visualProgress * 100)}%` }}
-            />
-          </div>
+        <div className="absolute bottom-4 right-5 left-5 flex items-center justify-end">
           <button
             type="button"
             onClick={onStart}
-            className="btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card-lg"
+            className="btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card"
           >
             <Icon name="flag" className="h-6 w-6" />
             {started ? 'استمع للمقدمة' : 'ابدأ المشهد'}
@@ -1216,40 +1213,40 @@ function IntroRoadmapMotionScene({
   const layers = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'left-[7%] top-[17%] w-[23%]',
+      className: 'left-[10%] top-[20%] w-[17%]',
       visible: !started || reveal(0.04),
-      transform: `translate3d(${Math.sin(visualProgress * 6) * 7}px, ${Math.cos(visualProgress * 5) * 5}px, 0) scale(${0.92 + visualProgress * 0.06})`,
+      transform: `translate3d(${Math.sin(visualProgress * 6) * 4}px, ${Math.cos(visualProgress * 5) * 3}px, 0) scale(${0.97 + visualProgress * 0.03})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'left-[39%] top-[9%] w-[22%]',
+      className: 'left-[42%] top-[14%] w-[16%]',
       visible: reveal(0.34),
-      transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 6}px, ${Math.cos(visualProgress * 6) * 5}px, 0) scale(${0.9 + visualProgress * 0.07})`,
+      transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 4}px, ${Math.cos(visualProgress * 6) * 3}px, 0) scale(${0.97 + visualProgress * 0.03})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[8%] top-[17%] w-[23%]',
+      className: 'right-[11%] top-[20%] w-[17%]',
       visible: reveal(0.62),
-      transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 7}px, ${Math.cos(visualProgress * 5 + 2) * 5}px, 0) scale(${0.9 + visualProgress * 0.08})`,
+      transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 4}px, ${Math.cos(visualProgress * 5 + 2) * 3}px, 0) scale(${0.97 + visualProgress * 0.03})`,
     },
   ];
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <svg className="absolute inset-x-[9%] top-[21%] h-[31%] w-[82%] overflow-visible" viewBox="0 0 920 250" aria-hidden="true">
+        <svg className="absolute inset-x-[14%] top-[25%] h-[24%] w-[72%] overflow-visible opacity-75" viewBox="0 0 920 250" aria-hidden="true">
           <path
             d="M42 168 C222 20 342 246 462 122 C594 -16 708 22 878 160"
             fill="none"
             stroke="rgb(47 132 87 / 0.26)"
-            strokeWidth="14"
+            strokeWidth="9"
             strokeLinecap="round"
           />
           <path
             d="M42 168 C222 20 342 246 462 122 C594 -16 708 22 878 160"
             fill="none"
             stroke="rgb(191 155 74 / 0.72)"
-            strokeWidth="5"
+            strokeWidth="3.5"
             strokeLinecap="round"
             strokeDasharray="16 18"
             style={{ strokeDashoffset: `${220 - visualProgress * 220}` }}
@@ -1263,7 +1260,7 @@ function IntroRoadmapMotionScene({
             draggable={false}
             className={`absolute ${layer.className} transition-all duration-700 ease-out ${
               layer.visible ? 'opacity-100 blur-0' : 'translate-y-8 scale-90 opacity-0 blur-sm'
-            } ${index === current ? 'motion-layer-focus' : 'drop-shadow-[0_20px_28px_rgb(24_82_55_/_0.16)]'}`}
+              } ${index === current ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'}`}
             style={{ transform: layer.visible ? layer.transform : undefined }}
           />
         ))}
@@ -1289,19 +1286,19 @@ function IntroRoadmapMotionScene({
           </button>
         </div>
 
-        <div className="grid min-h-0 flex-1 grid-cols-3 items-end gap-4 pb-8 pt-[22%]">
+        <div className="grid min-h-0 flex-1 grid-cols-3 items-end gap-5 pb-8 pt-[25%]">
           {pillars.map((pillar, index) => {
             const shown = !started ? index === 0 : reveal(index * 0.28 + 0.06);
             const active = index === current;
             return (
               <div
                 key={pillar.label}
-                className={`relative overflow-hidden rounded-[26px] border p-4 text-right shadow-card-lg backdrop-blur-md transition-all duration-700 ${
+                className={`relative overflow-hidden rounded-[20px] border p-4 text-right shadow-[0_14px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
                   shown ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 } ${
                   active
-                    ? 'border-gold-500/50 bg-green-800 text-white'
-                    : 'border-green-700/16 bg-white/86 text-brand-strong'
+                    ? 'border-gold-500/45 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white'
+                    : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
@@ -1329,19 +1326,130 @@ function IntroRoadmapMotionScene({
           })}
         </div>
 
-        <div className="absolute bottom-4 right-6 left-6 h-2 overflow-hidden rounded-full bg-green-900/10">
-          <span
-            className="block h-full rounded-full bg-gradient-to-l from-gold-500 via-brand-soft to-brand transition-[width] duration-300"
-            style={{ width: `${Math.max(4, visualProgress * 100)}%` }}
-          />
-        </div>
+        <div className="pointer-events-none absolute bottom-5 right-6 left-6 h-px bg-gradient-to-l from-transparent via-green-700/16 to-transparent" />
       </div>
     </div>
   );
 }
 
+type CourseGlyphKind =
+  | 'governance'
+  | 'compliance'
+  | 'risk'
+  | 'ethics'
+  | 'policy'
+  | 'audit'
+  | 'training'
+  | 'decision'
+  | 'question'
+  | 'default';
+
+function courseGlyphKind(text: string): CourseGlyphKind {
+  if (/مخاطر|خطر|Risk|KRI|الأثر|الاحتمالية/.test(text)) return 'risk';
+  if (/امتثال|ضوابط|تدقيق|اختبار|PDCA|تحقق/.test(text)) return 'compliance';
+  if (/حوكمة|مجلس|لجان|صلاحيات|إطار/.test(text)) return 'governance';
+  if (/أخلاق|نزاهة|تضارب|مصالح|حياد/.test(text)) return 'ethics';
+  if (/سياس|وثيق|دليل|إجراء|مدونة/.test(text)) return 'policy';
+  if (/مراقبة|مراجعة|تقرير|مؤشر|قياس/.test(text)) return 'audit';
+  if (/تدريب|توعية|ثقافة|سلوك/.test(text)) return 'training';
+  if (/قرار|قياد|خطة|مسؤول/.test(text)) return 'decision';
+  if (/سؤال|اختبار|ناقش|فكر/.test(text)) return 'question';
+  return 'default';
+}
+
+function CourseGlyph({
+  kind = 'default',
+  active = false,
+  compact = false,
+}: {
+  kind?: CourseGlyphKind;
+  active?: boolean;
+  compact?: boolean;
+}) {
+  const stroke = active ? 'rgb(255 255 255)' : 'rgb(31 105 72)';
+  const accent = active ? 'rgb(246 211 122)' : 'rgb(191 155 74)';
+  const muted = active ? 'rgb(255 255 255 / 0.42)' : 'rgb(47 132 87 / 0.22)';
+  const common = { fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+  const strokeWidth = compact ? 6 : 5.2;
+
+  const paths: Record<CourseGlyphKind, React.ReactNode> = {
+    governance: (
+      <>
+        <path {...common} d="M22 72h60M28 72V36l24-12 24 12v36M38 72V46M52 72V42M66 72V46" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M32 82h40" stroke={accent} strokeWidth={strokeWidth} />
+      </>
+    ),
+    compliance: (
+      <>
+        <path {...common} d="M30 52l14 14 30-34" stroke={accent} strokeWidth={strokeWidth + 1} />
+        <path {...common} d="M22 22h60v60H22z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M34 34h18M34 78h34" stroke={muted} strokeWidth={strokeWidth - 1} />
+      </>
+    ),
+    risk: (
+      <>
+        <path {...common} d="M52 18l34 62H18z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M52 38v18M52 68h.2" stroke={accent} strokeWidth={strokeWidth + 1} />
+        <path {...common} d="M31 80h42" stroke={muted} strokeWidth={strokeWidth - 1} />
+      </>
+    ),
+    ethics: (
+      <>
+        <path {...common} d="M52 22v58M30 36h44M32 36l-12 24h24zM72 36L60 60h24z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M38 82h28" stroke={accent} strokeWidth={strokeWidth} />
+      </>
+    ),
+    policy: (
+      <>
+        <path {...common} d="M28 18h38l12 12v54H28zM66 18v14h12" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M38 44h28M38 56h28M38 68h18" stroke={accent} strokeWidth={strokeWidth - 1} />
+      </>
+    ),
+    audit: (
+      <>
+        <circle cx="44" cy="44" r="22" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M60 60l20 20M35 44l7 7 14-17" stroke={accent} strokeWidth={strokeWidth} />
+      </>
+    ),
+    training: (
+      <>
+        <path {...common} d="M20 38l32-16 32 16-32 16zM32 48v18c8 8 32 8 40 0V48" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M84 38v22" stroke={accent} strokeWidth={strokeWidth} />
+      </>
+    ),
+    decision: (
+      <>
+        <path {...common} d="M22 28h36l16 16-16 16H22zM42 60v22" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M60 72h22" stroke={accent} strokeWidth={strokeWidth} />
+      </>
+    ),
+    question: (
+      <>
+        <path {...common} d="M36 38c1-12 30-18 32 2 2 17-16 16-16 30" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M52 82h.2" stroke={accent} strokeWidth={strokeWidth + 2} />
+        <circle cx="52" cy="52" r="36" fill="none" stroke={muted} strokeWidth={strokeWidth - 1} />
+      </>
+    ),
+    default: (
+      <>
+        <path {...common} d="M52 18l28 16v32L52 82 24 66V34z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M36 52h32M52 36v32" stroke={accent} strokeWidth={strokeWidth} />
+      </>
+    ),
+  };
+
+  return (
+    <svg viewBox="0 0 104 104" className="h-full w-full" aria-hidden="true">
+      <circle cx="52" cy="52" r="47" fill={active ? 'rgb(255 255 255 / 0.08)' : 'rgb(255 255 255 / 0.62)'} />
+      <circle cx="52" cy="52" r="43" fill="none" stroke={muted} strokeWidth="3" strokeDasharray="8 10" />
+      {paths[kind]}
+    </svg>
+  );
+}
+
 function PptTitle({ slide }: { slide: Slide }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
+  const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
@@ -1358,11 +1466,9 @@ function PptTitle({ slide }: { slide: Slide }) {
         </p>
       )}
       <h2 className="inline-flex items-center justify-center gap-3 text-[36px] font-extrabold leading-tight text-brand-strong">
-        {slide.visual && (
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/20 bg-green-700/8 text-3xl shadow-sm">
-            {slide.visual}
-          </span>
-        )}
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/16 bg-white/80 p-1.5 shadow-sm">
+          <CourseGlyph kind={glyphKind} compact />
+        </span>
         <span>{displayTitle}</span>
       </h2>
       {slide.ppt?.subtitle && !slide.ppt?.courseName && (
@@ -1395,6 +1501,7 @@ function PptCardView({
   reveal?: boolean;
   onClick?: () => void;
 }) {
+  void emoji;
   const tone = card.tone ?? 'green';
   const clickable = Boolean(onClick);
   const textSize = (card.title.length + (card.text?.length ?? 0) + (card.bullets?.join(' ').length ?? 0));
@@ -1429,18 +1536,35 @@ function PptCardView({
         : 'text-[18px] leading-relaxed';
   const bulletClass = level === 'micro' ? 'text-[14px] leading-[1.28]' : level === 'compact' ? 'text-[15.5px] leading-snug' : 'text-[17px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
-  const emojiSize =
+  const iconSize =
     level === 'micro'
-      ? 'h-7 w-7 text-[19px]'
+      ? 'h-9 w-9 p-1'
       : level === 'compact'
-        ? 'h-8 w-8 text-[22px]'
+        ? 'h-10 w-10 p-1.5'
         : level === 'loose'
-          ? 'h-12 w-12 text-[32px]'
-          : 'h-10 w-10 text-[28px]';
-  const activeShell = active ? 'scale-[1.025] border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-glow' : PPT_ACCENTS[tone];
+          ? 'h-14 w-14 p-2'
+          : 'h-12 w-12 p-1.5';
+  const glyphKind = courseGlyphKind(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''} ${card.answer ?? ''}`);
+  const passiveShell =
+    tone === 'gold'
+      ? 'border-gold-500/30 bg-gradient-to-br from-white/95 via-gold-50/80 to-white'
+      : tone === 'blue'
+        ? 'border-sky-500/24 bg-gradient-to-br from-white/95 via-sky-50/75 to-white'
+        : tone === 'gray'
+          ? 'border-slate-300/70 bg-white/92'
+          : 'border-green-700/18 bg-gradient-to-br from-white/96 via-green-50/65 to-white';
+  const activeShell = active
+    ? 'scale-[1.018] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
+    : passiveShell;
   const titleTone = active ? 'text-white' : 'text-brand-strong';
   const bodyTone = active ? 'text-green-50' : 'text-ink';
-  const tileTone = active ? 'border-white/30 bg-white/20 text-white shadow-card' : tone === 'gold' ? 'border-gold-500/30 bg-gold-500/12' : 'border-green-700/20 bg-green-700/8';
+  const tileTone = active
+    ? 'border-white/30 bg-white/16 text-white shadow-card'
+    : tone === 'gold'
+      ? 'border-gold-500/28 bg-white/85'
+      : tone === 'blue'
+        ? 'border-sky-500/24 bg-white/85'
+        : 'border-green-700/16 bg-white/85';
   const topBar = active ? 'bg-gold-400' : tone === 'gold' ? 'bg-gold-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
@@ -1452,7 +1576,7 @@ function PptCardView({
       data-ppt-card="true"
       aria-hidden={!visible}
       aria-label={clickable ? `${card.title} - ${showTrainingDetail ? 'العودة للنص الأساسي' : 'عرض التفصيل'}` : card.title}
-      className={`relative flex h-fit w-full max-h-full min-h-0 flex-col self-center overflow-hidden rounded-lg border-2 text-right shadow-sm transition-all duration-300 ${
+      className={`relative flex h-fit w-full max-h-full min-h-0 flex-col self-center overflow-hidden rounded-[18px] border text-right shadow-[0_14px_34px_rgb(24_82_55_/_0.10)] backdrop-blur-sm transition-all duration-300 ${
         activeShell
       } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${clickable && visible ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
     >
@@ -1460,8 +1584,8 @@ function PptCardView({
       <span className={`relative h-1.5 w-full shrink-0 ${topBar}`} />
       <div className={`${padClass} flex min-h-0 flex-col`}>
         <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
-          <span className={`grid ${emojiSize} shrink-0 place-items-center rounded-xl border ${tileTone}`}>
-            {emoji}
+          <span className={`grid ${iconSize} shrink-0 place-items-center rounded-2xl border ${tileTone}`}>
+            <CourseGlyph kind={glyphKind} active={active} compact={level === 'micro' || level === 'compact'} />
           </span>
           {card.index && (
             <span className={`grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'}`}>
@@ -1921,8 +2045,8 @@ function ActivityChip({ label }: { label: string }) {
 function TitleHead({ slide }: { slide: Slide }) {
   return (
     <h2 className="flex items-center gap-3 text-[32px] font-extrabold leading-tight text-brand-strong animate-fade-up">
-      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 text-3xl shadow-card">
-        {slide.visual}
+      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 p-2 shadow-card">
+        <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
       </span>
       {slide.title}
     </h2>
