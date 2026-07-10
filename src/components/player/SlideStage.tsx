@@ -475,6 +475,8 @@ function ContextOrnament({
   spoken: number;
   revealedCount?: number;
 }) {
+  // The bag/chapter intro gets its own motion-graphics scene instead.
+  if (slide.layout === 'pptIntro') return null;
   const guide = nasserGuide(slide, spoken);
   const cueState = activeStoryCue(slide.narration, spoken);
   const cueIndex = cueState.index;
@@ -491,7 +493,7 @@ function ContextOrnament({
   // content the ornament must stay clear of. None of them get the old
   // "roomy, keeps growing" treatment; the intro just gets a fixed, modest
   // size since it has no card-reveal progression to shrink from anyway.
-  const isIntroStatic = cardCount === 0 && (slide.layout === 'pptIntro' || slide.kind === 'welcome');
+  const isIntroStatic = cardCount === 0 && slide.kind === 'welcome';
   // 1 = canvas still empty (few cards revealed) → 0 = fully populated. Only
   // meaningful once there's an actual card grid to reveal.
   const openness = cardCount > 0 ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount) : 0;
@@ -928,6 +930,9 @@ function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   return variants?.[index % variants.length] ?? base;
 }
 
+/** Hand-picked vector emblem per intro slide — matches each chapter's own
+ *  theme (institutional structure, protection, balance/risk) rather than a
+ *  generic icon. */
 function pptDetailFor(card: PptCard) {
   if (card.rationale) return card.rationale;
   const text = `${card.title} ${card.text ?? ''}`;
@@ -1017,6 +1022,167 @@ function PptQuickCheckPopup({
             </button>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function introPillars(slide: Slide) {
+  if (slide.id === 'program-welcome') {
+    return [
+      { label: 'الحوكمة', detail: 'توجيه القرار' },
+      { label: 'الامتثال', detail: 'إثبات التطبيق' },
+      { label: 'المخاطر', detail: 'حماية الأولويات' },
+    ];
+  }
+
+  const introText = slide.ppt?.intro ?? '';
+  const afterColon = introText.includes(':') ? introText.slice(introText.indexOf(':') + 1) : introText;
+  const parts = afterColon.split(/\s*-\s*/).map((part) => part.trim()).filter(Boolean);
+  return (parts.length ? parts : [slide.title, slide.ppt?.subtitle ?? 'مسار تدريبي', slide.ppt?.unitTitle ?? slide.title])
+    .slice(0, 3)
+    .map((label, index) => ({
+      label,
+      detail: ['مدخل بصري', 'تطبيق عملي', 'قرار أوضح'][index],
+    }));
+}
+
+function IntroMotionScene({
+  slide,
+  spoken,
+  started,
+  onStart,
+}: {
+  slide: Slide;
+  spoken: number;
+  started: boolean;
+  onStart: () => void;
+}) {
+  const pillars = introPillars(slide);
+  const progress = Math.max(0, Math.min(1, spoken / Math.max(1, slide.narration.length)));
+  const visualProgress = started ? Math.max(progress, 0.08) : 0;
+  const reveal = (at: number) => started && visualProgress >= at;
+  const activeIndex = visualProgress < 0.38 ? 0 : visualProgress < 0.68 ? 1 : 2;
+  const layerState = [
+    {
+      src: '/motion-assets/intro-governance-layer.png',
+      className: 'right-[-1%] top-[7%] w-[42%]',
+      visible: !started || reveal(0.06),
+      transform: `translate3d(${(1 - visualProgress) * 28}px, ${Math.sin(visualProgress * Math.PI * 2) * 4}px, 0) scale(${0.92 + visualProgress * 0.1})`,
+    },
+    {
+      src: '/motion-assets/intro-compliance-layer.png',
+      className: 'right-[18%] top-[31%] w-[32%]',
+      visible: reveal(0.36),
+      transform: `translate3d(${(0.46 - visualProgress) * 36}px, ${Math.cos(visualProgress * Math.PI * 2) * 3}px, 0) scale(${0.9 + visualProgress * 0.09})`,
+    },
+    {
+      src: '/motion-assets/intro-risk-layer.png',
+      className: 'right-[-2%] bottom-[4%] w-[36%]',
+      visible: reveal(0.64),
+      transform: `translate3d(${(0.74 - visualProgress) * 38}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 4}px, 0) scale(${0.9 + visualProgress * 0.08})`,
+    },
+  ];
+
+  return (
+    <div className="relative h-full min-h-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute right-[-1%] top-[5%] h-[78%] w-[50%] rounded-[45%] bg-white/35 blur-xl" />
+        <div className="absolute right-[11%] top-[15%] h-[58%] w-[34%] animate-pulse-soft rounded-full border border-dashed border-green-700/25" />
+        <div className="absolute right-[5%] top-[21%] h-[42%] w-[28%] animate-spin-slow rounded-full border border-dashed border-gold-500/25" />
+        <svg className="absolute right-[4%] top-[23%] h-[44%] w-[39%] overflow-visible" viewBox="0 0 420 260" aria-hidden="true">
+          <path
+            d="M370 40 C280 20 236 74 204 128 C162 198 96 210 34 174"
+            fill="none"
+            stroke="rgb(47 132 87 / 0.38)"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeDasharray="10 12"
+          />
+          <path
+            d="M360 180 C270 132 220 150 172 188 C126 224 80 220 42 202"
+            fill="none"
+            stroke="rgb(191 155 74 / 0.42)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray="7 12"
+          />
+        </svg>
+        {layerState.map((layer, index) => (
+          <img
+            key={layer.src}
+            src={layer.src}
+            alt=""
+            draggable={false}
+            className={`absolute ${layer.className} drop-shadow-[0_24px_35px_rgb(24_82_55_/_0.20)] transition-all duration-700 ease-out ${
+              layer.visible ? 'opacity-100 blur-0' : 'translate-x-12 scale-90 opacity-0 blur-sm'
+            } ${index === activeIndex ? 'motion-layer-focus' : ''}`}
+            style={{ transform: layer.visible ? layer.transform : undefined }}
+          />
+        ))}
+        {pillars.map((pillar, index) => {
+          const positions = ['right-[35%] top-[16%]', 'right-[40%] top-[47%]', 'right-[4%] bottom-[24%]'];
+          const shown = !started ? index === 0 : reveal(index * 0.28 + 0.08);
+          const active = index === activeIndex;
+          return (
+            <div
+              key={`intro-label-${pillar.label}`}
+              className={`absolute ${positions[index]} min-w-[132px] rounded-full border px-4 py-2 text-center shadow-card backdrop-blur-md transition-all duration-500 ${
+                shown ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              } ${
+                active
+                  ? 'border-gold-500/50 bg-green-700 text-white'
+                  : 'border-green-700/18 bg-white/82 text-green-900'
+              }`}
+            >
+              <p className="text-[14px] font-black leading-tight">{pillar.label}</p>
+              <p className={`text-[11px] font-bold ${active ? 'text-green-50' : 'text-ink-muted'}`}>{pillar.detail}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between p-5 text-right">
+        <div className="mr-auto w-[49%] animate-fade-up">
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
+              تحت إشراف أ/ ناصر
+            </span>
+            <span className="rounded-full border border-gold-500/25 bg-gold-50/78 px-4 py-1.5 text-[14px] font-extrabold text-gold-700 shadow-sm backdrop-blur-sm">
+              مشهد افتتاحي
+            </span>
+          </div>
+
+          <p className="mb-2 text-[20px] font-extrabold text-green-800">{slide.ppt?.courseName}</p>
+          {slide.ppt?.subtitle && (
+            <p className="mb-2 w-fit rounded-lg bg-green-700 px-4 py-1.5 text-[18px] font-extrabold text-white shadow-card">
+              {slide.ppt.subtitle}
+            </p>
+          )}
+          <h2 className="text-[42px] font-black leading-[1.12] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
+            {slide.ppt?.unitTitle ?? slide.title}
+          </h2>
+          <p className="mt-3 max-w-[520px] text-[19px] font-bold leading-relaxed text-ink-soft">
+            {slide.ppt?.intro}
+          </p>
+        </div>
+
+        <div className="absolute bottom-4 right-5 left-5 flex items-center gap-4">
+          <div className="h-2 flex-1 overflow-hidden rounded-full bg-green-900/10">
+            <span
+              className="block h-full rounded-full bg-gradient-to-l from-gold-500 via-brand-soft to-brand transition-[width] duration-300"
+              style={{ width: `${Math.max(3, visualProgress * 100)}%` }}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={onStart}
+            className="btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card-lg"
+          >
+            <Icon name="flag" className="h-6 w-6" />
+            {started ? 'استمع للمقدمة' : 'ابدأ المشهد'}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -1521,18 +1687,10 @@ function PptStyleSlide({
       revealedCount={revealedCount}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        <PptTitle slide={slide} />
+        {!isIntro && <PptTitle slide={slide} />}
 
         {isIntro ? (
-          <div className="flex min-h-0 flex-1 items-center justify-center">
-            <div className="w-full max-w-4xl rounded-lg border-2 border-green-700/25 bg-white/95 p-8 text-center shadow-sm">
-              <p className="text-[26px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
-              <button type="button" onClick={onStart} className="btn-gold mt-7 px-9 py-4 text-lg">
-                <Icon name="flag" className="h-6 w-6" />
-                {started ? 'استمع للمقدمة' : 'ابدأ الفصل'}
-              </button>
-            </div>
-          </div>
+          <IntroMotionScene slide={slide} spoken={started ? spoken : 0} started={started} onStart={onStart} />
         ) : isConclusion ? (
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
             <div className={`grid w-full max-w-5xl items-center auto-rows-fr ${gridClass} gap-3`}>

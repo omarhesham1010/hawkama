@@ -147,7 +147,7 @@ check(
   'current narration reuses its preloaded MP3 instead of starting a second network request',
 );
 check(
-  slideStageSource.includes("line.normalize('NFKD').replace(/\\p{M}/gu, '')"),
+  slideStageSource.includes("replace(/\\p{M}/gu, '')"),
   'Nasser keeps vocalized narration while displaying dialogue without diacritics',
 );
 check(

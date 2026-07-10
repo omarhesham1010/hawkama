@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-B2UUSHvr.js" />
-      <file href="assets/index-BrluZLSB.css" />
+      <file href="assets/index-BXyIRaLY.css" />
+      <file href="assets/index-D0IcexAU.js" />
       <file href="audio-pilot/index.html" />
       <file href="audio-pilot/program-map--continuous-conversational-88.mp3" />
       <file href="audio-pilot/program-map--continuous-robust-88.mp3" />
@@ -216,6 +216,9 @@
       <file href="audio/slide-18.mp3" />
       <file href="favicon.svg" />
       <file href="index.html" />
+      <file href="motion-assets/intro-compliance-layer.png" />
+      <file href="motion-assets/intro-governance-layer.png" />
+      <file href="motion-assets/intro-risk-layer.png" />
       <file href="nasser-assets/nasser-completion.png" />
       <file href="nasser-assets/nasser-point-left.png" />
       <file href="nasser-assets/nasser-point-right.png" />

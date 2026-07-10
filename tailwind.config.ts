@@ -150,8 +150,29 @@ export default {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' },
         },
+        'draw-in': {
+          '0%': { 'stroke-dashoffset': '1' },
+          '100%': { 'stroke-dashoffset': '0' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+          '50%': { opacity: '0.9', transform: 'scale(1.06)' },
+        },
+        'orbit-drift': {
+          '0%, 100%': { transform: 'translateY(0) translateX(0)' },
+          '33%': { transform: 'translateY(-6px) translateX(3px)' },
+          '66%': { transform: 'translateY(4px) translateX(-4px)' },
+        },
+        'spin-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
+        'draw-in': 'draw-in 1.6s cubic-bezier(.22,1,.36,1) forwards',
+        'pulse-soft': 'pulse-soft 3.2s ease-in-out infinite',
+        'orbit-drift': 'orbit-drift 7s ease-in-out infinite',
+        'spin-slow': 'spin-slow 40s linear infinite',
         'fade-up': 'fade-up .55s cubic-bezier(.22,1,.36,1) both',
         'fade-in': 'fade-in .45s ease-out both',
         'scale-in': 'scale-in .4s cubic-bezier(.22,1,.36,1) both',
