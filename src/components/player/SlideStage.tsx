@@ -486,28 +486,30 @@ function ContextOrnament({
 
   const cardCount = slide.ppt?.cards?.length ?? 0;
   // Slides with no `ppt.cards` aren't necessarily empty — quiz questions,
-  // knowledge checks, and the classification/decision/flip-card activities
-  // all render their own dense custom UI (options, drag zones, feedback)
-  // that the ornament must stay clear of. Only genuinely sparse layouts
-  // (the bag/chapter intro) earn the "roomy" treatment by default.
-  const isRoomyEmpty = cardCount === 0 && (slide.layout === 'pptIntro' || slide.kind === 'welcome');
-  // 1 = canvas still empty (nothing/little revealed) → 0 = fully populated.
-  const openness = cardCount > 0
-    ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount)
-    : isRoomyEmpty ? 1 : 0;
-  const baseline = isRoomyEmpty || (cardCount > 0 && cardCount <= 3)
-    ? { wrap: 240, primaryBox: 176, primaryText: 92, secondaryBox: 64, secondaryText: 33 }
+  // knowledge checks, the classification/decision/flip-card activities, AND
+  // the bag/chapter intro (a centered text box + button) all have real
+  // content the ornament must stay clear of. None of them get the old
+  // "roomy, keeps growing" treatment; the intro just gets a fixed, modest
+  // size since it has no card-reveal progression to shrink from anyway.
+  const isIntroStatic = cardCount === 0 && (slide.layout === 'pptIntro' || slide.kind === 'welcome');
+  // 1 = canvas still empty (few cards revealed) → 0 = fully populated. Only
+  // meaningful once there's an actual card grid to reveal.
+  const openness = cardCount > 0 ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount) : 0;
+  const baseline = cardCount > 0 && cardCount <= 3
+    ? { wrap: 200, primaryBox: 144, primaryText: 76, secondaryBox: 56, secondaryText: 28 }
     : cardCount === 4
-      ? { wrap: 212, primaryBox: 152, primaryText: 80, secondaryBox: 56, secondaryText: 29 }
-      : { wrap: 186, primaryBox: 132, primaryText: 68, secondaryBox: 50, secondaryText: 26 };
-  const grow = 1 + openness * 0.85; // up to +85% bigger while the canvas is still open
-  const size = {
-    wrap: Math.round(baseline.wrap * grow),
-    primaryBox: Math.round(baseline.primaryBox * grow),
-    primaryText: Math.round(baseline.primaryText * grow),
-    secondaryBox: Math.round(baseline.secondaryBox * grow),
-    secondaryText: Math.round(baseline.secondaryText * grow),
-  };
+      ? { wrap: 180, primaryBox: 128, primaryText: 68, secondaryBox: 50, secondaryText: 25 }
+      : { wrap: 160, primaryBox: 112, primaryText: 58, secondaryBox: 44, secondaryText: 22 };
+  const grow = 1 + openness * 0.5; // up to +50% bigger while its own cards are still revealing
+  const size = isIntroStatic
+    ? { wrap: 190, primaryBox: 138, primaryText: 72, secondaryBox: 52, secondaryText: 26 }
+    : {
+        wrap: Math.round(baseline.wrap * grow),
+        primaryBox: Math.round(baseline.primaryBox * grow),
+        primaryText: Math.round(baseline.primaryText * grow),
+        secondaryBox: Math.round(baseline.secondaryBox * grow),
+        secondaryText: Math.round(baseline.secondaryText * grow),
+      };
 
   // Nasser's flex alignment is logical in the RTL canvas: guide.left renders
   // physically on the right, so the matching physical opposite is also left.

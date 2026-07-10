@@ -2278,6 +2278,9 @@ video {
 .bg-ink\/35 {
   background-color: rgb(var(--ink) / 0.35);
 }
+.bg-ink\/45 {
+  background-color: rgb(var(--ink) / 0.45);
+}
 .bg-line {
   --tw-bg-opacity: 1;
   background-color: rgb(var(--line) / var(--tw-bg-opacity, 1));
@@ -2629,6 +2632,10 @@ video {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 .py-8 {
   padding-top: 2rem;

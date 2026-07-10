@@ -41,8 +41,19 @@ export default function SlidePlayer({
   const narration = useNarrationContext();
 
   const clampedStart = Math.max(0, Math.min(initialSlide - 1, slides.length - 1));
+  // A deep link straight into the middle of a course would otherwise try to
+  // autoplay narration from a plain useEffect on mount, with no preceding
+  // user gesture — mobile Safari/Chrome silently block that (the audio
+  // "completes" instantly without ever making a sound). Gate that one case
+  // behind a single tap, which becomes the gesture that unlocks audio for
+  // the rest of the session; a normal course entry (starts at slide 1, the
+  // "ابدأ الفصل" button click) already provides that gesture itself.
+  const [needsGesture, setNeedsGesture] = useState(clampedStart > 0);
   const [index, setIndex] = useState(clampedStart);
-  const [started, setStarted] = useState(clampedStart > 0);
+  // Both entry paths now wait for a real tap before narration starts: slide
+  // 1 already shows its own "ابدأ الفصل" button (unaffected by this change),
+  // and a deep link past slide 1 shows the gesture gate below instead.
+  const [started, setStarted] = useState(false);
   const [muted, setMuted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -104,6 +115,11 @@ export default function SlidePlayer({
     progress.markComplete(slide.id);
     progress.setLastSection(slide.id);
   }, [narration, playNarration, progress, slide]);
+
+  const startFromGesture = useCallback(() => {
+    setNeedsGesture(false);
+    start();
+  }, [start]);
 
   const voicePlaying = narration.isPlaying;
   const voicePaused = narration.isPaused;
@@ -185,6 +201,18 @@ export default function SlidePlayer({
 
       {/* Fixed 16:9 stage — scales to fit, never scrolls */}
       <main className="player-main relative min-h-0 flex-1 overflow-hidden px-3 py-3 sm:px-6 sm:py-4">
+        {needsGesture && (
+          <button
+            type="button"
+            onClick={startFromGesture}
+            className="absolute inset-0 z-40 grid place-items-center bg-ink/45 backdrop-blur-sm"
+          >
+            <span className="flex flex-col items-center gap-3 rounded-2xl bg-white px-8 py-6 shadow-card-lg">
+              <Icon name="sound" className="h-8 w-8 text-brand" />
+              <span className="text-lg font-extrabold text-brand-strong">اضغط للمتابعة وتشغيل الشرح الصوتي</span>
+            </span>
+          </button>
+        )}
         <div key={`${slide.id}#${replayNonce}`} className="h-full animate-fade-in">
           <SlideCanvas>
             <SlideStage
