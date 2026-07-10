@@ -1047,6 +1047,15 @@ function introPillars(slide: Slide) {
     }));
 }
 
+function roadmapPillars(slide: Slide) {
+  const cards = slide.ppt?.cards ?? [];
+  return cards.slice(0, 3).map((card, index) => ({
+    label: card.title,
+    detail: card.text ?? ['تأسيس القرار', 'تحقق وقياس', 'قرار واع بالمخاطر'][index],
+    bullets: card.bullets ?? [],
+  }));
+}
+
 function IntroMotionScene({
   slide,
   spoken,
@@ -1182,6 +1191,149 @@ function IntroMotionScene({
             <Icon name="flag" className="h-6 w-6" />
             {started ? 'استمع للمقدمة' : 'ابدأ المشهد'}
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IntroRoadmapMotionScene({
+  slide,
+  spoken,
+  started,
+  onStart,
+}: {
+  slide: Slide;
+  spoken: number;
+  started: boolean;
+  onStart: () => void;
+}) {
+  const pillars = roadmapPillars(slide);
+  const progress = Math.max(0, Math.min(1, spoken / Math.max(1, slide.narration.length)));
+  const visualProgress = started ? Math.max(progress, 0.07) : 0;
+  const current = visualProgress < 0.38 ? 0 : visualProgress < 0.68 ? 1 : 2;
+  const reveal = (at: number) => started && visualProgress >= at;
+  const layers = [
+    {
+      src: '/motion-assets/intro-governance-layer.png',
+      className: 'left-[7%] top-[17%] w-[23%]',
+      visible: !started || reveal(0.04),
+      transform: `translate3d(${Math.sin(visualProgress * 6) * 7}px, ${Math.cos(visualProgress * 5) * 5}px, 0) scale(${0.92 + visualProgress * 0.06})`,
+    },
+    {
+      src: '/motion-assets/intro-compliance-layer.png',
+      className: 'left-[39%] top-[9%] w-[22%]',
+      visible: reveal(0.34),
+      transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 6}px, ${Math.cos(visualProgress * 6) * 5}px, 0) scale(${0.9 + visualProgress * 0.07})`,
+    },
+    {
+      src: '/motion-assets/intro-risk-layer.png',
+      className: 'right-[8%] top-[17%] w-[23%]',
+      visible: reveal(0.62),
+      transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 7}px, ${Math.cos(visualProgress * 5 + 2) * 5}px, 0) scale(${0.9 + visualProgress * 0.08})`,
+    },
+  ];
+
+  return (
+    <div className="relative h-full min-h-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
+        <svg className="absolute inset-x-[9%] top-[21%] h-[31%] w-[82%] overflow-visible" viewBox="0 0 920 250" aria-hidden="true">
+          <path
+            d="M42 168 C222 20 342 246 462 122 C594 -16 708 22 878 160"
+            fill="none"
+            stroke="rgb(47 132 87 / 0.26)"
+            strokeWidth="14"
+            strokeLinecap="round"
+          />
+          <path
+            d="M42 168 C222 20 342 246 462 122 C594 -16 708 22 878 160"
+            fill="none"
+            stroke="rgb(191 155 74 / 0.72)"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeDasharray="16 18"
+            style={{ strokeDashoffset: `${220 - visualProgress * 220}` }}
+          />
+        </svg>
+        {layers.map((layer, index) => (
+          <img
+            key={layer.src}
+            src={layer.src}
+            alt=""
+            draggable={false}
+            className={`absolute ${layer.className} transition-all duration-700 ease-out ${
+              layer.visible ? 'opacity-100 blur-0' : 'translate-y-8 scale-90 opacity-0 blur-sm'
+            } ${index === current ? 'motion-layer-focus' : 'drop-shadow-[0_20px_28px_rgb(24_82_55_/_0.16)]'}`}
+            style={{ transform: layer.visible ? layer.transform : undefined }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-6 py-4">
+        <div className="flex items-start justify-between gap-5 text-right">
+          <div>
+            <p className="mb-2 inline-flex rounded-full border border-gold-500/30 bg-gold-50/85 px-4 py-1.5 text-[14px] font-black text-gold-700 shadow-sm backdrop-blur">
+              مشهد موشن جرافيك للخريطة التدريبية
+            </p>
+            <h2 className="max-w-[720px] text-[38px] font-black leading-tight text-brand-strong">
+              {slide.title}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={onStart}
+            className="btn-gold shrink-0 px-7 py-3 text-[17px] shadow-card-lg"
+          >
+            <Icon name="sound" className="h-6 w-6" />
+            {started ? 'استمع للخريطة' : 'ابدأ الخريطة'}
+          </button>
+        </div>
+
+        <div className="grid min-h-0 flex-1 grid-cols-3 items-end gap-4 pb-8 pt-[22%]">
+          {pillars.map((pillar, index) => {
+            const shown = !started ? index === 0 : reveal(index * 0.28 + 0.06);
+            const active = index === current;
+            return (
+              <div
+                key={pillar.label}
+                className={`relative overflow-hidden rounded-[26px] border p-4 text-right shadow-card-lg backdrop-blur-md transition-all duration-700 ${
+                  shown ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                } ${
+                  active
+                    ? 'border-gold-500/50 bg-green-800 text-white'
+                    : 'border-green-700/16 bg-white/86 text-brand-strong'
+                }`}
+              >
+                <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
+                <p className={`mb-2 text-[15px] font-black ${active ? 'text-gold-100' : 'text-gold-700'}`}>
+                  محطة {index + 1}
+                </p>
+                <h3 className="text-[22px] font-black leading-snug">{pillar.label}</h3>
+                <p className={`mt-2 text-[15px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                  {pillar.detail}
+                </p>
+                <div className="mt-3 grid gap-1.5">
+                  {pillar.bullets.slice(0, 3).map((bullet) => (
+                    <span
+                      key={bullet}
+                      className={`rounded-full px-3 py-1 text-[12px] font-extrabold ${
+                        active ? 'bg-white/14 text-white' : 'bg-green-700/8 text-green-900'
+                      }`}
+                    >
+                      {bullet}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="absolute bottom-4 right-6 left-6 h-2 overflow-hidden rounded-full bg-green-900/10">
+          <span
+            className="block h-full rounded-full bg-gradient-to-l from-gold-500 via-brand-soft to-brand transition-[width] duration-300"
+            style={{ width: `${Math.max(4, visualProgress * 100)}%` }}
+          />
         </div>
       </div>
     </div>
@@ -1622,6 +1774,8 @@ function PptStyleSlide({
     narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
+  const isIntroRoadmap = slide.id === 'program-map';
+  const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
   const isTwoPanel = slide.layout === 'pptTwoPanels';
@@ -1687,10 +1841,12 @@ function PptStyleSlide({
       revealedCount={revealedCount}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        {!isIntro && <PptTitle slide={slide} />}
+        {!isIntroMotion && <PptTitle slide={slide} />}
 
         {isIntro ? (
           <IntroMotionScene slide={slide} spoken={started ? spoken : 0} started={started} onStart={onStart} />
+        ) : isIntroRoadmap ? (
+          <IntroRoadmapMotionScene slide={slide} spoken={started ? spoken : 0} started={started} onStart={onStart} />
         ) : isConclusion ? (
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
             <div className={`grid w-full max-w-5xl items-center auto-rows-fr ${gridClass} gap-3`}>

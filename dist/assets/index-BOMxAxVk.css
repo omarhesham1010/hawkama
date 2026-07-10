@@ -793,6 +793,10 @@ video {
   left: 0px;
   right: 0px;
 }
+.inset-x-\[9\%\] {
+  left: 9%;
+  right: 9%;
+}
 .inset-y-0 {
   top: 0px;
   bottom: 0px;
@@ -893,6 +897,12 @@ video {
 .left-\[19px\] {
   left: 19px;
 }
+.left-\[39\%\] {
+  left: 39%;
+}
+.left-\[7\%\] {
+  left: 7%;
+}
 .right-0 {
   right: 0px;
 }
@@ -932,6 +942,9 @@ video {
 .right-\[5\%\] {
   right: 5%;
 }
+.right-\[8\%\] {
+  right: 8%;
+}
 .top-0 {
   top: 0px;
 }
@@ -956,6 +969,9 @@ video {
 .top-\[16\%\] {
   top: 16%;
 }
+.top-\[17\%\] {
+  top: 17%;
+}
 .top-\[21\%\] {
   top: 21%;
 }
@@ -973,6 +989,9 @@ video {
 }
 .top-\[7\%\] {
   top: 7%;
+}
+.top-\[9\%\] {
+  top: 9%;
 }
 .isolate {
   isolation: isolate;
@@ -1247,6 +1266,9 @@ video {
 .h-\[300px\] {
   height: 300px;
 }
+.h-\[31\%\] {
+  height: 31%;
+}
 .h-\[390px\] {
   height: 390px;
 }
@@ -1395,8 +1417,14 @@ video {
 .w-\[218px\] {
   width: 218px;
 }
+.w-\[22\%\] {
+  width: 22%;
+}
 .w-\[220px\] {
   width: 220px;
+}
+.w-\[23\%\] {
+  width: 23%;
 }
 .w-\[250px\] {
   width: 250px;
@@ -1439,6 +1467,9 @@ video {
 }
 .w-\[72px\] {
   width: 72px;
+}
+.w-\[82\%\] {
+  width: 82%;
 }
 .w-fit {
   width: -moz-fit-content;
@@ -1563,8 +1594,16 @@ video {
   --tw-translate-y: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.translate-y-10 {
+  --tw-translate-y: 2.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .translate-y-4 {
   --tw-translate-y: 1rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-y-8 {
+  --tw-translate-y: 2rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .-rotate-45 {
@@ -2040,6 +2079,9 @@ video {
 .rounded-\[22px\] {
   border-radius: 22px;
 }
+.rounded-\[26px\] {
+  border-radius: 26px;
+}
 .rounded-\[2px\] {
   border-radius: 2px;
 }
@@ -2363,6 +2405,9 @@ video {
 .bg-gold-50\/80 {
   background-color: rgb(250 246 234 / 0.8);
 }
+.bg-gold-50\/85 {
+  background-color: rgb(250 246 234 / 0.85);
+}
 .bg-gold-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(191 155 74 / var(--tw-bg-opacity, 1));
@@ -2418,6 +2463,13 @@ video {
 }
 .bg-green-700\/10 {
   background-color: rgb(31 86 56 / 0.1);
+}
+.bg-green-700\/35 {
+  background-color: rgb(31 86 56 / 0.35);
+}
+.bg-green-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(26 68 46 / var(--tw-bg-opacity, 1));
 }
 .bg-green-900\/10 {
   background-color: rgb(21 56 38 / 0.1);
@@ -2827,6 +2879,9 @@ video {
 .pb-5 {
   padding-bottom: 1.25rem;
 }
+.pb-8 {
+  padding-bottom: 2rem;
+}
 .pb-\[172px\] {
   padding-bottom: 172px;
 }
@@ -2853,6 +2908,9 @@ video {
 }
 .pt-\[106px\] {
   padding-top: 106px;
+}
+.pt-\[22\%\] {
+  padding-top: 22%;
 }
 .pt-\[64px\] {
   padding-top: 64px;
@@ -2954,6 +3012,9 @@ video {
 .text-\[36px\] {
   font-size: 36px;
 }
+.text-\[38px\] {
+  font-size: 38px;
+}
 .text-\[42px\] {
   font-size: 42px;
 }
@@ -3052,6 +3113,10 @@ video {
 .text-emerald-600 {
   --tw-text-opacity: 1;
   color: rgb(5 150 105 / var(--tw-text-opacity, 1));
+}
+.text-gold-100 {
+  --tw-text-opacity: 1;
+  color: rgb(242 232 201 / var(--tw-text-opacity, 1));
 }
 .text-gold-400 {
   --tw-text-opacity: 1;
@@ -3275,6 +3340,10 @@ video {
 }
 .drop-shadow-2xl {
   --tw-drop-shadow: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.drop-shadow-\[0_20px_28px_rgb\(24_82_55_\/_0\.16\)\] {
+  --tw-drop-shadow: drop-shadow(0 20px 28px rgb(24 82 55 / 0.16));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .drop-shadow-\[0_24px_35px_rgb\(24_82_55_\/_0\.20\)\] {
