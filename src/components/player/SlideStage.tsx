@@ -1822,7 +1822,7 @@ export function SlideStage({
   if (slide.kind === 'completion') {
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
-        <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-6 text-center">
+        <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-14 text-center">
         <Confetti count={48} />
         <div className="flex justify-center animate-scale-in">
           <CompletionMedallion className="h-20 w-20 animate-float" />
