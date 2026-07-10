@@ -1078,31 +1078,30 @@ function IntroMotionScene({
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[5%] top-[11%] w-[30%]',
-      visible: !started || reveal(0.06),
-      transform: `translate3d(${(1 - visualProgress) * 18}px, ${Math.sin(visualProgress * Math.PI * 2) * 3}px, 0) scale(${0.96 + visualProgress * 0.04})`,
+      className: 'right-[8%] top-[8%] w-[28%]',
+      visible: true,
+      transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[27%] top-[34%] w-[24%]',
-      visible: reveal(0.36),
-      transform: `translate3d(${(0.46 - visualProgress) * 22}px, ${Math.cos(visualProgress * Math.PI * 2) * 3}px, 0) scale(${0.95 + visualProgress * 0.04})`,
+      className: 'right-[25%] top-[33%] w-[20%]',
+      visible: !started || reveal(0.28),
+      transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[6%] bottom-[11%] w-[26%]',
-      visible: reveal(0.64),
-      transform: `translate3d(${(0.74 - visualProgress) * 20}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 3}px, 0) scale(${0.95 + visualProgress * 0.04})`,
+      className: 'right-[7%] bottom-[16%] w-[21%]',
+      visible: !started || reveal(0.56),
+      transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
   ];
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-[3%] top-[10%] h-[70%] w-[45%] rounded-[45%] bg-white/22 blur-xl" />
-        <div className="absolute right-[16%] top-[20%] h-[46%] w-[26%] animate-pulse-soft rounded-full border border-dashed border-green-700/16" />
-        <div className="absolute right-[9%] top-[27%] h-[34%] w-[22%] animate-spin-slow rounded-full border border-dashed border-gold-500/16" />
-        <svg className="absolute right-[8%] top-[26%] h-[34%] w-[32%] overflow-visible opacity-70" viewBox="0 0 420 260" aria-hidden="true">
+        <div className="absolute right-[4%] top-[8%] h-[76%] w-[43%] rounded-[45%] bg-white/20 blur-xl" />
+        <div className="absolute right-[13%] top-[18%] h-[46%] w-[28%] animate-pulse-soft rounded-full border border-dashed border-green-700/14" />
+        <svg className="absolute right-[9%] top-[24%] h-[36%] w-[34%] overflow-visible opacity-55" viewBox="0 0 420 260" aria-hidden="true">
           <path
             d="M370 40 C280 20 236 74 204 128 C162 198 96 210 34 174"
             fill="none"
@@ -1132,14 +1131,14 @@ function IntroMotionScene({
             style={{ transform: layer.visible ? layer.transform : undefined }}
           />
         ))}
+        <div className="absolute right-[7%] bottom-[5%] grid w-[40%] grid-cols-3 gap-2">
         {pillars.map((pillar, index) => {
-          const positions = ['right-[37%] top-[18%]', 'right-[42%] top-[48%]', 'right-[10%] bottom-[26%]'];
-          const shown = !started ? index === 0 : reveal(index * 0.28 + 0.08);
+          const shown = true;
           const active = index === activeIndex;
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`absolute ${positions[index]} min-w-[126px] rounded-full border px-4 py-2 text-center shadow-sm backdrop-blur-md transition-all duration-500 ${
+              className={`rounded-2xl border px-3 py-2 text-center shadow-sm backdrop-blur-md transition-all duration-500 ${
                 shown ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               } ${
                 active
@@ -1152,10 +1151,11 @@ function IntroMotionScene({
             </div>
           );
         })}
+        </div>
       </div>
 
-      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between p-5 text-right">
-        <div className="mr-auto w-[50%] animate-fade-up">
+      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-8 py-5 text-right">
+        <div className="mr-auto w-[54%] animate-fade-up">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
               تحت إشراف أ/ ناصر
@@ -1171,15 +1171,15 @@ function IntroMotionScene({
               {slide.ppt.subtitle}
             </p>
           )}
-          <h2 className="text-[42px] font-black leading-[1.12] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
+          <h2 className="text-[39px] font-black leading-[1.12] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
             {slide.ppt?.unitTitle ?? slide.title}
           </h2>
-          <p className="mt-3 max-w-[520px] text-[19px] font-bold leading-relaxed text-ink-soft">
+          <p className="mt-3 max-w-[560px] text-[18px] font-bold leading-relaxed text-ink-soft">
             {slide.ppt?.intro}
           </p>
         </div>
 
-        <div className="absolute bottom-4 right-5 left-5 flex items-center justify-end">
+        <div className="absolute bottom-4 left-8 flex items-center justify-end">
           <button
             type="button"
             onClick={onStart}
@@ -1209,44 +1209,43 @@ function IntroRoadmapMotionScene({
   const progress = Math.max(0, Math.min(1, spoken / Math.max(1, slide.narration.length)));
   const visualProgress = started ? Math.max(progress, 0.07) : 0;
   const current = visualProgress < 0.38 ? 0 : visualProgress < 0.68 ? 1 : 2;
-  const reveal = (at: number) => started && visualProgress >= at;
   const layers = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'left-[10%] top-[20%] w-[17%]',
-      visible: !started || reveal(0.04),
-      transform: `translate3d(${Math.sin(visualProgress * 6) * 4}px, ${Math.cos(visualProgress * 5) * 3}px, 0) scale(${0.97 + visualProgress * 0.03})`,
+      className: 'right-[10%] top-[28%] w-[13%]',
+      visible: true,
+      transform: `translate3d(${Math.sin(visualProgress * 6) * 3}px, ${Math.cos(visualProgress * 5) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'left-[42%] top-[14%] w-[16%]',
-      visible: reveal(0.34),
-      transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 4}px, ${Math.cos(visualProgress * 6) * 3}px, 0) scale(${0.97 + visualProgress * 0.03})`,
+      className: 'right-[43.5%] top-[23%] w-[12%]',
+      visible: true,
+      transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 3}px, ${Math.cos(visualProgress * 6) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[11%] top-[20%] w-[17%]',
-      visible: reveal(0.62),
-      transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 4}px, ${Math.cos(visualProgress * 5 + 2) * 3}px, 0) scale(${0.97 + visualProgress * 0.03})`,
+      className: 'left-[10%] top-[28%] w-[13%]',
+      visible: true,
+      transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 3}px, ${Math.cos(visualProgress * 5 + 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
   ];
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <svg className="absolute inset-x-[14%] top-[25%] h-[24%] w-[72%] overflow-visible opacity-75" viewBox="0 0 920 250" aria-hidden="true">
+        <svg className="absolute inset-x-[16%] top-[31%] h-[20%] w-[68%] overflow-visible opacity-55" viewBox="0 0 920 250" aria-hidden="true">
           <path
             d="M42 168 C222 20 342 246 462 122 C594 -16 708 22 878 160"
             fill="none"
             stroke="rgb(47 132 87 / 0.26)"
-            strokeWidth="9"
+            strokeWidth="7"
             strokeLinecap="round"
           />
           <path
             d="M42 168 C222 20 342 246 462 122 C594 -16 708 22 878 160"
             fill="none"
             stroke="rgb(191 155 74 / 0.72)"
-            strokeWidth="3.5"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeDasharray="16 18"
             style={{ strokeDashoffset: `${220 - visualProgress * 220}` }}
@@ -1266,13 +1265,13 @@ function IntroRoadmapMotionScene({
         ))}
       </div>
 
-      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-6 py-4">
+      <div className="relative z-10 flex h-full min-h-0 flex-col px-8 py-5">
         <div className="flex items-start justify-between gap-5 text-right">
-          <div>
-            <p className="mb-2 inline-flex rounded-full border border-gold-500/30 bg-gold-50/85 px-4 py-1.5 text-[14px] font-black text-gold-700 shadow-sm backdrop-blur">
+          <div className="max-w-[70%]">
+            <p className="mb-2 inline-flex rounded-full border border-gold-500/30 bg-gold-50/85 px-4 py-1.5 text-[13px] font-black text-gold-700 shadow-sm backdrop-blur">
               مشهد موشن جرافيك للخريطة التدريبية
             </p>
-            <h2 className="max-w-[720px] text-[38px] font-black leading-tight text-brand-strong">
+            <h2 className="text-[34px] font-black leading-tight text-brand-strong">
               {slide.title}
             </h2>
           </div>
@@ -1286,14 +1285,14 @@ function IntroRoadmapMotionScene({
           </button>
         </div>
 
-        <div className="grid min-h-0 flex-1 grid-cols-3 items-end gap-5 pb-8 pt-[25%]">
+        <div className="absolute left-8 right-8 top-[175px] grid grid-cols-3 items-start gap-5">
           {pillars.map((pillar, index) => {
-            const shown = !started ? index === 0 : reveal(index * 0.28 + 0.06);
+            const shown = true;
             const active = index === current;
             return (
               <div
                 key={pillar.label}
-                className={`relative overflow-hidden rounded-[20px] border p-4 text-right shadow-[0_14px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
+                className={`relative min-h-[122px] overflow-hidden rounded-[18px] border p-3 text-right shadow-[0_12px_26px_rgb(24_82_55_/_0.09)] backdrop-blur-md transition-all duration-700 ${
                   shown ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 } ${
                   active
@@ -1302,18 +1301,18 @@ function IntroRoadmapMotionScene({
                 }`}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
-                <p className={`mb-2 text-[15px] font-black ${active ? 'text-gold-100' : 'text-gold-700'}`}>
+                <p className={`mb-1 text-[13px] font-black ${active ? 'text-gold-100' : 'text-gold-700'}`}>
                   محطة {index + 1}
                 </p>
-                <h3 className="text-[22px] font-black leading-snug">{pillar.label}</h3>
-                <p className={`mt-2 text-[15px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                <h3 className="text-[18px] font-black leading-snug">{pillar.label}</h3>
+                <p className={`mt-1 text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
                   {pillar.detail}
                 </p>
-                <div className="mt-3 grid gap-1.5">
-                  {pillar.bullets.slice(0, 3).map((bullet) => (
+                <div className="mt-2 grid gap-1">
+                  {pillar.bullets.slice(0, 2).map((bullet) => (
                     <span
                       key={bullet}
-                      className={`rounded-full px-3 py-1 text-[12px] font-extrabold ${
+                      className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
                         active ? 'bg-white/14 text-white' : 'bg-green-700/8 text-green-900'
                       }`}
                     >
