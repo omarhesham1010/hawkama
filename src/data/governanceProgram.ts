@@ -95,6 +95,15 @@ function spokenTakeaway(card: PptCard) {
 let cardOpeningSequence = 0;
 let slideOpeningSequence = 0;
 
+/** Spoken-only number normalization: Nasser reads round-thousand figures
+ *  (like ISO standard numbers) as "٣١ ألف" instead of the raw digit string,
+ *  which TTS engines otherwise read out digit-by-digit or awkwardly. Only
+ *  applied to narration text — the on-screen card text keeps the raw number
+ *  (e.g. "أيزو 31000") untouched. */
+function humanizeNumbers(text: string): string {
+  return text.replace(/\b(\d{1,3})000\b/g, (_match, n: string) => `${n} ألف`);
+}
+
 function withStop(value: string) {
   const text = value.trim();
   return /[.؟!]$/.test(text) ? text : `${text}.`;
@@ -232,9 +241,9 @@ function makeSlide({
 }): Slide {
   const titleVariation = slideOpeningSequence % TITLE_BRIDGES.length;
   slideOpeningSequence += 1;
-  const completeNarration = narrationCoversTitle(title, narration)
-    ? narration
-    : `${TITLE_BRIDGES[titleVariation]} ${title}. ${narration}`;
+  const completeNarration = humanizeNumbers(
+    narrationCoversTitle(title, narration) ? narration : `${TITLE_BRIDGES[titleVariation]} ${title}. ${narration}`,
+  );
 
   return {
     id,

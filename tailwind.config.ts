@@ -19,6 +19,7 @@ export default {
     'animate-rise',
     'animate-flip',
     'animate-swing-in',
+    'animate-pop',
   ],
   darkMode: 'class',
   theme: {

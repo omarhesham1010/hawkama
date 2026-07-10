@@ -1577,6 +1577,25 @@ video {
 .animate-float-slow {
   animation: float 9s ease-in-out infinite;
 }
+@keyframes pop {
+
+  0% {
+    opacity: 0;
+    transform: scale(.8);
+  }
+
+  60% {
+    transform: scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-pop {
+  animation: pop .45s cubic-bezier(.34,1.56,.64,1) both;
+}
 @keyframes pulse {
 
   50% {

@@ -417,13 +417,33 @@ function ornamentSymbolsFor(slide: Slide): string[] {
   return [...(SLIDE_ORNAMENTS[slide.id] ?? [slide.visual ?? '✨', '✦', '•'])];
 }
 
+const ORNAMENT_ANIMS = ['animate-scale-in', 'animate-fade-up', 'animate-zoom', 'animate-rise', 'animate-pop', 'animate-swing-in'];
+
+/** Deterministic-but-shuffled pick: same cue always lands on the same
+ *  animation (no flicker on re-render), but consecutive cues jump around
+ *  the list instead of cycling in a visible 1-2-3-1-2-3 pattern. */
+function pseudoShuffle(seed: number, length: number) {
+  return Math.abs((seed * 2654435761) % 2147483647) % length;
+}
+
+/** Picks the emoji that best matches the *exact sentence* Nasser is saying
+ *  right now (via the same keyword dictionary used for card icons — defined
+ *  further below, hoisted), not just a per-slide pool. Falls back to the
+ *  slide's card-derived pool when the sentence has no direct keyword hit. */
+function emojiForCueText(cueText: string, fallback: string) {
+  const match = PPT_EMOJIS.find((item) => item.terms.some((term) => cueText.includes(term)));
+  return match?.emoji ?? fallback;
+}
+
 /** One clear, deliberate icon (+ a small companion badge) instead of a
  *  cluster of eight — sized continuously by how much of the canvas is
  *  still empty *right now*. Anchored to the same bottom-side spot beside
  *  Nasser throughout, so as fewer cards are revealed it simply grows
  *  upward and fills the open space; as each card lands it shrinks back
  *  down step by step, like a shot reframing as new elements enter rather
- *  than a static sticker at one fixed size. */
+ *  than a static sticker at one fixed size. The icon itself changes with
+ *  every sentence to match what Nasser is actually saying, each time with
+ *  a different, shuffled entrance animation. */
 function ContextOrnament({
   slide,
   spoken,
@@ -434,20 +454,23 @@ function ContextOrnament({
   revealedCount?: number;
 }) {
   const guide = nasserGuide(slide, spoken);
-  const cueIndex = activeStoryCue(slide.narration, spoken).index;
+  const cueState = activeStoryCue(slide.narration, spoken);
+  const cueIndex = cueState.index;
   const symbols = ornamentSymbolsFor(slide);
-  const primary = symbols[cueIndex % symbols.length];
+  const fallbackPrimary = symbols[cueIndex % symbols.length];
+  const primary = emojiForCueText(cueState.cue?.text ?? '', fallbackPrimary);
   const secondary = symbols[(cueIndex + 1) % symbols.length];
+  const anim = ORNAMENT_ANIMS[pseudoShuffle(cueIndex + slide.id.length, ORNAMENT_ANIMS.length)];
 
   const cardCount = slide.ppt?.cards?.length ?? 0;
   // 1 = canvas still empty (nothing/little revealed) → 0 = fully populated.
   const openness = cardCount > 0 ? 1 - Math.min(1, (revealedCount ?? cardCount) / cardCount) : 1;
   const baseline = cardCount === 0 || cardCount <= 3
-    ? { wrap: 190, primaryBox: 140, primaryText: 74, secondaryBox: 54, secondaryText: 28 }
+    ? { wrap: 240, primaryBox: 176, primaryText: 92, secondaryBox: 64, secondaryText: 33 }
     : cardCount === 4
-      ? { wrap: 168, primaryBox: 122, primaryText: 64, secondaryBox: 48, secondaryText: 25 }
-      : { wrap: 148, primaryBox: 104, primaryText: 54, secondaryBox: 42, secondaryText: 21 };
-  const grow = 1 + openness * 0.5; // up to +50% bigger while the canvas is still open
+      ? { wrap: 212, primaryBox: 152, primaryText: 80, secondaryBox: 56, secondaryText: 29 }
+      : { wrap: 186, primaryBox: 132, primaryText: 68, secondaryBox: 50, secondaryText: 26 };
+  const grow = 1 + openness * 0.85; // up to +85% bigger while the canvas is still open
   const size = {
     wrap: Math.round(baseline.wrap * grow),
     primaryBox: Math.round(baseline.primaryBox * grow),
@@ -464,7 +487,7 @@ function ContextOrnament({
   return (
     <div
       key={`${slide.id}-${cueIndex}-${primary}`}
-      className="pointer-events-none absolute bottom-[42px] z-0 animate-scale-in transition-[height,width] duration-500 ease-out"
+      className={`pointer-events-none absolute bottom-[42px] z-0 ${anim} transition-[height,width] duration-500 ease-out`}
       style={{ ...sideOffset, height: size.wrap, width: size.wrap }}
       data-ornament-side={ornamentSide}
       aria-hidden="true"
