@@ -1157,7 +1157,8 @@ function IntroMotionScene({
           />
         ))}
         <div
-          className="absolute right-[1.5%] bottom-[4%] flex w-[37%] items-end justify-center gap-2 transition-all duration-700 ease-out"
+          className="absolute flex items-end justify-center gap-2 transition-all duration-700 ease-out"
+          style={{ right: '1.5%', bottom: '0.5%', width: '37%' }}
         >
         {pillars.slice(0, visiblePillars).map((pillar, index) => {
           const active = index === activeIndex;
@@ -1263,9 +1264,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M645 126 C610 84 560 58 505 50', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M645 154 C604 156 558 160 505 164', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M645 184 C604 230 558 270 505 278', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M662 190 C610 146 570 92 522 68', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M662 215 C610 202 570 154 522 148', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M662 240 C610 276 570 224 522 228', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1292,7 +1293,7 @@ function IntroRoadmapMotionScene({
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <svg className="absolute inset-x-[3%] top-[96px] z-0 h-[430px] w-[94%] overflow-visible" viewBox="0 0 1000 430" aria-hidden="true">
+        <svg className="absolute inset-0 z-0 h-full w-full overflow-visible" viewBox="0 0 1000 560" aria-hidden="true">
           <defs>
             {roadmapArrows.map((arrow, index) => (
               <marker
@@ -1335,7 +1336,7 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[2%] top-[92px] z-10 flex w-[34%] items-center justify-end gap-4 text-right">
+        <div className="absolute right-[2%] z-10 flex w-[34%] items-center justify-end gap-4 text-right" style={{ top: 148 }}>
           <span className="grid h-[94px] w-[94px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
@@ -1344,7 +1345,7 @@ function IntroRoadmapMotionScene({
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-1.5" style={{ left: '3%', top: 0, width: '50%' }}>
+        <div className="absolute flex flex-col gap-2" style={{ left: '3%', top: 32, width: '50%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = index === current;
