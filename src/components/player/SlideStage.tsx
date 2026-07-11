@@ -1071,8 +1071,7 @@ function IntroMotionScene({
   onStart: () => void;
 }) {
   const pillars = introPillars(slide);
-  const initialSpokenRef = useRef(spoken);
-  const effectiveSpoken = spoken >= initialSpokenRef.current ? spoken - initialSpokenRef.current : spoken;
+  const effectiveSpoken = spoken;
   const progress = Math.max(0, Math.min(1, effectiveSpoken / Math.max(1, slide.narration.length)));
   const instantVisualProgress = started ? progress : 0;
   const [peakVisualProgress, setPeakVisualProgress] = useState(0);
@@ -1081,40 +1080,43 @@ function IntroMotionScene({
     setPeakVisualProgress((previous) => (started ? Math.max(previous, instantVisualProgress) : 0));
   }, [instantVisualProgress, started]);
 
-  useEffect(() => {
-    initialSpokenRef.current = spoken;
-    setPeakVisualProgress(0);
-  }, [slide.id]);
+  useEffect(() => setPeakVisualProgress(0), [slide.id]);
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
-  const reveal = (at: number) => started && visualProgress >= at;
-  const activeIndex = visualProgress < 0.4 ? 0 : visualProgress < 0.7 ? 1 : 2;
+  const spokenPast = (needle: string, fallback: number) => {
+    const index = slide.narration.indexOf(needle);
+    return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
+  };
+  const firstPillarShown = spokenPast('هذه رحلة تدريبية', 0.18);
+  const secondPillarShown = spokenPast('ثلاثة فصول مترابطة', 0.42);
+  const thirdPillarShown = spokenPast('إدارة المخاطر', 0.66);
+  const activeIndex = thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
   const visiblePillars = started
-    ? visualProgress >= 0.72
+    ? thirdPillarShown
       ? 3
-      : visualProgress >= 0.48
+      : secondPillarShown
         ? 2
-        : visualProgress >= 0.22
+        : firstPillarShown
           ? 1
           : 0
     : 0;
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[5%] top-[8%] w-[28%]',
-      visible: reveal(0.14),
+      className: 'right-[4%] top-[13%] w-[27%]',
+      visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[25%] top-[32%] w-[19%]',
-      visible: reveal(0.42),
+      className: 'right-[25%] top-[42%] w-[18%]',
+      visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[5%] bottom-[18%] w-[20%]',
-      visible: reveal(0.68),
+      className: 'right-[4%] bottom-[3%] w-[19%]',
+      visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
   ];
@@ -1155,15 +1157,15 @@ function IntroMotionScene({
           />
         ))}
         <div
-          className="absolute right-[4%] bottom-[23%] flex w-[47%] items-end justify-center gap-3 transition-all duration-700 ease-out"
+          className="absolute right-[1.5%] bottom-[4%] flex w-[37%] items-end justify-center gap-2 transition-all duration-700 ease-out"
         >
         {pillars.slice(0, visiblePillars).map((pillar, index) => {
           const active = index === activeIndex;
-          const cardWidth = visiblePillars === 1 ? 'w-[200px]' : visiblePillars === 2 ? 'w-[176px]' : 'w-[142px]';
+          const cardWidth = visiblePillars === 1 ? 'w-[178px]' : visiblePillars === 2 ? 'w-[150px]' : 'w-[112px]';
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`animate-fade-up ${cardWidth} shrink-0 rounded-2xl border px-3.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-500 ${
+              className={`animate-fade-up ${cardWidth} shrink-0 rounded-2xl border px-2.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-500 ${
                 active
                   ? 'z-10 -translate-y-1 scale-[1.04] border-gold-500/55 bg-green-800/94 text-white shadow-card-lg'
                   : 'border-green-700/20 bg-white/90 text-green-900'
@@ -1173,8 +1175,8 @@ function IntroMotionScene({
               <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white/88 p-1 shadow-sm">
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
-              <p className="text-[15px] font-black leading-tight">{pillar.label}</p>
-              <p className={`mt-1 text-[12px] font-extrabold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{pillar.detail}</p>
+              <p className="text-[14px] font-black leading-tight">{pillar.label}</p>
+              <p className={`mt-1 text-[11px] font-extrabold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{pillar.detail}</p>
             </div>
           );
         })}
@@ -1182,7 +1184,7 @@ function IntroMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-6 py-5 text-right">
-        <div className="mr-auto w-[56%] animate-fade-up">
+        <div className="mr-auto w-[49%] animate-fade-up">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
               تحت إشراف أ/ ناصر
@@ -1198,10 +1200,10 @@ function IntroMotionScene({
               {slide.ppt.subtitle}
             </p>
           )}
-          <h2 className="text-[39px] font-black leading-[1.12] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
+          <h2 className="text-[36px] font-black leading-[1.12] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
             {slide.ppt?.unitTitle ?? slide.title}
           </h2>
-          <p className="mt-3 max-w-[560px] text-[18px] font-bold leading-relaxed text-ink-soft">
+          <p className="mt-3 max-w-[520px] text-[18px] font-bold leading-relaxed text-ink-soft">
             {slide.ppt?.intro}
           </p>
         </div>
@@ -1231,8 +1233,7 @@ function IntroRoadmapMotionScene({
   started: boolean;
 }) {
   const pillars = roadmapPillars(slide);
-  const initialSpokenRef = useRef(spoken);
-  const effectiveSpoken = spoken >= initialSpokenRef.current ? spoken - initialSpokenRef.current : spoken;
+  const effectiveSpoken = spoken;
   const progress = Math.max(0, Math.min(1, effectiveSpoken / Math.max(1, slide.narration.length)));
   const instantVisualProgress = started ? progress : 0;
   const [peakVisualProgress, setPeakVisualProgress] = useState(0);
@@ -1241,26 +1242,30 @@ function IntroRoadmapMotionScene({
     setPeakVisualProgress((previous) => (started ? Math.max(previous, instantVisualProgress) : 0));
   }, [instantVisualProgress, started]);
 
-  useEffect(() => {
-    initialSpokenRef.current = spoken;
-    setPeakVisualProgress(0);
-  }, [slide.id]);
+  useEffect(() => setPeakVisualProgress(0), [slide.id]);
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
-  const current = visualProgress < 0.38 ? 0 : visualProgress < 0.68 ? 1 : 2;
+  const spokenPast = (needle: string, fallback: number) => {
+    const index = slide.narration.indexOf(needle);
+    return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
+  };
+  const firstStepShown = spokenPast('أول فكرة معنا', 0.18);
+  const secondStepShown = spokenPast('بعد ما تتضح البداية', 0.42);
+  const thirdStepShown = spokenPast('ثم نصل إلى الفصل الثالث', 0.64);
+  const current = thirdStepShown ? 2 : secondStepShown ? 1 : 0;
   const visibleStepCount = started
-    ? visualProgress >= 0.7
+    ? thirdStepShown
       ? 3
-      : visualProgress >= 0.42
+      : secondStepShown
         ? 2
-        : visualProgress >= 0.18
+        : firstStepShown
           ? 1
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M635 190 C596 136 558 92 505 76', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M635 210 C592 212 552 214 505 214', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M635 230 C592 286 552 336 505 350', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M645 126 C610 84 560 58 505 50', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M645 154 C604 156 558 160 505 164', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M645 184 C604 230 558 270 505 278', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1287,7 +1292,7 @@ function IntroRoadmapMotionScene({
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <svg className="absolute inset-x-[3%] top-[118px] z-0 h-[430px] w-[94%] overflow-visible" viewBox="0 0 1000 430" aria-hidden="true">
+        <svg className="absolute inset-x-[3%] top-[96px] z-0 h-[430px] w-[94%] overflow-visible" viewBox="0 0 1000 430" aria-hidden="true">
           <defs>
             {roadmapArrows.map((arrow, index) => (
               <marker
@@ -1330,16 +1335,16 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[2%] top-[88px] z-10 flex w-[33%] items-center justify-end gap-4 text-right">
+        <div className="absolute right-[2%] top-[92px] z-10 flex w-[34%] items-center justify-end gap-4 text-right">
           <span className="grid h-[94px] w-[94px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
-          <h2 className="max-w-[300px] text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
+          <h2 className="max-w-[315px] text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
             محتويات الحقيبة الأولى
           </h2>
         </div>
 
-        <div className="absolute left-[3%] top-[118px] flex w-[50%] flex-col gap-4">
+        <div className="absolute flex flex-col gap-1.5" style={{ left: '3%', top: 0, width: '50%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = index === current;
@@ -1347,16 +1352,17 @@ function IntroRoadmapMotionScene({
             return (
               <div
                 key={pillar.label}
-                className={`relative flex min-h-[104px] items-center gap-4 overflow-hidden rounded-[18px] border p-3 text-right shadow-[0_12px_26px_rgb(24_82_55_/_0.09)] backdrop-blur-md transition-all duration-700 ${
+                className={`relative flex items-center gap-2.5 overflow-hidden rounded-[16px] border p-1.5 text-right shadow-[0_12px_26px_rgb(24_82_55_/_0.09)] backdrop-blur-md transition-all duration-700 ${
                   shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
                     ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
+                style={{ minHeight: 68 }}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
-                <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border text-[25px] font-black tabular ${
+                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border text-[22px] font-black tabular ${
                     active ? 'border-white/30 bg-white/16 text-white' : 'border-green-700/16 bg-white/88 text-green-800'
                   }`}>
                   {toArabicDigits(index + 1)}
@@ -1365,14 +1371,14 @@ function IntroRoadmapMotionScene({
                   src={layer.src}
                   alt=""
                   draggable={false}
-                  className={`h-[78px] w-[92px] shrink-0 object-contain transition-all duration-700 ${
+                  className={`shrink-0 object-contain transition-all duration-700 ${
                     active ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'
                   }`}
-                  style={{ transform: shown ? layer.transform : undefined }}
+                  style={{ height: 46, width: 58, transform: shown ? layer.transform : undefined }}
                 />
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-[21px] font-black leading-snug">{pillar.detail}</h3>
-                  <p className={`mt-1 text-[14px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                  <h3 className="text-[17px] font-black leading-snug">{pillar.detail}</h3>
+                  <p className={`mt-0.5 text-[12px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
                     {pillar.bullets[0] ?? pillar.label}
                   </p>
                 </div>
@@ -1969,6 +1975,7 @@ function PptStyleSlide({
   const isThree = slide.layout === 'pptThreeColumns';
   const isTwoPanel = slide.layout === 'pptTwoPanels';
   const dense = cards.length > 4;
+  const motionStarted = started || spoken > 0 || showDialogue;
 
   const gridClass = isThree
     ? 'grid-cols-3 grid-rows-1'
@@ -2033,9 +2040,9 @@ function PptStyleSlide({
         {!isIntroMotion && <PptTitle slide={slide} />}
 
         {isIntro ? (
-          <IntroMotionScene slide={slide} spoken={started ? spoken : 0} started={started} onStart={onStart} />
+          <IntroMotionScene slide={slide} spoken={spoken} started={motionStarted} onStart={onStart} />
         ) : isIntroRoadmap ? (
-          <IntroRoadmapMotionScene slide={slide} spoken={started ? spoken : 0} started={started} />
+          <IntroRoadmapMotionScene slide={slide} spoken={spoken} started={motionStarted} />
         ) : isConclusion ? (
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
             <div className={`grid w-full max-w-5xl items-center auto-rows-fr ${gridClass} gap-3`}>
