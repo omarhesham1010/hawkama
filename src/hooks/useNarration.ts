@@ -375,7 +375,6 @@ export function useNarration() {
         setAudioElapsed(0);
         setAudioDuration(null);
         setAudioUpdatedAt(null);
-        setCompletedKey(key);
       });
     },
     [speakTts, stopInternal],

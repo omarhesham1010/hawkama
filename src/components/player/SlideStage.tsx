@@ -1285,9 +1285,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M700 280 C610 190 564 190 495 190', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M700 300 C606 300 560 300 495 300', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M700 320 C610 430 564 430 495 430', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M700 260 C626 196 570 154 490 154', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M700 280 C624 272 568 262 490 262', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M700 300 C626 354 570 370 490 370', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1332,13 +1332,14 @@ function IntroRoadmapMotionScene({
           </defs>
           {roadmapArrows.map((arrow, index) => {
             const visible = index < visibleStepCount;
+            const activeArrow = !narrationComplete && index === current;
             return (
               <path
                 key={arrow.d}
                 d={arrow.d}
                 fill="none"
                 stroke={arrow.color}
-                strokeWidth={index === current ? 7 : 5}
+                strokeWidth={activeArrow ? 7 : 5}
                 strokeLinecap="round"
                 markerEnd={`url(#roadmap-arrow-${index})`}
                 className={`transition-all duration-700 ease-out ${
@@ -1348,7 +1349,7 @@ function IntroRoadmapMotionScene({
                   strokeDasharray: 260,
                   strokeDashoffset: visible ? 0 : 260,
                   transitionDelay: arrow.delay,
-                  filter: index === current ? 'drop-shadow(0 10px 10px rgb(24 82 55 / 0.18))' : undefined,
+                  filter: activeArrow ? 'drop-shadow(0 10px 10px rgb(24 82 55 / 0.18))' : undefined,
                 }}
               />
             );
@@ -1357,8 +1358,8 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[3%] z-10 flex w-[33%] items-center justify-end gap-4 text-right" style={{ top: 218 }}>
-          <span className="grid h-[112px] w-[112px] shrink-0 place-items-center p-0 animate-float">
+        <div className="absolute right-[0%] z-10 flex w-[33%] items-center justify-end gap-4 text-right" style={{ top: 210 }}>
+          <span className="grid h-[208px] w-[208px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
           <h2 className="max-w-[315px] text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
@@ -1366,7 +1367,7 @@ function IntroRoadmapMotionScene({
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-6" style={{ left: '5%', top: 121, width: '44%' }}>
+        <div className="absolute flex flex-col gap-5" style={{ left: '5%', top: 112, width: '44%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = !narrationComplete && index === current;
@@ -1374,14 +1375,14 @@ function IntroRoadmapMotionScene({
             return (
               <div
                 key={pillar.label}
-                className={`relative flex items-center gap-4 overflow-hidden rounded-[18px] border p-2.5 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
+                className={`relative flex items-center gap-4 overflow-hidden rounded-[18px] border px-3 py-2 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
                   shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
                     ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
-                style={{ minHeight: 92 }}
+                style={{ minHeight: 84 }}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
                 <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border text-[24px] font-black tabular ${
@@ -1396,7 +1397,7 @@ function IntroRoadmapMotionScene({
                   className={`shrink-0 object-contain transition-all duration-700 ${
                     active ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'
                   }`}
-                  style={{ height: 62, width: 78, transform: shown ? layer.transform : undefined }}
+                  style={{ height: 66, width: 84, transform: shown ? layer.transform : undefined }}
                 />
                 <div className="min-w-0 flex-1">
                   <h3 className="text-[20px] font-black leading-snug">{pillar.detail}</h3>
