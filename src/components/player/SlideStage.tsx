@@ -1285,9 +1285,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M750 216 C656 176 575 154 490 154', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M750 240 C656 252 570 262 490 262', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M750 264 C656 328 575 370 490 370', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M655 260 C610 228 564 192 495 188', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M655 280 C606 280 560 280 495 280', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M655 300 C610 332 564 368 495 372', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1362,7 +1362,7 @@ function IntroRoadmapMotionScene({
           <span className="grid h-[208px] w-[208px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
-          <h2 className="max-w-[300px] text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
+          <h2 className="max-w-[300px] -translate-y-5 text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
             محتويات الحقيبة الأولى
           </h2>
         </div>
