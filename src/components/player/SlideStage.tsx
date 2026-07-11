@@ -1285,9 +1285,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M655 260 C610 228 564 192 495 188', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M655 280 C606 280 560 280 495 280', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M655 300 C610 332 564 368 495 372', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M710 260 C610 228 564 192 495 188', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M710 280 C606 280 560 280 495 280', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M710 300 C610 332 564 368 495 372', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1362,7 +1362,7 @@ function IntroRoadmapMotionScene({
           <span className="grid h-[208px] w-[208px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
-          <h2 className="max-w-[300px] -translate-y-5 text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
+          <h2 className="max-w-[300px] -translate-y-3 text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
             محتويات الحقيبة الأولى
           </h2>
         </div>
@@ -1517,11 +1517,11 @@ function CourseGlyph({
     ),
     target: (
       <>
-        <circle cx="48" cy="56" r="30" fill="none" stroke={muted} strokeWidth={strokeWidth - 1} />
-        <circle cx="48" cy="56" r="19" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="48" cy="56" r="30" fill="none" stroke="rgb(191 155 74 / 0.28)" strokeWidth={strokeWidth - 1} />
+        <circle cx="48" cy="56" r="19" fill="none" stroke={accent} strokeWidth={strokeWidth} />
         <circle cx="48" cy="56" r="7" fill="none" stroke={accent} strokeWidth={strokeWidth} />
         <path {...common} d="M60 44l23-23M72 21h11v11" stroke={accent} strokeWidth={strokeWidth} />
-        <path {...common} d="M62 42l-14 14" stroke={stroke} strokeWidth={strokeWidth + 0.5} />
+        <path {...common} d="M62 42l-14 14" stroke={accent} strokeWidth={strokeWidth + 0.5} />
       </>
     ),
     default: (
@@ -1535,7 +1535,7 @@ function CourseGlyph({
   return (
     <svg viewBox="0 0 104 104" className="h-full w-full" aria-hidden="true">
       <circle cx="52" cy="52" r="47" fill={active ? 'rgb(255 255 255 / 0.08)' : 'rgb(255 255 255 / 0.62)'} />
-      <circle cx="52" cy="52" r="43" fill="none" stroke={muted} strokeWidth="3" strokeDasharray="8 10" />
+      <circle cx="52" cy="52" r="43" fill="none" stroke={kind === 'target' ? 'rgb(191 155 74 / 0.28)' : muted} strokeWidth="3" strokeDasharray="8 10" />
       {paths[kind]}
     </svg>
   );
