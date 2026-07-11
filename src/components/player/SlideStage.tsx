@@ -1083,6 +1083,7 @@ function IntroMotionScene({
   useEffect(() => setPeakVisualProgress(0), [slide.id]);
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
+  const narrationComplete = started && progress >= 0.985;
   const spokenPast = (needle: string, fallback: number) => {
     const index = slide.narration.indexOf(needle);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
@@ -1152,7 +1153,7 @@ function IntroMotionScene({
             draggable={false}
             className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-700 ease-out ${
               layer.visible ? 'opacity-100 blur-0' : 'translate-x-12 scale-90 opacity-0 blur-sm'
-            } ${index === activeIndex ? 'motion-layer-focus' : ''}`}
+            } ${!narrationComplete && index === activeIndex ? 'motion-layer-focus' : ''}`}
             style={{ transform: layer.visible ? layer.transform : undefined }}
           />
         ))}
@@ -1161,7 +1162,7 @@ function IntroMotionScene({
           style={{ right: '5%', bottom: '0.25%', width: '32%' }}
         >
         {pillars.slice(0, visiblePillars).map((pillar, index) => {
-          const active = index === activeIndex;
+          const active = !narrationComplete && index === activeIndex;
           const cardWidth = visiblePillars === 1 ? 'w-[178px]' : visiblePillars === 2 ? 'w-[150px]' : 'w-[112px]';
           return (
             <div
@@ -1246,6 +1247,7 @@ function IntroRoadmapMotionScene({
   useEffect(() => setPeakVisualProgress(0), [slide.id]);
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
+  const narrationComplete = started && progress >= 0.985;
   const spokenPast = (needle: string, fallback: number) => {
     const index = slide.narration.indexOf(needle);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
@@ -1348,7 +1350,7 @@ function IntroRoadmapMotionScene({
         <div className="absolute flex flex-col gap-6" style={{ left: '5%', top: 132, width: '44%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
-            const active = index === current;
+            const active = !narrationComplete && index === current;
             const layer = layers[index];
             return (
               <div
