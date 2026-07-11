@@ -1285,9 +1285,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M720 238 C636 188 570 154 490 154', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M720 262 C636 262 568 262 490 262', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M720 286 C636 340 570 370 490 370', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M750 216 C656 176 575 154 490 154', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M750 240 C656 252 570 262 490 262', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M750 264 C656 328 575 370 490 370', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1358,7 +1358,7 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[-1.5%] z-10 flex w-[34%] items-center justify-center gap-3 text-center" style={{ top: 168 }}>
+        <div className="absolute right-[-5%] z-10 flex w-[34%] items-center justify-center gap-3 text-center" style={{ top: 142 }}>
           <span className="grid h-[208px] w-[208px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
