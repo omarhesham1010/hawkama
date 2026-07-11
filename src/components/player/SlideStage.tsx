@@ -1399,11 +1399,8 @@ function IntroRoadmapMotionScene({
                   }`}
                   style={{ height: 66, width: 84, transform: shown ? layer.transform : undefined }}
                 />
-                <div className="min-w-0 flex-1">
+                <div className="flex min-w-0 flex-1 items-center">
                   <h3 className="text-[20px] font-black leading-snug">{pillar.detail}</h3>
-                  <p className={`mt-1 text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
-                    {pillar.bullets[0] ?? pillar.label}
-                  </p>
                 </div>
               </div>
             );
