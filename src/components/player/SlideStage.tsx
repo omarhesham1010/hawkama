@@ -1115,7 +1115,7 @@ function IntroMotionScene({
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[8%] top-[39%] w-[17%]',
+      className: 'right-[2%] top-[39%] w-[17%]',
       visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
