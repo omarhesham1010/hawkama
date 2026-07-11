@@ -1074,7 +1074,7 @@ function IntroMotionScene({
   const initialSpokenRef = useRef(spoken);
   const effectiveSpoken = spoken >= initialSpokenRef.current ? spoken - initialSpokenRef.current : spoken;
   const progress = Math.max(0, Math.min(1, effectiveSpoken / Math.max(1, slide.narration.length)));
-  const instantVisualProgress = started ? Math.max(progress, 0.08) : 0;
+  const instantVisualProgress = started ? progress : 0;
   const [peakVisualProgress, setPeakVisualProgress] = useState(0);
 
   useEffect(() => {
@@ -1088,25 +1088,33 @@ function IntroMotionScene({
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
   const reveal = (at: number) => started && visualProgress >= at;
-  const activeIndex = visualProgress < 0.38 ? 0 : visualProgress < 0.68 ? 1 : 2;
-  const visiblePillars = started ? activeIndex + 1 : 0;
+  const activeIndex = visualProgress < 0.4 ? 0 : visualProgress < 0.7 ? 1 : 2;
+  const visiblePillars = started
+    ? visualProgress >= 0.72
+      ? 3
+      : visualProgress >= 0.48
+        ? 2
+        : visualProgress >= 0.22
+          ? 1
+          : 0
+    : 0;
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[8%] top-[8%] w-[28%]',
-      visible: true,
+      className: 'right-[5%] top-[8%] w-[28%]',
+      visible: reveal(0.14),
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[25%] top-[33%] w-[20%]',
-      visible: reveal(0.28),
+      className: 'right-[25%] top-[32%] w-[19%]',
+      visible: reveal(0.42),
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[7%] bottom-[16%] w-[21%]',
-      visible: reveal(0.56),
+      className: 'right-[5%] bottom-[18%] w-[20%]',
+      visible: reveal(0.68),
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
   ];
@@ -1114,9 +1122,9 @@ function IntroMotionScene({
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-[6%] top-[8%] h-[76%] w-[42%] rounded-[45%] bg-white/20 blur-xl" />
-        <div className="absolute right-[15%] top-[18%] h-[46%] w-[26%] animate-pulse-soft rounded-full border border-dashed border-green-700/14" />
-        <svg className="absolute right-[9%] top-[24%] h-[36%] w-[34%] overflow-visible opacity-55" viewBox="0 0 420 260" aria-hidden="true">
+        <div className="absolute right-[3%] top-[8%] h-[76%] w-[43%] rounded-[45%] bg-white/20 blur-xl" />
+        <div className="absolute right-[12%] top-[18%] h-[46%] w-[27%] animate-pulse-soft rounded-full border border-dashed border-green-700/14" />
+        <svg className={`absolute right-[6%] top-[24%] h-[36%] w-[36%] overflow-visible opacity-55 transition-opacity duration-700 ${started ? 'opacity-55' : 'opacity-0'}`} viewBox="0 0 420 260" aria-hidden="true">
           <path
             d="M370 40 C280 20 236 74 204 128 C162 198 96 210 34 174"
             fill="none"
@@ -1147,7 +1155,7 @@ function IntroMotionScene({
           />
         ))}
         <div
-          className="absolute right-[7%] bottom-[21%] flex w-[44%] items-end justify-center gap-3 transition-all duration-700 ease-out"
+          className="absolute right-[4%] bottom-[23%] flex w-[47%] items-end justify-center gap-3 transition-all duration-700 ease-out"
         >
         {pillars.slice(0, visiblePillars).map((pillar, index) => {
           const active = index === activeIndex;
@@ -1173,8 +1181,8 @@ function IntroMotionScene({
         </div>
       </div>
 
-      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-10 py-6 text-right">
-        <div className="mr-auto w-[52%] animate-fade-up">
+      <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-6 py-5 text-right">
+        <div className="mr-auto w-[56%] animate-fade-up">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
               تحت إشراف أ/ ناصر
@@ -1198,7 +1206,7 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-5 left-10 flex items-center justify-end">
+        <div className="absolute bottom-5 left-6 flex items-center justify-end">
           <button
             type="button"
             onClick={onStart}
@@ -1239,29 +1247,37 @@ function IntroRoadmapMotionScene({
   }, [slide.id]);
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
-  const current = visualProgress < 0.36 ? 0 : visualProgress < 0.66 ? 1 : 2;
-  const visibleStepCount = started && visualProgress >= 0.12 ? current + 1 : 0;
+  const current = visualProgress < 0.38 ? 0 : visualProgress < 0.68 ? 1 : 2;
+  const visibleStepCount = started
+    ? visualProgress >= 0.7
+      ? 3
+      : visualProgress >= 0.42
+        ? 2
+        : visualProgress >= 0.18
+          ? 1
+          : 0
+    : 0;
   const roadmapArrows = [
-    { d: 'M850 88 C800 126 728 145 662 184', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M850 88 C720 126 600 150 500 184', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M850 88 C640 126 386 150 258 184', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M635 190 C596 136 558 92 505 76', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M635 210 C592 212 552 214 505 214', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M635 230 C592 286 552 336 505 350', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[24%] top-[42%] w-[8.5%]',
+      className: '',
       visible: true,
       transform: `translate3d(${Math.sin(visualProgress * 6) * 3}px, ${Math.cos(visualProgress * 5) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[44.5%] top-[42%] w-[8.5%]',
+      className: '',
       visible: true,
       transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 3}px, ${Math.cos(visualProgress * 6) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'left-[24%] top-[42%] w-[8.5%]',
+      className: '',
       visible: true,
       transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 3}px, ${Math.cos(visualProgress * 5 + 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
@@ -1271,7 +1287,7 @@ function IntroRoadmapMotionScene({
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <svg className="absolute inset-x-[8%] top-[128px] z-0 h-[265px] w-[84%] overflow-visible" viewBox="0 0 1000 290" aria-hidden="true">
+        <svg className="absolute inset-x-[3%] top-[118px] z-0 h-[430px] w-[94%] overflow-visible" viewBox="0 0 1000 430" aria-hidden="true">
           <defs>
             {roadmapArrows.map((arrow, index) => (
               <marker
@@ -1311,58 +1327,54 @@ function IntroRoadmapMotionScene({
             );
           })}
         </svg>
-        {layers.map((layer, index) => (
-          <img
-            key={layer.src}
-            src={layer.src}
-            alt=""
-            draggable={false}
-            className={`absolute ${layer.className} transition-all duration-700 ease-out ${
-              index < visibleStepCount ? 'opacity-100 blur-0' : 'translate-y-8 scale-90 opacity-0 blur-sm'
-              } ${index === current ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'}`}
-            style={{ transform: index < visibleStepCount ? layer.transform : undefined }}
-          />
-        ))}
       </div>
 
-      <div className="relative z-10 flex h-full min-h-0 flex-col px-10 py-5">
-        <div className="absolute right-[7%] top-[104px] flex items-center gap-5 text-right">
-          <span className="grid h-[104px] w-[104px] shrink-0 place-items-center p-0 animate-float">
+      <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
+        <div className="absolute right-[2%] top-[88px] z-10 flex w-[33%] items-center justify-end gap-4 text-right">
+          <span className="grid h-[94px] w-[94px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
-          <h2 className="max-w-[400px] text-[42px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.85)]">
+          <h2 className="max-w-[300px] text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
             محتويات الحقيبة الأولى
           </h2>
         </div>
 
-        <div className="absolute left-[8%] right-[8%] top-[230px] grid grid-cols-3 items-start gap-5">
+        <div className="absolute left-[3%] top-[118px] flex w-[50%] flex-col gap-4">
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = index === current;
+            const layer = layers[index];
             return (
               <div
                 key={pillar.label}
-                className={`relative min-h-[118px] overflow-hidden rounded-[20px] border p-3 text-right shadow-[0_12px_26px_rgb(24_82_55_/_0.09)] backdrop-blur-md transition-all duration-700 ${
-                  shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-10 scale-95 opacity-0'
+                className={`relative flex min-h-[104px] items-center gap-4 overflow-hidden rounded-[18px] border p-3 text-right shadow-[0_12px_26px_rgb(24_82_55_/_0.09)] backdrop-blur-md transition-all duration-700 ${
+                  shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
-                    ? 'z-20 -translate-y-1 scale-[1.025] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
+                    ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
-                <div className="flex items-start gap-3">
-                  <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border text-[25px] font-black tabular ${
+                <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border text-[25px] font-black tabular ${
                     active ? 'border-white/30 bg-white/16 text-white' : 'border-green-700/16 bg-white/88 text-green-800'
                   }`}>
-                    {toArabicDigits(index + 1)}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="text-[20px] font-black leading-snug">{pillar.detail}</h3>
-                    <p className={`mt-1 text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
-                      {pillar.bullets[0] ?? pillar.label}
-                    </p>
-                  </div>
+                  {toArabicDigits(index + 1)}
+                </span>
+                <img
+                  src={layer.src}
+                  alt=""
+                  draggable={false}
+                  className={`h-[78px] w-[92px] shrink-0 object-contain transition-all duration-700 ${
+                    active ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'
+                  }`}
+                  style={{ transform: shown ? layer.transform : undefined }}
+                />
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-[21px] font-black leading-snug">{pillar.detail}</h3>
+                  <p className={`mt-1 text-[14px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                    {pillar.bullets[0] ?? pillar.label}
+                  </p>
                 </div>
               </div>
             );
