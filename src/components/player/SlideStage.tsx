@@ -1285,9 +1285,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M700 260 C626 196 570 154 490 154', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M700 280 C624 272 568 262 490 262', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M700 300 C626 354 570 370 490 370', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M720 238 C636 188 570 154 490 154', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M720 262 C636 262 568 262 490 262', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M720 286 C636 340 570 370 490 370', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1358,11 +1358,11 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[0%] z-10 flex w-[33%] items-center justify-end gap-4 text-right" style={{ top: 210 }}>
+        <div className="absolute right-[-1.5%] z-10 flex w-[34%] items-center justify-center gap-3 text-center" style={{ top: 168 }}>
           <span className="grid h-[208px] w-[208px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
-          <h2 className="max-w-[315px] text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
+          <h2 className="max-w-[300px] text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
             محتويات الحقيبة الأولى
           </h2>
         </div>
