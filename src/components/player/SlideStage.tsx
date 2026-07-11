@@ -1110,19 +1110,19 @@ function IntroMotionScene({
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[8%] top-[8%] w-[28%]',
+      className: 'right-[8%] top-[18%] w-[28%]',
       visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[31%] top-[46%] w-[17%]',
+      className: 'right-[31%] top-[45%] w-[17%]',
       visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[0.5%] top-[46%] w-[17%]',
+      className: 'right-[-5%] top-[45%] w-[17%]',
       visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
@@ -1165,7 +1165,7 @@ function IntroMotionScene({
         ))}
         <div
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
-          style={{ right: '5%', bottom: '-9%', width: '32%' }}
+          style={{ right: '5%', bottom: '10%', width: '32%' }}
         >
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
@@ -1222,7 +1222,7 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-5 left-6 flex items-center justify-end">
+        <div className="absolute bottom-[130px] left-6 flex items-center justify-end">
           <button
             type="button"
             onClick={onStart}
