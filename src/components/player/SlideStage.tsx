@@ -1167,10 +1167,16 @@ function IntroMotionScene({
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
           style={{ right: '5%', bottom: '10%', width: '32%' }}
         >
+        {/* Narration reveals pillars in content order (governance → compliance →
+            risk), but the client wants them displayed governance-middle,
+            compliance-left, risk-right — reorder visually with `order`
+            instead of reordering the array, so the reveal/active timing
+            (tied to `index`) still lines up with what the narration says. */}
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = !narrationComplete && index === activeIndex;
           const cardWidth = 'w-[112px]';
+          const visualOrder = [1, 2, 0][index] ?? index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
@@ -1182,6 +1188,7 @@ function IntroMotionScene({
                   : 'border-green-700/20 bg-white/90 text-green-900'
               }`}
               style={{
+                order: visualOrder,
                 transitionDelay: shown ? `${index * 80}ms` : '0ms',
                 ...(active ? { backgroundColor: 'rgb(26 68 46 / 0.94)', borderColor: 'rgb(191 155 74 / 0.55)' } : {}),
               }}
