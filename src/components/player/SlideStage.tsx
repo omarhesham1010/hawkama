@@ -568,8 +568,14 @@ function StorySlideShell({
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const isQuiz = slide.kind === 'quiz';
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection' || slide.kind === 'completion';
-  const bottomSpace = isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
-  const topSpace = isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
+  // The intro/roadmap hero scenes compose their own full-bleed illustration
+  // and place their own CTA button — they don't need the full Nasser-height
+  // reservation every other ppt slide gets, and that reserved band was
+  // leaving a large dead zone under the visual on the right (Nasser only
+  // occupies the left). Give them most of that space back.
+  const isIntroMotion = slide.layout === 'pptIntro' || slide.id === 'program-map';
+  const bottomSpace = isIntroMotion ? 'pb-[104px]' : isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
+  const topSpace = isIntroMotion ? 'pt-[64px]' : isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
   void revealedCount;
 
   return (
@@ -1104,30 +1110,30 @@ function IntroMotionScene({
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[8%] top-[15%] w-[28%]',
+      className: 'right-[8%] top-[27%] w-[28%]',
       visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[31%] top-[50%] w-[17%]',
+      className: 'right-[31%] top-[63%] w-[17%]',
       visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[0.5%] top-[50%] w-[17%]',
+      className: 'right-[0.5%] top-[63%] w-[17%]',
       visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
   ];
 
   return (
-    <div className="relative h-full min-h-0 overflow-hidden">
+    <div className="relative h-full min-h-0 overflow-visible">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-[3%] top-[8%] h-[76%] w-[43%] rounded-[45%] bg-white/20 blur-xl" />
-        <div className="absolute right-[12%] top-[18%] h-[46%] w-[27%] animate-pulse-soft rounded-full border border-dashed border-green-700/14" />
-        <svg className={`absolute right-[6%] top-[24%] h-[36%] w-[36%] overflow-visible opacity-55 transition-opacity duration-700 ${started ? 'opacity-55' : 'opacity-0'}`} viewBox="0 0 420 260" aria-hidden="true">
+        <div className="absolute right-[3%] top-[13%] h-[76%] w-[43%] rounded-[45%] bg-white/20 blur-xl" />
+        <div className="absolute right-[12%] top-[23%] h-[46%] w-[27%] animate-pulse-soft rounded-full border border-dashed border-green-700/14" />
+        <svg className={`absolute right-[6%] top-[29%] h-[36%] w-[36%] overflow-visible opacity-55 transition-opacity duration-700 ${started ? 'opacity-55' : 'opacity-0'}`} viewBox="0 0 420 260" aria-hidden="true">
           <path
             d="M370 40 C280 20 236 74 204 128 C162 198 96 210 34 174"
             fill="none"
@@ -1159,7 +1165,7 @@ function IntroMotionScene({
         ))}
         <div
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
-          style={{ right: '5%', bottom: '-7%', width: '32%' }}
+          style={{ right: '5%', bottom: '-18%', width: '32%' }}
         >
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
@@ -1299,7 +1305,7 @@ function IntroRoadmapMotionScene({
   const orderedPillars = pillars;
 
   return (
-    <div className="relative h-full min-h-0 overflow-hidden">
+    <div className="relative h-full min-h-0 overflow-visible">
       <div className="pointer-events-none absolute inset-0">
         <svg className="absolute inset-0 z-0 h-full w-full overflow-visible" viewBox="0 0 1000 560" aria-hidden="true">
           <defs>
@@ -1353,7 +1359,7 @@ function IntroRoadmapMotionScene({
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-6" style={{ left: '5%', top: 132, width: '44%' }}>
+        <div className="absolute flex flex-col gap-6" style={{ left: '5%', top: 156, width: '44%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = !narrationComplete && index === current;
