@@ -1104,19 +1104,19 @@ function IntroMotionScene({
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.png',
-      className: 'right-[8%] top-[8%] w-[28%]',
+      className: 'right-[8%] top-[15%] w-[28%]',
       visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.png',
-      className: 'right-[31%] top-[39%] w-[17%]',
+      className: 'right-[31%] top-[50%] w-[17%]',
       visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.png',
-      className: 'right-[0.5%] top-[39%] w-[17%]',
+      className: 'right-[0.5%] top-[50%] w-[17%]',
       visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
@@ -1151,28 +1151,34 @@ function IntroMotionScene({
             src={layer.src}
             alt=""
             draggable={false}
-            className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-700 ease-out ${
-              layer.visible ? 'opacity-100 blur-0' : 'translate-x-12 scale-90 opacity-0 blur-sm'
+            className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+              layer.visible ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
             } ${!narrationComplete && index === activeIndex ? 'motion-layer-focus' : ''}`}
             style={{ transform: layer.visible ? layer.transform : undefined }}
           />
         ))}
         <div
-          className="absolute flex items-end justify-center gap-2 transition-all duration-700 ease-out"
-          style={{ right: '5%', bottom: '0.25%', width: '32%' }}
+          className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
+          style={{ right: '5%', bottom: '-7%', width: '32%' }}
         >
-        {pillars.slice(0, visiblePillars).map((pillar, index) => {
+        {pillars.map((pillar, index) => {
+          const shown = index < visiblePillars;
           const active = !narrationComplete && index === activeIndex;
-          const cardWidth = visiblePillars === 1 ? 'w-[178px]' : visiblePillars === 2 ? 'w-[150px]' : 'w-[112px]';
+          const cardWidth = 'w-[112px]';
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`animate-fade-up ${cardWidth} shrink-0 rounded-2xl border px-2.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-500 ${
+              className={`${cardWidth} shrink-0 rounded-2xl border px-2.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
+                shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
+              } ${
                 active
                   ? 'z-10 -translate-y-1 scale-[1.04] border-gold-500/55 bg-green-800/94 text-white shadow-card-lg'
                   : 'border-green-700/20 bg-white/90 text-green-900'
               }`}
-              style={active ? { backgroundColor: 'rgb(26 68 46 / 0.94)', borderColor: 'rgb(191 155 74 / 0.55)' } : undefined}
+              style={{
+                transitionDelay: shown ? `${index * 80}ms` : '0ms',
+                ...(active ? { backgroundColor: 'rgb(26 68 46 / 0.94)', borderColor: 'rgb(191 155 74 / 0.55)' } : {}),
+              }}
             >
               <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white/88 p-1 shadow-sm">
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
