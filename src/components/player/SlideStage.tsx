@@ -1264,9 +1264,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M662 190 C610 146 570 92 522 68', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M662 215 C610 202 570 154 522 148', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M662 240 C610 276 570 224 522 228', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M654 236 C606 202 562 164 518 156', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M654 258 C604 252 562 248 518 248', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M654 280 C606 316 562 336 518 340', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1336,7 +1336,7 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[2%] z-10 flex w-[34%] items-center justify-end gap-4 text-right" style={{ top: 148 }}>
+        <div className="absolute right-[3%] z-10 flex w-[33%] items-center justify-end gap-4 text-right" style={{ top: 190 }}>
           <span className="grid h-[94px] w-[94px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
@@ -1345,7 +1345,7 @@ function IntroRoadmapMotionScene({
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-2" style={{ left: '3%', top: 32, width: '50%' }}>
+        <div className="absolute flex flex-col gap-4" style={{ left: '4%', top: 115, width: '47%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = index === current;
@@ -1360,7 +1360,7 @@ function IntroRoadmapMotionScene({
                     ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
-                style={{ minHeight: 68 }}
+                style={{ minHeight: 76 }}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
                 <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border text-[22px] font-black tabular ${
