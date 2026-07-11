@@ -1087,9 +1087,9 @@ function IntroMotionScene({
     const index = slide.narration.indexOf(needle);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
-  const firstPillarShown = spokenPast('هذه رحلة تدريبية', 0.18);
-  const secondPillarShown = spokenPast('ثلاثة فصول مترابطة', 0.42);
-  const thirdPillarShown = spokenPast('إدارة المخاطر', 0.66);
+  const firstPillarShown = spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
+  const secondPillarShown = spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
+  const thirdPillarShown = spokenPast('ثم نختم بإدارة المخاطر', 0.72);
   const activeIndex = thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
   const visiblePillars = started
     ? thirdPillarShown
