@@ -183,6 +183,7 @@ export default function SlidePlayer({
   }, [narration, onExit]);
 
   const sourceLabel = voicePlaying ? (narration.source === 'audio' ? 'ملف صوتي' : 'قراءة صوتية') : null;
+  const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة الأولى' : slide.title;
 
   return (
     <div className="relative flex h-[100dvh] flex-col overflow-hidden">
@@ -190,7 +191,7 @@ export default function SlidePlayer({
 
       <PlayerHeader
         courseTitle={`${courseMeta.title} · ${courseMeta.chapter}`}
-        slideTitle={slide.title}
+        slideTitle={displaySlideTitle}
         sectionLabel={SECTION_LABEL[slide.kind] ?? 'شرح مصوّر'}
         index={index}
         total={slides.length}

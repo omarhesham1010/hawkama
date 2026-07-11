@@ -14,7 +14,7 @@
     "audio:check:strict": "node scripts/check-audio-files.js --strict",
     "test:sync": "node scripts/validate-slide-sync.js",
     "dev": "npm run sync-audio && vite",
-    "build": "npm run sync-audio && tsc -b && vite build && node scripts/write-scorm-manifest.mjs",
+    "build": "npm run sync-audio && tsc -b && node scripts/build-static.mjs && node scripts/write-scorm-manifest.mjs",
     "package:scorm": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm.ps1",
     "preview": "vite preview"
   },
