@@ -1264,9 +1264,9 @@ function IntroRoadmapMotionScene({
           : 0
     : 0;
   const roadmapArrows = [
-    { d: 'M654 236 C606 202 562 164 518 156', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M654 258 C604 252 562 248 518 248', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M654 280 C606 316 562 336 518 340', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M655 260 C610 228 564 192 495 188', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M655 280 C606 280 560 280 495 280', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M655 300 C610 332 564 368 495 372', color: 'rgb(23 150 132)', delay: '180ms' },
   ];
   const layers = [
     {
@@ -1336,7 +1336,7 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[3%] z-10 flex w-[33%] items-center justify-end gap-4 text-right" style={{ top: 190 }}>
+        <div className="absolute right-[3%] z-10 flex w-[33%] items-center justify-end gap-4 text-right" style={{ top: 218 }}>
           <span className="grid h-[94px] w-[94px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
@@ -1345,7 +1345,7 @@ function IntroRoadmapMotionScene({
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-4" style={{ left: '4%', top: 115, width: '47%' }}>
+        <div className="absolute flex flex-col gap-6" style={{ left: '5%', top: 132, width: '44%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = index === current;
@@ -1353,17 +1353,17 @@ function IntroRoadmapMotionScene({
             return (
               <div
                 key={pillar.label}
-                className={`relative flex items-center gap-2.5 overflow-hidden rounded-[16px] border p-1.5 text-right shadow-[0_12px_26px_rgb(24_82_55_/_0.09)] backdrop-blur-md transition-all duration-700 ${
+                className={`relative flex items-center gap-4 overflow-hidden rounded-[18px] border p-2.5 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
                   shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
                     ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
-                style={{ minHeight: 76 }}
+                style={{ minHeight: 92 }}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
-                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border text-[22px] font-black tabular ${
+                <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border text-[24px] font-black tabular ${
                     active ? 'border-white/30 bg-white/16 text-white' : 'border-green-700/16 bg-white/88 text-green-800'
                   }`}>
                   {toArabicDigits(index + 1)}
@@ -1375,11 +1375,11 @@ function IntroRoadmapMotionScene({
                   className={`shrink-0 object-contain transition-all duration-700 ${
                     active ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'
                   }`}
-                  style={{ height: 46, width: 58, transform: shown ? layer.transform : undefined }}
+                  style={{ height: 62, width: 78, transform: shown ? layer.transform : undefined }}
                 />
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-[17px] font-black leading-snug">{pillar.detail}</h3>
-                  <p className={`mt-0.5 text-[12px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                  <h3 className="text-[20px] font-black leading-snug">{pillar.detail}</h3>
+                  <p className={`mt-1 text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
                     {pillar.bullets[0] ?? pillar.label}
                   </p>
                 </div>
