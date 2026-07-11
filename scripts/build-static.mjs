@@ -1,7 +1,8 @@
-import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import * as esbuild from 'esbuild';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -9,9 +10,16 @@ const dist = join(root, 'dist');
 const assetsDir = join(dist, 'assets');
 const entry = join(root, 'src', 'main.tsx');
 const cssInput = join(root, 'src', 'styles', 'index.css');
-const jsOut = join(assetsDir, 'index.js');
-const cssOut = join(assetsDir, 'index.css');
+const jsOut = join(assetsDir, 'index.tmp.js');
+const cssOut = join(assetsDir, 'index.tmp.css');
 const tailwindContent = join(root, '.tailwind-content.tmp');
+
+function hashedAssetName(prefix, file, extension) {
+  const hash = createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 8);
+  const name = `${prefix}-${hash}.${extension}`;
+  renameSync(file, join(assetsDir, name));
+  return name;
+}
 
 function uiSourceFiles(dir) {
   const files = [];
@@ -82,6 +90,9 @@ await esbuild.build({
   ],
 });
 
+const cssFile = hashedAssetName('index', cssOut, 'css');
+const jsFile = hashedAssetName('index', jsOut, 'js');
+
 writeFileSync(
   join(dist, 'index.html'),
   `<!doctype html>
@@ -96,8 +107,8 @@ writeFileSync(
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/index.css" />
-    <script type="module" crossorigin src="./assets/index.js"></script>
+    <link rel="stylesheet" href="./assets/${cssFile}" />
+    <script type="module" crossorigin src="./assets/${jsFile}"></script>
   </head>
   <body>
     <div id="root"></div>
