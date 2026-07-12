@@ -1941,7 +1941,7 @@ function PptMotionVisualScene({
           <img
             src={primaryVisual}
             alt=""
-            className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_28px_34px_rgb(24_82_55_/_0.18)]"
+            className="absolute inset-0 h-full w-full animate-float object-contain opacity-[0.18] drop-shadow-[0_28px_34px_rgb(24_82_55_/_0.10)]"
             loading="lazy"
             decoding="async"
           />
@@ -1950,7 +1950,7 @@ function PptMotionVisualScene({
               key={src}
               src={src}
               alt=""
-              className={`absolute object-contain drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.14)] ${
+              className={`absolute object-contain opacity-[0.14] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.08)] ${
                 index === 0
                   ? 'bottom-[0%] right-[-8%] h-[42%] w-[42%] animate-rise'
                   : index === 1
