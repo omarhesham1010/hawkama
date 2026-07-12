@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { Beat, BeatUnit, PptCard, Slide } from '../../types/slides';
 import type { QuizQuestion } from '../../types/course';
 import { Icon } from '../ui/Icon';
@@ -1936,7 +1937,7 @@ function PptMotionVisualScene({
       <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/50 to-white/0`} />
       <div className="pointer-events-none absolute left-[5%] top-[5%] h-[36%] w-[34%] rounded-full bg-teal-500/8 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute bottom-[6%] right-[8%] h-[34%] w-[38%] rounded-full bg-gold-500/10 blur-3xl" aria-hidden="true" />
-      <div className={`absolute ${mainObjectPosition} pointer-events-none`} aria-hidden="true">
+      <div className={`hidden absolute ${mainObjectPosition} pointer-events-none`} aria-hidden="true">
         <div className="relative h-full w-full">
           <img
             src={primaryVisual}
@@ -2160,45 +2161,56 @@ function PptGuidedScenarioSlide({
 }) {
   const cards = slide.ppt?.cards ?? [];
   const scenarioCard = cards[0];
-  const questionCards = cards.slice(1);
-  const [step, setStep] = useState(0);
-  const [revealed, setRevealed] = useState(false);
+  const analysisCards = cards.slice(1);
+  const [selectedStep, setSelectedStep] = useState<number | null>(null);
   const [complete, setComplete] = useState(false);
   const [questionReady, setQuestionReady] = useState(true);
   const [discussionReady, setDiscussionReady] = useState(false);
+  const [discussionVisible, setDiscussionVisible] = useState(false);
   const guidedSpeech = useGuidedSpeech(slide, muted);
-  const currentCard = questionCards[step];
+  const currentCard = selectedStep != null ? analysisCards[selectedStep] : undefined;
   const ready = spoken >= slide.narration.length * 0.72;
   const questions = conflictScenarioQuestions;
   const discussions = conflictScenarioDiscussions;
-  const fallbackInteractionLine = ready && !complete && !revealed && questionReady
-    ? questions[step]
-    : undefined;
-  const interactionLine = guidedSpeech.line ?? fallbackInteractionLine;
-  const discussionVisible = revealed && (guidedSpeech.started || discussionReady);
+  const currentQuestion = selectedStep != null ? questions[selectedStep] : undefined;
+  const interactionLine = guidedSpeech.line ?? (selectedStep != null && questionReady && !discussionVisible ? currentQuestion : undefined);
 
-  const revealDiscussion = () => {
-    if (!ready || revealed || complete) return;
-    setRevealed(true);
-    setQuestionReady(false);
+  const closeModal = () => {
+    if (guidedSpeech.speaking) return;
+    setSelectedStep(null);
+    setDiscussionVisible(false);
+    setQuestionReady(true);
     setDiscussionReady(false);
-    const discussion = discussions[step];
-    guidedSpeech.speak(`${slide.audioKey}-discussion-${step + 1}`, discussion, () => setDiscussionReady(true));
   };
 
-  const nextDiscussion = () => {
-    if (!revealed || !discussionReady) return;
-    if (step >= questionCards.length - 1) {
-      setComplete(true);
-      guidedSpeech.speak(`${slide.audioKey}-complete`, conflictScenarioCompletion, () => onActivityDone(slide.id));
+  const openStep = (nextStep: number) => {
+    if (!ready || complete || guidedSpeech.speaking) return;
+    setSelectedStep(nextStep);
+    setDiscussionVisible(false);
+    setDiscussionReady(false);
+    if (nextStep === 0) {
+      setQuestionReady(true);
       return;
     }
-    const nextStep = step + 1;
-    setStep(nextStep);
-    setRevealed(false);
-    setDiscussionReady(false);
     setQuestionReady(false);
     guidedSpeech.speak(`${slide.audioKey}-question-${nextStep + 1}`, questions[nextStep], () => setQuestionReady(true));
+  };
+
+  const revealDiscussion = () => {
+    if (!ready || selectedStep == null || !questionReady || discussionVisible || complete) return;
+    setDiscussionVisible(true);
+    setQuestionReady(false);
+    setDiscussionReady(false);
+    const discussion = discussions[selectedStep];
+    guidedSpeech.speak(`${slide.audioKey}-discussion-${selectedStep + 1}`, discussion, () => setDiscussionReady(true));
+  };
+
+  const finishScenario = () => {
+    if (!discussionVisible || !discussionReady) return;
+    setComplete(true);
+    setSelectedStep(null);
+    setDiscussionVisible(false);
+    guidedSpeech.speak(`${slide.audioKey}-complete`, conflictScenarioCompletion, () => onActivityDone(slide.id));
   };
 
   return (
@@ -2210,41 +2222,149 @@ function PptGuidedScenarioSlide({
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
         <PptTitle slide={slide} />
-        <div className="grid min-h-0 flex-1 grid-cols-2 gap-3">
+        <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_0.95fr] gap-5">
           {scenarioCard && (
-            <PptCardView
-              card={scenarioCard}
-              density="normal"
-              emoji={pptEmojiFor(scenarioCard, slide.visual, 0)}
-              active={!ready}
-              visible={spoken > 0}
-              revealAnimation="animate-slide-in"
-            />
+            <div className="relative flex min-h-0 flex-col justify-center overflow-hidden rounded-[34px] border border-green-700/12 bg-white/86 p-6 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
+              <span className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-teal-500/12 blur-3xl" />
+              <span className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full bg-gold-500/14 blur-3xl" />
+              <div className="relative z-10 flex items-center gap-5">
+                <img
+                  src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}`)[0] ?? '/course-visuals/conflict-case.webp'}
+                  alt=""
+                  className="h-[210px] w-[230px] shrink-0 object-contain drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="text-[19px] font-black text-gold-700">سيناريو تطبيقي</p>
+                  <h3 className="mt-2 text-[30px] font-black leading-tight text-brand-strong">{scenarioCard.title}</h3>
+                  <p className="mt-4 text-[21px] font-bold leading-relaxed text-ink">{scenarioCard.text}</p>
+                </div>
+              </div>
+              <div className="relative z-10 mt-5 rounded-[24px] border border-gold-500/24 bg-gold-500/10 px-5 py-4 text-[18px] font-extrabold leading-relaxed text-brand-strong">
+                اختر كل محطة واضغط عليها، وخذ لحظتك في التفكير قبل مناقشتها مع ناصر.
+              </div>
+            </div>
           )}
-          {currentCard && (
-            <PptCardView
-              key={step}
-              card={currentCard}
-              density="compact"
-              emoji={pptEmojiFor(currentCard, slide.visual, step + 1)}
-              active={discussionVisible}
-              visible={discussionVisible}
-              revealAnimation={PPT_REVEAL_ANIMS[(step + 1) % PPT_REVEAL_ANIMS.length]}
-            />
-          )}
+          <div className={`grid min-h-0 content-center gap-4 transition-all duration-500 ${ready ? 'opacity-100' : 'pointer-events-none opacity-0 translate-y-3'}`}>
+            {analysisCards.map((card, index) => {
+              const active = selectedStep === index;
+              return (
+                <button
+                  key={`${card.title}-${index}`}
+                  type="button"
+                  onClick={() => openStep(index)}
+                  disabled={!ready || guidedSpeech.speaking || complete}
+                  className={`group flex items-center justify-between gap-4 rounded-[28px] border px-5 py-5 text-right shadow-[0_16px_38px_rgb(24_82_55_/_0.10)] transition-all duration-300 hover:-translate-y-1 ${
+                    active
+                      ? 'border-green-700 bg-green-800 text-white'
+                      : 'border-green-700/12 bg-white/86 text-brand-strong hover:border-gold-500/45 hover:bg-gold-50'
+                  } ${complete ? 'opacity-70' : ''}`}
+                >
+                  <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${active ? 'bg-white/16' : 'bg-green-700/8'}`}>
+                    <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-8 w-8 ${active ? 'text-white' : 'text-green-700'}`} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[23px] font-black leading-tight">{card.title}</span>
+                    <span className={`mt-1 block text-[15px] font-bold ${active ? 'text-white/82' : 'text-ink-soft'}`}>اضغط لفتح المحطة ومناقشتها</span>
+                  </span>
+                  <Icon name={active ? 'check' : 'flow'} className={`h-7 w-7 shrink-0 ${active ? 'text-teal-600' : 'text-gold-600 group-hover:text-green-700'}`} />
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <div className={`mt-3 flex h-12 shrink-0 items-center justify-center gap-3 transition-all ${ready ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-          {!complete && !revealed && questionReady && (
-            <button type="button" onClick={revealDiscussion} className="btn-gold px-7 py-2.5 text-[17px]">
-              ناقش الإجابة مع ناصر
-            </button>
-          )}
-          {!complete && revealed && discussionReady && (
-            <button type="button" onClick={nextDiscussion} className="btn-gold px-7 py-2.5 text-[17px]">
-              {step >= questionCards.length - 1 ? 'إنهاء المناقشة' : 'السؤال التالي'}
-            </button>
-          )}
-        </div>
+
+        {complete && (
+          <div className="pointer-events-none absolute inset-x-[18%] bottom-7 rounded-3xl border border-teal-500/35 bg-white/88 px-6 py-4 text-center text-[20px] font-extrabold text-brand-strong shadow-card animate-fade-up">
+            تم تحليل السيناريو. انتقل للاختبار لما تكون جاهزًا.
+          </div>
+        )}
+
+        {selectedStep != null && currentCard && createPortal(
+          <div className="fixed inset-0 z-[80] flex items-center justify-center p-8">
+            <button
+              type="button"
+              className="absolute inset-0 cursor-default bg-green-950/34 backdrop-blur-[6px]"
+              aria-label="إغلاق نافذة السيناريو"
+              onClick={closeModal}
+            />
+            <div className="relative z-10 grid h-[82vh] max-h-[720px] w-full max-w-[1120px] grid-cols-[1fr_0.82fr] overflow-hidden rounded-[38px] border border-green-700/18 bg-white shadow-[0_35px_80px_rgb(0_45_28_/_0.24)] animate-scale-in">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="absolute left-5 top-5 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-green-900 shadow-card ring-1 ring-green-700/15 transition hover:bg-green-50"
+                aria-label="إغلاق"
+              >
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+              <div className="relative flex min-h-0 flex-col justify-center overflow-hidden bg-[linear-gradient(145deg,rgb(247_252_249),rgb(255_255_255)_48%,rgb(244_238_221))] p-9 text-right">
+                <span className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-green-700/10 blur-3xl" />
+                <span className="pointer-events-none absolute -left-16 -bottom-16 h-56 w-56 rounded-full bg-gold-500/14 blur-3xl" />
+                <div className="relative z-10">
+                  <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-gold-500/15 px-4 py-1.5 text-[15px] font-extrabold text-gold-700">
+                    محطة {toArabicDigits(selectedStep + 1)}
+                  </span>
+                  <h3 className="text-[34px] font-black leading-tight text-brand-strong">{currentCard.title}</h3>
+                  <p className="mt-4 rounded-[26px] border border-green-700/14 bg-white/82 p-5 text-[22px] font-extrabold leading-relaxed text-ink shadow-[0_14px_30px_rgb(24_82_55_/_0.08)]">
+                    {scenarioCard?.text}
+                  </p>
+                  <div className="mt-5 rounded-[26px] border border-gold-500/30 bg-gold-500/10 p-5">
+                    <p className="mb-2 flex items-center gap-2 text-[16px] font-black text-gold-700">
+                      <Icon name="sound" className="h-5 w-5" />
+                      سؤال ناصر
+                    </p>
+                    <p className="text-[21px] font-extrabold leading-relaxed text-brand-strong">{currentQuestion}</p>
+                  </div>
+                  {discussionVisible && (
+                    <div className="mt-4 rounded-[26px] border border-teal-500/28 bg-teal-500/8 p-5 animate-fade-up">
+                      <p className="mb-2 text-[16px] font-black text-teal-700">مناقشة ناصر</p>
+                      <p className="text-[19px] font-bold leading-relaxed text-ink">{currentCard.text}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="relative flex min-h-0 flex-col items-center justify-center bg-green-800 p-8 text-center text-white">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgb(255_255_255_/_0.18),transparent_34%)]" />
+                <img
+                  src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0] ?? '/course-visuals/audit-controls.webp'}
+                  alt=""
+                  className="relative z-10 mb-5 h-[210px] w-[260px] object-contain drop-shadow-[0_26px_34px_rgb(0_0_0_/_0.22)]"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <p className="relative z-10 text-[22px] font-black leading-relaxed">
+                  اقرأ السيناريو، فكر في إجابتك، ثم افتح مناقشة ناصر.
+                </p>
+                <div className="relative z-10 mt-7 flex w-full flex-col gap-3">
+                  {!discussionVisible && questionReady && (
+                    <button type="button" onClick={revealDiscussion} className="btn-gold justify-center px-7 py-4 text-[19px]">
+                      ناقش الإجابة مع ناصر
+                    </button>
+                  )}
+                  {discussionVisible && discussionReady && selectedStep < analysisCards.length - 1 && (
+                    <button type="button" onClick={closeModal} className="rounded-2xl bg-white px-7 py-4 text-[18px] font-black text-green-800 shadow-card transition hover:bg-green-50">
+                      اختيار محطة أخرى
+                    </button>
+                  )}
+                  {discussionVisible && discussionReady && selectedStep >= analysisCards.length - 1 && (
+                    <button type="button" onClick={finishScenario} className="btn-gold justify-center px-7 py-4 text-[19px]">
+                      إنهاء المناقشة
+                    </button>
+                  )}
+                  {guidedSpeech.speaking && (
+                    <div className="rounded-2xl bg-white/12 px-4 py-3 text-[15px] font-bold text-white/90">
+                      ناصر يتحدث الآن...
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
       </div>
     </StorySlideShell>
   );
