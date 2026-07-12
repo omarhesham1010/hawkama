@@ -553,16 +553,20 @@ function PptMotionBackdrop({ slide }: { slide: Slide }) {
   const cards = slide.ppt?.cards ?? [];
   const secondary = courseGlyphKind(`${cards[0]?.title ?? ''} ${cards[0]?.text ?? ''}`);
   const tertiary = courseGlyphKind(`${cards[1]?.title ?? ''} ${cards[1]?.text ?? ''}`);
+  const quaternary = courseGlyphKind(`${cards[2]?.title ?? ''} ${cards[2]?.text ?? ''}`);
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
       <div className="absolute left-[4%] top-[13%] h-[230px] w-[230px] animate-float opacity-[0.16]">
         <CourseGlyph kind={primary} />
       </div>
-      <div className="absolute right-[5%] top-[20%] h-[300px] w-[300px] opacity-[0.13]">
+      <div className="absolute right-[4%] top-[18%] h-[320px] w-[320px] opacity-[0.12]">
         <CourseGlyph kind={secondary} />
       </div>
-      <div className="absolute bottom-[18%] right-[24%] h-[170px] w-[170px] animate-pulse-soft opacity-[0.11]">
+      <div className="absolute bottom-[18%] right-[24%] h-[190px] w-[190px] animate-pulse-soft opacity-[0.12]">
         <CourseGlyph kind={tertiary} />
+      </div>
+      <div className="absolute bottom-[25%] left-[34%] h-[150px] w-[150px] rotate-[-8deg] opacity-[0.09]">
+        <CourseGlyph kind={quaternary} />
       </div>
     </div>
   );
@@ -1656,6 +1660,14 @@ function PptCardView({
         : level === 'loose'
           ? 'h-16 w-16 p-2'
           : 'h-14 w-14 p-2';
+  const ghostVisualSize =
+    level === 'micro'
+      ? 'h-24 w-24'
+      : level === 'compact'
+        ? 'h-28 w-28'
+        : level === 'loose'
+          ? 'h-40 w-40'
+          : 'h-32 w-32';
   const glyphKind = courseGlyphKind(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''} ${card.answer ?? ''}`);
   const passiveShell =
     tone === 'gold'
@@ -1693,10 +1705,22 @@ function PptCardView({
       } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${clickable && visible ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
     >
       {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255_/_0.22),transparent_36%)]" />}
+      <span
+        className={`pointer-events-none absolute -left-7 bottom-0 ${ghostVisualSize} opacity-[0.055] transition-opacity duration-500 ${
+          active ? 'opacity-[0.12]' : ''
+        }`}
+        aria-hidden="true"
+      >
+        <CourseGlyph kind={glyphKind} active={active} />
+      </span>
+      <span
+        className={`pointer-events-none absolute right-3 top-8 h-12 w-1 rounded-full ${active ? 'bg-gold-300/80' : 'bg-gold-500/45'}`}
+        aria-hidden="true"
+      />
       <span className={`relative h-1.5 w-full shrink-0 ${topBar}`} />
-      <div className={`${padClass} flex min-h-0 flex-col`}>
+      <div className={`${padClass} relative z-10 flex min-h-0 flex-col`}>
         <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
-          <span className={`grid ${iconSize} shrink-0 place-items-center rounded-2xl border ${tileTone}`}>
+          <span className={`grid ${iconSize} shrink-0 place-items-center rounded-2xl border ${tileTone} shadow-[0_12px_22px_rgb(24_82_55_/_0.12)]`}>
             <CourseGlyph kind={glyphKind} active={active} compact={level === 'micro' || level === 'compact'} />
           </span>
           {card.index && (
