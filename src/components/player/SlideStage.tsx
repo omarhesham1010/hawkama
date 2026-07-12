@@ -1851,6 +1851,155 @@ function PptCardView({
     </button>
   );
 }
+
+function PptMotionVisualScene({
+  slide,
+  cards,
+  activeCard,
+  visibleFor,
+  revealAnimationFor,
+  expandedKey,
+  onToggle,
+}: {
+  slide: Slide;
+  cards: PptCard[];
+  activeCard: number;
+  visibleFor: (index: number) => boolean;
+  revealAnimationFor: (index: number) => string;
+  expandedKey: string | null;
+  onToggle: (index: number) => void;
+}) {
+  const allVisuals = cards
+    .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
+    .filter((src, index, all) => all.indexOf(src) === index)
+    .slice(0, 6);
+  const primaryVisual = allVisuals[0] ?? '/course-visuals/governance-scene.png';
+  const variant = slide.layout === 'pptTwoPanels'
+    ? 'split'
+    : cards.length >= 5
+      ? 'constellation'
+      : slide.index % 3 === 0
+        ? 'orbit'
+        : slide.index % 3 === 1
+          ? 'path'
+          : 'split';
+  const positionsByVariant: Record<string, string[]> = {
+    constellation: [
+      'right-[5%] top-[10%] w-[30%]',
+      'left-[6%] top-[11%] w-[30%]',
+      'right-[6%] bottom-[19%] w-[30%]',
+      'left-[7%] bottom-[18%] w-[30%]',
+      'right-[36%] bottom-[4%] w-[28%]',
+      'right-[36%] top-[4%] w-[28%]',
+    ],
+    orbit: [
+      'right-[7%] top-[8%] w-[32%]',
+      'left-[7%] top-[12%] w-[32%]',
+      'right-[8%] bottom-[8%] w-[32%]',
+      'left-[8%] bottom-[10%] w-[32%]',
+    ],
+    path: [
+      'right-[8%] top-[8%] w-[34%]',
+      'right-[28%] top-[34%] w-[34%]',
+      'left-[8%] bottom-[10%] w-[34%]',
+      'left-[9%] top-[9%] w-[34%]',
+    ],
+    split: [
+      'right-[6%] top-[12%] w-[35%]',
+      'right-[10%] bottom-[10%] w-[35%]',
+      'left-[7%] top-[14%] w-[35%]',
+      'left-[10%] bottom-[10%] w-[35%]',
+    ],
+  };
+  const labelPositions = positionsByVariant[variant] ?? positionsByVariant.orbit;
+  const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
+  const showDetailText = cards.length <= 3;
+  const mainObjectPosition = variant === 'split'
+    ? 'left-[6%] top-[8%] h-[72%] w-[44%]'
+    : variant === 'path'
+      ? 'right-[31%] top-[9%] h-[58%] w-[39%]'
+      : 'left-[31%] top-[8%] h-[62%] w-[38%]';
+
+  return (
+    <div className="relative min-h-0 flex-1 overflow-hidden rounded-[30px]">
+      <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/50 to-white/0`} />
+      <div className={`absolute ${mainObjectPosition} pointer-events-none`} aria-hidden="true">
+        <div className="relative h-full w-full">
+          <img
+            src={primaryVisual}
+            alt=""
+            className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_28px_34px_rgb(24_82_55_/_0.18)]"
+            loading="lazy"
+            decoding="async"
+          />
+          {allVisuals.slice(1, 4).map((src, index) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className={`absolute object-contain drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.14)] ${
+                index === 0
+                  ? 'bottom-[0%] right-[-8%] h-[42%] w-[42%] animate-rise'
+                  : index === 1
+                    ? 'left-[-6%] top-[2%] h-[34%] w-[34%] animate-pop'
+                    : 'bottom-[10%] left-[-5%] h-[30%] w-[30%] animate-pulse-soft'
+              }`}
+              style={{ animationDelay: `${(index + 1) * 150}ms` }}
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+      </div>
+      {variant === 'path' && (
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-70" viewBox="0 0 1000 430" aria-hidden="true">
+          <path d="M810 84 C650 128 570 178 494 234 C405 300 300 326 168 338" fill="none" stroke="rgb(191 155 74 / 0.45)" strokeWidth="7" strokeLinecap="round" strokeDasharray="12 16" />
+          <path d="M180 338 l28 -18 l-6 34z" fill="rgb(191 155 74 / 0.55)" />
+        </svg>
+      )}
+      {variant === 'orbit' && (
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-60" viewBox="0 0 1000 430" aria-hidden="true">
+          <ellipse cx="500" cy="214" rx="270" ry="142" fill="none" stroke="rgb(31 105 72 / 0.16)" strokeWidth="4" strokeDasharray="10 14" />
+          <ellipse cx="500" cy="214" rx="212" ry="105" fill="none" stroke="rgb(191 155 74 / 0.18)" strokeWidth="3" />
+        </svg>
+      )}
+      <div className="absolute inset-x-[5%] bottom-[2%] h-px bg-gradient-to-r from-transparent via-green-700/35 to-transparent" />
+      {cards.map((card, index) => {
+        const visible = visibleFor(index);
+        const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
+        const cardVisual = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`)[0];
+        return (
+          <button
+            key={index}
+            type="button"
+            disabled={!visible}
+            onClick={() => onToggle(index)}
+            className={`absolute ${labelPositions[index % labelPositions.length]} min-h-[104px] rounded-[28px] border px-4 py-3 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-500 ${
+              active
+                ? 'scale-[1.035] border-gold-500/45 bg-green-800 text-white'
+                : 'border-green-700/14 bg-white/82 text-brand-strong'
+            } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'}`}
+          >
+            <span className="flex items-center justify-between gap-3">
+              <span className="min-w-0 flex-1">
+                <span className={`block ${showDetailText ? 'text-[20px]' : 'text-[22px]'} font-black leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>{card.title}</span>
+                {showDetailText && card.text && (
+                  <span className={`mt-1 block text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                    {card.text}
+                  </span>
+                )}
+              </span>
+              <span className={`grid ${showDetailText ? 'h-16 w-20' : 'h-24 w-28'} shrink-0 place-items-center`}>
+                <img src={cardVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" aria-hidden="true" />
+              </span>
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function PptActivitySlide({
   slide,
   spoken,
@@ -2216,7 +2365,7 @@ function PptStyleSlide({
               </button>
             </div>
           </div>
-        ) : (
+        ) : slide.kind === 'activity' ? (
           <div className={`grid min-h-0 flex-1 items-center auto-rows-fr ${gridClass} gap-3`}>
             {cards.map((card, i) => (
               <PptCardView
@@ -2234,6 +2383,16 @@ function PptStyleSlide({
               />
             ))}
           </div>
+        ) : (
+          <PptMotionVisualScene
+            slide={slide}
+            cards={cards}
+            activeCard={activeCard}
+            visibleFor={cardIsVisible}
+            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+            expandedKey={expandedCardKey}
+            onToggle={toggleCard}
+          />
         )}
       </div>
       {check && (
