@@ -20,7 +20,6 @@ function isIOSWebKit() {
 }
 
 const preloadedAudio = new Map<string, HTMLAudioElement>();
-const preloadedAudioLinks = new Set<string>();
 
 function narrationAudioUrl(key: string) {
   const base = import.meta.env.BASE_URL || '/';
@@ -29,20 +28,21 @@ function narrationAudioUrl(key: string) {
 
 export function preloadNarrationAudio(key: string) {
   if (typeof window === 'undefined' || !hasAudio(key) || preloadedAudio.has(key)) return;
-  const url = narrationAudioUrl(key);
-  if (!preloadedAudioLinks.has(url)) {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'audio';
-    link.href = url;
-    link.type = 'audio/mpeg';
-    document.head.appendChild(link);
-    preloadedAudioLinks.add(url);
-  }
-  const audio = new Audio(url);
+  const audio = new Audio(narrationAudioUrl(key));
   audio.preload = 'auto';
   audio.load();
   preloadedAudio.set(key, audio);
+}
+
+export function keepOnlyPreloadedNarrationAudio(keys: string[]) {
+  const keep = new Set(keys);
+  for (const [key, audio] of preloadedAudio) {
+    if (keep.has(key)) continue;
+    audio.pause();
+    audio.src = '';
+    audio.load();
+    preloadedAudio.delete(key);
+  }
 }
 
 function pickPreferredVoice(explicitURI: string | null): SpeechSynthesisVoice | null {
@@ -164,6 +164,8 @@ export function useNarration() {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
+      audioRef.current.src = '';
+      audioRef.current.load();
       audioRef.current = null;
     }
     // Only cancel if something is actually speaking/queued — calling cancel()
@@ -354,12 +356,6 @@ export function useNarration() {
       audio.addEventListener('durationchange', updateAudioTime);
       audio.addEventListener('timeupdate', updateAudioTime);
       audio.addEventListener('canplay', updateAudioTime);
-      audio.addEventListener('waiting', () => {
-        if (token === playTokenRef.current) setStatus('loading');
-      });
-      audio.addEventListener('stalled', () => {
-        if (token === playTokenRef.current) setStatus('loading');
-      });
       audio.addEventListener('playing', () => {
         if (token !== playTokenRef.current) {
           audio.pause();

@@ -4,7 +4,7 @@ import { useVoiceSync } from './hooks/useVoiceSync';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { getCourseMeta, getSlidesForCourse } from './data/slides';
 import { courseHash } from './lib/courseRoutes';
-import { preloadNarrationAudio } from './hooks/useNarration';
+import { keepOnlyPreloadedNarrationAudio, preloadNarrationAudio } from './hooks/useNarration';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
 import { PlayerHeader } from './components/player/PlayerHeader';
@@ -67,6 +67,7 @@ export default function SlidePlayer({
     preloadNarrationAudio(slide.audioKey);
     const nextSlide = slides[index + 1];
     if (nextSlide) preloadNarrationAudio(nextSlide.audioKey);
+    keepOnlyPreloadedNarrationAudio([slide.audioKey, nextSlide?.audioKey].filter(Boolean) as string[]);
   }, [index, slide.audioKey, slides]);
 
   useEffect(() => {
