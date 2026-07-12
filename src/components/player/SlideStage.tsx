@@ -1563,6 +1563,22 @@ function CourseGlyph({
   );
 }
 
+function pptGeneratedVisualFor(text: string) {
+  if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة'])) {
+    return '/course-visuals/risk-scene.png';
+  }
+  if (hasAny(text, ['امتثال', 'ضوابط', 'تدقيق', 'اختبار', 'متطلبات', 'اعتماد', 'جودة'])) {
+    return '/course-visuals/compliance-scene.png';
+  }
+  if (hasAny(text, ['سياسة', 'سياسات', 'إجراء', 'إجراءات', 'لوائح', 'وثيقة', 'توعية', 'تطبيق عملي'])) {
+    return '/course-visuals/policy-scene.png';
+  }
+  if (hasAny(text, ['حوكمة', 'مجلس', 'لجان', 'قيادة', 'إطار', 'تنظيمية', 'رؤية 2030'])) {
+    return '/course-visuals/governance-scene.png';
+  }
+  return '/course-visuals/governance-scene.png';
+}
+
 function PptTitle({ slide }: { slide: Slide }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
@@ -1636,7 +1652,7 @@ function PptCardView({
   const padClass = level === 'micro' ? 'px-3 py-1.5' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
   const titleClass =
     level === 'micro'
-      ? 'text-[15px] leading-[1.15]'
+      ? 'text-[14.5px] leading-[1.12]'
       : level === 'compact'
         ? 'text-[17.5px] leading-snug'
         : level === 'loose'
@@ -1644,22 +1660,22 @@ function PptCardView({
           : 'text-[21px] leading-tight';
   const bodyClass =
     level === 'micro'
-      ? 'text-[11.8px] leading-[1.16]'
+      ? 'text-[10.8px] leading-[1.12]'
       : level === 'compact'
         ? 'text-[14.5px] leading-[1.25]'
         : level === 'loose'
           ? 'text-[20px] leading-relaxed'
           : 'text-[18px] leading-relaxed';
-  const bulletClass = level === 'micro' ? 'text-[11.5px] leading-[1.15]' : level === 'compact' ? 'text-[14px] leading-[1.22]' : 'text-[17px] leading-snug';
+  const bulletClass = level === 'micro' ? 'text-[10.8px] leading-[1.12]' : level === 'compact' ? 'text-[14px] leading-[1.22]' : 'text-[17px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
   const visualSize =
     level === 'micro'
-      ? 'h-[40px] w-[40px] p-1'
+      ? 'h-[58px] w-[108px] p-1'
       : level === 'compact'
-        ? 'h-[62px] w-[62px] p-2'
+        ? 'h-[92px] w-[158px] p-1.5'
         : level === 'loose'
-          ? 'h-[120px] w-[120px] p-4'
-          : 'h-[92px] w-[92px] p-3';
+          ? 'h-[148px] w-[228px] p-2'
+          : 'h-[118px] w-[188px] p-2';
   const ghostVisualSize =
     level === 'micro'
       ? 'h-24 w-24'
@@ -1692,6 +1708,7 @@ function PptCardView({
   const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : tone === 'blue' ? 'bg-teal-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
+  const visualImage = pptGeneratedVisualFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`);
 
   return (
     <button
@@ -1726,7 +1743,14 @@ function PptCardView({
         <div className={`${level === 'micro' ? 'mb-1 gap-1' : 'mb-2.5 gap-2'} relative flex w-full flex-col items-center`}>
           <span className={`relative grid ${visualSize} shrink-0 place-items-center border ${tileTone} shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] [border-radius:30px_18px_28px_18px]`}>
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
-            <CourseGlyph kind={glyphKind} active={active} compact={level === 'micro'} />
+            <img
+              src={visualImage}
+              alt=""
+              className="h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)]"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
           </span>
           {card.index && (
             <span className={`absolute right-3 top-1 grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white shadow-sm'}`}>
