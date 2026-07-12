@@ -40,6 +40,7 @@ cpSync(join(root, 'public'), dist, { recursive: true });
 const contentFiles = [
   join(root, 'index.html'),
   join(root, 'src', 'App.tsx'),
+  join(root, 'src', 'SlidePlayer.tsx'),
   ...uiSourceFiles(join(root, 'src', 'components')),
   ...uiSourceFiles(join(root, 'src', 'hooks')),
 ];
@@ -60,8 +61,11 @@ rmSync(tailwindContent, { force: true });
 await esbuild.build({
   entryPoints: [entry],
   bundle: true,
-  outfile: jsOut,
+  outdir: assetsDir,
+  entryNames: 'index.tmp',
+  chunkNames: 'chunks/[name]-[hash]',
   format: 'esm',
+  splitting: true,
   platform: 'browser',
   target: ['es2020'],
   jsx: 'automatic',

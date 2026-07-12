@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
-import { audioAlignments } from '../data/audioAlignments';
+import type { AudioAlignment } from '../data/audioAlignments';
 import { spokenFromAudioAlignment, spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 10000; // ms: only simulate progress after a genuine start failure
 const TTS_START_GUARD = 300; // short audible-start guard without making Nasser feel late
+type AudioAlignmentMap = Readonly<Record<string, AudioAlignment>>;
+let audioAlignmentsPromise: Promise<AudioAlignmentMap> | null = null;
+
+function loadAudioAlignments() {
+  audioAlignmentsPromise ??= import('../data/audioAlignments').then((module) => module.audioAlignments);
+  return audioAlignmentsPromise;
+}
 
 export interface VoiceSync {
   spoken: number;
@@ -46,6 +53,7 @@ export function useVoiceSync(
   const [spoken, setSpoken] = useState(0);
   const [done, setDone] = useState(false);
 
+  const alignmentsRef = useRef<AudioAlignmentMap | null>(null);
   const spokenRef = useRef(0);
   const enterRef = useRef(performance.now());
   const speakStartRef = useRef<number | null>(null);
@@ -77,6 +85,17 @@ export function useVoiceSync(
 
   const startedAtRef = useRef<number | null>(null);
   startedAtRef.current = speechStartedAt;
+
+  useEffect(() => {
+    if (!armed) return;
+    let cancelled = false;
+    loadAudioAlignments().then((alignments) => {
+      if (!cancelled) alignmentsRef.current = alignments;
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [armed, audioKey]);
 
   // Reset on slide change / replay.
   useEffect(() => {
@@ -141,7 +160,7 @@ export function useVoiceSync(
           const liveClock = getAudioClock();
           const duration = liveClock?.duration ?? audioDurationRef.current;
           const elapsed = liveClock?.elapsed ?? audioElapsedRef.current;
-          const alignment = audioAlignments[audioKey];
+          const alignment = alignmentsRef.current?.[audioKey];
           val = alignment
             ? spokenFromAudioAlignment(total, elapsed, alignment.anchors)
             : duration && duration > 0
