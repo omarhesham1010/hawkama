@@ -65,10 +65,19 @@ export default function SlidePlayer({
 
   useEffect(() => {
     preloadNarrationAudio(slide.audioKey);
-    const nextSlide = slides[index + 1];
-    if (nextSlide) preloadNarrationAudio(nextSlide.audioKey);
-    keepOnlyPreloadedNarrationAudio([slide.audioKey, nextSlide?.audioKey].filter(Boolean) as string[]);
+    keepOnlyPreloadedNarrationAudio([slide.audioKey]);
   }, [index, slide.audioKey, slides]);
+
+  useEffect(() => {
+    if (!narration.isPlaying || narration.nowKey !== slide.audioKey) return;
+    const nextSlide = slides[index + 1];
+    if (!nextSlide) return;
+    const timer = window.setTimeout(() => {
+      preloadNarrationAudio(nextSlide.audioKey);
+      keepOnlyPreloadedNarrationAudio([slide.audioKey, nextSlide.audioKey]);
+    }, 2200);
+    return () => window.clearTimeout(timer);
+  }, [index, narration.isPlaying, narration.nowKey, slide.audioKey, slides]);
 
   useEffect(() => {
     setIndex(Math.max(0, Math.min(initialSlide - 1, slides.length - 1)));
