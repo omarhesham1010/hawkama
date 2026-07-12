@@ -548,6 +548,26 @@ function ContextOrnament({
 }
 void ContextOrnament;
 
+function PptMotionBackdrop({ slide }: { slide: Slide }) {
+  const primary = courseGlyphKind(`${slide.title} ${slide.narration}`);
+  const cards = slide.ppt?.cards ?? [];
+  const secondary = courseGlyphKind(`${cards[0]?.title ?? ''} ${cards[0]?.text ?? ''}`);
+  const tertiary = courseGlyphKind(`${cards[1]?.title ?? ''} ${cards[1]?.text ?? ''}`);
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <div className="absolute left-[4%] top-[13%] h-[230px] w-[230px] animate-float opacity-[0.16]">
+        <CourseGlyph kind={primary} />
+      </div>
+      <div className="absolute right-[5%] top-[20%] h-[300px] w-[300px] opacity-[0.13]">
+        <CourseGlyph kind={secondary} />
+      </div>
+      <div className="absolute bottom-[18%] right-[24%] h-[170px] w-[170px] animate-pulse-soft opacity-[0.11]">
+        <CourseGlyph kind={tertiary} />
+      </div>
+    </div>
+  );
+}
+
 function StorySlideShell({
   slide,
   spoken,
@@ -580,6 +600,7 @@ function StorySlideShell({
 
   return (
     <div className="relative isolate h-full overflow-hidden">
+      {isPpt && !isIntroMotion && <PptMotionBackdrop slide={slide} />}
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
@@ -1399,8 +1420,8 @@ function IntroRoadmapMotionScene({
                   }`}
                   style={{ height: 66, width: 84, transform: shown ? layer.transform : undefined }}
                 />
-                <div className="flex min-w-0 flex-1 items-center">
-                  <h3 className="text-[20px] font-black leading-snug">{pillar.detail}</h3>
+                <div className="flex min-w-0 flex-1 items-center justify-center text-center">
+                  <h3 className="text-[21px] font-black leading-snug">{pillar.label}</h3>
                 </div>
               </div>
             );
@@ -1629,12 +1650,12 @@ function PptCardView({
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
   const iconSize =
     level === 'micro'
-      ? 'h-9 w-9 p-1'
+      ? 'h-11 w-11 p-1.5'
       : level === 'compact'
-        ? 'h-10 w-10 p-1.5'
+        ? 'h-12 w-12 p-1.5'
         : level === 'loose'
-          ? 'h-14 w-14 p-2'
-          : 'h-12 w-12 p-1.5';
+          ? 'h-16 w-16 p-2'
+          : 'h-14 w-14 p-2';
   const glyphKind = courseGlyphKind(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''} ${card.answer ?? ''}`);
   const passiveShell =
     tone === 'gold'
@@ -1986,7 +2007,7 @@ function PptStyleSlide({
       ? activePptCardForCue(revealCueIndexes, cueState.index)
       : -1;
   const cardIsVisible = (index: number) =>
-    narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
+    !started || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
   const isIntroRoadmap = slide.id === 'program-map';
