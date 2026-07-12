@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-c2852c1f.css" />
-      <file href="assets/index-e034c673.js" />
+      <file href="assets/index-7097e783.css" />
+      <file href="assets/index-db5b8e12.js" />
       <file href="audio-pilot/index.html" />
       <file href="audio-pilot/program-map--continuous-conversational-88.mp3" />
       <file href="audio-pilot/program-map--continuous-robust-88.mp3" />

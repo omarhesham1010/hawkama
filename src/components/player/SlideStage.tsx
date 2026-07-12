@@ -1633,65 +1633,66 @@ function PptCardView({
             ? 'loose'
             : 'normal'
   );
-  const padClass = level === 'micro' ? 'p-2.5' : level === 'compact' ? 'p-3.5' : level === 'loose' ? 'p-5' : 'p-4';
+  const padClass = level === 'micro' ? 'px-3 py-1.5' : level === 'compact' ? 'p-3' : level === 'loose' ? 'p-5' : 'p-4';
   const titleClass =
     level === 'micro'
-      ? 'text-[17px] leading-[1.28]'
+      ? 'text-[15px] leading-[1.15]'
       : level === 'compact'
-        ? 'text-[18.5px] leading-snug'
+        ? 'text-[17.5px] leading-snug'
         : level === 'loose'
           ? 'text-[23px] leading-tight'
           : 'text-[21px] leading-tight';
   const bodyClass =
     level === 'micro'
-      ? 'text-[14.5px] leading-[1.28]'
+      ? 'text-[11.8px] leading-[1.16]'
       : level === 'compact'
-        ? 'text-[16px] leading-snug'
+        ? 'text-[14.5px] leading-[1.25]'
         : level === 'loose'
           ? 'text-[20px] leading-relaxed'
-        : 'text-[18px] leading-relaxed';
-  const bulletClass = level === 'micro' ? 'text-[14px] leading-[1.28]' : level === 'compact' ? 'text-[15.5px] leading-snug' : 'text-[17px] leading-snug';
+          : 'text-[18px] leading-relaxed';
+  const bulletClass = level === 'micro' ? 'text-[11.5px] leading-[1.15]' : level === 'compact' ? 'text-[14px] leading-[1.22]' : 'text-[17px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
-  const iconSize =
+  const visualSize =
     level === 'micro'
-      ? 'h-11 w-11 p-1.5'
+      ? 'h-[40px] w-[40px] p-1'
       : level === 'compact'
-        ? 'h-12 w-12 p-1.5'
+        ? 'h-[62px] w-[62px] p-2'
         : level === 'loose'
-          ? 'h-16 w-16 p-2'
-          : 'h-14 w-14 p-2';
+          ? 'h-[120px] w-[120px] p-4'
+          : 'h-[92px] w-[92px] p-3';
   const ghostVisualSize =
     level === 'micro'
       ? 'h-24 w-24'
       : level === 'compact'
         ? 'h-28 w-28'
         : level === 'loose'
-          ? 'h-40 w-40'
-          : 'h-32 w-32';
+          ? 'h-48 w-48'
+          : 'h-36 w-36';
   const glyphKind = courseGlyphKind(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''} ${card.answer ?? ''}`);
   const passiveShell =
     tone === 'gold'
-      ? 'border-gold-500/30 bg-gradient-to-br from-white/95 via-gold-50/80 to-white'
+      ? 'border-gold-500/18 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(249_244_226_/_0.78)_58%,rgb(255_255_255_/_0.9))]'
       : tone === 'blue'
-        ? 'border-sky-500/24 bg-gradient-to-br from-white/95 via-sky-50/75 to-white'
+        ? 'border-sky-500/16 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(232_247_249_/_0.72)_58%,rgb(255_255_255_/_0.9))]'
         : tone === 'gray'
-          ? 'border-slate-300/70 bg-white/92'
-          : 'border-green-700/18 bg-gradient-to-br from-white/96 via-green-50/65 to-white';
+          ? 'border-slate-300/42 bg-white/86'
+          : 'border-green-700/14 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(233_246_239_/_0.74)_58%,rgb(255_255_255_/_0.9))]';
   const activeShell = active
-    ? 'scale-[1.018] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
+    ? 'scale-[1.025] border-gold-500/45 bg-[linear-gradient(145deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
     : passiveShell;
   const titleTone = active ? 'text-white' : 'text-brand-strong';
   const bodyTone = active ? 'text-green-50' : 'text-ink';
   const tileTone = active
-    ? 'border-white/30 bg-white/16 text-white shadow-card'
+    ? 'border-white/35 bg-white/16 text-white shadow-card'
     : tone === 'gold'
-      ? 'border-gold-500/28 bg-white/85'
+      ? 'border-gold-500/22 bg-white/90'
       : tone === 'blue'
-        ? 'border-sky-500/24 bg-white/85'
-        : 'border-green-700/16 bg-white/85';
-  const topBar = active ? 'bg-gold-400' : tone === 'gold' ? 'bg-gold-500' : 'bg-green-700';
+        ? 'border-sky-500/20 bg-white/90'
+        : 'border-green-700/14 bg-white/90';
+  const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : tone === 'blue' ? 'bg-teal-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
+
   return (
     <button
       type="button"
@@ -1700,79 +1701,77 @@ function PptCardView({
       data-ppt-card="true"
       aria-hidden={!visible}
       aria-label={clickable ? `${card.title} - ${showTrainingDetail ? 'العودة للنص الأساسي' : 'عرض التفصيل'}` : card.title}
-      className={`relative flex h-fit w-full max-h-full min-h-0 flex-col self-center overflow-hidden rounded-[18px] border text-right shadow-[0_14px_34px_rgb(24_82_55_/_0.10)] backdrop-blur-sm transition-all duration-300 ${
+      className={`relative flex h-full w-full max-h-full min-h-0 flex-col self-center overflow-hidden border text-center shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] backdrop-blur-sm [border-radius:44px_26px_42px_24px] transition-all duration-500 ease-out ${
         activeShell
-      } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${clickable && visible ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-card' : 'cursor-default'}`}
+      } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${clickable && visible ? 'cursor-pointer hover:-translate-y-1 hover:shadow-card-lg' : 'cursor-default'}`}
     >
-      {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255_/_0.22),transparent_36%)]" />}
       <span
-        className={`pointer-events-none absolute -left-7 bottom-0 ${ghostVisualSize} opacity-[0.055] transition-opacity duration-500 ${
-          active ? 'opacity-[0.12]' : ''
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgb(255_255_255_/_0.48),transparent_28%),radial-gradient(circle_at_18%_82%,rgb(197_162_80_/_0.16),transparent_34%)]"
+        aria-hidden="true"
+      />
+      {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_42%_22%,rgb(255_255_255_/_0.24),transparent_38%)]" />}
+      <span
+        className={`pointer-events-none absolute -left-10 -bottom-8 ${ghostVisualSize} rotate-[-10deg] opacity-[0.075] transition-opacity duration-500 ${
+          active ? 'opacity-[0.18]' : ''
         }`}
         aria-hidden="true"
       >
         <CourseGlyph kind={glyphKind} active={active} />
       </span>
       <span
-        className={`pointer-events-none absolute right-3 top-8 h-12 w-1 rounded-full ${active ? 'bg-gold-300/80' : 'bg-gold-500/45'}`}
+        className={`pointer-events-none absolute right-5 top-5 h-3 w-14 rounded-full ${accentTone} opacity-80`}
         aria-hidden="true"
       />
-      <span className={`relative h-1.5 w-full shrink-0 ${topBar}`} />
-      <div className={`${padClass} relative z-10 flex min-h-0 flex-col`}>
-        <div className={`${level === 'micro' ? 'mb-1.5' : 'mb-2'} flex items-start gap-2`}>
-          <span className={`grid ${iconSize} shrink-0 place-items-center rounded-2xl border ${tileTone} shadow-[0_12px_22px_rgb(24_82_55_/_0.12)]`}>
-            <CourseGlyph kind={glyphKind} active={active} compact={level === 'micro' || level === 'compact'} />
+      <div className={`${padClass} relative z-10 flex min-h-0 flex-col items-center justify-center`}>
+        <div className={`${level === 'micro' ? 'mb-1 gap-1' : 'mb-2.5 gap-2'} relative flex w-full flex-col items-center`}>
+          <span className={`relative grid ${visualSize} shrink-0 place-items-center border ${tileTone} shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] [border-radius:30px_18px_28px_18px]`}>
+            <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
+            <CourseGlyph kind={glyphKind} active={active} compact={level === 'micro'} />
           </span>
           {card.index && (
-            <span className={`grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'}`}>
+            <span className={`absolute right-3 top-1 grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white shadow-sm'}`}>
               {card.index}
             </span>
           )}
-          <h3 className={`${showAnswerDetail ? 'text-[18px] leading-tight' : titleClass} font-extrabold ${titleTone}`}>
+          <h3 className={`${showAnswerDetail ? 'text-[18px] leading-tight' : titleClass} max-w-full font-extrabold ${titleTone}`}>
             {showAnswerDetail ? `الإجابة: ${card.answer}` : card.title}
           </h3>
         </div>
 
         {showAnswerDetail ? (
-          <div className={`mt-1 rounded-md border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/25 bg-green-700/8'}`}>
+          <div className={`mt-1 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/54'}`}>
             <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
               {card.rationale ?? 'اربط الإجابة بالهدف التدريبي ثم انتقل للنقطة التالية.'}
             </p>
           </div>
         ) : showTrainingDetail ? (
-          <div className={`mt-1 rounded-md border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/25 bg-green-700/8'}`}>
+          <div className={`mt-1 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/54'}`}>
             <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
               {detail}
             </p>
           </div>
         ) : card.text && (
-          <p className={`${bodyClass} whitespace-pre-line font-bold ${bodyTone}`}>
+          <p className={`${bodyClass} max-w-[92%] whitespace-pre-line text-center font-bold ${bodyTone}`}>
             {card.text}
           </p>
         )}
 
         {!showTrainingDetail && !showAnswerDetail && card.bullets && (
-          <ul className={`${level === 'micro' ? 'mt-1 space-y-1' : 'mt-1.5 space-y-1.5'}`}>
+          <ul className={`${level === 'micro' ? 'mt-1 space-y-1' : 'mt-1.5 space-y-1.5'} w-full`}>
             {card.bullets.map((bullet, i) => (
-              <li key={i} className={`${bulletClass} flex gap-2 font-bold ${bodyTone}`}>
-                <span className={`${level === 'micro' ? 'mt-1 h-1.5 w-1.5' : 'mt-1.5 h-2 w-2'} shrink-0 rounded-sm ${active ? 'bg-gold-300' : 'bg-gold-500'}`} />
+              <li key={i} className={`${bulletClass} flex justify-center gap-2 text-center font-bold ${bodyTone}`}>
+                <span className={`${level === 'micro' ? 'mt-1 h-1.5 w-1.5' : 'mt-1.5 h-2 w-2'} shrink-0 rounded-full ${active ? 'bg-gold-300' : 'bg-gold-500'}`} />
                 <span>{bullet}</span>
               </li>
             ))}
           </ul>
         )}
 
-        {clickable && (
-          <span className={`mt-auto inline-grid h-6 w-6 place-items-center self-end rounded-full text-[15px] font-extrabold ${active ? 'bg-white/20 text-white' : 'bg-green-700/10 text-green-800'}`}>
-            {showTrainingDetail || showAnswerDetail ? '↩' : '+'}
-          </span>
-        )}
-
+        {clickable && <span className="sr-only">{showTrainingDetail || showAnswerDetail ? 'العودة' : 'عرض المزيد'}</span>}
       </div>
     </button>
   );
 }
-
 function PptActivitySlide({
   slide,
   spoken,
@@ -2048,6 +2047,8 @@ function PptStyleSlide({
         ? 'grid-cols-2 grid-rows-1'
       : cards.length <= 3
         ? 'grid-cols-3 grid-rows-1'
+        : cards.length === 4
+          ? 'grid-cols-2 grid-rows-2'
         : 'grid-cols-3 grid-rows-2';
   const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined = undefined;
   const toggleCard = (i: number) => {
