@@ -3,10 +3,21 @@ import App from './App';
 import { NarrationProvider } from './components/audio/NarrationContext';
 import './styles/index.css';
 
-// NOTE: StrictMode intentionally omitted — its dev double-invocation of effects
-// caused the narration to start twice (a stutter at the start of the voice).
-createRoot(document.getElementById('root')!).render(
+function hideInitialLoader() {
+  window.requestAnimationFrame(() => {
+    const loader = document.getElementById('app-loader');
+    if (!loader) return;
+    loader.classList.add('is-hidden');
+    window.setTimeout(() => loader.remove(), 450);
+  });
+}
+
+// StrictMode is intentionally omitted because its dev double effects caused
+// narration to start twice and stutter at the beginning.
+const root = createRoot(document.getElementById('root')!);
+root.render(
   <NarrationProvider>
     <App />
   </NarrationProvider>,
 );
+hideInitialLoader();

@@ -92,30 +92,16 @@ await esbuild.build({
 
 const cssFile = hashedAssetName('index', cssOut, 'css');
 const jsFile = hashedAssetName('index', jsOut, 'js');
+const htmlTemplate = readFileSync(join(root, 'index.html'), 'utf8')
+  .replace(
+    '</head>',
+    `    <link rel="stylesheet" href="./assets/${cssFile}" />\n  </head>`,
+  )
+  .replace(
+    '<script type="module" src="/src/main.tsx"></script>',
+    `<script type="module" crossorigin src="./assets/${jsFile}"></script>`,
+  );
 
-writeFileSync(
-  join(dist, 'index.html'),
-  `<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f0f6f2" />
-    <meta name="description" content="حقيبة تعليمية تفاعلية عن الحوكمة والمخاطر والامتثال" />
-    <title>الحوكمة والمخاطر والامتثال | حقيبة تدريبية تفاعلية</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/${cssFile}" />
-    <script type="module" crossorigin src="./assets/${jsFile}"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
-`,
-  'utf8',
-);
+writeFileSync(join(dist, 'index.html'), htmlTemplate, 'utf8');
 
 console.log('Static build written to dist/');

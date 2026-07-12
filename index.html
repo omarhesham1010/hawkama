@@ -18,9 +18,130 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
+    <style>
+      #app-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        color: #184f37;
+        background:
+          radial-gradient(720px 380px at 82% 12%, rgb(52 152 118 / 0.16), transparent 62%),
+          radial-gradient(620px 360px at 12% 18%, rgb(191 155 74 / 0.12), transparent 62%),
+          linear-gradient(135deg, #f4faf6 0%, #ffffff 52%, #edf7f3 100%);
+        font-family: 'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+        transition: opacity 0.38s ease, visibility 0.38s ease;
+      }
+
+      #app-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-shell {
+        width: min(420px, calc(100vw - 48px));
+        text-align: center;
+      }
+
+      .loader-mark {
+        position: relative;
+        width: 104px;
+        height: 104px;
+        margin: 0 auto 20px;
+      }
+
+      .loader-mark::before,
+      .loader-mark::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 999px;
+      }
+
+      .loader-mark::before {
+        border: 7px solid rgb(31 105 72 / 0.12);
+        border-top-color: #1f6948;
+        border-left-color: #bf9b4a;
+        animation: loader-spin 1s linear infinite;
+      }
+
+      .loader-mark::after {
+        inset: 21px;
+        background:
+          linear-gradient(135deg, #ffffff, #eef7f2);
+        border: 1px solid rgb(31 105 72 / 0.18);
+        box-shadow: 0 18px 38px rgb(24 82 55 / 0.14);
+      }
+
+      .loader-palm {
+        position: absolute;
+        inset: 28px;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        color: #1f6948;
+        font-size: 28px;
+        font-weight: 900;
+      }
+
+      .loader-title {
+        margin: 0;
+        font-size: clamp(24px, 4vw, 34px);
+        line-height: 1.35;
+        font-weight: 900;
+        letter-spacing: 0;
+      }
+
+      .loader-text {
+        margin: 8px 0 0;
+        color: #456253;
+        font-size: 16px;
+        font-weight: 800;
+      }
+
+      .loader-bar {
+        position: relative;
+        height: 8px;
+        margin: 22px auto 0;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgb(31 105 72 / 0.1);
+      }
+
+      .loader-bar span {
+        position: absolute;
+        inset-block: 0;
+        width: 42%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #1f6948, #18a08c, #bf9b4a);
+        animation: loader-bar 1.15s ease-in-out infinite;
+      }
+
+      @keyframes loader-spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes loader-bar {
+        0% { transform: translateX(150%); }
+        100% { transform: translateX(-260%); }
+      }
+    </style>
 
   </head>
   <body>
+    <div id="app-loader" role="status" aria-live="polite">
+      <div class="loader-shell">
+        <div class="loader-mark" aria-hidden="true">
+          <div class="loader-palm">أ</div>
+        </div>
+        <p class="loader-title">جاري تجهيز الحقيبة التدريبية</p>
+        <p class="loader-text">نحمل الشرائح والصوت بأفضل أداء</p>
+        <div class="loader-bar" aria-hidden="true"><span></span></div>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

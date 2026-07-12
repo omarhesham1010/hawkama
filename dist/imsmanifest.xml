@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-5c6d48e0.css" />
-      <file href="assets/index-814f2746.js" />
+      <file href="assets/index-6ddacb94.css" />
+      <file href="assets/index-f9bb3944.js" />
       <file href="audio/README.md" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-correct.mp3" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3" />
