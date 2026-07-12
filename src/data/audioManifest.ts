@@ -118,31 +118,6 @@ export const AUDIO_MANIFEST: string[] = [
   "ch3-risk-process",
   "ch3-risk-register",
   "ch3-welcome",
-  "ppt-activity-governance-or-compliance-feedback-1-correct",
-  "ppt-activity-governance-or-compliance-feedback-1-incorrect",
-  "ppt-activity-governance-or-compliance-feedback-2-correct",
-  "ppt-activity-governance-or-compliance-feedback-2-incorrect",
-  "ppt-activity-governance-or-compliance-feedback-3-correct",
-  "ppt-activity-governance-or-compliance-feedback-3-incorrect",
-  "ppt-activity-governance-or-compliance-feedback-4-correct",
-  "ppt-activity-governance-or-compliance-feedback-4-incorrect",
-  "ppt-activity-governance-or-compliance-question-2",
-  "ppt-activity-governance-or-compliance-question-3",
-  "ppt-activity-governance-or-compliance-question-4",
-  "ppt-activity-governance-or-compliance",
-  "ppt-conclusion",
-  "ppt-conflict-scenario-complete",
-  "ppt-conflict-scenario-discussion-1",
-  "ppt-conflict-scenario-discussion-2",
-  "ppt-conflict-scenario-discussion-3",
-  "ppt-conflict-scenario-question-2",
-  "ppt-conflict-scenario-question-3",
-  "ppt-conflict-scenario",
-  "ppt-ethics-conflict",
-  "ppt-framework",
-  "ppt-governance-compliance",
-  "ppt-governance-models",
-  "ppt-intro",
   "program-final-message",
   "program-leadership-questions",
   "program-map",
@@ -169,7 +144,7 @@ export const AUDIO_MANIFEST: string[] = [
   "slide-17",
   "slide-18"
 ];
-export const AUDIO_MANIFEST_VERSION = 'babeabf43c4a';
+export const AUDIO_MANIFEST_VERSION = '10f1a3be0af4';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
