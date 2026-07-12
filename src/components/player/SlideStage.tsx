@@ -554,8 +554,34 @@ function PptMotionBackdrop({ slide }: { slide: Slide }) {
   const secondary = courseGlyphKind(`${cards[0]?.title ?? ''} ${cards[0]?.text ?? ''}`);
   const tertiary = courseGlyphKind(`${cards[1]?.title ?? ''} ${cards[1]?.text ?? ''}`);
   const quaternary = courseGlyphKind(`${cards[2]?.title ?? ''} ${cards[2]?.text ?? ''}`);
+  const visualLayers = cards
+    .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
+    .filter((src, index, all) => all.indexOf(src) === index)
+    .slice(0, 6);
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      {visualLayers.map((src, index) => {
+        const positions = [
+          'right-[6%] bottom-[22%] h-[210px] w-[260px]',
+          'left-[25%] bottom-[20%] h-[150px] w-[190px]',
+          'right-[24%] top-[28%] h-[130px] w-[170px]',
+          'left-[8%] top-[30%] h-[140px] w-[180px]',
+          'right-[38%] bottom-[32%] h-[120px] w-[150px]',
+          'left-[42%] top-[40%] h-[110px] w-[140px]',
+        ];
+        const anim = index % 3 === 0 ? 'animate-float' : index % 3 === 1 ? 'animate-rise' : 'animate-pulse-soft';
+        return (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            className={`absolute object-contain opacity-[0.24] ${positions[index]} ${anim}`}
+            style={{ animationDelay: `${index * 160}ms` }}
+            loading="lazy"
+            decoding="async"
+          />
+        );
+      })}
       <div className="absolute left-[4%] top-[13%] h-[230px] w-[230px] animate-float opacity-[0.16]">
         <CourseGlyph kind={primary} />
       </div>
@@ -1563,22 +1589,41 @@ function CourseGlyph({
   );
 }
 
-function pptGeneratedVisualFor(text: string) {
-  if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة'])) {
-    return '/course-visuals/risk-scene.png';
-  }
-  if (hasAny(text, ['امتثال', 'ضوابط', 'تدقيق', 'اختبار', 'متطلبات', 'اعتماد', 'جودة'])) {
-    return '/course-visuals/compliance-scene.png';
-  }
-  if (hasAny(text, ['سياسة', 'سياسات', 'إجراء', 'إجراءات', 'لوائح', 'وثيقة', 'توعية', 'تطبيق عملي'])) {
-    return '/course-visuals/policy-scene.png';
-  }
-  if (hasAny(text, ['حوكمة', 'مجلس', 'لجان', 'قيادة', 'إطار', 'تنظيمية', 'رؤية 2030'])) {
-    return '/course-visuals/governance-scene.png';
-  }
-  return '/course-visuals/governance-scene.png';
-}
+function pptGeneratedVisualLayersFor(text: string) {
+  const layers: string[] = [];
+  const add = (src: string) => {
+    if (!layers.includes(src)) layers.push(src);
+  };
 
+  if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة', 'تقييم'])) {
+    add('/course-visuals/risk-scene.png');
+    add('/course-visuals/risk-matrix.png');
+  }
+  if (hasAny(text, ['امتثال', 'ضوابط', 'تدقيق', 'اختبار', 'متطلبات', 'اعتماد', 'جودة', 'KPI', 'KPIs'])) {
+    add('/course-visuals/compliance-scene.png');
+    add('/course-visuals/audit-controls.png');
+  }
+  if (hasAny(text, ['بيانات', 'سجلات', 'خصوصية', 'الوصول', 'حماية', 'مرضى', 'مريض'])) {
+    add('/course-visuals/secure-records.png');
+  }
+  if (hasAny(text, ['سياسة', 'سياسات', 'إجراء', 'إجراءات', 'لوائح', 'وثيقة', 'توعية', 'تطبيق عملي', 'تفسير'])) {
+    add('/course-visuals/policy-scene.png');
+    add('/course-visuals/policy-workflow.png');
+  }
+  if (hasAny(text, ['حوكمة', 'مجلس', 'لجان', 'قيادة', 'إطار', 'تنظيمية', 'رؤية 2030', 'مستويات'])) {
+    add('/course-visuals/governance-scene.png');
+    add('/course-visuals/leadership-board.png');
+  }
+
+  if (layers.length === 0) add('/course-visuals/governance-scene.png');
+  if (layers.length === 1) {
+    if (layers[0].includes('risk')) add('/course-visuals/risk-matrix.png');
+    else if (layers[0].includes('policy')) add('/course-visuals/policy-workflow.png');
+    else if (layers[0].includes('compliance')) add('/course-visuals/audit-controls.png');
+    else add('/course-visuals/leadership-board.png');
+  }
+  return layers.slice(0, 3);
+}
 function PptTitle({ slide }: { slide: Slide }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
@@ -1708,7 +1753,7 @@ function PptCardView({
   const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : tone === 'blue' ? 'bg-teal-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
-  const visualImage = pptGeneratedVisualFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`);
+  const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`);
 
   return (
     <button
@@ -1743,14 +1788,24 @@ function PptCardView({
         <div className={`${level === 'micro' ? 'mb-1 gap-1' : 'mb-2.5 gap-2'} relative flex w-full flex-col items-center`}>
           <span className={`relative grid ${visualSize} shrink-0 place-items-center border ${tileTone} shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] [border-radius:30px_18px_28px_18px]`}>
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
-            <img
-              src={visualImage}
-              alt=""
-              className="h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)]"
-              loading="lazy"
-              decoding="async"
-              aria-hidden="true"
-            />
+            {visualLayers.map((src, visualIndex) => (
+              <img
+                key={src}
+                src={src}
+                alt=""
+                className={`absolute object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${
+                  visualIndex === 0
+                    ? 'inset-0 h-full w-full animate-float'
+                    : visualIndex === 1
+                      ? 'bottom-[-8%] left-[-8%] h-[62%] w-[62%] animate-rise'
+                      : 'right-[-8%] top-[-10%] h-[52%] w-[52%] animate-pop'
+                }`}
+                style={{ animationDelay: `${visualIndex * 140}ms` }}
+                loading="lazy"
+                decoding="async"
+                aria-hidden="true"
+              />
+            ))}
           </span>
           {card.index && (
             <span className={`absolute right-3 top-1 grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white shadow-sm'}`}>
@@ -2074,7 +2129,7 @@ function PptStyleSlide({
         : cards.length === 4
           ? 'grid-cols-2 grid-rows-2'
         : 'grid-cols-3 grid-rows-2';
-  const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined = undefined;
+  const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined = cards.length === 4 ? 'micro' : undefined;
   const toggleCard = (i: number) => {
     const key = `${slide.id}:${i}`;
     if (expandedCardKey === key) {

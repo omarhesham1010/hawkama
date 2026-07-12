@@ -32,8 +32,8 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/index-6994b99c.js" />
-      <file href="assets/index-b6a5e0a0.css" />
+      <file href="assets/index-42e4eba7.css" />
+      <file href="assets/index-4adcda6a.js" />
       <file href="audio-pilot/index.html" />
       <file href="audio-pilot/program-map--continuous-conversational-88.mp3" />
       <file href="audio-pilot/program-map--continuous-robust-88.mp3" />
@@ -214,10 +214,15 @@
       <file href="audio/slide-16.mp3" />
       <file href="audio/slide-17.mp3" />
       <file href="audio/slide-18.mp3" />
+      <file href="course-visuals/audit-controls.png" />
       <file href="course-visuals/compliance-scene.png" />
       <file href="course-visuals/governance-scene.png" />
+      <file href="course-visuals/leadership-board.png" />
       <file href="course-visuals/policy-scene.png" />
+      <file href="course-visuals/policy-workflow.png" />
+      <file href="course-visuals/risk-matrix.png" />
       <file href="course-visuals/risk-scene.png" />
+      <file href="course-visuals/secure-records.png" />
       <file href="favicon.svg" />
       <file href="index.html" />
       <file href="motion-assets/intro-compliance-layer.png" />
