@@ -1869,11 +1869,17 @@ function PptMotionVisualScene({
   expandedKey: string | null;
   onToggle: (index: number) => void;
 }) {
+  const fallbackVisualPool = slide.id.startsWith('ch3')
+    ? ['/course-visuals/risk-scene.png', '/course-visuals/risk-matrix.png', '/course-visuals/audit-controls.png', '/course-visuals/secure-records.png']
+    : slide.id.startsWith('ch2')
+      ? ['/course-visuals/compliance-scene.png', '/course-visuals/audit-controls.png', '/course-visuals/policy-workflow.png', '/course-visuals/secure-records.png']
+      : ['/course-visuals/governance-scene.png', '/course-visuals/policy-scene.png', '/course-visuals/policy-workflow.png', '/course-visuals/leadership-board.png'];
   const allVisuals = cards
     .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
     .filter((src, index, all) => all.indexOf(src) === index)
     .slice(0, 6);
-  const primaryVisual = allVisuals[0] ?? '/course-visuals/governance-scene.png';
+  const visualPool = allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;
+  const primaryVisual = visualPool[0] ?? '/course-visuals/governance-scene.png';
   const variant = slide.layout === 'pptTwoPanels'
     ? 'split'
     : cards.length >= 5
@@ -1913,6 +1919,7 @@ function PptMotionVisualScene({
   };
   const labelPositions = positionsByVariant[variant] ?? positionsByVariant.orbit;
   const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
+  const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const mainObjectPosition = variant === 'split'
     ? 'left-[6%] top-[8%] h-[72%] w-[44%]'
@@ -1923,6 +1930,8 @@ function PptMotionVisualScene({
   return (
     <div className="relative min-h-0 flex-1 overflow-hidden rounded-[30px]">
       <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/50 to-white/0`} />
+      <div className="pointer-events-none absolute left-[5%] top-[5%] h-[36%] w-[34%] rounded-full bg-teal-500/8 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute bottom-[6%] right-[8%] h-[34%] w-[38%] rounded-full bg-gold-500/10 blur-3xl" aria-hidden="true" />
       <div className={`absolute ${mainObjectPosition} pointer-events-none`} aria-hidden="true">
         <div className="relative h-full w-full">
           <img
@@ -1963,33 +1972,43 @@ function PptMotionVisualScene({
           <ellipse cx="500" cy="214" rx="212" ry="105" fill="none" stroke="rgb(191 155 74 / 0.18)" strokeWidth="3" />
         </svg>
       )}
+      {variant === 'constellation' && (
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-75" viewBox="0 0 1000 430" aria-hidden="true">
+          <path d="M225 112 C345 86 430 126 505 206 C580 126 664 88 786 118" fill="none" stroke="rgb(31 105 72 / 0.18)" strokeWidth="5" strokeLinecap="round" strokeDasharray="11 15" />
+          <path d="M220 310 C340 344 435 308 506 224 C586 310 670 344 790 302" fill="none" stroke="rgb(191 155 74 / 0.22)" strokeWidth="5" strokeLinecap="round" strokeDasharray="12 14" />
+          <circle cx="505" cy="214" r="6" fill="rgb(31 105 72 / 0.45)" />
+        </svg>
+      )}
       <div className="absolute inset-x-[5%] bottom-[2%] h-px bg-gradient-to-r from-transparent via-green-700/35 to-transparent" />
       {cards.map((card, index) => {
         const visible = visibleFor(index);
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
-        const cardVisual = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`)[0];
+        const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`);
+        const cardVisual = (denseMotion ? visualPool[index % visualPool.length] : cardVisuals[0]) ?? visualPool[index % visualPool.length] ?? primaryVisual;
         return (
           <button
             key={index}
             type="button"
             disabled={!visible}
             onClick={() => onToggle(index)}
-            className={`absolute ${labelPositions[index % labelPositions.length]} min-h-[104px] rounded-[28px] border px-4 py-3 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-500 ${
+            className={`absolute ${labelPositions[index % labelPositions.length]} ${
+              denseMotion ? 'min-h-[86px] rounded-full px-5 py-2.5' : 'min-h-[104px] rounded-[28px] px-4 py-3'
+            } border text-right shadow-[0_18px_34px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-500 ${
               active
-                ? 'scale-[1.035] border-gold-500/45 bg-green-800 text-white'
-                : 'border-green-700/14 bg-white/82 text-brand-strong'
+                ? 'scale-[1.045] border-gold-500/50 bg-green-800 text-white shadow-[0_24px_42px_rgb(24_82_55_/_0.22)]'
+                : 'border-green-700/12 bg-white/70 text-brand-strong'
             } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'}`}
           >
             <span className="flex items-center justify-between gap-3">
               <span className="min-w-0 flex-1">
-                <span className={`block ${showDetailText ? 'text-[20px]' : 'text-[22px]'} font-black leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>{card.title}</span>
+                <span className={`block ${showDetailText ? 'text-[20px]' : 'text-[23px]'} font-black leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>{card.title}</span>
                 {showDetailText && card.text && (
                   <span className={`mt-1 block text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
                     {card.text}
                   </span>
                 )}
               </span>
-              <span className={`grid ${showDetailText ? 'h-16 w-20' : 'h-24 w-28'} shrink-0 place-items-center`}>
+              <span className={`grid ${showDetailText ? 'h-16 w-20' : 'h-24 w-28'} shrink-0 place-items-center ${denseMotion ? 'rounded-full bg-white/35 ring-1 ring-green-700/10' : ''}`}>
                 <img src={cardVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" aria-hidden="true" />
               </span>
             </span>
@@ -2266,7 +2285,6 @@ function PptStyleSlide({
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
   const isTwoPanel = slide.layout === 'pptTwoPanels';
-  const dense = cards.length > 4;
   const motionStarted = started || spoken > 0 || showDialogue;
 
   const gridClass = isThree
@@ -2278,7 +2296,6 @@ function PptStyleSlide({
         : cards.length === 4
           ? 'grid-cols-2 grid-rows-2'
         : 'grid-cols-3 grid-rows-2';
-  const cardDensity: 'loose' | 'normal' | 'compact' | 'micro' | undefined = cards.length === 4 ? 'micro' : undefined;
   const toggleCard = (i: number) => {
     const key = `${slide.id}:${i}`;
     if (expandedCardKey === key) {
@@ -2364,24 +2381,6 @@ function PptStyleSlide({
                 إعادة الفصل
               </button>
             </div>
-          </div>
-        ) : slide.kind === 'activity' ? (
-          <div className={`grid min-h-0 flex-1 items-center auto-rows-fr ${gridClass} gap-3`}>
-            {cards.map((card, i) => (
-              <PptCardView
-                key={i}
-                card={card}
-                dense={dense}
-                density={cardDensity}
-                emoji={pptEmojiFor(card, slide.visual, i)}
-                active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
-                visible={cardIsVisible(i)}
-                revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                detail={pptDetailFor(card)}
-                reveal={expandedCardKey === `${slide.id}:${i}`}
-                onClick={() => toggleCard(i)}
-              />
-            ))}
           </div>
         ) : (
           <PptMotionVisualScene
