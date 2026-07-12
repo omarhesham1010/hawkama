@@ -575,23 +575,23 @@ function PptMotionBackdrop({ slide }: { slide: Slide }) {
             key={src}
             src={src}
             alt=""
-            className={`absolute object-contain opacity-[0.24] ${positions[index]} ${anim}`}
+            className={`absolute object-contain opacity-[0.07] mix-blend-multiply ${positions[index]} ${anim}`}
             style={{ animationDelay: `${index * 160}ms` }}
             loading="lazy"
             decoding="async"
           />
         );
       })}
-      <div className="absolute left-[4%] top-[13%] h-[230px] w-[230px] animate-float opacity-[0.16]">
+      <div className="absolute left-[4%] top-[13%] h-[230px] w-[230px] animate-float opacity-[0.07]">
         <CourseGlyph kind={primary} />
       </div>
-      <div className="absolute right-[4%] top-[18%] h-[320px] w-[320px] opacity-[0.12]">
+      <div className="absolute right-[4%] top-[18%] h-[320px] w-[320px] opacity-[0.06]">
         <CourseGlyph kind={secondary} />
       </div>
-      <div className="absolute bottom-[18%] right-[24%] h-[190px] w-[190px] animate-pulse-soft opacity-[0.12]">
+      <div className="absolute bottom-[18%] right-[24%] h-[190px] w-[190px] animate-pulse-soft opacity-[0.06]">
         <CourseGlyph kind={tertiary} />
       </div>
-      <div className="absolute bottom-[25%] left-[34%] h-[150px] w-[150px] rotate-[-8deg] opacity-[0.09]">
+      <div className="absolute bottom-[25%] left-[34%] h-[150px] w-[150px] rotate-[-8deg] opacity-[0.05]">
         <CourseGlyph kind={quaternary} />
       </div>
     </div>
@@ -1921,6 +1921,7 @@ function PptMotionVisualScene({
   const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
+  const usesOpenLabels = variant === 'constellation' || denseMotion;
   const mainObjectPosition = variant === 'split'
     ? 'left-[6%] top-[8%] h-[72%] w-[44%]'
     : variant === 'path'
@@ -1961,19 +1962,19 @@ function PptMotionVisualScene({
         </div>
       </div>
       {variant === 'path' && (
-        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-70" viewBox="0 0 1000 430" aria-hidden="true">
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-45" viewBox="0 0 1000 430" aria-hidden="true">
           <path d="M810 84 C650 128 570 178 494 234 C405 300 300 326 168 338" fill="none" stroke="rgb(191 155 74 / 0.45)" strokeWidth="7" strokeLinecap="round" strokeDasharray="12 16" />
           <path d="M180 338 l28 -18 l-6 34z" fill="rgb(191 155 74 / 0.55)" />
         </svg>
       )}
       {variant === 'orbit' && (
-        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-60" viewBox="0 0 1000 430" aria-hidden="true">
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-40" viewBox="0 0 1000 430" aria-hidden="true">
           <ellipse cx="500" cy="214" rx="270" ry="142" fill="none" stroke="rgb(31 105 72 / 0.16)" strokeWidth="4" strokeDasharray="10 14" />
           <ellipse cx="500" cy="214" rx="212" ry="105" fill="none" stroke="rgb(191 155 74 / 0.18)" strokeWidth="3" />
         </svg>
       )}
       {variant === 'constellation' && (
-        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-75" viewBox="0 0 1000 430" aria-hidden="true">
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-45" viewBox="0 0 1000 430" aria-hidden="true">
           <path d="M225 112 C345 86 430 126 505 206 C580 126 664 88 786 118" fill="none" stroke="rgb(31 105 72 / 0.18)" strokeWidth="5" strokeLinecap="round" strokeDasharray="11 15" />
           <path d="M220 310 C340 344 435 308 506 224 C586 310 670 344 790 302" fill="none" stroke="rgb(191 155 74 / 0.22)" strokeWidth="5" strokeLinecap="round" strokeDasharray="12 14" />
           <circle cx="505" cy="214" r="6" fill="rgb(31 105 72 / 0.45)" />
@@ -1991,25 +1992,35 @@ function PptMotionVisualScene({
             type="button"
             disabled={!visible}
             onClick={() => onToggle(index)}
-            className={`absolute ${labelPositions[index % labelPositions.length]} ${
-              denseMotion ? 'min-h-[86px] rounded-full px-5 py-2.5' : 'min-h-[104px] rounded-[28px] px-4 py-3'
-            } border text-right shadow-[0_18px_34px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-500 ${
+            className={`absolute ${labelPositions[index % labelPositions.length]} text-right transition-all duration-500 ${
+              usesOpenLabels
+                ? 'min-h-[104px] rounded-none border-0 bg-transparent px-1 py-1 shadow-none backdrop-blur-0'
+                : 'min-h-[118px] rounded-[999px] border border-green-700/10 bg-white/45 px-5 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
+            } ${
               active
-                ? 'scale-[1.045] border-gold-500/50 bg-green-800 text-white shadow-[0_24px_42px_rgb(24_82_55_/_0.22)]'
-                : 'border-green-700/12 bg-white/70 text-brand-strong'
+                ? usesOpenLabels
+                  ? 'scale-[1.06] text-brand-strong'
+                  : 'scale-[1.04] border-gold-500/50 bg-white/75 text-brand-strong shadow-[0_22px_36px_rgb(24_82_55_/_0.14)]'
+                : 'text-brand-strong'
             } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'}`}
           >
-            <span className="flex items-center justify-between gap-3">
-              <span className="min-w-0 flex-1">
-                <span className={`block ${showDetailText ? 'text-[20px]' : 'text-[23px]'} font-black leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>{card.title}</span>
+            <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-5' : 'gap-4'}`}>
+              <span className={`min-w-0 flex-1 ${usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
+                <span className={`block ${showDetailText ? 'text-[22px]' : 'text-[25px]'} font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]`}>{card.title}</span>
                 {showDetailText && card.text && (
-                  <span className={`mt-1 block text-[13px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+                  <span className="mt-1 block text-[15px] font-bold leading-snug text-ink-soft drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]">
                     {card.text}
                   </span>
                 )}
+                <span
+                  className={`mt-3 block h-[5px] rounded-full transition-all duration-500 ${
+                    active ? 'w-[86%] bg-gold-500' : 'w-[44%] bg-green-700/18'
+                  }`}
+                  aria-hidden="true"
+                />
               </span>
-              <span className={`grid ${showDetailText ? 'h-16 w-20' : 'h-24 w-28'} shrink-0 place-items-center ${denseMotion ? 'rounded-full bg-white/35 ring-1 ring-green-700/10' : ''}`}>
-                <img src={cardVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" aria-hidden="true" />
+              <span className={`grid ${showDetailText ? 'h-24 w-28' : 'h-28 w-32'} shrink-0 place-items-center rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
+                <img src={cardVisual} alt="" className="h-full w-full object-contain opacity-100" loading="lazy" decoding="async" aria-hidden="true" />
               </span>
             </span>
           </button>
