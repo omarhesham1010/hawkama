@@ -389,6 +389,9 @@ function NasserStoryLayer({
             src={POSE_SRC[displayPose]}
             alt="ناصر المدرب"
             className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl`}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             style={{
               WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 78%, rgb(0 0 0 / 0.72) 90%, transparent 100%)',
               maskImage: 'linear-gradient(to bottom, #000 0%, #000 78%, rgb(0 0 0 / 0.72) 90%, transparent 100%)',
@@ -1160,19 +1163,19 @@ function IntroMotionScene({
     : 0;
   const layerState = [
     {
-      src: '/motion-assets/intro-governance-layer.png',
+      src: '/motion-assets/intro-governance-layer.webp',
       className: 'right-[8%] top-[18%] w-[28%]',
       visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
-      src: '/motion-assets/intro-compliance-layer.png',
+      src: '/motion-assets/intro-compliance-layer.webp',
       className: 'right-[31%] top-[45%] w-[17%]',
       visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
-      src: '/motion-assets/intro-risk-layer.png',
+      src: '/motion-assets/intro-risk-layer.webp',
       className: 'right-[-5%] top-[45%] w-[17%]',
       visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
@@ -1342,19 +1345,19 @@ function IntroRoadmapMotionScene({
   ];
   const layers = [
     {
-      src: '/motion-assets/intro-governance-layer.png',
+      src: '/motion-assets/intro-governance-layer.webp',
       className: '',
       visible: true,
       transform: `translate3d(${Math.sin(visualProgress * 6) * 3}px, ${Math.cos(visualProgress * 5) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
     {
-      src: '/motion-assets/intro-compliance-layer.png',
+      src: '/motion-assets/intro-compliance-layer.webp',
       className: '',
       visible: true,
       transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 3}px, ${Math.cos(visualProgress * 6) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
     },
     {
-      src: '/motion-assets/intro-risk-layer.png',
+      src: '/motion-assets/intro-risk-layer.webp',
       className: '',
       visible: true,
       transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 3}px, ${Math.cos(visualProgress * 5 + 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
@@ -1596,31 +1599,31 @@ function pptGeneratedVisualLayersFor(text: string) {
   };
 
   if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة', 'تقييم'])) {
-    add('/course-visuals/risk-scene.png');
-    add('/course-visuals/risk-matrix.png');
+    add('/course-visuals/risk-scene.webp');
+    add('/course-visuals/risk-matrix.webp');
   }
   if (hasAny(text, ['امتثال', 'ضوابط', 'تدقيق', 'اختبار', 'متطلبات', 'اعتماد', 'جودة', 'KPI', 'KPIs'])) {
-    add('/course-visuals/compliance-scene.png');
-    add('/course-visuals/audit-controls.png');
+    add('/course-visuals/compliance-scene.webp');
+    add('/course-visuals/audit-controls.webp');
   }
   if (hasAny(text, ['بيانات', 'سجلات', 'خصوصية', 'الوصول', 'حماية', 'مرضى', 'مريض'])) {
-    add('/course-visuals/secure-records.png');
+    add('/course-visuals/secure-records.webp');
   }
   if (hasAny(text, ['سياسة', 'سياسات', 'إجراء', 'إجراءات', 'لوائح', 'وثيقة', 'توعية', 'تطبيق عملي', 'تفسير'])) {
-    add('/course-visuals/policy-scene.png');
-    add('/course-visuals/policy-workflow.png');
+    add('/course-visuals/policy-scene.webp');
+    add('/course-visuals/policy-workflow.webp');
   }
   if (hasAny(text, ['حوكمة', 'مجلس', 'لجان', 'قيادة', 'إطار', 'تنظيمية', 'رؤية 2030', 'مستويات'])) {
-    add('/course-visuals/governance-scene.png');
-    add('/course-visuals/leadership-board.png');
+    add('/course-visuals/governance-scene.webp');
+    add('/course-visuals/leadership-board.webp');
   }
 
-  if (layers.length === 0) add('/course-visuals/governance-scene.png');
+  if (layers.length === 0) add('/course-visuals/governance-scene.webp');
   if (layers.length === 1) {
-    if (layers[0].includes('risk')) add('/course-visuals/risk-matrix.png');
-    else if (layers[0].includes('policy')) add('/course-visuals/policy-workflow.png');
-    else if (layers[0].includes('compliance')) add('/course-visuals/audit-controls.png');
-    else add('/course-visuals/leadership-board.png');
+    if (layers[0].includes('risk')) add('/course-visuals/risk-matrix.webp');
+    else if (layers[0].includes('policy')) add('/course-visuals/policy-workflow.webp');
+    else if (layers[0].includes('compliance')) add('/course-visuals/audit-controls.webp');
+    else add('/course-visuals/leadership-board.webp');
   }
   return layers.slice(0, 3);
 }
@@ -1870,16 +1873,16 @@ function PptMotionVisualScene({
   onToggle: (index: number) => void;
 }) {
   const fallbackVisualPool = slide.id.startsWith('ch3')
-    ? ['/course-visuals/risk-scene.png', '/course-visuals/risk-matrix.png', '/course-visuals/audit-controls.png', '/course-visuals/secure-records.png']
+    ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
     : slide.id.startsWith('ch2')
-      ? ['/course-visuals/compliance-scene.png', '/course-visuals/audit-controls.png', '/course-visuals/policy-workflow.png', '/course-visuals/secure-records.png']
-      : ['/course-visuals/governance-scene.png', '/course-visuals/policy-scene.png', '/course-visuals/policy-workflow.png', '/course-visuals/leadership-board.png'];
+      ? ['/course-visuals/compliance-scene.webp', '/course-visuals/audit-controls.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/secure-records.webp']
+      : ['/course-visuals/governance-scene.webp', '/course-visuals/policy-scene.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/leadership-board.webp'];
   const allVisuals = cards
     .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
     .filter((src, index, all) => all.indexOf(src) === index)
     .slice(0, 6);
   const visualPool = allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;
-  const primaryVisual = visualPool[0] ?? '/course-visuals/governance-scene.png';
+  const primaryVisual = visualPool[0] ?? '/course-visuals/governance-scene.webp';
   const variant = slide.layout === 'pptTwoPanels'
     ? 'split'
     : cards.length >= 5

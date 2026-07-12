@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { PlatformHome } from './components/platform/PlatformHome';
+import { warmVisualAssets } from './lib/assetPreload';
 import { courseHash, courseIdFromLocation } from './lib/courseRoutes';
 import SlidePlayer from './SlidePlayer';
 
@@ -38,6 +39,10 @@ function parseHash(): Route {
 export default function App() {
   const narration = useNarrationContext();
   const [route, setRoute] = useState<Route>(() => parseHash());
+
+  useEffect(() => {
+    warmVisualAssets();
+  }, []);
 
   useEffect(() => {
     if (route.view !== 'course') return;

@@ -33,7 +33,7 @@
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
       <file href="assets/index-5c6d48e0.css" />
-      <file href="assets/index-e3d4c235.js" />
+      <file href="assets/index-e8694b46.js" />
       <file href="audio/README.md" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-correct.mp3" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3" />
@@ -172,32 +172,32 @@
       <file href="audio/slide-16.mp3" />
       <file href="audio/slide-17.mp3" />
       <file href="audio/slide-18.mp3" />
-      <file href="course-visuals/audit-controls.png" />
-      <file href="course-visuals/compliance-scene.png" />
-      <file href="course-visuals/governance-scene.png" />
-      <file href="course-visuals/leadership-board.png" />
-      <file href="course-visuals/policy-scene.png" />
-      <file href="course-visuals/policy-workflow.png" />
-      <file href="course-visuals/risk-matrix.png" />
-      <file href="course-visuals/risk-scene.png" />
-      <file href="course-visuals/secure-records.png" />
+      <file href="course-visuals/audit-controls.webp" />
+      <file href="course-visuals/compliance-scene.webp" />
+      <file href="course-visuals/governance-scene.webp" />
+      <file href="course-visuals/leadership-board.webp" />
+      <file href="course-visuals/policy-scene.webp" />
+      <file href="course-visuals/policy-workflow.webp" />
+      <file href="course-visuals/risk-matrix.webp" />
+      <file href="course-visuals/risk-scene.webp" />
+      <file href="course-visuals/secure-records.webp" />
       <file href="favicon.svg" />
       <file href="index.html" />
-      <file href="motion-assets/intro-compliance-layer.png" />
-      <file href="motion-assets/intro-governance-layer.png" />
-      <file href="motion-assets/intro-risk-layer.png" />
-      <file href="nasser-assets/nasser-completion.png" />
-      <file href="nasser-assets/nasser-point-left.png" />
-      <file href="nasser-assets/nasser-point-right.png" />
-      <file href="nasser-assets/nasser-question.png" />
-      <file href="nasser-assets/nasser-success.png" />
-      <file href="nasser-assets/nasser-tablet-left.png" />
-      <file href="nasser-assets/nasser-tablet-right.png" />
-      <file href="nasser-assets/nasser-thinking.png" />
-      <file href="nasser-assets/nasser-warning.png" />
-      <file href="nasser-assets/nasser-welcome.png" />
-      <file href="template-assets/program-template-bg.png" />
-      <file href="template-assets/top-left-identity-mark-color.png" />
+      <file href="motion-assets/intro-compliance-layer.webp" />
+      <file href="motion-assets/intro-governance-layer.webp" />
+      <file href="motion-assets/intro-risk-layer.webp" />
+      <file href="nasser-assets/nasser-completion.webp" />
+      <file href="nasser-assets/nasser-point-left.webp" />
+      <file href="nasser-assets/nasser-point-right.webp" />
+      <file href="nasser-assets/nasser-question.webp" />
+      <file href="nasser-assets/nasser-success.webp" />
+      <file href="nasser-assets/nasser-tablet-left.webp" />
+      <file href="nasser-assets/nasser-tablet-right.webp" />
+      <file href="nasser-assets/nasser-thinking.webp" />
+      <file href="nasser-assets/nasser-warning.webp" />
+      <file href="nasser-assets/nasser-welcome.webp" />
+      <file href="template-assets/program-template-bg.webp" />
+      <file href="template-assets/top-left-identity-mark-color.webp" />
     </resource>
   </resources>
 </manifest>

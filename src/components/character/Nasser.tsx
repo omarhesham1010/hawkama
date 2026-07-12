@@ -13,16 +13,16 @@ export type NasserPose =
   | 'completion';
 
 export const POSE_SRC: Record<NasserPose, string> = {
-  welcome: '/nasser-assets/nasser-welcome.png',
-  pointLeft: '/nasser-assets/nasser-point-right.png',
-  pointRight: '/nasser-assets/nasser-point-left.png',
-  question: '/nasser-assets/nasser-question.png',
-  success: '/nasser-assets/nasser-success.png',
-  tabletLeft: '/nasser-assets/nasser-tablet-right.png',
-  tabletRight: '/nasser-assets/nasser-tablet-left.png',
-  thinking: '/nasser-assets/nasser-thinking.png',
-  warning: '/nasser-assets/nasser-warning.png',
-  completion: '/nasser-assets/nasser-completion.png',
+  welcome: '/nasser-assets/nasser-welcome.webp',
+  pointLeft: '/nasser-assets/nasser-point-right.webp',
+  pointRight: '/nasser-assets/nasser-point-left.webp',
+  question: '/nasser-assets/nasser-question.webp',
+  success: '/nasser-assets/nasser-success.webp',
+  tabletLeft: '/nasser-assets/nasser-tablet-right.webp',
+  tabletRight: '/nasser-assets/nasser-tablet-left.webp',
+  thinking: '/nasser-assets/nasser-thinking.webp',
+  warning: '/nasser-assets/nasser-warning.webp',
+  completion: '/nasser-assets/nasser-completion.webp',
 };
 
 export function Nasser({
@@ -55,6 +55,9 @@ export function Nasser({
         src={POSE_SRC[pose]}
         alt="ناصر المدرب"
         className={`${imgSize} max-w-full object-contain object-bottom drop-shadow-2xl`}
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
         draggable={false}
       />
     </div>
