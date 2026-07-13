@@ -540,7 +540,7 @@ const programCards: PptCard[] = [
 export const governanceIntroSlides = indexSlides([
   makeSlide({
     id: 'program-welcome',
-    audioKey: 'program-welcome',
+    audioKey: 'bag1-ch0-s1-welcome',
     title: 'الحوكمة والمخاطر والامتثال',
     narration:
       'السلام عليكم ورحمة الله وبركاته. حَيَّاكُم الله جميعًا. معكم ناصر، وهذه مقدمة الحقيبة. وبسم الله نبدأ الحوكمة والمخاطر والامتثال. هذه رحلة تدريبية من الحوكمة إلى القرار القائم على المخاطر. وهي ثلاثة فصول مترابطة تجمع الحوكمة والامتثال وإدارة المخاطر في مسار تدريبي واحد. بنمشي سوا من بناء الحوكمة وتوزيع المسؤوليات، إلى الامتثال واختبار الضوابط، ثم نختم بإدارة المخاطر وربطها بالقرار المؤسسي. هدفنا ما هو حفظ المصطلحات فقط؛ هدفنا نفهمها ونطبقها داخل بيئة العمل بطريقة واضحة ومهنية. الله يحييكم، ونبدأ على بركة الله.',
@@ -554,7 +554,7 @@ export const governanceIntroSlides = indexSlides([
   }),
   makeSlide({
     id: 'program-map',
-    audioKey: 'program-map',
+    audioKey: 'bag1-ch0-s2-map',
     title: 'محتويات البرنامج التدريبي',
     narration:
       'محورنا هنا هو محتويات البرنامج التدريبي. قبل ما ندخل في التفاصيل، خلونا نشوف خريطة البرنامج التدريبي، وكيف كل فصل يبني على الفصل اللي قبله. خلونا نفكك الموضوع. أول فكرة معنا هي الفصل الأول، الحوكمة التنظيمية والامتثال. ويشمل المعرفة التنظيمية، وهياكل الحوكمة، والأخلاقيات وتضارب المصالح. بعد ما تتضح البداية، ننتقل إلى الفصل الثاني، الامتثال والتدقيق والضوابط. وفيه نركز على إدارة الامتثال، ومراقبة الضوابط، والتدريب والتوعية. ثم نصل إلى الفصل الثالث، إدارة المخاطر المؤسسية. ويشمل إطار آيزو 31 ألف، وإدارة المخاطر والضوابط، وتحليل المخاطر. بهذا الترتيب نبدأ بتحديد من يقرر وكيف يحاسب، ثم نتأكد من التطبيق وفعالية الضوابط، وبعدها نربط المخاطر بالقرار. إذا كانت الخريطة واضحة، نبدأ الفصل الأول بإذن الله.',
@@ -858,7 +858,7 @@ const conflictCards: PptCard[] = [
 export const governanceChapterOneSlides = indexSlides([
   makeSlide({
     id: 'ch1-welcome',
-    audioKey: 'ch1-welcome',
+    audioKey: 'bag1-ch1-s1-welcome',
     title: 'الحوكمة التنظيمية والامتثال',
     narration:
       'حيّاكم الله من جديد، والسلام عليكم ورحمة الله وبركاته. نبدأ الحوكمة والمخاطر والامتثال، وتحديدًا الفصل الأول: الحوكمة التنظيمية والامتثال. المحاور عندنا هي: التخطيط، ثم أنظمة القيادة، ثم تنسيق المعلومات. بنبني في هذا الفصل الأساس اللي تعتمد عليه بقية الحقيبة؛ نبدأ بالتخطيط، ونفهم أنظمة القيادة، ثم نوضح كيف تنتقل المعلومات والمسؤوليات داخل المنشأة. وبإذن الله نربط كل مفهوم بموقف عملي، لأن الحوكمة تظهر في القرار اليومي، وليست مجرد وثائق.',
@@ -872,7 +872,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch1-overview',
-    audioKey: 'ch1-overview',
+    audioKey: 'bag1-ch1-s2-overview',
     title: 'الفصل الأول: الحوكمة التنظيمية والامتثال',
     narration: fullNarration(
       'خلونا نرتب مسار الفصل قبل ما نبدأ. عندنا ثلاثة محاور مترابطة.',
@@ -893,7 +893,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch1-regulatory-framework',
-    audioKey: 'ch1-regulatory-framework',
+    audioKey: 'bag1-ch1-s3-regulatory-framework',
     title: 'الإطار التنظيمي للقطاع الصحي',
     narration: fullNarration(
       'نبدأ بالإطار التنظيمي للقطاع الصحي. ركّزوا معي على كيف تتحول الرؤية والأنظمة والمعايير إلى ممارسة داخل المنشأة.',
@@ -906,7 +906,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch1-health-policies',
-    audioKey: 'ch1-health-policies',
+    audioKey: 'bag1-ch1-s4-health-policies',
     title: 'صياغة وتطوير السياسات الصحية',
     narration: fullNarration(
       'بعد ما فهمنا الإطار التنظيمي، نجي للترجمة العملية: صياغة وتطوير السياسات الصحية.',
@@ -927,7 +927,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch1-policy-activity',
-    audioKey: 'ch1-policy-activity',
+    audioKey: 'bag1-ch1-s5-policy-activity',
     title: 'نشاط: تطوير سياسة صحية',
     narration: fullNarration(
       'الحين نطبّق. أمامك خمسة سيناريوهات لتطوير سياسة صحية. اختر كل سيناريو واضغط عليه، وفكر كيف تبني له هدفًا ونطاقًا ومسؤوليات وإجراءات ومراجعة.',
@@ -941,7 +941,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ppt-governance-models',
-    audioKey: 'ch1-governance-models',
+    audioKey: 'bag1-ch1-s6-governance-models',
     title: 'نماذج وهياكل الحوكمة الصحية',
     narration: fullNarration(
       'بعد ما ترجمنا اللوائح إلى سياسات، نرتب الآن نموذج الحوكمة نفسه ونحدد من يوجه ومن ينفذ ومن يراجع.',
@@ -954,7 +954,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ppt-framework',
-    audioKey: 'ch1-framework',
+    audioKey: 'bag1-ch1-s7-framework',
     title: 'تطوير وتطبيق أطر الحوكمة',
     narration: fullNarration(
       'والحين نبني الإطار بصورة متكاملة. عندنا مكونات ثابتة، وخطوات تحول هذه المكونات إلى ممارسة.',
@@ -975,7 +975,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ppt-governance-compliance',
-    audioKey: 'ch1-governance-compliance',
+    audioKey: 'bag1-ch1-s8-governance-compliance',
     title: 'العلاقة بين الحوكمة والامتثال',
     narration: fullNarration(
       'هنا تتضح الصورة كاملة: الحوكمة تحدد الاتجاه والصلاحيات، والامتثال يتأكد أن هذا الاتجاه يتحول إلى تطبيق حقيقي.',
@@ -988,7 +988,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ppt-activity-governance-or-compliance',
-    audioKey: 'ch1-activity-governance-or-compliance',
+    audioKey: 'bag1-ch1-s9-activity-governance-or-compliance',
     title: 'نشاط: الحوكمة أم الامتثال؟ — تمييز الأدوار',
     narration:
       'نبدأ الآن نشاط التمييز بين الحوكمة والامتثال. لاحظت لجنة الجودة في مستشفى أن ثلاثين بالمئة من الأطباء لا يوثقون تقارير الخروج وفق السياسة المعتمدة. صنّف كل إجراء أدناه: هل هو قرار حوكمة أم إجراء امتثال؟ ولماذا؟ سنأخذ كل إجراء على حدة، ولن نكشف التصنيف قبل اختيارك. الإجراء الأول: إصدار سياسة جديدة تلزم بالتوثيق الإلكتروني خلال أربع وعشرين ساعة. فكر: هل هذا قرار حوكمة أم إجراء امتثال؟ اختر إجابتك، وبعدها نناقش السبب معًا.',
@@ -1002,7 +1002,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ppt-ethics-conflict',
-    audioKey: 'ch1-ethics-conflict',
+    audioKey: 'bag1-ch1-s10-ethics-conflict',
     title: 'أخلاقيات العمل وتضارب المصالح',
     narration: fullNarration(
       'بعد ما ضبطنا هيكل القرار وآليات الامتثال، ننتقل للعنصر البشري: أخلاقيات العمل وتضارب المصالح.',
@@ -1023,7 +1023,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeSlide({
     id: 'ppt-conflict-scenario',
-    audioKey: 'ch1-conflict-scenario',
+    audioKey: 'bag1-ch1-s11-conflict-scenario',
     title: 'نشاط: سيناريوهات تضارب المصالح',
     narration:
       'نأخذ الآن سيناريو تدريبيًا في تضارب المصالح. السيناريو هو: موظف في لجنة شراء أجهزة طبية لديه أسهم أو مصلحة تجارية مع إحدى الشركات المتنافسة. لاحظ أن الموظف يشارك في بيئة قرار قد تتأثر فيها المصلحة العامة بمصلحة شخصية. لا نستعجل الإجابة. فكر أولًا: ما نوع المخالفة هنا؟ وهل تضارب المصالح فعلي أم محتمل؟ بعد ما تحدد رأيك، اضغط زر مناقشة الإجابة حتى نحللها معًا.',
@@ -1034,7 +1034,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeQuizSlide({
     id: 'ch1-quiz',
-    audioKey: 'ch1-quiz',
+    audioKey: 'bag1-ch1-s12-quiz',
     title: 'اختبار الفصل الأول',
     narration:
       'ممتاز، وصلنا لاختبار الفصل الأول. أمامك خمسة أسئلة قصيرة تقيس فهمك للحوكمة والسياسات والامتثال وتضارب المصالح. اقرأ السؤال بهدوء واختر إجابة واحدة. بعد كل إجابة يظهر لك التفسير، وفي النهاية تشوف نتيجتك من خمسة والنسبة المئوية. درجة الاجتياز ستين بالمئة، وتقدر تعيد الاختبار إذا احتجت. بالتوفيق.',
@@ -1042,7 +1042,7 @@ export const governanceChapterOneSlides = indexSlides([
   }),
   makeChapterClosing({
     id: 'ch1-closing',
-    audioKey: 'ch1-closing',
+    audioKey: 'bag1-ch1-s13-closing',
     title: 'ختام الفصل الأول',
     narration:
       'الحمد لله، كذا نكون أتممنا الفصل الأول. تعرّفنا على نماذج وهياكل الحوكمة، وفهمنا كيف تتكامل الأدوار والمسؤوليات وآليات المساءلة والشفافية. وميّزنا بين قرار الحوكمة وإجراء الامتثال، ثم طبّقنا ذلك على أخلاقيات العمل وتضارب المصالح. نتيجتك ظاهرة أمامك الآن، وهي تساعدك تعرف مستوى إتقانك والنقاط التي تستحق مراجعة إضافية. تذكّر أن الحوكمة الفاعلة تبدأ بقرار واضح، ومسؤولية محددة، ودليل يمكن التحقق منه. شكرًا لحسن استماعكم ومشاركتكم، ونلتقي بإذن الله في الفصل الثاني.',
@@ -1248,7 +1248,7 @@ const actionPlanCards: PptCard[] = [
 export const governanceChapterTwoSlides = indexSlides([
   makeSlide({
     id: 'ch2-welcome',
-    audioKey: 'ch2-welcome',
+    audioKey: 'bag1-ch2-s1-welcome',
     title: 'الامتثال والتدقيق والضوابط',
     narration:
       'بسم الله نواصل رحلتنا، والسلام عليكم ورحمة الله وبركاته. وصلنا في الحوكمة والمخاطر والامتثال إلى الفصل الثاني: الامتثال والتدقيق والضوابط. المحاور عندنا هي: إدارة الامتثال، ثم مراقبة الضوابط، ثم التدريب والتوعية. مثل ما تكلمنا في الفصل الأول عن الحوكمة وتوزيع الأدوار وحماية القرار، اليوم ننتقل للسؤال العملي: كيف نتأكد أن الأنظمة والسياسات مطبقة فعلًا؟ نبدأ مستعينين بالله.',
@@ -1262,7 +1262,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-overview',
-    audioKey: 'ch2-overview',
+    audioKey: 'bag1-ch2-s2-overview',
     title: 'الفصل الثاني: الامتثال والتدقيق والضوابط',
     narration: fullNarration(
       'خلونا نشوف بناء الفصل الثاني. كل محور يجاوب عن جزء من دورة الامتثال.',
@@ -1283,7 +1283,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-compliance-concept',
-    audioKey: 'ch2-compliance-concept',
+    audioKey: 'bag1-ch2-s3-compliance-concept',
     title: 'مفهوم الامتثال وأهميته ووظيفته',
     narration: fullNarration(
       'نبدأ بمفهوم الامتثال وأهميته ووظيفته، لأن جودة المراقبة تعتمد أولًا على وضوح ما نلتزم به ولماذا.',
@@ -1296,7 +1296,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-pdca',
-    audioKey: 'ch2-pdca',
+    audioKey: 'bag1-ch2-s4-pdca',
     title: 'أيزو 37301 – دورة PDCA للامتثال',
     narration: fullNarration(
       'عشان يتحول الامتثال إلى نظام مستمر، نستخدم دورة أيزو 37301 المعروفة بـ PDCA.',
@@ -1317,7 +1317,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-self-assessment',
-    audioKey: 'ch2-self-assessment',
+    audioKey: 'bag1-ch2-s5-self-assessment',
     title: 'نشاط: التقييم الذاتي لجاهزية الامتثال',
     narration: fullNarration(
       'الحين دورك في التقييم. قيّم كل محور من صفر إلى أربع، واضغط على المحور بعد التفكير حتى تسمع مناقشتي للنقطة.',
@@ -1331,7 +1331,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-monitoring',
-    audioKey: 'ch2-monitoring',
+    audioKey: 'bag1-ch2-s6-monitoring',
     title: 'مراقبة الامتثال واختبار الضوابط',
     narration: fullNarration(
       'بعد التقييم الذاتي، ننتقل للمراقبة واختبار الضوابط. الفكرة هنا حماية مبكرة، مو البحث عن الخطأ.',
@@ -1344,7 +1344,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-culture',
-    audioKey: 'ch2-culture',
+    audioKey: 'bag1-ch2-s7-culture',
     title: 'بناء ثقافة الامتثال وبرامج التوعية',
     narration: fullNarration(
       'المراقبة وحدها ما تكفي. نحتاج ثقافة تجعل الموظف يختار التصرف الصحيح حتى تحت الضغط.',
@@ -1366,7 +1366,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch2-action-plan',
-    audioKey: 'ch2-action-plan',
+    audioKey: 'bag1-ch2-s8-action-plan',
     title: 'نشاط: بناء خطة العمل القيادي',
     narration: fullNarration(
       'نختم الفصل الثاني ببناء خطة عمل قيادية. امشِ خطوة خطوة، واضغط على كل جزء بعد ما تكتب إجابتك الأولية.',
@@ -1380,7 +1380,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeQuizSlide({
     id: 'ch2-quiz',
-    audioKey: 'ch2-quiz',
+    audioKey: 'bag1-ch2-s9-quiz',
     title: 'اختبار الفصل الثاني',
     narration:
       'الحين نختبر فهمنا للفصل الثاني في خمسة أسئلة عن مفهوم الامتثال، ودورة بي دي سي إيه، ومراقبة الضوابط، وثقافة الامتثال. اختر الإجابة الأنسب، وراجع التفسير بعد كل سؤال. في النهاية يظهر لك عدد الإجابات الصحيحة والنسبة، ودرجة الاجتياز ستين بالمئة. الله يوفقك.',
@@ -1388,7 +1388,7 @@ export const governanceChapterTwoSlides = indexSlides([
   }),
   makeChapterClosing({
     id: 'ch2-closing',
-    audioKey: 'ch2-closing',
+    audioKey: 'bag1-ch2-s10-closing',
     title: 'ختام الفصل الثاني',
     narration:
       'ممتاز، بهذا نكون أتممنا الفصل الثاني. بنينا فهمًا متكاملًا لإدارة الامتثال والتدقيق، وتابعنا دورة التحسين المستمر من التخطيط إلى التنفيذ والتحقق والتحسين. وتعرّفنا على مراقبة الضوابط ومؤشرات الامتثال، ثم ربطنا ذلك ببناء ثقافة تجعل السلوك الصحيح ممارسة يومية. نتيجتك تظهر أمامك الآن، فاستفد منها في تحديد ما أتقنته وما يحتاج مراجعة. الخلاصة أن برنامج الامتثال الناجح لا يكتفي بالسياسات؛ بل يراقب التطبيق، ويعالج الأسباب الجذرية، ويقيس تغير السلوك. شكرًا لحسن استماعكم وتفاعلكم، ونلتقي بإذن الله في الفصل الثالث.',
@@ -1580,7 +1580,7 @@ const leadershipQuestions: PptCard[] = [
 export const governanceChapterThreeSlides = indexSlides([
   makeSlide({
     id: 'ch3-welcome',
-    audioKey: 'ch3-welcome',
+    audioKey: 'bag1-ch3-s1-welcome',
     title: 'إدارة المخاطر المؤسسية',
     narration:
       'أهلًا وسهلًا بكم، والسلام عليكم ورحمة الله وبركاته. نصل اليوم في الحوكمة والمخاطر والامتثال إلى الفصل الثالث: إدارة المخاطر المؤسسية. المحاور عندنا هي: إطار أيزو 31000، ثم إدارة المخاطر والضوابط، ثم تحليل المخاطر. بعد ما بنينا الحوكمة في الفصل الأول، وتأكدنا من التطبيق وفعالية الضوابط في الفصل الثاني، نصل للسؤال القيادي: أين يمكن أن نتعثر، وما القرار المناسب قبل ما يتحول الاحتمال إلى أثر؟ نبدأ على بركة الله.',
@@ -1594,7 +1594,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch3-overview',
-    audioKey: 'ch3-overview',
+    audioKey: 'bag1-ch3-s2-overview',
     title: 'الفصل الثالث: إدارة المخاطر المؤسسية',
     narration: fullNarration(
       'خلونا نرتب الفصل الأخير. نبدأ بالإطار، ثم ندير دورة الخطر، ثم نحوّل النتائج إلى سجل وتقارير تدعم القرار.',
@@ -1615,7 +1615,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch3-risk-definition',
-    audioKey: 'ch3-risk-definition',
+    audioKey: 'bag1-ch3-s3-risk-definition',
     title: 'تعريف الخطر ومبادئ أيزو 31000',
     narration: fullNarration(
       'نبدأ بتعريف الخطر ومبادئ أيزو 31000. المهم نفهم أن الخطر مرتبط بعدم اليقين وتأثيره على الأهداف.',
@@ -1628,7 +1628,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch3-risk-process',
-    audioKey: 'ch3-risk-process',
+    audioKey: 'bag1-ch3-s4-risk-process',
     title: 'مراحل عملية إدارة المخاطر',
     narration: fullNarration(
       'الحين نمشي في مراحل عملية إدارة المخاطر من تحديد السياق إلى المراقبة والتسجيل.',
@@ -1649,7 +1649,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch3-risk-register',
-    audioKey: 'ch3-risk-register',
+    audioKey: 'bag1-ch3-s5-risk-register',
     title: 'سجل المخاطر وإعداد التقارير التحليلية',
     narration: fullNarration(
       'بعد فهم العملية، نحولها إلى سجل مخاطر وتقارير تحليلية تساعد القيادة على اتخاذ القرار.',
@@ -1662,7 +1662,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'ch3-risk-activity',
-    audioKey: 'ch3-risk-activity',
+    audioKey: 'bag1-ch3-s6-risk-activity',
     title: 'نشاط: إعداد سجل المخاطر وتقارير المخاطر',
     narration: fullNarration(
       'نطبّق الآن على خصوصية بيانات المرضى. فكّر في كل خطوة أولًا، ثم اضغط عليها حتى نناقش طريقة بنائها.',
@@ -1676,7 +1676,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'program-summary',
-    audioKey: 'program-summary',
+    audioKey: 'bag1-ch3-s7-summary',
     title: 'الخلاصة – أبرز ما تعلمناه',
     narration: fullNarration(
       'وصلنا للخلاصة. خلونا نجمع الرسالة الأساسية من كل فصل.',
@@ -1698,7 +1698,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'program-final-message',
-    audioKey: 'program-final-message',
+    audioKey: 'bag1-ch3-s8-final-message',
     title: 'الامتثال بلا حوكمة.. شكلٌ بلا روح',
     narration: fullNarration(
       'قبل ما نختم، خذوا هذه الرسائل الثلاث كقاعدة مختصرة للعودة إليها وقت القرار.',
@@ -1711,7 +1711,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeSlide({
     id: 'program-leadership-questions',
-    audioKey: 'program-leadership-questions',
+    audioKey: 'bag1-ch3-s9-leadership-questions',
     title: 'ما بعد التدريب – ثلاثة أسئلة قيادية',
     narration: fullNarration(
       'خذ دقيقة قبل أن تغادر القاعة وأجب بصدق. ما نحتاج إجابة مثالية؛ نحتاج خطوة واضحة تبدأ بها من واقع منشأتك.',
@@ -1726,7 +1726,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeQuizSlide({
     id: 'ch3-quiz',
-    audioKey: 'ch3-quiz',
+    audioKey: 'bag1-ch3-s10-quiz',
     title: 'اختبار الفصل الثالث',
     narration:
       'وصلنا للاختبار الختامي للفصل الثالث وللحقيبة. عندك خمسة أسئلة عن تعريف الخطر، وتقييم المخاطر، والخطر المتبقي، ومؤشرات المخاطر، ودور سجل المخاطر في الحوكمة. اختر إجابتك، واقرأ التفسير، وبعد السؤال الخامس يظهر السكور النهائي. درجة الاجتياز ستين بالمئة، وتقدر تعيد المحاولة. أشكركم على حسن الاستماع والمشاركة، وأسأل الله لكم التوفيق.',
@@ -1734,7 +1734,7 @@ export const governanceChapterThreeSlides = indexSlides([
   }),
   makeChapterClosing({
     id: 'ch3-closing',
-    audioKey: 'ch3-closing',
+    audioKey: 'bag1-ch3-s11-closing',
     title: 'ختام الفصل الثالث والحقيبة',
     narration:
       'الحمد لله، وصلنا إلى ختام الفصل الثالث وختام حقيبة الحوكمة والمخاطر والامتثال. تعرّفنا على إطار إدارة المخاطر المؤسسية وفق آيزو 31 ألف، وربطنا تحديد المخاطر وتقييمها بتصميم الضوابط وقياس فعاليتها. كما ميّزنا بين الخطر الكامن والخطر المتبقي، وفهمنا دور سجل المخاطر ومؤشرات المخاطر في دعم القرار والتقارير القيادية. نتيجتك النهائية ظاهرة أمامك الآن. خذها كمؤشر للتطوير، وارجع إلى النقاط التي تحتاج تثبيتًا قبل نقلها إلى واقع العمل. الرسالة الأهم: الحوكمة توجه، والامتثال يثبت التطبيق، وإدارة المخاطر تحمي القرار. شكرًا لحسن استماعكم ومشاركتكم، وأسأل الله لكم التوفيق والسداد.',

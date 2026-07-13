@@ -6,123 +6,123 @@ All files belong in `public/audio/`. Do not regenerate them unless the narration
 
 The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived `compliance-risk-ch1` course.
 
-- `program-welcome.mp3` - الحوكمة والمخاطر والامتثال
-- `program-map.mp3` - محتويات البرنامج التدريبي
-- `ch1-welcome.mp3` - الحوكمة التنظيمية والامتثال
-- `ch1-overview.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال
-- `ch1-regulatory-framework.mp3` - الإطار التنظيمي للقطاع الصحي
-- `ch1-health-policies.mp3` - صياغة وتطوير السياسات الصحية
-- `ch1-policy-activity.mp3` - نشاط: تطوير سياسة صحية
-- `ch1-governance-models.mp3` - نماذج وهياكل الحوكمة الصحية
-- `ch1-framework.mp3` - تطوير وتطبيق أطر الحوكمة
-- `ch1-governance-compliance.mp3` - العلاقة بين الحوكمة والامتثال
-- `ch1-activity-governance-or-compliance.mp3` - نشاط: الحوكمة أم الامتثال؟ — تمييز الأدوار
-- `ch1-ethics-conflict.mp3` - أخلاقيات العمل وتضارب المصالح
-- `ch1-conflict-scenario.mp3` - نشاط: سيناريوهات تضارب المصالح
-- `ch1-quiz.mp3` - اختبار الفصل الأول
-- `ch1-closing.mp3` - ختام الفصل الأول
-- `ch2-welcome.mp3` - الامتثال والتدقيق والضوابط
-- `ch2-overview.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط
-- `ch2-compliance-concept.mp3` - مفهوم الامتثال وأهميته ووظيفته
-- `ch2-pdca.mp3` - أيزو 37301 – دورة PDCA للامتثال
-- `ch2-self-assessment.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال
-- `ch2-monitoring.mp3` - مراقبة الامتثال واختبار الضوابط
-- `ch2-culture.mp3` - بناء ثقافة الامتثال وبرامج التوعية
-- `ch2-action-plan.mp3` - نشاط: بناء خطة العمل القيادي
-- `ch2-quiz.mp3` - اختبار الفصل الثاني
-- `ch2-closing.mp3` - ختام الفصل الثاني
-- `ch3-welcome.mp3` - إدارة المخاطر المؤسسية
-- `ch3-overview.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية
-- `ch3-risk-definition.mp3` - تعريف الخطر ومبادئ أيزو 31000
-- `ch3-risk-process.mp3` - مراحل عملية إدارة المخاطر
-- `ch3-risk-register.mp3` - سجل المخاطر وإعداد التقارير التحليلية
-- `ch3-risk-activity.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر
-- `program-summary.mp3` - الخلاصة – أبرز ما تعلمناه
-- `program-final-message.mp3` - الامتثال بلا حوكمة.. شكلٌ بلا روح
-- `program-leadership-questions.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
-- `ch3-quiz.mp3` - اختبار الفصل الثالث
-- `ch3-closing.mp3` - ختام الفصل الثالث والحقيبة
-- `ch1-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
-- `ch1-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
-- `ch1-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
-- `ch1-policy-activity-detail-4.mp3` - نشاط: تطوير سياسة صحية - مناقشة 4
-- `ch1-policy-activity-detail-5.mp3` - نشاط: تطوير سياسة صحية - مناقشة 5
-- `ch2-self-assessment-detail-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 1
-- `ch2-self-assessment-detail-2.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 2
-- `ch2-self-assessment-detail-3.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 3
-- `ch2-self-assessment-detail-4.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 4
-- `ch2-self-assessment-detail-5.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 5
-- `ch2-action-plan-detail-1.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 1
-- `ch2-action-plan-detail-2.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 2
-- `ch2-action-plan-detail-3.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 3
-- `ch3-risk-activity-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
-- `ch3-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
-- `ch3-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
-- `ch1-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
-- `ch1-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
-- `ch1-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
-- `ch1-activity-governance-or-compliance-feedback-1-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 1 صحيحة
-- `ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 1 غير صحيحة
-- `ch1-activity-governance-or-compliance-feedback-2-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 2 صحيحة
-- `ch1-activity-governance-or-compliance-feedback-2-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 2 غير صحيحة
-- `ch1-activity-governance-or-compliance-feedback-3-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 3 صحيحة
-- `ch1-activity-governance-or-compliance-feedback-3-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة
-- `ch1-activity-governance-or-compliance-feedback-4-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 4 صحيحة
-- `ch1-activity-governance-or-compliance-feedback-4-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة
-- `ch1-conflict-scenario-question-1.mp3` - سيناريو تضارب المصالح - السؤال 1
-- `ch1-conflict-scenario-question-2.mp3` - سيناريو تضارب المصالح - السؤال 2
-- `ch1-conflict-scenario-question-3.mp3` - سيناريو تضارب المصالح - السؤال 3
-- `ch1-conflict-scenario-discussion-1.mp3` - سيناريو تضارب المصالح - المناقشة 1
-- `ch1-conflict-scenario-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
-- `ch1-conflict-scenario-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
-- `ch1-conflict-scenario-complete.mp3` - سيناريو تضارب المصالح - الختام
-- `ch1-quiz-feedback-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
-- `ch1-quiz-feedback-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
-- `ch1-quiz-feedback-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
-- `ch1-quiz-feedback-ch1-q2-incorrect.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة غير صحيحة
-- `ch1-quiz-feedback-ch1-q3-correct.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة صحيحة
-- `ch1-quiz-feedback-ch1-q3-incorrect.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة غير صحيحة
-- `ch1-quiz-feedback-ch1-q4-correct.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة صحيحة
-- `ch1-quiz-feedback-ch1-q4-incorrect.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة غير صحيحة
-- `ch1-quiz-feedback-ch1-q5-correct.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة صحيحة
-- `ch1-quiz-feedback-ch1-q5-incorrect.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة غير صحيحة
-- `ch2-quiz-feedback-ch2-q1-correct.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة صحيحة
-- `ch2-quiz-feedback-ch2-q1-incorrect.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة غير صحيحة
-- `ch2-quiz-feedback-ch2-q2-correct.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة صحيحة
-- `ch2-quiz-feedback-ch2-q2-incorrect.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة غير صحيحة
-- `ch2-quiz-feedback-ch2-q3-correct.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة صحيحة
-- `ch2-quiz-feedback-ch2-q3-incorrect.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة غير صحيحة
-- `ch2-quiz-feedback-ch2-q4-correct.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة صحيحة
-- `ch2-quiz-feedback-ch2-q4-incorrect.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة غير صحيحة
-- `ch2-quiz-feedback-ch2-q5-correct.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة صحيحة
-- `ch2-quiz-feedback-ch2-q5-incorrect.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة غير صحيحة
-- `ch3-quiz-feedback-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
-- `ch3-quiz-feedback-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
-- `ch3-quiz-feedback-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
-- `ch3-quiz-feedback-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
-- `ch3-quiz-feedback-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
-- `ch3-quiz-feedback-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
-- `ch3-quiz-feedback-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
-- `ch3-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
-- `ch3-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
-- `ch3-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
-- `ch1-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
-- `ch1-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
-- `ch1-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
-- `ch1-health-policies-check-answer.mp3` - صياغة وتطوير السياسات الصحية - إجابة السؤال التفاعلي
-- `ch1-framework-check-ask.mp3` - تطوير وتطبيق أطر الحوكمة - سؤال تفاعلي
-- `ch1-framework-check-answer.mp3` - تطوير وتطبيق أطر الحوكمة - إجابة السؤال التفاعلي
-- `ch1-ethics-conflict-check-ask.mp3` - أخلاقيات العمل وتضارب المصالح - سؤال تفاعلي
-- `ch1-ethics-conflict-check-answer.mp3` - أخلاقيات العمل وتضارب المصالح - إجابة السؤال التفاعلي
-- `ch2-overview-check-ask.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - سؤال تفاعلي
-- `ch2-overview-check-answer.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - إجابة السؤال التفاعلي
-- `ch2-pdca-check-ask.mp3` - أيزو 37301 – دورة PDCA للامتثال - سؤال تفاعلي
-- `ch2-pdca-check-answer.mp3` - أيزو 37301 – دورة PDCA للامتثال - إجابة السؤال التفاعلي
-- `ch2-culture-check-ask.mp3` - بناء ثقافة الامتثال وبرامج التوعية - سؤال تفاعلي
-- `ch2-culture-check-answer.mp3` - بناء ثقافة الامتثال وبرامج التوعية - إجابة السؤال التفاعلي
-- `ch3-overview-check-ask.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - سؤال تفاعلي
-- `ch3-overview-check-answer.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - إجابة السؤال التفاعلي
-- `ch3-risk-process-check-ask.mp3` - مراحل عملية إدارة المخاطر - سؤال تفاعلي
-- `ch3-risk-process-check-answer.mp3` - مراحل عملية إدارة المخاطر - إجابة السؤال التفاعلي
-- `program-summary-check-ask.mp3` - الخلاصة – أبرز ما تعلمناه - سؤال تفاعلي
-- `program-summary-check-answer.mp3` - الخلاصة – أبرز ما تعلمناه - إجابة السؤال التفاعلي
+- `bag1-ch0-s1-welcome.mp3` - الحوكمة والمخاطر والامتثال
+- `bag1-ch0-s2-map.mp3` - محتويات البرنامج التدريبي
+- `bag1-ch1-s1-welcome.mp3` - الحوكمة التنظيمية والامتثال
+- `bag1-ch1-s2-overview.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال
+- `bag1-ch1-s3-regulatory-framework.mp3` - الإطار التنظيمي للقطاع الصحي
+- `bag1-ch1-s4-health-policies.mp3` - صياغة وتطوير السياسات الصحية
+- `bag1-ch1-s5-policy-activity.mp3` - نشاط: تطوير سياسة صحية
+- `bag1-ch1-s6-governance-models.mp3` - نماذج وهياكل الحوكمة الصحية
+- `bag1-ch1-s7-framework.mp3` - تطوير وتطبيق أطر الحوكمة
+- `bag1-ch1-s8-governance-compliance.mp3` - العلاقة بين الحوكمة والامتثال
+- `bag1-ch1-s9-activity-governance-or-compliance.mp3` - نشاط: الحوكمة أم الامتثال؟ — تمييز الأدوار
+- `bag1-ch1-s10-ethics-conflict.mp3` - أخلاقيات العمل وتضارب المصالح
+- `bag1-ch1-s11-conflict-scenario.mp3` - نشاط: سيناريوهات تضارب المصالح
+- `bag1-ch1-s12-quiz.mp3` - اختبار الفصل الأول
+- `bag1-ch1-s13-closing.mp3` - ختام الفصل الأول
+- `bag1-ch2-s1-welcome.mp3` - الامتثال والتدقيق والضوابط
+- `bag1-ch2-s2-overview.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط
+- `bag1-ch2-s3-compliance-concept.mp3` - مفهوم الامتثال وأهميته ووظيفته
+- `bag1-ch2-s4-pdca.mp3` - أيزو 37301 – دورة PDCA للامتثال
+- `bag1-ch2-s5-self-assessment.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال
+- `bag1-ch2-s6-monitoring.mp3` - مراقبة الامتثال واختبار الضوابط
+- `bag1-ch2-s7-culture.mp3` - بناء ثقافة الامتثال وبرامج التوعية
+- `bag1-ch2-s8-action-plan.mp3` - نشاط: بناء خطة العمل القيادي
+- `bag1-ch2-s9-quiz.mp3` - اختبار الفصل الثاني
+- `bag1-ch2-s10-closing.mp3` - ختام الفصل الثاني
+- `bag1-ch3-s1-welcome.mp3` - إدارة المخاطر المؤسسية
+- `bag1-ch3-s2-overview.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية
+- `bag1-ch3-s3-risk-definition.mp3` - تعريف الخطر ومبادئ أيزو 31000
+- `bag1-ch3-s4-risk-process.mp3` - مراحل عملية إدارة المخاطر
+- `bag1-ch3-s5-risk-register.mp3` - سجل المخاطر وإعداد التقارير التحليلية
+- `bag1-ch3-s6-risk-activity.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر
+- `bag1-ch3-s7-summary.mp3` - الخلاصة – أبرز ما تعلمناه
+- `bag1-ch3-s8-final-message.mp3` - الامتثال بلا حوكمة.. شكلٌ بلا روح
+- `bag1-ch3-s9-leadership-questions.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
+- `bag1-ch3-s10-quiz.mp3` - اختبار الفصل الثالث
+- `bag1-ch3-s11-closing.mp3` - ختام الفصل الثالث والحقيبة
+- `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
+- `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
+- `bag1-ch1-s5-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
+- `bag1-ch1-s5-policy-activity-detail-4.mp3` - نشاط: تطوير سياسة صحية - مناقشة 4
+- `bag1-ch1-s5-policy-activity-detail-5.mp3` - نشاط: تطوير سياسة صحية - مناقشة 5
+- `bag1-ch2-s5-self-assessment-detail-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 1
+- `bag1-ch2-s5-self-assessment-detail-2.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 2
+- `bag1-ch2-s5-self-assessment-detail-3.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 3
+- `bag1-ch2-s5-self-assessment-detail-4.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 4
+- `bag1-ch2-s5-self-assessment-detail-5.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 5
+- `bag1-ch2-s8-action-plan-detail-1.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 1
+- `bag1-ch2-s8-action-plan-detail-2.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 2
+- `bag1-ch2-s8-action-plan-detail-3.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 3
+- `bag1-ch3-s6-risk-activity-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
+- `bag1-ch3-s6-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
+- `bag1-ch3-s6-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
+- `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
+- `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
+- `bag1-ch1-s9-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-1-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 1 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-1-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 1 غير صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-2-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 2 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-2-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 2 غير صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-3-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 3 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-3-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-4-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 4 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-feedback-4-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة
+- `bag1-ch1-s11-conflict-scenario-question-1.mp3` - سيناريو تضارب المصالح - السؤال 1
+- `bag1-ch1-s11-conflict-scenario-question-2.mp3` - سيناريو تضارب المصالح - السؤال 2
+- `bag1-ch1-s11-conflict-scenario-question-3.mp3` - سيناريو تضارب المصالح - السؤال 3
+- `bag1-ch1-s11-conflict-scenario-discussion-1.mp3` - سيناريو تضارب المصالح - المناقشة 1
+- `bag1-ch1-s11-conflict-scenario-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
+- `bag1-ch1-s11-conflict-scenario-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
+- `bag1-ch1-s11-conflict-scenario-complete.mp3` - سيناريو تضارب المصالح - الختام
+- `bag1-ch1-s12-quiz-feedback-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q2-incorrect.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q3-correct.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q3-incorrect.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q4-correct.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q4-incorrect.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q5-correct.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-feedback-ch1-q5-incorrect.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q1-correct.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q1-incorrect.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q2-correct.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q2-incorrect.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q3-correct.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q3-incorrect.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q4-correct.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q4-incorrect.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q5-correct.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-feedback-ch2-q5-incorrect.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
+- `bag1-ch3-s10-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
+- `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
+- `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
+- `bag1-ch1-s4-health-policies-check-answer.mp3` - صياغة وتطوير السياسات الصحية - إجابة السؤال التفاعلي
+- `bag1-ch1-s7-framework-check-ask.mp3` - تطوير وتطبيق أطر الحوكمة - سؤال تفاعلي
+- `bag1-ch1-s7-framework-check-answer.mp3` - تطوير وتطبيق أطر الحوكمة - إجابة السؤال التفاعلي
+- `bag1-ch1-s10-ethics-conflict-check-ask.mp3` - أخلاقيات العمل وتضارب المصالح - سؤال تفاعلي
+- `bag1-ch1-s10-ethics-conflict-check-answer.mp3` - أخلاقيات العمل وتضارب المصالح - إجابة السؤال التفاعلي
+- `bag1-ch2-s2-overview-check-ask.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - سؤال تفاعلي
+- `bag1-ch2-s2-overview-check-answer.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - إجابة السؤال التفاعلي
+- `bag1-ch2-s4-pdca-check-ask.mp3` - أيزو 37301 – دورة PDCA للامتثال - سؤال تفاعلي
+- `bag1-ch2-s4-pdca-check-answer.mp3` - أيزو 37301 – دورة PDCA للامتثال - إجابة السؤال التفاعلي
+- `bag1-ch2-s7-culture-check-ask.mp3` - بناء ثقافة الامتثال وبرامج التوعية - سؤال تفاعلي
+- `bag1-ch2-s7-culture-check-answer.mp3` - بناء ثقافة الامتثال وبرامج التوعية - إجابة السؤال التفاعلي
+- `bag1-ch3-s2-overview-check-ask.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - سؤال تفاعلي
+- `bag1-ch3-s2-overview-check-answer.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - إجابة السؤال التفاعلي
+- `bag1-ch3-s4-risk-process-check-ask.mp3` - مراحل عملية إدارة المخاطر - سؤال تفاعلي
+- `bag1-ch3-s4-risk-process-check-answer.mp3` - مراحل عملية إدارة المخاطر - إجابة السؤال التفاعلي
+- `bag1-ch3-s7-summary-check-ask.mp3` - الخلاصة – أبرز ما تعلمناه - سؤال تفاعلي
+- `bag1-ch3-s7-summary-check-answer.mp3` - الخلاصة – أبرز ما تعلمناه - إجابة السؤال التفاعلي
