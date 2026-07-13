@@ -937,6 +937,27 @@ const PPT_EMOJI_VARIANTS: Record<string, string[]> = {
 
 const PPT_REVEAL_ANIMS = ['animate-fade-up', 'animate-slide-in', 'animate-scale-in', 'animate-rise'];
 
+/** Pool of small looping highlight animations for whichever card image is
+ *  "currently being talked about" — one is picked at random every time a
+ *  different card becomes active, so the same motion doesn't repeat on
+ *  every slide (see pickFocusAnimation below). */
+const FOCUS_ANIMATIONS = [
+  'motion-focus-glow',
+  'motion-focus-beat',
+  'motion-focus-bounce',
+  'motion-focus-float',
+  'motion-focus-tilt',
+  'motion-focus-zoom',
+  'motion-focus-swing',
+  'motion-focus-wiggle',
+  'motion-focus-pop',
+];
+
+function pickFocusAnimation(exclude?: string) {
+  const pool = exclude ? FOCUS_ANIMATIONS.filter((name) => name !== exclude) : FOCUS_ANIMATIONS;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
 function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   const text = `${card.title} ${card.text ?? ''}`;
   const match = PPT_EMOJIS.find((item) => item.terms.some((term) => text.includes(term)));
@@ -1778,6 +1799,18 @@ function PptMotionVisualScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  // Whichever card is highlighted right now, whether narration drove it
+  // there (activeCard) or the learner clicked it open (expandedKey) --
+  // used only to know when to re-roll the highlight animation below.
+  const effectiveActiveKey = expandedKey ?? (activeCard >= 0 ? `${slide.id}:${activeCard}` : null);
+  const [focusAnim, setFocusAnim] = useState(() => pickFocusAnimation());
+  const lastActiveKeyRef = useRef(effectiveActiveKey);
+  useEffect(() => {
+    if (effectiveActiveKey !== lastActiveKeyRef.current) {
+      lastActiveKeyRef.current = effectiveActiveKey;
+      if (effectiveActiveKey) setFocusAnim((previous) => pickFocusAnimation(previous));
+    }
+  }, [effectiveActiveKey]);
   const fallbackVisualPool = slide.id.startsWith('ch3')
     ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
     : slide.id.startsWith('ch2')
@@ -1925,7 +1958,14 @@ function PptMotionVisualScene({
                 />
               </span>
               <span className={`grid ${showDetailText ? 'h-24 w-28' : 'h-28 w-32'} shrink-0 place-items-center rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
-                <img src={cardVisual} alt="" className="h-full w-full object-contain opacity-100" loading="lazy" decoding="async" aria-hidden="true" />
+                <img
+                  src={cardVisual}
+                  alt=""
+                  className={`h-full w-full object-contain opacity-100 ${active ? focusAnim : ''}`}
+                  loading="lazy"
+                  decoding="async"
+                  aria-hidden="true"
+                />
               </span>
             </span>
           </button>
