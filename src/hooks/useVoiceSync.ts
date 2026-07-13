@@ -31,6 +31,7 @@ export function useVoiceSync(
   audioKey: string,
   armed: boolean,
   resetKey: string,
+  mutedReveal = false,
 ): VoiceSync {
   const {
     charIndex,
@@ -212,13 +213,19 @@ export function useVoiceSync(
     };
   }, [armed, audioKey, done, getAudioClock, paused, total, resetKey]);
 
-  // Muted / not armed → reveal all.
+  // Muted → nothing will ever play, so reveal everything for reading.
+  // A merely "not started yet" state (armed=false but not muted) must NOT
+  // do this: it used to reveal-all before the very first play press, which
+  // made every narration-gated interaction (station cards, quick checks,
+  // reveal buttons) look "ready" while Nasser had never actually spoken —
+  // clicking them appeared to do nothing because their own guards additionally
+  // check that real speech has happened.
   useEffect(() => {
-    if (!armed) {
+    if (!armed && mutedReveal) {
       spokenRef.current = total;
       setSpoken(total);
     }
-  }, [armed, total]);
+  }, [armed, mutedReveal, total]);
 
   return {
     spoken,

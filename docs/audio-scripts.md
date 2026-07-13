@@ -2,7 +2,7 @@
 
 This file is generated from `src/data/audioScripts.ts`. Do not edit script text here. The table contains the normalized text sent to ElevenLabs.
 
-Total audio items: **119**.
+Total audio items: **120**.
 
 | Key | Title | Category | Script text | Expected file |
 | --- | --- | --- | --- | --- |
@@ -69,6 +69,7 @@ Total audio items: **119**.
 | `ch1-activity-governance-or-compliance-feedback-3-incorrect` | نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة | activity-feedback | خلنا نراجعها معا. التصنيف الصحيح هو امتثال. لأنها إجراء تطبيقي لمتابعة الالتزام بالسياسة. | `ch1-activity-governance-or-compliance-feedback-3-incorrect.mp3` |
 | `ch1-activity-governance-or-compliance-feedback-4-correct` | نشاط الحوكمة والامتثال - إجابة 4 صحيحة | activity-feedback | ممتاز، اختيارك صحيح. لأنها تقيس الالتزام وتربطه بمؤشرات أداء دورية. | `ch1-activity-governance-or-compliance-feedback-4-correct.mp3` |
 | `ch1-activity-governance-or-compliance-feedback-4-incorrect` | نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة | activity-feedback | خلنا نراجعها معا. التصنيف الصحيح هو امتثال. لأنها تقيس الالتزام وتربطه بمؤشرات أداء دورية. | `ch1-activity-governance-or-compliance-feedback-4-incorrect.mp3` |
+| `ch1-conflict-scenario-question-1` | سيناريو تضارب المصالح - السؤال 1 | scenario-question | بعد ما عرفت السيناريو، فكر بهدوء، ما نوع المخالفة هنا؟ وهل التضارب فعلي أم محتمل؟ | `ch1-conflict-scenario-question-1.mp3` |
 | `ch1-conflict-scenario-question-2` | سيناريو تضارب المصالح - السؤال 2 | scenario-question | الآن فكر كمسؤول امتثال، ما الإجراء المؤسسي الصحيح لحماية القرار؟ | `ch1-conflict-scenario-question-2.mp3` |
 | `ch1-conflict-scenario-question-3` | سيناريو تضارب المصالح - السؤال 3 | scenario-question | السؤال الأخير، هل يكفي الإفصاح وحده؟ وما الضوابط التي تمنع أن يصبح الامتثال شكليا؟ | `ch1-conflict-scenario-question-3.mp3` |
 | `ch1-conflict-scenario-discussion-1` | سيناريو تضارب المصالح - المناقشة 1 | scenario-discussion | نبدأ بتحديد المخالفة. هل هو تضارب فعلي، حالي، أم محتمل، مستقبلي؟ الإجابة هنا أن الحالة تمثل تضارب مصالح فعليا وقائما، وليست مجرد احتمال مستقبلي. وتشمل المخالفة ثلاثة جوانب، تضارب مصالح. إخلال بالحياد. استغلال نفوذ. الموظف يملك مصلحة تجارية بالفعل مع شركة متنافسة، وفي الوقت نفسه يشارك في لجنة تؤثر في قرار الشراء. هذا الوضع يخل بالحياد، حتى لو لم يثبت أنه وجه القرار لمصلحته. | `ch1-conflict-scenario-discussion-1.mp3` |

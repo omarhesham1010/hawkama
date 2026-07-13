@@ -59,7 +59,7 @@ export default function SlidePlayer({
 
   const slide = slides[index];
   const armed = started && !muted;
-  const sync = useVoiceSync(slide.narration, slide.audioKey, armed, `${slide.id}#${replayNonce}`);
+  const sync = useVoiceSync(slide.narration, slide.audioKey, armed, `${slide.id}#${replayNonce}`, muted);
 
   const totalActivities = useMemo(() => slides.filter((s) => s.kind === 'activity').length, [slides]);
 

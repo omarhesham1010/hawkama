@@ -141,17 +141,15 @@ const governanceFeedbackItems = governanceCards.flatMap((card, index) => {
 const scenarioSlide = slides.find((slide) => slide.id === 'ppt-conflict-scenario');
 const scenarioKey = scenarioSlide?.audioKey ?? 'ppt-conflict-scenario';
 const scenarioItems = [
-  ...conflictScenarioQuestions.slice(1).map((text, offset) => {
-    const index = offset + 1;
-    return (
+  ...conflictScenarioQuestions.map((text, index) =>
     item(
       `${scenarioKey}-question-${index + 1}`,
       `سيناريو تضارب المصالح - السؤال ${index + 1}`,
       text,
       'scenario-question',
       scenarioSlide?.id ?? scenarioKey,
-    ));
-  }),
+    ),
+  ),
   ...conflictScenarioDiscussions.map((text, index) =>
     item(
       `${scenarioKey}-discussion-${index + 1}`,

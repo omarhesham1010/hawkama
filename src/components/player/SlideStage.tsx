@@ -2162,10 +2162,6 @@ function PptGuidedScenarioSlide({
     setSelectedStep(nextStep);
     setDiscussionVisible(false);
     setDiscussionReady(false);
-    if (nextStep === 0) {
-      setQuestionReady(true);
-      return;
-    }
     setQuestionReady(false);
     guidedSpeech.speak(`${slide.audioKey}-question-${nextStep + 1}`, questions[nextStep], () => setQuestionReady(true));
   };
