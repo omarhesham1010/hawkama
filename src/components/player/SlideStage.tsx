@@ -1652,14 +1652,6 @@ function PptCardView({
         : level === 'loose'
           ? 'text-[23px] leading-tight'
           : 'text-[21px] leading-tight';
-  const bodyClass =
-    level === 'micro'
-      ? 'text-[10.8px] leading-[1.12]'
-      : level === 'compact'
-        ? 'text-[14.5px] leading-[1.25]'
-        : level === 'loose'
-          ? 'text-[20px] leading-relaxed'
-          : 'text-[18px] leading-relaxed';
   const bulletClass = level === 'micro' ? 'text-[10.8px] leading-[1.12]' : level === 'compact' ? 'text-[14px] leading-[1.22]' : 'text-[17px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
   const visualSize =
@@ -1772,13 +1764,9 @@ function PptCardView({
               {detail}
             </p>
           </div>
-        ) : card.text && (
-          <p className={`${bodyClass} max-w-[92%] whitespace-pre-line text-center font-bold ${bodyTone}`}>
-            {card.text}
-          </p>
-        )}
+        ) : null}
 
-        {!showTrainingDetail && !showAnswerDetail && card.bullets && (
+        {showTrainingDetail && card.bullets && (
           <ul className={`${level === 'micro' ? 'mt-1 space-y-1' : 'mt-1.5 space-y-1.5'} w-full`}>
             {card.bullets.map((bullet, i) => (
               <li key={i} className={`${bulletClass} flex justify-center gap-2 text-center font-bold ${bodyTone}`}>
@@ -1951,12 +1939,7 @@ function PptMotionVisualScene({
           >
             <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-5' : 'gap-4'}`}>
               <span className={`min-w-0 flex-1 ${usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
-                <span className={`block ${showDetailText ? 'text-[22px]' : 'text-[25px]'} font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]`}>{card.title}</span>
-                {showDetailText && card.text && (
-                  <span className="mt-1 block text-[15px] font-bold leading-snug text-ink-soft drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]">
-                    {card.text}
-                  </span>
-                )}
+                <span className="block text-[25px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]">{card.title}</span>
                 <span
                   className={`mt-3 block h-[5px] rounded-full transition-all duration-500 ${
                     active ? 'w-[86%] bg-gold-500' : 'w-[44%] bg-green-700/18'
