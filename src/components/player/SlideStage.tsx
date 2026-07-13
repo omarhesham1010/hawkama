@@ -1738,24 +1738,16 @@ function PptCardView({
         <div className={`${level === 'micro' ? 'mb-1 gap-1' : 'mb-2.5 gap-2'} relative flex w-full flex-col items-center`}>
           <span className={`relative grid ${visualSize} shrink-0 place-items-center border ${tileTone} shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] [border-radius:30px_18px_28px_18px]`}>
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
-            {visualLayers.map((src, visualIndex) => (
+            {visualLayers[0] && (
               <img
-                key={src}
-                src={src}
+                src={visualLayers[0]}
                 alt=""
-                className={`absolute object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${
-                  visualIndex === 0
-                    ? 'inset-0 h-full w-full animate-float'
-                    : visualIndex === 1
-                      ? 'bottom-[-8%] left-[-8%] h-[62%] w-[62%] animate-rise'
-                      : 'right-[-8%] top-[-10%] h-[52%] w-[52%] animate-pop'
-                }`}
-                style={{ animationDelay: `${visualIndex * 140}ms` }}
+                className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)]"
                 loading="lazy"
                 decoding="async"
                 aria-hidden="true"
               />
-            ))}
+            )}
           </span>
           {card.index && (
             <span className={`absolute right-3 top-1 grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white shadow-sm'}`}>
@@ -2047,9 +2039,9 @@ function PptActivitySlide({
 
   return (
     <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue || Boolean(interactionLine)} dialogueOverride={interactionLine}>
-      <div className="flex h-full min-h-0 flex-col px-7 py-2">
+      <div className="flex h-full min-h-0 flex-col px-7 py-3">
         <PptTitle slide={slide} />
-        <div className="mb-2 rounded-lg border-r-8 border-gold-500 bg-white/95 px-3.5 py-2 text-right shadow-sm">
+        <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 px-3.5 py-2.5 text-right shadow-sm">
           <p className="text-[18px] font-extrabold leading-snug text-brand-strong">{slide.ppt?.intro}</p>
           <p className="mt-0.5 text-[16px] font-bold leading-snug text-ink-soft">{slide.ppt?.prompt}</p>
         </div>
@@ -2069,22 +2061,13 @@ function PptActivitySlide({
               <span className={`relative grid h-[132px] w-[180px] place-items-center rounded-[28px] border shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] ${
                 answerVisible ? 'border-white/35 bg-white/16' : 'border-green-700/14 bg-white'
               }`}>
-                {pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`).map((src, visualIndex) => (
-                  <img
-                    key={src}
-                    src={src}
-                    alt=""
-                    className={`absolute object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${
-                      visualIndex === 0
-                        ? 'inset-0 h-full w-full animate-float'
-                        : visualIndex === 1
-                          ? 'bottom-[-5%] left-[-5%] h-[54%] w-[54%] animate-rise'
-                          : 'right-[-5%] top-[-8%] h-[48%] w-[48%] animate-pop'
-                    }`}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ))}
+                <img
+                  src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0]}
+                  alt=""
+                  className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)]"
+                  loading="lazy"
+                  decoding="async"
+                />
               </span>
               <div className="relative z-10 min-w-0">
                 <h3 className={`text-[25px] font-black leading-tight ${answerVisible ? 'text-white' : 'text-brand-strong'}`}>
