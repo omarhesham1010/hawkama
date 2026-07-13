@@ -1804,13 +1804,18 @@ function PptMotionVisualScene({
   // used only to know when to re-roll the highlight animation below.
   const effectiveActiveKey = expandedKey ?? (activeCard >= 0 ? `${slide.id}:${activeCard}` : null);
   const [focusAnim, setFocusAnim] = useState(() => pickFocusAnimation());
-  const lastActiveKeyRef = useRef(effectiveActiveKey);
-  useEffect(() => {
-    if (effectiveActiveKey !== lastActiveKeyRef.current) {
-      lastActiveKeyRef.current = effectiveActiveKey;
-      if (effectiveActiveKey) setFocusAnim((previous) => pickFocusAnimation(previous));
-    }
-  }, [effectiveActiveKey]);
+  const [lastActiveKey, setLastActiveKey] = useState(effectiveActiveKey);
+  // Re-rolled synchronously during render (React's documented pattern for
+  // "reset/derive state when a prop changes") instead of in a useEffect --
+  // an effect only runs after the browser has already painted the old
+  // animation, so switching cards would flash the previous motion for a
+  // frame before snapping to the new one. Adjusting state mid-render lets
+  // React redo the render with the new animation before anything paints,
+  // so the new highlight starts immediately with no visible handoff delay.
+  if (effectiveActiveKey !== lastActiveKey) {
+    setLastActiveKey(effectiveActiveKey);
+    if (effectiveActiveKey) setFocusAnim((previous) => pickFocusAnimation(previous));
+  }
   const fallbackVisualPool = slide.id.startsWith('ch3')
     ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
     : slide.id.startsWith('ch2')
