@@ -152,7 +152,7 @@ export function ClassificationActivity({
                 }}
                 className={`relative flex max-w-[310px] cursor-grab select-none items-center gap-2 rounded-xl border-2 bg-surface px-3 py-2 text-base font-bold text-ink shadow-card active:cursor-grabbing ${
                   dragId === it.id ? 'border-brand' : 'border-line'
-                } ${narrationLocked ? 'pointer-events-none cursor-not-allowed opacity-40 grayscale' : 'animate-pulse-ring'}`}
+                } ${narrationLocked ? 'pointer-events-none cursor-not-allowed !bg-white !text-ink-muted' : 'animate-pulse-ring'}`}
               >
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-surface-3 text-xs font-bold tabular">
                   {toArabicDigits(i + 1)}

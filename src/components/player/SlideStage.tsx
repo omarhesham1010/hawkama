@@ -1025,7 +1025,7 @@ function PptQuickCheckPopup({
               type="button"
               disabled={!ready}
               onClick={onReveal}
-              className={`rounded-lg bg-green-700 px-6 py-3 text-[16px] font-extrabold text-white shadow-card transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+              className={`rounded-lg bg-green-700 px-6 py-3 text-[16px] font-extrabold text-white shadow-card transition hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                 ready ? 'animate-pulse-ring' : ''
               }`}
             >
@@ -1228,7 +1228,7 @@ function IntroMotionScene({
             type="button"
             disabled={narrationLocked}
             onClick={onStart}
-            className={`btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+            className={`btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
               narrationLocked ? '' : 'animate-pulse-ring'
             }`}
           >
@@ -1715,7 +1715,7 @@ function PptCardView({
         activeShell
       } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${
         clickable && visible ? 'cursor-pointer hover:-translate-y-1 hover:shadow-card-lg animate-pulse-ring' : 'cursor-default'
-      } ${locked && visible ? 'opacity-40 grayscale' : ''}`}
+      } ${locked && visible ? '!bg-white !border-line' : ''}`}
     >
       <span
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgb(255_255_255_/_0.48),transparent_28%),radial-gradient(circle_at_18%_82%,rgb(197_162_80_/_0.16),transparent_34%)]"
@@ -1945,7 +1945,7 @@ function PptMotionVisualScene({
                   : 'scale-[1.04] border-gold-500/50 bg-white/75 text-brand-strong shadow-[0_22px_36px_rgb(24_82_55_/_0.14)]'
                 : 'text-brand-strong'
             } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'} ${
-              visible && narrationLocked ? 'opacity-40 grayscale' : ''
+              visible && narrationLocked ? 'bg-white/90 text-ink-muted shadow-none' : ''
             }`}
           >
             <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-5' : 'gap-4'}`}>
@@ -2084,7 +2084,7 @@ function PptActivitySlide({
               type="button"
               disabled={phase !== 'awaiting-answer' || narrationLocked}
               onClick={() => answerQuestion('حوكمة')}
-              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                 phase === 'awaiting-answer' && !narrationLocked ? 'animate-pulse-ring' : ''
               } ${selectedAnswer === 'حوكمة' ? 'border-green-700 bg-green-700 text-white' : 'border-green-700/25 bg-green-700/8 text-green-800 hover:bg-green-700/15'}`}
             >
@@ -2094,7 +2094,7 @@ function PptActivitySlide({
               type="button"
               disabled={phase !== 'awaiting-answer' || narrationLocked}
               onClick={() => answerQuestion('امتثال')}
-              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                 phase === 'awaiting-answer' && !narrationLocked ? 'animate-pulse-ring' : ''
               } ${selectedAnswer === 'امتثال' ? 'border-gold-600 bg-gold-500 text-white' : 'border-gold-500/35 bg-gold-500/10 text-gold-700 hover:bg-gold-500/18'}`}
             >
@@ -2105,7 +2105,7 @@ function PptActivitySlide({
                 type="button"
                 disabled={narrationLocked}
                 onClick={nextQuestion}
-                className={`btn-gold mt-1 justify-center px-4 py-2.5 text-[17px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                className={`btn-gold mt-1 justify-center px-4 py-2.5 text-[17px] disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                   narrationLocked ? '' : 'animate-pulse-ring'
                 }`}
               >
@@ -2235,7 +2235,7 @@ function PptGuidedScenarioSlide({
                       : 'border-green-700/12 bg-white/86 text-brand-strong hover:border-gold-500/45 hover:bg-gold-50'
                   } ${complete ? 'opacity-70' : ''} ${
                     ready && !guidedSpeech.speaking && !complete && !narrationLocked ? 'animate-pulse-ring' : ''
-                  } ${narrationLocked && ready ? 'opacity-40 grayscale' : ''}`}
+                  } ${narrationLocked && ready ? '!bg-white !text-ink-muted !border-line' : ''}`}
                 >
                   <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${active ? 'bg-white/16' : 'bg-green-700/8'}`}>
                     <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-8 w-8 ${active ? 'text-white' : 'text-green-700'}`} />
@@ -2271,7 +2271,7 @@ function PptGuidedScenarioSlide({
                 type="button"
                 disabled={narrationLocked}
                 onClick={closeModal}
-                className="absolute left-5 top-5 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-green-900 shadow-card ring-1 ring-green-700/15 transition hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
+                className="absolute left-5 top-5 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-green-900 shadow-card ring-1 ring-green-700/15 transition hover:bg-green-50 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
                 aria-label="إغلاق"
               >
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -2322,7 +2322,7 @@ function PptGuidedScenarioSlide({
                       type="button"
                       disabled={narrationLocked}
                       onClick={revealDiscussion}
-                      className={`btn-gold justify-center px-7 py-4 text-[19px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                      className={`btn-gold justify-center px-7 py-4 text-[19px] disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                         narrationLocked ? '' : 'animate-pulse-ring'
                       }`}
                     >
@@ -2334,7 +2334,7 @@ function PptGuidedScenarioSlide({
                       type="button"
                       disabled={narrationLocked}
                       onClick={closeModal}
-                      className={`rounded-2xl bg-white px-7 py-4 text-[18px] font-black text-green-800 shadow-card transition hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                      className={`rounded-2xl bg-white px-7 py-4 text-[18px] font-black text-green-800 shadow-card transition hover:bg-green-50 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                         narrationLocked ? '' : 'animate-pulse-ring'
                       }`}
                     >
@@ -2346,7 +2346,7 @@ function PptGuidedScenarioSlide({
                       type="button"
                       disabled={narrationLocked}
                       onClick={finishScenario}
-                      className={`btn-gold justify-center px-7 py-4 text-[19px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                      className={`btn-gold justify-center px-7 py-4 text-[19px] disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                         narrationLocked ? '' : 'animate-pulse-ring'
                       }`}
                     >
@@ -2511,7 +2511,7 @@ function PptStyleSlide({
                 type="button"
                 disabled={narrationLocked}
                 onClick={completion.onExit}
-                className={`btn-gold px-9 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                className={`btn-gold px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
                   narrationLocked ? '' : 'animate-pulse-ring'
                 }`}
               >
@@ -2522,7 +2522,7 @@ function PptStyleSlide({
                 type="button"
                 disabled={narrationLocked}
                 onClick={completion.onRestart}
-                className="btn-ghost px-9 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
+                className="btn-ghost px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
               >
                 <Icon name="flow" className="h-6 w-6" />
                 إعادة الفصل
@@ -2694,7 +2694,7 @@ export function SlideStage({
             type="button"
             disabled={narrationLocked}
             onClick={onStart}
-            className={`btn-gold mt-8 px-9 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+            className={`btn-gold mt-8 px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
               narrationLocked ? '' : 'animate-pulse-ring'
             }`}
           >
@@ -2822,7 +2822,7 @@ export function SlideStage({
             type="button"
             disabled={narrationLocked}
             onClick={completion.onExit}
-            className={`btn-gold px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+            className={`btn-gold px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
               narrationLocked ? '' : 'animate-pulse-ring'
             }`}
           >
@@ -2833,7 +2833,7 @@ export function SlideStage({
             type="button"
             disabled={narrationLocked}
             onClick={completion.onRestart}
-            className="btn-ghost px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
+            className="btn-ghost px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
           >
             <Icon name="flow" className="w-5 h-5" />
             إعادة الفصل

@@ -86,7 +86,7 @@ export function KnowledgeCheck({
           type="button"
           disabled={narrationLocked}
           onClick={retry}
-          className={`btn-ghost px-6 text-base disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+          className={`btn-ghost px-6 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
             narrationLocked ? '' : 'animate-pulse-ring'
           }`}
         >
@@ -134,7 +134,7 @@ export function KnowledgeCheck({
               disabled={answered || narrationLocked}
               onClick={() => choose(i)}
               className={`flex h-full items-center gap-3 rounded-2xl border-2 p-4 text-right text-[18px] font-bold leading-snug shadow-card transition-colors disabled:cursor-default ${
-                !answered && narrationLocked ? 'opacity-40 grayscale' : ''
+                !answered && narrationLocked ? '!bg-white !text-ink-muted' : ''
               } ${cls}`}
             >
               <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base font-extrabold tabular ${answered && isRight ? 'bg-teal-500 text-white' : answered && isSel ? 'bg-rose-500 text-white' : 'bg-surface-3 text-ink-muted'}`}>
@@ -163,7 +163,7 @@ export function KnowledgeCheck({
           type="button"
           onClick={next}
           disabled={!answered || feedbackPending || narrationLocked}
-          className={`btn-primary min-w-[150px] shrink-0 self-stretch px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+          className={`btn-primary min-w-[150px] shrink-0 self-stretch px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
             answered && !feedbackPending && !narrationLocked ? 'animate-pulse-ring' : ''
           }`}
         >

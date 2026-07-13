@@ -80,7 +80,7 @@ export function DecisionSimulation({
                   disabled={reveal || narrationLocked}
                   onClick={() => setIdentify(opt.id)}
                   className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors disabled:cursor-not-allowed ${
-                    !reveal && narrationLocked ? 'opacity-40 grayscale' : ''
+                    !reveal && narrationLocked ? '!bg-white !text-ink-muted' : ''
                   } ${cls}`}
                 >
                   {opt.label}
@@ -199,7 +199,7 @@ export function DecisionSimulation({
                   type="button"
                   disabled={narrationLocked}
                   onClick={() => setPath((p) => [...p, s.id])}
-                  className={`rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                  className={`rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
                     narrationLocked ? '' : 'animate-pulse-ring'
                   }`}
                 >
@@ -215,7 +215,7 @@ export function DecisionSimulation({
                 type="button"
                 onClick={() => setPathChecked(true)}
                 disabled={!pathFull || narrationLocked}
-                className={`btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                className={`btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
                   pathFull && !narrationLocked ? 'animate-pulse-ring' : ''
                 }`}
               >
@@ -244,7 +244,7 @@ export function DecisionSimulation({
                     setPath([]);
                     setPathChecked(false);
                   }}
-                  className={`btn-ghost px-5 py-2 text-base disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                  className={`btn-ghost px-5 py-2 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
                     narrationLocked ? '' : 'animate-pulse-ring'
                   }`}
                 >
