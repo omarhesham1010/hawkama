@@ -102,7 +102,7 @@ export function KnowledgeCheck({
   // ---- Question (fixed layout: header / options / pinned footer) ----
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="mb-2 flex items-center justify-between text-base">
+      <div className="mb-1.5 flex items-center justify-between text-base">
         <span className="font-bold text-ink">
           السؤال {toArabicDigits(current + 1)} من {toArabicDigits(total)}
         </span>
@@ -110,11 +110,11 @@ export function KnowledgeCheck({
       </div>
       <ProgressBar percent={Math.round(((current + (answered ? 1 : 0)) / total) * 100)} />
 
-      <p className="mt-3 rounded-2xl border border-line bg-surface-2 px-4 py-3 text-[24px] font-extrabold leading-snug text-ink shadow-card">
+      <p className="mt-2 rounded-2xl border border-line bg-surface-2 px-4 py-2 text-[21px] font-extrabold leading-snug text-ink shadow-card">
         {q.prompt}
       </p>
 
-      <div className="mt-3 grid min-h-0 flex-1 grid-cols-2 grid-rows-2 gap-3">
+      <div className="mt-2 grid min-h-0 flex-1 grid-cols-2 grid-rows-2 gap-2.5">
         {q.options.map((opt, i) => {
           const isRight = i === q.correctIndex;
           const isSel = selected === i;
@@ -147,7 +147,7 @@ export function KnowledgeCheck({
       </div>
 
       {/* pinned footer: feedback + next (always visible) */}
-      <div className="mt-3 flex shrink-0 items-stretch gap-3">
+      <div className="mt-2 flex shrink-0 items-stretch gap-3">
         {answered ? (
           <div className={`flex flex-1 items-start gap-2 rounded-2xl border px-4 py-3 text-base font-semibold leading-snug ${isCorrect ? 'border-teal-500/40 bg-teal-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
             <Icon name={isCorrect ? 'check' : 'alert'} className={`mt-0.5 h-5 w-5 shrink-0 ${isCorrect ? 'text-teal-600' : 'text-rose-500'}`} />

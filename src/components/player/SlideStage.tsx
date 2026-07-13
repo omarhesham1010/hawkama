@@ -2566,8 +2566,8 @@ function ActivityChip({ label }: { label: string }) {
 
 function TitleHead({ slide }: { slide: Slide }) {
   return (
-    <h2 className="flex items-center gap-3 text-[32px] font-extrabold leading-tight text-brand-strong animate-fade-up">
-      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 p-2 shadow-card">
+    <h2 className="flex shrink-0 items-center gap-2.5 text-[26px] font-extrabold leading-tight text-brand-strong animate-fade-up">
+      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 p-1.5 shadow-card">
         <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
       </span>
       {slide.title}
@@ -2608,9 +2608,9 @@ function QuizStorySlide({
       showDialogue={showDialogue || Boolean(guidedSpeech.line)}
       dialogueOverride={guidedSpeech.line}
     >
-      <div className="flex h-full flex-col p-7">
+      <div className="flex h-full flex-col p-5">
         <TitleHead slide={slide} />
-        <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
+        <div className="mt-1.5 flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
           <div className="min-h-0 flex-1">
             <KnowledgeCheck
@@ -2727,11 +2727,11 @@ export function SlideStage({
     const a = slide.activity;
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
-        <div className="flex h-full flex-col p-6">
+        <div className="flex h-full flex-col p-5">
         <TitleHead slide={slide} />
-        <div className="min-h-0 flex-1 overflow-hidden animate-fade-in">
+        <div className="mt-1.5 min-h-0 flex-1 overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'نشاط تدريبي'} />
-          <div className="h-[calc(100%-2.5rem)] overflow-hidden">
+          <div className="h-[calc(100%-2rem)] overflow-hidden">
             {a.kind === 'classification' && (
               <ClassificationActivity data={a} onDone={() => onActivityDone(slide.id)} />
             )}
