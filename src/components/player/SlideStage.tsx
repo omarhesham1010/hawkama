@@ -552,56 +552,6 @@ function ContextOrnament({
 }
 void ContextOrnament;
 
-function PptMotionBackdrop({ slide }: { slide: Slide }) {
-  const primary = courseGlyphKind(`${slide.title} ${slide.narration}`);
-  const cards = slide.ppt?.cards ?? [];
-  const secondary = courseGlyphKind(`${cards[0]?.title ?? ''} ${cards[0]?.text ?? ''}`);
-  const tertiary = courseGlyphKind(`${cards[1]?.title ?? ''} ${cards[1]?.text ?? ''}`);
-  const quaternary = courseGlyphKind(`${cards[2]?.title ?? ''} ${cards[2]?.text ?? ''}`);
-  const visualLayers = cards
-    .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
-    .filter((src, index, all) => all.indexOf(src) === index)
-    .slice(0, 6);
-  return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-      {visualLayers.map((src, index) => {
-        const positions = [
-          'right-[6%] bottom-[22%] h-[210px] w-[260px]',
-          'left-[25%] bottom-[20%] h-[150px] w-[190px]',
-          'right-[24%] top-[28%] h-[130px] w-[170px]',
-          'left-[8%] top-[30%] h-[140px] w-[180px]',
-          'right-[38%] bottom-[32%] h-[120px] w-[150px]',
-          'left-[42%] top-[40%] h-[110px] w-[140px]',
-        ];
-        const anim = index % 3 === 0 ? 'animate-float' : index % 3 === 1 ? 'animate-rise' : 'animate-pulse-soft';
-        return (
-          <img
-            key={src}
-            src={src}
-            alt=""
-            className={`absolute object-contain opacity-[0.07] mix-blend-multiply ${positions[index]} ${anim}`}
-            style={{ animationDelay: `${index * 160}ms` }}
-            loading="lazy"
-            decoding="async"
-          />
-        );
-      })}
-      <div className="absolute left-[4%] top-[13%] h-[230px] w-[230px] animate-float opacity-[0.07]">
-        <CourseGlyph kind={primary} />
-      </div>
-      <div className="absolute right-[4%] top-[18%] h-[320px] w-[320px] opacity-[0.06]">
-        <CourseGlyph kind={secondary} />
-      </div>
-      <div className="absolute bottom-[18%] right-[24%] h-[190px] w-[190px] animate-pulse-soft opacity-[0.06]">
-        <CourseGlyph kind={tertiary} />
-      </div>
-      <div className="absolute bottom-[25%] left-[34%] h-[150px] w-[150px] rotate-[-8deg] opacity-[0.05]">
-        <CourseGlyph kind={quaternary} />
-      </div>
-    </div>
-  );
-}
-
 function StorySlideShell({
   slide,
   spoken,
@@ -635,7 +585,6 @@ function StorySlideShell({
 
   return (
     <div className="relative isolate h-full overflow-hidden">
-      {isPpt && !isIntroMotion && <PptMotionBackdrop slide={slide} />}
       <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
@@ -1924,45 +1873,44 @@ function PptMotionVisualScene({
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = variant === 'constellation' || denseMotion;
-  const mainObjectPosition = variant === 'split'
-    ? 'left-[6%] top-[8%] h-[72%] w-[44%]'
-    : variant === 'path'
-      ? 'right-[31%] top-[9%] h-[58%] w-[39%]'
-      : 'left-[31%] top-[8%] h-[62%] w-[38%]';
+
+  // Nasser stands on the same side for 'ppt' slides as nasserGuide computes
+  // (odd slide.index -> visually left, even -> visually right; see
+  // nasserGuide + NasserStoryLayer's RTL justify mapping). Only fill a quiet
+  // corner with the illustration when a card slot is actually unused (fewer
+  // cards than layout positions) AND that corner sits opposite Nasser —
+  // otherwise we'd either leave two empty images stacked on real content or
+  // paint over Nasser's own space.
+  const nasserVisualSide: 'left' | 'right' = slide.index % 2 === 0 ? 'right' : 'left';
+  const emptySide: 'left' | 'right' = nasserVisualSide === 'right' ? 'left' : 'right';
+  const sideOfPosition = (pos: string): 'left' | 'right' => (pos.startsWith('right-') ? 'right' : 'left');
+  // Nasser only occupies the bottom of his side, so a top-anchored slot on
+  // his side is still safe to fill — only a bottom-anchored one on his side
+  // actually collides with him.
+  const collidesWithNasser = (pos: string) => sideOfPosition(pos) === nasserVisualSide && pos.includes('bottom-');
+  const usedPositionIndexes = new Set(cards.map((_, i) => i % labelPositions.length));
+  const emptyCandidates = labelPositions
+    .map((pos, i) => ({ pos, i }))
+    .filter(({ pos, i }) => !usedPositionIndexes.has(i) && !collidesWithNasser(pos));
+  const preferredFill = emptyCandidates.find(({ pos }) => sideOfPosition(pos) === emptySide);
+  const emptyFillIndex = (preferredFill ?? emptyCandidates[0])?.i ?? -1;
 
   return (
     <div className="relative min-h-0 flex-1 overflow-hidden rounded-[30px]">
       <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/50 to-white/0`} />
       <div className="pointer-events-none absolute left-[5%] top-[5%] h-[36%] w-[34%] rounded-full bg-teal-500/8 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute bottom-[6%] right-[8%] h-[34%] w-[38%] rounded-full bg-gold-500/10 blur-3xl" aria-hidden="true" />
-      <div className={`hidden absolute ${mainObjectPosition} pointer-events-none`} aria-hidden="true">
-        <div className="relative h-full w-full">
+      {emptyFillIndex !== -1 && (
+        <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} grid h-[190px] place-items-center`} aria-hidden="true">
           <img
             src={primaryVisual}
             alt=""
-            className="absolute inset-0 h-full w-full animate-float object-contain opacity-[0.18] drop-shadow-[0_28px_34px_rgb(24_82_55_/_0.10)]"
+            className="h-full w-full animate-float object-contain opacity-[0.5] drop-shadow-[0_22px_28px_rgb(24_82_55_/_0.14)]"
             loading="lazy"
             decoding="async"
           />
-          {allVisuals.slice(1, 4).map((src, index) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              className={`absolute object-contain opacity-[0.14] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.08)] ${
-                index === 0
-                  ? 'bottom-[0%] right-[-8%] h-[42%] w-[42%] animate-rise'
-                  : index === 1
-                    ? 'left-[-6%] top-[2%] h-[34%] w-[34%] animate-pop'
-                    : 'bottom-[10%] left-[-5%] h-[30%] w-[30%] animate-pulse-soft'
-              }`}
-              style={{ animationDelay: `${(index + 1) * 150}ms` }}
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
         </div>
-      </div>
+      )}
       {variant === 'path' && (
         <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-45" viewBox="0 0 1000 430" aria-hidden="true">
           <path d="M810 84 C650 128 570 178 494 234 C405 300 300 326 168 338" fill="none" stroke="rgb(191 155 74 / 0.45)" strokeWidth="7" strokeLinecap="round" strokeDasharray="12 16" />
