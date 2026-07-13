@@ -622,14 +622,15 @@ function StorySlideShell({
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const isQuiz = slide.kind === 'quiz';
   const compact = slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection' || slide.kind === 'completion';
+  const isGuidedPptActivity = slide.layout === 'pptActivitySort' || slide.layout === 'pptScenario';
   // The intro/roadmap hero scenes compose their own full-bleed illustration
   // and place their own CTA button — they don't need the full Nasser-height
   // reservation every other ppt slide gets, and that reserved band was
   // leaving a large dead zone under the visual on the right (Nasser only
   // occupies the left). Give them most of that space back.
   const isIntroMotion = slide.layout === 'pptIntro' || slide.id === 'program-map';
-  const bottomSpace = isIntroMotion ? 'pb-[104px]' : isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
-  const topSpace = isIntroMotion ? 'pt-[64px]' : isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
+  const bottomSpace = isIntroMotion ? 'pb-[104px]' : isGuidedPptActivity ? 'pb-[184px]' : isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
+  const topSpace = isIntroMotion ? 'pt-[64px]' : isGuidedPptActivity ? 'pt-[72px]' : isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
   void revealedCount;
 
   return (
@@ -2098,26 +2099,56 @@ function PptActivitySlide({
 
   return (
     <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue || Boolean(interactionLine)} dialogueOverride={interactionLine}>
-      <div className="flex h-full min-h-0 flex-col px-8 py-3">
+      <div className="flex h-full min-h-0 flex-col px-7 py-2">
         <PptTitle slide={slide} />
-        <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 p-3.5 text-right shadow-sm">
-          <p className="text-[20px] font-extrabold leading-relaxed text-brand-strong">{slide.ppt?.intro}</p>
-          <p className="mt-1 text-[18px] font-bold leading-relaxed text-ink-soft">{slide.ppt?.prompt}</p>
+        <div className="mb-2 rounded-lg border-r-8 border-gold-500 bg-white/95 px-3.5 py-2 text-right shadow-sm">
+          <p className="text-[18px] font-extrabold leading-snug text-brand-strong">{slide.ppt?.intro}</p>
+          <p className="mt-0.5 text-[16px] font-bold leading-snug text-ink-soft">{slide.ppt?.prompt}</p>
         </div>
-        <div className="grid min-h-0 flex-1 items-center grid-cols-[1fr_220px] gap-3">
+        <div className="grid min-h-0 flex-1 items-center grid-cols-[1fr_190px] gap-3">
           {currentCard && (
-            <PptCardView
+            <div
               key={currentStep}
-              card={currentCard}
-              density="normal"
-              emoji={pptEmojiFor(currentCard, slide.visual, currentStep)}
-              active={answerVisible}
-              visible={currentCardVisible}
-              reveal={answerVisible}
-              revealAnimation={PPT_REVEAL_ANIMS[currentStep % PPT_REVEAL_ANIMS.length]}
-            />
+              data-ppt-card="true"
+              aria-hidden={!currentCardVisible}
+              className={`relative grid h-full min-h-0 grid-cols-[190px_1fr] items-center gap-5 overflow-hidden rounded-[34px] border px-6 py-4 text-right shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
+                answerVisible
+                  ? 'scale-[1.01] border-gold-500/45 bg-[linear-gradient(145deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white'
+                  : 'border-green-700/14 bg-white/90 text-brand-strong'
+              } ${currentCardVisible ? PPT_REVEAL_ANIMS[currentStep % PPT_REVEAL_ANIMS.length] : 'pointer-events-none opacity-0'}`}
+            >
+              <span className={`pointer-events-none absolute right-5 top-5 h-3 w-14 rounded-full ${answerVisible ? 'bg-gold-300' : 'bg-green-700'} opacity-80`} />
+              <span className={`relative grid h-[132px] w-[180px] place-items-center rounded-[28px] border shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] ${
+                answerVisible ? 'border-white/35 bg-white/16' : 'border-green-700/14 bg-white'
+              }`}>
+                {pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`).map((src, visualIndex) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt=""
+                    className={`absolute object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${
+                      visualIndex === 0
+                        ? 'inset-0 h-full w-full animate-float'
+                        : visualIndex === 1
+                          ? 'bottom-[-5%] left-[-5%] h-[54%] w-[54%] animate-rise'
+                          : 'right-[-5%] top-[-8%] h-[48%] w-[48%] animate-pop'
+                    }`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ))}
+              </span>
+              <div className="relative z-10 min-w-0">
+                <h3 className={`text-[25px] font-black leading-tight ${answerVisible ? 'text-white' : 'text-brand-strong'}`}>
+                  {answerVisible ? `الإجابة: ${currentCard.answer}` : currentCard.title}
+                </h3>
+                <p className={`mt-3 text-[20px] font-bold leading-relaxed ${answerVisible ? 'text-green-50' : 'text-ink'}`}>
+                  {answerVisible ? currentCard.rationale : currentCard.text}
+                </p>
+              </div>
+            </div>
           )}
-          <div className={`flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-3 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
+          <div className={`flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-2.5 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
             <button
               type="button"
               disabled={phase !== 'awaiting-answer'}
@@ -2224,24 +2255,24 @@ function PptGuidedScenarioSlide({
         <PptTitle slide={slide} />
         <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_0.95fr] gap-5">
           {scenarioCard && (
-            <div className="relative flex min-h-0 flex-col justify-center overflow-hidden rounded-[34px] border border-green-700/12 bg-white/86 p-6 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
+            <div className="relative flex min-h-0 flex-col justify-center overflow-hidden rounded-[34px] border border-green-700/12 bg-white/96 p-4 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
               <span className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-teal-500/12 blur-3xl" />
               <span className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full bg-gold-500/14 blur-3xl" />
-              <div className="relative z-10 flex items-center gap-5">
+              <div className="relative z-10 min-h-[164px]">
                 <img
                   src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}`)[0] ?? '/course-visuals/conflict-case.webp'}
                   alt=""
-                  className="h-[210px] w-[230px] shrink-0 object-contain drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
+                  className="pointer-events-none absolute left-3 top-2 h-[118px] w-[132px] object-contain opacity-20 drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[19px] font-black text-gold-700">سيناريو تطبيقي</p>
-                  <h3 className="mt-2 text-[30px] font-black leading-tight text-brand-strong">{scenarioCard.title}</h3>
-                  <p className="mt-4 text-[21px] font-bold leading-relaxed text-ink">{scenarioCard.text}</p>
+                <div className="relative z-10 min-w-0 rounded-[24px] border border-green-700/10 bg-white/95 p-3.5 shadow-[0_14px_26px_rgb(24_82_55_/_0.08)]">
+                  <p className="text-[16px] font-black text-gold-700">سيناريو تطبيقي</p>
+                  <h3 className="mt-1 text-[25px] font-black leading-tight text-brand-strong">{scenarioCard.title}</h3>
+                  <p className="mt-2 text-[18px] font-bold leading-snug text-ink">{scenarioCard.text}</p>
                 </div>
               </div>
-              <div className="relative z-10 mt-5 rounded-[24px] border border-gold-500/24 bg-gold-500/10 px-5 py-4 text-[18px] font-extrabold leading-relaxed text-brand-strong">
+              <div className="relative z-10 mt-3 rounded-[22px] border border-gold-500/24 bg-gold-500/10 px-4 py-2.5 text-[15px] font-extrabold leading-snug text-brand-strong">
                 اختر كل محطة واضغط عليها، وخذ لحظتك في التفكير قبل مناقشتها مع ناصر.
               </div>
             </div>
