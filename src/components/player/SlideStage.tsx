@@ -17,6 +17,7 @@ import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/sto
 import { activePptCardForCue, pptCardCueIndexes } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
+import { useCanvasPortal } from '../../lib/canvasScale';
 import {
   activityCardDiscussion,
   conflictScenarioCompletion,
@@ -1849,7 +1850,7 @@ function PptMotionVisualScene({
     ],
     path: [
       'right-[8%] top-[8%] w-[34%]',
-      'right-[28%] top-[34%] w-[34%]',
+      'right-[18%] top-[46%] w-[34%]',
       'left-[8%] bottom-[10%] w-[34%]',
       'left-[9%] top-[9%] w-[34%]',
     ],
@@ -2142,6 +2143,7 @@ function PptGuidedScenarioSlide({
   const [discussionVisible, setDiscussionVisible] = useState(false);
   const guidedSpeech = useGuidedSpeech(slide, muted);
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const portalRoot = useCanvasPortal();
   const currentCard = selectedStep != null ? analysisCards[selectedStep] : undefined;
   const ready = spoken >= slide.narration.length * 0.72;
   const questions = conflictScenarioQuestions;
@@ -2254,7 +2256,7 @@ function PptGuidedScenarioSlide({
         )}
 
         {selectedStep != null && currentCard && createPortal(
-          <div className="fixed inset-0 z-[80] flex items-center justify-center p-8">
+          <div className="absolute inset-0 z-[80] flex items-center justify-center p-8">
             <button
               type="button"
               disabled={narrationLocked}
@@ -2262,7 +2264,7 @@ function PptGuidedScenarioSlide({
               aria-label="إغلاق نافذة السيناريو"
               onClick={closeModal}
             />
-            <div className="relative z-10 grid h-[82vh] max-h-[720px] w-full max-w-[1120px] grid-cols-[1fr_0.82fr] overflow-hidden rounded-[38px] border border-green-700/18 bg-white shadow-[0_35px_80px_rgb(0_45_28_/_0.24)] animate-scale-in">
+            <div className="relative z-10 grid h-[600px] w-full max-w-[1120px] grid-cols-[1fr_0.82fr] overflow-hidden rounded-[38px] border border-green-700/18 bg-white shadow-[0_35px_80px_rgb(0_45_28_/_0.24)] animate-scale-in">
               <button
                 type="button"
                 disabled={narrationLocked}
@@ -2302,10 +2304,25 @@ function PptGuidedScenarioSlide({
               </div>
               <div className="relative flex min-h-0 flex-col items-center justify-center bg-green-800 p-8 text-center text-white">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgb(255_255_255_/_0.18),transparent_34%)]" />
+                <div className="relative z-10 mb-4 grid place-items-center">
+                  <img
+                    src={POSE_SRC[discussionVisible ? 'thinking' : 'question']}
+                    alt="ناصر المدرب"
+                    className={`h-[190px] w-[190px] object-contain drop-shadow-[0_20px_26px_rgb(0_0_0_/_0.28)] transition-transform duration-500 ${
+                      guidedSpeech.speaking ? 'scale-[1.04]' : ''
+                    }`}
+                  />
+                  {guidedSpeech.speaking && (
+                    <span className="absolute -bottom-1 flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-[13px] font-black text-green-800 shadow-card">
+                      <Icon name="sound" className="h-4 w-4 animate-pulse" />
+                      ناصر بيتكلم الآن
+                    </span>
+                  )}
+                </div>
                 <img
                   src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0] ?? '/course-visuals/audit-controls.webp'}
                   alt=""
-                  className="relative z-10 mb-5 h-[210px] w-[260px] object-contain drop-shadow-[0_26px_34px_rgb(0_0_0_/_0.22)]"
+                  className="relative z-10 mb-5 h-[140px] w-[190px] object-contain drop-shadow-[0_26px_34px_rgb(0_0_0_/_0.22)]"
                   loading="lazy"
                   decoding="async"
                 />
@@ -2349,16 +2366,11 @@ function PptGuidedScenarioSlide({
                       إنهاء المناقشة
                     </button>
                   )}
-                  {guidedSpeech.speaking && (
-                    <div className="rounded-2xl bg-white/12 px-4 py-3 text-[15px] font-bold text-white/90">
-                      ناصر يتحدث الآن...
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
           </div>,
-          document.body,
+          portalRoot ?? document.body,
         )}
       </div>
     </StorySlideShell>

@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { CanvasScaleContext } from '../../lib/canvasScale';
+import { CanvasPortalContext, CanvasScaleContext } from '../../lib/canvasScale';
 import { SlideTemplateFrame } from './SlideTemplateFrame';
 
 // Fixed PowerPoint-style design surface (16:9). Everything is authored at this
@@ -10,6 +10,7 @@ export const CANVAS_H = 720;
 export function SlideCanvas({ children }: { children: React.ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [portalNode, setPortalNode] = useState<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     const el = wrapRef.current;
@@ -40,7 +41,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
     <div ref={wrapRef} className="flex h-full w-full items-center justify-center overflow-hidden p-1">
       <CanvasScaleContext.Provider value={scale}>
         <div
-          className="relative shrink-0 overflow-hidden rounded-[22px] border border-green-700/15 bg-white shadow-card-lg"
+          className="relative shrink-0 overflow-visible rounded-[22px] border border-green-700/15 bg-white shadow-card-lg"
           style={{
             width: CANVAS_W,
             height: CANVAS_H,
@@ -48,8 +49,13 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
             transformOrigin: 'center center',
           }}
         >
-          <SlideTemplateFrame />
-          {children}
+          <CanvasPortalContext.Provider value={portalNode}>
+            <div className="absolute inset-0 overflow-hidden rounded-[22px]">
+              <SlideTemplateFrame />
+              {children}
+            </div>
+            <div ref={setPortalNode} className="absolute inset-0" />
+          </CanvasPortalContext.Provider>
         </div>
       </CanvasScaleContext.Provider>
     </div>
