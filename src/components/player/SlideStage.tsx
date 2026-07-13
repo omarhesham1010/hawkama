@@ -1109,36 +1109,27 @@ function IntroMotionScene({
     const index = slide.narration.indexOf(needle);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
-  const firstPillarShown = spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
   const secondPillarShown = spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
   const thirdPillarShown = spokenPast('ثم نختم بإدارة المخاطر', 0.72);
+  // Everything is visible from the very first render (before the learner
+  // ever presses play) -- these three flags now only drive which card gets
+  // the "currently talking about this" highlight while narration plays,
+  // never whether something is on screen at all.
   const activeIndex = thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
-  const visiblePillars = started
-    ? thirdPillarShown
-      ? 3
-      : secondPillarShown
-        ? 2
-        : firstPillarShown
-          ? 1
-          : 0
-    : 0;
   const layerState = [
     {
       src: '/motion-assets/intro-governance-layer.webp',
       className: 'right-[8%] top-[18%] w-[28%]',
-      visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-compliance-layer.webp',
       className: 'right-[31%] top-[45%] w-[17%]',
-      visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
       src: '/motion-assets/intro-risk-layer.webp',
       className: 'right-[-5%] top-[45%] w-[17%]',
-      visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
   ];
@@ -1152,39 +1143,39 @@ function IntroMotionScene({
             src={layer.src}
             alt=""
             draggable={false}
-            className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
-              layer.visible ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
-            } ${!narrationComplete && index === activeIndex ? 'motion-layer-focus' : ''}`}
-            style={{ transform: layer.visible ? layer.transform : undefined }}
+            className={`absolute ${layer.className} translate-y-0 scale-100 opacity-100 blur-0 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+              started && !narrationComplete && index === activeIndex ? 'motion-layer-focus' : ''
+            }`}
+            style={{ transform: layer.transform }}
           />
         ))}
         <div
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
           style={{ right: '5%', bottom: '10%', width: '32%' }}
         >
-        {/* Narration reveals pillars in content order (governance → compliance →
-            risk), but the client wants them displayed governance-middle,
-            compliance-left, risk-right — reorder visually with `order`
-            instead of reordering the array, so the reveal/active timing
-            (tied to `index`) still lines up with what the narration says. */}
+        {/* Every card is visible from the first render (base state); the
+            narration only drives which one gets the "talking about this
+            now" highlight below, never whether it's shown at all.
+            Narration reveals pillars in content order (governance →
+            compliance → risk), but the client wants them displayed
+            governance-middle, compliance-left, risk-right — reorder
+            visually with `order` instead of reordering the array, so the
+            highlight timing (tied to `index`) still lines up with what
+            the narration says. */}
         {pillars.map((pillar, index) => {
-          const shown = index < visiblePillars;
-          const active = !narrationComplete && index === activeIndex;
+          const active = started && !narrationComplete && index === activeIndex;
           const cardWidth = 'w-[112px]';
           const visualOrder = [1, 2, 0][index] ?? index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`${cardWidth} shrink-0 rounded-2xl border px-2.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
-                shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
-              } ${
+              className={`${cardWidth} shrink-0 translate-y-0 scale-100 opacity-100 rounded-2xl border px-2.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
                 active
                   ? 'z-10 -translate-y-1 scale-[1.04] border-gold-500/55 bg-green-800/94 text-white shadow-card-lg'
                   : 'border-green-700/20 bg-white/90 text-green-900'
               }`}
               style={{
                 order: visualOrder,
-                transitionDelay: shown ? `${index * 80}ms` : '0ms',
                 ...(active ? { backgroundColor: 'rgb(26 68 46 / 0.94)', borderColor: 'rgb(191 155 74 / 0.55)' } : {}),
               }}
             >
@@ -1269,19 +1260,11 @@ function IntroRoadmapMotionScene({
     const index = slide.narration.indexOf(needle);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
-  const firstStepShown = spokenPast('أول فكرة معنا', 0.18);
   const secondStepShown = spokenPast('بعد ما تتضح البداية', 0.42);
   const thirdStepShown = spokenPast('ثم نصل إلى الفصل الثالث', 0.64);
+  // Everything is visible from the first render; narration only drives
+  // which step is currently highlighted, never whether it's shown at all.
   const current = thirdStepShown ? 2 : secondStepShown ? 1 : 0;
-  const visibleStepCount = started
-    ? thirdStepShown
-      ? 3
-      : secondStepShown
-        ? 2
-        : firstStepShown
-          ? 1
-          : 0
-    : 0;
   const roadmapArrows = [
     { d: 'M710 260 C610 228 564 192 495 188', color: 'rgb(31 105 72)', delay: '0ms' },
     { d: 'M710 280 C606 280 560 280 495 280', color: 'rgb(191 155 74)', delay: '90ms' },
@@ -1329,8 +1312,7 @@ function IntroRoadmapMotionScene({
             ))}
           </defs>
           {roadmapArrows.map((arrow, index) => {
-            const visible = index < visibleStepCount;
-            const activeArrow = !narrationComplete && index === current;
+            const activeArrow = started && !narrationComplete && index === current;
             return (
               <path
                 key={arrow.d}
@@ -1340,12 +1322,10 @@ function IntroRoadmapMotionScene({
                 strokeWidth={activeArrow ? 7 : 5}
                 strokeLinecap="round"
                 markerEnd={`url(#roadmap-arrow-${index})`}
-                className={`transition-all duration-700 ease-out ${
-                  visible ? 'opacity-80' : 'opacity-0'
-                }`}
+                className="opacity-80 transition-all duration-700 ease-out"
                 style={{
                   strokeDasharray: 260,
-                  strokeDashoffset: visible ? 0 : 260,
+                  strokeDashoffset: 0,
                   transitionDelay: arrow.delay,
                   filter: activeArrow ? 'drop-shadow(0 10px 10px rgb(24 82 55 / 0.18))' : undefined,
                 }}
@@ -1367,15 +1347,12 @@ function IntroRoadmapMotionScene({
 
         <div className="absolute flex flex-col gap-5" style={{ left: '5%', top: 112, width: '44%' }}>
           {orderedPillars.map((pillar, index) => {
-            const shown = index < visibleStepCount;
-            const active = !narrationComplete && index === current;
+            const active = started && !narrationComplete && index === current;
             const layer = layers[index];
             return (
               <div
                 key={pillar.label}
-                className={`relative flex items-center gap-4 overflow-hidden rounded-[18px] border px-3 py-2 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
-                  shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
-                } ${
+                className={`relative flex translate-x-0 scale-100 opacity-100 items-center gap-4 overflow-hidden rounded-[18px] border px-3 py-2 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
                   active
                     ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
@@ -1395,7 +1372,7 @@ function IntroRoadmapMotionScene({
                   className={`shrink-0 object-contain transition-all duration-700 ${
                     active ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'
                   }`}
-                  style={{ height: 66, width: 84, transform: shown ? layer.transform : undefined }}
+                  style={{ height: 66, width: 84, transform: layer.transform }}
                 />
                 <div className="flex min-w-0 flex-1 items-center justify-center text-center">
                   <h3 className="text-[21px] font-black leading-snug">{pillar.label}</h3>
@@ -1992,7 +1969,7 @@ function PptActivitySlide({
   const interactionLine =
     guidedSpeech.line ?? (activityReady && currentCard && phase === 'awaiting-answer' ? questionText(currentCard, currentStep) : undefined);
   const currentCardVisible = currentStep === 0
-    ? spoken >= slide.narration.length * 0.5
+    ? true
     : phase !== 'asking-next' || guidedSpeech.started;
   const answerVisible = Boolean(selectedAnswer) && (phase === 'awaiting-next' || (phase === 'feedback' && guidedSpeech.started));
 
@@ -2063,7 +2040,7 @@ function PptActivitySlide({
               </div>
             </div>
           )}
-          <div className={`flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-2.5 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
+          <div className="flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-2.5 opacity-100 transition-all">
             <button
               type="button"
               disabled={phase !== 'awaiting-answer' || narrationLocked}
@@ -2201,7 +2178,7 @@ function PptGuidedScenarioSlide({
               </div>
             </div>
           )}
-          <div className={`grid min-h-0 content-center gap-4 transition-all duration-500 ${ready ? 'opacity-100' : 'pointer-events-none opacity-0 translate-y-3'}`}>
+          <div className="grid min-h-0 content-center gap-4 opacity-100 transition-all duration-500">
             {analysisCards.map((card, index) => {
               const active = selectedStep === index;
               return (
