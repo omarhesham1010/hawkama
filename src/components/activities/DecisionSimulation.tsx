@@ -4,6 +4,7 @@ import { Icon } from '../ui/Icon';
 import { Chip } from '../ui/Chip';
 import { FeedbackBox } from '../ui/FeedbackBox';
 import { shuffle, toArabicDigits } from '../../lib/utils';
+import { useNarrationContext } from '../audio/NarrationContext';
 
 function StageTitle({ n, text }: { n: string; text: string }) {
   return (
@@ -25,6 +26,7 @@ export function DecisionSimulation({
   onDone: () => void;
   mode?: 'both' | 'identify' | 'path';
 }) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const [identify, setIdentify] = useState<string | null>(null);
   const [path, setPath] = useState<string[]>([]);
   const [pathChecked, setPathChecked] = useState(false);
@@ -68,14 +70,18 @@ export function DecisionSimulation({
                 if (opt.correct) cls = 'border-teal-500/60 bg-teal-500/10 text-teal-800';
                 else if (selected) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
                 else cls = 'border-line bg-surface-2 text-ink-muted opacity-60';
+              } else if (!narrationLocked) {
+                cls += ' animate-pulse-ring';
               }
               return (
                 <button
                   key={opt.id}
                   type="button"
-                  disabled={reveal}
+                  disabled={reveal || narrationLocked}
                   onClick={() => setIdentify(opt.id)}
-                  className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors ${cls}`}
+                  className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors disabled:cursor-not-allowed ${
+                    !reveal && narrationLocked ? 'opacity-40 grayscale' : ''
+                  } ${cls}`}
                 >
                   {opt.label}
                 </button>
@@ -151,8 +157,9 @@ export function DecisionSimulation({
                       {!pathChecked && (
                         <button
                           type="button"
+                          disabled={narrationLocked}
                           onClick={() => setPath((p) => p.filter((_, idx) => idx !== i))}
-                          className="text-ink-muted hover:text-rose-500"
+                          className="text-ink-muted hover:text-rose-500 disabled:cursor-not-allowed disabled:opacity-40"
                           aria-label="إزالة"
                         >
                           <svg
@@ -190,8 +197,11 @@ export function DecisionSimulation({
                 <button
                   key={s.id}
                   type="button"
+                  disabled={narrationLocked}
                   onClick={() => setPath((p) => [...p, s.id])}
-                  className="rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5"
+                  className={`rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                    narrationLocked ? '' : 'animate-pulse-ring'
+                  }`}
                 >
                   {s.label}
                 </button>
@@ -204,8 +214,10 @@ export function DecisionSimulation({
               <button
                 type="button"
                 onClick={() => setPathChecked(true)}
-                disabled={!pathFull}
-                className="btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:opacity-40"
+                disabled={!pathFull || narrationLocked}
+                className={`btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                  pathFull && !narrationLocked ? 'animate-pulse-ring' : ''
+                }`}
               >
                 <Icon name="check" className="h-5 w-5" />
                 تحقّق من المسار
@@ -227,11 +239,14 @@ export function DecisionSimulation({
               <div className="flex justify-center">
                 <button
                   type="button"
+                  disabled={narrationLocked}
                   onClick={() => {
                     setPath([]);
                     setPathChecked(false);
                   }}
-                  className="btn-ghost px-5 py-2 text-base"
+                  className={`btn-ghost px-5 py-2 text-base disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                    narrationLocked ? '' : 'animate-pulse-ring'
+                  }`}
                 >
                   <Icon name="flow" className="h-5 w-5" />
                   إعادة الترتيب

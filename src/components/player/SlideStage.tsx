@@ -1036,17 +1036,18 @@ function PptQuickCheckPopup({
   onReveal: () => void;
   onDismiss: () => void;
 }) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
   if (phase === 'idle' || phase === 'done') return null;
   const revealed = phase === 'revealed';
-  const ready = phase === 'ready';
+  const ready = phase === 'ready' && !narrationLocked;
   return (
     <div className="absolute inset-0 z-20 grid place-items-start pt-[64px]" aria-live="polite">
       {/* Once Nasser has answered, tapping anywhere outside the card dismisses
           it and returns to the normal slide view — only active post-reveal
           so the learner can't skip past the question itself. */}
       <div
-        className={`absolute inset-0 bg-ink/35 backdrop-blur-[2px] animate-fade-in ${revealed ? 'cursor-pointer' : 'pointer-events-none'}`}
-        onClick={revealed ? onDismiss : undefined}
+        className={`absolute inset-0 bg-ink/35 backdrop-blur-[2px] animate-fade-in ${revealed && !narrationLocked ? 'cursor-pointer' : 'pointer-events-none'}`}
+        onClick={revealed && !narrationLocked ? onDismiss : undefined}
       />
       <div
         className={`pointer-events-auto relative mx-auto w-full max-w-[720px] animate-scale-in overflow-hidden rounded-2xl border-2 shadow-card-lg transition-colors duration-500 ${
@@ -1075,14 +1076,21 @@ function PptQuickCheckPopup({
               type="button"
               disabled={!ready}
               onClick={onReveal}
-              className="rounded-lg bg-green-700 px-6 py-3 text-[16px] font-extrabold text-white shadow-card transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-40"
+              className={`rounded-lg bg-green-700 px-6 py-3 text-[16px] font-extrabold text-white shadow-card transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                ready ? 'animate-pulse-ring' : ''
+              }`}
             >
               {ready ? 'فكّرت.. اكشف الإجابة' : 'استمع للسؤال…'}
             </button>
           </div>
         ) : (
           <div className="flex justify-center pb-4">
-            <button type="button" onClick={onDismiss} className="text-[13px] font-bold text-green-50/80 underline underline-offset-2">
+            <button
+              type="button"
+              disabled={narrationLocked}
+              onClick={onDismiss}
+              className="text-[13px] font-bold text-green-50/80 underline underline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            >
               اضغط في أي مكان للمتابعة
             </button>
           </div>
@@ -1132,6 +1140,7 @@ function IntroMotionScene({
   started: boolean;
   onStart: () => void;
 }) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const pillars = introPillars(slide);
   const effectiveSpoken = spoken;
   const progress = Math.max(0, Math.min(1, effectiveSpoken / Math.max(1, slide.narration.length)));
@@ -1187,26 +1196,6 @@ function IntroMotionScene({
   return (
     <div className="relative h-full min-h-0 overflow-visible">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-[3%] top-[6%] h-[76%] w-[43%] rounded-[45%] bg-white/20 blur-xl" />
-        <div className="absolute right-[12%] top-[16%] h-[46%] w-[27%] animate-pulse-soft rounded-full border border-dashed border-green-700/14" />
-        <svg className={`absolute right-[6%] top-[20%] h-[36%] w-[36%] overflow-visible opacity-55 transition-opacity duration-700 ${started ? 'opacity-55' : 'opacity-0'}`} viewBox="0 0 420 260" aria-hidden="true">
-          <path
-            d="M370 40 C280 20 236 74 204 128 C162 198 96 210 34 174"
-            fill="none"
-            stroke="rgb(47 132 87 / 0.38)"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeDasharray="10 12"
-          />
-          <path
-            d="M360 180 C270 132 220 150 172 188 C126 224 80 220 42 202"
-            fill="none"
-            stroke="rgb(191 155 74 / 0.42)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeDasharray="7 12"
-          />
-        </svg>
         {layerState.map((layer, index) => (
           <img
             key={layer.src}
@@ -1288,8 +1277,11 @@ function IntroMotionScene({
         <div className="absolute bottom-[130px] left-6 flex items-center justify-end">
           <button
             type="button"
+            disabled={narrationLocked}
             onClick={onStart}
-            className="btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card"
+            className={`btn-gold shrink-0 px-8 py-3.5 text-[18px] shadow-card disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+              narrationLocked ? '' : 'animate-pulse-ring'
+            }`}
           >
             <Icon name="flag" className="h-6 w-6" />
             {started ? 'استمع للمقدمة' : 'خلونا نبدأ'}
@@ -1671,6 +1663,7 @@ function PptCardView({
   detail,
   reveal,
   onClick,
+  locked = false,
 }: {
   card: PptCard;
   dense?: boolean;
@@ -1682,10 +1675,11 @@ function PptCardView({
   detail?: string;
   reveal?: boolean;
   onClick?: () => void;
+  locked?: boolean;
 }) {
   void emoji;
   const tone = card.tone ?? 'green';
-  const clickable = Boolean(onClick);
+  const clickable = Boolean(onClick) && !locked;
   const textSize = (card.title.length + (card.text?.length ?? 0) + (card.bullets?.join(' ').length ?? 0));
   const bulletCount = card.bullets?.length ?? 0;
   const level = density ?? (
@@ -1770,7 +1764,9 @@ function PptCardView({
       aria-label={clickable ? `${card.title} - ${showTrainingDetail ? 'العودة للنص الأساسي' : 'عرض التفصيل'}` : card.title}
       className={`relative flex h-full w-full max-h-full min-h-0 flex-col self-center overflow-hidden border text-center shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] backdrop-blur-sm [border-radius:44px_26px_42px_24px] transition-all duration-500 ease-out ${
         activeShell
-      } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${clickable && visible ? 'cursor-pointer hover:-translate-y-1 hover:shadow-card-lg' : 'cursor-default'}`}
+      } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${
+        clickable && visible ? 'cursor-pointer hover:-translate-y-1 hover:shadow-card-lg animate-pulse-ring' : 'cursor-default'
+      } ${locked && visible ? 'opacity-40 grayscale' : ''}`}
     >
       <span
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgb(255_255_255_/_0.48),transparent_28%),radial-gradient(circle_at_18%_82%,rgb(197_162_80_/_0.16),transparent_34%)]"
@@ -1874,6 +1870,7 @@ function PptMotionVisualScene({
   expandedKey: string | null;
   onToggle: (index: number) => void;
 }) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const fallbackVisualPool = slide.id.startsWith('ch3')
     ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
     : slide.id.startsWith('ch2')
@@ -1995,7 +1992,7 @@ function PptMotionVisualScene({
           <button
             key={index}
             type="button"
-            disabled={!visible}
+            disabled={!visible || narrationLocked}
             onClick={() => onToggle(index)}
             className={`absolute ${labelPositions[index % labelPositions.length]} text-right transition-all duration-500 ${
               usesOpenLabels
@@ -2007,7 +2004,9 @@ function PptMotionVisualScene({
                   ? 'scale-[1.06] text-brand-strong'
                   : 'scale-[1.04] border-gold-500/50 bg-white/75 text-brand-strong shadow-[0_22px_36px_rgb(24_82_55_/_0.14)]'
                 : 'text-brand-strong'
-            } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'}`}
+            } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'} ${
+              visible && narrationLocked ? 'opacity-40 grayscale' : ''
+            }`}
           >
             <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-5' : 'gap-4'}`}>
               <span className={`min-w-0 flex-1 ${usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
@@ -2053,6 +2052,7 @@ function PptActivitySlide({
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [phase, setPhase] = useState<'intro' | 'awaiting-answer' | 'feedback' | 'awaiting-next' | 'asking-next'>('intro');
   const guidedSpeech = useGuidedSpeech(slide, muted);
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const currentCard = cards[currentStep];
   const selectedAnswer = answers[currentStep];
   const activityReady = spoken >= slide.narration.length - 1;
@@ -2151,22 +2151,33 @@ function PptActivitySlide({
           <div className={`flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-2.5 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
             <button
               type="button"
-              disabled={phase !== 'awaiting-answer'}
+              disabled={phase !== 'awaiting-answer' || narrationLocked}
               onClick={() => answerQuestion('حوكمة')}
-              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all ${selectedAnswer === 'حوكمة' ? 'border-green-700 bg-green-700 text-white' : 'border-green-700/25 bg-green-700/8 text-green-800 hover:bg-green-700/15'}`}
+              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                phase === 'awaiting-answer' && !narrationLocked ? 'animate-pulse-ring' : ''
+              } ${selectedAnswer === 'حوكمة' ? 'border-green-700 bg-green-700 text-white' : 'border-green-700/25 bg-green-700/8 text-green-800 hover:bg-green-700/15'}`}
             >
               حوكمة
             </button>
             <button
               type="button"
-              disabled={phase !== 'awaiting-answer'}
+              disabled={phase !== 'awaiting-answer' || narrationLocked}
               onClick={() => answerQuestion('امتثال')}
-              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all ${selectedAnswer === 'امتثال' ? 'border-gold-600 bg-gold-500 text-white' : 'border-gold-500/35 bg-gold-500/10 text-gold-700 hover:bg-gold-500/18'}`}
+              className={`rounded-lg border-2 px-4 py-3 text-[19px] font-extrabold transition-all disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                phase === 'awaiting-answer' && !narrationLocked ? 'animate-pulse-ring' : ''
+              } ${selectedAnswer === 'امتثال' ? 'border-gold-600 bg-gold-500 text-white' : 'border-gold-500/35 bg-gold-500/10 text-gold-700 hover:bg-gold-500/18'}`}
             >
               امتثال
             </button>
             {selectedAnswer && phase === 'awaiting-next' && (
-              <button type="button" onClick={nextQuestion} className="btn-gold mt-1 justify-center px-4 py-2.5 text-[17px]">
+              <button
+                type="button"
+                disabled={narrationLocked}
+                onClick={nextQuestion}
+                className={`btn-gold mt-1 justify-center px-4 py-2.5 text-[17px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                  narrationLocked ? '' : 'animate-pulse-ring'
+                }`}
+              >
                 {currentStep >= cards.length - 1 ? 'إكمال النشاط' : 'السؤال التالي'}
               </button>
             )}
@@ -2199,6 +2210,7 @@ function PptGuidedScenarioSlide({
   const [discussionReady, setDiscussionReady] = useState(false);
   const [discussionVisible, setDiscussionVisible] = useState(false);
   const guidedSpeech = useGuidedSpeech(slide, muted);
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const currentCard = selectedStep != null ? analysisCards[selectedStep] : undefined;
   const ready = spoken >= slide.narration.length * 0.72;
   const questions = conflictScenarioQuestions;
@@ -2285,12 +2297,14 @@ function PptGuidedScenarioSlide({
                   key={`${card.title}-${index}`}
                   type="button"
                   onClick={() => openStep(index)}
-                  disabled={!ready || guidedSpeech.speaking || complete}
+                  disabled={!ready || guidedSpeech.speaking || complete || narrationLocked}
                   className={`group flex items-center justify-between gap-4 rounded-[28px] border px-5 py-5 text-right shadow-[0_16px_38px_rgb(24_82_55_/_0.10)] transition-all duration-300 hover:-translate-y-1 ${
                     active
                       ? 'border-green-700 bg-green-800 text-white'
                       : 'border-green-700/12 bg-white/86 text-brand-strong hover:border-gold-500/45 hover:bg-gold-50'
-                  } ${complete ? 'opacity-70' : ''}`}
+                  } ${complete ? 'opacity-70' : ''} ${
+                    ready && !guidedSpeech.speaking && !complete && !narrationLocked ? 'animate-pulse-ring' : ''
+                  } ${narrationLocked && ready ? 'opacity-40 grayscale' : ''}`}
                 >
                   <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${active ? 'bg-white/16' : 'bg-green-700/8'}`}>
                     <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-8 w-8 ${active ? 'text-white' : 'text-green-700'}`} />
@@ -2316,15 +2330,17 @@ function PptGuidedScenarioSlide({
           <div className="fixed inset-0 z-[80] flex items-center justify-center p-8">
             <button
               type="button"
-              className="absolute inset-0 cursor-default bg-green-950/34 backdrop-blur-[6px]"
+              disabled={narrationLocked}
+              className="absolute inset-0 cursor-default bg-green-950/34 backdrop-blur-[6px] disabled:cursor-not-allowed"
               aria-label="إغلاق نافذة السيناريو"
               onClick={closeModal}
             />
             <div className="relative z-10 grid h-[82vh] max-h-[720px] w-full max-w-[1120px] grid-cols-[1fr_0.82fr] overflow-hidden rounded-[38px] border border-green-700/18 bg-white shadow-[0_35px_80px_rgb(0_45_28_/_0.24)] animate-scale-in">
               <button
                 type="button"
+                disabled={narrationLocked}
                 onClick={closeModal}
-                className="absolute left-5 top-5 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-green-900 shadow-card ring-1 ring-green-700/15 transition hover:bg-green-50"
+                className="absolute left-5 top-5 z-20 grid h-11 w-11 place-items-center rounded-full bg-white text-green-900 shadow-card ring-1 ring-green-700/15 transition hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
                 aria-label="إغلاق"
               >
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -2371,17 +2387,38 @@ function PptGuidedScenarioSlide({
                 </p>
                 <div className="relative z-10 mt-7 flex w-full flex-col gap-3">
                   {!discussionVisible && questionReady && (
-                    <button type="button" onClick={revealDiscussion} className="btn-gold justify-center px-7 py-4 text-[19px]">
+                    <button
+                      type="button"
+                      disabled={narrationLocked}
+                      onClick={revealDiscussion}
+                      className={`btn-gold justify-center px-7 py-4 text-[19px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                        narrationLocked ? '' : 'animate-pulse-ring'
+                      }`}
+                    >
                       ناقش الإجابة مع ناصر
                     </button>
                   )}
                   {discussionVisible && discussionReady && selectedStep < analysisCards.length - 1 && (
-                    <button type="button" onClick={closeModal} className="rounded-2xl bg-white px-7 py-4 text-[18px] font-black text-green-800 shadow-card transition hover:bg-green-50">
+                    <button
+                      type="button"
+                      disabled={narrationLocked}
+                      onClick={closeModal}
+                      className={`rounded-2xl bg-white px-7 py-4 text-[18px] font-black text-green-800 shadow-card transition hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                        narrationLocked ? '' : 'animate-pulse-ring'
+                      }`}
+                    >
                       اختيار محطة أخرى
                     </button>
                   )}
                   {discussionVisible && discussionReady && selectedStep >= analysisCards.length - 1 && (
-                    <button type="button" onClick={finishScenario} className="btn-gold justify-center px-7 py-4 text-[19px]">
+                    <button
+                      type="button"
+                      disabled={narrationLocked}
+                      onClick={finishScenario}
+                      className={`btn-gold justify-center px-7 py-4 text-[19px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                        narrationLocked ? '' : 'animate-pulse-ring'
+                      }`}
+                    >
                       إنهاء المناقشة
                     </button>
                   )}
@@ -2423,6 +2460,7 @@ function PptStyleSlide({
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
   const [checkPhase, setCheckPhase] = useState<CheckPhase>('idle');
   const guidedSpeech = useGuidedSpeech(slide, muted);
+  const { isPlaying: narrationLocked } = useNarrationContext();
 
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
@@ -2532,16 +2570,29 @@ function PptStyleSlide({
                   revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
                   detail={pptDetailFor(card)}
                   reveal={expandedCardKey === `${slide.id}:${i}`}
-                  onClick={() => toggleCard(i)}
+                  onClick={() => !narrationLocked && toggleCard(i)}
+                  locked={narrationLocked}
                 />
               ))}
             </div>
             <div className="mt-5 flex items-center justify-center gap-4">
-              <button type="button" onClick={completion.onExit} className="btn-gold px-9 py-4 text-lg">
+              <button
+                type="button"
+                disabled={narrationLocked}
+                onClick={completion.onExit}
+                className={`btn-gold px-9 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                  narrationLocked ? '' : 'animate-pulse-ring'
+                }`}
+              >
                 <Icon name="flag" className="h-6 w-6" />
                 إنهاء والعودة للمنصة
               </button>
-              <button type="button" onClick={completion.onRestart} className="btn-ghost px-9 py-4 text-lg">
+              <button
+                type="button"
+                disabled={narrationLocked}
+                onClick={completion.onRestart}
+                className="btn-ghost px-9 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
+              >
                 <Icon name="flow" className="h-6 w-6" />
                 إعادة الفصل
               </button>
@@ -2666,6 +2717,7 @@ export function SlideStage({
   onQuizComplete: (score: number) => void;
   completion: CompletionInfo;
 }) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
   if (slide.layout?.startsWith('ppt')) {
     return (
       <PptStyleSlide
@@ -2707,7 +2759,14 @@ export function SlideStage({
               </span>
             ))}
           </div>
-          <button type="button" onClick={onStart} className="btn-gold mt-8 px-9 py-4 text-lg">
+          <button
+            type="button"
+            disabled={narrationLocked}
+            onClick={onStart}
+            className={`btn-gold mt-8 px-9 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+              narrationLocked ? '' : 'animate-pulse-ring'
+            }`}
+          >
             <Icon name="flag" className="w-6 h-6" />
             {started ? 'استمع للمقدمة' : 'ابدأ الدورة'}
           </button>
@@ -2828,11 +2887,23 @@ export function SlideStage({
           </div>
         </div>
         <div className="flex items-center justify-center gap-3">
-          <button type="button" onClick={completion.onExit} className="btn-gold px-7 py-4 text-lg">
+          <button
+            type="button"
+            disabled={narrationLocked}
+            onClick={completion.onExit}
+            className={`btn-gold px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+              narrationLocked ? '' : 'animate-pulse-ring'
+            }`}
+          >
             <Icon name="flag" className="w-5 h-5" />
             إنهاء والعودة للمنصة
           </button>
-          <button type="button" onClick={completion.onRestart} className="btn-ghost px-7 py-4 text-lg">
+          <button
+            type="button"
+            disabled={narrationLocked}
+            onClick={completion.onRestart}
+            className="btn-ghost px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
+          >
             <Icon name="flow" className="w-5 h-5" />
             إعادة الفصل
           </button>

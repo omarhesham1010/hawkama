@@ -45,8 +45,11 @@ export function FlipCardActivity({
             <button
               key={card.id}
               type="button"
+              disabled={narration.isPlaying}
               onClick={() => toggle(card.id)}
-              className="group h-full w-full text-right [perspective:1200px]"
+              className={`group h-full w-full text-right [perspective:1200px] disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+                narration.isPlaying ? '' : 'animate-pulse-ring'
+              }`}
               aria-pressed={isFlipped}
             >
               <div

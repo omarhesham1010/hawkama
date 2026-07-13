@@ -3,6 +3,7 @@ import type { ClassificationActivityData } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { useCanvasScale } from '../../lib/canvasScale';
 import { toArabicDigits } from '../../lib/utils';
+import { useNarrationContext } from '../audio/NarrationContext';
 
 type Cat = 'governance' | 'compliance';
 
@@ -20,6 +21,7 @@ export function ClassificationActivity({
   onDone: () => void;
 }) {
   const scale = useCanvasScale();
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const [assignment, setAssignment] = useState<Record<string, Cat>>({});
   const [dragId, setDragId] = useState<string | null>(null);
   const [delta, setDelta] = useState({ x: 0, y: 0 });
@@ -51,6 +53,7 @@ export function ClassificationActivity({
   };
 
   const onPointerDown = (e: React.PointerEvent, id: string) => {
+    if (narrationLocked) return;
     try {
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     } catch {
@@ -149,7 +152,7 @@ export function ClassificationActivity({
                 }}
                 className={`relative flex max-w-[310px] cursor-grab select-none items-center gap-2 rounded-xl border-2 bg-surface px-3 py-2 text-base font-bold text-ink shadow-card active:cursor-grabbing ${
                   dragId === it.id ? 'border-brand' : 'border-line'
-                }`}
+                } ${narrationLocked ? 'pointer-events-none cursor-not-allowed opacity-40 grayscale' : 'animate-pulse-ring'}`}
               >
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-surface-3 text-xs font-bold tabular">
                   {toArabicDigits(i + 1)}

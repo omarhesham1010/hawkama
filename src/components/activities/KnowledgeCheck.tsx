@@ -4,6 +4,7 @@ import { Icon } from '../ui/Icon';
 import { Confetti } from '../ui/Confetti';
 import { ProgressBar } from '../layout/ProgressTracker';
 import { toArabicDigits } from '../../lib/utils';
+import { useNarrationContext } from '../audio/NarrationContext';
 
 export function KnowledgeCheck({
   quiz,
@@ -18,6 +19,7 @@ export function KnowledgeCheck({
   onAdvance?: () => void;
   feedbackPending?: boolean;
 }) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
   const total = quiz.questions.length;
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -79,7 +81,15 @@ export function KnowledgeCheck({
             ? `مبروك! اجتزت الاختبار (${toArabicDigits(quiz.passScore)}٪ فأكثر).`
             : `تحتاج ${toArabicDigits(quiz.passScore)}٪ للاجتياز — حاول مرة أخرى.`}
         </p>
-        <button data-quiz-retry="true" type="button" onClick={retry} className="btn-ghost px-6 text-base">
+        <button
+          data-quiz-retry="true"
+          type="button"
+          disabled={narrationLocked}
+          onClick={retry}
+          className={`btn-ghost px-6 text-base disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+            narrationLocked ? '' : 'animate-pulse-ring'
+          }`}
+        >
           <Icon name="flow" className="w-5 h-5" />
           إعادة الاختبار
         </button>
@@ -113,15 +123,19 @@ export function KnowledgeCheck({
             if (isRight) cls = 'border-teal-500/60 bg-teal-500/10 text-teal-800';
             else if (isSel) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
             else cls = 'border-line bg-surface text-ink-muted opacity-60';
+          } else if (!narrationLocked) {
+            cls += ' animate-pulse-ring';
           }
           return (
             <button
               key={i}
               data-quiz-option={i}
               type="button"
-              disabled={answered}
+              disabled={answered || narrationLocked}
               onClick={() => choose(i)}
-              className={`flex h-full items-center gap-3 rounded-2xl border-2 p-4 text-right text-[18px] font-bold leading-snug shadow-card transition-colors disabled:cursor-default ${cls}`}
+              className={`flex h-full items-center gap-3 rounded-2xl border-2 p-4 text-right text-[18px] font-bold leading-snug shadow-card transition-colors disabled:cursor-default ${
+                !answered && narrationLocked ? 'opacity-40 grayscale' : ''
+              } ${cls}`}
             >
               <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base font-extrabold tabular ${answered && isRight ? 'bg-teal-500 text-white' : answered && isSel ? 'bg-rose-500 text-white' : 'bg-surface-3 text-ink-muted'}`}>
                 {answered && isRight ? <Icon name="check" className="h-5 w-5" /> : toArabicDigits(i + 1)}
@@ -148,8 +162,10 @@ export function KnowledgeCheck({
           data-quiz-next="true"
           type="button"
           onClick={next}
-          disabled={!answered || feedbackPending}
-          className="btn-primary min-w-[150px] shrink-0 self-stretch px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40"
+          disabled={!answered || feedbackPending || narrationLocked}
+          className={`btn-primary min-w-[150px] shrink-0 self-stretch px-7 py-4 text-lg disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale ${
+            answered && !feedbackPending && !narrationLocked ? 'animate-pulse-ring' : ''
+          }`}
         >
           {feedbackPending ? 'ناصر يناقش الإجابة' : current + 1 < total ? 'التالي' : 'إنهاء'}
           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
