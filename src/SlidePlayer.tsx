@@ -53,6 +53,43 @@ export default function SlidePlayer({
   const [dialogueHolding, setDialogueHolding] = useState(false);
   const skipNextAutoPlayRef = useRef(false);
 
+  // Header/footer are overlays, not permanent layout rows -- the page's real
+  // footprint is only the 16:9 body rectangle (LMS embeds size the iframe to
+  // that box). Chrome slides in on hover-near-edge / the toggle button, and
+  // auto-hides shortly after load or when the learner interacts with the
+  // slide itself.
+  const [chromeVisible, setChromeVisible] = useState(true);
+  const chromeHideTimer = useRef<number | null>(null);
+  const clearChromeHideTimer = useCallback(() => {
+    if (chromeHideTimer.current !== null) {
+      window.clearTimeout(chromeHideTimer.current);
+      chromeHideTimer.current = null;
+    }
+  }, []);
+  const showChrome = useCallback(() => {
+    clearChromeHideTimer();
+    setChromeVisible(true);
+  }, [clearChromeHideTimer]);
+  const scheduleHideChrome = useCallback((delay = 550) => {
+    clearChromeHideTimer();
+    chromeHideTimer.current = window.setTimeout(() => setChromeVisible(false), delay);
+  }, [clearChromeHideTimer]);
+  const hideChromeNow = useCallback(() => {
+    clearChromeHideTimer();
+    setChromeVisible(false);
+  }, [clearChromeHideTimer]);
+  const toggleChrome = useCallback(() => {
+    if (chromeVisible) hideChromeNow();
+    else showChrome();
+  }, [chromeVisible, hideChromeNow, showChrome]);
+  useEffect(() => {
+    // Give first-time visitors a brief glimpse of the controls, then tuck
+    // them away so the body stays the only permanent on-screen footprint.
+    scheduleHideChrome(2600);
+    return clearChromeHideTimer;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     window.history.replaceState(null, '', courseHash(courseId, index + 1));
   }, [courseId, index]);
@@ -183,23 +220,17 @@ export default function SlidePlayer({
   const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة الأولى' : slide.title;
 
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden">
+    <div className="relative h-[100dvh] overflow-hidden">
       <BackgroundDecor />
 
-      <PlayerHeader
-        courseTitle={`${courseMeta.title} · ${courseMeta.chapter}`}
-        slideTitle={displaySlideTitle}
-        sectionLabel={SECTION_LABEL[slide.kind] ?? 'شرح مصوّر'}
-        index={index}
-        total={slides.length}
-        onExit={exit}
-        onOpenMenu={() => setMenuOpen(true)}
-        onOpenHelp={() => setHelpOpen(true)}
-      />
-
-      {/* Fixed 16:9 stage — scales to fit, never scrolls */}
-      <main className="player-main relative min-h-0 flex-1 overflow-hidden px-3 py-3 sm:px-6 sm:py-4">
-        <div key={`${slide.id}#${replayNonce}`} className="h-full animate-fade-in">
+      {/* Body — the only permanent-footprint region. Header/footer overlay
+          on top of it instead of pushing it, so the LMS iframe only ever
+          needs to fit this 16:9 rectangle. */}
+      <main
+        className="player-main absolute inset-0 flex items-center justify-center overflow-hidden p-2 sm:p-3"
+        onClick={() => chromeVisible && hideChromeNow()}
+      >
+        <div key={`${slide.id}#${replayNonce}`} className="h-full w-full animate-fade-in">
           <SlideCanvas>
             <SlideStage
               slide={slide}
@@ -228,12 +259,97 @@ export default function SlidePlayer({
         </div>
       </main>
 
+      {/* Hover-near-edge hot zones (desktop mouse) — reveal chrome without
+          needing the toggle button. Harmless no-ops on touch. */}
+      <div
+        className="absolute inset-x-0 top-0 z-30 h-6"
+        onMouseEnter={showChrome}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 z-30 h-6"
+        onMouseEnter={showChrome}
+        aria-hidden="true"
+      />
+
+      {/* Single toggle — always reachable, on every device, for showing or
+          collapsing both the header and footer chrome together. */}
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          toggleChrome();
+        }}
+        aria-label={chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'}
+        title={chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'}
+        className="absolute left-1/2 top-1.5 z-50 flex h-6 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-black/25 text-white/90 shadow-card backdrop-blur-sm transition-all hover:bg-black/40"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          className={`h-3.5 w-3.5 transition-transform duration-300 ${chromeVisible ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+
+      {/* Header overlay */}
+      <div
+        className={`absolute inset-x-0 top-0 z-40 transition-all duration-300 ease-out ${
+          chromeVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+        }`}
+        onMouseEnter={showChrome}
+        onMouseLeave={() => scheduleHideChrome()}
+      >
+        <PlayerHeader
+          courseTitle={`${courseMeta.title} · ${courseMeta.chapter}`}
+          slideTitle={displaySlideTitle}
+          sectionLabel={SECTION_LABEL[slide.kind] ?? 'شرح مصوّر'}
+          index={index}
+          total={slides.length}
+          onExit={exit}
+          onOpenMenu={() => setMenuOpen(true)}
+          onOpenHelp={() => setHelpOpen(true)}
+        />
+      </div>
+
+      {/* Footer overlay — caption + playback controls together */}
+      <div
+        className={`absolute inset-x-0 bottom-0 z-40 transition-all duration-300 ease-out ${
+          chromeVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+        onMouseEnter={showChrome}
+        onMouseLeave={() => scheduleHideChrome()}
+      >
+        <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
+        <PlayerControls
+          index={index}
+          total={slides.length}
+          onPrev={() => goTo(index - 1)}
+          onNext={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
+          onPlayPause={handlePlayPause}
+          onReplay={handleReplay}
+          onToggleMute={toggleMute}
+          muted={muted}
+          isPlaying={voicePlaying}
+          isLoading={narration.isLoading}
+          progress={sync.progress}
+          sourceLabel={sourceLabel}
+        />
+      </div>
+
       {/* The closing screen's exit/restart buttons live inside the fixed
           16:9 canvas, so on a narrow phone they shrink down with everything
           else and become too small to tap reliably. This duplicates them at
-          a real, always-tappable size — mobile only, canvas design untouched. */}
+          a real, always-tappable size — mobile only, canvas design untouched.
+          Kept above the footer overlay so it's reachable even while chrome
+          is tucked away. */}
       {(slide.kind === 'completion' || slide.layout === 'pptConclusion') && (
-        <div className="flex shrink-0 items-center justify-center gap-3 px-4 pb-2 sm:hidden">
+        <div className="absolute inset-x-0 bottom-2 z-[45] flex items-center justify-center gap-3 px-4 sm:hidden">
           <button type="button" onClick={exit} className="btn-gold min-h-[48px] flex-1 max-w-[220px] justify-center text-[15px]">
             <Icon name="flag" className="h-5 w-5" />
             إنهاء والعودة للمنصة
@@ -244,23 +360,6 @@ export default function SlidePlayer({
           </button>
         </div>
       )}
-
-      <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
-
-      <PlayerControls
-        index={index}
-        total={slides.length}
-        onPrev={() => goTo(index - 1)}
-        onNext={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
-        onPlayPause={handlePlayPause}
-        onReplay={handleReplay}
-        onToggleMute={toggleMute}
-        muted={muted}
-        isPlaying={voicePlaying}
-        isLoading={narration.isLoading}
-        progress={sync.progress}
-        sourceLabel={sourceLabel}
-      />
 
       <SlideMenu
         slides={slides}
