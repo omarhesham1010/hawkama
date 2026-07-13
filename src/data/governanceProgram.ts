@@ -57,6 +57,26 @@ const PRACTICAL_OPENERS = [
   'وفي موقف حقيقي، هذا معناه إن',
 ];
 
+/** Bridge phrases must NOT repeat every few sentences (sounds like a
+ *  stamped AI template, e.g. "أول شيء يستاهل وقفة" firing at the start of
+ *  almost every card's bullet list). Instead of indexing a pool by each
+ *  card's *local* position (which resets to slot 0 on every card and makes
+ *  that one phrase the most common line in the whole course), pull from a
+ *  cursor that keeps rotating across the *entire* narration build, so each
+ *  phrase surfaces at most once or twice per slide instead of constantly. */
+function rotatingPicker(pool: string[]) {
+  let cursor = 0;
+  return () => {
+    const phrase = pool[cursor % pool.length];
+    cursor += 1;
+    return phrase;
+  };
+}
+const nextPointBridge = rotatingPicker(POINT_BRIDGES);
+const nextDetailBridge = rotatingPicker(DETAIL_BRIDGES);
+const nextCardBridge = rotatingPicker(CARD_BRIDGES);
+const nextOpeningBridge = rotatingPicker(OPENING_BRIDGES);
+
 function practicalTakeaway(card: PptCard) {
   if (!card.rationale) return '';
   const opener = PRACTICAL_OPENERS[(card.title.length + (card.text?.length ?? 0)) % PRACTICAL_OPENERS.length];
@@ -92,7 +112,6 @@ function spokenTakeaway(card: PptCard) {
   return '';
 }
 
-let cardOpeningSequence = 0;
 let slideOpeningSequence = 0;
 
 /** Spoken-only number normalization: Nasser reads round-thousand figures
@@ -119,15 +138,11 @@ function segmentsOf(value: string) {
 function explainSegments(value: string) {
   const segments = segmentsOf(value);
   if (segments.length <= 1) return withStop(value);
-  return segments
-    .map((segment, index) => `${POINT_BRIDGES[index] ?? 'ويضاف إلى ذلك'} ${withStop(segment)}`)
-    .join(' ');
+  return segments.map((segment) => `${nextPointBridge()} ${withStop(segment)}`).join(' ');
 }
 
 function explainPoints(points: string[]) {
-  return points
-    .map((point, index) => `${POINT_BRIDGES[index] ?? 'ويضاف إلى ذلك'} ${explainSegments(point)}`)
-    .join(' ');
+  return points.map((point) => `${nextPointBridge()} ${explainSegments(point)}`).join(' ');
 }
 
 function quickCheck({
@@ -153,10 +168,8 @@ function quickCheck({
   };
 }
 
-function cardNarration(card: PptCard, index: number, variation: number) {
-  const bridge = index === 0
-    ? OPENING_BRIDGES[variation % OPENING_BRIDGES.length]
-    : CARD_BRIDGES[(index + variation - 1) % CARD_BRIDGES.length];
+function cardNarration(card: PptCard, index: number) {
+  const bridge = index === 0 ? nextOpeningBridge() : nextCardBridge();
   const parts = [`${bridge} ${card.title}.`];
 
   if (card.text) {
@@ -166,7 +179,7 @@ function cardNarration(card: PptCard, index: number, variation: number) {
     } else if (card.text.includes('؟')) {
       parts.push(`وهنا نختبر الفكرة من خلال أسئلة واضحة: ${withStop(card.text)}`);
     } else {
-      parts.push(`${DETAIL_BRIDGES[index] ?? 'ولتوضيحها أكثر،'} ${withStop(card.text)}`);
+      parts.push(`${nextDetailBridge()} ${withStop(card.text)}`);
     }
   }
   if (card.bullets?.length) {
@@ -182,9 +195,7 @@ function cardNarration(card: PptCard, index: number, variation: number) {
 }
 
 function fullNarration(lead: string, cards: PptCard[], close = '') {
-  const variation = cardOpeningSequence % OPENING_BRIDGES.length;
-  cardOpeningSequence += 1;
-  return [lead, ...cards.map((card, index) => cardNarration(card, index, variation)), close]
+  return [lead, ...cards.map((card, index) => cardNarration(card, index)), close]
     .filter(Boolean)
     .join(' ');
 }
