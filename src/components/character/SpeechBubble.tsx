@@ -22,13 +22,13 @@ export function SpeechBubble({
 
   return (
     <div
-      className={`relative min-w-[220px] rounded-2xl border-2 border-green-500/25 bg-surface px-4 py-3 text-right shadow-card animate-dialogue-pop ${
-        compact ? 'max-w-[520px]' : 'max-w-[620px]'
+      className={`relative min-w-[250px] rounded-2xl border-2 border-green-500/25 bg-surface px-5 py-3.5 text-right shadow-card animate-dialogue-pop ${
+        compact ? 'max-w-[590px]' : 'max-w-[690px]'
       }`}
     >
       <span className={`absolute h-0 w-0 drop-shadow-sm ${tail}`} aria-hidden="true" />
-      <p className="mb-1 text-[15px] font-extrabold text-brand">{label}</p>
-      <p className={`${compact ? 'text-[18px]' : 'text-[20px]'} font-bold leading-relaxed text-ink-soft`}>
+      <p className="mb-1 text-[16px] font-extrabold text-brand">{label}</p>
+      <p className={`${compact ? 'text-[21px]' : 'text-[23px]'} font-bold leading-relaxed text-ink-soft`}>
         <span>{text}</span>
         {remainingText && <span className="text-ink-soft/45">{remainingText}</span>}
       </p>

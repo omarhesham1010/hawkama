@@ -362,15 +362,17 @@ function NasserStoryLayer({
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
   const isQuiz = slide.kind === 'quiz';
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
+  // Client call: make Nasser noticeably larger across every slide kind, and
+  // scale the dialogue bubble text next to him to match (see SpeechBubble).
   const imageSize = isPpt
-    ? 'h-[218px] w-[218px]'
+    ? 'h-[292px] w-[292px]'
     : isQuiz
-      ? 'h-[160px] w-[160px]'
+      ? 'h-[214px] w-[214px]'
       : compact
-        ? 'h-[200px] w-[200px]'
-        : 'h-[250px] w-[250px]';
-  const layerHeight = isPpt ? 'h-[190px]' : isQuiz ? 'h-[140px]' : compact ? 'h-[178px]' : 'h-[212px]';
-  const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[38px]';
+        ? 'h-[268px] w-[268px]'
+        : 'h-[330px] w-[330px]';
+  const layerHeight = isPpt ? 'h-[254px]' : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
+  const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = isQuiz ? 'mb-2' : compact ? 'mb-5' : 'mb-9';
@@ -957,6 +959,20 @@ function pickFocusAnimation(exclude?: string) {
   const pool = exclude ? FOCUS_ANIMATIONS.filter((name) => name !== exclude) : FOCUS_ANIMATIONS;
   return pool[Math.floor(Math.random() * pool.length)];
 }
+
+/** Matches each .motion-focus-* keyframe's `animation-duration` in
+ *  styles/index.css, so we know how long one loop takes. */
+const FOCUS_ANIMATION_DURATIONS_MS: Record<string, number> = {
+  'motion-focus-glow': 2400,
+  'motion-focus-beat': 2300,
+  'motion-focus-bounce': 2300,
+  'motion-focus-float': 2600,
+  'motion-focus-tilt': 2500,
+  'motion-focus-zoom': 2400,
+  'motion-focus-swing': 2600,
+  'motion-focus-wiggle': 2400,
+  'motion-focus-pop': 2300,
+};
 
 function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   const text = `${card.title} ${card.text ?? ''}`;
@@ -1827,6 +1843,19 @@ function PptMotionVisualScene({
     setLastActiveKey(effectiveActiveKey);
     if (effectiveActiveKey) setFocusAnim((previous) => pickFocusAnimation(previous));
   }
+  // While the SAME card stays active for a while (Nasser talking about it
+  // at length), don't let one motion loop forever -- play it two or three
+  // times, then swap to a different one from the pool, so the highlight
+  // keeps feeling alive instead of a single fixed animation on repeat.
+  useEffect(() => {
+    if (!effectiveActiveKey) return;
+    const duration = FOCUS_ANIMATION_DURATIONS_MS[focusAnim] ?? 2400;
+    const repeats = 2 + Math.floor(Math.random() * 2); // 2 or 3 loops
+    const timer = window.setTimeout(() => {
+      setFocusAnim((previous) => pickFocusAnimation(previous));
+    }, duration * repeats);
+    return () => window.clearTimeout(timer);
+  }, [effectiveActiveKey, focusAnim]);
   const fallbackVisualPool = slide.id.startsWith('ch3')
     ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
     : slide.id.startsWith('ch2')
@@ -2324,7 +2353,7 @@ function PptGuidedScenarioSlide({
                   <img
                     src={POSE_SRC[discussionVisible ? 'thinking' : 'question']}
                     alt="ناصر المدرب"
-                    className={`h-[190px] w-[190px] object-contain drop-shadow-[0_20px_26px_rgb(0_0_0_/_0.28)] transition-transform duration-500 ${
+                    className={`h-[240px] w-[240px] object-contain drop-shadow-[0_20px_26px_rgb(0_0_0_/_0.28)] transition-transform duration-500 ${
                       guidedSpeech.speaking ? 'scale-[1.04]' : ''
                     }`}
                   />

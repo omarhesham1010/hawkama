@@ -38,7 +38,7 @@ export function Nasser({
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }) {
-  const imgSize = size === 'lg' ? 'h-[390px]' : size === 'sm' ? 'h-[210px]' : 'h-[300px]';
+  const imgSize = size === 'lg' ? 'h-[470px]' : size === 'sm' ? 'h-[270px]' : 'h-[380px]';
   const bubbleTail = side === 'right' ? 'left' : 'right';
   return (
     <div
