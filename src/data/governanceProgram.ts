@@ -9,6 +9,8 @@ const CARD_BRIDGES = [
   'وهنا نربط اللي فات بفكرة',
   'وعشان الصورة تكتمل، لازم نضيف',
   'وهذا يوصّلنا مباشرة لنقطة مهمة، وهي',
+  'وننتقل الآن لجانب ثاني، وهو',
+  'وبطبيعة الحال، يليها',
 ];
 
 const OPENING_BRIDGES = [
@@ -36,6 +38,10 @@ const POINT_BRIDGES = [
   'وفي نفس السياق، لاحظوا:',
   'وأخيرًا، عشان الصورة تكتمل:',
   'وما يصح نغفل عن:',
+  'ونضيف هنا نقطة تكمّل الصورة:',
+  'وتوّنا نوصل لنقطة تستاهل التركيز:',
+  'ومن الأشياء المهمة اللي نذكرها:',
+  'وعلى نفس الخط:',
 ];
 
 const DETAIL_BRIDGES = [
@@ -45,6 +51,10 @@ const DETAIL_BRIDGES = [
   'ولو ربطناها بشغلكم اليومي، بتلقون إن',
   'والدور الحقيقي هنا يتمثل في إن',
   'والخلاصة اللي محتاجين نمسكها إن',
+  'وبكل بساطة، الأثر العملي إن',
+  'وإذا نزّلناها على الواقع، نلقى إن',
+  'والنقطة الجوهرية هنا إن',
+  'وبالتفصيل أكثر، معناها إن',
 ];
 
 /** A short, grounded "so what does this mean in practice" closer — reuses
@@ -59,16 +69,30 @@ const PRACTICAL_OPENERS = [
 
 /** Bridge phrases must NOT repeat every few sentences (sounds like a
  *  stamped AI template, e.g. "أول شيء يستاهل وقفة" firing at the start of
- *  almost every card's bullet list). Instead of indexing a pool by each
- *  card's *local* position (which resets to slot 0 on every card and makes
- *  that one phrase the most common line in the whole course), pull from a
- *  cursor that keeps rotating across the *entire* narration build, so each
- *  phrase surfaces at most once or twice per slide instead of constantly. */
+ *  almost every card's bullet list). A plain rotating index still repeats
+ *  every `pool.length` picks, which a single content-heavy slide can blow
+ *  through several times over. Instead, deal from a shuffled "bag" of the
+ *  whole pool (drawn without replacement) and reshuffle only once it's
+ *  empty — that guarantees no phrase repeats within any window smaller
+ *  than the pool size, and swaps the reshuffle's first card if it would
+ *  land right after itself, so it never repeats back-to-back either. */
 function rotatingPicker(pool: string[]) {
-  let cursor = 0;
+  let bag: string[] = [];
+  let last: string | null = null;
+  const refill = () => {
+    bag = [...pool];
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+    if (bag.length > 1 && bag[0] === last) {
+      [bag[0], bag[1]] = [bag[1], bag[0]];
+    }
+  };
   return () => {
-    const phrase = pool[cursor % pool.length];
-    cursor += 1;
+    if (bag.length === 0) refill();
+    const phrase = bag.shift() as string;
+    last = phrase;
     return phrase;
   };
 }
