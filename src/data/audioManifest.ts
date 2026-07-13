@@ -23,6 +23,7 @@ export const AUDIO_MANIFEST: string[] = [
   "ch1-conflict-scenario-discussion-1",
   "ch1-conflict-scenario-discussion-2",
   "ch1-conflict-scenario-discussion-3",
+  "ch1-conflict-scenario-question-1",
   "ch1-conflict-scenario-question-2",
   "ch1-conflict-scenario-question-3",
   "ch1-conflict-scenario",
@@ -144,7 +145,7 @@ export const AUDIO_MANIFEST: string[] = [
   "slide-17",
   "slide-18"
 ];
-export const AUDIO_MANIFEST_VERSION = 'cfc71594db56';
+export const AUDIO_MANIFEST_VERSION = '7be7629de059';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

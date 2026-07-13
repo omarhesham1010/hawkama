@@ -13,7 +13,7 @@ import { KnowledgeCheck } from '../activities/KnowledgeCheck';
 import { POSE_SRC, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
-import { activeStoryCue } from '../../lib/storyTiming';
+import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
 import { activePptCardForCue, pptCardCueIndexes } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
@@ -2387,7 +2387,8 @@ function PptStyleSlide({
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
   const [checkPhase, setCheckPhase] = useState<CheckPhase>('idle');
   const guidedSpeech = useGuidedSpeech(slide, muted);
-  const { isPlaying: narrationLocked } = useNarrationContext();
+  const narration = useNarrationContext();
+  const { isPlaying: narrationLocked } = narration;
 
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
@@ -2401,6 +2402,18 @@ function PptStyleSlide({
   const narrationPosition = started ? spoken : 0;
   const cueState = activeStoryCue(slide.narration, narrationPosition);
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
+  // The exact stretch of the slide's own narration where Nasser talked
+  // about this card — used to replay that original recording instead of
+  // synthesizing new text/audio when the learner reopens the card.
+  const cardNarrationRange = (index: number) => {
+    const cues = storyCues(slide.narration);
+    const startCue = cues[revealCueIndexes[index] ?? 0];
+    const nextCueIndex = revealCueIndexes[index + 1];
+    const endCue = nextCueIndex != null ? cues[nextCueIndex] : undefined;
+    const start = startCue?.start ?? 0;
+    const end = endCue?.start ?? slide.narration.length;
+    return { start, end, text: slide.narration.slice(start, end).trim() };
+  };
   const narrationFinished = narrationPosition >= slide.narration.length - 1;
   const activeCard =
     narrationPosition > 0 && !narrationFinished
@@ -2439,7 +2452,28 @@ function PptStyleSlide({
         activityCardDiscussion(cards[i]),
         () => undefined,
       );
+      return;
     }
+    // Regular content cards: don't invent new lines — replay the exact
+    // stretch of the slide's own recording where Nasser already explained
+    // this card, using the alignment data to seek straight to it.
+    void (async () => {
+      const range = cardNarrationRange(i);
+      if (!range.text) return;
+      const { audioAlignments } = await import('../../data/audioAlignments');
+      const anchors = audioAlignments[slide.audioKey]?.anchors;
+      if (anchors?.length) {
+        narration.play(
+          `${slide.audioKey}-card-${i}`,
+          range.text,
+          slide.title,
+          { start: timeFromAudioAlignment(range.start, anchors), end: timeFromAudioAlignment(range.end, anchors) },
+          slide.audioKey,
+        );
+      } else {
+        guidedSpeech.speak(`${slide.audioKey}-detail-${i + 1}`, range.text, () => undefined);
+      }
+    })();
   };
   const expandedCardIndex = cards.findIndex((_, index) => expandedCardKey === `${slide.id}:${index}`);
   const expandedCard = expandedCardIndex >= 0 ? cards[expandedCardIndex] : undefined;
@@ -2466,7 +2500,7 @@ function PptStyleSlide({
   const interactionLine = guidedSpeech.line ?? (expandedCard
     ? slide.kind === 'activity'
       ? activityCardDiscussion(expandedCard)
-      : `خلنا نربط هذه النقطة بالتطبيق: ${pptDetailFor(expandedCard)} فكر كيف تظهر في بيئة عملك قبل الانتقال للنقطة التالية.`
+      : cardNarrationRange(expandedCardIndex).text || pptDetailFor(expandedCard)
     : undefined);
 
   return (

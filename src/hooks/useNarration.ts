@@ -311,7 +311,7 @@ export function useNarration() {
   );
 
   const play = useCallback(
-    (key: string, script: string) => {
+    (key: string, script: string, segment?: { start: number; end: number }, sourceKey?: string) => {
       stopInternal();
       const token = playTokenRef.current;
       lastRef.current = { key, script };
@@ -325,15 +325,21 @@ export function useNarration() {
       setAudioDuration(null);
       setAudioUpdatedAt(null);
 
+      // sourceKey lets a caller reuse an already-recorded slide's MP3 under a
+      // different `key` identity (e.g. replaying one card's segment without
+      // being mistaken for "now playing the whole slide again" by the main
+      // narration-position tracker, which only watches for its own exact key).
+      const audioSource = sourceKey ?? key;
+
       // No real MP3 for this key → go straight to TTS (instant, no probe delay).
-      if (!hasAudio(key)) {
+      if (!hasAudio(audioSource)) {
         speakTts(script, key);
         return;
       }
 
       setStatus('loading');
-      const cachedAudio = preloadedAudio.get(key);
-      const audio = cachedAudio ?? new Audio(narrationAudioUrl(key));
+      const cachedAudio = sourceKey ? undefined : preloadedAudio.get(key);
+      const audio = cachedAudio ?? new Audio(narrationAudioUrl(audioSource));
       preloadedAudio.delete(key);
       audio.preload = 'auto';
       if (!cachedAudio) audio.load();
@@ -352,15 +358,39 @@ export function useNarration() {
         setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
         setAudioUpdatedAt(performance.now());
       };
-      audio.addEventListener('loadedmetadata', updateAudioTime);
+      const finishPlayback = () => {
+        if (token !== playTokenRef.current) return;
+        audio.pause();
+        setAudioElapsed(Number.isFinite(audio.duration) ? audio.duration : audio.currentTime || 0);
+        setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
+        setAudioUpdatedAt(performance.now());
+        setSpeechStartedAt(null);
+        setStatus('idle');
+        setCompletedKey(key);
+      };
+      let seekedToSegmentStart = false;
+      audio.addEventListener('loadedmetadata', () => {
+        if (segment && !seekedToSegmentStart) {
+          seekedToSegmentStart = true;
+          audio.currentTime = segment.start;
+        }
+        updateAudioTime();
+      });
       audio.addEventListener('durationchange', updateAudioTime);
-      audio.addEventListener('timeupdate', updateAudioTime);
       audio.addEventListener('canplay', updateAudioTime);
+      audio.addEventListener('timeupdate', () => {
+        updateAudioTime();
+        if (segment && seekedToSegmentStart && audio.currentTime >= segment.end) finishPlayback();
+      });
       audio.addEventListener('playing', () => {
         if (token !== playTokenRef.current) {
           audio.pause();
           audio.src = '';
           return;
+        }
+        if (segment && !seekedToSegmentStart) {
+          seekedToSegmentStart = true;
+          audio.currentTime = segment.start;
         }
         updateAudioTime();
         setSource('audio');
@@ -368,15 +398,7 @@ export function useNarration() {
         setStatus('playing');
         setSpeechStartedAt(performance.now());
       });
-      audio.addEventListener('ended', () => {
-        if (token !== playTokenRef.current) return;
-        setAudioElapsed(Number.isFinite(audio.duration) ? audio.duration : audio.currentTime || 0);
-        setAudioDuration(Number.isFinite(audio.duration) ? audio.duration : null);
-        setAudioUpdatedAt(performance.now());
-        setSpeechStartedAt(null);
-        setStatus('idle');
-        setCompletedKey(key);
-      });
+      audio.addEventListener('ended', finishPlayback);
       audio.addEventListener('error', fallback);
       audio.play().catch(() => {
         if (token !== playTokenRef.current) return;

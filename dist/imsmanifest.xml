@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-SM43DM5C.js" />
-      <file href="assets/chunks/audioAlignments-KE6ZPU2B.js" />
-      <file href="assets/chunks/chunk-CMYN3ZP5.js" />
+      <file href="assets/chunks/SlidePlayer-EENRXFJ2.js" />
+      <file href="assets/chunks/audioAlignments-SCBKZPLZ.js" />
+      <file href="assets/chunks/chunk-DKVIFZ3H.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
       <file href="assets/index-0f669321.css" />
-      <file href="assets/index-94417fc9.js" />
+      <file href="assets/index-ee3f3dac.js" />
       <file href="audio/README.md" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-correct.mp3" />
       <file href="audio/ch1-activity-governance-or-compliance-feedback-1-incorrect.mp3" />
@@ -56,6 +56,7 @@
       <file href="audio/ch1-conflict-scenario-discussion-1.mp3" />
       <file href="audio/ch1-conflict-scenario-discussion-2.mp3" />
       <file href="audio/ch1-conflict-scenario-discussion-3.mp3" />
+      <file href="audio/ch1-conflict-scenario-question-1.mp3" />
       <file href="audio/ch1-conflict-scenario-question-2.mp3" />
       <file href="audio/ch1-conflict-scenario-question-3.mp3" />
       <file href="audio/ch1-conflict-scenario.mp3" />

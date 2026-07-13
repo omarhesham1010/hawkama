@@ -25,7 +25,7 @@ interface NarrationContextValue {
   setVoiceURI: (uri: string | null) => void;
   rate: number;
   setRate: (r: number) => void;
-  play: (key: string, script: string, label?: string) => void;
+  play: (key: string, script: string, label?: string, segment?: { start: number; end: number }, sourceKey?: string) => void;
   pause: () => void;
   resume: () => void;
   stop: () => void;
@@ -41,10 +41,10 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
   const [nowKey, setNowKey] = useState<string | null>(null);
 
   const play = useCallback(
-    (key: string, script: string, label?: string) => {
+    (key: string, script: string, label?: string, segment?: { start: number; end: number }, sourceKey?: string) => {
       setNowLabel(label ?? null);
       setNowKey(key);
-      n.play(key, script);
+      n.play(key, script, segment, sourceKey);
     },
     [n],
   );

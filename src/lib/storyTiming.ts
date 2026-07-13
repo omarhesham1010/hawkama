@@ -147,6 +147,34 @@ export function spokenFromAudioAlignment(
   return Math.min(textLength, anchor[0] + (next[0] - anchor[0]) * fraction + 1);
 }
 
+/** Inverse of spokenFromAudioAlignment: given a character position in the
+ *  narration, find the matching time (seconds) in its recorded audio — lets
+ *  us seek an already-recorded slide narration to the exact moment Nasser
+ *  started talking about one particular card, instead of recording new
+ *  audio for a replay. */
+export function timeFromAudioAlignment(
+  charIndex: number,
+  anchors: readonly (readonly [number, number, number])[],
+) {
+  if (!anchors.length) return 0;
+  if (charIndex <= anchors[0][0]) return anchors[0][1];
+  if (charIndex >= anchors[anchors.length - 1][0]) return anchors[anchors.length - 1][1];
+
+  let low = 0;
+  let high = anchors.length - 1;
+  while (low <= high) {
+    const middle = (low + high) >> 1;
+    if (anchors[middle][0] <= charIndex) low = middle + 1;
+    else high = middle - 1;
+  }
+
+  const anchor = anchors[Math.max(0, high)];
+  const next = anchors[Math.min(anchors.length - 1, high + 1)];
+  const span = Math.max(1, next[0] - anchor[0]);
+  const fraction = Math.max(0, Math.min(1, (charIndex - anchor[0]) / span));
+  return anchor[1] + (next[1] - anchor[1]) * fraction;
+}
+
 export function spokenFromTtsCue(
   cueStart: number,
   cueEnd: number,
