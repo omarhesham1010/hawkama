@@ -69,7 +69,10 @@ export type PptLayout =
   | 'pptActivitySort'
   | 'pptSixCards'
   | 'pptScenario'
-  | 'pptConclusion';
+  | 'pptConclusion'
+  | 'pptTimeline'
+  | 'pptMatrix'
+  | 'pptSpotlight';
 
 export interface PptCard {
   index?: string;

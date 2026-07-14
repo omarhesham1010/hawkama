@@ -2074,6 +2074,232 @@ function PptMotionVisualScene({
   );
 }
 
+/** Horizontal numbered step-flow — for sequential processes, phases and
+ *  procedures. Structurally nothing like the floating-labels motion scene:
+ *  fixed in-flow badges connected left-to-right, no orbiting/positioning. */
+function PptTimelineScene({
+  slide,
+  cards,
+  activeCard,
+  visibleFor,
+  revealAnimationFor,
+  expandedKey,
+  onToggle,
+}: {
+  slide: Slide;
+  cards: PptCard[];
+  activeCard: number;
+  visibleFor: (index: number) => boolean;
+  revealAnimationFor: (index: number) => string;
+  expandedKey: string | null;
+  onToggle: (index: number) => void;
+}) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
+  return (
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-2">
+      <div className="flex w-full max-w-[1120px] flex-wrap items-start justify-center gap-y-9">
+        {cards.map((card, index) => {
+          const visible = visibleFor(index);
+          const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
+          const detail = pptDetailFor(card);
+          const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
+          return (
+            <div key={index} className="flex items-start">
+              {index > 0 && (
+                <span
+                  className="mx-2 mt-8 hidden h-[3px] w-8 shrink-0 rounded-full bg-gradient-to-r from-gold-500/50 to-green-700/20 sm:block"
+                  aria-hidden="true"
+                />
+              )}
+              <button
+                type="button"
+                disabled={!visible || narrationLocked}
+                onClick={() => onToggle(index)}
+                className={`flex w-[172px] flex-col items-center text-center transition-all duration-500 ${
+                  visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
+                } ${active ? 'scale-[1.05]' : ''}`}
+              >
+                <span
+                  className={`grid h-[64px] w-[64px] shrink-0 place-items-center rounded-full border-4 text-[22px] font-extrabold tabular shadow-card transition-all duration-500 ${
+                    active
+                      ? 'border-gold-400 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-card-lg'
+                      : 'border-white bg-white text-green-800 ring-1 ring-green-700/16'
+                  }`}
+                >
+                  {card.index ?? index + 1}
+                </span>
+                <span
+                  className={`mt-3 rounded-[22px] border px-4 py-3 shadow-[0_14px_30px_rgb(24_82_55_/_0.08)] backdrop-blur-sm transition-all duration-500 ${
+                    active ? 'border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/12 bg-white/72 text-brand-strong'
+                  }`}
+                >
+                  <span className="block text-[15.5px] font-extrabold leading-snug">{card.title}</span>
+                  {showDetail && detail && (
+                    <span className="mt-2 block text-[13px] font-bold leading-relaxed text-ink">{detail}</span>
+                  )}
+                </span>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** 2x2 (or 2x1/1x1 fallback) quadrant grid — for matrix-shaped content like
+ *  the power/interest stakeholder map or category breakdowns. Big bordered
+ *  panels instead of pill-shaped cards, quadrant number as a corner tag. */
+function PptMatrixScene({
+  slide,
+  cards,
+  activeCard,
+  visibleFor,
+  revealAnimationFor,
+  expandedKey,
+  onToggle,
+}: {
+  slide: Slide;
+  cards: PptCard[];
+  activeCard: number;
+  visibleFor: (index: number) => boolean;
+  revealAnimationFor: (index: number) => string;
+  expandedKey: string | null;
+  onToggle: (index: number) => void;
+}) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
+  const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
+  return (
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3">
+      <div className={`grid w-full max-w-[980px] auto-rows-fr ${cols} gap-4`}>
+        {cards.map((card, index) => {
+          const visible = visibleFor(index);
+          const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
+          const detail = pptDetailFor(card);
+          const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
+          const tone = card.tone ?? 'green';
+          const toneShell =
+            tone === 'gold'
+              ? 'border-gold-500/25 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(249_244_226_/_0.7))]'
+              : tone === 'blue'
+                ? 'border-sky-500/22 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(232_247_249_/_0.68))]'
+                : 'border-green-700/18 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(233_246_239_/_0.68))]';
+          return (
+            <button
+              key={index}
+              type="button"
+              disabled={!visible || narrationLocked}
+              onClick={() => onToggle(index)}
+              className={`relative min-h-[128px] rounded-[26px] border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-500 ${
+                visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
+              } ${
+                active
+                  ? 'scale-[1.02] border-gold-500/45 bg-[linear-gradient(150deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
+                  : toneShell
+              }`}
+            >
+              <span
+                className={`absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full text-[13px] font-extrabold tabular ${
+                  active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
+                }`}
+              >
+                {card.index ?? index + 1}
+              </span>
+              <h3 className={`max-w-[85%] text-[19px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
+                {card.title}
+              </h3>
+              {card.text && (
+                <p className={`mt-2 text-[14.5px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+              )}
+              {showDetail && detail && (
+                <div className={`mt-3 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
+                  <p className={`text-[14px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{detail}</p>
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** One large centered highlight (the concept Nasser is deep-diving on right
+ *  now) with the remaining cards as small supporting chips beneath it —
+ *  for single-concept slides (a definition, a model) rather than a set of
+ *  equally-weighted items. */
+function PptSpotlightScene({
+  slide,
+  cards,
+  activeCard,
+  visibleFor,
+  revealAnimationFor,
+  expandedKey,
+  onToggle,
+}: {
+  slide: Slide;
+  cards: PptCard[];
+  activeCard: number;
+  visibleFor: (index: number) => boolean;
+  revealAnimationFor: (index: number) => string;
+  expandedKey: string | null;
+  onToggle: (index: number) => void;
+}) {
+  const { isPlaying: narrationLocked } = useNarrationContext();
+  const focusIndex = activeCard >= 0 ? activeCard : 0;
+  const focusCard = cards[focusIndex];
+  const supporting = cards.filter((_, i) => i !== focusIndex);
+  const focusVisible = visibleFor(focusIndex);
+  const focusActive = expandedKey === `${slide.id}:${focusIndex}`;
+  const focusDetail = pptDetailFor(focusCard);
+  const showFocusDetail = focusActive && Boolean(focusDetail);
+  return (
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4">
+      <button
+        type="button"
+        disabled={!focusVisible || narrationLocked}
+        onClick={() => onToggle(focusIndex)}
+        className={`relative w-full max-w-[620px] rounded-[36px] border p-7 text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
+          focusVisible ? revealAnimationFor(focusIndex) : 'pointer-events-none opacity-0'
+        } border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
+      >
+        <span className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 text-[30px] ring-2 ring-white/25">
+          {pptEmojiFor(focusCard, slide.visual, focusIndex)}
+        </span>
+        <h3 className="text-[26px] font-extrabold leading-tight">{focusCard?.title}</h3>
+        {focusCard?.text && <p className="mt-2.5 text-[16px] font-bold leading-relaxed text-green-50">{focusCard.text}</p>}
+        {showFocusDetail && focusDetail && (
+          <div className="mx-auto mt-4 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-3">
+            <p className="text-[15px] font-bold leading-relaxed text-green-50">{focusDetail}</p>
+          </div>
+        )}
+      </button>
+      {supporting.length > 0 && (
+        <div className="flex w-full max-w-[820px] flex-wrap items-stretch justify-center gap-3">
+          {supporting.map((card) => {
+            const index = cards.indexOf(card);
+            const visible = visibleFor(index);
+            const active = expandedKey === `${slide.id}:${index}`;
+            return (
+              <button
+                key={index}
+                type="button"
+                disabled={!visible || narrationLocked}
+                onClick={() => onToggle(index)}
+                className={`min-w-[170px] flex-1 rounded-[22px] border px-4 py-3 text-center shadow-[0_14px_28px_rgb(24_82_55_/_0.07)] transition-all duration-500 ${
+                  visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
+                } ${active ? 'border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/14 bg-white/75 text-brand-strong'}`}
+              >
+                <span className="block text-[14.5px] font-extrabold leading-snug">{card.title}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PptActivitySlide({
   slide,
   spoken,
@@ -2541,6 +2767,9 @@ function PptStyleSlide({
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
   const isTwoPanel = slide.layout === 'pptTwoPanels';
+  const isTimeline = slide.layout === 'pptTimeline';
+  const isMatrix = slide.layout === 'pptMatrix';
+  const isSpotlight = slide.layout === 'pptSpotlight';
   const motionStarted = started || spoken > 0 || showDialogue;
 
   const gridClass = isThree
@@ -2672,6 +2901,36 @@ function PptStyleSlide({
               </button>
             </div>
           </div>
+        ) : isTimeline ? (
+          <PptTimelineScene
+            slide={slide}
+            cards={cards}
+            activeCard={activeCard}
+            visibleFor={cardIsVisible}
+            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+            expandedKey={expandedCardKey}
+            onToggle={toggleCard}
+          />
+        ) : isMatrix ? (
+          <PptMatrixScene
+            slide={slide}
+            cards={cards}
+            activeCard={activeCard}
+            visibleFor={cardIsVisible}
+            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+            expandedKey={expandedCardKey}
+            onToggle={toggleCard}
+          />
+        ) : isSpotlight ? (
+          <PptSpotlightScene
+            slide={slide}
+            cards={cards}
+            activeCard={activeCard}
+            visibleFor={cardIsVisible}
+            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+            expandedKey={expandedCardKey}
+            onToggle={toggleCard}
+          />
         ) : (
           <PptMotionVisualScene
             slide={slide}
