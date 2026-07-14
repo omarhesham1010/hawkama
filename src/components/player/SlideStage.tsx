@@ -1705,6 +1705,18 @@ function pptGeneratedVisualLayersFor(text: string) {
   // Bag 2 (emergency response) topics — checked first so their own visuals
   // win the primary card slot even when a word also appears in bag 1's
   // governance vocabulary (e.g. "مخاطر", "قيادة", "تقييم").
+  //
+  // These three are placeholder art (plain white/green) pending real
+  // illustrations from the client -- see docs/bag2-photos-prompts.md.
+  if (hasAny(text, ['مصفوفة RACI', 'RACI'])) {
+    add('/course-visuals/emergency-raci-matrix.svg');
+  }
+  if (hasAny(text, ['ديناميكيات الأزمات', 'حدث/طارئ/أزمة/كارثة', 'أنواع الأزمات'])) {
+    add('/course-visuals/emergency-crisis-terms.svg');
+  }
+  if (hasAny(text, ['القيادة أثناء الأزمات', 'سمات القيادة', 'الهدوء الظاهر', 'التعاطف الإنساني', 'التواجد الميداني'])) {
+    add('/course-visuals/emergency-leadership-traits.svg');
+  }
   if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'التنسيق أثناء الطوارئ'])) {
     add('/course-visuals/emergency-command-center.svg');
   }
@@ -2023,10 +2035,14 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   // instead of drifting to bag 1's governance imagery once its per-card
   // matching bottoms out.
   const courseMarker = isEmergencySlide ? ' __bag2__' : '';
+  // Slide-title match goes first: it's usually the more specific signal
+  // (e.g. a title like "فهم ديناميكيات الأزمات" naming the exact concept),
+  // while per-card text is often a bare one-word label that only reaches
+  // the generic fallback -- putting cards first would let that generic
+  // fallback claim the primary visual slot ahead of the better title match.
   const slideLevelVisuals = pptGeneratedVisualLayersFor(`${slide.title} ${slide.narration.slice(0, 200)}${courseMarker}`);
-  const allVisuals = cards
-    .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${courseMarker}`))
-    .concat(slideLevelVisuals)
+  const allVisuals = slideLevelVisuals
+    .concat(cards.flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${courseMarker}`)))
     .filter((src, index, all) => all.indexOf(src) === index)
     .slice(0, 6);
   return allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;

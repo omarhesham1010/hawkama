@@ -32,11 +32,11 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-6DIVAHSK.js" />
+      <file href="assets/chunks/SlidePlayer-TTBWRTVQ.js" />
       <file href="assets/chunks/audioAlignments-WVW3PKUF.js" />
       <file href="assets/chunks/chunk-IAX6TLQO.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
-      <file href="assets/index-029da281.js" />
+      <file href="assets/index-07793485.js" />
       <file href="assets/index-68d73dc3.css" />
       <file href="audio/README.md" />
       <file href="audio/bag1-ch0-s1-welcome.mp3" />
@@ -165,9 +165,12 @@
       <file href="course-visuals/emergency-command-center.svg" />
       <file href="course-visuals/emergency-continuity-shield.svg" />
       <file href="course-visuals/emergency-crisis-communication.svg" />
+      <file href="course-visuals/emergency-crisis-terms.svg" />
       <file href="course-visuals/emergency-decision-pressure.svg" />
       <file href="course-visuals/emergency-kpi-dashboard.svg" />
+      <file href="course-visuals/emergency-leadership-traits.svg" />
       <file href="course-visuals/emergency-proactive-scanning.svg" />
+      <file href="course-visuals/emergency-raci-matrix.svg" />
       <file href="course-visuals/emergency-response-team.svg" />
       <file href="course-visuals/emergency-risk-matrix.svg" />
       <file href="course-visuals/emergency-stakeholder-network.svg" />
