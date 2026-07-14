@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg8" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg8)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- 2x2 heat grid -->
+  <g stroke="#FFFFFF" stroke-width="3">
+    <rect x="56" y="56" width="44" height="44" rx="4" fill="#2F7657"/>
+    <rect x="100" y="56" width="44" height="44" rx="4" fill="#BF9B4A"/>
+    <rect x="56" y="100" width="44" height="44" rx="4" fill="#E7A94C"/>
+    <rect x="100" y="100" width="44" height="44" rx="4" fill="#C4522E"/>
+  </g>
+
+  <!-- floating hazard icons -->
+  <circle cx="78" cy="78" r="6" fill="#EAF5EE"/>
+  <path d="M118 68l6 12h-12z" fill="#EAF5EE"/>
+  <circle cx="122" cy="122" r="6" fill="#EAF5EE"/>
+  <path d="M70 118l6 12-6 3-6-3z" fill="#EAF5EE"/>
+</svg>

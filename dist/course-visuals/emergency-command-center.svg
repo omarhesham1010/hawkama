@@ -1,0 +1,41 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg1" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2F7657"/>
+      <stop offset="100%" stop-color="#1F5C3A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg1)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- back wall of screens -->
+  <rect x="46" y="48" width="108" height="52" rx="8" fill="url(#g1)"/>
+  <rect x="54" y="56" width="30" height="20" rx="3" fill="#EAF5EE" opacity="0.9"/>
+  <rect x="90" y="56" width="30" height="20" rx="3" fill="#EAF5EE" opacity="0.9"/>
+  <rect x="126" y="56" width="20" height="20" rx="3" fill="#BF9B4A"/>
+  <path d="M58 71l6-6 5 4 8-9" stroke="#1F5C3A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M94 74l7-11 6 7 9-9" stroke="#1F5C3A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="136" cy="66" r="5.5" fill="#1F5C3A"/>
+
+  <!-- table -->
+  <ellipse cx="100" cy="132" rx="46" ry="14" fill="#DCEDE2"/>
+  <ellipse cx="100" cy="129" rx="46" ry="14" fill="none" stroke="#2F7657" stroke-width="2.5"/>
+
+  <!-- silhouettes around table -->
+  <g fill="#1F5C3A">
+    <circle cx="66" cy="118" r="7"/>
+    <path d="M56 140c1-10 8-15 10-15s9 5 10 15z"/>
+  </g>
+  <g fill="#2F7657">
+    <circle cx="100" cy="112" r="7"/>
+    <path d="M90 134c1-10 8-15 10-15s9 5 10 15z"/>
+  </g>
+  <g fill="#BF9B4A">
+    <circle cx="134" cy="118" r="7"/>
+    <path d="M124 140c1-10 8-15 10-15s9 5 10 15z"/>
+  </g>
+</svg>

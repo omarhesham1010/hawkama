@@ -1,0 +1,26 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg5" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg5)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- megaphone -->
+  <path d="M56 96l24-10v40l-24-10z" fill="#1F5C3A"/>
+  <path d="M80 86l30-16v72l-30-16z" fill="#2F7657"/>
+  <rect x="50" y="92" width="8" height="16" rx="2" fill="#1F5C3A"/>
+
+  <!-- calm reassuring waves -->
+  <path d="M118 100c8-4 16-4 24 0M122 88c12-6 24-6 36 0M122 112c12 6 24 6 36 0" stroke="#BF9B4A" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- small crowd -->
+  <g fill="#2F7657" opacity="0.85">
+    <circle cx="150" cy="140" r="6"/>
+    <path d="M141 158c1-8 6-12 9-12s8 4 9 12z"/>
+    <circle cx="168" cy="146" r="5"/>
+    <path d="M160 160c1-7 5-10 8-10s7 3 8 10z"/>
+  </g>
+</svg>

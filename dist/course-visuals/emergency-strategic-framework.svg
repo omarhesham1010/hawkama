@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg2" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg2)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- shield -->
+  <path d="M100 42l34 14v34c0 30-19 47-34 56-15-9-34-26-34-56V56z" fill="#1F5C3A"/>
+  <path d="M100 52l25 10.4v27.6c0 24.5-15.5 38.4-25 45.9-9.5-7.5-25-21.4-25-45.9V62.4z" fill="#EAF5EE" opacity="0.92"/>
+
+  <!-- branching decision tree inside -->
+  <circle cx="100" cy="76" r="5.5" fill="#2F7657"/>
+  <path d="M100 81v10" stroke="#2F7657" stroke-width="3" stroke-linecap="round"/>
+  <path d="M100 91l-16 14M100 91l16 14" stroke="#2F7657" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="84" cy="107" r="5" fill="#BF9B4A"/>
+  <circle cx="116" cy="107" r="5" fill="#BF9B4A"/>
+  <path d="M84 112v9M116 112v9" stroke="#BF9B4A" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="84" cy="125" r="4.5" fill="#1F5C3A"/>
+  <circle cx="116" cy="125" r="4.5" fill="#1F5C3A"/>
+</svg>

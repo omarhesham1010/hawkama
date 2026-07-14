@@ -1155,21 +1155,35 @@ function IntroMotionScene({
   // the "currently talking about this" active highlight.
   const activeIndex = thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
   const visiblePillars = started ? (thirdPillarShown ? 3 : secondPillarShown ? 2 : firstPillarShown ? 1 : 0) : 0;
+  // Bag 2 (emergency response) welcome slides get their own themed floating
+  // layers instead of bag 1's governance/compliance/risk icons.
+  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const introLayerSrcs = isEmergencyCourse
+    ? [
+        '/motion-assets/emergency-intro-preparedness-layer.svg',
+        '/motion-assets/emergency-intro-crisis-layer.svg',
+        '/motion-assets/emergency-intro-foresight-layer.svg',
+      ]
+    : [
+        '/motion-assets/intro-governance-layer.webp',
+        '/motion-assets/intro-compliance-layer.webp',
+        '/motion-assets/intro-risk-layer.webp',
+      ];
   const layerState = [
     {
-      src: '/motion-assets/intro-governance-layer.webp',
+      src: introLayerSrcs[0],
       className: 'right-[8%] top-[18%] w-[28%]',
       visible: firstPillarShown,
       transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
     },
     {
-      src: '/motion-assets/intro-compliance-layer.webp',
+      src: introLayerSrcs[1],
       className: 'right-[31%] top-[45%] w-[17%]',
       visible: secondPillarShown,
       transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
     },
     {
-      src: '/motion-assets/intro-risk-layer.webp',
+      src: introLayerSrcs[2],
       className: 'right-[-5%] top-[45%] w-[17%]',
       visible: thirdPillarShown,
       transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
@@ -1447,14 +1461,34 @@ type CourseGlyphKind =
   | 'decision'
   | 'question'
   | 'target'
-  | 'default';
+  | 'default'
+  | 'commandCenter'
+  | 'strategicFramework'
+  | 'continuityShield'
+  | 'crisisComm'
+  | 'decisionPressure'
+  | 'proactiveScan'
+  | 'riskGrid'
+  | 'earlyWarning'
+  | 'supplyChain'
+  | 'afterAction'
+  | 'kpiDashboard'
+  | 'stakeholderNetwork';
 
 function courseGlyphKind(text: string): CourseGlyphKind {
-  if (/طوارئ|أزمة|أزمات|كارثة|حادث|ICS|EOC/.test(text)) return 'risk';
-  if (/تواصل|إعلام|رسائل|CERC|الثقة/.test(text)) return 'training';
-  if (/استشراف|مسح|ترصد|إنذار|PESTLE/.test(text)) return 'audit';
-  if (/لوجستيات|مخزون|توريد|نوبكو/.test(text)) return 'policy';
-  if (/أصحاب المصلحة|Stakeholders/.test(text)) return 'decision';
+  if (/ICS|EOC|قائد الحادث|مركز عمليات الطوارئ|مركز القيادة|التنسيق أثناء الطوارئ/.test(text)) return 'commandCenter';
+  if (/الإطار الاستراتيجي|خطط الطوارئ|الجاهزية المؤسسية|التكامل بين الجهات/.test(text)) return 'strategicFramework';
+  if (/استمرارية الأعمال|التعافي|الموارد الحيوية|العمليات الحرجة/.test(text)) return 'continuityShield';
+  if (/تواصل|إعلام|رسائل|CERC|الثقة/.test(text)) return 'crisisComm';
+  if (/اتخاذ القرار|OODA|شلل التحليل|معايير التصعيد|تحت الضغط/.test(text)) return 'decisionPressure';
+  if (/استشراف|مسح|PESTLE/.test(text)) return 'proactiveScan';
+  if (/أصحاب المصلحة|Stakeholders|القوة والاهتمام/.test(text)) return 'stakeholderNetwork';
+  if (/متعددة الأخطار|الهشاشة|التعرض|خريطة المخاطر|مصفوفة/.test(text)) return 'riskGrid';
+  if (/ترصد|إنذار|SMART-ER|مستويات العتبة/.test(text)) return 'earlyWarning';
+  if (/لوجستيات|مخزون|توريد|نوبكو/.test(text)) return 'supplyChain';
+  if (/مراجعة ما بعد الحدث|AAR|الدروس المستفادة|خطة التحسين|PDCA/.test(text)) return 'afterAction';
+  if (/مؤشرات الأداء|KPI|لوحة معلومات|Dashboard/.test(text)) return 'kpiDashboard';
+  if (/طوارئ|أزمة|أزمات|كارثة|حادث/.test(text)) return 'risk';
   if (/مخاطر|خطر|Risk|KRI|الأثر|الاحتمالية/.test(text)) return 'risk';
   if (/امتثال|ضوابط|تدقيق|اختبار|PDCA|تحقق/.test(text)) return 'compliance';
   if (/حوكمة|مجلس|لجان|صلاحيات|إطار/.test(text)) return 'governance';
@@ -1555,6 +1589,102 @@ function CourseGlyph({
         <path {...common} d="M36 52h32M52 36v32" stroke={accent} strokeWidth={strokeWidth} />
       </>
     ),
+    commandCenter: (
+      <>
+        <path {...common} d="M22 30h60v22H22z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M42 30v22M62 30v22" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M20 84c10-11 54-11 64 0" stroke={accent} strokeWidth={strokeWidth} />
+        <circle cx="34" cy="80" r="3.4" fill={accent} />
+        <circle cx="52" cy="83" r="3.4" fill={accent} />
+        <circle cx="70" cy="80" r="3.4" fill={accent} />
+      </>
+    ),
+    strategicFramework: (
+      <>
+        <path {...common} d="M52 16l28 12v26c0 22-14 34-28 40-14-6-28-18-28-40V28z" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="52" cy="40" r="4.5" fill={accent} />
+        <path {...common} d="M52 45v9M52 54l-12 12M52 54l12 12" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <circle cx="40" cy="66" r="3.6" fill={stroke} />
+        <circle cx="64" cy="66" r="3.6" fill={stroke} />
+      </>
+    ),
+    continuityShield: (
+      <>
+        <path {...common} d="M52 16l28 12v26c0 22-14 34-28 40-14-6-28-18-28-40V28z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M40 50h24v24H40z" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M46 56h4M54 56h4M46 64h4M54 64h4" stroke={muted} strokeWidth={strokeWidth - 2} />
+      </>
+    ),
+    crisisComm: (
+      <>
+        <path {...common} d="M22 46l16-8v32l-16-8z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M38 34l22-11v58l-22-11z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M68 40c6-3 12-3 18 0M72 30c9-4 18-4 27 0M72 50c9 4 18 4 27 0" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+      </>
+    ),
+    decisionPressure: (
+      <>
+        <path {...common} d="M52 84V58M52 58l-18 18M52 58l18 18" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="52" cy="34" r="17" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M52 34l9-9" stroke={stroke} strokeWidth={strokeWidth - 1} />
+        <circle cx="52" cy="34" r="3" fill={stroke} />
+      </>
+    ),
+    proactiveScan: (
+      <>
+        <path {...common} d="M36 70l24-24" stroke={stroke} strokeWidth={strokeWidth + 2} />
+        <circle cx="66" cy="34" r="9" fill={accent} />
+        <path {...common} d="M78 26c5-5 5-13 0-18M86 34c9-9 9-23 0-32" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+      </>
+    ),
+    riskGrid: (
+      <>
+        <path {...common} d="M24 24h56v56H24zM52 24v56M24 52h56" stroke={stroke} strokeWidth={strokeWidth} />
+        <rect x="52" y="24" width="28" height="28" fill={accent} opacity="0.32" />
+        <rect x="24" y="52" width="28" height="28" fill={accent} opacity="0.16" />
+      </>
+    ),
+    earlyWarning: (
+      <>
+        <path {...common} d="M52 24c-10 0-16 9-16 21v9l-7 11h46l-7-11v-9c0-12-6-21-16-21z" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="52" cy="78" r="4.4" fill={accent} />
+        <path {...common} d="M74 32c4-4 4-11 0-15M30 32c-4-4-4-11 0-15" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+      </>
+    ),
+    supplyChain: (
+      <>
+        <path {...common} d="M18 58h32V38H18z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M50 46h14l10 12v10H50z" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="30" cy="70" r="6" fill={accent} />
+        <circle cx="66" cy="70" r="6" fill={accent} />
+      </>
+    ),
+    afterAction: (
+      <>
+        <path {...common} d="M32 26h34l8 8v50H32z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M42 20h16v9H42z" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M40 46h24M40 56h24M40 66h14" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <circle cx="72" cy="68" r="9" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M79 75l8 8" stroke={accent} strokeWidth={strokeWidth - 1} />
+      </>
+    ),
+    kpiDashboard: (
+      <>
+        <path {...common} d="M28 76V54M46 76V42M64 76V60" stroke={stroke} strokeWidth={strokeWidth + 1} />
+        <path {...common} d="M70 52a14 14 0 1128 0" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M22 38l12-8 10 6 14-11" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+      </>
+    ),
+    stakeholderNetwork: (
+      <>
+        <path {...common} d="M52 42V26M52 62v16M42 52H26M62 52h16" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <circle cx="52" cy="52" r="11" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="52" cy="22" r="6" fill={accent} />
+        <circle cx="52" cy="82" r="6" fill={accent} />
+        <circle cx="22" cy="52" r="6" fill={accent} />
+        <circle cx="82" cy="52" r="6" fill={accent} />
+      </>
+    ),
   };
 
   return (
@@ -1576,73 +1706,81 @@ function pptGeneratedVisualLayersFor(text: string) {
   // win the primary card slot even when a word also appears in bag 1's
   // governance vocabulary (e.g. "مخاطر", "قيادة", "تقييم").
   if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'التنسيق أثناء الطوارئ'])) {
-    add('/course-visuals/emergency-command-center.webp');
+    add('/course-visuals/emergency-command-center.svg');
   }
   if (hasAny(text, ['الإطار الاستراتيجي', 'الاستعداد للطوارئ', 'خطط الطوارئ', 'الجاهزية المؤسسية', 'التكامل بين الجهات'])) {
-    add('/course-visuals/emergency-strategic-framework.webp');
+    add('/course-visuals/emergency-strategic-framework.svg');
   }
   if (hasAny(text, ['استمرارية الأعمال', 'التعافي', 'الموارد الحيوية', 'العمليات الحرجة'])) {
-    add('/course-visuals/emergency-continuity-shield.webp');
+    add('/course-visuals/emergency-continuity-shield.svg');
   }
   if (hasAny(text, ['التواصل', 'CERC', 'الإعلام', 'الثقة المجتمعية', 'الرسائل الإعلامية', 'المتحدث'])) {
-    add('/course-visuals/emergency-crisis-communication.webp');
+    add('/course-visuals/emergency-crisis-communication.svg');
   }
   if (hasAny(text, ['اتخاذ القرار', 'OODA', 'شلل التحليل', 'معايير التصعيد', 'تحت الضغط'])) {
-    add('/course-visuals/emergency-decision-pressure.webp');
+    add('/course-visuals/emergency-decision-pressure.svg');
   }
   if (hasAny(text, ['المسح الاستباقي', 'استشراف', 'PESTLE', 'المسح الأفقي', 'المسح الرأسي', 'التخطيط بالسيناريوهات'])) {
-    add('/course-visuals/emergency-proactive-scanning.webp');
+    add('/course-visuals/emergency-proactive-scanning.svg');
   }
   if (hasAny(text, ['متعددة الأخطار', 'الهشاشة', 'التعرض', 'خريطة المخاطر', 'مصفوفة تفاعل الأخطار'])) {
-    add('/course-visuals/emergency-risk-matrix.webp');
+    add('/course-visuals/emergency-risk-matrix.svg');
   }
   if (hasAny(text, ['الترصد', 'الإنذار المبكر', 'SMART-ER', 'حصن', 'مستويات العتبة'])) {
-    add('/course-visuals/emergency-surveillance-radar.webp');
+    add('/course-visuals/emergency-surveillance-radar.svg');
   }
   if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'المخزون', 'نوبكو', 'ABC', 'EOQ'])) {
-    add('/course-visuals/emergency-supply-chain.webp');
+    add('/course-visuals/emergency-supply-chain.svg');
   }
   if (hasAny(text, ['مراجعة ما بعد الحدث', 'AAR', 'الدروس المستفادة', 'خطة التحسين', 'PDCA'])) {
-    add('/course-visuals/emergency-after-action-review.webp');
+    add('/course-visuals/emergency-after-action-review.svg');
   }
   if (hasAny(text, ['مؤشرات الأداء', 'KPI', 'لوحة معلومات', 'Dashboard', 'خط الأساس'])) {
-    add('/course-visuals/emergency-kpi-dashboard.webp');
+    add('/course-visuals/emergency-kpi-dashboard.svg');
   }
   if (hasAny(text, ['أصحاب المصلحة', 'القوة والاهتمام', 'Stakeholders'])) {
-    add('/course-visuals/emergency-stakeholder-network.webp');
+    add('/course-visuals/emergency-stakeholder-network.svg');
   }
   if (hasAny(text, ['الموارد البشرية', 'تنسيق الموارد', 'فرق الاستجابة', 'الكوادر'])) {
-    add('/course-visuals/emergency-response-team.webp');
+    add('/course-visuals/emergency-response-team.svg');
   }
 
-  if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة', 'تقييم'])) {
-    add('/course-visuals/risk-scene.webp');
-    add('/course-visuals/risk-matrix.webp');
-  }
-  if (hasAny(text, ['امتثال', 'ضوابط', 'تدقيق', 'اختبار', 'متطلبات', 'اعتماد', 'جودة', 'KPI', 'KPIs'])) {
-    add('/course-visuals/compliance-scene.webp');
-    add('/course-visuals/audit-controls.webp');
-  }
-  if (hasAny(text, ['بيانات', 'سجلات', 'خصوصية', 'الوصول', 'حماية', 'مرضى', 'مريض'])) {
-    add('/course-visuals/secure-records.webp');
-  }
-  if (hasAny(text, ['سياسة', 'سياسات', 'إجراء', 'إجراءات', 'لوائح', 'وثيقة', 'توعية', 'تطبيق عملي', 'تفسير'])) {
-    add('/course-visuals/policy-scene.webp');
-    add('/course-visuals/policy-workflow.webp');
-  }
-  if (hasAny(text, ['حوكمة', 'مجلس', 'لجان', 'قيادة', 'إطار', 'تنظيمية', 'رؤية 2030', 'مستويات'])) {
-    add('/course-visuals/governance-scene.webp');
-    add('/course-visuals/leadership-board.webp');
-  }
+  // Bag 1's generic vocabulary (خطر/قيادة/إطار/تقييم...) overlaps heavily
+  // with emergency-management language ("مركز قيادة", "تقييم المخاطر
+  // متعددة الأخطار"...), so once the text is clearly emergency-topic (and
+  // none of bag 2's own precise-phrase rules above already matched), skip
+  // these generic rules entirely instead of letting an incidental word like
+  // "قيادة" hijack the card into bag 1's governance imagery.
+  const isEmergencyTopic = layers.length > 0 || hasAny(text, ['طوارئ', 'أزمة', 'أزمات', 'كارثة', 'حادث', 'الاستجابة']);
 
-  const isEmergencyTopic = hasAny(text, ['طوارئ', 'أزمة', 'أزمات', 'كارثة', 'حادث']);
+  if (!isEmergencyTopic) {
+    if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة', 'تقييم'])) {
+      add('/course-visuals/risk-scene.webp');
+      add('/course-visuals/risk-matrix.webp');
+    }
+    if (hasAny(text, ['امتثال', 'ضوابط', 'تدقيق', 'اختبار', 'متطلبات', 'اعتماد', 'جودة', 'KPI', 'KPIs'])) {
+      add('/course-visuals/compliance-scene.webp');
+      add('/course-visuals/audit-controls.webp');
+    }
+    if (hasAny(text, ['بيانات', 'سجلات', 'خصوصية', 'الوصول', 'حماية', 'مرضى', 'مريض'])) {
+      add('/course-visuals/secure-records.webp');
+    }
+    if (hasAny(text, ['سياسة', 'سياسات', 'إجراء', 'إجراءات', 'لوائح', 'وثيقة', 'توعية', 'تطبيق عملي', 'تفسير'])) {
+      add('/course-visuals/policy-scene.webp');
+      add('/course-visuals/policy-workflow.webp');
+    }
+    if (hasAny(text, ['حوكمة', 'مجلس', 'لجان', 'قيادة', 'إطار', 'تنظيمية', 'رؤية 2030', 'مستويات'])) {
+      add('/course-visuals/governance-scene.webp');
+      add('/course-visuals/leadership-board.webp');
+    }
+  }
 
   if (layers.length === 0) {
-    add(isEmergencyTopic ? '/course-visuals/emergency-command-center.webp' : '/course-visuals/governance-scene.webp');
+    add(isEmergencyTopic ? '/course-visuals/emergency-command-center.svg' : '/course-visuals/governance-scene.webp');
   }
   if (layers.length === 1) {
-    if (layers[0].includes('emergency-command')) add('/course-visuals/emergency-strategic-framework.webp');
-    else if (layers[0].includes('emergency')) add('/course-visuals/emergency-command-center.webp');
+    if (layers[0].includes('emergency-command')) add('/course-visuals/emergency-strategic-framework.svg');
+    else if (layers[0].includes('emergency')) add('/course-visuals/emergency-command-center.svg');
     else if (layers[0].includes('risk')) add('/course-visuals/risk-matrix.webp');
     else if (layers[0].includes('policy')) add('/course-visuals/policy-workflow.webp');
     else if (layers[0].includes('compliance')) add('/course-visuals/audit-controls.webp');
@@ -1910,17 +2048,26 @@ function PptMotionVisualScene({
     }, duration * repeats);
     return () => window.clearTimeout(timer);
   }, [effectiveActiveKey, focusAnim]);
-  const fallbackVisualPool = slide.id.startsWith('ch3')
-    ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
-    : slide.id.startsWith('ch2')
-      ? ['/course-visuals/compliance-scene.webp', '/course-visuals/audit-controls.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/secure-records.webp']
-      : ['/course-visuals/governance-scene.webp', '/course-visuals/policy-scene.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/leadership-board.webp'];
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const fallbackVisualPool = isEmergencySlide
+    ? ['/course-visuals/emergency-command-center.svg', '/course-visuals/emergency-strategic-framework.svg', '/course-visuals/emergency-stakeholder-network.svg', '/course-visuals/emergency-kpi-dashboard.svg']
+    : slide.id.startsWith('ch3')
+      ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
+      : slide.id.startsWith('ch2')
+        ? ['/course-visuals/compliance-scene.webp', '/course-visuals/audit-controls.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/secure-records.webp']
+        : ['/course-visuals/governance-scene.webp', '/course-visuals/policy-scene.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/leadership-board.webp'];
+  // Fall back to matching the slide's own title/narration (not just card
+  // text) so cards with abstract titles (a question, a bare list item) still
+  // pick up the right themed visual instead of silently defaulting to
+  // bag 1's governance imagery.
+  const slideLevelVisuals = pptGeneratedVisualLayersFor(`${slide.title} ${slide.narration.slice(0, 200)}`);
   const allVisuals = cards
     .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
+    .concat(slideLevelVisuals)
     .filter((src, index, all) => all.indexOf(src) === index)
     .slice(0, 6);
   const visualPool = allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;
-  const primaryVisual = visualPool[0] ?? '/course-visuals/governance-scene.webp';
+  const primaryVisual = visualPool[0] ?? fallbackVisualPool[0];
   const variant = slide.layout === 'pptTwoPanels'
     ? 'split'
     : cards.length >= 5
@@ -2263,8 +2410,8 @@ function PptSpotlightScene({
           focusVisible ? revealAnimationFor(focusIndex) : 'pointer-events-none opacity-0'
         } border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
       >
-        <span className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 text-[30px] ring-2 ring-white/25">
-          {pptEmojiFor(focusCard, slide.visual, focusIndex)}
+        <span className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
+          <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
         </span>
         <h3 className="text-[26px] font-extrabold leading-tight">{focusCard?.title}</h3>
         {focusCard?.text && <p className="mt-2.5 text-[16px] font-bold leading-relaxed text-green-50">{focusCard.text}</p>}

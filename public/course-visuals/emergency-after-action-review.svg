@@ -1,0 +1,27 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg11" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg11)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- circle of silhouettes -->
+  <g fill="#2F7657">
+    <circle cx="58" cy="78" r="7"/><path d="M48 98c1-9 7-13 10-13s9 4 10 13z"/>
+    <circle cx="142" cy="78" r="7"/><path d="M132 98c1-9 7-13 10-13s9 4 10 13z"/>
+    <circle cx="58" cy="140" r="7"/><path d="M48 160c1-9 7-13 10-13s9 4 10 13z"/>
+    <circle cx="142" cy="140" r="7"/><path d="M132 160c1-9 7-13 10-13s9 4 10 13z"/>
+  </g>
+
+  <!-- clipboard -->
+  <rect x="82" y="86" width="36" height="46" rx="5" fill="#1F5C3A"/>
+  <rect x="90" y="80" width="20" height="10" rx="3" fill="#BF9B4A"/>
+  <path d="M90 100h20M90 110h20M90 120h12" stroke="#EAF5EE" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- magnifier -->
+  <circle cx="128" cy="118" r="10" fill="none" stroke="#BF9B4A" stroke-width="4"/>
+  <path d="M135 125l9 9" stroke="#BF9B4A" stroke-width="4" stroke-linecap="round"/>
+</svg>

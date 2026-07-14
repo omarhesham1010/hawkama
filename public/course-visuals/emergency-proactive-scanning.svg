@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg7" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg7)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- telescope -->
+  <rect x="94" y="120" width="14" height="34" rx="4" fill="#1F5C3A" transform="rotate(-28 101 137)"/>
+  <rect x="86" y="96" width="34" height="16" rx="6" fill="#2F7657" transform="rotate(-28 103 104)"/>
+  <circle cx="118" cy="86" r="7" fill="#BF9B4A"/>
+
+  <!-- concentric detection waves -->
+  <path d="M126 78a34 34 0 010 48" stroke="#2F7657" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
+  <path d="M134 68a48 48 0 010 68" stroke="#BF9B4A" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- distant signal dots -->
+  <circle cx="158" cy="70" r="3.5" fill="#1F5C3A"/>
+  <circle cx="166" cy="94" r="3" fill="#BF9B4A"/>
+  <circle cx="156" cy="112" r="2.6" fill="#2F7657"/>
+</svg>

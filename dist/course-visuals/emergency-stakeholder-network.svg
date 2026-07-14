@@ -1,0 +1,28 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg13" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg13)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- connecting lines -->
+  <g stroke="#2F7657" stroke-width="2.5" opacity="0.7">
+    <path d="M100 100L58 66"/>
+    <path d="M100 100L142 66"/>
+    <path d="M100 100L58 134"/>
+    <path d="M100 100L142 134"/>
+  </g>
+
+  <!-- central hub: hospital/shield -->
+  <rect x="86" y="86" width="28" height="28" rx="7" fill="#1F5C3A"/>
+  <path d="M100 92v16M92 100h16" stroke="#EAF5EE" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- surrounding stakeholder nodes -->
+  <circle cx="58" cy="66" r="12" fill="#BF9B4A"/>
+  <circle cx="142" cy="66" r="12" fill="#2F7657"/>
+  <circle cx="58" cy="134" r="12" fill="#2F7657"/>
+  <circle cx="142" cy="134" r="12" fill="#BF9B4A"/>
+</svg>

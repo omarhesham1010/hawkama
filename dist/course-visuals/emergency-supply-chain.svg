@@ -1,0 +1,27 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg10" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#EAF5EE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="url(#bg10)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- warehouse -->
+  <path d="M44 92l20-14 20 14v26H44z" fill="#1F5C3A"/>
+  <rect x="52" y="104" width="10" height="14" fill="#EAF5EE"/>
+
+  <!-- dotted route -->
+  <path d="M74 118h48" stroke="#BF9B4A" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
+
+  <!-- medical box -->
+  <rect x="86" y="100" width="20" height="20" rx="2" fill="#BF9B4A"/>
+  <path d="M96 104v12M90 110h12" stroke="#EAF5EE" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- truck -->
+  <rect x="128" y="104" width="30" height="18" rx="2" fill="#2F7657"/>
+  <path d="M158 108h10l6 8v8h-16z" fill="#2F7657"/>
+  <circle cx="138" cy="126" r="5.5" fill="#1F5C3A"/>
+  <circle cx="160" cy="126" r="5.5" fill="#1F5C3A"/>
+</svg>
