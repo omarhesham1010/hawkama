@@ -1485,7 +1485,7 @@ function courseGlyphKind(text: string): CourseGlyphKind {
   if (/أصحاب المصلحة|Stakeholders|القوة والاهتمام/.test(text)) return 'stakeholderNetwork';
   if (/متعددة الأخطار|الهشاشة|التعرض|خريطة المخاطر|مصفوفة/.test(text)) return 'riskGrid';
   if (/ترصد|إنذار|SMART-ER|مستويات العتبة/.test(text)) return 'earlyWarning';
-  if (/لوجستيات|مخزون|توريد|نوبكو/.test(text)) return 'supplyChain';
+  if (/لوجستيات|مخزون|توريد|نوبكو|الموردين|مرونة سلسلة/.test(text)) return 'supplyChain';
   if (/مراجعة ما بعد الحدث|AAR|الدروس المستفادة|خطة التحسين|PDCA/.test(text)) return 'afterAction';
   if (/مؤشرات الأداء|KPI|لوحة معلومات|Dashboard/.test(text)) return 'kpiDashboard';
   if (/طوارئ|أزمة|أزمات|كارثة|حادث/.test(text)) return 'risk';
@@ -1729,7 +1729,7 @@ function pptGeneratedVisualLayersFor(text: string) {
   if (hasAny(text, ['الترصد', 'الإنذار المبكر', 'SMART-ER', 'حصن', 'مستويات العتبة'])) {
     add('/course-visuals/emergency-surveillance-radar.svg');
   }
-  if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'المخزون', 'نوبكو', 'ABC', 'EOQ'])) {
+  if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'المخزون', 'نوبكو', 'ABC', 'EOQ', 'الموردين', 'مرونة سلسلة'])) {
     add('/course-visuals/emergency-supply-chain.svg');
   }
   if (hasAny(text, ['مراجعة ما بعد الحدث', 'AAR', 'الدروس المستفادة', 'خطة التحسين', 'PDCA'])) {
