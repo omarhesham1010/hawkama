@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-RGG3WG43.js" />
+      <file href="assets/chunks/SlidePlayer-3NR5O3QR.js" />
       <file href="assets/chunks/audioAlignments-WVW3PKUF.js" />
-      <file href="assets/chunks/chunk-2T5O7ALR.js" />
+      <file href="assets/chunks/chunk-HXR4NQYA.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
       <file href="assets/index-949c216b.css" />
-      <file href="assets/index-fb3f9b28.js" />
+      <file href="assets/index-bb522164.js" />
       <file href="audio/README.md" />
       <file href="audio/bag1-ch0-s1-welcome.mp3" />
       <file href="audio/bag1-ch0-s2-map.mp3" />
@@ -161,6 +161,19 @@
       <file href="audio/bag1-ch3-s9-leadership-questions.mp3" />
       <file href="course-visuals/audit-controls.webp" />
       <file href="course-visuals/compliance-scene.webp" />
+      <file href="course-visuals/emergency-after-action-review.webp" />
+      <file href="course-visuals/emergency-command-center.webp" />
+      <file href="course-visuals/emergency-continuity-shield.webp" />
+      <file href="course-visuals/emergency-crisis-communication.webp" />
+      <file href="course-visuals/emergency-decision-pressure.webp" />
+      <file href="course-visuals/emergency-kpi-dashboard.webp" />
+      <file href="course-visuals/emergency-proactive-scanning.webp" />
+      <file href="course-visuals/emergency-response-team.webp" />
+      <file href="course-visuals/emergency-risk-matrix.webp" />
+      <file href="course-visuals/emergency-stakeholder-network.webp" />
+      <file href="course-visuals/emergency-strategic-framework.webp" />
+      <file href="course-visuals/emergency-supply-chain.webp" />
+      <file href="course-visuals/emergency-surveillance-radar.webp" />
       <file href="course-visuals/governance-scene.webp" />
       <file href="course-visuals/leadership-board.webp" />
       <file href="course-visuals/policy-scene.webp" />
@@ -170,6 +183,10 @@
       <file href="course-visuals/secure-records.webp" />
       <file href="favicon.svg" />
       <file href="index.html" />
+      <file href="motion-assets/emergency-intro-crisis-layer.webp" />
+      <file href="motion-assets/emergency-intro-foresight-layer.webp" />
+      <file href="motion-assets/emergency-intro-preparedness-layer.webp" />
+      <file href="motion-assets/emergency-intro-recovery-layer.webp" />
       <file href="motion-assets/intro-compliance-layer.webp" />
       <file href="motion-assets/intro-governance-layer.webp" />
       <file href="motion-assets/intro-risk-layer.webp" />

@@ -52,6 +52,51 @@ const governanceChapters: PlatformChapter[] = [
   },
 ];
 
+const emergencyChapters: PlatformChapter[] = [
+  {
+    index: 1,
+    label: 'المقدمة',
+    title: 'مقدمة الحقيبة ومحاور البرنامج',
+    status: 'ready',
+    courseId: 'emergency-intro',
+  },
+  {
+    index: 2,
+    label: 'الفصل الأول',
+    title: 'الاستعداد للطوارئ الصحية',
+    status: 'ready',
+    courseId: 'emergency-ch1',
+  },
+  {
+    index: 3,
+    label: 'الفصل الثاني',
+    title: 'إدارة الأزمات الصحية',
+    status: 'ready',
+    courseId: 'emergency-ch2',
+  },
+  {
+    index: 4,
+    label: 'الفصل الثالث',
+    title: 'المسح الاستباقي والترصد المبكر',
+    status: 'ready',
+    courseId: 'emergency-ch3',
+  },
+  {
+    index: 5,
+    label: 'الفصل الرابع',
+    title: 'التعافي والتحسين المستمر',
+    status: 'ready',
+    courseId: 'emergency-ch4',
+  },
+  {
+    index: 6,
+    label: 'الخاتمة',
+    title: 'خاتمة الحقيبة',
+    status: 'ready',
+    courseId: 'emergency-closing',
+  },
+];
+
 const genericIcons: IconKey[] = [
   'scale',
   'integrity',
@@ -61,15 +106,14 @@ const genericIcons: IconKey[] = [
   'eye',
   'matrix',
   'compass',
-  'flag',
 ];
 
-const comingTracks: Track[] = Array.from({ length: 9 }, (_, offset) => {
-  const index = offset + 2;
+const comingTracks: Track[] = Array.from({ length: 8 }, (_, offset) => {
+  const index = offset + 3;
   return {
     id: `bag-${index}`,
     index,
-    title: `الحقيبة ${['الثانية', 'الثالثة', 'الرابعة', 'الخامسة', 'السادسة', 'السابعة', 'الثامنة', 'التاسعة', 'العاشرة'][offset]}`,
+    title: `الحقيبة ${['الثالثة', 'الرابعة', 'الخامسة', 'السادسة', 'السابعة', 'الثامنة', 'التاسعة', 'العاشرة'][offset]}`,
     short: 'سيُضاف اسم الحقيبة ومحتواها بعد استلام المادة التدريبية المعتمدة.',
     icon: genericIcons[offset],
     status: 'soon' as const,
@@ -86,7 +130,7 @@ export const platform: {
   name: 'أكاديمية الحوكمة والامتثال',
   tagline: 'منصة تدريب احترافية للقطاع الصحي والمؤسسي',
   intro:
-    'عشر حقائب تدريبية ضمن تجربة تعلم إلكتروني تفاعلية. الحقيبة الأولى متاحة الآن بمقدمتها وفصولها الثلاثة، ويُضاف محتوى بقية الحقائب بعد اعتماده.',
+    'عشر حقائب تدريبية ضمن تجربة تعلم إلكتروني تفاعلية. الحقيبتان الأولى والثانية متاحتان الآن بكل فصولهما، ويُضاف محتوى بقية الحقائب بعد اعتماده.',
   tracks: [
     {
       id: 'governance',
@@ -96,6 +140,15 @@ export const platform: {
       icon: 'shield',
       status: 'available',
       chapters: governanceChapters,
+    },
+    {
+      id: 'emergency-response',
+      index: 2,
+      title: 'إدارة الاستجابة للطوارئ',
+      short: 'الاستعداد للطوارئ، إدارة الأزمات واتخاذ القرار، المسح الاستباقي، والتعافي والتحسين المستمر.',
+      icon: 'alert',
+      status: 'available',
+      chapters: emergencyChapters,
     },
     ...comingTracks,
   ],

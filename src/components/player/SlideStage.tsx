@@ -1450,6 +1450,11 @@ type CourseGlyphKind =
   | 'default';
 
 function courseGlyphKind(text: string): CourseGlyphKind {
+  if (/طوارئ|أزمة|أزمات|كارثة|حادث|ICS|EOC/.test(text)) return 'risk';
+  if (/تواصل|إعلام|رسائل|CERC|الثقة/.test(text)) return 'training';
+  if (/استشراف|مسح|ترصد|إنذار|PESTLE/.test(text)) return 'audit';
+  if (/لوجستيات|مخزون|توريد|نوبكو/.test(text)) return 'policy';
+  if (/أصحاب المصلحة|Stakeholders/.test(text)) return 'decision';
   if (/مخاطر|خطر|Risk|KRI|الأثر|الاحتمالية/.test(text)) return 'risk';
   if (/امتثال|ضوابط|تدقيق|اختبار|PDCA|تحقق/.test(text)) return 'compliance';
   if (/حوكمة|مجلس|لجان|صلاحيات|إطار/.test(text)) return 'governance';
@@ -1567,6 +1572,49 @@ function pptGeneratedVisualLayersFor(text: string) {
     if (!layers.includes(src)) layers.push(src);
   };
 
+  // Bag 2 (emergency response) topics — checked first so their own visuals
+  // win the primary card slot even when a word also appears in bag 1's
+  // governance vocabulary (e.g. "مخاطر", "قيادة", "تقييم").
+  if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'التنسيق أثناء الطوارئ'])) {
+    add('/course-visuals/emergency-command-center.webp');
+  }
+  if (hasAny(text, ['الإطار الاستراتيجي', 'الاستعداد للطوارئ', 'خطط الطوارئ', 'الجاهزية المؤسسية', 'التكامل بين الجهات'])) {
+    add('/course-visuals/emergency-strategic-framework.webp');
+  }
+  if (hasAny(text, ['استمرارية الأعمال', 'التعافي', 'الموارد الحيوية', 'العمليات الحرجة'])) {
+    add('/course-visuals/emergency-continuity-shield.webp');
+  }
+  if (hasAny(text, ['التواصل', 'CERC', 'الإعلام', 'الثقة المجتمعية', 'الرسائل الإعلامية', 'المتحدث'])) {
+    add('/course-visuals/emergency-crisis-communication.webp');
+  }
+  if (hasAny(text, ['اتخاذ القرار', 'OODA', 'شلل التحليل', 'معايير التصعيد', 'تحت الضغط'])) {
+    add('/course-visuals/emergency-decision-pressure.webp');
+  }
+  if (hasAny(text, ['المسح الاستباقي', 'استشراف', 'PESTLE', 'المسح الأفقي', 'المسح الرأسي', 'التخطيط بالسيناريوهات'])) {
+    add('/course-visuals/emergency-proactive-scanning.webp');
+  }
+  if (hasAny(text, ['متعددة الأخطار', 'الهشاشة', 'التعرض', 'خريطة المخاطر', 'مصفوفة تفاعل الأخطار'])) {
+    add('/course-visuals/emergency-risk-matrix.webp');
+  }
+  if (hasAny(text, ['الترصد', 'الإنذار المبكر', 'SMART-ER', 'حصن', 'مستويات العتبة'])) {
+    add('/course-visuals/emergency-surveillance-radar.webp');
+  }
+  if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'المخزون', 'نوبكو', 'ABC', 'EOQ'])) {
+    add('/course-visuals/emergency-supply-chain.webp');
+  }
+  if (hasAny(text, ['مراجعة ما بعد الحدث', 'AAR', 'الدروس المستفادة', 'خطة التحسين', 'PDCA'])) {
+    add('/course-visuals/emergency-after-action-review.webp');
+  }
+  if (hasAny(text, ['مؤشرات الأداء', 'KPI', 'لوحة معلومات', 'Dashboard', 'خط الأساس'])) {
+    add('/course-visuals/emergency-kpi-dashboard.webp');
+  }
+  if (hasAny(text, ['أصحاب المصلحة', 'القوة والاهتمام', 'Stakeholders'])) {
+    add('/course-visuals/emergency-stakeholder-network.webp');
+  }
+  if (hasAny(text, ['الموارد البشرية', 'تنسيق الموارد', 'فرق الاستجابة', 'الكوادر'])) {
+    add('/course-visuals/emergency-response-team.webp');
+  }
+
   if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة', 'تقييم'])) {
     add('/course-visuals/risk-scene.webp');
     add('/course-visuals/risk-matrix.webp');
@@ -1587,9 +1635,15 @@ function pptGeneratedVisualLayersFor(text: string) {
     add('/course-visuals/leadership-board.webp');
   }
 
-  if (layers.length === 0) add('/course-visuals/governance-scene.webp');
+  const isEmergencyTopic = hasAny(text, ['طوارئ', 'أزمة', 'أزمات', 'كارثة', 'حادث']);
+
+  if (layers.length === 0) {
+    add(isEmergencyTopic ? '/course-visuals/emergency-command-center.webp' : '/course-visuals/governance-scene.webp');
+  }
   if (layers.length === 1) {
-    if (layers[0].includes('risk')) add('/course-visuals/risk-matrix.webp');
+    if (layers[0].includes('emergency-command')) add('/course-visuals/emergency-strategic-framework.webp');
+    else if (layers[0].includes('emergency')) add('/course-visuals/emergency-command-center.webp');
+    else if (layers[0].includes('risk')) add('/course-visuals/risk-matrix.webp');
     else if (layers[0].includes('policy')) add('/course-visuals/policy-workflow.webp');
     else if (layers[0].includes('compliance')) add('/course-visuals/audit-controls.webp');
     else add('/course-visuals/leadership-board.webp');

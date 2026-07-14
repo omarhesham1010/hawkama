@@ -6,6 +6,14 @@ import {
   governanceIntroSlides,
   governanceProgramSlides,
 } from './governanceProgram';
+import {
+  emergencyChapterFourSlides,
+  emergencyChapterOneSlides,
+  emergencyChapterThreeSlides,
+  emergencyChapterTwoSlides,
+  emergencyClosingSlides,
+  emergencyIntroSlides,
+} from './emergencyResponseProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
 
 export const courseMeta = {
@@ -49,6 +57,48 @@ export const courseCatalog = {
       title: `${governanceCourse.meta.title} - نسخة العمل السابقة`,
     },
     slides: legacySlides,
+  },
+  'emergency-intro': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'مقدمة الحقيبة',
+    },
+    slides: emergencyIntroSlides,
+  },
+  'emergency-ch1': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'الفصل الأول · الاستعداد للطوارئ الصحية',
+    },
+    slides: emergencyChapterOneSlides,
+  },
+  'emergency-ch2': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'الفصل الثاني · إدارة الأزمات الصحية',
+    },
+    slides: emergencyChapterTwoSlides,
+  },
+  'emergency-ch3': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'الفصل الثالث · المسح الاستباقي والترصد المبكر',
+    },
+    slides: emergencyChapterThreeSlides,
+  },
+  'emergency-ch4': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'الفصل الرابع · التعافي والتحسين المستمر',
+    },
+    slides: emergencyChapterFourSlides,
+  },
+  'emergency-closing': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'خاتمة الحقيبة',
+    },
+    slides: emergencyClosingSlides,
   },
 };
 
