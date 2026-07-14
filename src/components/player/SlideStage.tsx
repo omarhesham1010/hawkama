@@ -1751,7 +1751,7 @@ function pptGeneratedVisualLayersFor(text: string) {
   // none of bag 2's own precise-phrase rules above already matched), skip
   // these generic rules entirely instead of letting an incidental word like
   // "قيادة" hijack the card into bag 1's governance imagery.
-  const isEmergencyTopic = layers.length > 0 || hasAny(text, ['طوارئ', 'أزمة', 'أزمات', 'كارثة', 'حادث', 'الاستجابة']);
+  const isEmergencyTopic = layers.length > 0 || hasAny(text, ['طوارئ', 'أزمة', 'أزمات', 'كارثة', 'حادث', 'الاستجابة', '__bag2__']);
 
   if (!isEmergencyTopic) {
     if (hasAny(text, ['مخاطر', 'الخطر', 'Risk', 'أيزو 31000', '31000', 'معالجة', 'مراقبة', 'تقييم'])) {
@@ -1831,6 +1831,7 @@ function PptCardView({
   reveal,
   onClick,
   locked = false,
+  emergencyHint = false,
 }: {
   card: PptCard;
   dense?: boolean;
@@ -1843,6 +1844,9 @@ function PptCardView({
   reveal?: boolean;
   onClick?: () => void;
   locked?: boolean;
+  /** True for bag-2 cards, so a card whose own text has no strong keyword
+   *  still falls back to an emergency-themed visual instead of bag 1's. */
+  emergencyHint?: boolean;
 }) {
   void emoji;
   const tone = card.tone ?? 'green';
@@ -1911,7 +1915,7 @@ function PptCardView({
   const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : tone === 'blue' ? 'bg-teal-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
-  const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`);
+  const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${emergencyHint ? ' __bag2__' : ''}`);
 
   return (
     <button
@@ -2000,6 +2004,34 @@ function PptCardView({
   );
 }
 
+/** The pool of best-matching themed illustrations for a slide, shared by
+ *  every ppt* layout that shows an image (not just an icon) -- picks up
+ *  bag-2 topics first, falls back to a course-aware default pool so a
+ *  slide never ends up with no visual at all. First entry is the primary
+ *  (best) match. */
+function slideVisualPool(slide: Slide, cards: PptCard[]) {
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const fallbackVisualPool = isEmergencySlide
+    ? ['/course-visuals/emergency-command-center.svg', '/course-visuals/emergency-strategic-framework.svg', '/course-visuals/emergency-stakeholder-network.svg', '/course-visuals/emergency-kpi-dashboard.svg']
+    : slide.id.startsWith('ch3')
+      ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
+      : slide.id.startsWith('ch2')
+        ? ['/course-visuals/compliance-scene.webp', '/course-visuals/audit-controls.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/secure-records.webp']
+        : ['/course-visuals/governance-scene.webp', '/course-visuals/policy-scene.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/leadership-board.webp'];
+  // Marker so a card whose own text has no bag-2 keyword (a bare label
+  // like "التخطيط" or "الفئة A") still gets an emergency-themed fallback
+  // instead of drifting to bag 1's governance imagery once its per-card
+  // matching bottoms out.
+  const courseMarker = isEmergencySlide ? ' __bag2__' : '';
+  const slideLevelVisuals = pptGeneratedVisualLayersFor(`${slide.title} ${slide.narration.slice(0, 200)}${courseMarker}`);
+  const allVisuals = cards
+    .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${courseMarker}`))
+    .concat(slideLevelVisuals)
+    .filter((src, index, all) => all.indexOf(src) === index)
+    .slice(0, 6);
+  return allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;
+}
+
 function PptMotionVisualScene({
   slide,
   cards,
@@ -2048,26 +2080,8 @@ function PptMotionVisualScene({
     }, duration * repeats);
     return () => window.clearTimeout(timer);
   }, [effectiveActiveKey, focusAnim]);
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
-  const fallbackVisualPool = isEmergencySlide
-    ? ['/course-visuals/emergency-command-center.svg', '/course-visuals/emergency-strategic-framework.svg', '/course-visuals/emergency-stakeholder-network.svg', '/course-visuals/emergency-kpi-dashboard.svg']
-    : slide.id.startsWith('ch3')
-      ? ['/course-visuals/risk-scene.webp', '/course-visuals/risk-matrix.webp', '/course-visuals/audit-controls.webp', '/course-visuals/secure-records.webp']
-      : slide.id.startsWith('ch2')
-        ? ['/course-visuals/compliance-scene.webp', '/course-visuals/audit-controls.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/secure-records.webp']
-        : ['/course-visuals/governance-scene.webp', '/course-visuals/policy-scene.webp', '/course-visuals/policy-workflow.webp', '/course-visuals/leadership-board.webp'];
-  // Fall back to matching the slide's own title/narration (not just card
-  // text) so cards with abstract titles (a question, a bare list item) still
-  // pick up the right themed visual instead of silently defaulting to
-  // bag 1's governance imagery.
-  const slideLevelVisuals = pptGeneratedVisualLayersFor(`${slide.title} ${slide.narration.slice(0, 200)}`);
-  const allVisuals = cards
-    .flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`))
-    .concat(slideLevelVisuals)
-    .filter((src, index, all) => all.indexOf(src) === index)
-    .slice(0, 6);
-  const visualPool = allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;
-  const primaryVisual = visualPool[0] ?? fallbackVisualPool[0];
+  const visualPool = slideVisualPool(slide, cards);
+  const primaryVisual = visualPool[0] ?? '/course-visuals/governance-scene.webp';
   const variant = slide.layout === 'pptTwoPanels'
     ? 'split'
     : cards.length >= 5
@@ -2171,7 +2185,8 @@ function PptMotionVisualScene({
       {cards.map((card, index) => {
         const visible = visibleFor(index);
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
-        const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`);
+        const cardMarker = slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '';
+        const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`);
         const cardVisual = (denseMotion ? visualPool[index % visualPool.length] : cardVisuals[0]) ?? visualPool[index % visualPool.length] ?? primaryVisual;
         return (
           <button
@@ -2242,8 +2257,19 @@ function PptTimelineScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
-    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-2">
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-start gap-4 overflow-y-auto px-2 py-3">
+      <span className="relative h-[64px] w-[64px] shrink-0" aria-hidden="true">
+        <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
+        <img
+          src={primaryVisual}
+          alt=""
+          className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.14)]"
+          loading="lazy"
+          decoding="async"
+        />
+      </span>
       <div className="flex w-full max-w-[1120px] flex-wrap items-start justify-center gap-y-9">
         {cards.map((card, index) => {
           const visible = visibleFor(index);
@@ -2316,9 +2342,24 @@ function PptMatrixScene({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
+  const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3">
-      <div className={`grid w-full max-w-[980px] auto-rows-fr ${cols} gap-4`}>
+      <div className={`relative grid w-full max-w-[980px] auto-rows-fr ${cols} gap-4`}>
+        {cols === 'grid-cols-2' && (
+          <span
+            className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white bg-white shadow-card-lg"
+            aria-hidden="true"
+          >
+            <img
+              src={primaryVisual}
+              alt=""
+              className="absolute inset-0 h-full w-full rounded-full object-contain p-1.5"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+        )}
         {cards.map((card, index) => {
           const visible = visibleFor(index);
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
@@ -2400,6 +2441,7 @@ function PptSpotlightScene({
   const focusActive = expandedKey === `${slide.id}:${focusIndex}`;
   const focusDetail = pptDetailFor(focusCard);
   const showFocusDetail = focusActive && Boolean(focusDetail);
+  const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4">
       <button
@@ -2410,6 +2452,12 @@ function PptSpotlightScene({
           focusVisible ? revealAnimationFor(focusIndex) : 'pointer-events-none opacity-0'
         } border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
       >
+        <span
+          className="pointer-events-none absolute -left-6 -top-6 h-[92px] w-[92px] rounded-full border-4 border-white bg-white shadow-card-lg"
+          aria-hidden="true"
+        >
+          <img src={primaryVisual} alt="" className="absolute inset-0 h-full w-full rounded-full object-contain p-1.5" loading="lazy" decoding="async" />
+        </span>
         <span className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
           <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
         </span>
@@ -3015,6 +3063,7 @@ function PptStyleSlide({
                   key={i}
                   card={card}
                   emoji={pptEmojiFor(card, slide.visual, i)}
+                  emergencyHint={slide.id.startsWith('ec') || slide.id.startsWith('emergency')}
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
                   visible={cardIsVisible(i)}
                   revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
