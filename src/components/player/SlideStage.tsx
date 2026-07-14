@@ -2138,11 +2138,11 @@ function PptMotionVisualScene({
       <div className="pointer-events-none absolute left-[5%] top-[5%] h-[36%] w-[34%] rounded-full bg-teal-500/8 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute bottom-[6%] right-[8%] h-[34%] w-[38%] rounded-full bg-gold-500/10 blur-3xl" aria-hidden="true" />
       {emptyFillIndex !== -1 && (
-        <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} grid h-[190px] place-items-center`} aria-hidden="true">
+        <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} relative h-[190px]`} aria-hidden="true">
           <img
             src={primaryVisual}
             alt=""
-            className="h-full w-full animate-float object-contain opacity-[0.5] drop-shadow-[0_22px_28px_rgb(24_82_55_/_0.14)]"
+            className="absolute inset-0 h-full w-full animate-float object-contain opacity-[0.5] drop-shadow-[0_22px_28px_rgb(24_82_55_/_0.14)]"
             loading="lazy"
             decoding="async"
           />
@@ -2203,11 +2203,11 @@ function PptMotionVisualScene({
                   aria-hidden="true"
                 />
               </span>
-              <span className={`grid ${showDetailText ? 'h-24 w-28' : 'h-28 w-32'} shrink-0 place-items-center rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
+              <span className={`relative ${showDetailText ? 'h-24 w-28' : 'h-28 w-32'} shrink-0 rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
                 <img
                   src={cardVisual}
                   alt=""
-                  className={`h-full w-full object-contain opacity-100 ${active ? focusAnim : ''}`}
+                  className={`absolute inset-0 h-full w-full object-contain opacity-100 ${active ? focusAnim : ''}`}
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
