@@ -8,7 +8,14 @@ const COURSE_LOCATIONS: Readonly<Record<string, CourseLocation>> = {
   'governance-ch1': { bag: 1, chapter: 1 },
   'governance-ch2': { bag: 1, chapter: 2 },
   'governance-ch3': { bag: 1, chapter: 3 },
-  'compliance-risk-ch1': { bag: 2, chapter: 1 },
+  'emergency-intro': { bag: 2, chapter: 0 },
+  'emergency-ch1': { bag: 2, chapter: 1 },
+  'emergency-ch2': { bag: 2, chapter: 2 },
+  'emergency-ch3': { bag: 2, chapter: 3 },
+  'emergency-ch4': { bag: 2, chapter: 4 },
+  // Archived previous-version content, not linked from the UI -- kept on a
+  // bag number that can't collide with a real, navigable bag.
+  'compliance-risk-ch1': { bag: 99, chapter: 1 },
 };
 
 const COURSE_IDS_BY_LOCATION = new Map(

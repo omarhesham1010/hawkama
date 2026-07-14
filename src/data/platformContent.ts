@@ -88,13 +88,6 @@ const emergencyChapters: PlatformChapter[] = [
     status: 'ready',
     courseId: 'emergency-ch4',
   },
-  {
-    index: 6,
-    label: 'الخاتمة',
-    title: 'خاتمة الحقيبة',
-    status: 'ready',
-    courseId: 'emergency-closing',
-  },
 ];
 
 const genericIcons: IconKey[] = [

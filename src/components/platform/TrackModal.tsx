@@ -119,7 +119,7 @@ export function TrackModal({
         {/* Footer note */}
         <div className="border-t border-line bg-surface-2 px-5 py-3 text-center text-xs text-ink-muted">
           <Icon name="sparkles" className="me-1 inline w-3.5 h-3.5 text-gold-500" />
-          المقدمة والفصول الثلاثة متاحة الآن بمحتواها التدريبي التفاعلي.
+          مقدمة الحقيبة وكل فصولها متاحة الآن بمحتواها التدريبي التفاعلي.
         </div>
       </div>
     </div>

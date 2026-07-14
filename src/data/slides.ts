@@ -11,7 +11,6 @@ import {
   emergencyChapterOneSlides,
   emergencyChapterThreeSlides,
   emergencyChapterTwoSlides,
-  emergencyClosingSlides,
   emergencyIntroSlides,
 } from './emergencyResponseProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
@@ -92,13 +91,6 @@ export const courseCatalog = {
       chapter: 'الفصل الرابع · التعافي والتحسين المستمر',
     },
     slides: emergencyChapterFourSlides,
-  },
-  'emergency-closing': {
-    meta: {
-      title: 'إدارة الاستجابة للطوارئ',
-      chapter: 'خاتمة الحقيبة',
-    },
-    slides: emergencyClosingSlides,
   },
 };
 

@@ -1386,7 +1386,7 @@ function IntroRoadmapMotionScene({
             <CourseGlyph kind="target" />
           </span>
           <h2 className="max-w-[300px] -translate-y-1 text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
-            محتويات الحقيبة الأولى
+            محتويات الحقيبة
           </h2>
         </div>
 

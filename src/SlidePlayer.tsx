@@ -217,7 +217,7 @@ export default function SlidePlayer({
   }, [narration, onExit]);
 
   const sourceLabel = voicePlaying ? (narration.source === 'audio' ? 'ملف صوتي' : 'قراءة صوتية') : null;
-  const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة الأولى' : slide.title;
+  const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة' : slide.title;
 
   return (
     <div className="relative h-[100dvh] overflow-hidden">
