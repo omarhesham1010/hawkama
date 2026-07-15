@@ -1800,9 +1800,30 @@ function pptGeneratedVisualLayersFor(text: string) {
   }
   return layers.slice(0, 3);
 }
+
+const SHARED_BRAND_ICON_POOL = [
+  1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20,
+  21, 22, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 39, 40,
+  41, 42, 43, 44, 45, 47, 48, 49, 50, 53, 54, 55, 56, 57, 58, 59,
+  60, 61, 62, 65, 67, 68, 69, 70, 71,
+].map((id) => `/assets/icons/brand-ppt-source/brand-icon-${String(id).padStart(3, '0')}.svg`);
+
+function stableIconIndex(text: string) {
+  let hash = 0;
+  for (let i = 0; i < text.length; i += 1) hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+  return hash;
+}
+
+function sharedBrandIconFor(text: string, index = 0) {
+  const seed = stableIconIndex(text);
+  return SHARED_BRAND_ICON_POOL[(seed + index * 7) % SHARED_BRAND_ICON_POOL.length];
+}
+
 function PptTitle({ slide }: { slide: Slide }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
@@ -1820,7 +1841,11 @@ function PptTitle({ slide }: { slide: Slide }) {
       )}
       <h2 className="inline-flex items-center justify-center gap-3 text-[36px] font-extrabold leading-tight text-brand-strong">
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/16 bg-white/80 p-1.5 shadow-sm">
-          <CourseGlyph kind={glyphKind} compact />
+          {brandIcon ? (
+            <img src={brandIcon} alt="" className="h-full w-full object-contain drop-shadow-[0_8px_10px_rgb(24_82_55_/_0.12)]" loading="lazy" decoding="async" aria-hidden="true" />
+          ) : (
+            <CourseGlyph kind={glyphKind} compact />
+          )}
         </span>
         <span>{displayTitle}</span>
       </h2>
@@ -1936,6 +1961,7 @@ function PptCardView({
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
   const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${emergencyHint ? ' __bag2__' : ''}`);
+  const brandIcon = emergencyHint ? sharedBrandIconFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`, Number(card.index ?? 0)) : null;
 
   return (
     <button
@@ -1962,7 +1988,11 @@ function PptCardView({
         }`}
         aria-hidden="true"
       >
-        <CourseGlyph kind={glyphKind} active={active} />
+        {brandIcon ? (
+          <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+        ) : (
+          <CourseGlyph kind={glyphKind} active={active} />
+        )}
       </span>
       <span
         className={`pointer-events-none absolute right-5 top-5 h-3 w-14 rounded-full ${accentTone} opacity-80`}
@@ -1972,6 +2002,11 @@ function PptCardView({
         <div className={`${level === 'micro' ? 'mb-1 gap-1' : 'mb-2.5 gap-2'} relative flex w-full flex-col items-center`}>
           <span className={`relative grid ${visualSize} shrink-0 place-items-center border ${tileTone} shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] [border-radius:30px_18px_28px_18px]`}>
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
+            {brandIcon && (
+              <span className="pointer-events-none absolute right-2 top-2 z-10 grid h-10 w-10 place-items-center rounded-2xl border border-white/75 bg-white/88 p-1.5 shadow-sm" aria-hidden="true">
+                <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+              </span>
+            )}
             {visualLayers[0] && (
               <img
                 src={visualLayers[0]}
@@ -2213,6 +2248,7 @@ function PptMotionVisualScene({
         const cardMarker = slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '';
         const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`);
         const cardVisual = (denseMotion ? visualPool[index % visualPool.length] : cardVisuals[0]) ?? visualPool[index % visualPool.length] ?? primaryVisual;
+        const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
         return (
           <button
             key={index}
@@ -2235,7 +2271,14 @@ function PptMotionVisualScene({
           >
             <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-5' : 'gap-4'}`}>
               <span className={`min-w-0 flex-1 ${usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
-                <span className="block text-[25px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]">{card.title}</span>
+                <span className="flex items-center justify-end gap-3 text-[25px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]">
+                  <span>{card.title}</span>
+                  {brandIcon && (
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
+                      <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                    </span>
+                  )}
+                </span>
                 <span
                   className={`mt-3 block h-[5px] rounded-full transition-all duration-500 ${
                     active ? 'w-[86%] bg-gold-500' : 'w-[44%] bg-green-700/18'
@@ -2244,6 +2287,16 @@ function PptMotionVisualScene({
                 />
               </span>
               <span className={`relative ${showDetailText ? (isEmergencySlide ? 'h-44 w-48' : 'h-24 w-28') : (isEmergencySlide ? 'h-48 w-52' : 'h-28 w-32')} shrink-0 rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
+                {brandIcon && (
+                  <img
+                    src={brandIcon}
+                    alt=""
+                    className="absolute -right-3 -top-3 z-10 h-16 w-16 rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)]"
+                    loading="lazy"
+                    decoding="async"
+                    aria-hidden="true"
+                  />
+                )}
                 <img
                   src={cardVisual}
                   alt=""
@@ -2305,6 +2358,7 @@ function PptTimelineScene({
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
           const detail = pptDetailFor(card);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
+          const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
           return (
             <div key={index} className="flex items-start">
               {index > 0 && (
@@ -2343,6 +2397,11 @@ function PptTimelineScene({
                     active ? 'border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/12 bg-white/72 text-brand-strong'
                   }`}
                 >
+                  {brandIcon && (
+                    <span className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-2xl border border-green-700/10 bg-white/80 p-1.5 shadow-sm" aria-hidden="true">
+                      <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                    </span>
+                  )}
                   <span className="block text-[15.5px] font-extrabold leading-snug">{card.title}</span>
                   {showDetail && detail && (
                     <span className="mt-2 block text-[13px] font-bold leading-relaxed text-ink">{detail}</span>
@@ -2406,6 +2465,7 @@ function PptMatrixScene({
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
           const detail = pptDetailFor(card);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
+          const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
           const tone = card.tone ?? 'green';
           const toneShell =
             tone === 'gold'
@@ -2441,6 +2501,11 @@ function PptMatrixScene({
                 {card.index ?? index + 1}
               </span>
               <h3 className={`max-w-[85%] pe-9 text-[19px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
+                {brandIcon && (
+                  <span className={`me-2 inline-grid h-10 w-10 align-middle place-items-center rounded-2xl p-1 shadow-sm ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
+                    <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                  </span>
+                )}
                 {card.title}
               </h3>
               {card.text && (
@@ -2490,6 +2555,7 @@ function PptSpotlightScene({
   const focusDetail = pptDetailFor(focusCard);
   const showFocusDetail = focusActive && Boolean(focusDetail);
   const primaryVisual = slideVisualPool(slide, cards)[0];
+  const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex) : null;
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4">
       <button
@@ -2516,7 +2582,11 @@ function PptSpotlightScene({
           <img src={primaryVisual} alt="" className="absolute inset-0 h-full w-full rounded-full object-contain p-1.5" loading="lazy" decoding="async" />
         </span>
         <span className="relative mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
-          <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
+          {focusBrandIcon ? (
+            <img src={focusBrandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" aria-hidden="true" />
+          ) : (
+            <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
+          )}
           <svg className="pointer-events-none absolute -right-1.5 -top-1.5 h-3.5 w-3.5 animate-sparkle" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#F6D37A" />
           </svg>
@@ -2538,6 +2608,7 @@ function PptSpotlightScene({
             const index = cards.indexOf(card);
             const visible = visibleFor(index);
             const active = expandedKey === `${slide.id}:${index}`;
+            const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
             return (
               <button
                 key={index}
@@ -2548,6 +2619,11 @@ function PptSpotlightScene({
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
                 } ${active ? 'animate-glow-cycle scale-[1.03] border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/14 bg-white/75 text-brand-strong'}`}
               >
+                {brandIcon && (
+                  <span className="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm" aria-hidden="true">
+                    <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                  </span>
+                )}
                 <span className="block text-[14.5px] font-extrabold leading-snug">{card.title}</span>
               </button>
             );

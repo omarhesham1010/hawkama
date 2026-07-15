@@ -1,0 +1,565 @@
+{
+  "name": "Project Visual Asset Library",
+  "source": "PowerPoint trainee-guide media extraction",
+  "structure": {
+    "icons": "/assets/icons/brand-ppt-source/",
+    "images": "/assets/images/brand-ppt-source/"
+  },
+  "usage": "Use icons as small semantic accents beside text; use images as larger slide visuals. Add future assets here, not under bag-specific folders.",
+  "total": 79,
+  "assets": [
+    {
+      "id": "brand-icon-001",
+      "originalFile": "image3.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-001.svg",
+      "bytes": 20324
+    },
+    {
+      "id": "brand-icon-002",
+      "originalFile": "image7.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-002.svg",
+      "bytes": 388287
+    },
+    {
+      "id": "brand-icon-003",
+      "originalFile": "image8.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-003.svg",
+      "bytes": 7990
+    },
+    {
+      "id": "brand-icon-004",
+      "originalFile": "image9.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-004.svg",
+      "bytes": 6249
+    },
+    {
+      "id": "brand-icon-005",
+      "originalFile": "image10.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-005.svg",
+      "bytes": 2403
+    },
+    {
+      "id": "brand-icon-006",
+      "originalFile": "image11.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-006.svg",
+      "bytes": 6249
+    },
+    {
+      "id": "brand-icon-007",
+      "originalFile": "image12.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-007.svg",
+      "bytes": 8242
+    },
+    {
+      "id": "brand-icon-008",
+      "originalFile": "image13.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-008.svg",
+      "bytes": 6897
+    },
+    {
+      "id": "brand-icon-009",
+      "originalFile": "image14.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-009.svg",
+      "bytes": 10226
+    },
+    {
+      "id": "brand-icon-010",
+      "originalFile": "image15.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-010.svg",
+      "bytes": 10709
+    },
+    {
+      "id": "brand-icon-011",
+      "originalFile": "image16.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-011.svg",
+      "bytes": 4249
+    },
+    {
+      "id": "brand-icon-012",
+      "originalFile": "image17.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-012.svg",
+      "bytes": 565
+    },
+    {
+      "id": "brand-icon-013",
+      "originalFile": "image18.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-013.svg",
+      "bytes": 26947
+    },
+    {
+      "id": "brand-icon-014",
+      "originalFile": "image20.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-014.svg",
+      "bytes": 10705
+    },
+    {
+      "id": "brand-icon-015",
+      "originalFile": "image21.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-015.svg",
+      "bytes": 6550
+    },
+    {
+      "id": "brand-icon-016",
+      "originalFile": "image22.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-016.svg",
+      "bytes": 9087
+    },
+    {
+      "id": "brand-icon-017",
+      "originalFile": "image23.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-017.svg",
+      "bytes": 2702
+    },
+    {
+      "id": "brand-icon-018",
+      "originalFile": "image24.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-018.svg",
+      "bytes": 7437
+    },
+    {
+      "id": "brand-icon-019",
+      "originalFile": "image25.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-019.svg",
+      "bytes": 5870
+    },
+    {
+      "id": "brand-icon-020",
+      "originalFile": "image26.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-020.svg",
+      "bytes": 7445
+    },
+    {
+      "id": "brand-icon-021",
+      "originalFile": "image27.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-021.svg",
+      "bytes": 2660
+    },
+    {
+      "id": "brand-icon-022",
+      "originalFile": "image28.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-022.svg",
+      "bytes": 4609
+    },
+    {
+      "id": "brand-icon-023",
+      "originalFile": "image29.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-023.svg",
+      "bytes": 522
+    },
+    {
+      "id": "brand-icon-024",
+      "originalFile": "image30.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-024.svg",
+      "bytes": 1363
+    },
+    {
+      "id": "brand-icon-025",
+      "originalFile": "image31.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-025.svg",
+      "bytes": 2045
+    },
+    {
+      "id": "brand-icon-026",
+      "originalFile": "image32.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-026.svg",
+      "bytes": 3509
+    },
+    {
+      "id": "brand-icon-027",
+      "originalFile": "image33.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-027.svg",
+      "bytes": 3784
+    },
+    {
+      "id": "brand-icon-028",
+      "originalFile": "image34.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-028.svg",
+      "bytes": 2551
+    },
+    {
+      "id": "brand-icon-029",
+      "originalFile": "image35.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-029.svg",
+      "bytes": 6821
+    },
+    {
+      "id": "brand-icon-030",
+      "originalFile": "image36.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-030.svg",
+      "bytes": 7451
+    },
+    {
+      "id": "brand-icon-031",
+      "originalFile": "image37.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-031.svg",
+      "bytes": 11104
+    },
+    {
+      "id": "brand-icon-032",
+      "originalFile": "image38.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-032.svg",
+      "bytes": 11942
+    },
+    {
+      "id": "brand-icon-033",
+      "originalFile": "image39.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-033.svg",
+      "bytes": 6812
+    },
+    {
+      "id": "brand-icon-034",
+      "originalFile": "image40.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-034.svg",
+      "bytes": 1542
+    },
+    {
+      "id": "brand-icon-035",
+      "originalFile": "image41.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-035.svg",
+      "bytes": 7521
+    },
+    {
+      "id": "brand-icon-036",
+      "originalFile": "image42.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-036.svg",
+      "bytes": 6107
+    },
+    {
+      "id": "brand-icon-037",
+      "originalFile": "image43.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-037.svg",
+      "bytes": 6549
+    },
+    {
+      "id": "brand-icon-038",
+      "originalFile": "image44.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-038.svg",
+      "bytes": 476
+    },
+    {
+      "id": "brand-icon-039",
+      "originalFile": "image45.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-039.svg",
+      "bytes": 5512
+    },
+    {
+      "id": "brand-icon-040",
+      "originalFile": "image46.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-040.svg",
+      "bytes": 6120
+    },
+    {
+      "id": "brand-icon-041",
+      "originalFile": "image47.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-041.svg",
+      "bytes": 5419
+    },
+    {
+      "id": "brand-icon-042",
+      "originalFile": "image48.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-042.svg",
+      "bytes": 9617
+    },
+    {
+      "id": "brand-icon-043",
+      "originalFile": "image49.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-043.svg",
+      "bytes": 13917
+    },
+    {
+      "id": "brand-icon-044",
+      "originalFile": "image50.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-044.svg",
+      "bytes": 5999
+    },
+    {
+      "id": "brand-icon-045",
+      "originalFile": "image51.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-045.svg",
+      "bytes": 4778
+    },
+    {
+      "id": "brand-icon-046",
+      "originalFile": "image52.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-046.svg",
+      "bytes": 3446
+    },
+    {
+      "id": "brand-icon-047",
+      "originalFile": "image53.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-047.svg",
+      "bytes": 8947
+    },
+    {
+      "id": "brand-icon-048",
+      "originalFile": "image54.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-048.svg",
+      "bytes": 7560
+    },
+    {
+      "id": "brand-icon-049",
+      "originalFile": "image55.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-049.svg",
+      "bytes": 4558
+    },
+    {
+      "id": "brand-icon-050",
+      "originalFile": "image56.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-050.svg",
+      "bytes": 2949
+    },
+    {
+      "id": "brand-icon-051",
+      "originalFile": "image57.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-051.svg",
+      "bytes": 1276
+    },
+    {
+      "id": "brand-icon-052",
+      "originalFile": "image58.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-052.svg",
+      "bytes": 2471
+    },
+    {
+      "id": "brand-icon-053",
+      "originalFile": "image59.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-053.svg",
+      "bytes": 3318
+    },
+    {
+      "id": "brand-icon-054",
+      "originalFile": "image60.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-054.svg",
+      "bytes": 6085
+    },
+    {
+      "id": "brand-icon-055",
+      "originalFile": "image61.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-055.svg",
+      "bytes": 5958
+    },
+    {
+      "id": "brand-icon-056",
+      "originalFile": "image62.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-056.svg",
+      "bytes": 6096
+    },
+    {
+      "id": "brand-icon-057",
+      "originalFile": "image63.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-057.svg",
+      "bytes": 6012
+    },
+    {
+      "id": "brand-icon-058",
+      "originalFile": "image64.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-058.svg",
+      "bytes": 5031
+    },
+    {
+      "id": "brand-icon-059",
+      "originalFile": "image65.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-059.svg",
+      "bytes": 2551
+    },
+    {
+      "id": "brand-icon-060",
+      "originalFile": "image66.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-060.svg",
+      "bytes": 1583
+    },
+    {
+      "id": "brand-icon-061",
+      "originalFile": "image67.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-061.svg",
+      "bytes": 6537
+    },
+    {
+      "id": "brand-icon-062",
+      "originalFile": "image68.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-062.svg",
+      "bytes": 4366
+    },
+    {
+      "id": "brand-icon-063",
+      "originalFile": "image69.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-063.svg",
+      "bytes": 63983
+    },
+    {
+      "id": "brand-icon-064",
+      "originalFile": "image70.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-064.svg",
+      "bytes": 158331
+    },
+    {
+      "id": "brand-icon-065",
+      "originalFile": "image71.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-065.svg",
+      "bytes": 10174
+    },
+    {
+      "id": "brand-icon-066",
+      "originalFile": "image72.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-066.svg",
+      "bytes": 2289
+    },
+    {
+      "id": "brand-icon-067",
+      "originalFile": "image73.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-067.svg",
+      "bytes": 4739
+    },
+    {
+      "id": "brand-icon-068",
+      "originalFile": "image74.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-068.svg",
+      "bytes": 5372
+    },
+    {
+      "id": "brand-icon-069",
+      "originalFile": "image75.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-069.svg",
+      "bytes": 2324
+    },
+    {
+      "id": "brand-icon-070",
+      "originalFile": "image76.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-070.svg",
+      "bytes": 3490
+    },
+    {
+      "id": "brand-icon-071",
+      "originalFile": "image77.svg",
+      "type": "icon",
+      "src": "/assets/icons/brand-ppt-source/brand-icon-071.svg",
+      "bytes": 2016
+    },
+    {
+      "id": "brand-image-001",
+      "originalFile": "image1.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-001.png",
+      "bytes": 6534
+    },
+    {
+      "id": "brand-image-002",
+      "originalFile": "image2.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-002.png",
+      "bytes": 19331
+    },
+    {
+      "id": "brand-image-003",
+      "originalFile": "image4.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-003.png",
+      "bytes": 2898
+    },
+    {
+      "id": "brand-image-004",
+      "originalFile": "image5.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-004.png",
+      "bytes": 2826688
+    },
+    {
+      "id": "brand-image-005",
+      "originalFile": "image6.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-005.png",
+      "bytes": 20683
+    },
+    {
+      "id": "brand-image-006",
+      "originalFile": "image19.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-006.png",
+      "bytes": 15611
+    },
+    {
+      "id": "brand-image-007",
+      "originalFile": "image78.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-007.png",
+      "bytes": 55840
+    },
+    {
+      "id": "brand-image-008",
+      "originalFile": "image79.png",
+      "type": "image",
+      "src": "/assets/images/brand-ppt-source/brand-image-008.png",
+      "bytes": 2253
+    }
+  ]
+}
