@@ -2276,8 +2276,11 @@ function PptTimelineScene({
   const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-start gap-4 overflow-y-auto px-2 py-3">
-      <span className="relative h-[64px] w-[64px] shrink-0" aria-hidden="true">
+      <span className="relative h-[64px] w-[64px] shrink-0 animate-crown-rise" aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
+        <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.4)" strokeWidth="2" strokeDasharray="4 9" strokeLinecap="round" />
+        </svg>
         <img
           src={primaryVisual}
           alt=""
@@ -2295,10 +2298,13 @@ function PptTimelineScene({
           return (
             <div key={index} className="flex items-start">
               {index > 0 && (
-                <span
-                  className="mx-2 mt-8 hidden h-[3px] w-8 shrink-0 rounded-full bg-gradient-to-r from-gold-500/50 to-green-700/20 sm:block"
-                  aria-hidden="true"
-                />
+                <span className="relative mx-2 mt-8 hidden h-[3px] w-8 shrink-0 overflow-hidden rounded-full bg-green-700/14 sm:block" aria-hidden="true">
+                  {visibleFor(index - 1) && (
+                    <span
+                      className="absolute inset-0 animate-shimmer-sweep bg-[length:250%_100%] bg-[linear-gradient(90deg,transparent_0%,rgb(191_155_74/0.85)_45%,rgb(255_255_255/0.95)_50%,rgb(191_155_74/0.85)_55%,transparent_100%)]"
+                    />
+                  )}
+                </span>
               )}
               <button
                 type="button"
@@ -2306,16 +2312,21 @@ function PptTimelineScene({
                 onClick={() => onToggle(index)}
                 className={`flex w-[172px] flex-col items-center text-center transition-all duration-500 ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
-                } ${active ? 'scale-[1.05]' : ''}`}
+                } ${active ? 'scale-[1.06]' : ''}`}
               >
-                <span
-                  className={`grid h-[64px] w-[64px] shrink-0 place-items-center rounded-full border-4 text-[22px] font-extrabold tabular shadow-card transition-all duration-500 ${
-                    active
-                      ? 'border-gold-400 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-card-lg'
-                      : 'border-white bg-white text-green-800 ring-1 ring-green-700/16'
-                  }`}
-                >
-                  {card.index ?? index + 1}
+                <span className="relative grid h-[64px] w-[64px] shrink-0 place-items-center">
+                  {active && (
+                    <span className="absolute inset-0 rounded-full border-2 border-gold-400 animate-ring-shockwave" aria-hidden="true" />
+                  )}
+                  <span
+                    className={`absolute inset-0 grid place-items-center rounded-full border-4 text-[22px] font-extrabold tabular shadow-card transition-all duration-500 ${
+                      active
+                        ? 'animate-glow-cycle border-gold-400 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-card-lg'
+                        : 'border-white bg-white text-green-800 ring-1 ring-green-700/16'
+                    }`}
+                  >
+                    {card.index ?? index + 1}
+                  </span>
                 </span>
                 <span
                   className={`mt-3 rounded-[22px] border px-4 py-3 shadow-[0_14px_30px_rgb(24_82_55_/_0.08)] backdrop-blur-sm transition-all duration-500 ${
@@ -2364,13 +2375,16 @@ function PptMatrixScene({
       <div className={`relative grid w-full max-w-[980px] auto-rows-fr ${cols} gap-4`}>
         {cols === 'grid-cols-2' && (
           <span
-            className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white bg-white shadow-card-lg"
+            className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white shadow-card-lg"
             aria-hidden="true"
           >
+            <svg className="absolute -inset-2.5 animate-aura-spin opacity-60" viewBox="0 0 100 100" aria-hidden="true">
+              <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.45)" strokeWidth="2" strokeDasharray="3 8" strokeLinecap="round" />
+            </svg>
             <img
               src={primaryVisual}
               alt=""
-              className="absolute inset-0 h-full w-full rounded-full object-contain p-1.5"
+              className="absolute inset-0 h-full w-full animate-glow-cycle rounded-full object-contain p-1.5"
               loading="lazy"
               decoding="async"
             />
@@ -2394,14 +2408,20 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative min-h-[128px] rounded-[26px] border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-500 ${
+              className={`relative min-h-[128px] overflow-hidden rounded-[26px] border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-500 ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
-                  ? 'scale-[1.02] border-gold-500/45 bg-[linear-gradient(150deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
+                  ? 'scale-[1.02] animate-glow-cycle border-gold-500/45 bg-[linear-gradient(150deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
                   : toneShell
               }`}
             >
+              {active && (
+                <span
+                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.28)_48%,rgb(255_255_255/0.28)_52%,transparent_70%)]"
+                  aria-hidden="true"
+                />
+              )}
               <span
                 className={`absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full text-[13px] font-extrabold tabular ${
                   active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
@@ -2464,18 +2484,33 @@ function PptSpotlightScene({
         type="button"
         disabled={!focusVisible || narrationLocked}
         onClick={() => onToggle(focusIndex)}
-        className={`relative w-full max-w-[620px] rounded-[36px] border p-7 text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
-          focusVisible ? revealAnimationFor(focusIndex) : 'pointer-events-none opacity-0'
-        } border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
+        className={`relative w-full max-w-[620px] overflow-hidden rounded-[36px] border p-7 text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
+          focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
+        } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
       >
+        {focusVisible && (
+          <span
+            className="pointer-events-none absolute inset-0 animate-shimmer-sweep bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.22)_48%,rgb(255_255_255/0.22)_52%,transparent_65%)]"
+            aria-hidden="true"
+          />
+        )}
         <span
           className="pointer-events-none absolute -left-6 -top-6 h-[92px] w-[92px] rounded-full border-4 border-white bg-white shadow-card-lg"
           aria-hidden="true"
         >
+          <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.5)" strokeWidth="2" strokeDasharray="3 8" strokeLinecap="round" />
+          </svg>
           <img src={primaryVisual} alt="" className="absolute inset-0 h-full w-full rounded-full object-contain p-1.5" loading="lazy" decoding="async" />
         </span>
-        <span className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
+        <span className="relative mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
           <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
+          <svg className="pointer-events-none absolute -right-1.5 -top-1.5 h-3.5 w-3.5 animate-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#F6D37A" />
+          </svg>
+          <svg className="pointer-events-none absolute -bottom-1.5 -left-1.5 h-2.5 w-2.5 animate-sparkle" style={{ animationDelay: '0.9s' }} viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#FBE7B4" />
+          </svg>
         </span>
         <h3 className="text-[26px] font-extrabold leading-tight">{focusCard?.title}</h3>
         {focusCard?.text && <p className="mt-2.5 text-[16px] font-bold leading-relaxed text-green-50">{focusCard.text}</p>}
@@ -2499,7 +2534,7 @@ function PptSpotlightScene({
                 onClick={() => onToggle(index)}
                 className={`min-w-[170px] flex-1 rounded-[22px] border px-4 py-3 text-center shadow-[0_14px_28px_rgb(24_82_55_/_0.07)] transition-all duration-500 ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
-                } ${active ? 'border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/14 bg-white/75 text-brand-strong'}`}
+                } ${active ? 'animate-glow-cycle scale-[1.03] border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/14 bg-white/75 text-brand-strong'}`}
               >
                 <span className="block text-[14.5px] font-extrabold leading-snug">{card.title}</span>
               </button>
