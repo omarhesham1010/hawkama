@@ -1,6 +1,6 @@
 <svg width="137" height="42" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden"><style>
 .MsftOfcThm_Accent1_lumMod_75_Stroke_v2 {
- stroke:#006540; 
+ stroke:#006540;
 }
 </style>
 <defs><filter id="fx0" class="MsftOfcThm_Accent1_lumMod_75_Stroke_v2" stroke="#006540" stroke-width="4.05926" fill="#008755" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="discrete" tableValues="0 0"/><feFuncG type="discrete" tableValues="0 0"/><feFuncB type="discrete" tableValues="0 0"/><feFuncA type="linear" slope="0.4" intercept="0"/></feComponentTransfer><feGaussianBlur stdDeviation="2.22222 2.22222"/></filter><clipPath id="clip1"><rect x="-49" y="685" width="137" height="42"/></clipPath></defs><g clip-path="url(#clip1)" transform="translate(49 -685)"><g filter="url(#fx0)" transform="translate(-50 684)"><g><path d="M8 22C8 14.268 14.268 8 22 8L117 8C124.732 8 131 14.268 131 22L131 22C131 29.732 124.732 36 117 36L22 36C14.268 36 8 29.732 8 22Z" class="MsftOfcThm_Accent1_lumMod_75_Stroke_v2" stroke="#006540" stroke-width="4.05926" fill="#008755" fill-rule="evenodd"/></g></g><path d="M-42 706C-42 698.268-35.732 692-28 692L67 692C74.732 692 81 698.268 81 706L81 706C81 713.732 74.732 720 67 720L-28 720C-35.732 720-42 713.732-42 706Z" class="MsftOfcThm_Accent1_lumMod_75_Stroke_v2" stroke="#006540" stroke-width="4.05926" fill="#008755" fill-rule="evenodd"/></g></svg>

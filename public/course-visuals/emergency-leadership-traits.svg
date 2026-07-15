@@ -16,7 +16,7 @@
   <circle cx="400" cy="402" r="92" stroke="#BF9B4A" stroke-width="10" opacity=".22"/>
   <circle cx="400" cy="250" r="72" fill="url(#gold-emergency-leadership-traits)"/>
   <path d="M270 640c30-170 230-170 260 0" fill="url(#g-emergency-leadership-traits)"/>
-  <path d="M320 502c34 54 126 54 160 0" stroke="white" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+  <path d="M320 502c34 54 126 54 160 0" stroke="#D6B85D" stroke-width="18" stroke-linecap="round" opacity=".9"/>
   <path d="M276 384l-84-60M524 384l84-60M400 164V76M306 218l-48-72M494 218l48-72" stroke="#1F5C3A" stroke-width="15" stroke-linecap="round" opacity=".62"/>
   <path d="M244 422c-62 12-106 46-132 104M556 422c62 12 106 46 132 104" stroke="url(#teal-emergency-leadership-traits)" stroke-width="17" stroke-linecap="round" opacity=".34"/>
   <path d="M382 640h36M362 596h76" stroke="#D6B85D" stroke-width="16" stroke-linecap="round"/>

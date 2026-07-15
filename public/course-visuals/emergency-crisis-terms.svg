@@ -17,7 +17,7 @@
   <circle cx="574" cy="486" r="146" stroke="#BF9B4A" stroke-width="10" opacity=".2"/>
   <path d="M652 583c-122-128-72-278 50-376 12 108 108 124 118 244 8 110-74 174-168 132Z" fill="#C8544C"/>
   <circle cx="684" cy="438" r="166" stroke="#C8544C" stroke-width="10" opacity=".14"/>
-  <path d="M166 498h20M354 418c13 28 38 45 72 50M548 360c20 48 60 76 120 82" stroke="white" stroke-width="15" stroke-linecap="round" opacity=".72"/>
+  <path d="M166 498h20M354 418c13 28 38 45 72 50M548 360c20 48 60 76 120 82" stroke="#D6B85D" stroke-width="15" stroke-linecap="round" opacity=".72"/>
   <path d="M690 206l36 34 50 4-38 32 10 49-42-26-44 24 14-48-36-34 50-2 24-44Z" fill="#D6B85D"/>
 </g>
 </svg>
