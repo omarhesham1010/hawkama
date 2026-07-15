@@ -1999,7 +1999,7 @@ function PptCardView({
       data-ppt-card="true"
       aria-hidden={!visible}
       aria-label={clickable ? `${card.title} - ${showTrainingDetail ? 'العودة للنص الأساسي' : 'عرض التفصيل'}` : card.title}
-      className={`relative flex h-full w-full max-h-full min-h-0 flex-col self-center overflow-hidden border text-center shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] backdrop-blur-sm [border-radius:44px_26px_42px_24px] transition-all duration-500 ease-out ${
+      className={`relative flex h-full w-full max-h-full min-h-0 flex-col self-center overflow-visible border text-center shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] backdrop-blur-sm [border-radius:44px_26px_42px_24px] transition-all duration-500 ease-out ${
         activeShell
       } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${
         clickable && visible ? 'cursor-pointer hover:-translate-y-1 hover:shadow-card-lg animate-pulse-ring' : 'cursor-default'
@@ -2256,7 +2256,7 @@ function PptMotionVisualScene({
   const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
 
   return (
-    <div className="relative min-h-0 flex-1 overflow-hidden rounded-[30px]">
+    <div className="relative min-h-0 flex-1 overflow-visible rounded-[30px]">
       <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/35 to-white/0`} />
       {showMotionGraphics && emptyFillIndex !== -1 && (
         <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} relative h-[190px]`} aria-hidden="true">
@@ -2540,7 +2540,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative min-h-[134px] overflow-hidden ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative min-h-[134px] overflow-visible ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -2783,7 +2783,7 @@ function PptActivitySlide({
               key={currentStep}
               data-ppt-card="true"
               aria-hidden={!currentCardVisible}
-              className={`relative grid h-full min-h-0 grid-cols-[190px_1fr] items-center gap-5 overflow-hidden rounded-[34px] border px-6 py-4 text-right shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
+              className={`relative grid h-full min-h-0 grid-cols-[190px_1fr] items-center gap-5 overflow-visible rounded-[34px] border px-6 py-4 text-right shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
                 answerVisible
                   ? 'scale-[1.01] border-gold-500/45 bg-[linear-gradient(145deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white'
                   : 'border-green-700/14 bg-white/90 text-brand-strong'
@@ -2927,7 +2927,7 @@ function PptGuidedScenarioSlide({
         <PptTitle slide={slide} showVisual={!slide.id.startsWith('ec') || spoken > 0} />
         <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_0.95fr] gap-5">
           {scenarioCard && (
-            <div className="relative flex min-h-0 flex-col justify-center overflow-hidden rounded-[34px] border border-green-700/12 bg-white/96 p-4 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
+            <div className="relative flex min-h-0 flex-col justify-center overflow-visible rounded-[34px] border border-green-700/12 bg-white/96 p-4 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
               <span className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-teal-500/12 blur-3xl" />
               <span className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full bg-gold-500/14 blur-3xl" />
               <div className="relative z-10 min-h-[164px]">
@@ -3469,7 +3469,7 @@ function QuizStorySlide({
             </span>
           )}
         </div>
-        <div className="mt-1.5 flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
+        <div className="mt-1.5 flex min-h-0 w-full flex-1 flex-col overflow-visible animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} showVisual={showQuizVisuals} />
           <div className="min-h-0 flex-1">
             <KnowledgeCheck
@@ -3588,9 +3588,9 @@ export function SlideStage({
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="flex h-full flex-col p-5">
         <TitleHead slide={slide} />
-        <div className="mt-1.5 min-h-0 flex-1 overflow-hidden animate-fade-in">
+        <div className="mt-1.5 min-h-0 flex-1 overflow-visible animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'نشاط تدريبي'} />
-          <div className="h-[calc(100%-2rem)] overflow-hidden">
+          <div className="h-[calc(100%-2rem)] overflow-visible">
             {a.kind === 'classification' && (
               <ClassificationActivity data={a} onDone={() => onActivityDone(slide.id)} />
             )}
