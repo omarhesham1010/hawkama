@@ -1525,9 +1525,9 @@ function CourseGlyph({
   active?: boolean;
   compact?: boolean;
 }) {
-  const stroke = active ? 'rgb(255 255 255)' : 'rgb(31 105 72)';
+  const stroke = active ? 'rgb(213 238 225)' : 'rgb(31 105 72)';
   const accent = active ? 'rgb(246 211 122)' : 'rgb(191 155 74)';
-  const muted = active ? 'rgb(255 255 255 / 0.42)' : 'rgb(47 132 87 / 0.22)';
+  const muted = active ? 'rgb(213 238 225 / 0.58)' : 'rgb(47 132 87 / 0.28)';
   const common = { fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
   const strokeWidth = compact ? 6 : 5.2;
 
@@ -1715,7 +1715,7 @@ function CourseGlyph({
 
   return (
     <svg viewBox="0 0 104 104" className={`h-full w-full ${activeVisualClass(active, kind)}`} aria-hidden="true">
-      <circle cx="52" cy="52" r="47" fill={active ? 'rgb(255 255 255 / 0.08)' : 'rgb(255 255 255 / 0.62)'} />
+      <circle cx="52" cy="52" r="47" fill={active ? 'rgb(213 238 225 / 0.12)' : 'rgb(226 242 234 / 0.72)'} />
       <circle cx="52" cy="52" r="43" fill="none" stroke={muted} strokeWidth="3" strokeDasharray="8 10" />
       <g className={active ? 'course-glyph-motion' : undefined}>{paths[kind]}</g>
     </svg>
