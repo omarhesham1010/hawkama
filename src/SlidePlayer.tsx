@@ -227,7 +227,7 @@ export default function SlidePlayer({
           on top of it instead of pushing it, so the LMS iframe only ever
           needs to fit this 16:9 rectangle. */}
       <main
-        className="player-main absolute inset-0 flex items-center justify-center overflow-hidden p-2 sm:p-3"
+        className={`player-main absolute inset-0 flex items-center justify-center overflow-hidden p-2 sm:p-3 ${chromeVisible ? 'player-main--chrome-visible' : ''}`}
         onClick={() => chromeVisible && hideChromeNow()}
       >
         <div key={`${slide.id}#${replayNonce}`} className="h-full w-full animate-fade-in">

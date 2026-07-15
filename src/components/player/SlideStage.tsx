@@ -2145,8 +2145,11 @@ function PptMotionVisualScene({
   }, [effectiveActiveKey, focusAnim]);
   const visualPool = slideVisualPool(slide, cards);
   const primaryVisual = visualPool[0] ?? '/course-visuals/governance-scene.webp';
+  const titleCardGrid = isEmergencySlide && slide.layout === 'pptTitleCards';
   const variant = slide.layout === 'pptTwoPanels'
     ? 'split'
+    : titleCardGrid
+      ? 'titleGrid'
     : cards.length >= 5
       ? 'constellation'
       : slide.index % 3 === 0
@@ -2155,6 +2158,14 @@ function PptMotionVisualScene({
           ? 'path'
           : 'split';
   const positionsByVariant: Record<string, string[]> = {
+    titleGrid: [
+      'right-[7%] top-[24%] w-[20%]',
+      'right-[29%] top-[24%] w-[20%]',
+      'right-[51%] top-[24%] w-[20%]',
+      'right-[73%] top-[24%] w-[20%]',
+      'right-[29%] bottom-[6%] w-[20%]',
+      'right-[51%] bottom-[6%] w-[20%]',
+    ],
     constellation: [
       'right-[5%] top-[10%] w-[30%]',
       'left-[6%] top-[11%] w-[30%]',
@@ -2187,6 +2198,15 @@ function PptMotionVisualScene({
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
+  const emergencyOpenLabels = isEmergencySlide && usesOpenLabels && !titleCardGrid;
+  const openLabelTitleClass = titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
+  const openLabelImageClass = titleCardGrid
+    ? 'h-24 w-28'
+    : emergencyOpenLabels
+      ? 'h-28 w-32'
+    : showDetailText
+      ? (isEmergencySlide ? 'h-40 w-44' : 'h-24 w-28')
+      : (isEmergencySlide ? 'h-40 w-44' : 'h-28 w-32');
 
   // Nasser stands on the same side for 'ppt' slides as nasserGuide computes
   // (odd slide.index -> visually left, even -> visually right; see
@@ -2258,7 +2278,9 @@ function PptMotionVisualScene({
             onClick={() => onToggle(index)}
             className={`absolute ${labelPositions[index % labelPositions.length]} text-right transition-all duration-700 ease-out ${
               usesOpenLabels
-                ? 'min-h-[104px] rounded-none border-0 bg-transparent px-1 py-1 shadow-none backdrop-blur-0'
+                ? titleCardGrid
+                  ? 'min-h-[142px] rounded-[28px] border border-green-700/10 bg-white/34 px-3 py-3 shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-[2px]'
+                  : 'min-h-[104px] rounded-none border-0 bg-transparent px-1 py-1 shadow-none backdrop-blur-0'
                 : 'min-h-[118px] rounded-[999px] border border-green-700/10 bg-white/45 px-5 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
             } ${
               active
@@ -2270,11 +2292,11 @@ function PptMotionVisualScene({
               visible && narrationLocked ? 'bg-white/90 text-ink-muted shadow-none' : ''
             }`}
           >
-            <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-6' : 'gap-4'}`}>
-              <span className={`min-w-0 flex-1 ${usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
-                <span className={`flex items-center justify-end gap-3 font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)] ${isEmergencySlide ? 'text-[27px]' : 'text-[25px]'}`}>
+            <span className={`flex items-center justify-between ${titleCardGrid ? 'flex-col gap-2 text-center' : emergencyOpenLabels ? 'gap-3' : usesOpenLabels ? 'gap-6' : 'gap-4'}`}>
+              <span className={`min-w-0 flex-1 ${titleCardGrid ? 'order-2 w-full border-t-[4px] border-gold-500/70 pt-2' : emergencyOpenLabels ? 'border-r-[4px] border-gold-500/70 pr-3' : usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
+                <span className={`flex items-center font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)] ${titleCardGrid ? 'justify-center gap-2' : 'justify-end gap-3'} ${openLabelTitleClass}`}>
                   <span>{card.title}</span>
-                  {brandIcon && (
+                  {brandIcon && !titleCardGrid && !emergencyOpenLabels && (
                     <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
                       <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
                     </span>
@@ -2287,7 +2309,7 @@ function PptMotionVisualScene({
                   aria-hidden="true"
                 />
               </span>
-              <span className={`relative ${showDetailText ? (isEmergencySlide ? 'h-52 w-56' : 'h-24 w-28') : (isEmergencySlide ? 'h-52 w-56' : 'h-28 w-32')} shrink-0 rounded-full bg-white/35 ring-1 ring-gold-500/16 transition-all duration-700 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
+              <span className={`relative ${titleCardGrid ? 'order-1' : ''} ${openLabelImageClass} shrink-0 rounded-full bg-white/35 ring-1 ring-gold-500/16 transition-all duration-700 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
                 {brandIcon && (
                   <img
                     src={brandIcon}

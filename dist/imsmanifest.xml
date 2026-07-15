@@ -32,7 +32,7 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-DXBUECUS.js" />
+      <file href="assets/chunks/SlidePlayer-HWFTPVBU.js" />
       <file href="assets/chunks/audioAlignments-WVW3PKUF.js" />
       <file href="assets/chunks/chunk-ACOYCRW4.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
@@ -115,8 +115,8 @@
       <file href="assets/images/brand-ppt-source/brand-image-006.png" />
       <file href="assets/images/brand-ppt-source/brand-image-007.png" />
       <file href="assets/images/brand-ppt-source/brand-image-008.png" />
-      <file href="assets/index-d0946170.js" />
-      <file href="assets/index-e4b46a6d.css" />
+      <file href="assets/index-82f350fd.js" />
+      <file href="assets/index-b3cff22f.css" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="audio/README.md" />

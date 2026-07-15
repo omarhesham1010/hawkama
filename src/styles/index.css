@@ -373,6 +373,11 @@
     padding: 0;
   }
 
+  .player-main--chrome-visible {
+    padding-top: 64px !important;
+    padding-bottom: 92px !important;
+  }
+
   .slide-canvas-wrap {
     padding: 0;
   }
