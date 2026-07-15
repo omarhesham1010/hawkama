@@ -1275,7 +1275,7 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-[205px] left-[86px] flex items-center justify-end">
+        <div className="absolute bottom-[150px] left-[440px] flex items-center justify-end">
           <button
             type="button"
             disabled={narrationLocked}
