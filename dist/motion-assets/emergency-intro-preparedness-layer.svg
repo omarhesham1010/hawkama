@@ -1,43 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" fill="none" role="img" aria-labelledby="title-emergency-intro-preparedness-layer">
 <title id="title-emergency-intro-preparedness-layer">emergency-intro-preparedness-layer</title>
 <defs>
-  <linearGradient id="green-emergency-intro-preparedness-layer" x1="122" y1="94" x2="492" y2="506" gradientUnits="userSpaceOnUse">
+  <linearGradient id="green-emergency-intro-preparedness-layer" x1="120" y1="82" x2="470" y2="498" gradientUnits="userSpaceOnUse">
     <stop stop-color="#2F7657"/>
     <stop offset="1" stop-color="#1F5C3A"/>
   </linearGradient>
-  <linearGradient id="teal-emergency-intro-preparedness-layer" x1="126" y1="156" x2="474" y2="500" gradientUnits="userSpaceOnUse">
-    <stop stop-color="#28B4A5"/>
-    <stop offset="1" stop-color="#159684"/>
-  </linearGradient>
-  <linearGradient id="gold-emergency-intro-preparedness-layer" x1="154" y1="118" x2="454" y2="472" gradientUnits="userSpaceOnUse">
+  <linearGradient id="gold-emergency-intro-preparedness-layer" x1="156" y1="124" x2="440" y2="448" gradientUnits="userSpaceOnUse">
     <stop stop-color="#D6B85D"/>
     <stop offset="1" stop-color="#BF9B4A"/>
+  </linearGradient>
+  <linearGradient id="teal-emergency-intro-preparedness-layer" x1="156" y1="150" x2="450" y2="440" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#28B4A5"/>
+    <stop offset="1" stop-color="#159684"/>
   </linearGradient>
   <filter id="shadow-emergency-intro-preparedness-layer" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB">
     <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B3F2D" flood-opacity="0.18"/>
   </filter>
 </defs>
 <g filter="url(#shadow-emergency-intro-preparedness-layer)">
-  <path d="M298 82C385 105 444 96 444 96v127c0 119-67 181-146 219-79-38-146-100-146-219V96s59 9 146-14Z" fill="url(#green-emergency-intro-preparedness-layer)"/>
-  <path d="M298 126C359 142 402 136 402 136v89c0 82-45 128-104 158-59-30-104-76-104-158v-89s43 6 104-10Z" fill="#F7FBF8" opacity=".95"/>
-  <path d="M298 126C359 142 402 136 402 136v89c0 82-45 128-104 158-59-30-104-76-104-158v-89s43 6 104-10Z" stroke="#A9CDBB" stroke-width="9"/>
+  <path d="M300 72C389 96 454 88 454 88v142c0 128-73 194-154 235-81-41-154-107-154-235V88s65 8 154-16Z" fill="url(#green-emergency-intro-preparedness-layer)"/>
+  <path d="M300 118C363 136 408 130 408 130v99c0 86-48 135-108 166-60-31-108-80-108-166v-99s45 6 108-12Z" fill="#F7FBF8" opacity=".96"/>
+  <path d="M300 118C363 136 408 130 408 130v99c0 86-48 135-108 166-60-31-108-80-108-166v-99s45 6 108-12Z" stroke="#A9CDBB" stroke-width="9"/>
 
-  <rect x="228" y="194" width="140" height="116" rx="24" fill="url(#teal-emergency-intro-preparedness-layer)"/>
-  <path d="M258 238h80M258 270h52" stroke="#EAF5EF" stroke-width="11" stroke-linecap="round"/>
-  <circle cx="336" cy="269" r="18" fill="#EAF5EF"/>
-  <path d="M328 269l7 8 16-22" stroke="#BF9B4A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M224 272c0-53 34-95 76-95s76 42 76 95" fill="#F7FBF8" stroke="url(#teal-emergency-intro-preparedness-layer)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M214 272h172" stroke="#1F5C3A" stroke-width="18" stroke-linecap="round"/>
+  <path d="M244 272v-24c0-28 25-51 56-51s56 23 56 51v24" stroke="#1F5C3A" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="300" cy="236" r="18" fill="url(#gold-emergency-intro-preparedness-layer)"/>
 
-  <rect x="118" y="278" width="148" height="166" rx="24" fill="#F7FBF8" stroke="#A9CDBB" stroke-width="8"/>
-  <rect x="152" y="250" width="80" height="44" rx="18" fill="url(#gold-emergency-intro-preparedness-layer)"/>
-  <path d="M154 330h70M154 370h70M154 410h48" stroke="#1F5C3A" stroke-width="10" stroke-linecap="round"/>
-  <path d="M126 329l13 13 27-36M126 369l13 13 27-36M126 409l13 13 27-36" stroke="#159684" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="236" y="310" width="128" height="74" rx="25" fill="url(#teal-emergency-intro-preparedness-layer)"/>
+  <path d="M264 348h72" stroke="#F7FBF8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M255 424h90" stroke="#1F5C3A" stroke-width="15" stroke-linecap="round"/>
+  <path d="M278 424l16-36h44l16 36" fill="#F7FBF8" stroke="#A9CDBB" stroke-width="9" stroke-linejoin="round"/>
 
-  <circle cx="420" cy="228" r="48" fill="#F7FBF8" stroke="#BF9B4A" stroke-width="9"/>
-  <path d="M420 196v36l26 16" stroke="#1F5C3A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M402 392c34-10 60-36 70-70M455 398c22-19 38-43 46-72M178 196c23-24 52-41 84-49M144 236c23-35 56-61 95-75" stroke="#159684" stroke-width="10" stroke-linecap="round" opacity=".42"/>
-  <circle cx="475" cy="318" r="13" fill="url(#gold-emergency-intro-preparedness-layer)" stroke="#F7FBF8" stroke-width="6"/>
-  <circle cx="238" cy="154" r="12" fill="url(#teal-emergency-intro-preparedness-layer)" stroke="#F7FBF8" stroke-width="6"/>
-  <path d="M244 462h116" stroke="#1F5C3A" stroke-width="15" stroke-linecap="round"/>
-  <path d="M276 462l18-34h52l18 34" fill="#F7FBF8" stroke="#A9CDBB" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M134 220c26-39 62-67 106-82M118 282c22-24 47-42 76-55M466 220c-26-39-62-67-106-82M482 282c-22-24-47-42-76-55" stroke="#159684" stroke-width="11" stroke-linecap="round" opacity=".42"/>
+  <circle cx="190" cy="232" r="17" fill="#F7FBF8" stroke="#BF9B4A" stroke-width="8"/>
+  <circle cx="410" cy="232" r="17" fill="#F7FBF8" stroke="#BF9B4A" stroke-width="8"/>
+  <path d="M170 356l24 24 48-64M430 356l-24 24-48-64" stroke="#BF9B4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>
