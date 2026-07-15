@@ -1362,7 +1362,7 @@ function IntroRoadmapMotionScene({
     { d: 'M720 294 C628 310 552 336 478 342', color: 'rgb(23 150 132)', delay: '180ms' },
     { d: 'M720 336 C622 384 540 438 478 436', color: 'rgb(104 112 118)', delay: '270ms' },
   ];
-  const chapterGlyphs: CourseGlyphKind[] = ['commandCenter', 'crisisComm', 'earlyWarning', 'afterAction'];
+  const chapterGlyphs: CourseGlyphKind[] = ['strategicFramework', 'crisisComm', 'earlyWarning', 'afterAction'];
   const orderedPillars = pillars;
   const cleanRoadmapTitle = (label: string) => label.replace(/^الفصل\s+(الأول|الثاني|الثالث|الرابع)\s*[:：\-–—]?\s*/u, '');
 
