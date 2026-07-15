@@ -916,6 +916,14 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🔍',
     layout: 'pptMatrix',
     cards: crisisTermsCards,
+    checks: [
+      quickCheck({
+        title: 'وش الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
+        text: 'ارجع لتعريفات المصطلحات الأربعة.',
+        answer: 'الطارئ يمكن إدارته بالموارد المتاحة، بينما الأزمة تتطلب قرارات استثنائية',
+        rationale: 'لأن الموارد المتاحة غير كافية في الأزمة، مع ضغط الوقت وعدم اليقين الأعلى بكثير.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ec2-scenario-analysis',
@@ -936,14 +944,6 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🧮',
     layout: 'pptTitleCards',
     cards: raciCards,
-    checks: [
-      quickCheck({
-        title: 'وش الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
-        text: 'ارجع لتعريفات المصطلحات الأربعة.',
-        answer: 'الطارئ يمكن إدارته بالموارد المتاحة، بينما الأزمة تتطلب قرارات استثنائية',
-        rationale: 'لأن الموارد المتاحة غير كافية في الأزمة، مع ضغط الوقت وعدم اليقين الأعلى بكثير.',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ec2-ooda',
@@ -954,6 +954,14 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🎯',
     layout: 'pptTimeline',
     cards: oodaCards,
+    checks: [
+      quickCheck({
+        title: 'وش أهم خطوة في نموذج OODA وليش؟',
+        text: 'فكر في أي خطوة تحلل المعلومات فعليًا.',
+        answer: 'خطوة "توجّه"',
+        rationale: 'لأنها اللي تحلل المعلومات في سياق الأزمة الفعلي، وهي اللي تحدد جودة القرار اللي يجي بعدها.',
+      }),
+    ],
   }),
   makeSlide({
     id: 'ec2-leadership',
@@ -974,14 +982,6 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🚥',
     layout: 'pptMatrix',
     cards: escalationLevelsCards,
-    checks: [
-      quickCheck({
-        title: 'وش أهم خطوة في نموذج OODA وليش؟',
-        text: 'فكر في أي خطوة تحلل المعلومات فعليًا.',
-        answer: 'خطوة "توجّه"',
-        rationale: 'لأنها اللي تحلل المعلومات في سياق الأزمة الفعلي، وهي اللي تحدد جودة القرار اللي يجي بعدها.',
-      }),
-    ],
   }),
   makeSlide({
     id: 'ec2-cerc-phases',

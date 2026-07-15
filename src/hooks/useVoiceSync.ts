@@ -58,6 +58,24 @@ export function useVoiceSync(
   const spokenRef = useRef(0);
   const enterRef = useRef(performance.now());
   const speakStartRef = useRef<number | null>(null);
+
+  // Reset on slide change / replay, done SYNCHRONOUSLY during render (not in
+  // a useEffect) -- an effect-based reset lands one commit late, so on the
+  // very first render of a new slide `spoken` is still the previous slide's
+  // (often near-total) value. Any consumer that reads `spoken` on that first
+  // render -- e.g. a "narration finished" gate for a quick-check popup --
+  // would see a false "already finished" and fire immediately. Resetting
+  // mid-render (React's documented pattern for derived state) means the
+  // very first render of a new slide already reports spoken = 0.
+  const resetKeyRef = useRef(resetKey);
+  if (resetKeyRef.current !== resetKey) {
+    resetKeyRef.current = resetKey;
+    spokenRef.current = 0;
+    enterRef.current = performance.now();
+    speakStartRef.current = null;
+    if (spoken !== 0) setSpoken(0);
+    if (done) setDone(false);
+  }
   const charRef = useRef(0);
   charRef.current = charIndex;
   const audioElapsedRef = useRef(0);
@@ -97,15 +115,6 @@ export function useVoiceSync(
       cancelled = true;
     };
   }, [armed, audioKey]);
-
-  // Reset on slide change / replay.
-  useEffect(() => {
-    spokenRef.current = 0;
-    enterRef.current = performance.now();
-    speakStartRef.current = null;
-    setSpoken(0);
-    setDone(false);
-  }, [resetKey]);
 
   // Real voice finished (boundaries advanced) → snap to complete.
   useEffect(() => {

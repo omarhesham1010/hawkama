@@ -2429,11 +2429,11 @@ function PptMatrixScene({
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`max-w-[85%] text-[19px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`max-w-[85%] pe-9 text-[19px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
                 {card.title}
               </h3>
               {card.text && (
-                <p className={`mt-2 text-[14.5px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`mt-2 pe-1 text-[14.5px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-3 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
@@ -2973,6 +2973,22 @@ function PptStyleSlide({
   const narration = useNarrationContext();
   const { isPlaying: narrationLocked } = narration;
 
+  // When real audio is missing/fails for a slide, the sync clock can snap
+  // `spoken` straight to the narration's full length within a second or two
+  // instead of the real speaking duration -- which would otherwise let the
+  // quick-check popup below fire almost immediately after the slide opens.
+  // Track wall-clock time since this slide mounted (reset synchronously
+  // during render, not in an effect, so the very first render already has
+  // the correct baseline) and require a sane minimum dwell time in
+  // addition to `narrationFinished` before the check can trigger.
+  const slideEnteredAtRef = useRef(performance.now());
+  const slideIdRef = useRef(slide.id);
+  if (slideIdRef.current !== slide.id) {
+    slideIdRef.current = slide.id;
+    slideEnteredAtRef.current = performance.now();
+  }
+  const minDwellMs = Math.max(4000, slide.duration * 1000 * 0.6);
+
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
@@ -3071,11 +3087,24 @@ function PptStyleSlide({
   // slide — never a silent card sitting next to him from the start.
   useEffect(() => {
     if (!check || checkPhase !== 'idle' || !narrationFinished) return;
+    const elapsed = performance.now() - slideEnteredAtRef.current;
+    const remaining = minDwellMs - elapsed;
+    if (remaining > 0) {
+      const timer = window.setTimeout(() => {
+        // Re-check on fire: the slide may have changed, or checkPhase may
+        // have advanced through some other path, in the meantime.
+        if (checkPhase !== 'idle' || !narrationFinished) return;
+        setCheckPhase('asking');
+        const intro = CHECK_INTROS[slide.index % CHECK_INTROS.length];
+        guidedSpeech.speak(`${slide.audioKey}-check-ask`, `${intro} ${check.title}`, () => setCheckPhase('ready'));
+      }, remaining);
+      return () => window.clearTimeout(timer);
+    }
     setCheckPhase('asking');
     const intro = CHECK_INTROS[slide.index % CHECK_INTROS.length];
     guidedSpeech.speak(`${slide.audioKey}-check-ask`, `${intro} ${check.title}`, () => setCheckPhase('ready'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [check, narrationFinished, checkPhase]);
+  }, [check, narrationFinished, checkPhase, minDwellMs]);
 
   const revealCheck = useCallback(() => {
     if (!check || checkPhase !== 'ready') return;
