@@ -3147,7 +3147,7 @@ function PptStyleSlide({
     !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
-  const isIntroRoadmap = slide.id === 'program-map' || slide.id === 'emergency-map';
+  const isIntroRoadmap = slide.id === 'program-map';
   const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
