@@ -282,7 +282,7 @@ export default function SlidePlayer({
         }}
         aria-label={chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'}
         title={chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'}
-        className="absolute left-1/2 top-1.5 z-50 flex h-6 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-black/25 text-white/90 shadow-card backdrop-blur-sm transition-all hover:bg-black/40"
+        className="absolute left-1/2 top-1.5 z-[100] flex h-6 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-black/25 text-white/90 shadow-card backdrop-blur-sm transition-all hover:bg-black/40"
       >
         <svg
           viewBox="0 0 24 24"
@@ -299,7 +299,7 @@ export default function SlidePlayer({
 
       {/* Header overlay */}
       <div
-        className={`absolute inset-x-0 top-0 z-40 transition-all duration-300 ease-out ${
+        className={`absolute inset-x-0 top-0 z-[90] transition-all duration-300 ease-out ${
           chromeVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
         }`}
         onMouseEnter={showChrome}
@@ -319,7 +319,7 @@ export default function SlidePlayer({
 
       {/* Footer overlay — caption + playback controls together */}
       <div
-        className={`absolute inset-x-0 bottom-0 z-40 transition-all duration-300 ease-out ${
+        className={`absolute inset-x-0 bottom-0 z-[90] transition-all duration-300 ease-out ${
           chromeVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
         }`}
         onMouseEnter={showChrome}
