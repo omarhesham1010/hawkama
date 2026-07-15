@@ -1888,13 +1888,21 @@ function PptCardView({
   const bulletClass = level === 'micro' ? 'text-[10.8px] leading-[1.12]' : level === 'compact' ? 'text-[14px] leading-[1.22]' : 'text-[17px] leading-snug';
   const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
   const visualSize =
-    level === 'micro'
-      ? 'h-[58px] w-[108px] p-1'
-      : level === 'compact'
-        ? 'h-[92px] w-[158px] p-1.5'
-        : level === 'loose'
-          ? 'h-[148px] w-[228px] p-2'
-          : 'h-[118px] w-[188px] p-2';
+    emergencyHint
+      ? level === 'micro'
+        ? 'h-[82px] w-[136px] p-1'
+        : level === 'compact'
+          ? 'h-[120px] w-[190px] p-1.5'
+          : level === 'loose'
+            ? 'h-[178px] w-[268px] p-2'
+            : 'h-[146px] w-[226px] p-2'
+      : level === 'micro'
+        ? 'h-[58px] w-[108px] p-1'
+        : level === 'compact'
+          ? 'h-[92px] w-[158px] p-1.5'
+          : level === 'loose'
+            ? 'h-[148px] w-[228px] p-2'
+            : 'h-[118px] w-[188px] p-2';
   const ghostVisualSize =
     level === 'micro'
       ? 'h-24 w-24'
@@ -2066,6 +2074,7 @@ function PptMotionVisualScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
   // used only to know when to re-roll the highlight animation below.
@@ -2234,7 +2243,7 @@ function PptMotionVisualScene({
                   aria-hidden="true"
                 />
               </span>
-              <span className={`relative ${showDetailText ? 'h-24 w-28' : 'h-28 w-32'} shrink-0 rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
+              <span className={`relative ${showDetailText ? (isEmergencySlide ? 'h-44 w-48' : 'h-24 w-28') : (isEmergencySlide ? 'h-48 w-52' : 'h-28 w-32')} shrink-0 rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
                 <img
                   src={cardVisual}
                   alt=""
@@ -2273,10 +2282,11 @@ function PptTimelineScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-start gap-4 overflow-y-auto px-2 py-3">
-      <span className="relative h-[64px] w-[64px] shrink-0 animate-crown-rise" aria-hidden="true">
+      <span className={`relative ${isEmergencySlide ? 'h-[148px] w-[148px]' : 'h-[64px] w-[64px]'} shrink-0 animate-crown-rise`} aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
         <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.4)" strokeWidth="2" strokeDasharray="4 9" strokeLinecap="round" />
@@ -2314,7 +2324,7 @@ function PptTimelineScene({
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
                 } ${active ? 'scale-[1.06]' : ''}`}
               >
-                <span className="relative grid h-[64px] w-[64px] shrink-0 place-items-center">
+                <span className={`relative grid ${isEmergencySlide ? 'h-[86px] w-[86px]' : 'h-[64px] w-[64px]'} shrink-0 place-items-center`}>
                   {active && (
                     <span className="absolute inset-0 rounded-full border-2 border-gold-400 animate-ring-shockwave" aria-hidden="true" />
                   )}
@@ -2368,6 +2378,7 @@ function PptMatrixScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
@@ -2375,7 +2386,7 @@ function PptMatrixScene({
       <div className={`relative grid w-full max-w-[980px] auto-rows-fr ${cols} gap-4`}>
         {cols === 'grid-cols-2' && (
           <span
-            className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white shadow-card-lg"
+            className={`pointer-events-none absolute left-1/2 top-1/2 z-10 ${isEmergencySlide ? 'h-[168px] w-[168px]' : 'h-[74px] w-[74px]'} -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white shadow-card-lg`}
             aria-hidden="true"
           >
             <svg className="absolute -inset-2.5 animate-aura-spin opacity-60" viewBox="0 0 100 100" aria-hidden="true">
@@ -2470,6 +2481,7 @@ function PptSpotlightScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
   const supporting = cards.filter((_, i) => i !== focusIndex);
@@ -2495,7 +2507,7 @@ function PptSpotlightScene({
           />
         )}
         <span
-          className="pointer-events-none absolute -left-6 -top-6 h-[92px] w-[92px] rounded-full border-4 border-white bg-white shadow-card-lg"
+          className={`pointer-events-none absolute -left-8 -top-8 ${isEmergencySlide ? 'h-[220px] w-[220px]' : 'h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
           aria-hidden="true"
         >
           <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
