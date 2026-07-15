@@ -705,7 +705,7 @@ function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
   const glyphKind = courseGlyphKind(`${slide.title} ${slide.narration}`);
   return (
     <div
-      className={`relative grid h-full w-[220px] shrink-0 place-items-center overflow-hidden ${
+      className={`relative grid h-full w-[220px] shrink-0 place-items-center overflow-visible ${
         alt ? 'rounded-[2.5rem]' : 'rounded-3xl'
       } border-2 border-green-500/35 shadow-card-lg ${
         alt
@@ -785,7 +785,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
 
   const visual = <SideVisual slide={slide} alt={alt} />;
   const compactVisual = (
-    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-hidden rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 px-5 shadow-card">
+    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-visible rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 px-5 shadow-card">
       <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(20 160 120 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
       <div className="relative z-10 flex items-center gap-4 self-center">
         <span className="grid h-[72px] w-[72px] place-items-center rounded-2xl bg-white/90 p-3 shadow-card ring-4 ring-white/40">
@@ -1069,7 +1069,7 @@ function PptQuickCheckPopup({
         onClick={revealed && !narrationLocked ? onDismiss : undefined}
       />
       <div
-        className={`pointer-events-auto relative mx-auto w-full max-w-[720px] animate-scale-in overflow-hidden rounded-2xl border-2 shadow-card-lg transition-colors duration-500 ${
+        className={`pointer-events-auto relative mx-auto w-full max-w-[720px] animate-scale-in overflow-visible rounded-2xl border-2 shadow-card-lg transition-colors duration-500 ${
           revealed
             ? 'border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white'
             : 'border-gold-500/60 bg-white text-ink'
@@ -2388,7 +2388,7 @@ function PptTimelineScene({
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   return (
-    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-5 overflow-hidden px-2 py-2">
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-5 overflow-visible px-2 py-2">
       {showPrimaryVisual && <span className={`relative ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[64px] w-[64px]'} shrink-0 animate-crown-rise`} aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
         <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
@@ -2624,7 +2624,7 @@ function PptSpotlightScene({
         type="button"
         disabled={!focusVisible || narrationLocked}
         onClick={() => onToggle(focusIndex)}
-        className={`relative w-full ${isEmergencySlide ? 'min-h-[178px] max-w-[720px] overflow-visible px-8 py-7' : 'max-w-[620px] overflow-hidden p-7'} rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
+        className={`relative w-full ${isEmergencySlide ? 'min-h-[178px] max-w-[720px] px-8 py-7' : 'max-w-[620px] p-7'} overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
           focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
         } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
       >
@@ -2997,7 +2997,7 @@ function PptGuidedScenarioSlide({
               aria-label="إغلاق نافذة السيناريو"
               onClick={closeModal}
             />
-            <div className="relative z-10 grid h-[600px] w-full max-w-[1120px] grid-cols-[1fr_0.82fr] overflow-hidden rounded-[38px] border border-green-700/18 bg-white shadow-[0_35px_80px_rgb(0_45_28_/_0.24)] animate-scale-in">
+            <div className="relative z-10 grid h-[600px] w-full max-w-[1120px] grid-cols-[1fr_0.82fr] overflow-visible rounded-[38px] border border-green-700/18 bg-white shadow-[0_35px_80px_rgb(0_45_28_/_0.24)] animate-scale-in">
               <button
                 type="button"
                 disabled={narrationLocked}
@@ -3009,7 +3009,7 @@ function PptGuidedScenarioSlide({
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
               </button>
-              <div className="relative flex min-h-0 flex-col justify-center overflow-hidden bg-[linear-gradient(145deg,rgb(247_252_249),rgb(255_255_255)_48%,rgb(244_238_221))] p-9 text-right">
+              <div className="relative flex min-h-0 flex-col justify-center overflow-visible bg-[linear-gradient(145deg,rgb(247_252_249),rgb(255_255_255)_48%,rgb(244_238_221))] p-9 text-right">
                 <span className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-green-700/10 blur-3xl" />
                 <span className="pointer-events-none absolute -left-16 -bottom-16 h-56 w-56 rounded-full bg-gold-500/14 blur-3xl" />
                 <div className="relative z-10">
@@ -3333,7 +3333,7 @@ function PptStyleSlide({
           <IntroRoadmapMotionScene slide={slide} spoken={spoken} started={motionStarted} />
         ) : isConclusion ? (
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
-            <div className={`grid w-full max-w-5xl items-center auto-rows-fr ${gridClass} gap-3`}>
+            <div className={`grid w-full max-w-5xl items-stretch ${gridClass} gap-3 overflow-visible`}>
               {cards.map((card, i) => (
                 <PptCardView
                   key={i}
