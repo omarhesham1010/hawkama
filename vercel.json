@@ -1,11 +1,20 @@
 {
   "headers": [
     {
-      "source": "/(assets|audio|course-visuals|motion-assets|nasser-assets|template-assets)/(.*)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(audio|course-visuals|motion-assets|nasser-assets|template-assets)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
         }
       ]
     }
