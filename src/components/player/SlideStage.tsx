@@ -360,19 +360,22 @@ function NasserStoryLayer({
       })()
     : null;
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
+  const keepsLargePresence = slide.layout === 'pptIntro' || slide.id === 'program-map' || slide.id.endsWith('-welcome');
   const isQuiz = slide.kind === 'quiz';
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
   // Client call: make Nasser noticeably larger across every slide kind, and
   // scale the dialogue bubble text next to him to match (see SpeechBubble).
   const imageSize = isPpt
-    ? 'h-[292px] w-[292px]'
+    ? keepsLargePresence
+      ? 'h-[276px] w-[276px]'
+      : 'h-[238px] w-[238px]'
     : isQuiz
       ? 'h-[214px] w-[214px]'
       : compact
         ? 'h-[268px] w-[268px]'
         : 'h-[330px] w-[330px]';
-  const layerHeight = isPpt ? 'h-[254px]' : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
-  const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
+  const layerHeight = isPpt ? (keepsLargePresence ? 'h-[236px]' : 'h-[202px]') : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
+  const bottomOffset = isPpt ? (keepsLargePresence ? 'bottom-[-18px]' : 'bottom-[-44px]') : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = isQuiz ? 'mb-2' : compact ? 'mb-5' : 'mb-9';
@@ -385,7 +388,7 @@ function NasserStoryLayer({
   const displayRemainingPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.remainingPart) : '';
 
   return (
-    <div className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
+    <div data-nasser-layer="true" className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-30 ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
         <div className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
@@ -588,7 +591,7 @@ function StorySlideShell({
 
   return (
     <div className="relative isolate h-full overflow-hidden">
-      <div className={`relative z-10 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
+      <div data-slide-content="true" className={`relative z-40 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
       <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
     </div>
   );
