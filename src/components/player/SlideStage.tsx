@@ -989,7 +989,7 @@ const VISUAL_ACTIVE_ANIMATIONS = [
 ];
 
 function activeVisualAnimationFor(text: string, index = 0) {
-  if (text.includes('emergency-intro-preparedness-layer')) return 'visual-active-breathe';
+  if (text.includes('emergency-intro-preparedness-command-layer') || text.includes('emergency-intro-preparedness-layer')) return 'visual-active-breathe';
   if (text.includes('emergency-intro-crisis-layer')) return 'visual-active-spin-pulse';
   if (text.includes('emergency-intro-foresight-layer')) return 'visual-active-scan';
   if (/تحذير|خطر|مخاطر|أزمة|طارئ|ضغط|إنذار|جرس|بلاغ|كارثة/.test(text)) return 'visual-active-alert';
@@ -1192,7 +1192,7 @@ function IntroMotionScene({
   const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const introLayerSrcs = isEmergencyCourse
     ? [
-        '/motion-assets/emergency-intro-preparedness-layer.svg',
+        '/motion-assets/emergency-intro-preparedness-command-layer.svg',
         '/motion-assets/emergency-intro-crisis-layer.svg',
         '/motion-assets/emergency-intro-foresight-layer.svg',
       ]
