@@ -1576,98 +1576,109 @@ function CourseGlyph({
     ),
     commandCenter: (
       <>
-        <path {...common} d="M22 30h60v22H22z" stroke={stroke} strokeWidth={strokeWidth} />
-        <path {...common} d="M42 30v22M62 30v22" stroke={muted} strokeWidth={strokeWidth - 1.5} />
-        <path {...common} d="M20 84c10-11 54-11 64 0" stroke={accent} strokeWidth={strokeWidth} />
-        <circle cx="34" cy="80" r="3.4" fill={accent} />
-        <circle cx="52" cy="83" r="3.4" fill={accent} />
-        <circle cx="70" cy="80" r="3.4" fill={accent} />
+        <path {...common} d="M24 26h56v34H24z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M34 36h14M34 48h10M58 36h12M58 48h8" stroke={accent} strokeWidth={strokeWidth - 1.2} />
+        <path {...common} d="M52 60v12M34 82h36M34 72h36" stroke={stroke} strokeWidth={strokeWidth} />
+        <circle cx="34" cy="82" r="4" fill={accent} />
+        <circle cx="52" cy="82" r="4" fill={accent} />
+        <circle cx="70" cy="82" r="4" fill={accent} />
       </>
     ),
     strategicFramework: (
       <>
         <path {...common} d="M52 16l28 12v26c0 22-14 34-28 40-14-6-28-18-28-40V28z" stroke={stroke} strokeWidth={strokeWidth} />
-        <circle cx="52" cy="40" r="4.5" fill={accent} />
-        <path {...common} d="M52 45v9M52 54l-12 12M52 54l12 12" stroke={accent} strokeWidth={strokeWidth - 1} />
-        <circle cx="40" cy="66" r="3.6" fill={stroke} />
-        <circle cx="64" cy="66" r="3.6" fill={stroke} />
+        <path {...common} d="M38 44h28M38 56h20M38 68h28" stroke={stroke} strokeWidth={strokeWidth - 1.2} />
+        <path {...common} d="M68 41l8 8 13-17" stroke={accent} strokeWidth={strokeWidth} />
+        <circle cx="34" cy="44" r="2.8" fill={accent} />
+        <circle cx="34" cy="56" r="2.8" fill={accent} />
+        <circle cx="34" cy="68" r="2.8" fill={accent} />
       </>
     ),
     continuityShield: (
       <>
         <path {...common} d="M52 16l28 12v26c0 22-14 34-28 40-14-6-28-18-28-40V28z" stroke={stroke} strokeWidth={strokeWidth} />
-        <path {...common} d="M40 50h24v24H40z" stroke={accent} strokeWidth={strokeWidth - 1} />
-        <path {...common} d="M46 56h4M54 56h4M46 64h4M54 64h4" stroke={muted} strokeWidth={strokeWidth - 2} />
+        <path {...common} d="M38 66h28M40 56h24M44 46h16" stroke={accent} strokeWidth={strokeWidth} />
+        <path {...common} d="M38 76c8 4 20 4 28 0" stroke={stroke} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M36 38c10-7 22-7 32 0" stroke={muted} strokeWidth={strokeWidth - 1.5} />
       </>
     ),
     crisisComm: (
       <>
-        <path {...common} d="M22 46l16-8v32l-16-8z" stroke={stroke} strokeWidth={strokeWidth} />
-        <path {...common} d="M38 34l22-11v58l-22-11z" stroke={stroke} strokeWidth={strokeWidth} />
-        <path {...common} d="M68 40c6-3 12-3 18 0M72 30c9-4 18-4 27 0M72 50c9 4 18 4 27 0" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M22 44h13l21-12v40L35 60H22z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M35 60v14l12-6" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M67 42c5 5 5 15 0 20M76 34c10 10 10 27 0 37" stroke={accent} strokeWidth={strokeWidth - 1.2} />
+        <path {...common} d="M29 50h10" stroke={muted} strokeWidth={strokeWidth - 1.5} />
       </>
     ),
     decisionPressure: (
       <>
-        <path {...common} d="M52 84V58M52 58l-18 18M52 58l18 18" stroke={stroke} strokeWidth={strokeWidth} />
-        <circle cx="52" cy="34" r="17" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
-        <path {...common} d="M52 34l9-9" stroke={stroke} strokeWidth={strokeWidth - 1} />
-        <circle cx="52" cy="34" r="3" fill={stroke} />
+        <circle cx="52" cy="36" r="20" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M52 36l10-10M52 36v12" stroke={accent} strokeWidth={strokeWidth} />
+        <path {...common} d="M32 76h40M38 64h28M44 52h16" stroke={stroke} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M74 72l9 9M83 72l-9 9" stroke={accent} strokeWidth={strokeWidth - 0.8} />
       </>
     ),
     proactiveScan: (
       <>
-        <path {...common} d="M36 70l24-24" stroke={stroke} strokeWidth={strokeWidth + 2} />
-        <circle cx="66" cy="34" r="9" fill={accent} />
-        <path {...common} d="M78 26c5-5 5-13 0-18M86 34c9-9 9-23 0-32" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <circle cx="46" cy="48" r="20" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M61 63l19 19" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M34 48h24M46 36v24" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M68 24c7 3 12 8 15 15M72 14c11 5 19 13 24 24" stroke={accent} strokeWidth={strokeWidth - 1.4} />
       </>
     ),
     riskGrid: (
       <>
         <path {...common} d="M24 24h56v56H24zM52 24v56M24 52h56" stroke={stroke} strokeWidth={strokeWidth} />
-        <rect x="52" y="24" width="28" height="28" fill={accent} opacity="0.32" />
-        <rect x="24" y="52" width="28" height="28" fill={accent} opacity="0.16" />
+        <rect x="54" y="26" width="24" height="24" rx="4" fill={accent} opacity="0.32" />
+        <rect x="26" y="54" width="24" height="24" rx="4" fill={accent} opacity="0.18" />
+        <path {...common} d="M61 66l6 6 12-16" stroke={accent} strokeWidth={strokeWidth - 0.5} />
       </>
     ),
     earlyWarning: (
       <>
         <path {...common} d="M52 24c-10 0-16 9-16 21v9l-7 11h46l-7-11v-9c0-12-6-21-16-21z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M42 65h20" stroke={accent} strokeWidth={strokeWidth - 1} />
         <circle cx="52" cy="78" r="4.4" fill={accent} />
-        <path {...common} d="M74 32c4-4 4-11 0-15M30 32c-4-4-4-11 0-15" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M76 33c5-5 5-13 0-18M28 33c-5-5-5-13 0-18" stroke={accent} strokeWidth={strokeWidth - 1.5} />
       </>
     ),
     supplyChain: (
       <>
         <path {...common} d="M18 58h32V38H18z" stroke={stroke} strokeWidth={strokeWidth} />
-        <path {...common} d="M50 46h14l10 12v10H50z" stroke={stroke} strokeWidth={strokeWidth} />
-        <circle cx="30" cy="70" r="6" fill={accent} />
-        <circle cx="66" cy="70" r="6" fill={accent} />
+        <path {...common} d="M50 46h15l10 12v10H50z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M24 46h18M56 56h12" stroke={accent} strokeWidth={strokeWidth - 1.2} />
+        <circle cx="30" cy="72" r="6" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <circle cx="66" cy="72" r="6" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M36 72h24" stroke={muted} strokeWidth={strokeWidth - 1.5} />
       </>
     ),
     afterAction: (
       <>
-        <path {...common} d="M32 26h34l8 8v50H32z" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M32 26h34l8 8v50H32zM66 26v10h10" stroke={stroke} strokeWidth={strokeWidth} />
         <path {...common} d="M42 20h16v9H42z" stroke={accent} strokeWidth={strokeWidth - 1.5} />
-        <path {...common} d="M40 46h24M40 56h24M40 66h14" stroke={muted} strokeWidth={strokeWidth - 1.5} />
-        <circle cx="72" cy="68" r="9" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
-        <path {...common} d="M79 75l8 8" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M40 46h22M40 56h18M40 66h12" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <circle cx="72" cy="68" r="10" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M68 68l3 3 7-8M79 76l7 7" stroke={accent} strokeWidth={strokeWidth - 1} />
       </>
     ),
     kpiDashboard: (
       <>
-        <path {...common} d="M28 76V54M46 76V42M64 76V60" stroke={stroke} strokeWidth={strokeWidth + 1} />
-        <path {...common} d="M70 52a14 14 0 1128 0" stroke={accent} strokeWidth={strokeWidth - 1} />
-        <path {...common} d="M22 38l12-8 10 6 14-11" stroke={accent} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M22 80h60M30 80V56M48 80V42M66 80V62" stroke={stroke} strokeWidth={strokeWidth} />
+        <path {...common} d="M24 38l12-9 12 7 16-15" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <circle cx="80" cy="42" r="13" fill="none" stroke={accent} strokeWidth={strokeWidth - 1} />
+        <path {...common} d="M80 42l8-8" stroke={stroke} strokeWidth={strokeWidth - 1.5} />
       </>
     ),
     stakeholderNetwork: (
       <>
-        <path {...common} d="M52 42V26M52 62v16M42 52H26M62 52h16" stroke={muted} strokeWidth={strokeWidth - 1.5} />
+        <path {...common} d="M52 42V28M52 62v14M42 52H28M62 52h14M40 40L30 30M64 40l10-10M40 64L30 74M64 64l10 10" stroke={muted} strokeWidth={strokeWidth - 1.6} />
         <circle cx="52" cy="52" r="11" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
-        <circle cx="52" cy="22" r="6" fill={accent} />
-        <circle cx="52" cy="82" r="6" fill={accent} />
-        <circle cx="22" cy="52" r="6" fill={accent} />
-        <circle cx="82" cy="52" r="6" fill={accent} />
+        <circle cx="52" cy="24" r="6" fill={accent} />
+        <circle cx="52" cy="80" r="6" fill={accent} />
+        <circle cx="24" cy="52" r="6" fill={accent} />
+        <circle cx="80" cy="52" r="6" fill={accent} />
+        <circle cx="30" cy="30" r="5" fill={stroke} opacity="0.92" />
+        <circle cx="74" cy="30" r="5" fill={stroke} opacity="0.92" />
       </>
     ),
   };
@@ -1676,7 +1687,7 @@ function CourseGlyph({
     <svg viewBox="0 0 104 104" className="h-full w-full" aria-hidden="true">
       <circle cx="52" cy="52" r="47" fill={active ? 'rgb(255 255 255 / 0.08)' : 'rgb(255 255 255 / 0.62)'} />
       <circle cx="52" cy="52" r="43" fill="none" stroke={muted} strokeWidth="3" strokeDasharray="8 10" />
-      {paths[kind]}
+      <g className={active ? 'course-glyph-motion' : undefined}>{paths[kind]}</g>
     </svg>
   );
 }

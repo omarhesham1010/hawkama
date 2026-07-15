@@ -294,6 +294,23 @@
   }
 }
 
+@keyframes course-glyph-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 8px 10px rgb(24 82 55 / 0.10));
+  }
+  50% {
+    transform: scale(1.045);
+    filter: drop-shadow(0 12px 14px rgb(191 155 74 / 0.18));
+  }
+}
+
+.course-glyph-motion {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: course-glyph-pulse 1.8s ease-in-out infinite;
+}
+
 /* Confetti pieces (completion / quiz pass) */
 .confetti-piece {
   position: absolute;
