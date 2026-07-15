@@ -14,7 +14,7 @@ import { POSE_SRC, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
-import { activePptCardForCue, pptCardCueIndexes } from '../../lib/pptTiming';
+import { activePptCardForCue, pptCardCueIndexes, scorePptCardCue } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
 import { useCanvasPortal } from '../../lib/canvasScale';
@@ -3176,6 +3176,36 @@ function PptStyleSlide({
     const end = endCue?.start ?? slide.narration.length;
     return { start, end, text: slide.narration.slice(start, end).trim() };
   };
+  const cardReplayRange = (index: number) => {
+    const cues = storyCues(slide.narration);
+    const card = cards[index];
+    if (!card || !cues.length) return cardNarrationRange(index);
+
+    const bestCueFor = (target: PptCard, after = -1) => {
+      let best = { cueIndex: -1, score: 0 };
+      for (let cueIndex = after + 1; cueIndex < cues.length; cueIndex += 1) {
+        const score = scorePptCardCue(target, cues[cueIndex].text);
+        if (score > best.score) best = { cueIndex, score };
+      }
+      return best;
+    };
+
+    const best = bestCueFor(card);
+    if (best.cueIndex < 0 || best.score < 5) return cardNarrationRange(index);
+
+    let endCueIndex = cues.length;
+    for (let nextIndex = index + 1; nextIndex < cards.length; nextIndex += 1) {
+      const nextBest = bestCueFor(cards[nextIndex], best.cueIndex);
+      if (nextBest.cueIndex > best.cueIndex && nextBest.score >= 5) {
+        endCueIndex = nextBest.cueIndex;
+        break;
+      }
+    }
+
+    const start = cues[best.cueIndex]?.start ?? 0;
+    const end = cues[endCueIndex]?.start ?? slide.narration.length;
+    return { start, end, text: slide.narration.slice(start, end).trim() };
+  };
   const narrationFinished = narrationPosition >= slide.narration.length - 1;
   const activeCard =
     narrationPosition > 0 && !narrationFinished
@@ -3228,7 +3258,7 @@ function PptStyleSlide({
     // stretch of the slide's own recording where Nasser already explained
     // this card, using the alignment data to seek straight to it.
     void (async () => {
-      const range = cardNarrationRange(i);
+      const range = cardReplayRange(i);
       if (!range.text) return;
       const { audioAlignments } = await import('../../data/audioAlignments');
       const anchors = audioAlignments[slide.audioKey]?.anchors;
