@@ -1301,7 +1301,7 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-[150px] left-[440px] flex items-center justify-end">
+        <div className="absolute bottom-[150px] left-[365px] flex items-center justify-end">
           <button
             type="button"
             disabled={narrationLocked}
@@ -1841,11 +1841,11 @@ function sharedBrandIconFor(text: string, index = 0) {
   return SHARED_BRAND_ICON_POOL[(seed + index * 7) % SHARED_BRAND_ICON_POOL.length];
 }
 
-function PptTitle({ slide }: { slide: Slide }) {
+function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boolean }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
-  const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
+  const brandIcon = showVisual && isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
@@ -1861,14 +1861,16 @@ function PptTitle({ slide }: { slide: Slide }) {
           {slide.ppt.subtitle}
         </p>
       )}
-      <h2 className="inline-flex items-center justify-center gap-3 text-[36px] font-extrabold leading-tight text-brand-strong">
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/16 bg-white/80 p-1.5 shadow-sm">
-          {brandIcon ? (
-            <img src={brandIcon} alt="" className="h-full w-full object-contain drop-shadow-[0_8px_10px_rgb(24_82_55_/_0.12)]" loading="lazy" decoding="async" aria-hidden="true" />
-          ) : (
-            <CourseGlyph kind={glyphKind} compact />
-          )}
-        </span>
+      <h2 className={`inline-flex items-center justify-center text-[36px] font-extrabold leading-tight text-brand-strong ${showVisual ? 'gap-3' : ''}`}>
+        {showVisual && (
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/16 bg-white/80 p-1.5 shadow-sm">
+            {brandIcon ? (
+              <img src={brandIcon} alt="" className="h-full w-full object-contain drop-shadow-[0_8px_10px_rgb(24_82_55_/_0.12)]" loading="lazy" decoding="async" aria-hidden="true" />
+            ) : (
+              <CourseGlyph kind={glyphKind} compact />
+            )}
+          </span>
+        )}
         <span>{displayTitle}</span>
       </h2>
       {slide.ppt?.subtitle && !slide.ppt?.courseName && (
@@ -2760,7 +2762,7 @@ function PptActivitySlide({
   return (
     <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue || Boolean(interactionLine)} dialogueOverride={interactionLine}>
       <div className="flex h-full min-h-0 flex-col px-7 py-3">
-        <PptTitle slide={slide} />
+        <PptTitle slide={slide} showVisual={!slide.id.startsWith('ec') || spoken > 0} />
         <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 px-3.5 py-2.5 text-right shadow-sm">
           <p className="text-[18px] font-extrabold leading-snug text-brand-strong">{slide.ppt?.intro}</p>
           <p className="mt-0.5 text-[16px] font-bold leading-snug text-ink-soft">{slide.ppt?.prompt}</p>
@@ -2912,7 +2914,7 @@ function PptGuidedScenarioSlide({
       dialogueOverride={interactionLine}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        <PptTitle slide={slide} />
+        <PptTitle slide={slide} showVisual={!slide.id.startsWith('ec') || spoken > 0} />
         <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_0.95fr] gap-5">
           {scenarioCard && (
             <div className="relative flex min-h-0 flex-col justify-center overflow-hidden rounded-[34px] border border-green-700/12 bg-white/96 p-4 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
@@ -2975,7 +2977,7 @@ function PptGuidedScenarioSlide({
         )}
 
         {selectedStep != null && currentCard && createPortal(
-          <div className="absolute inset-0 z-[80] flex items-center justify-center p-8">
+          <div className="pointer-events-auto absolute inset-0 z-[80] flex items-center justify-center p-8">
             <button
               type="button"
               disabled={narrationLocked}
@@ -3146,6 +3148,7 @@ function PptStyleSlide({
 
   const cards = slide.ppt?.cards ?? [];
   const checks = slide.ppt?.checks ?? [];
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const narrationPosition = started ? spoken : 0;
   const cueState = activeStoryCue(slide.narration, narrationPosition);
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
@@ -3166,11 +3169,13 @@ function PptStyleSlide({
     narrationPosition > 0 && !narrationFinished
       ? activePptCardForCue(revealCueIndexes, cueState.index)
       : -1;
-  // Idle slides should read as complete visual posters. Once narration starts,
-  // the same elements return to audio-driven reveal timing.
+  // Bag 1 can rest as a complete poster, but Bag 2 is authored as a
+  // Nasser-led motion scene: visuals stay hidden until the audio clock starts.
   const idleAtSlideStart = narrationPosition <= 0;
   const cardIsVisible = (index: number) =>
-    !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
+    isEmergencySlide
+      ? narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0))
+      : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
   const isIntroRoadmap = slide.id === 'program-map';
@@ -3278,7 +3283,7 @@ function PptStyleSlide({
       revealedCount={revealedCount}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        {!isIntroMotion && <PptTitle slide={slide} />}
+        {!isIntroMotion && <PptTitle slide={slide} showVisual={!isEmergencySlide || started || narrationPosition > 0 || narrationFinished} />}
 
         {isIntro ? (
           <IntroMotionScene slide={slide} spoken={spoken} started={motionStarted} onStart={onStart} />

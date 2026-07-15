@@ -54,7 +54,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
               <SlideTemplateFrame />
               {children}
             </div>
-            <div ref={setPortalNode} className="absolute inset-0" />
+            <div ref={setPortalNode} className="pointer-events-none absolute inset-0" />
           </CanvasPortalContext.Provider>
         </div>
       </CanvasScaleContext.Provider>
