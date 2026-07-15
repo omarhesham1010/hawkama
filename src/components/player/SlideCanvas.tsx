@@ -38,10 +38,10 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div ref={wrapRef} className="flex h-full w-full items-center justify-center overflow-hidden p-1">
+    <div ref={wrapRef} className="slide-canvas-wrap flex h-full w-full items-center justify-center overflow-hidden p-1">
       <CanvasScaleContext.Provider value={scale}>
         <div
-          className="relative shrink-0 overflow-visible rounded-[22px] border border-green-700/15 bg-white shadow-card-lg"
+          className="slide-canvas-stage relative shrink-0 overflow-visible rounded-[22px] border border-green-700/15 bg-white shadow-card-lg"
           style={{
             width: CANVAS_W,
             height: CANVAS_H,
