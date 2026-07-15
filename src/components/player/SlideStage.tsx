@@ -1112,8 +1112,8 @@ function introPillars(slide: Slide) {
 
 function roadmapPillars(slide: Slide) {
   const cards = slide.ppt?.cards ?? [];
-  return cards.slice(0, 3).map((card, index) => ({
-    label: card.title,
+  return cards.slice(0, 4).map((card, index) => ({
+    label: card.title.includes(':') ? card.title.slice(card.title.indexOf(':') + 1).trim() : card.title,
     detail: card.text ?? ['تأسيس القرار', 'تحقق وقياس', 'قرار واع بالمخاطر'][index],
     bullets: card.bullets ?? [],
   }));
@@ -1275,7 +1275,7 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-[130px] left-6 flex items-center justify-end">
+        <div className="absolute bottom-[205px] left-[86px] flex items-center justify-end">
           <button
             type="button"
             disabled={narrationLocked}
@@ -1323,34 +1323,17 @@ function IntroRoadmapMotionScene({
   const firstStepShown = spokenPast('أول فكرة معنا', 0.18);
   const secondStepShown = spokenPast('بعد ما تتضح البداية', 0.42);
   const thirdStepShown = spokenPast('ثم نصل إلى الفصل الثالث', 0.64);
+  const fourthStepShown = spokenPast('وأخيرًا الفصل الرابع', 0.82);
   // Client call: nothing appears until Nasser actually talks about it.
-  const current = thirdStepShown ? 2 : secondStepShown ? 1 : 0;
-  const visibleStepCount = started ? (thirdStepShown ? 3 : secondStepShown ? 2 : firstStepShown ? 1 : 0) : 0;
+  const current = fourthStepShown ? 3 : thirdStepShown ? 2 : secondStepShown ? 1 : 0;
+  const visibleStepCount = started ? (fourthStepShown ? 4 : thirdStepShown ? 3 : secondStepShown ? 2 : firstStepShown ? 1 : 0) : 0;
   const roadmapArrows = [
-    { d: 'M710 260 C610 228 564 192 495 188', color: 'rgb(31 105 72)', delay: '0ms' },
-    { d: 'M710 280 C606 280 560 280 495 280', color: 'rgb(191 155 74)', delay: '90ms' },
-    { d: 'M710 300 C610 332 564 368 495 372', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M720 210 C626 184 552 158 478 158', color: 'rgb(31 105 72)', delay: '0ms' },
+    { d: 'M720 252 C628 250 552 250 478 250', color: 'rgb(191 155 74)', delay: '90ms' },
+    { d: 'M720 294 C628 310 552 336 478 342', color: 'rgb(23 150 132)', delay: '180ms' },
+    { d: 'M720 336 C622 384 540 438 478 436', color: 'rgb(104 112 118)', delay: '270ms' },
   ];
-  const layers = [
-    {
-      src: '/motion-assets/intro-governance-layer.webp',
-      className: '',
-      visible: true,
-      transform: `translate3d(${Math.sin(visualProgress * 6) * 3}px, ${Math.cos(visualProgress * 5) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
-    },
-    {
-      src: '/motion-assets/intro-compliance-layer.webp',
-      className: '',
-      visible: true,
-      transform: `translate3d(${Math.sin(visualProgress * 7 + 1) * 3}px, ${Math.cos(visualProgress * 6) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
-    },
-    {
-      src: '/motion-assets/intro-risk-layer.webp',
-      className: '',
-      visible: true,
-      transform: `translate3d(${Math.sin(visualProgress * 8 + 2) * 3}px, ${Math.cos(visualProgress * 5 + 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.02})`,
-    },
-  ];
+  const chapterGlyphs: CourseGlyphKind[] = ['commandCenter', 'crisisComm', 'earlyWarning', 'afterAction'];
   const orderedPillars = pillars;
 
   return (
@@ -1398,49 +1381,48 @@ function IntroRoadmapMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col px-5 py-5">
-        <div className="absolute right-[-5%] z-10 flex w-[34%] items-center justify-center gap-3 text-center" style={{ top: 142 }}>
-          <span className="grid h-[208px] w-[208px] shrink-0 place-items-center p-0 animate-float">
+        <div className="absolute right-[-2%] z-10 flex w-[32%] items-center justify-center gap-2 text-center" style={{ top: 150 }}>
+          <span className="grid h-[170px] w-[170px] shrink-0 place-items-center p-0 animate-float">
             <CourseGlyph kind="target" />
           </span>
-          <h2 className="max-w-[300px] -translate-y-1 text-center text-[38px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
+          <h2 className="max-w-[270px] text-center text-[36px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.9)]">
             محتويات الحقيبة
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-5" style={{ left: '5%', top: 112, width: '44%' }}>
+        <div className="absolute flex flex-col gap-3" style={{ left: '5%', top: 86, width: '46%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = started && !narrationComplete && index === current;
-            const layer = layers[index];
             return (
               <div
                 key={pillar.label}
-                className={`relative flex items-center gap-4 overflow-hidden rounded-[18px] border px-3 py-2 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
+                className={`relative flex items-center gap-3 overflow-visible rounded-[18px] border px-3 py-2 text-right shadow-[0_16px_30px_rgb(24_82_55_/_0.10)] backdrop-blur-md transition-all duration-700 ${
                   shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
                     ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
-                style={{ minHeight: 84 }}
+                style={{ minHeight: 76 }}
               >
                 <div className={`absolute inset-x-0 top-0 h-1.5 ${active ? 'bg-gold-500' : 'bg-green-700/35'}`} />
-                <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border text-[24px] font-black tabular ${
+                <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border text-[22px] font-black tabular-nums ${
                     active ? 'border-white/30 bg-white/16 text-white' : 'border-green-700/16 bg-white/88 text-green-800'
                   }`}>
                   {toArabicDigits(index + 1)}
                 </span>
-                <img
-                  src={layer.src}
-                  alt=""
-                  draggable={false}
-                  className={`shrink-0 object-contain transition-all duration-700 ${
-                    active ? 'motion-layer-focus' : 'drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.12)]'
+                <span
+                  className={`grid h-[60px] w-[68px] shrink-0 place-items-center rounded-[20px] border bg-white/90 p-2 transition-all duration-700 ${
+                    active ? 'motion-layer-focus border-white/40 shadow-[0_16px_24px_rgb(0_0_0_/_0.12)]' : 'border-green-700/12 drop-shadow-[0_14px_20px_rgb(24_82_55_/_0.10)]'
                   }`}
-                  style={{ height: 66, width: 84, transform: shown ? layer.transform : undefined }}
-                />
+                  style={{ transform: shown ? `translate3d(${Math.sin(visualProgress * (6 + index)) * 2}px, ${Math.cos(visualProgress * (5 + index)) * 1.5}px, 0)` : undefined }}
+                  aria-hidden="true"
+                >
+                  <CourseGlyph kind={chapterGlyphs[index] ?? 'default'} compact />
+                </span>
                 <div className="flex min-w-0 flex-1 items-center justify-center text-center">
-                  <h3 className="text-[21px] font-black leading-snug">{pillar.label}</h3>
+                  <h3 className="text-[20px] font-black leading-[1.16]">{pillar.label}</h3>
                 </div>
               </div>
             );
@@ -3154,7 +3136,7 @@ function PptStyleSlide({
     !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
-  const isIntroRoadmap = slide.id === 'program-map';
+  const isIntroRoadmap = slide.id === 'program-map' || slide.id === 'emergency-map';
   const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = slide.layout === 'pptThreeColumns';
