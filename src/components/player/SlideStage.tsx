@@ -375,7 +375,7 @@ function NasserStoryLayer({
         ? 'h-[268px] w-[268px]'
         : 'h-[330px] w-[330px]';
   const layerHeight = isPpt ? (keepsLargePresence ? 'h-[236px]' : 'h-[202px]') : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
-  const bottomOffset = isPpt ? (keepsLargePresence ? 'bottom-[-18px]' : 'bottom-[-44px]') : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
+  const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
   const bubbleLift = isQuiz ? 'mb-2' : compact ? 'mb-5' : 'mb-9';
