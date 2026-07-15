@@ -1,24 +1,11 @@
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="bg7" cx="50%" cy="42%" r="65%">
-      <stop offset="0%" stop-color="#EAF5EE"/>
-      <stop offset="100%" stop-color="#FFFFFF"/>
-    </radialGradient>
-  </defs>
-  <circle cx="100" cy="100" r="92" fill="url(#bg7)"/>
-  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
-
-  <!-- telescope -->
-  <rect x="94" y="120" width="14" height="34" rx="4" fill="#1F5C3A" transform="rotate(-28 101 137)"/>
-  <rect x="86" y="96" width="34" height="16" rx="6" fill="#2F7657" transform="rotate(-28 103 104)"/>
-  <circle cx="118" cy="86" r="7" fill="#BF9B4A"/>
-
-  <!-- concentric detection waves -->
-  <path d="M126 78a34 34 0 010 48" stroke="#2F7657" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
-  <path d="M134 68a48 48 0 010 68" stroke="#BF9B4A" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
-
-  <!-- distant signal dots -->
-  <circle cx="158" cy="70" r="3.5" fill="#1F5C3A"/>
-  <circle cx="166" cy="94" r="3" fill="#BF9B4A"/>
-  <circle cx="156" cy="112" r="2.6" fill="#2F7657"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-labelledby="title-emergency-proactive-scanning">
+<title id="title-emergency-proactive-scanning">emergency-proactive-scanning</title>
+<defs>
+  <linearGradient id="g-emergency-proactive-scanning" x1="120" y1="100" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
+  <linearGradient id="gold-emergency-proactive-scanning" x1="160" y1="120" x2="680" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
+  <linearGradient id="teal-emergency-proactive-scanning" x1="120" y1="180" x2="670" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#28B4A5"/><stop offset="1" stop-color="#159684"/></linearGradient>
+  <filter id="shadow-emergency-proactive-scanning" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B3F2D" flood-opacity="0.18"/></filter>
+  <filter id="soft-emergency-proactive-scanning" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+<g filter="url(#shadow-emergency-proactive-scanning)"><circle cx="420" cy="370" r="220" stroke="#159684" stroke-width="8" opacity=".18"/><circle cx="420" cy="370" r="145.20000000000002" stroke="#159684" stroke-width="8" opacity=".28"/><circle cx="420" cy="370" r="74.80000000000001" stroke="#159684" stroke-width="8" opacity=".45"/><path d="M260 560l120-210 92 52-122 210" fill="url(#g-emergency-proactive-scanning)"/><ellipse cx="420" cy="350" rx="132" ry="74" transform="rotate(-22 420 350)" fill="white" stroke="#BF9B4A" stroke-width="14"/><path d="M420 350l160-98" stroke="#1F5C3A" stroke-width="18" stroke-linecap="round"/><circle cx="610" cy="230" r="30" fill="#BF9B4A"/><circle cx="220" cy="240" r="22" fill="#159684" opacity=".8"/><circle cx="612" cy="512" r="18" fill="#2F7657" opacity=".8"/></g>
 </svg>

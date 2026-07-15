@@ -1,26 +1,11 @@
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="bg9" cx="50%" cy="42%" r="65%">
-      <stop offset="0%" stop-color="#EAF5EE"/>
-      <stop offset="100%" stop-color="#FFFFFF"/>
-    </radialGradient>
-  </defs>
-  <circle cx="100" cy="100" r="92" fill="url(#bg9)"/>
-  <circle cx="100" cy="100" r="86" fill="none" stroke="#BF9B4A" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 7"/>
-
-  <!-- tower -->
-  <rect x="94" y="110" width="12" height="40" rx="3" fill="#1F5C3A"/>
-  <path d="M84 150h32l-4-8H88z" fill="#2F7657"/>
-  <circle cx="100" cy="100" r="9" fill="#BF9B4A"/>
-
-  <!-- pulsing rings -->
-  <circle cx="100" cy="100" r="22" fill="none" stroke="#2F7657" stroke-width="3" opacity="0.75"/>
-  <circle cx="100" cy="100" r="34" fill="none" stroke="#2F7657" stroke-width="3" opacity="0.45"/>
-  <circle cx="100" cy="100" r="46" fill="none" stroke="#2F7657" stroke-width="3" opacity="0.22"/>
-
-  <!-- alert bell -->
-  <g transform="translate(140 62)">
-    <path d="M0 10c0-8 5-13 10-13s10 5 10 13c0 6 2 8 4 10H-4c2-2 4-4 4-10z" fill="#1F5C3A"/>
-    <circle cx="10" cy="24" r="3" fill="#1F5C3A"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-labelledby="title-emergency-surveillance-radar">
+<title id="title-emergency-surveillance-radar">emergency-surveillance-radar</title>
+<defs>
+  <linearGradient id="g-emergency-surveillance-radar" x1="120" y1="100" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
+  <linearGradient id="gold-emergency-surveillance-radar" x1="160" y1="120" x2="680" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
+  <linearGradient id="teal-emergency-surveillance-radar" x1="120" y1="180" x2="670" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#28B4A5"/><stop offset="1" stop-color="#159684"/></linearGradient>
+  <filter id="shadow-emergency-surveillance-radar" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B3F2D" flood-opacity="0.18"/></filter>
+  <filter id="soft-emergency-surveillance-radar" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+<g filter="url(#shadow-emergency-surveillance-radar)"><circle cx="405" cy="330" r="190" stroke="#159684" stroke-width="8" opacity=".18"/><circle cx="405" cy="330" r="125.4" stroke="#159684" stroke-width="8" opacity=".28"/><circle cx="405" cy="330" r="64.60000000000001" stroke="#159684" stroke-width="8" opacity=".45"/><path d="M270 520h260" stroke="#1F5C3A" stroke-width="20" stroke-linecap="round"/><path d="M400 500V330" stroke="#1F5C3A" stroke-width="18" stroke-linecap="round"/><path d="M290 344c45-110 170-160 260-96-48 118-174 166-260 96Z" fill="white" stroke="#BF9B4A" stroke-width="14"/><path d="M400 330l135-76" stroke="#1F5C3A" stroke-width="16" stroke-linecap="round"/><path d="M596 190l28 54 60 8-44 42 10 60-54-28-54 28 10-60-44-42 60-8 28-54Z" fill="url(#gold-emergency-surveillance-radar)"/></g>
 </svg>

@@ -1,3 +1,11 @@
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <rect width="200" height="200" fill="#FFFFFF" stroke="#BF9B4A" stroke-width="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-labelledby="title-emergency-crisis-terms">
+<title id="title-emergency-crisis-terms">emergency-crisis-terms</title>
+<defs>
+  <linearGradient id="g-emergency-crisis-terms" x1="120" y1="100" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
+  <linearGradient id="gold-emergency-crisis-terms" x1="160" y1="120" x2="680" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
+  <linearGradient id="teal-emergency-crisis-terms" x1="120" y1="180" x2="670" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#28B4A5"/><stop offset="1" stop-color="#159684"/></linearGradient>
+  <filter id="shadow-emergency-crisis-terms" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B3F2D" flood-opacity="0.18"/></filter>
+  <filter id="soft-emergency-crisis-terms" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+<g filter="url(#shadow-emergency-crisis-terms)"><path d="M145 535h510" stroke="#A9CDBB" stroke-width="12" stroke-linecap="round"/><circle cx="190" cy="445" r="34" fill="#2F7657"/><path d="M310 470c-24-40-5-82 28-110 4 32 42 44 42 82 0 42-30 70-70 70Z" fill="#159684"/><path d="M450 510c-54-72-20-146 42-196 8 58 78 72 78 142 0 74-50 116-120 116Z" fill="#BF9B4A"/><path d="M640 540c-92-98-54-212 38-288 8 82 88 94 96 184 8 86-52 136-134 104Z" fill="#C8544C"/><circle cx="190" cy="445" r="70" stroke="#2F7657" stroke-width="8" opacity=".18"/><circle cx="340" cy="440" r="90" stroke="#159684" stroke-width="8" opacity=".18"/><circle cx="510" cy="450" r="116" stroke="#BF9B4A" stroke-width="8" opacity=".2"/><circle cx="675" cy="438" r="136" stroke="#C8544C" stroke-width="8" opacity=".14"/></g>
 </svg>
