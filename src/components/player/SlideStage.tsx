@@ -1364,6 +1364,7 @@ function IntroRoadmapMotionScene({
   ];
   const chapterGlyphs: CourseGlyphKind[] = ['commandCenter', 'crisisComm', 'earlyWarning', 'afterAction'];
   const orderedPillars = pillars;
+  const cleanRoadmapTitle = (label: string) => label.replace(/^الفصل\s+(الأول|الثاني|الثالث|الرابع)\s*[:：\-–—]?\s*/u, '');
 
   return (
     <div className="relative h-full min-h-0 overflow-visible">
@@ -1451,7 +1452,7 @@ function IntroRoadmapMotionScene({
                   <CourseGlyph kind={chapterGlyphs[index] ?? 'default'} compact />
                 </span>
                 <div className="flex min-w-0 flex-1 items-center justify-center text-center">
-                  <h3 className="text-[20px] font-black leading-[1.16]">{pillar.label}</h3>
+                  <h3 className="text-[20px] font-black leading-[1.16]">{cleanRoadmapTitle(pillar.label)}</h3>
                 </div>
               </div>
             );
