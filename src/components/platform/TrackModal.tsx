@@ -31,8 +31,8 @@ export function TrackModal({
       <div className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl bg-surface shadow-card-lg animate-fade-up sm:rounded-3xl">
         {/* Header */}
         <div className="flex items-center gap-3 border-b border-line bg-gradient-to-l from-green-700 to-green-600 p-5 text-white">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 font-extrabold text-green-800 tabular">
-            {toArabicDigits(track.index)}
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/95 text-green-800">
+            <Icon name={track.icon} className="h-6 w-6" />
           </span>
           <div className="min-w-0 flex-1">
             <h3 className="text-lg font-bold">{track.title}</h3>

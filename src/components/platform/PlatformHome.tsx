@@ -20,10 +20,6 @@ function PlatformHeader() {
           <p className="text-sm font-bold text-ink">{platform.name}</p>
           <p className="text-[11px] text-gold-600">{platform.tagline}</p>
         </div>
-        <span className="ms-auto chip bg-gold-500/12 text-gold-600 text-xs font-bold">
-          <Icon name="sparkles" className="w-4 h-4" />
-          نسخة تجريبية
-        </span>
       </div>
     </header>
   );
@@ -51,7 +47,7 @@ function trackProgress(track: Track): number {
   return Math.round(completed / readyChapters.length);
 }
 
-function TrackCard({ track, onOpen }: { track: Track; onOpen: (t: Track) => void }) {
+function TrackCard({ track, delayIndex, onOpen }: { track: Track; delayIndex: number; onOpen: (t: Track) => void }) {
   const available = track.status === 'available';
   const percent = trackProgress(track);
   const readyCount = track.chapters.filter((c) => c.status === 'ready').length;
@@ -66,7 +62,7 @@ function TrackCard({ track, onOpen }: { track: Track; onOpen: (t: Track) => void
           ? 'border-gold-400/60 ring-1 ring-gold-400/40 cursor-pointer'
           : 'border-line cursor-not-allowed'
       }`}
-      style={{ animationDelay: `${track.index * 45}ms` }}
+      style={{ animationDelay: `${delayIndex * 45}ms` }}
     >
       {/* status ribbon */}
       <span
@@ -90,9 +86,6 @@ function TrackCard({ track, onOpen }: { track: Track; onOpen: (t: Track) => void
       </span>
 
       <div className="mb-3 flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 font-extrabold text-white tabular shadow-card">
-          {toArabicDigits(track.index)}
-        </span>
         <IconBadge icon={track.icon} tone={available ? 'brand' : 'gold'} size="md" />
       </div>
 
@@ -143,6 +136,7 @@ export function PlatformHome({
 }) {
   const [selected, setSelected] = useState<Track | null>(null);
   const progress = useMemo(() => readChapterProgress('governance-intro'), []);
+  const totalChapters = platform.tracks.reduce((sum, t) => sum + t.chapters.length, 0);
 
   const scrollToTracks = () =>
     document.getElementById('tracks')?.scrollIntoView({ behavior: 'smooth' });
@@ -179,7 +173,7 @@ export function PlatformHome({
                 className="btn-gold px-7 py-3.5 text-base"
               >
                 <Icon name="flag" className="w-5 h-5" />
-                {progress.started ? 'تابع الحقيبة الأولى' : 'ابدأ الحقيبة الأولى'}
+                {progress.started ? 'تابع حقيبة الحوكمة والمخاطر' : 'ابدأ حقيبة الحوكمة والمخاطر'}
               </button>
               <button type="button" onClick={scrollToTracks} className="btn-ghost px-6 py-3.5 text-base">
                 <Icon name="compass" className="w-5 h-5" />
@@ -216,8 +210,8 @@ export function PlatformHome({
 
         {/* Stats */}
         <section className="grid grid-cols-2 gap-4 rounded-2xl border border-line bg-surface p-6 shadow-card sm:grid-cols-4">
-          <Stat value={`${toArabicDigits(10)}`} label="حقائب تدريبية" />
-          <Stat value={`${toArabicDigits(3)}`} label="فصول في الحقيبة الأولى" />
+          <Stat value={`${toArabicDigits(platform.tracks.length)}`} label="حقائب تدريبية" />
+          <Stat value={`${toArabicDigits(totalChapters)}`} label="فصول تدريبية" />
           <Stat value={`${toArabicDigits(6)}+`} label="أنشطة وتطبيقات" />
           <Stat value="SCORM" label="متوافق مع أنظمة LMS" />
         </section>
@@ -236,8 +230,8 @@ export function PlatformHome({
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {platform.tracks.map((track) => (
-              <TrackCard key={track.id} track={track} onOpen={setSelected} />
+            {platform.tracks.map((track, i) => (
+              <TrackCard key={track.id} track={track} delayIndex={i} onOpen={setSelected} />
             ))}
           </div>
         </section>

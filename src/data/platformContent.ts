@@ -13,7 +13,6 @@ export interface PlatformChapter {
 
 export interface Track {
   id: string;
-  index: number;
   title: string;
   short: string;
   icon: IconKey;
@@ -90,30 +89,6 @@ const emergencyChapters: PlatformChapter[] = [
   },
 ];
 
-const genericIcons: IconKey[] = [
-  'scale',
-  'integrity',
-  'clipboard',
-  'building',
-  'committee',
-  'eye',
-  'matrix',
-  'compass',
-];
-
-const comingTracks: Track[] = Array.from({ length: 8 }, (_, offset) => {
-  const index = offset + 3;
-  return {
-    id: `bag-${index}`,
-    index,
-    title: `الحقيبة ${['الثالثة', 'الرابعة', 'الخامسة', 'السادسة', 'السابعة', 'الثامنة', 'التاسعة', 'العاشرة'][offset]}`,
-    short: 'سيُضاف اسم الحقيبة ومحتواها بعد استلام المادة التدريبية المعتمدة.',
-    icon: genericIcons[offset],
-    status: 'soon' as const,
-    chapters: [],
-  };
-});
-
 export const platform: {
   name: string;
   tagline: string;
@@ -123,11 +98,10 @@ export const platform: {
   name: 'أكاديمية الحوكمة والامتثال',
   tagline: 'منصة تدريب احترافية للقطاع الصحي والمؤسسي',
   intro:
-    'عشر حقائب تدريبية ضمن تجربة تعلم إلكتروني تفاعلية. الحقيبتان الأولى والثانية متاحتان الآن بكل فصولهما، ويُضاف محتوى بقية الحقائب بعد اعتماده.',
+    'حقيبتان تدريبيتان متاحتان الآن بكل فصولهما، ضمن تجربة تعلم إلكتروني تفاعلية، ويُضاف محتوى حقائب جديدة بعد اعتمادها.',
   tracks: [
     {
       id: 'governance',
-      index: 1,
       title: 'الحوكمة والمخاطر والامتثال',
       short: 'الحوكمة التنظيمية، الامتثال والتدقيق والضوابط، وإدارة المخاطر المؤسسية.',
       icon: 'shield',
@@ -136,13 +110,11 @@ export const platform: {
     },
     {
       id: 'emergency-response',
-      index: 2,
       title: 'إدارة الاستجابة للطوارئ',
       short: 'الاستعداد للطوارئ، إدارة الأزمات واتخاذ القرار، المسح الاستباقي، والتعافي والتحسين المستمر.',
       icon: 'alert',
       status: 'available',
       chapters: emergencyChapters,
     },
-    ...comingTracks,
   ],
 };
