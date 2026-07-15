@@ -3215,6 +3215,8 @@ function QuizStorySlide({
     );
   };
 
+  const isEmergencyQuiz = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const quizVisual = isEmergencyQuiz ? slideVisualPool(slide, [])[0] : undefined;
   return (
     <StorySlideShell
       slide={slide}
@@ -3223,7 +3225,15 @@ function QuizStorySlide({
       dialogueOverride={guidedSpeech.line}
     >
       <div className="flex h-full flex-col p-5">
-        <TitleHead slide={slide} />
+        <div className="flex shrink-0 items-center gap-3">
+          <TitleHead slide={slide} />
+          {quizVisual && (
+            <span className="relative h-[46px] w-[46px] shrink-0" aria-hidden="true">
+              <span className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
+              <img src={quizVisual} alt="" className="absolute inset-0 h-full w-full object-contain" loading="lazy" decoding="async" />
+            </span>
+          )}
+        </div>
         <div className="mt-1.5 flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
           <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
           <div className="min-h-0 flex-1">
