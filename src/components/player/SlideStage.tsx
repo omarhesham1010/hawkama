@@ -989,6 +989,9 @@ const VISUAL_ACTIVE_ANIMATIONS = [
 ];
 
 function activeVisualAnimationFor(text: string, index = 0) {
+  if (text.includes('emergency-intro-preparedness-layer')) return 'visual-active-breathe';
+  if (text.includes('emergency-intro-crisis-layer')) return 'visual-active-spin-pulse';
+  if (text.includes('emergency-intro-foresight-layer')) return 'visual-active-scan';
   if (/تحذير|خطر|مخاطر|أزمة|طارئ|ضغط|إنذار|جرس|بلاغ|كارثة/.test(text)) return 'visual-active-alert';
   if (/هدف|مؤشر|قياس|رصد|استشراف|مسح|تحليل|متابعة|لوحة/.test(text)) return 'visual-active-scan';
   if (/تواصل|اتصال|شبكة|أصحاب|توريد|سلسلة|تدفق|إجراءات|مسار|خطة/.test(text)) return 'visual-active-flow';

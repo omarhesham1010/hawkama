@@ -1,11 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" fill="none" role="img" aria-labelledby="title-emergency-intro-foresight-layer">
 <title id="title-emergency-intro-foresight-layer">emergency-intro-foresight-layer</title>
 <defs>
-  <linearGradient id="g-emergency-intro-foresight-layer" x1="120" y1="100" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
-  <linearGradient id="gold-emergency-intro-foresight-layer" x1="160" y1="120" x2="680" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
-  <linearGradient id="teal-emergency-intro-foresight-layer" x1="120" y1="180" x2="670" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#28B4A5"/><stop offset="1" stop-color="#159684"/></linearGradient>
-  <filter id="shadow-emergency-intro-foresight-layer" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B3F2D" flood-opacity="0.18"/></filter>
-  <filter id="soft-emergency-intro-foresight-layer" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>
+  <linearGradient id="g-emergency-intro-foresight-layer" x1="118" y1="96" x2="520" y2="520" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#2F7657"/>
+    <stop offset="1" stop-color="#1F5C3A"/>
+  </linearGradient>
+  <linearGradient id="gold-emergency-intro-foresight-layer" x1="180" y1="130" x2="472" y2="486" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#D6B85D"/>
+    <stop offset="1" stop-color="#BF9B4A"/>
+  </linearGradient>
+  <linearGradient id="teal-emergency-intro-foresight-layer" x1="144" y1="130" x2="480" y2="500" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#28B4A5"/>
+    <stop offset="1" stop-color="#159684"/>
+  </linearGradient>
+  <filter id="shadow-emergency-intro-foresight-layer" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B3F2D" flood-opacity="0.18"/>
+  </filter>
 </defs>
-<g filter="url(#shadow-emergency-intro-foresight-layer)"><circle cx="330" cy="255" r="150" stroke="#159684" stroke-width="8" opacity=".18"/><circle cx="330" cy="255" r="99" stroke="#159684" stroke-width="8" opacity=".28"/><circle cx="330" cy="255" r="51.00000000000001" stroke="#159684" stroke-width="8" opacity=".45"/><path d="M182 438l90-168 82 45-92 168" fill="url(#g-emergency-intro-foresight-layer)"/><ellipse cx="340" cy="260" rx="110" ry="62" transform="rotate(-22 340 260)" fill="white" stroke="#BF9B4A" stroke-width="12"/><path d="M342 260l128-75" stroke="#1F5C3A" stroke-width="15" stroke-linecap="round"/></g>
+<g filter="url(#shadow-emergency-intro-foresight-layer)">
+  <circle cx="302" cy="292" r="162" fill="white" stroke="#CFE4D8" stroke-width="10"/>
+  <circle cx="302" cy="292" r="128" fill="#F7FBF8" stroke="#159684" stroke-width="7" opacity=".55"/>
+  <circle cx="302" cy="292" r="88" stroke="#159684" stroke-width="7" opacity=".34"/>
+  <circle cx="302" cy="292" r="48" stroke="#159684" stroke-width="7" opacity=".42"/>
+  <path d="M302 292L404 224" stroke="url(#gold-emergency-intro-foresight-layer)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M302 164v256M174 292h256" stroke="#1F5C3A" stroke-width="6" stroke-linecap="round" opacity=".18"/>
+  <path d="M198 390C231 426 280 444 330 434C378 425 418 392 438 348" stroke="#1F5C3A" stroke-width="12" stroke-linecap="round" opacity=".72"/>
+  <path d="M166 250C183 188 236 142 302 132C364 123 425 152 456 205" stroke="#BF9B4A" stroke-width="12" stroke-linecap="round" opacity=".72"/>
+  <circle cx="408" cy="222" r="18" fill="url(#gold-emergency-intro-foresight-layer)" stroke="white" stroke-width="7"/>
+  <circle cx="244" cy="374" r="14" fill="url(#teal-emergency-intro-foresight-layer)" stroke="white" stroke-width="6"/>
+  <circle cx="230" cy="206" r="12" fill="#1F5C3A" stroke="white" stroke-width="6"/>
+  <path d="M174 452H430" stroke="#1F5C3A" stroke-width="16" stroke-linecap="round"/>
+  <path d="M216 452L250 406H350L386 452" fill="white" stroke="#A9CDBB" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M255 480H349" stroke="#BF9B4A" stroke-width="12" stroke-linecap="round"/>
+  <path d="M472 178C500 206 518 246 520 292M502 140C546 184 574 241 576 306" stroke="#159684" stroke-width="11" stroke-linecap="round" opacity=".42"/>
+  <path d="M130 178C102 206 84 246 82 292M100 140C56 184 28 241 26 306" stroke="#159684" stroke-width="11" stroke-linecap="round" opacity=".30"/>
+</g>
 </svg>
