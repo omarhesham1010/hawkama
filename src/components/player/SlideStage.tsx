@@ -2183,7 +2183,7 @@ function PptMotionVisualScene({
   const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
-  const usesOpenLabels = variant === 'constellation' || denseMotion;
+  const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
 
   // Nasser stands on the same side for 'ppt' slides as nasserGuide computes
   // (odd slide.index -> visually left, even -> visually right; see
@@ -2208,15 +2208,13 @@ function PptMotionVisualScene({
 
   return (
     <div className="relative min-h-0 flex-1 overflow-hidden rounded-[30px]">
-      <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/50 to-white/0`} />
-      <div className="pointer-events-none absolute left-[5%] top-[5%] h-[36%] w-[34%] rounded-full bg-teal-500/8 blur-3xl" aria-hidden="true" />
-      <div className="pointer-events-none absolute bottom-[6%] right-[8%] h-[34%] w-[38%] rounded-full bg-gold-500/10 blur-3xl" aria-hidden="true" />
+      <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/35 to-white/0`} />
       {emptyFillIndex !== -1 && (
         <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} relative h-[190px]`} aria-hidden="true">
           <img
             src={primaryVisual}
             alt=""
-            className="absolute inset-0 h-full w-full animate-float object-contain opacity-[0.5] drop-shadow-[0_22px_28px_rgb(24_82_55_/_0.14)]"
+            className="absolute inset-0 h-full w-full animate-float object-contain opacity-[0.18] drop-shadow-[0_22px_28px_rgb(24_82_55_/_0.10)]"
             loading="lazy"
             decoding="async"
           />
@@ -2255,7 +2253,7 @@ function PptMotionVisualScene({
             type="button"
             disabled={!visible || narrationLocked}
             onClick={() => onToggle(index)}
-            className={`absolute ${labelPositions[index % labelPositions.length]} text-right transition-all duration-500 ${
+            className={`absolute ${labelPositions[index % labelPositions.length]} text-right transition-all duration-700 ease-out ${
               usesOpenLabels
                 ? 'min-h-[104px] rounded-none border-0 bg-transparent px-1 py-1 shadow-none backdrop-blur-0'
                 : 'min-h-[118px] rounded-[999px] border border-green-700/10 bg-white/45 px-5 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
@@ -2269,12 +2267,12 @@ function PptMotionVisualScene({
               visible && narrationLocked ? 'bg-white/90 text-ink-muted shadow-none' : ''
             }`}
           >
-            <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-5' : 'gap-4'}`}>
+            <span className={`flex items-center justify-between ${usesOpenLabels ? 'gap-6' : 'gap-4'}`}>
               <span className={`min-w-0 flex-1 ${usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
-                <span className="flex items-center justify-end gap-3 text-[25px] font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)]">
+                <span className={`flex items-center justify-end gap-3 font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)] ${isEmergencySlide ? 'text-[27px]' : 'text-[25px]'}`}>
                   <span>{card.title}</span>
                   {brandIcon && (
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
+                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
                       <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
                     </span>
                   )}
@@ -2286,7 +2284,7 @@ function PptMotionVisualScene({
                   aria-hidden="true"
                 />
               </span>
-              <span className={`relative ${showDetailText ? (isEmergencySlide ? 'h-44 w-48' : 'h-24 w-28') : (isEmergencySlide ? 'h-48 w-52' : 'h-28 w-32')} shrink-0 rounded-full bg-white/55 ring-1 ring-gold-500/20 transition-all duration-500 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
+              <span className={`relative ${showDetailText ? (isEmergencySlide ? 'h-52 w-56' : 'h-24 w-28') : (isEmergencySlide ? 'h-52 w-56' : 'h-28 w-32')} shrink-0 rounded-full bg-white/35 ring-1 ring-gold-500/16 transition-all duration-700 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
                 {brandIcon && (
                   <img
                     src={brandIcon}
@@ -2300,7 +2298,7 @@ function PptMotionVisualScene({
                 <img
                   src={cardVisual}
                   alt=""
-                  className={`absolute inset-0 h-full w-full object-contain opacity-100 ${active ? focusAnim : ''}`}
+                  className={`absolute inset-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? focusAnim : ''}`}
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
@@ -2338,8 +2336,8 @@ function PptTimelineScene({
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
-    <div className="flex min-h-0 flex-1 flex-col items-center justify-start gap-4 overflow-y-auto px-2 py-3">
-      <span className={`relative ${isEmergencySlide ? 'h-[148px] w-[148px]' : 'h-[64px] w-[64px]'} shrink-0 animate-crown-rise`} aria-hidden="true">
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-5 overflow-hidden px-2 py-2">
+      <span className={`relative ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[64px] w-[64px]'} shrink-0 animate-crown-rise`} aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
         <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.4)" strokeWidth="2" strokeDasharray="4 9" strokeLinecap="round" />
@@ -2352,7 +2350,7 @@ function PptTimelineScene({
           decoding="async"
         />
       </span>
-      <div className="flex w-full max-w-[1120px] flex-wrap items-start justify-center gap-y-9">
+      <div className="flex w-full max-w-[1140px] flex-wrap items-start justify-center gap-y-7">
         {cards.map((card, index) => {
           const visible = visibleFor(index);
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
@@ -2374,11 +2372,11 @@ function PptTimelineScene({
                 type="button"
                 disabled={!visible || narrationLocked}
                 onClick={() => onToggle(index)}
-                className={`flex w-[172px] flex-col items-center text-center transition-all duration-500 ${
+                className={`flex ${isEmergencySlide ? 'w-[190px]' : 'w-[172px]'} flex-col items-center text-center transition-all duration-700 ease-out ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
                 } ${active ? 'scale-[1.06]' : ''}`}
               >
-                <span className={`relative grid ${isEmergencySlide ? 'h-[86px] w-[86px]' : 'h-[64px] w-[64px]'} shrink-0 place-items-center`}>
+                <span className={`relative grid ${isEmergencySlide ? 'h-[104px] w-[104px]' : 'h-[64px] w-[64px]'} shrink-0 place-items-center`}>
                   {active && (
                     <span className="absolute inset-0 rounded-full border-2 border-gold-400 animate-ring-shockwave" aria-hidden="true" />
                   )}
@@ -2389,20 +2387,30 @@ function PptTimelineScene({
                         : 'border-white bg-white text-green-800 ring-1 ring-green-700/16'
                     }`}
                   >
-                    {card.index ?? index + 1}
+                  {brandIcon ? (
+                    <img src={brandIcon} alt="" className="h-[68%] w-[68%] object-contain" loading="lazy" decoding="async" aria-hidden="true" />
+                  ) : (
+                    card.index ?? index + 1
+                  )}
                   </span>
                 </span>
                 <span
-                  className={`mt-3 rounded-[22px] border px-4 py-3 shadow-[0_14px_30px_rgb(24_82_55_/_0.08)] backdrop-blur-sm transition-all duration-500 ${
-                    active ? 'border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/12 bg-white/72 text-brand-strong'
+                  className={`mt-3 px-4 py-2.5 transition-all duration-700 ${
+                    isEmergencySlide
+                      ? active
+                        ? 'border-b-4 border-gold-500 text-brand-strong'
+                        : 'border-b-4 border-green-700/18 text-brand-strong'
+                      : active
+                        ? 'rounded-[22px] border border-gold-500/40 bg-white text-brand-strong shadow-card'
+                        : 'rounded-[22px] border border-green-700/12 bg-white/72 text-brand-strong shadow-[0_14px_30px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
                   }`}
                 >
-                  {brandIcon && (
+                  {brandIcon && !isEmergencySlide && (
                     <span className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-2xl border border-green-700/10 bg-white/80 p-1.5 shadow-sm" aria-hidden="true">
                       <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
                     </span>
                   )}
-                  <span className="block text-[15.5px] font-extrabold leading-snug">{card.title}</span>
+                  <span className={`block font-extrabold leading-snug ${isEmergencySlide ? 'text-[18px]' : 'text-[15.5px]'}`}>{card.title}</span>
                   {showDetail && detail && (
                     <span className="mt-2 block text-[13px] font-bold leading-relaxed text-ink">{detail}</span>
                   )}
@@ -2442,10 +2450,10 @@ function PptMatrixScene({
   const primaryVisual = slideVisualPool(slide, cards)[0];
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3">
-      <div className={`relative grid w-full max-w-[980px] auto-rows-fr ${cols} gap-4`}>
+      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} gap-5`}>
         {cols === 'grid-cols-2' && (
           <span
-            className={`pointer-events-none absolute left-1/2 top-1/2 z-10 ${isEmergencySlide ? 'h-[168px] w-[168px]' : 'h-[74px] w-[74px]'} -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white shadow-card-lg`}
+            className={`pointer-events-none absolute left-1/2 top-1/2 z-10 ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[74px] w-[74px]'} -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white/92 shadow-card-lg`}
             aria-hidden="true"
           >
             <svg className="absolute -inset-2.5 animate-aura-spin opacity-60" viewBox="0 0 100 100" aria-hidden="true">
@@ -2479,7 +2487,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative min-h-[128px] overflow-hidden rounded-[26px] border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-500 ${
+              className={`relative min-h-[134px] overflow-hidden ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -2494,22 +2502,22 @@ function PptMatrixScene({
                 />
               )}
               <span
-                className={`absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full text-[13px] font-extrabold tabular ${
+                className={`absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-[13px] font-extrabold tabular ${
                   active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
                 }`}
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`max-w-[85%] pe-9 text-[19px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`flex max-w-[88%] items-center justify-end gap-3 pe-10 text-[21px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
+                <span>{card.title}</span>
                 {brandIcon && (
-                  <span className={`me-2 inline-grid h-10 w-10 align-middle place-items-center rounded-2xl p-1 shadow-sm ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
+                  <span className={`inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl p-1.5 shadow-sm ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
                     <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
                   </span>
                 )}
-                {card.title}
               </h3>
               {card.text && (
-                <p className={`mt-2 pe-1 text-[14.5px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`mt-3 pe-1 text-[16px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-3 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
@@ -2562,7 +2570,7 @@ function PptSpotlightScene({
         type="button"
         disabled={!focusVisible || narrationLocked}
         onClick={() => onToggle(focusIndex)}
-        className={`relative w-full max-w-[620px] overflow-hidden rounded-[36px] border p-7 text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
+        className={`relative w-full ${isEmergencySlide ? 'min-h-[178px] max-w-[720px] overflow-visible px-8 py-7' : 'max-w-[620px] overflow-hidden p-7'} rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
           focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
         } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
       >
@@ -2573,7 +2581,7 @@ function PptSpotlightScene({
           />
         )}
         <span
-          className={`pointer-events-none absolute -left-8 -top-8 ${isEmergencySlide ? 'h-[220px] w-[220px]' : 'h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
+          className={`pointer-events-none absolute ${isEmergencySlide ? '-left-12 -top-10 h-[214px] w-[214px]' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
           aria-hidden="true"
         >
           <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
@@ -2594,8 +2602,8 @@ function PptSpotlightScene({
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#FBE7B4" />
           </svg>
         </span>
-        <h3 className="text-[26px] font-extrabold leading-tight">{focusCard?.title}</h3>
-        {focusCard?.text && <p className="mt-2.5 text-[16px] font-bold leading-relaxed text-green-50">{focusCard.text}</p>}
+        <h3 className={`${isEmergencySlide ? 'text-[28px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
+        {focusCard?.text && <p className={`${isEmergencySlide ? 'mx-auto max-w-[520px] text-[17px]' : 'text-[16px]'} mt-2.5 font-bold leading-relaxed text-green-50`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-4 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-3">
             <p className="text-[15px] font-bold leading-relaxed text-green-50">{focusDetail}</p>
@@ -2615,9 +2623,17 @@ function PptSpotlightScene({
                 type="button"
                 disabled={!visible || narrationLocked}
                 onClick={() => onToggle(index)}
-                className={`min-w-[170px] flex-1 rounded-[22px] border px-4 py-3 text-center shadow-[0_14px_28px_rgb(24_82_55_/_0.07)] transition-all duration-500 ${
+                className={`min-w-[170px] flex-1 ${isEmergencySlide ? 'border-b-4 px-4 py-3 shadow-none' : 'rounded-[22px] border px-4 py-3 shadow-[0_14px_28px_rgb(24_82_55_/_0.07)]'} text-center transition-all duration-500 ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
-                } ${active ? 'animate-glow-cycle scale-[1.03] border-gold-500/40 bg-white text-brand-strong shadow-card' : 'border-green-700/14 bg-white/75 text-brand-strong'}`}
+                } ${
+                  active
+                    ? isEmergencySlide
+                      ? 'animate-glow-cycle scale-[1.03] border-gold-500 text-brand-strong'
+                      : 'animate-glow-cycle scale-[1.03] border-gold-500/40 bg-white text-brand-strong shadow-card'
+                    : isEmergencySlide
+                      ? 'border-green-700/16 text-brand-strong'
+                      : 'border-green-700/14 bg-white/75 text-brand-strong'
+                }`}
               >
                 {brandIcon && (
                   <span className="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm" aria-hidden="true">
@@ -3106,10 +3122,11 @@ function PptStyleSlide({
     narrationPosition > 0 && !narrationFinished
       ? activePptCardForCue(revealCueIndexes, cueState.index)
       : -1;
-  // Client call: nothing appears before Nasser actually talks about it --
-  // not even a "shown before you press play" default -- for every slide.
+  // Idle slides should read as complete visual posters. Once narration starts,
+  // the same elements return to audio-driven reveal timing.
+  const idleAtSlideStart = narrationPosition <= 0;
   const cardIsVisible = (index: number) =>
-    narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
+    !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
   const isIntroRoadmap = slide.id === 'program-map';
