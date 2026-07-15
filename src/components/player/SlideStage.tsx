@@ -2249,11 +2249,12 @@ function PptMotionVisualScene({
     .filter(({ pos, i }) => !usedPositionIndexes.has(i) && !collidesWithNasser(pos));
   const preferredFill = emptyCandidates.find(({ pos }) => sideOfPosition(pos) === emptySide);
   const emptyFillIndex = (preferredFill ?? emptyCandidates[0])?.i ?? -1;
+  const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
 
   return (
     <div className="relative min-h-0 flex-1 overflow-hidden rounded-[30px]">
       <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/35 to-white/0`} />
-      {emptyFillIndex !== -1 && (
+      {showMotionGraphics && emptyFillIndex !== -1 && (
         <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} relative h-[190px]`} aria-hidden="true">
           <img
             src={primaryVisual}
@@ -2264,26 +2265,26 @@ function PptMotionVisualScene({
           />
         </div>
       )}
-      {variant === 'path' && (
+      {showMotionGraphics && variant === 'path' && (
         <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-45" viewBox="0 0 1000 430" aria-hidden="true">
           <path d="M810 84 C650 128 570 178 494 234 C405 300 300 326 168 338" fill="none" stroke="rgb(191 155 74 / 0.45)" strokeWidth="7" strokeLinecap="round" strokeDasharray="12 16" />
           <path d="M180 338 l28 -18 l-6 34z" fill="rgb(191 155 74 / 0.55)" />
         </svg>
       )}
-      {variant === 'orbit' && (
+      {showMotionGraphics && variant === 'orbit' && (
         <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-40" viewBox="0 0 1000 430" aria-hidden="true">
           <ellipse cx="500" cy="214" rx="270" ry="142" fill="none" stroke="rgb(31 105 72 / 0.16)" strokeWidth="4" strokeDasharray="10 14" />
           <ellipse cx="500" cy="214" rx="212" ry="105" fill="none" stroke="rgb(191 155 74 / 0.18)" strokeWidth="3" />
         </svg>
       )}
-      {variant === 'constellation' && (
+      {showMotionGraphics && variant === 'constellation' && (
         <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-45" viewBox="0 0 1000 430" aria-hidden="true">
           <path d="M225 112 C345 86 430 126 505 206 C580 126 664 88 786 118" fill="none" stroke="rgb(31 105 72 / 0.18)" strokeWidth="5" strokeLinecap="round" strokeDasharray="11 15" />
           <path d="M220 310 C340 344 435 308 506 224 C586 310 670 344 790 302" fill="none" stroke="rgb(191 155 74 / 0.22)" strokeWidth="5" strokeLinecap="round" strokeDasharray="12 14" />
           <circle cx="505" cy="214" r="6" fill="rgb(31 105 72 / 0.45)" />
         </svg>
       )}
-      <div className="absolute inset-x-[5%] bottom-[2%] h-px bg-gradient-to-r from-transparent via-green-700/35 to-transparent" />
+      {showMotionGraphics && <div className="absolute inset-x-[5%] bottom-[2%] h-px bg-gradient-to-r from-transparent via-green-700/35 to-transparent" />}
       {cards.map((card, index) => {
         const visible = visibleFor(index);
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
@@ -2381,9 +2382,10 @@ function PptTimelineScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const primaryVisual = slideVisualPool(slide, cards)[0];
+  const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-5 overflow-hidden px-2 py-2">
-      <span className={`relative ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[64px] w-[64px]'} shrink-0 animate-crown-rise`} aria-hidden="true">
+      {showPrimaryVisual && <span className={`relative ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[64px] w-[64px]'} shrink-0 animate-crown-rise`} aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
         <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.4)" strokeWidth="2" strokeDasharray="4 9" strokeLinecap="round" />
@@ -2395,7 +2397,7 @@ function PptTimelineScene({
           loading="lazy"
           decoding="async"
         />
-      </span>
+      </span>}
       <div className="flex w-full max-w-[1140px] flex-wrap items-start justify-center gap-y-7">
         {cards.map((card, index) => {
           const visible = visibleFor(index);
@@ -2494,10 +2496,11 @@ function PptMatrixScene({
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   const primaryVisual = slideVisualPool(slide, cards)[0];
+  const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3">
       <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} gap-5`}>
-        {cols === 'grid-cols-2' && (
+        {showPrimaryVisual && cols === 'grid-cols-2' && (
           <span
             className={`pointer-events-none absolute left-1/2 top-1/2 z-10 ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[74px] w-[74px]'} -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white/92 shadow-card-lg`}
             aria-hidden="true"
@@ -2610,6 +2613,7 @@ function PptSpotlightScene({
   const showFocusDetail = focusActive && Boolean(focusDetail);
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex) : null;
+  const showFocusVisual = !isEmergencySlide || focusVisible;
   return (
     <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4">
       <button
@@ -2626,15 +2630,17 @@ function PptSpotlightScene({
             aria-hidden="true"
           />
         )}
-        <span
-          className={`pointer-events-none absolute ${isEmergencySlide ? '-left-12 -top-10 h-[214px] w-[214px]' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
-          aria-hidden="true"
-        >
-          <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.5)" strokeWidth="2" strokeDasharray="3 8" strokeLinecap="round" />
-          </svg>
-          <img src={primaryVisual} alt="" className={`absolute inset-0 h-full w-full rounded-full object-contain p-1.5 ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" />
-        </span>
+        {showFocusVisual && (
+          <span
+            className={`pointer-events-none absolute ${isEmergencySlide ? '-left-12 -top-10 h-[214px] w-[214px]' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
+            aria-hidden="true"
+          >
+            <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
+              <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.5)" strokeWidth="2" strokeDasharray="3 8" strokeLinecap="round" />
+            </svg>
+            <img src={primaryVisual} alt="" className={`absolute inset-0 h-full w-full rounded-full object-contain p-1.5 ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" />
+          </span>
+        )}
         <span className="relative mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
           {focusBrandIcon ? (
             <img src={focusBrandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" aria-hidden="true" />
@@ -2921,13 +2927,15 @@ function PptGuidedScenarioSlide({
               <span className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-teal-500/12 blur-3xl" />
               <span className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full bg-gold-500/14 blur-3xl" />
               <div className="relative z-10 min-h-[164px]">
-                <img
-                  src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}`)[0] ?? '/course-visuals/conflict-case.webp'}
-                  alt=""
-                  className="pointer-events-none absolute left-3 top-2 h-[118px] w-[132px] object-contain opacity-20 drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
-                  loading="lazy"
-                  decoding="async"
-                />
+                {spoken > 0 && (
+                  <img
+                    src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}`)[0] ?? '/course-visuals/conflict-case.webp'}
+                    alt=""
+                    className="pointer-events-none absolute left-3 top-2 h-[118px] w-[132px] object-contain opacity-20 drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
                 <div className="relative z-10 min-w-0 rounded-[24px] border border-green-700/10 bg-white/95 p-3.5 shadow-[0_14px_26px_rgb(24_82_55_/_0.08)]">
                   <p className="text-[16px] font-black text-gold-700">سيناريو تطبيقي</p>
                   <h3 className="mt-1 text-[25px] font-black leading-tight text-brand-strong">{scenarioCard.title}</h3>
@@ -3387,21 +3395,23 @@ function PptStyleSlide({
 
 // ---- Stage -----------------------------------------------------------------
 
-function ActivityChip({ label }: { label: string }) {
+function ActivityChip({ label, showVisual = true }: { label: string; showVisual?: boolean }) {
   return (
     <span className="chip mb-2 bg-brand/12 text-brand text-base font-bold">
-      <Icon name="target" className="w-4 h-4" />
+      {showVisual && <Icon name="target" className="w-4 h-4" />}
       {label}
     </span>
   );
 }
 
-function TitleHead({ slide }: { slide: Slide }) {
+function TitleHead({ slide, showVisual = true }: { slide: Slide; showVisual?: boolean }) {
   return (
-    <h2 className="flex shrink-0 items-center gap-2.5 text-[26px] font-extrabold leading-tight text-brand-strong animate-fade-up">
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 p-1.5 shadow-card">
-        <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
-      </span>
+    <h2 className={`flex shrink-0 items-center text-[26px] font-extrabold leading-tight text-brand-strong animate-fade-up ${showVisual ? 'gap-2.5' : ''}`}>
+      {showVisual && (
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 p-1.5 shadow-card">
+          <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
+        </span>
+      )}
       {slide.title}
     </h2>
   );
@@ -3410,12 +3420,14 @@ function TitleHead({ slide }: { slide: Slide }) {
 function QuizStorySlide({
   slide,
   spoken,
+  started,
   muted,
   showDialogue,
   onQuizComplete,
 }: {
   slide: Slide;
   spoken: number;
+  started: boolean;
   muted: boolean;
   showDialogue: boolean;
   onQuizComplete: (score: number) => void;
@@ -3434,7 +3446,8 @@ function QuizStorySlide({
   };
 
   const isEmergencyQuiz = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
-  const quizVisual = isEmergencyQuiz ? slideVisualPool(slide, [])[0] : undefined;
+  const showQuizVisuals = !isEmergencyQuiz || started;
+  const quizVisual = isEmergencyQuiz && started ? slideVisualPool(slide, [])[0] : undefined;
   return (
     <StorySlideShell
       slide={slide}
@@ -3444,7 +3457,7 @@ function QuizStorySlide({
     >
       <div className="flex h-full flex-col p-5">
         <div className="flex shrink-0 items-center gap-3">
-          <TitleHead slide={slide} />
+          <TitleHead slide={slide} showVisual={showQuizVisuals} />
           {quizVisual && (
             <span className="relative h-[46px] w-[46px] shrink-0" aria-hidden="true">
               <span className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
@@ -3453,7 +3466,7 @@ function QuizStorySlide({
           )}
         </div>
         <div className="mt-1.5 flex min-h-0 w-full flex-1 flex-col overflow-hidden animate-fade-in">
-          <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} />
+          <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} showVisual={showQuizVisuals} />
           <div className="min-h-0 flex-1">
             <KnowledgeCheck
               quiz={slide.quiz!}
@@ -3596,6 +3609,7 @@ export function SlideStage({
       <QuizStorySlide
         slide={slide}
         spoken={spoken}
+        started={started}
         muted={muted}
         showDialogue={showDialogue}
         onQuizComplete={onQuizComplete}
