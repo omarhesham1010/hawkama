@@ -977,6 +977,32 @@ const FOCUS_ANIMATION_DURATIONS_MS: Record<string, number> = {
   'motion-focus-pop': 2300,
 };
 
+const VISUAL_ACTIVE_ANIMATIONS = [
+  'visual-active-float',
+  'visual-active-pulse',
+  'visual-active-orbit',
+  'visual-active-scan',
+  'visual-active-spark',
+  'visual-active-sway',
+  'visual-active-alert',
+  'visual-active-flow',
+];
+
+function activeVisualAnimationFor(text: string, index = 0) {
+  if (/تحذير|خطر|مخاطر|أزمة|طارئ|ضغط|إنذار|جرس|بلاغ|كارثة/.test(text)) return 'visual-active-alert';
+  if (/هدف|مؤشر|قياس|رصد|استشراف|مسح|تحليل|متابعة|لوحة/.test(text)) return 'visual-active-scan';
+  if (/تواصل|اتصال|شبكة|أصحاب|توريد|سلسلة|تدفق|إجراءات|مسار|خطة/.test(text)) return 'visual-active-flow';
+  if (/قيادة|فريق|لجنة|مجلس|حوكمة|مركز|تنسيق|استجابة/.test(text)) return 'visual-active-orbit';
+  if (/امتثال|تدقيق|ضوابط|توثيق|سجل|سياسة|دليل|مراجعة/.test(text)) return 'visual-active-pulse';
+  if (/تعافي|استمرارية|جاهزية|حماية|درع|أمان/.test(text)) return 'visual-active-sway';
+  const seed = stableIconIndex(`${text}:${index}`);
+  return VISUAL_ACTIVE_ANIMATIONS[seed % VISUAL_ACTIVE_ANIMATIONS.length];
+}
+
+function activeVisualClass(active: boolean, text: string, index = 0) {
+  return active ? activeVisualAnimationFor(text, index) : '';
+}
+
 function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   const text = `${card.title} ${card.text ?? ''}`;
   const match = PPT_EMOJIS.find((item) => item.terms.some((term) => text.includes(term)));
@@ -1204,7 +1230,7 @@ function IntroMotionScene({
             draggable={false}
             className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
               layer.visible ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
-            } ${started && !narrationComplete && index === activeIndex ? 'motion-layer-focus' : ''}`}
+            } ${started && !narrationComplete && index === activeIndex ? `motion-layer-focus ${activeVisualAnimationFor(layer.src, index)}` : ''}`}
             style={{ transform: layer.visible ? layer.transform : undefined }}
           />
         ))}
@@ -1684,7 +1710,7 @@ function CourseGlyph({
   };
 
   return (
-    <svg viewBox="0 0 104 104" className="h-full w-full" aria-hidden="true">
+    <svg viewBox="0 0 104 104" className={`h-full w-full ${activeVisualClass(active, kind)}`} aria-hidden="true">
       <circle cx="52" cy="52" r="47" fill={active ? 'rgb(255 255 255 / 0.08)' : 'rgb(255 255 255 / 0.62)'} />
       <circle cx="52" cy="52" r="43" fill="none" stroke={muted} strokeWidth="3" strokeDasharray="8 10" />
       <g className={active ? 'course-glyph-motion' : undefined}>{paths[kind]}</g>
@@ -1985,7 +2011,7 @@ function PptCardView({
         aria-hidden="true"
       >
         {brandIcon ? (
-          <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+          <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} loading="lazy" decoding="async" />
         ) : (
           <CourseGlyph kind={glyphKind} active={active} />
         )}
@@ -2000,14 +2026,14 @@ function PptCardView({
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
             {brandIcon && (
               <span className="pointer-events-none absolute right-2 top-2 z-10 grid h-10 w-10 place-items-center rounded-2xl border border-white/75 bg-white/88 p-1.5 shadow-sm" aria-hidden="true">
-                <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} loading="lazy" decoding="async" />
               </span>
             )}
             {visualLayers[0] && (
               <img
                 src={visualLayers[0]}
                 alt=""
-                className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)]"
+                className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${active ? activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, Number(card.index ?? 0)) : 'animate-float'}`}
                 loading="lazy"
                 decoding="async"
                 aria-hidden="true"
@@ -2291,7 +2317,7 @@ function PptMotionVisualScene({
                   <span>{card.title}</span>
                   {brandIcon && !titleCardGrid && !emergencyOpenLabels && (
                     <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
-                      <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                     </span>
                   )}
                 </span>
@@ -2307,7 +2333,7 @@ function PptMotionVisualScene({
                   <img
                     src={brandIcon}
                     alt=""
-                    className="absolute -right-3 -top-3 z-10 h-16 w-16 rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)]"
+                    className={`absolute -right-3 -top-3 z-10 h-16 w-16 rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`}
                     loading="lazy"
                     decoding="async"
                     aria-hidden="true"
@@ -2316,7 +2342,7 @@ function PptMotionVisualScene({
                 <img
                   src={cardVisual}
                   alt=""
-                  className={`absolute inset-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? focusAnim : ''}`}
+                  className={`absolute inset-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
@@ -2406,7 +2432,7 @@ function PptTimelineScene({
                     }`}
                   >
                   {brandIcon ? (
-                    <img src={brandIcon} alt="" className="h-[68%] w-[68%] object-contain" loading="lazy" decoding="async" aria-hidden="true" />
+                    <img src={brandIcon} alt="" className={`h-[68%] w-[68%] object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" aria-hidden="true" />
                   ) : (
                     card.index ?? index + 1
                   )}
@@ -2425,7 +2451,7 @@ function PptTimelineScene({
                 >
                   {brandIcon && !isEmergencySlide && (
                     <span className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-2xl border border-green-700/10 bg-white/80 p-1.5 shadow-sm" aria-hidden="true">
-                      <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                     </span>
                   )}
                   <span className={`block font-extrabold leading-snug ${isEmergencySlide ? 'text-[18px]' : 'text-[15.5px]'}`}>{card.title}</span>
@@ -2480,7 +2506,7 @@ function PptMatrixScene({
             <img
               src={primaryVisual}
               alt=""
-              className="absolute inset-0 h-full w-full animate-glow-cycle rounded-full object-contain p-1.5"
+              className={`absolute inset-0 h-full w-full rounded-full object-contain p-1.5 ${activeCard >= 0 ? activeVisualAnimationFor(`${cards[activeCard]?.title ?? ''} ${cards[activeCard]?.text ?? ''}`, activeCard) : 'animate-glow-cycle'}`}
               loading="lazy"
               decoding="async"
             />
@@ -2530,7 +2556,7 @@ function PptMatrixScene({
                 <span>{card.title}</span>
                 {brandIcon && (
                   <span className={`inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl p-1.5 shadow-sm ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
-                    <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                    <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
               </h3>
@@ -2605,11 +2631,11 @@ function PptSpotlightScene({
           <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.5)" strokeWidth="2" strokeDasharray="3 8" strokeLinecap="round" />
           </svg>
-          <img src={primaryVisual} alt="" className="absolute inset-0 h-full w-full rounded-full object-contain p-1.5" loading="lazy" decoding="async" />
+          <img src={primaryVisual} alt="" className={`absolute inset-0 h-full w-full rounded-full object-contain p-1.5 ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" />
         </span>
         <span className="relative mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
           {focusBrandIcon ? (
-            <img src={focusBrandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" aria-hidden="true" />
+            <img src={focusBrandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" aria-hidden="true" />
           ) : (
             <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
           )}
@@ -2655,7 +2681,7 @@ function PptSpotlightScene({
               >
                 {brandIcon && (
                   <span className="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm" aria-hidden="true">
-                    <img src={brandIcon} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                    <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
                 <span className="block text-[14.5px] font-extrabold leading-snug">{card.title}</span>
@@ -2758,7 +2784,7 @@ function PptActivitySlide({
                 <img
                   src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0]}
                   alt=""
-                  className="absolute inset-0 h-full w-full animate-float object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)]"
+                  className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${activeVisualClass(currentCardVisible, `${currentCard.title} ${currentCard.text ?? ''}`, currentStep) || 'animate-float'}`}
                   loading="lazy"
                   decoding="async"
                 />
@@ -2929,13 +2955,13 @@ function PptGuidedScenarioSlide({
                   } ${narrationLocked && ready ? '!bg-white !text-ink-muted !border-line' : ''}`}
                 >
                   <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${active ? 'bg-white/16' : 'bg-green-700/8'}`}>
-                    <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-8 w-8 ${active ? 'text-white' : 'text-green-700'}`} />
+                    <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-8 w-8 ${active ? `text-white ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : 'text-green-700'}`} />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[23px] font-black leading-tight">{card.title}</span>
                     <span className={`mt-1 block text-[15px] font-bold ${active ? 'text-white/82' : 'text-ink-soft'}`}>اضغط لفتح المحطة ومناقشتها</span>
                   </span>
-                  <Icon name={active ? 'check' : 'flow'} className={`h-7 w-7 shrink-0 ${active ? 'text-teal-600' : 'text-gold-600 group-hover:text-green-700'}`} />
+                  <Icon name={active ? 'check' : 'flow'} className={`h-7 w-7 shrink-0 ${active ? `text-teal-600 ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index + 3)}` : 'text-gold-600 group-hover:text-green-700'}`} />
                 </button>
               );
             })}
@@ -3015,7 +3041,7 @@ function PptGuidedScenarioSlide({
                 <img
                   src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0] ?? '/course-visuals/audit-controls.webp'}
                   alt=""
-                  className="relative z-10 mb-5 h-[140px] w-[190px] object-contain drop-shadow-[0_26px_34px_rgb(0_0_0_/_0.22)]"
+                  className={`relative z-10 mb-5 h-[140px] w-[190px] object-contain drop-shadow-[0_26px_34px_rgb(0_0_0_/_0.22)] ${activeVisualClass(guidedSpeech.speaking || discussionVisible, `${currentCard.title} ${currentCard.text ?? ''}`, selectedStep)}`}
                   loading="lazy"
                   decoding="async"
                 />
@@ -3417,7 +3443,7 @@ function QuizStorySlide({
           {quizVisual && (
             <span className="relative h-[46px] w-[46px] shrink-0" aria-hidden="true">
               <span className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
-              <img src={quizVisual} alt="" className="absolute inset-0 h-full w-full object-contain" loading="lazy" decoding="async" />
+              <img src={quizVisual} alt="" className="absolute inset-0 h-full w-full object-contain visual-active-pulse" loading="lazy" decoding="async" />
             </span>
           )}
         </div>
