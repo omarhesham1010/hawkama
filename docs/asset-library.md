@@ -7,8 +7,10 @@ training bags.
 ## Structure
 
 - `public/assets/icons/brand-ppt-source/`
-  Extracted SVG icons and small visual accents from approved PowerPoint source
-  files.
+  Curated reusable SVG icons normalized from the approved PowerPoint identity
+  direction. They keep the original neutral filenames for compatibility, but
+  are cleaned for transparent backgrounds, visible contrast, and browser-safe
+  rendering.
 - `public/assets/images/brand-ppt-source/`
   Extracted PNG images and larger raster visuals from approved PowerPoint
   source files.
@@ -44,4 +46,4 @@ the source asset unchanged.
 - PNG images: 8
 
 The first source batch was extracted from the emergency-response trainee guide
-PowerPoint.
+PowerPoint, then redrawn and normalized into production-ready reusable icons.

@@ -1,6 +1,9 @@
-<svg width="512" height="512" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden"><style>
-.MsftOfcThm_Accent4_Fill_v2 {
- fill:#9B945F;
-}
-</style>
-<g><path d="M24.955 55.335C24.2586 55.3334 23.5885 55.0688 23.079 54.594L7.406 40.208C6.79573 39.6461 6.75648 38.6959 7.31834 38.0857 7.34634 38.0552 7.37559 38.026 7.406 37.998L23.08 23.61C24.216 22.5673 25.9822 22.6429 27.0249 23.7789 27.4979 24.2942 27.7603 24.9684 27.76 25.668L27.76 30.5 37.742 30.5C38.5704 30.5 39.242 31.1716 39.242 32L39.242 37.858 53.362 24.898 39.242 11.936 39.242 17.794C39.242 18.6224 38.5704 19.294 37.742 19.294L15.422 19.294C14.5936 19.294 13.922 18.6224 13.922 17.794 13.922 16.9656 14.5936 16.294 15.422 16.294L36.242 16.294 36.242 11.462C36.2412 9.92057 37.4902 8.67037 39.0316 8.66959 39.7318 8.66924 40.4065 8.93209 40.922 9.406L56.595 23.792C57.2053 24.3539 57.2445 25.3041 56.6827 25.9143 56.6547 25.9448 56.6254 25.974 56.595 26.002L40.92 40.39C39.784 41.4327 38.0178 41.3571 36.9751 40.2211 36.5021 39.7058 36.2397 39.0316 36.24 38.332L36.24 33.5 26.258 33.5C25.4296 33.5 24.758 32.8284 24.758 32L24.758 26.142 10.638 39.102 24.758 52.063 24.758 46.206C24.758 45.3776 25.4296 44.706 26.258 44.706L45.924 44.706C46.7524 44.706 47.424 45.3776 47.424 46.206 47.424 47.0344 46.7524 47.706 45.924 47.706L27.759 47.706 27.759 52.538C27.768 53.6486 27.1097 54.6561 26.089 55.094 25.7318 55.2521 25.3456 55.3342 24.955 55.335Z" class="MsftOfcThm_Accent4_Fill_v2" stroke-width="0.125042" fill="#9B945F"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" fill="none">
+  <defs>
+    <linearGradient id="g" x1="80" y1="64" x2="420" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="#1F8B68"/><stop offset="1" stop-color="#0B5139"/></linearGradient>
+    <linearGradient id="a" x1="90" y1="80" x2="410" y2="420" gradientUnits="userSpaceOnUse"><stop stop-color="#E4C96F"/><stop offset="1" stop-color="#C7A24A"/></linearGradient>
+    <linearGradient id="t" x1="88" y1="80" x2="420" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
+  </defs>
+  <ellipse cx="250" cy="404" rx="120" ry="26" fill="#0B5139" opacity="0.10"/>
+  <circle cx="250" cy="244" r="172" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="8"/><circle cx="250" cy="244" r="132" stroke="#C7A24A" stroke-width="10" stroke-dasharray="24 18" opacity="0.44" transform="rotate(0 250 244)"/><rect x="145" y="154" width="210" height="158" rx="24" fill="white" stroke="#A9D0BF" stroke-width="10"/><path d="M178 270l48-60 42 38 52-70" stroke="#16A394" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M178 312h144" stroke="#116246" stroke-width="14" stroke-linecap="round"/><circle cx="226" cy="210" r="13" fill="#C7A24A"/><circle cx="268" cy="248" r="13" fill="#1F8B68"/>
+</svg>

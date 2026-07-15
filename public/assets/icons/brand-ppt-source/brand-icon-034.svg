@@ -1,6 +1,9 @@
-<svg width="137" height="42" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden"><style>
-.MsftOfcThm_Accent1_lumMod_75_Stroke_v2 {
- stroke:#006540;
-}
-</style>
-<defs><filter id="fx0" class="MsftOfcThm_Accent1_lumMod_75_Stroke_v2" stroke="#006540" stroke-width="4.05926" fill="#008755" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="discrete" tableValues="0 0"/><feFuncG type="discrete" tableValues="0 0"/><feFuncB type="discrete" tableValues="0 0"/><feFuncA type="linear" slope="0.4" intercept="0"/></feComponentTransfer><feGaussianBlur stdDeviation="2.22222 2.22222"/></filter><clipPath id="clip1"><rect x="-49" y="685" width="137" height="42"/></clipPath></defs><g clip-path="url(#clip1)" transform="translate(49 -685)"><g filter="url(#fx0)" transform="translate(-50 684)"><g><path d="M8 22C8 14.268 14.268 8 22 8L117 8C124.732 8 131 14.268 131 22L131 22C131 29.732 124.732 36 117 36L22 36C14.268 36 8 29.732 8 22Z" class="MsftOfcThm_Accent1_lumMod_75_Stroke_v2" stroke="#006540" stroke-width="4.05926" fill="#008755" fill-rule="evenodd"/></g></g><path d="M-42 706C-42 698.268-35.732 692-28 692L67 692C74.732 692 81 698.268 81 706L81 706C81 713.732 74.732 720 67 720L-28 720C-35.732 720-42 713.732-42 706Z" class="MsftOfcThm_Accent1_lumMod_75_Stroke_v2" stroke="#006540" stroke-width="4.05926" fill="#008755" fill-rule="evenodd"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" fill="none">
+  <defs>
+    <linearGradient id="g" x1="80" y1="64" x2="420" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="#1F8B68"/><stop offset="1" stop-color="#0B5139"/></linearGradient>
+    <linearGradient id="a" x1="90" y1="80" x2="410" y2="420" gradientUnits="userSpaceOnUse"><stop stop-color="#E4C96F"/><stop offset="1" stop-color="#C7A24A"/></linearGradient>
+    <linearGradient id="t" x1="88" y1="80" x2="420" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
+  </defs>
+  <ellipse cx="250" cy="404" rx="120" ry="26" fill="#0B5139" opacity="0.10"/>
+  <circle cx="250" cy="244" r="172" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="8"/><circle cx="250" cy="244" r="132" stroke="#C7A24A" stroke-width="10" stroke-dasharray="24 18" opacity="0.44" transform="rotate(0 250 244)"/><path d="M250 130v230M168 188h164M172 188l-48 96h96zM328 188l-48 96h96z" stroke="#116246" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M188 360h124" stroke="#C7A24A" stroke-width="18" stroke-linecap="round"/><circle cx="250" cy="188" r="18" fill="#16A394"/>
+</svg>
