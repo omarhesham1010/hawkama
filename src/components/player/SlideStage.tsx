@@ -1591,11 +1591,11 @@ function CourseGlyph({
     ),
     target: (
       <>
-        <circle cx="48" cy="56" r="30" fill="none" stroke={muted} strokeWidth={strokeWidth - 1} />
-        <circle cx="48" cy="56" r="19" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
-        <circle cx="48" cy="56" r="7" fill="none" stroke={stroke} strokeWidth={strokeWidth} />
-        <path {...common} d="M60 44l23-23M72 21h11v11" stroke={accent} strokeWidth={strokeWidth} />
-        <path {...common} d="M62 42l-14 14" stroke={accent} strokeWidth={strokeWidth + 0.5} />
+        <circle cx="48" cy="56" r="30" fill="rgb(226 242 234 / 0.52)" stroke={stroke} strokeWidth={strokeWidth - 0.8} />
+        <circle cx="48" cy="56" r="19" fill="none" stroke={stroke} strokeWidth={strokeWidth + 0.4} />
+        <circle cx="48" cy="56" r="7" fill={accent} stroke={stroke} strokeWidth={strokeWidth - 1.2} />
+        <path {...common} d="M60 44l23-23M72 21h11v11" stroke={accent} strokeWidth={strokeWidth + 0.8} />
+        <path {...common} d="M62 42l-14 14" stroke={accent} strokeWidth={strokeWidth + 1} />
       </>
     ),
     default: (
