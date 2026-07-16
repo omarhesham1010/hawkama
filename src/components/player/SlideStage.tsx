@@ -1242,9 +1242,16 @@ function IntroMotionScene({
     const index = slide.narration.indexOf(needle);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
-  const firstPillarShown = spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
-  const secondPillarShown = spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
-  const thirdPillarShown = spokenPast('ثم نختم بإدارة المخاطر', 0.72);
+  const isEmergencyWelcome = slide.id === 'emergency-welcome';
+  const firstPillarShown = isEmergencyWelcome
+    ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
+    : spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
+  const secondPillarShown = isEmergencyWelcome
+    ? spokenPast('الفصل الثاني عن إدارة الأزمة نفسها', 0.41)
+    : spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
+  const thirdPillarShown = isEmergencyWelcome
+    ? spokenPast('الفصل الثالث عن استشراف المستقبل', 0.53)
+    : spokenPast('ثم نختم بإدارة المخاطر', 0.72);
   // Client call: nothing appears until Nasser actually talks about it --
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)

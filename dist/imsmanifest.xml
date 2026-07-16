@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-C2PA2BVB.js" />
-      <file href="assets/chunks/audioAlignments-WVW3PKUF.js" />
-      <file href="assets/chunks/chunk-TMDFLSWV.js" />
+      <file href="assets/chunks/SlidePlayer-SQXXI4ED.js" />
+      <file href="assets/chunks/audioAlignments-GL5VKPFA.js" />
+      <file href="assets/chunks/chunk-EDL374ZZ.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
-      <file href="assets/index-3e127d23.js" />
       <file href="assets/index-acad3554.css" />
+      <file href="assets/index-c68ef9f8.js" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="assets/visual-library/audit-controls.webp" />
@@ -273,6 +273,8 @@
       <file href="audio/bag1-ch3-s7-summary.mp3" />
       <file href="audio/bag1-ch3-s8-final-message.mp3" />
       <file href="audio/bag1-ch3-s9-leadership-questions.mp3" />
+      <file href="audio/bag2-ch0-s1-welcome.mp3" />
+      <file href="audio/bag2-ch0-s2-map.mp3" />
       <file href="favicon.svg" />
       <file href="index.html" />
       <file href="nasser-assets/Default/nasser-completion.webp" />

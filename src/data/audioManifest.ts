@@ -125,9 +125,11 @@ export const AUDIO_MANIFEST: string[] = [
   "bag1-ch3-s7-summary-check-ask",
   "bag1-ch3-s7-summary",
   "bag1-ch3-s8-final-message",
-  "bag1-ch3-s9-leadership-questions"
+  "bag1-ch3-s9-leadership-questions",
+  "bag2-ch0-s1-welcome",
+  "bag2-ch0-s2-map"
 ];
-export const AUDIO_MANIFEST_VERSION = 'b77ba51cb722';
+export const AUDIO_MANIFEST_VERSION = 'f5a56ac79eb9';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
