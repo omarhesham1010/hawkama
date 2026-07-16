@@ -2284,7 +2284,7 @@ function PptMotionVisualScene({
     ],
     split: [
       'right-[6%] top-[12%] w-[35%]',
-      'right-[10%] bottom-[10%] w-[35%]',
+      'right-[18%] bottom-[0%] w-[35%]',
       'left-[7%] top-[14%] w-[35%]',
       'left-[10%] bottom-[10%] w-[35%]',
     ],
@@ -2461,7 +2461,14 @@ function PptTimelineScene({
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   return (
     <div className={`relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-visible px-2 py-2 ${denseEmergencyTimeline ? 'gap-3' : 'gap-5'}`}>
-      {showPrimaryVisual && <span className={`pointer-events-none ${denseEmergencyTimeline ? 'absolute left-1/2 top-3 z-0 h-[120px] w-[120px] -translate-x-1/2 opacity-30' : `relative z-0 ${isEmergencySlide ? 'h-[148px] w-[148px]' : 'h-[64px] w-[64px]'}`} shrink-0 animate-crown-rise`} aria-hidden="true">
+      {/* Centered with a fixed negative margin instead of -translate-x-1/2:
+          the crown-rise animation's own keyframes set `transform` on every
+          step (scale/translateY/rotate), which replaces the element's whole
+          transform for the animation's duration -- so a translate-based
+          center gets silently dropped and the badge sits shifted right by
+          half its width. margin-left isn't part of `transform`, so it
+          survives the animation untouched. */}
+      {showPrimaryVisual && <span className={`pointer-events-none ${denseEmergencyTimeline ? 'absolute left-1/2 top-3 z-0 -ml-[48px] h-[96px] w-[96px] opacity-30' : `relative z-0 ${isEmergencySlide ? 'h-[148px] w-[148px]' : 'h-[64px] w-[64px]'}`} shrink-0 animate-crown-rise`} aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
         <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.4)" strokeWidth="2" strokeDasharray="4 9" strokeLinecap="round" />
@@ -2764,7 +2771,7 @@ function PptSpotlightScene({
                 }`}
               >
                 {brandIcon && (
-                  <span className="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm" aria-hidden="true">
+                  <span className="mx-auto mb-2 grid h-14 w-14 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm" aria-hidden="true">
                     <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
