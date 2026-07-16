@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **120**.
+Generated from `src/data/audioScripts.ts`. Total required: **268**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -42,6 +42,75 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s9-leadership-questions.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
 - `bag1-ch3-s10-quiz.mp3` - اختبار الفصل الثالث
 - `bag1-ch3-s11-closing.mp3` - ختام الفصل الثالث والحقيبة
+- `bag2-ch0-s1-welcome.mp3` - إدارة الاستجابة للطوارئ
+- `bag2-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag2-ch1-s1-welcome.mp3` - الاستعداد للطوارئ الصحية
+- `bag2-ch1-s2-strategic-framework.mp3` - تصميم الإطار الاستراتيجي الشامل للاستجابة
+- `bag2-ch1-s3-emergency-plans.mp3` - خطط الطوارئ الصحية
+- `bag2-ch1-s4-recovery-continuity.mp3` - تحديد أهداف التعافي واستمرارية الأعمال
+- `bag2-ch1-s5-readiness.mp3` - الجاهزية المؤسسية: الاختبار الحقيقي قبل أن تبدأ الأزمة
+- `bag2-ch1-s6-inter-agency-integration.mp3` - التكامل بين الجهات
+- `bag2-ch1-s7-business-continuity.mp3` - بناء وتكامل خطط استمرارية الأعمال
+- `bag2-ch1-s8-activity-5.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال
+- `bag2-ch1-s9-ics.mp3` - هيكل وتنظيم مركز القيادة أثناء الحوادث
+- `bag2-ch1-s10-eoc.mp3` - أدوار ومسؤوليات مركز عمليات الطوارئ
+- `bag2-ch1-s11-eoc-design.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية
+- `bag2-ch1-s12-coordination.mp3` - التنسيق أثناء الطوارئ
+- `bag2-ch1-s13-impact-modeling.mp3` - نمذجة تحليل الأثر واستمرارية الأعمال
+- `bag2-ch1-s14-activity-6.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال
+- `bag2-ch1-s15-info-flow.mp3` - إدارة تدفق المعلومات
+- `bag2-ch1-s16-hr-logistics.mp3` - تنسيق الموارد البشرية واللوجستية
+- `bag2-ch1-s17-operational-policies.mp3` - تفعيل السياسات التشغيلية للطوارئ والسلامة
+- `bag2-ch1-s18-activity-7.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة
+- `bag2-ch1-s19-quiz.mp3` - اختبار الفصل الأول
+- `bag2-ch1-s20-closing.mp3` - ختام الفصل الأول
+- `bag2-ch2-s1-welcome.mp3` - إدارة الأزمات الصحية
+- `bag2-ch2-s2-crisis-terms.mp3` - فهم ديناميكيات الأزمات
+- `bag2-ch2-s3-scenario-analysis.mp3` - تحليل السيناريوهات
+- `bag2-ch2-s4-raci.mp3` - حوكمة الاستجابة ومصفوفة RACI
+- `bag2-ch2-s5-ooda.mp3` - اتخاذ القرار تحت الضغط
+- `bag2-ch2-s6-leadership.mp3` - القيادة أثناء الأزمات
+- `bag2-ch2-s7-escalation.mp3` - معايير التصعيد وتفعيل القيادة الطارئة
+- `bag2-ch2-s8-cerc-phases.mp3` - التواصل والمشاركة المجتمعية — نموذج CERC
+- `bag2-ch2-s9-media-trust.mp3` - إدارة الرسائل الإعلامية وبناء الثقة
+- `bag2-ch2-s10-case-study.mp3` - دراسة حالة: الثقة المجتمعية خلال جائحة كورونا
+- `bag2-ch2-s11-lessons.mp3` - الدروس المستفادة للمملكة العربية السعودية
+- `bag2-ch2-s12-quiz.mp3` - اختبار الفصل الثاني
+- `bag2-ch2-s13-closing.mp3` - ختام الفصل الثاني
+- `bag2-ch3-s1-welcome.mp3` - المسح الاستباقي والترصد المبكر
+- `bag2-ch3-s2-scanning-intro.mp3` - أهمية المسح الاستباقي
+- `bag2-ch3-s3-horizontal-scanning.mp3` - المسح الأفقي
+- `bag2-ch3-s4-vertical-scanning.mp3` - المسح الرأسي
+- `bag2-ch3-s5-regulatory-foresight.mp3` - استشراف المخاطر التنظيمية
+- `bag2-ch3-s6-regulatory-tools.mp3` - أدوات وتقنيات استشراف المخاطر التنظيمية
+- `bag2-ch3-s7-multi-hazard-concepts.mp3` - تقييم المخاطر متعددة الأخطار — المفاهيم الأساسية
+- `bag2-ch3-s8-multi-hazard-methodology.mp3` - منهجية التقييم الشامل للمخاطر متعددة الأخطار
+- `bag2-ch3-s9-scenario-planning.mp3` - التخطيط بالسيناريوهات
+- `bag2-ch3-s10-surveillance-intro.mp3` - الترصد ودمج الإنذار المبكر
+- `bag2-ch3-s11-indicators.mp3` - تصميم مؤشرات الإنذار المبكر
+- `bag2-ch3-s12-surveillance-systems.mp3` - أنظمة الترصد المبكر للأخطار
+- `bag2-ch3-s13-thresholds.mp3` - ربط الترصد بالقرار
+- `bag2-ch3-s14-integration.mp3` - دمج الترصد والإنذار بخطط الاستجابة
+- `bag2-ch3-s15-quiz.mp3` - اختبار الفصل الثالث
+- `bag2-ch3-s16-closing.mp3` - ختام الفصل الثالث
+- `bag2-ch4-s1-welcome.mp3` - التعافي والتحسين المستمر
+- `bag2-ch4-s2-supply-chain-intro.mp3` - اللوجستيات ومرونة سلسلة التوريد
+- `bag2-ch4-s3-supply-chain-strategies.mp3` - استراتيجيات بناء المرونة
+- `bag2-ch4-s4-inventory-management.mp3` - إدارة المخزون أثناء الطوارئ
+- `bag2-ch4-s5-inventory-governance.mp3` - حوكمة المخزون الاحتياطي
+- `bag2-ch4-s6-aar-intro.mp3` - مراجعات ما بعد الحدث
+- `bag2-ch4-s7-aar-phases.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث
+- `bag2-ch4-s8-aar-success-factors.mp3` - عوامل نجاح مراجعة ما بعد الحدث
+- `bag2-ch4-s9-improvement-plans.mp3` - خطط التحسين المستمر
+- `bag2-ch4-s10-kpi-categories.mp3` - إدارة وقياس مؤشرات الأداء
+- `bag2-ch4-s11-kpi-design.mp3` - خطوات تصميم وقياس مؤشر الأداء
+- `bag2-ch4-s12-stakeholders.mp3` - تحديد أصحاب المصلحة
+- `bag2-ch4-s13-power-interest.mp3` - مصفوفة القوة والاهتمام
+- `bag2-ch4-s14-crisis-comm.mp3` - استراتيجيات التواصل الفعال
+- `bag2-ch4-s15-trust-building.mp3` - بناء الثقة والتأثير
+- `bag2-ch4-s16-closing-workshops.mp3` - ورش العمل الختامية
+- `bag2-ch4-s17-quiz.mp3` - اختبار الفصل الرابع
+- `bag2-ch4-s18-closing.mp3` - ختام الفصل الرابع والحقيبة
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
 - `bag1-ch1-s5-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
@@ -58,6 +127,25 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s6-risk-activity-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
 - `bag1-ch3-s6-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
 - `bag1-ch3-s6-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
+- `bag2-ch1-s8-activity-5-detail-1.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 1
+- `bag2-ch1-s8-activity-5-detail-2.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 2
+- `bag2-ch1-s8-activity-5-detail-3.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 3
+- `bag2-ch1-s8-activity-5-detail-4.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 4
+- `bag2-ch1-s8-activity-5-detail-5.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 5
+- `bag2-ch1-s8-activity-5-detail-6.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 6
+- `bag2-ch1-s14-activity-6-detail-1.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 1
+- `bag2-ch1-s14-activity-6-detail-2.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 2
+- `bag2-ch1-s14-activity-6-detail-3.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 3
+- `bag2-ch1-s14-activity-6-detail-4.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 4
+- `bag2-ch1-s14-activity-6-detail-5.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 5
+- `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 1
+- `bag2-ch1-s18-activity-7-detail-2.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 2
+- `bag2-ch1-s18-activity-7-detail-3.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 3
+- `bag2-ch1-s18-activity-7-detail-4.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 4
+- `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
+- `bag2-ch4-s16-closing-workshops-detail-2.mp3` - ورش العمل الختامية - مناقشة 2
+- `bag2-ch4-s16-closing-workshops-detail-3.mp3` - ورش العمل الختامية - مناقشة 3
+- `bag2-ch4-s16-closing-workshops-detail-4.mp3` - ورش العمل الختامية - مناقشة 4
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
@@ -106,6 +194,46 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s10-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
 - `bag1-ch3-s10-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
 - `bag1-ch3-s10-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q2-incorrect.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q3-correct.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q3-incorrect.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q4-correct.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q4-incorrect.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q5-correct.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة صحيحة
+- `bag2-ch1-s19-quiz-feedback-bag2-ch1-q5-incorrect.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q1-correct.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q1-incorrect.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q2-correct.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q2-incorrect.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q3-correct.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q3-incorrect.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q4-correct.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q4-incorrect.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q5-correct.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة صحيحة
+- `bag2-ch2-s12-quiz-feedback-bag2-ch2-q5-incorrect.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
+- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-correct.mp3` - اختبار الفصل الرابع - السؤال 1 - إجابة صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-incorrect.mp3` - اختبار الفصل الرابع - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q2-correct.mp3` - اختبار الفصل الرابع - السؤال 2 - إجابة صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q2-incorrect.mp3` - اختبار الفصل الرابع - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q3-correct.mp3` - اختبار الفصل الرابع - السؤال 3 - إجابة صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q3-incorrect.mp3` - اختبار الفصل الرابع - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q4-correct.mp3` - اختبار الفصل الرابع - السؤال 4 - إجابة صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q4-incorrect.mp3` - اختبار الفصل الرابع - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-correct.mp3` - اختبار الفصل الرابع - السؤال 5 - إجابة صحيحة
+- `bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-incorrect.mp3` - اختبار الفصل الرابع - السؤال 5 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -126,3 +254,23 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s4-risk-process-check-answer.mp3` - مراحل عملية إدارة المخاطر - إجابة السؤال التفاعلي
 - `bag1-ch3-s7-summary-check-ask.mp3` - الخلاصة – أبرز ما تعلمناه - سؤال تفاعلي
 - `bag1-ch3-s7-summary-check-answer.mp3` - الخلاصة – أبرز ما تعلمناه - إجابة السؤال التفاعلي
+- `bag2-ch1-s5-readiness-check-ask.mp3` - الجاهزية المؤسسية: الاختبار الحقيقي قبل أن تبدأ الأزمة - سؤال تفاعلي
+- `bag2-ch1-s5-readiness-check-answer.mp3` - الجاهزية المؤسسية: الاختبار الحقيقي قبل أن تبدأ الأزمة - إجابة السؤال التفاعلي
+- `bag2-ch1-s7-business-continuity-check-ask.mp3` - بناء وتكامل خطط استمرارية الأعمال - سؤال تفاعلي
+- `bag2-ch1-s7-business-continuity-check-answer.mp3` - بناء وتكامل خطط استمرارية الأعمال - إجابة السؤال التفاعلي
+- `bag2-ch1-s11-eoc-design-check-ask.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية - سؤال تفاعلي
+- `bag2-ch1-s11-eoc-design-check-answer.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية - إجابة السؤال التفاعلي
+- `bag2-ch2-s2-crisis-terms-check-ask.mp3` - فهم ديناميكيات الأزمات - سؤال تفاعلي
+- `bag2-ch2-s2-crisis-terms-check-answer.mp3` - فهم ديناميكيات الأزمات - إجابة السؤال التفاعلي
+- `bag2-ch2-s5-ooda-check-ask.mp3` - اتخاذ القرار تحت الضغط - سؤال تفاعلي
+- `bag2-ch2-s5-ooda-check-answer.mp3` - اتخاذ القرار تحت الضغط - إجابة السؤال التفاعلي
+- `bag2-ch3-s4-vertical-scanning-check-ask.mp3` - المسح الرأسي - سؤال تفاعلي
+- `bag2-ch3-s4-vertical-scanning-check-answer.mp3` - المسح الرأسي - إجابة السؤال التفاعلي
+- `bag2-ch3-s8-multi-hazard-methodology-check-ask.mp3` - منهجية التقييم الشامل للمخاطر متعددة الأخطار - سؤال تفاعلي
+- `bag2-ch3-s8-multi-hazard-methodology-check-answer.mp3` - منهجية التقييم الشامل للمخاطر متعددة الأخطار - إجابة السؤال التفاعلي
+- `bag2-ch4-s3-supply-chain-strategies-check-ask.mp3` - استراتيجيات بناء المرونة - سؤال تفاعلي
+- `bag2-ch4-s3-supply-chain-strategies-check-answer.mp3` - استراتيجيات بناء المرونة - إجابة السؤال التفاعلي
+- `bag2-ch4-s7-aar-phases-check-ask.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - سؤال تفاعلي
+- `bag2-ch4-s7-aar-phases-check-answer.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - إجابة السؤال التفاعلي
+- `bag2-ch4-s10-kpi-categories-check-ask.mp3` - إدارة وقياس مؤشرات الأداء - سؤال تفاعلي
+- `bag2-ch4-s10-kpi-categories-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي

@@ -21,7 +21,14 @@ export const courseMeta = {
 };
 
 export const slides = governanceChapterOneSlides;
-export const allNarratedSlides = governanceProgramSlides;
+export const allNarratedSlides = [
+  ...governanceProgramSlides,
+  ...emergencyIntroSlides,
+  ...emergencyChapterOneSlides,
+  ...emergencyChapterTwoSlides,
+  ...emergencyChapterThreeSlides,
+  ...emergencyChapterFourSlides,
+];
 
 export const courseCatalog = {
   'governance-intro': {
