@@ -33,17 +33,19 @@ export const POSE_SRC: Record<NasserPose, string> = {
  *  screen Nasser is standing on, not which hand he gestures with, so the
  *  file that visually points/holds toward a given side is assigned to the
  *  *opposite* pose key. */
+const BAG2_DIR = '/nasser-assets/Ministry%20of%20Health';
+
 export const POSE_SRC_BAG2: Record<NasserPose, string> = {
-  welcome: '/nasser-assets/nasser-welcome.webp',
-  pointLeft: '/nasser-assets/nasser-point-right.webp',
-  pointRight: '/nasser-assets/nasser-point-left.webp',
-  question: '/nasser-assets/nasser-question.webp',
-  success: '/nasser-assets/nasser-success.webp',
-  tabletLeft: '/nasser-assets/nasser-tablet-right.webp',
-  tabletRight: '/nasser-assets/nasser-tablet-left.webp',
-  thinking: '/nasser-assets/nasser-thinking.webp',
-  warning: '/nasser-assets/nasser-warning.webp',
-  completion: '/nasser-assets/nasser-completion.webp',
+  welcome: `${BAG2_DIR}/nasser-welcome.webp`,
+  pointLeft: `${BAG2_DIR}/nasser-point-right.webp`,
+  pointRight: `${BAG2_DIR}/nasser-point-left.webp`,
+  question: `${BAG2_DIR}/nasser-question.webp`,
+  success: `${BAG2_DIR}/nasser-success.webp`,
+  tabletLeft: `${BAG2_DIR}/nasser-tablet-right.webp`,
+  tabletRight: `${BAG2_DIR}/nasser-tablet-left.webp`,
+  thinking: `${BAG2_DIR}/nasser-thinking.webp`,
+  warning: `${BAG2_DIR}/nasser-warning.webp`,
+  completion: `${BAG2_DIR}/nasser-completion.webp`,
 };
 
 export function Nasser({
