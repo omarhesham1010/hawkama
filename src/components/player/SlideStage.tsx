@@ -1014,12 +1014,61 @@ function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   return variants?.[index % variants.length] ?? base;
 }
 
-/** Hand-picked vector emblem per intro slide — matches each chapter's own
- *  theme (institutional structure, protection, balance/risk) rather than a
- *  generic icon. */
-function pptDetailFor(card: PptCard) {
+/** Short practical tip shown when a card is expanded — must stay on-topic
+ *  for whichever bag the card belongs to. `forceEmergency` is passed by
+ *  callers that already know the slide is bag-2 (via `slide.id`), because
+ *  many bag-2 card titles are short generic labels ("تتعدد مراكز القرار
+ *  أم تُوحّد؟", "المسؤول عن التنفيذ") that don't contain an obvious
+ *  emergency-management keyword on their own -- detecting from the card's
+ *  own text alone would misroute those to bag-1's governance tips. */
+function pptDetailFor(card: PptCard, forceEmergency = false) {
   if (card.rationale) return card.rationale;
   const text = `${card.title} ${card.text ?? ''}`;
+  const isEmergencyTopic = forceEmergency || /طوارئ|أزمة|أزمات|كارثة|حادث|الاستجابة/.test(text);
+
+  if (isEmergencyTopic) {
+    if (/RACI|مسؤول عن التنفيذ|المساءَل|استشارته|إعلامه/.test(text)) {
+      return 'حدد صاحب الدور بدقة قبل أن تبدأ الأزمة، لا أثناءها.';
+    }
+    if (/حدث|طارئ|كارثة|أزمة/.test(text)) {
+      return 'اربط المستوى بحجم التعطل ونوع القرار المطلوب.';
+    }
+    if (/قيادة|قائد|مركز القيادة|مركز قيادة|ICS|EOC/.test(text)) {
+      return 'وضّح من يقود، ومن يُبقى على اطلاع، وحدود التفويض.';
+    }
+    if (/استمرارية|التعافي|الموارد الحيوية|العمليات الحرجة/.test(text)) {
+      return 'حدد الحد الأدنى المقبول من الخدمة ومتى يبدأ التعافي.';
+    }
+    if (/تواصل|إعلام|الثقة|رسائل|المتحدث/.test(text)) {
+      return 'كن أول من يتحدث، وكن دقيقًا، وأظهر التعاطف.';
+    }
+    if (/قرار|OODA|تصعيد|تحت الضغط/.test(text)) {
+      return 'حلل الموقف قبل أن تقرر، لا تتفاعل بسرعة بدون تحليل.';
+    }
+    if (/استشراف|مسح|PESTLE|سيناريو/.test(text)) {
+      return 'راقب الإشارات المبكرة قبل أن تتحول إلى أزمة فعلية.';
+    }
+    if (/خطر|أخطار|هشاشة|مصفوفة/.test(text)) {
+      return 'قيّم الاحتمالية والأثر معًا قبل ترتيب الأولويات.';
+    }
+    if (/ترصد|إنذار مبكر|عتبة/.test(text)) {
+      return 'حدد مستوى العتبة اللي يُفعّل الإنذار قبل فوات الأوان.';
+    }
+    if (/سلسلة التوريد|لوجست|مخزون|موردين/.test(text)) {
+      return 'اضمن بديلًا جاهزًا قبل ما يتعطل المصدر الأساسي.';
+    }
+    if (/مراجعة ما بعد|الدروس المستفادة|تحسين/.test(text)) {
+      return 'وثّق الدرس واربطه بخطة تحسين لها مالك ومتابعة.';
+    }
+    if (/مؤشر|KPI|لوحة معلومات/.test(text)) {
+      return 'اربط المؤشر بقرار فعلي، لا رقم بدون أثر.';
+    }
+    if (/أصحاب المصلحة|القوة والاهتمام/.test(text)) {
+      return 'صنّف كل طرف حسب قوته واهتمامه، وخصص التواصل له.';
+    }
+    return 'اربط النقطة بموقف طارئ فعلي وحدد من يقرر ومتى.';
+  }
+
   if (text.includes('حوكمة') || text.includes('الإطار')) {
     return 'حدد صاحب القرار، جهة المراجعة، ودليل التوثيق.';
   }
@@ -2485,7 +2534,7 @@ function PptTimelineScene({
         {cards.map((card, index) => {
           const visible = visibleFor(index);
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
-          const detail = pptDetailFor(card);
+          const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
           return (
@@ -2603,7 +2652,7 @@ function PptMatrixScene({
         {cards.map((card, index) => {
           const visible = visibleFor(index);
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
-          const detail = pptDetailFor(card);
+          const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
           const tone = card.tone ?? 'green';
@@ -2692,7 +2741,7 @@ function PptSpotlightScene({
   const supporting = cards.filter((_, i) => i !== focusIndex);
   const focusVisible = visibleFor(focusIndex);
   const focusActive = expandedKey === `${slide.id}:${focusIndex}`;
-  const focusDetail = pptDetailFor(focusCard);
+  const focusDetail = pptDetailFor(focusCard, isEmergencySlide);
   const showFocusDetail = focusActive && Boolean(focusDetail);
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex) : null;
@@ -3392,7 +3441,7 @@ function PptStyleSlide({
   const interactionLine = guidedSpeech.line ?? (expandedCard
     ? slide.kind === 'activity'
       ? activityCardDiscussion(expandedCard)
-      : cardNarrationRange(expandedCardIndex).text || pptDetailFor(expandedCard)
+      : cardNarrationRange(expandedCardIndex).text || pptDetailFor(expandedCard, isEmergencySlide)
     : undefined);
 
   return (
@@ -3422,7 +3471,7 @@ function PptStyleSlide({
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
                   visible={cardIsVisible(i)}
                   revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                  detail={pptDetailFor(card)}
+                  detail={pptDetailFor(card, isEmergencySlide)}
                   reveal={expandedCardKey === `${slide.id}:${i}`}
                   onClick={() => !narrationLocked && toggleCard(i)}
                   locked={narrationLocked}
