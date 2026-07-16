@@ -2128,14 +2128,14 @@ function PptCardView({
         </div>
 
         {showAnswerDetail ? (
-          <div className={`mt-1 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/54'}`}>
-            <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
+          <div className={`mt-1 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/54'}`}>
+            <p className={`${level === 'micro' ? 'text-[13px]' : 'text-[14px]'} font-bold leading-snug ${bodyTone}`}>
               {card.rationale ?? 'اربط الإجابة بالهدف التدريبي ثم انتقل للنقطة التالية.'}
             </p>
           </div>
         ) : showTrainingDetail ? (
-          <div className={`mt-1 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/54'}`}>
-            <p className={`${level === 'micro' ? 'text-[14.5px]' : 'text-[16px]'} font-bold leading-relaxed ${bodyTone}`}>
+          <div className={`mt-1 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/54'}`}>
+            <p className={`${level === 'micro' ? 'text-[13px]' : 'text-[14px]'} font-bold leading-snug ${bodyTone}`}>
               {detail}
             </p>
           </div>
@@ -2536,7 +2536,7 @@ function PptTimelineScene({
                   )}
                   <span className={`relative z-10 block font-extrabold leading-snug ${denseEmergencyTimeline ? 'text-[15.5px]' : isEmergencySlide ? 'text-[18px]' : 'text-[15.5px]'}`}>{card.title}</span>
                   {showDetail && detail && (
-                    <span className="mt-2 block text-[13px] font-bold leading-relaxed text-ink">{detail}</span>
+                    <span className="mt-1.5 block text-[11.5px] font-bold leading-snug text-ink">{detail}</span>
                   )}
                 </span>
               </button>
@@ -2645,8 +2645,8 @@ function PptMatrixScene({
                 <p className={`mt-3 pe-1 text-[16px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
-                <div className={`mt-3 rounded-2xl border p-2.5 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
-                  <p className={`text-[14px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{detail}</p>
+                <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
+                  <p className={`text-[12px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{detail}</p>
                 </div>
               )}
             </button>
@@ -2733,8 +2733,8 @@ function PptSpotlightScene({
         <h3 className={`relative z-10 ${isEmergencySlide ? 'text-[28px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
         {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[17px]' : 'text-[16px]'} mt-2.5 font-bold leading-relaxed text-green-50`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
-          <div className="mx-auto mt-4 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-3">
-            <p className="text-[15px] font-bold leading-relaxed text-green-50">{focusDetail}</p>
+          <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
+            <p className="text-[13px] font-bold leading-snug text-green-50">{focusDetail}</p>
           </div>
         )}
       </button>
