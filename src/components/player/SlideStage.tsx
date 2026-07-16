@@ -160,6 +160,10 @@ function tabletPose(side: 'left' | 'right'): NasserPose {
   return side === 'left' ? 'tabletRight' : 'tabletLeft';
 }
 
+function questionPose(side: 'left' | 'right'): NasserPose {
+  return side === 'left' ? 'questionRight' : 'questionLeft';
+}
+
 function hasAny(text: string, terms: string[]) {
   return terms.some((term) => text.includes(term));
 }
@@ -185,7 +189,7 @@ function semanticPose(
     line.includes('؟') ||
     hasAny(line, ['السؤال', 'فكر', 'اختر', 'صنّف', 'صنف', 'هل هذا', 'هل يكفي', 'ما نوع', 'لماذا', 'كيف نضمن'])
   ) {
-    return 'question';
+    return questionPose(side);
   }
   if (hasAny(line, ['خلنا نراجع', 'نراجعها معًا', 'نحلل', 'نناقش', 'نقاط النقاش', 'تأمل', 'قارن'])) {
     return 'thinking';
@@ -201,6 +205,11 @@ function semanticPose(
       'رشوة',
       'تعارض فيها',
       'تضارب مصالح فعلي',
+      'كارثة',
+      'تهديد',
+      'فشل الاستجابة',
+      'انهيار',
+      'شلل التحليل',
     ])
   ) {
     return 'warning';
@@ -222,6 +231,10 @@ function semanticPose(
       'وثيقة',
       'التوثيق',
       'مصفوفة الصلاحيات',
+      'نموذج',
+      'مصفوفة',
+      'مراحل',
+      'خطوة',
     ])
   ) {
     return tabletPose(side);

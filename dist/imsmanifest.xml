@@ -32,11 +32,11 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-RVXNQZT6.js" />
+      <file href="assets/chunks/SlidePlayer-XS46KTTF.js" />
       <file href="assets/chunks/audioAlignments-WVW3PKUF.js" />
       <file href="assets/chunks/chunk-VZQQKIIM.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
-      <file href="assets/index-37e01b62.js" />
+      <file href="assets/index-2a8a5d57.js" />
       <file href="assets/index-d4a34b50.css" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
@@ -288,7 +288,8 @@
       <file href="nasser-assets/Ministry of Health/nasser-completion.webp" />
       <file href="nasser-assets/Ministry of Health/nasser-point-left.webp" />
       <file href="nasser-assets/Ministry of Health/nasser-point-right.webp" />
-      <file href="nasser-assets/Ministry of Health/nasser-question.webp" />
+      <file href="nasser-assets/Ministry of Health/nasser-question-left.webp" />
+      <file href="nasser-assets/Ministry of Health/nasser-question-right.webp" />
       <file href="nasser-assets/Ministry of Health/nasser-success.webp" />
       <file href="nasser-assets/Ministry of Health/nasser-tablet-left.webp" />
       <file href="nasser-assets/Ministry of Health/nasser-tablet-right.webp" />

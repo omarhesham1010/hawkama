@@ -5,6 +5,8 @@ export type NasserPose =
   | 'pointLeft'
   | 'pointRight'
   | 'question'
+  | 'questionLeft'
+  | 'questionRight'
   | 'success'
   | 'tabletLeft'
   | 'tabletRight'
@@ -13,12 +15,16 @@ export type NasserPose =
   | 'completion';
 
 /** Bag 1's original illustrated Nasser -- lives under Default/ now that bag
- *  2 has its own photographic set at the top level of nasser-assets/. */
+ *  2 has its own photographic set at the top level of nasser-assets/. Bag 1
+ *  never got a left/right question pair, so questionLeft/questionRight both
+ *  fall back to the single question.webp it already has. */
 export const POSE_SRC: Record<NasserPose, string> = {
   welcome: '/nasser-assets/Default/nasser-welcome.webp',
   pointLeft: '/nasser-assets/Default/nasser-point-right.webp',
   pointRight: '/nasser-assets/Default/nasser-point-left.webp',
   question: '/nasser-assets/Default/nasser-question.webp',
+  questionLeft: '/nasser-assets/Default/nasser-question.webp',
+  questionRight: '/nasser-assets/Default/nasser-question.webp',
   success: '/nasser-assets/Default/nasser-success.webp',
   tabletLeft: '/nasser-assets/Default/nasser-tablet-right.webp',
   tabletRight: '/nasser-assets/Default/nasser-tablet-left.webp',
@@ -39,7 +45,9 @@ export const POSE_SRC_BAG2: Record<NasserPose, string> = {
   welcome: `${BAG2_DIR}/nasser-welcome.webp`,
   pointLeft: `${BAG2_DIR}/nasser-point-right.webp`,
   pointRight: `${BAG2_DIR}/nasser-point-left.webp`,
-  question: `${BAG2_DIR}/nasser-question.webp`,
+  question: `${BAG2_DIR}/nasser-question-left.webp`,
+  questionLeft: `${BAG2_DIR}/nasser-question-right.webp`,
+  questionRight: `${BAG2_DIR}/nasser-question-left.webp`,
   success: `${BAG2_DIR}/nasser-success.webp`,
   tabletLeft: `${BAG2_DIR}/nasser-tablet-right.webp`,
   tabletRight: `${BAG2_DIR}/nasser-tablet-left.webp`,
