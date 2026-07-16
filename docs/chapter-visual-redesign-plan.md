@@ -41,6 +41,6 @@ Scope: chapters 1-3 only. The approved introduction slides stay unchanged.
 
 - Do not regenerate audio or touch ElevenLabs.
 - Do not modify `.env`.
-- Use generated PNG course visuals already stored in `public/course-visuals`.
+- Use generated course visuals already stored in `public/assets/visual-library`.
 - Avoid generic icon libraries as primary visuals.
 - Keep SCORM packaging and existing route/player behavior.

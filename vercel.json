@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "/(audio|course-visuals|motion-assets|nasser-assets|template-assets)/(.*)",
+      "source": "/(audio|nasser-assets|template-assets)/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

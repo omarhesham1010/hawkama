@@ -1722,7 +1722,7 @@ function CourseGlyph({
   );
 }
 
-function pptGeneratedVisualLayersFor(text: string) {
+function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   const layers: string[] = [];
   const add = (src: string) => {
     if (!layers.includes(src)) layers.push(src);
@@ -1734,52 +1734,68 @@ function pptGeneratedVisualLayersFor(text: string) {
   //
   // These three are placeholder art (plain white/green) pending real
   // illustrations from the client -- see docs/bag2-photos-prompts.md.
-  if (hasAny(text, ['مصفوفة RACI', 'RACI'])) {
+  if (hasAny(text, ['مصفوفة RACI', 'RACI', 'المسؤول عن التنفيذ', 'المساءَل', 'يجب استشارته', 'يجب إعلامه'])) {
     add('/assets/visual-library/emergency-raci-matrix.svg');
   }
-  if (hasAny(text, ['ديناميكيات الأزمات', 'حدث/طارئ/أزمة/كارثة', 'أنواع الأزمات'])) {
+  if (hasAny(text, ['ديناميكيات الأزمات', 'أنواع الأزمات', 'الحدث Event', 'الطارئ Emergency', 'الأزمة Crisis', 'الكارثة Disaster'])) {
     add('/assets/visual-library/emergency-crisis-terms.svg');
   }
   if (hasAny(text, ['القيادة أثناء الأزمات', 'سمات القيادة', 'الهدوء الظاهر', 'التعاطف الإنساني', 'التواجد الميداني'])) {
     add('/assets/visual-library/emergency-leadership-traits.svg');
   }
-  if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'التنسيق أثناء الطوارئ'])) {
+  if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'مركز قيادة', 'التنسيق أثناء الطوارئ'])) {
     add('/assets/visual-library/emergency-command-center.svg');
   }
-  if (hasAny(text, ['الإطار الاستراتيجي', 'الاستعداد للطوارئ', 'خطط الطوارئ', 'الجاهزية المؤسسية', 'التكامل بين الجهات'])) {
+  if (hasAny(text, ['الإطار الاستراتيجي', 'الاستعداد للطوارئ', 'خطط الطوارئ', 'الجاهزية المؤسسية', 'التكامل بين الجهات', 'السياسات التشغيلية', 'تفعيل السياسات'])) {
     add('/assets/visual-library/emergency-strategic-framework.svg');
   }
   if (hasAny(text, ['استمرارية الأعمال', 'التعافي', 'الموارد الحيوية', 'العمليات الحرجة'])) {
     add('/assets/visual-library/emergency-continuity-shield.svg');
   }
-  if (hasAny(text, ['التواصل', 'CERC', 'الإعلام', 'الثقة المجتمعية', 'الرسائل الإعلامية', 'المتحدث'])) {
+  if (
+    hasAny(text, [
+      'التواصل',
+      'CERC',
+      'الإعلام',
+      'الثقة المجتمعية',
+      'الرسائل الإعلامية',
+      'المتحدث',
+      'ما قبل الأزمة',
+      'المرحلة الأولية',
+      'مرحلة الصيانة',
+      'مرحلة الحل',
+      'مرحلة التقييم',
+      'بناء الثقة',
+      'الدروس المستفادة للمملكة',
+    ])
+  ) {
     add('/assets/visual-library/emergency-crisis-communication.svg');
   }
-  if (hasAny(text, ['اتخاذ القرار', 'OODA', 'شلل التحليل', 'معايير التصعيد', 'تحت الضغط'])) {
+  if (hasAny(text, ['اتخاذ القرار', 'OODA', 'شلل التحليل', 'معايير التصعيد', 'تحت الضغط', 'Observe لاحظ', 'Orient توجّه', 'Decide قرّر', 'Act نفّذ'])) {
     add('/assets/visual-library/emergency-decision-pressure.svg');
   }
   if (hasAny(text, ['المسح الاستباقي', 'استشراف', 'PESTLE', 'المسح الأفقي', 'المسح الرأسي', 'التخطيط بالسيناريوهات'])) {
     add('/assets/visual-library/emergency-proactive-scanning.svg');
   }
-  if (hasAny(text, ['متعددة الأخطار', 'الهشاشة', 'التعرض', 'خريطة المخاطر', 'مصفوفة تفاعل الأخطار'])) {
+  if (hasAny(text, ['متعددة الأخطار', 'الهشاشة', 'التعرض', 'خريطة المخاطر', 'خرائط المخاطر', 'مصفوفة تفاعل الأخطار'])) {
     add('/assets/visual-library/emergency-risk-matrix.svg');
   }
-  if (hasAny(text, ['الترصد', 'الإنذار المبكر', 'SMART-ER', 'حصن', 'مستويات العتبة'])) {
+  if (hasAny(text, ['الترصد', 'الإنذار المبكر', 'SMART-ER', 'حصن', 'مستويات العتبة', 'العتبات'])) {
     add('/assets/visual-library/emergency-surveillance-radar.svg');
   }
-  if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'المخزون', 'نوبكو', 'ABC', 'EOQ', 'الموردين', 'مرونة سلسلة'])) {
+  if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'اللوجستية', 'المخزون', 'نوبكو', 'ABC', 'الفئة A', 'الفئة B', 'الفئة C', 'EOQ', 'الموردين', 'مرونة سلسلة'])) {
     add('/assets/visual-library/emergency-supply-chain.svg');
   }
-  if (hasAny(text, ['مراجعة ما بعد الحدث', 'AAR', 'الدروس المستفادة', 'خطة التحسين', 'PDCA'])) {
+  if (hasAny(text, ['مراجعة ما بعد الحدث', 'AAR', 'الدروس المستفادة', 'خطة التحسين', 'خطة تحسين', 'PDCA'])) {
     add('/assets/visual-library/emergency-after-action-review.svg');
   }
-  if (hasAny(text, ['مؤشرات الأداء', 'KPI', 'لوحة معلومات', 'Dashboard', 'خط الأساس'])) {
+  if (hasAny(text, ['مؤشرات الأداء', 'مؤشرات الجاهزية', 'مؤشرات الاستجابة', 'مؤشرات النتائج', 'مؤشرات التحسين', 'مؤشرات استباقية', 'مؤشرات متأخرة', 'مؤشرات كمية', 'مؤشرات نوعية', 'KPI', 'لوحة معلومات', 'Dashboard', 'خط الأساس'])) {
     add('/assets/visual-library/emergency-kpi-dashboard.svg');
   }
   if (hasAny(text, ['أصحاب المصلحة', 'القوة والاهتمام', 'Stakeholders'])) {
     add('/assets/visual-library/emergency-stakeholder-network.svg');
   }
-  if (hasAny(text, ['الموارد البشرية', 'تنسيق الموارد', 'فرق الاستجابة', 'الكوادر'])) {
+  if (hasAny(text, ['الموارد البشرية', 'تنسيق الموارد', 'تنسيق المعلومات', 'تدفق المعلومات', 'فرق الاستجابة', 'الكوادر'])) {
     add('/assets/visual-library/emergency-response-team.svg');
   }
 
@@ -1814,7 +1830,7 @@ function pptGeneratedVisualLayersFor(text: string) {
   }
 
   if (layers.length === 0) {
-    add(isEmergencyTopic ? '/assets/visual-library/emergency-command-center.svg' : '/assets/visual-library/governance-scene.webp');
+    add(fallback ?? (isEmergencyTopic ? '/assets/visual-library/emergency-command-center.svg' : '/assets/visual-library/governance-scene.webp'));
   }
   if (layers.length === 1) {
     if (layers[0].includes('emergency-command')) add('/assets/visual-library/emergency-strategic-framework.svg');
@@ -1998,12 +2014,12 @@ function PptCardView({
   const visualSize =
     emergencyHint
       ? level === 'micro'
-        ? 'h-[82px] w-[136px] p-1'
+        ? 'h-[92px] w-[152px] p-1'
         : level === 'compact'
-          ? 'h-[120px] w-[190px] p-1.5'
+          ? 'h-[134px] w-[210px] p-1.5'
           : level === 'loose'
-            ? 'h-[178px] w-[268px] p-2'
-            : 'h-[146px] w-[226px] p-2'
+            ? 'h-[196px] w-[292px] p-2'
+            : 'h-[162px] w-[248px] p-2'
       : level === 'micro'
         ? 'h-[58px] w-[108px] p-1'
         : level === 'compact'
@@ -2281,9 +2297,9 @@ function PptMotionVisualScene({
   const emergencyOpenLabels = isEmergencySlide && usesOpenLabels && !titleCardGrid;
   const openLabelTitleClass = titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
   const openLabelImageClass = titleCardGrid
-    ? 'h-24 w-28'
+    ? 'h-28 w-32'
     : emergencyOpenLabels
-      ? 'h-28 w-32'
+      ? 'h-36 w-40'
     : showDetailText
       ? (isEmergencySlide ? 'h-40 w-44' : 'h-24 w-28')
       : (isEmergencySlide ? 'h-40 w-44' : 'h-28 w-32');
@@ -2348,7 +2364,7 @@ function PptMotionVisualScene({
         const visible = visibleFor(index);
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
         const cardMarker = slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '';
-        const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`);
+        const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`, visualPool[index % visualPool.length]);
         const cardVisual = (denseMotion ? visualPool[index % visualPool.length] : cardVisuals[0]) ?? visualPool[index % visualPool.length] ?? primaryVisual;
         const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
         return (
@@ -2445,7 +2461,7 @@ function PptTimelineScene({
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   return (
     <div className={`relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-visible px-2 py-2 ${denseEmergencyTimeline ? 'gap-3' : 'gap-5'}`}>
-      {showPrimaryVisual && <span className={`pointer-events-none ${denseEmergencyTimeline ? 'absolute left-1/2 top-3 z-0 h-[108px] w-[108px] -translate-x-1/2 opacity-30' : `relative z-0 ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[64px] w-[64px]'}`} shrink-0 animate-crown-rise`} aria-hidden="true">
+      {showPrimaryVisual && <span className={`pointer-events-none ${denseEmergencyTimeline ? 'absolute left-1/2 top-3 z-0 h-[120px] w-[120px] -translate-x-1/2 opacity-30' : `relative z-0 ${isEmergencySlide ? 'h-[148px] w-[148px]' : 'h-[64px] w-[64px]'}`} shrink-0 animate-crown-rise`} aria-hidden="true">
         <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
         <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(191 155 74 / 0.4)" strokeWidth="2" strokeDasharray="4 9" strokeLinecap="round" />
@@ -3549,7 +3565,7 @@ function QuizStorySlide({
         <div className="flex shrink-0 items-center gap-3">
           <TitleHead slide={slide} showVisual={showQuizVisuals} />
           {quizVisual && (
-            <span className="relative h-[46px] w-[46px] shrink-0" aria-hidden="true">
+            <span className="relative h-[56px] w-[56px] shrink-0" aria-hidden="true">
               <span className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
               <img src={quizVisual} alt="" className="absolute inset-0 h-full w-full object-contain visual-active-pulse" loading="lazy" decoding="async" />
             </span>
