@@ -380,14 +380,14 @@ function NasserStoryLayer({
   // scale the dialogue bubble text next to him to match (see SpeechBubble).
   const imageSize = isPpt
     ? keepsLargePresence
-      ? 'h-[276px] w-[276px]'
-      : 'h-[238px] w-[238px]'
+      ? 'h-[300px] w-[300px]'
+      : 'h-[258px] w-[258px]'
     : isQuiz
       ? 'h-[214px] w-[214px]'
       : compact
         ? 'h-[268px] w-[268px]'
         : 'h-[330px] w-[330px]';
-  const layerHeight = isPpt ? (keepsLargePresence ? 'h-[236px]' : 'h-[202px]') : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
+  const layerHeight = isPpt ? (keepsLargePresence ? 'h-[262px]' : 'h-[220px]') : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
   const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
@@ -2319,12 +2319,12 @@ function PptMotionVisualScene({
           : 'split';
   const positionsByVariant: Record<string, string[]> = {
     titleGrid: [
-      'right-[7%] top-[24%] w-[20%]',
-      'right-[29%] top-[24%] w-[20%]',
-      'right-[51%] top-[24%] w-[20%]',
-      'right-[73%] top-[24%] w-[20%]',
-      'right-[29%] bottom-[6%] w-[20%]',
-      'right-[51%] bottom-[6%] w-[20%]',
+      'right-[7%] top-[16%] w-[18%]',
+      'right-[30%] top-[16%] w-[18%]',
+      'right-[53%] top-[16%] w-[18%]',
+      'right-[76%] top-[16%] w-[18%]',
+      'right-[30%] bottom-[4%] w-[18%]',
+      'right-[53%] bottom-[4%] w-[18%]',
     ],
     constellation: [
       'right-[5%] top-[10%] w-[30%]',
@@ -2348,22 +2348,38 @@ function PptMotionVisualScene({
     ],
     split: [
       'right-[6%] top-[12%] w-[35%]',
-      'right-[18%] bottom-[0%] w-[35%]',
+      'right-[24%] bottom-[0%] w-[35%]',
       'left-[7%] top-[14%] w-[35%]',
       'left-[10%] bottom-[10%] w-[35%]',
     ],
+    // pptTwoPanels (exactly 2 cards) always uses 'split' too, but the
+    // 4-slot array above puts its first two slots on the same (right)
+    // side -- fine for the 3-card case it was tuned for, but two cards
+    // stacked on one side left no room for each other. True left/right
+    // panels instead, which also can't collide with Nasser regardless of
+    // which side he's standing on.
+    splitTwo: ['right-[6%] top-[10%] w-[38%]', 'left-[6%] top-[10%] w-[38%]'],
   };
-  const labelPositions = positionsByVariant[variant] ?? positionsByVariant.orbit;
+  const labelPositions = variant === 'split' && cards.length === 2
+    ? positionsByVariant.splitTwo
+    : positionsByVariant[variant] ?? positionsByVariant.orbit;
   const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
   const emergencyOpenLabels = isEmergencySlide && usesOpenLabels && !titleCardGrid;
+  // orbit/path/split (non-grid) floating layouts with 3+ cards always end
+  // up with at least one same-side top+bottom pair (see positionsByVariant
+  // above) sharing this scene's ~305px-tall band -- there simply isn't
+  // room for two full-size card visuals stacked on one side without
+  // touching, at any position tuning. 2-card layouts (now opposite sides,
+  // see splitTwo) don't have this problem and keep the larger visual.
+  const denseFloatingCards = !titleCardGrid && cards.length >= 3;
   const openLabelTitleClass = titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
   const openLabelImageClass = titleCardGrid
     ? 'h-28 w-32'
     : emergencyOpenLabels
-      ? 'h-36 w-40'
+      ? (denseFloatingCards ? 'h-24 w-28' : 'h-36 w-40')
     : showDetailText
       ? (isEmergencySlide ? 'h-40 w-44' : 'h-24 w-28')
       : (isEmergencySlide ? 'h-40 w-44' : 'h-28 w-32');
@@ -2644,8 +2660,14 @@ function PptMatrixScene({
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
+  // Bottom padding here isn't decorative -- this grid used to be centered
+  // across the *full* scene height with no regard for Nasser's own layer
+  // (an absolutely-positioned overlay, so it doesn't push layout and was
+  // easy to miss), so on 2x2 slides the bottom row's corner nearest him
+  // actually sat underneath his image. Pushing the whole grid up leaves
+  // clearance regardless of which side he's standing on.
   return (
-    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3">
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3 pb-[190px]">
       <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} gap-5`}>
         {showPrimaryVisual && cols === 'grid-cols-2' && (
           <span
@@ -2761,13 +2783,25 @@ function PptSpotlightScene({
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex) : null;
   const showFocusVisual = !isEmergencySlide || focusVisible;
+  // Enough supporting chips (5+, i.e. a 6-card slide -- only two of these
+  // exist in bag 2) would wrap onto a second row at the normal chip size;
+  // packed tighter they fit a single row instead, which matters below.
+  const denseSupporting = supporting.length >= 5;
+  // This column is centered across the full scene height with no regard
+  // for Nasser's own (absolutely-positioned, so layout-invisible) layer,
+  // so the supporting-chips row could end up sitting under him. Pushing it
+  // up with bottom padding is enough for the normal (single-row) case --
+  // verified against the tightest normal slide. The dense case is packed
+  // tight enough now (see denseSupporting above) that it doesn't need the
+  // same large padding; centering it like the normal case keeps the
+  // vertical rhythm consistent instead of packing it against the title.
   return (
-    <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4">
+    <div className={`flex min-h-0 flex-1 flex-col items-center justify-center gap-5 px-4 ${denseSupporting ? 'pb-[70px]' : 'pb-[65px]'}`}>
       <button
         type="button"
         disabled={!focusVisible || narrationLocked}
         onClick={() => onToggle(focusIndex)}
-        className={`relative isolate w-full ${isEmergencySlide ? 'min-h-[178px] max-w-[720px] px-8 py-7' : 'max-w-[620px] p-7'} overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
+        className={`relative isolate w-full ${isEmergencySlide ? 'min-h-[150px] max-w-[720px] px-8 py-5' : 'max-w-[620px] p-7'} overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
           focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
         } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
       >
@@ -2788,7 +2822,7 @@ function PptSpotlightScene({
             <img src={primaryVisual} alt="" className={`absolute inset-0 h-full w-full rounded-full object-contain p-1.5 ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" />
           </span>
         )}
-        <span className="relative z-10 mx-auto mb-3 grid h-16 w-16 place-items-center rounded-full bg-white/16 p-3 ring-2 ring-white/25">
+        <span className="relative z-10 mx-auto mb-2 grid h-12 w-12 place-items-center rounded-full bg-white/16 p-2.5 ring-2 ring-white/25">
           {focusBrandIcon ? (
             <img src={focusBrandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" aria-hidden="true" />
           ) : (
@@ -2801,8 +2835,8 @@ function PptSpotlightScene({
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#FBE7B4" />
           </svg>
         </span>
-        <h3 className={`relative z-10 ${isEmergencySlide ? 'text-[28px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
-        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[17px]' : 'text-[16px]'} mt-2.5 font-bold leading-relaxed text-green-50`}>{focusCard.text}</p>}
+        <h3 className={`relative z-10 ${isEmergencySlide ? 'text-[24px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
+        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[16px]' : 'text-[16px]'} mt-1.5 font-bold leading-snug text-green-50`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
             <p className="text-[13px] font-bold leading-snug text-green-50">{focusDetail}</p>
@@ -2810,7 +2844,7 @@ function PptSpotlightScene({
         )}
       </button>
       {supporting.length > 0 && (
-        <div className="flex w-full max-w-[820px] flex-wrap items-stretch justify-center gap-3">
+        <div className={`flex w-full ${denseSupporting ? 'max-w-[760px] gap-2' : 'max-w-[820px] gap-3'} flex-wrap items-stretch justify-center`}>
           {supporting.map((card) => {
             const index = cards.indexOf(card);
             const visible = visibleFor(index);
@@ -2822,7 +2856,7 @@ function PptSpotlightScene({
                 type="button"
                 disabled={!visible || narrationLocked}
                 onClick={() => onToggle(index)}
-                className={`min-w-[170px] flex-1 ${isEmergencySlide ? 'border-b-4 px-4 py-3 shadow-none' : 'rounded-[22px] border px-4 py-3 shadow-[0_14px_28px_rgb(24_82_55_/_0.07)]'} text-center transition-all duration-500 ${
+                className={`${denseSupporting ? 'min-w-[128px]' : 'min-w-[170px]'} flex-1 ${isEmergencySlide ? `border-b-4 ${denseSupporting ? 'px-2 py-2' : 'px-4 py-2'} shadow-none` : 'rounded-[22px] border px-4 py-3 shadow-[0_14px_28px_rgb(24_82_55_/_0.07)]'} text-center transition-all duration-500 ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
                 } ${
                   active
@@ -2835,11 +2869,11 @@ function PptSpotlightScene({
                 }`}
               >
                 {brandIcon && (
-                  <span className="mx-auto mb-2 grid h-14 w-14 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm" aria-hidden="true">
+                  <span className={`mx-auto ${denseSupporting ? 'mb-1 h-10 w-10' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm`} aria-hidden="true">
                     <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
-                <span className="block text-[14.5px] font-extrabold leading-snug">{card.title}</span>
+                <span className={`block ${denseSupporting ? 'text-[12.5px]' : 'text-[14.5px]'} font-extrabold leading-snug`}>{card.title}</span>
               </button>
             );
           })}

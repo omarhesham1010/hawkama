@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-XS46KTTF.js" />
+      <file href="assets/chunks/SlidePlayer-7U5D6JAB.js" />
       <file href="assets/chunks/audioAlignments-WVW3PKUF.js" />
       <file href="assets/chunks/chunk-VZQQKIIM.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
-      <file href="assets/index-2a8a5d57.js" />
-      <file href="assets/index-d4a34b50.css" />
+      <file href="assets/index-acad3554.css" />
+      <file href="assets/index-ed18634b.js" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="assets/visual-library/audit-controls.webp" />
