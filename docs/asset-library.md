@@ -6,14 +6,11 @@ training bags.
 
 ## Structure
 
-- `public/assets/icons/brand-ppt-source/`
-  Curated reusable SVG icons normalized from the approved PowerPoint identity
-  direction. They keep the original neutral filenames for compatibility, but
-  are cleaned for transparent backgrounds, visible contrast, and browser-safe
-  rendering.
-- `public/assets/images/brand-ppt-source/`
-  Extracted PNG images and larger raster visuals from approved PowerPoint
-  source files.
+- `public/assets/visual-library/`
+  The single shared folder for reusable icons, illustrations, motion layers,
+  and identity images. All assets in this folder use semantic filenames that
+  describe the visual concept, such as `icon-shield-check-01.svg`,
+  `emergency-command-center.svg`, and `intro-emergency-preparedness-shield.svg`.
 - `public/assets/manifest.json`
   Machine-readable inventory of the shared library.
 - `public/assets/preview.html`
@@ -21,29 +18,29 @@ training bags.
 
 ## Naming
 
-Source-extracted assets use neutral reusable names:
+Use concept-first names:
 
-- `brand-icon-001.svg`, `brand-icon-002.svg`, ...
-- `brand-image-001.png`, `brand-image-002.png`, ...
-
-When an asset becomes a curated production visual for a specific concept, create
-a renamed derivative with a semantic name in the relevant curated folder. Keep
-the source asset unchanged.
+- `icon-{concept}-{variant}.svg` for small reusable icons.
+- `{bag/topic}-{concept}.svg` or `.webp` for larger illustrations.
+- `intro-{topic}-{concept}.svg` or `.webp` for motion intro layers.
+- `identity-{concept}.png` for reusable visual identity images.
 
 ## Workflow
 
 1. When building a new bag, first check the shared icon and image library.
 2. Reuse existing assets when they match the learning concept and identity.
-3. Add missing assets to the same shared library, not to a bag-specific folder.
+3. Add missing assets to `public/assets/visual-library/`, not to a bag-specific
+   folder.
 4. Use icons for small accents beside text and controls.
 5. Use images or illustrations for large motion-graphics visual moments.
 6. Keep backgrounds transparent whenever possible.
 
 ## Current Inventory
 
-- Total assets: 79
-- SVG icons and accents: 71
-- PNG images: 8
+- Total assets: 112
+- Shared SVG icons and accents: 71
+- Course and motion illustrations: 33
+- PNG identity images: 8
 
 The first source batch was extracted from the emergency-response trainee guide
 PowerPoint, then redrawn and normalized into production-ready reusable icons.

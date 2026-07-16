@@ -1,565 +1,683 @@
 {
   "name": "Project Visual Asset Library",
-  "source": "Curated reusable visual library normalized from PowerPoint identity assets",
+  "source": "Curated reusable visuals for all training bags",
   "structure": {
-    "icons": "/assets/icons/brand-ppt-source/",
-    "images": "/assets/images/brand-ppt-source/"
+    "library": "/assets/visual-library/"
   },
-  "usage": "Use icons as small semantic accents beside text; use images as larger slide visuals. Add future assets here, not under bag-specific folders.",
-  "total": 79,
+  "usage": "Use this single folder for reusable icons, illustrations, motion layers, and identity images. Add future visual assets here with semantic filenames.",
+  "total": 112,
   "assets": [
     {
-      "id": "brand-icon-001",
-      "originalFile": "brand-icon-001.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-001.svg",
-      "bytes": 1046
+      "id": "audit-controls",
+      "type": "image",
+      "src": "/assets/visual-library/audit-controls.webp",
+      "bytes": 61370
     },
     {
-      "id": "brand-icon-002",
-      "originalFile": "brand-icon-002.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-002.svg",
-      "bytes": 1432
+      "id": "compliance-scene",
+      "type": "image",
+      "src": "/assets/visual-library/compliance-scene.webp",
+      "bytes": 50884
     },
     {
-      "id": "brand-icon-003",
-      "originalFile": "brand-icon-003.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-003.svg",
-      "bytes": 1346
+      "id": "emergency-after-action-review",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-after-action-review.svg",
+      "bytes": 2626
     },
     {
-      "id": "brand-icon-004",
-      "originalFile": "brand-icon-004.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-004.svg",
-      "bytes": 1308
+      "id": "emergency-command-center",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-command-center.svg",
+      "bytes": 2287
     },
     {
-      "id": "brand-icon-005",
-      "originalFile": "brand-icon-005.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-005.svg",
-      "bytes": 1115
+      "id": "emergency-continuity-shield",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-continuity-shield.svg",
+      "bytes": 2537
     },
     {
-      "id": "brand-icon-006",
-      "originalFile": "brand-icon-006.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-006.svg",
-      "bytes": 1366
+      "id": "emergency-crisis-communication",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-crisis-communication.svg",
+      "bytes": 2403
     },
     {
-      "id": "brand-icon-007",
-      "originalFile": "brand-icon-007.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-007.svg",
-      "bytes": 1418
+      "id": "emergency-crisis-terms",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-crisis-terms.svg",
+      "bytes": 2390
     },
     {
-      "id": "brand-icon-008",
-      "originalFile": "brand-icon-008.svg",
+      "id": "emergency-decision-pressure",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-decision-pressure.svg",
+      "bytes": 2144
+    },
+    {
+      "id": "emergency-kpi-dashboard",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-kpi-dashboard.svg",
+      "bytes": 2337
+    },
+    {
+      "id": "emergency-leadership-traits",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-leadership-traits.svg",
+      "bytes": 2184
+    },
+    {
+      "id": "emergency-proactive-scanning",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-proactive-scanning.svg",
+      "bytes": 2072
+    },
+    {
+      "id": "emergency-raci-matrix",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-raci-matrix.svg",
+      "bytes": 3402
+    },
+    {
+      "id": "emergency-response-team",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-response-team.svg",
+      "bytes": 2784
+    },
+    {
+      "id": "emergency-risk-matrix",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-risk-matrix.svg",
+      "bytes": 2013
+    },
+    {
+      "id": "emergency-stakeholder-network",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-stakeholder-network.svg",
+      "bytes": 3206
+    },
+    {
+      "id": "emergency-strategic-framework",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-strategic-framework.svg",
+      "bytes": 2437
+    },
+    {
+      "id": "emergency-supply-chain",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-supply-chain.svg",
+      "bytes": 2447
+    },
+    {
+      "id": "emergency-surveillance-radar",
+      "type": "illustration",
+      "src": "/assets/visual-library/emergency-surveillance-radar.svg",
+      "bytes": 2078
+    },
+    {
+      "id": "governance-scene",
+      "type": "image",
+      "src": "/assets/visual-library/governance-scene.webp",
+      "bytes": 75594
+    },
+    {
+      "id": "icon-alert-bell-01",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-008.svg",
+      "src": "/assets/visual-library/icon-alert-bell-01.svg",
       "bytes": 1169
     },
     {
-      "id": "brand-icon-009",
-      "originalFile": "brand-icon-009.svg",
+      "id": "icon-alert-bell-02",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-009.svg",
-      "bytes": 1403
-    },
-    {
-      "id": "brand-icon-010",
-      "originalFile": "brand-icon-010.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-010.svg",
-      "bytes": 1447
-    },
-    {
-      "id": "brand-icon-011",
-      "originalFile": "brand-icon-011.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-011.svg",
-      "bytes": 1219
-    },
-    {
-      "id": "brand-icon-012",
-      "originalFile": "brand-icon-012.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-012.svg",
-      "bytes": 1343
-    },
-    {
-      "id": "brand-icon-013",
-      "originalFile": "brand-icon-013.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-013.svg",
-      "bytes": 1120
-    },
-    {
-      "id": "brand-icon-014",
-      "originalFile": "brand-icon-014.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-014.svg",
-      "bytes": 1366
-    },
-    {
-      "id": "brand-icon-015",
-      "originalFile": "brand-icon-015.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-015.svg",
-      "bytes": 1192
-    },
-    {
-      "id": "brand-icon-016",
-      "originalFile": "brand-icon-016.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-016.svg",
-      "bytes": 1249
-    },
-    {
-      "id": "brand-icon-017",
-      "originalFile": "brand-icon-017.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-017.svg",
-      "bytes": 1251
-    },
-    {
-      "id": "brand-icon-018",
-      "originalFile": "brand-icon-018.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-018.svg",
-      "bytes": 1346
-    },
-    {
-      "id": "brand-icon-019",
-      "originalFile": "brand-icon-019.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-019.svg",
-      "bytes": 1046
-    },
-    {
-      "id": "brand-icon-020",
-      "originalFile": "brand-icon-020.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-020.svg",
-      "bytes": 1432
-    },
-    {
-      "id": "brand-icon-021",
-      "originalFile": "brand-icon-021.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-021.svg",
-      "bytes": 1346
-    },
-    {
-      "id": "brand-icon-022",
-      "originalFile": "brand-icon-022.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-022.svg",
-      "bytes": 1308
-    },
-    {
-      "id": "brand-icon-023",
-      "originalFile": "brand-icon-023.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-023.svg",
-      "bytes": 1115
-    },
-    {
-      "id": "brand-icon-024",
-      "originalFile": "brand-icon-024.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-024.svg",
-      "bytes": 1366
-    },
-    {
-      "id": "brand-icon-025",
-      "originalFile": "brand-icon-025.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-025.svg",
-      "bytes": 1418
-    },
-    {
-      "id": "brand-icon-026",
-      "originalFile": "brand-icon-026.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-026.svg",
+      "src": "/assets/visual-library/icon-alert-bell-02.svg",
       "bytes": 1169
     },
     {
-      "id": "brand-icon-027",
-      "originalFile": "brand-icon-027.svg",
+      "id": "icon-alert-bell-03",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-027.svg",
-      "bytes": 1403
-    },
-    {
-      "id": "brand-icon-028",
-      "originalFile": "brand-icon-028.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-028.svg",
-      "bytes": 1447
-    },
-    {
-      "id": "brand-icon-029",
-      "originalFile": "brand-icon-029.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-029.svg",
-      "bytes": 1219
-    },
-    {
-      "id": "brand-icon-030",
-      "originalFile": "brand-icon-030.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-030.svg",
-      "bytes": 1343
-    },
-    {
-      "id": "brand-icon-031",
-      "originalFile": "brand-icon-031.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-031.svg",
-      "bytes": 1120
-    },
-    {
-      "id": "brand-icon-032",
-      "originalFile": "brand-icon-032.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-032.svg",
-      "bytes": 1366
-    },
-    {
-      "id": "brand-icon-033",
-      "originalFile": "brand-icon-033.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-033.svg",
-      "bytes": 1192
-    },
-    {
-      "id": "brand-icon-034",
-      "originalFile": "brand-icon-034.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-034.svg",
-      "bytes": 1249
-    },
-    {
-      "id": "brand-icon-035",
-      "originalFile": "brand-icon-035.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-035.svg",
-      "bytes": 1251
-    },
-    {
-      "id": "brand-icon-036",
-      "originalFile": "brand-icon-036.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-036.svg",
-      "bytes": 1346
-    },
-    {
-      "id": "brand-icon-037",
-      "originalFile": "brand-icon-037.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-037.svg",
-      "bytes": 1046
-    },
-    {
-      "id": "brand-icon-038",
-      "originalFile": "brand-icon-038.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-038.svg",
-      "bytes": 1432
-    },
-    {
-      "id": "brand-icon-039",
-      "originalFile": "brand-icon-039.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-039.svg",
-      "bytes": 1346
-    },
-    {
-      "id": "brand-icon-040",
-      "originalFile": "brand-icon-040.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-040.svg",
-      "bytes": 1308
-    },
-    {
-      "id": "brand-icon-041",
-      "originalFile": "brand-icon-041.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-041.svg",
-      "bytes": 1115
-    },
-    {
-      "id": "brand-icon-042",
-      "originalFile": "brand-icon-042.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-042.svg",
-      "bytes": 1366
-    },
-    {
-      "id": "brand-icon-043",
-      "originalFile": "brand-icon-043.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-043.svg",
-      "bytes": 1418
-    },
-    {
-      "id": "brand-icon-044",
-      "originalFile": "brand-icon-044.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-044.svg",
+      "src": "/assets/visual-library/icon-alert-bell-03.svg",
       "bytes": 1169
     },
     {
-      "id": "brand-icon-045",
-      "originalFile": "brand-icon-045.svg",
+      "id": "icon-alert-bell-04",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-045.svg",
-      "bytes": 1403
-    },
-    {
-      "id": "brand-icon-046",
-      "originalFile": "brand-icon-046.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-046.svg",
-      "bytes": 1447
-    },
-    {
-      "id": "brand-icon-047",
-      "originalFile": "brand-icon-047.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-047.svg",
-      "bytes": 1219
-    },
-    {
-      "id": "brand-icon-048",
-      "originalFile": "brand-icon-048.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-048.svg",
-      "bytes": 1343
-    },
-    {
-      "id": "brand-icon-049",
-      "originalFile": "brand-icon-049.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-049.svg",
-      "bytes": 1120
-    },
-    {
-      "id": "brand-icon-050",
-      "originalFile": "brand-icon-050.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-050.svg",
-      "bytes": 1366
-    },
-    {
-      "id": "brand-icon-051",
-      "originalFile": "brand-icon-051.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-051.svg",
-      "bytes": 1192
-    },
-    {
-      "id": "brand-icon-052",
-      "originalFile": "brand-icon-052.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-052.svg",
-      "bytes": 1249
-    },
-    {
-      "id": "brand-icon-053",
-      "originalFile": "brand-icon-053.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-053.svg",
-      "bytes": 1251
-    },
-    {
-      "id": "brand-icon-054",
-      "originalFile": "brand-icon-054.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-054.svg",
-      "bytes": 1346
-    },
-    {
-      "id": "brand-icon-055",
-      "originalFile": "brand-icon-055.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-055.svg",
-      "bytes": 1046
-    },
-    {
-      "id": "brand-icon-056",
-      "originalFile": "brand-icon-056.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-056.svg",
-      "bytes": 1432
-    },
-    {
-      "id": "brand-icon-057",
-      "originalFile": "brand-icon-057.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-057.svg",
-      "bytes": 1346
-    },
-    {
-      "id": "brand-icon-058",
-      "originalFile": "brand-icon-058.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-058.svg",
-      "bytes": 1308
-    },
-    {
-      "id": "brand-icon-059",
-      "originalFile": "brand-icon-059.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-059.svg",
-      "bytes": 1115
-    },
-    {
-      "id": "brand-icon-060",
-      "originalFile": "brand-icon-060.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-060.svg",
-      "bytes": 1366
-    },
-    {
-      "id": "brand-icon-061",
-      "originalFile": "brand-icon-061.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-061.svg",
-      "bytes": 1418
-    },
-    {
-      "id": "brand-icon-062",
-      "originalFile": "brand-icon-062.svg",
-      "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-062.svg",
+      "src": "/assets/visual-library/icon-alert-bell-04.svg",
       "bytes": 1169
     },
     {
-      "id": "brand-icon-063",
-      "originalFile": "brand-icon-063.svg",
+      "id": "icon-announcement-speaker-01",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-063.svg",
-      "bytes": 1403
+      "src": "/assets/visual-library/icon-announcement-speaker-01.svg",
+      "bytes": 1115
     },
     {
-      "id": "brand-icon-064",
-      "originalFile": "brand-icon-064.svg",
+      "id": "icon-announcement-speaker-02",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-064.svg",
-      "bytes": 1447
+      "src": "/assets/visual-library/icon-announcement-speaker-02.svg",
+      "bytes": 1115
     },
     {
-      "id": "brand-icon-065",
-      "originalFile": "brand-icon-065.svg",
+      "id": "icon-announcement-speaker-03",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-065.svg",
-      "bytes": 1219
+      "src": "/assets/visual-library/icon-announcement-speaker-03.svg",
+      "bytes": 1115
     },
     {
-      "id": "brand-icon-066",
-      "originalFile": "brand-icon-066.svg",
+      "id": "icon-announcement-speaker-04",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-066.svg",
-      "bytes": 1343
+      "src": "/assets/visual-library/icon-announcement-speaker-04.svg",
+      "bytes": 1115
     },
     {
-      "id": "brand-icon-067",
-      "originalFile": "brand-icon-067.svg",
+      "id": "icon-checklist-action-01",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-067.svg",
-      "bytes": 1120
+      "src": "/assets/visual-library/icon-checklist-action-01.svg",
+      "bytes": 1432
     },
     {
-      "id": "brand-icon-068",
-      "originalFile": "brand-icon-068.svg",
+      "id": "icon-checklist-action-02",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-068.svg",
-      "bytes": 1366
+      "src": "/assets/visual-library/icon-checklist-action-02.svg",
+      "bytes": 1432
     },
     {
-      "id": "brand-icon-069",
-      "originalFile": "brand-icon-069.svg",
+      "id": "icon-checklist-action-03",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-069.svg",
-      "bytes": 1192
+      "src": "/assets/visual-library/icon-checklist-action-03.svg",
+      "bytes": 1432
     },
     {
-      "id": "brand-icon-070",
-      "originalFile": "brand-icon-070.svg",
+      "id": "icon-checklist-action-04",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-070.svg",
-      "bytes": 1249
+      "src": "/assets/visual-library/icon-checklist-action-04.svg",
+      "bytes": 1432
     },
     {
-      "id": "brand-icon-071",
-      "originalFile": "brand-icon-071.svg",
+      "id": "icon-control-grid-01",
       "type": "icon",
-      "src": "/assets/icons/brand-ppt-source/brand-icon-071.svg",
+      "src": "/assets/visual-library/icon-control-grid-01.svg",
+      "bytes": 1418
+    },
+    {
+      "id": "icon-control-grid-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-control-grid-02.svg",
+      "bytes": 1418
+    },
+    {
+      "id": "icon-control-grid-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-control-grid-03.svg",
+      "bytes": 1418
+    },
+    {
+      "id": "icon-control-grid-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-control-grid-04.svg",
+      "bytes": 1418
+    },
+    {
+      "id": "icon-direction-sign-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-direction-sign-01.svg",
       "bytes": 1251
     },
     {
-      "id": "brand-image-001",
-      "originalFile": "brand-image-001.png",
-      "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-001.png",
-      "bytes": 6534
+      "id": "icon-direction-sign-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-direction-sign-02.svg",
+      "bytes": 1251
     },
     {
-      "id": "brand-image-002",
-      "originalFile": "brand-image-002.png",
-      "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-002.png",
-      "bytes": 19331
+      "id": "icon-direction-sign-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-direction-sign-03.svg",
+      "bytes": 1251
     },
     {
-      "id": "brand-image-003",
-      "originalFile": "brand-image-003.png",
-      "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-003.png",
-      "bytes": 2898
+      "id": "icon-direction-sign-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-direction-sign-04.svg",
+      "bytes": 1251
     },
     {
-      "id": "brand-image-004",
-      "originalFile": "brand-image-004.png",
-      "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-004.png",
-      "bytes": 2826688
+      "id": "icon-discussion-bubble-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-discussion-bubble-01.svg",
+      "bytes": 1346
     },
     {
-      "id": "brand-image-005",
-      "originalFile": "brand-image-005.png",
-      "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-005.png",
-      "bytes": 20683
+      "id": "icon-discussion-bubble-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-discussion-bubble-02.svg",
+      "bytes": 1346
     },
     {
-      "id": "brand-image-006",
-      "originalFile": "brand-image-006.png",
-      "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-006.png",
-      "bytes": 15611
+      "id": "icon-discussion-bubble-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-discussion-bubble-03.svg",
+      "bytes": 1346
     },
     {
-      "id": "brand-image-007",
-      "originalFile": "brand-image-007.png",
+      "id": "icon-ethics-balance-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-ethics-balance-01.svg",
+      "bytes": 1249
+    },
+    {
+      "id": "icon-ethics-balance-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-ethics-balance-02.svg",
+      "bytes": 1249
+    },
+    {
+      "id": "icon-ethics-balance-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-ethics-balance-03.svg",
+      "bytes": 1249
+    },
+    {
+      "id": "icon-ethics-balance-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-ethics-balance-04.svg",
+      "bytes": 1249
+    },
+    {
+      "id": "icon-file-report-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-file-report-01.svg",
+      "bytes": 1192
+    },
+    {
+      "id": "icon-file-report-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-file-report-02.svg",
+      "bytes": 1192
+    },
+    {
+      "id": "icon-file-report-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-file-report-03.svg",
+      "bytes": 1192
+    },
+    {
+      "id": "icon-file-report-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-file-report-04.svg",
+      "bytes": 1192
+    },
+    {
+      "id": "icon-institution-board-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-institution-board-01.svg",
+      "bytes": 1346
+    },
+    {
+      "id": "icon-institution-board-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-institution-board-02.svg",
+      "bytes": 1346
+    },
+    {
+      "id": "icon-institution-board-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-institution-board-03.svg",
+      "bytes": 1346
+    },
+    {
+      "id": "icon-institution-board-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-institution-board-04.svg",
+      "bytes": 1346
+    },
+    {
+      "id": "icon-kpi-dashboard-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-kpi-dashboard-01.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-kpi-dashboard-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-kpi-dashboard-02.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-kpi-dashboard-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-kpi-dashboard-03.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-kpi-dashboard-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-kpi-dashboard-04.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-network-nodes-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-network-nodes-01.svg",
+      "bytes": 1403
+    },
+    {
+      "id": "icon-network-nodes-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-network-nodes-02.svg",
+      "bytes": 1403
+    },
+    {
+      "id": "icon-network-nodes-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-network-nodes-03.svg",
+      "bytes": 1403
+    },
+    {
+      "id": "icon-network-nodes-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-network-nodes-04.svg",
+      "bytes": 1403
+    },
+    {
+      "id": "icon-performance-chart-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-performance-chart-01.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-performance-chart-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-performance-chart-02.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-performance-chart-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-performance-chart-03.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-performance-chart-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-performance-chart-04.svg",
+      "bytes": 1366
+    },
+    {
+      "id": "icon-policy-document-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-policy-document-01.svg",
+      "bytes": 1219
+    },
+    {
+      "id": "icon-policy-document-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-policy-document-02.svg",
+      "bytes": 1219
+    },
+    {
+      "id": "icon-policy-document-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-policy-document-03.svg",
+      "bytes": 1219
+    },
+    {
+      "id": "icon-policy-document-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-policy-document-04.svg",
+      "bytes": 1219
+    },
+    {
+      "id": "icon-response-vehicle-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-response-vehicle-01.svg",
+      "bytes": 1447
+    },
+    {
+      "id": "icon-response-vehicle-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-response-vehicle-02.svg",
+      "bytes": 1447
+    },
+    {
+      "id": "icon-response-vehicle-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-response-vehicle-03.svg",
+      "bytes": 1447
+    },
+    {
+      "id": "icon-response-vehicle-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-response-vehicle-04.svg",
+      "bytes": 1447
+    },
+    {
+      "id": "icon-search-plus-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-search-plus-01.svg",
+      "bytes": 1343
+    },
+    {
+      "id": "icon-search-plus-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-search-plus-02.svg",
+      "bytes": 1343
+    },
+    {
+      "id": "icon-search-plus-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-search-plus-03.svg",
+      "bytes": 1343
+    },
+    {
+      "id": "icon-search-plus-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-search-plus-04.svg",
+      "bytes": 1343
+    },
+    {
+      "id": "icon-shield-check-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-shield-check-01.svg",
+      "bytes": 1046
+    },
+    {
+      "id": "icon-shield-check-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-shield-check-02.svg",
+      "bytes": 1046
+    },
+    {
+      "id": "icon-shield-check-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-shield-check-03.svg",
+      "bytes": 1046
+    },
+    {
+      "id": "icon-shield-check-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-shield-check-04.svg",
+      "bytes": 1046
+    },
+    {
+      "id": "icon-strategy-cube-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-strategy-cube-01.svg",
+      "bytes": 1120
+    },
+    {
+      "id": "icon-strategy-cube-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-strategy-cube-02.svg",
+      "bytes": 1120
+    },
+    {
+      "id": "icon-strategy-cube-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-strategy-cube-03.svg",
+      "bytes": 1120
+    },
+    {
+      "id": "icon-strategy-cube-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-strategy-cube-04.svg",
+      "bytes": 1120
+    },
+    {
+      "id": "icon-target-alignment-01",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-target-alignment-01.svg",
+      "bytes": 1308
+    },
+    {
+      "id": "icon-target-alignment-02",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-target-alignment-02.svg",
+      "bytes": 1308
+    },
+    {
+      "id": "icon-target-alignment-03",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-target-alignment-03.svg",
+      "bytes": 1308
+    },
+    {
+      "id": "icon-target-alignment-04",
+      "type": "icon",
+      "src": "/assets/visual-library/icon-target-alignment-04.svg",
+      "bytes": 1308
+    },
+    {
+      "id": "identity-color-mosaic",
       "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-007.png",
+      "src": "/assets/visual-library/identity-color-mosaic.png",
       "bytes": 55840
     },
     {
-      "id": "brand-image-008",
-      "originalFile": "brand-image-008.png",
+      "id": "identity-footer-ornament",
       "type": "image",
-      "src": "/assets/images/brand-ppt-source/brand-image-008.png",
+      "src": "/assets/visual-library/identity-footer-ornament.png",
+      "bytes": 20683
+    },
+    {
+      "id": "identity-header-logos",
+      "type": "image",
+      "src": "/assets/visual-library/identity-header-logos.png",
+      "bytes": 19331
+    },
+    {
+      "id": "identity-health-logo-strip",
+      "type": "image",
+      "src": "/assets/visual-library/identity-health-logo-strip.png",
+      "bytes": 15611
+    },
+    {
+      "id": "identity-large-background-art",
+      "type": "image",
+      "src": "/assets/visual-library/identity-large-background-art.png",
+      "bytes": 2826688
+    },
+    {
+      "id": "identity-mosaic-corner",
+      "type": "image",
+      "src": "/assets/visual-library/identity-mosaic-corner.png",
+      "bytes": 6534
+    },
+    {
+      "id": "identity-small-accent",
+      "type": "image",
+      "src": "/assets/visual-library/identity-small-accent.png",
       "bytes": 2253
+    },
+    {
+      "id": "identity-small-logo-mark",
+      "type": "image",
+      "src": "/assets/visual-library/identity-small-logo-mark.png",
+      "bytes": 2898
+    },
+    {
+      "id": "intro-emergency-crisis-target",
+      "type": "illustration",
+      "src": "/assets/visual-library/intro-emergency-crisis-target.svg",
+      "bytes": 1920
+    },
+    {
+      "id": "intro-emergency-foresight-radar",
+      "type": "illustration",
+      "src": "/assets/visual-library/intro-emergency-foresight-radar.svg",
+      "bytes": 3047
+    },
+    {
+      "id": "intro-emergency-preparedness-shield-simple",
+      "type": "illustration",
+      "src": "/assets/visual-library/intro-emergency-preparedness-shield-simple.svg",
+      "bytes": 1399
+    },
+    {
+      "id": "intro-emergency-preparedness-shield",
+      "type": "illustration",
+      "src": "/assets/visual-library/intro-emergency-preparedness-shield.svg",
+      "bytes": 1410
+    },
+    {
+      "id": "intro-emergency-recovery-check",
+      "type": "illustration",
+      "src": "/assets/visual-library/intro-emergency-recovery-check.svg",
+      "bytes": 1756
+    },
+    {
+      "id": "intro-governance-building-scene",
+      "type": "image",
+      "src": "/assets/visual-library/intro-governance-building-scene.webp",
+      "bytes": 70032
+    },
+    {
+      "id": "intro-governance-compliance-scene",
+      "type": "image",
+      "src": "/assets/visual-library/intro-governance-compliance-scene.webp",
+      "bytes": 68996
+    },
+    {
+      "id": "intro-governance-risk-scene",
+      "type": "image",
+      "src": "/assets/visual-library/intro-governance-risk-scene.webp",
+      "bytes": 63104
+    },
+    {
+      "id": "leadership-board",
+      "type": "image",
+      "src": "/assets/visual-library/leadership-board.webp",
+      "bytes": 95302
+    },
+    {
+      "id": "policy-scene",
+      "type": "image",
+      "src": "/assets/visual-library/policy-scene.webp",
+      "bytes": 45930
+    },
+    {
+      "id": "policy-workflow",
+      "type": "image",
+      "src": "/assets/visual-library/policy-workflow.webp",
+      "bytes": 62756
+    },
+    {
+      "id": "risk-matrix",
+      "type": "image",
+      "src": "/assets/visual-library/risk-matrix.webp",
+      "bytes": 47682
+    },
+    {
+      "id": "risk-scene",
+      "type": "image",
+      "src": "/assets/visual-library/risk-scene.webp",
+      "bytes": 47296
+    },
+    {
+      "id": "secure-records",
+      "type": "image",
+      "src": "/assets/visual-library/secure-records.webp",
+      "bytes": 46964
     }
   ]
 }
