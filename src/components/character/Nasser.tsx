@@ -12,7 +12,28 @@ export type NasserPose =
   | 'warning'
   | 'completion';
 
+/** Bag 1's original illustrated Nasser -- lives under Default/ now that bag
+ *  2 has its own photographic set at the top level of nasser-assets/. */
 export const POSE_SRC: Record<NasserPose, string> = {
+  welcome: '/nasser-assets/Default/nasser-welcome.webp',
+  pointLeft: '/nasser-assets/Default/nasser-point-right.webp',
+  pointRight: '/nasser-assets/Default/nasser-point-left.webp',
+  question: '/nasser-assets/Default/nasser-question.webp',
+  success: '/nasser-assets/Default/nasser-success.webp',
+  tabletLeft: '/nasser-assets/Default/nasser-tablet-right.webp',
+  tabletRight: '/nasser-assets/Default/nasser-tablet-left.webp',
+  thinking: '/nasser-assets/Default/nasser-thinking.webp',
+  warning: '/nasser-assets/Default/nasser-warning.webp',
+  completion: '/nasser-assets/Default/nasser-completion.webp',
+};
+
+/** Bag 2's photographic Nasser (Ministry of Health emergency uniform).
+ *  Same pointLeft/pointRight and tabletLeft/tabletRight file swap as the
+ *  bag-1 set above: the "Left"/"Right" pose name is which side of the
+ *  screen Nasser is standing on, not which hand he gestures with, so the
+ *  file that visually points/holds toward a given side is assigned to the
+ *  *opposite* pose key. */
+export const POSE_SRC_BAG2: Record<NasserPose, string> = {
   welcome: '/nasser-assets/nasser-welcome.webp',
   pointLeft: '/nasser-assets/nasser-point-right.webp',
   pointRight: '/nasser-assets/nasser-point-left.webp',

@@ -10,7 +10,7 @@ import { ClassificationActivity } from '../activities/ClassificationActivity';
 import { FlipCardActivity } from '../activities/FlipCardActivity';
 import { DecisionSimulation } from '../activities/DecisionSimulation';
 import { KnowledgeCheck } from '../activities/KnowledgeCheck';
-import { POSE_SRC, type NasserPose } from '../character/Nasser';
+import { POSE_SRC, POSE_SRC_BAG2, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
@@ -382,6 +382,8 @@ function NasserStoryLayer({
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const poseSrc = isEmergencySlide ? POSE_SRC_BAG2 : POSE_SRC;
   const stripDiacritics = (value: string) => value.normalize('NFKD').replace(/\p{M}/gu, '');
   const displayLine = stripDiacritics(line);
   const displaySpokenPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.spokenPart) : displayLine;
@@ -393,7 +395,7 @@ function NasserStoryLayer({
         <div className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
             key={displayPose}
-            src={POSE_SRC[displayPose]}
+            src={poseSrc[displayPose]}
             alt="ناصر المدرب"
             className={`${imageSize} shrink-0 object-contain object-bottom drop-shadow-2xl`}
             loading="eager"
