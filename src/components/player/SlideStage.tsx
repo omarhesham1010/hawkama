@@ -3297,27 +3297,56 @@ function PptGuidedScenarioSlide({
 // Client feedback: a new slide feels empty right as Nasser starts talking,
 // since the real cards only reveal at their own exact word (see
 // pptCardRevealOffsets). This bridges that gap with 1-3 plain topic images
-// (no text, reusing the same keyword-matched pool the real scene draws
-// from) that cross-fade in from the very first word, then hand off to the
-// real synced scene the instant the first real card is due -- purely
+// (no text) that cross-fade in from the very first word, then hand off to
+// the real synced scene the instant the first real card is due -- purely
 // decorative, never claiming to be "the" explanation for anything.
-function PptIntroVisualFiller({ pool, progress }: { pool: string[]; progress: number }) {
+//
+// The pool mixes one topic-specific illustration matched against the
+// actual words spoken during this intro window (via pptGeneratedVisualLayersFor,
+// so it's expressive of what Nasser is saying right then, not just the
+// slide's general subject) with icons drawn from the much larger shared
+// icon library, rotated by the slide's own position so which icons show up
+// keeps changing slide to slide -- the library is large enough that a full
+// cycle takes well over five slides, so nothing feels like it's repeating
+// on every screen.
+function introVisualPoolFor(slide: Slide, introText: string): string[] {
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const marker = isEmergencySlide ? ' __bag2__' : '';
+  const topicMatches = pptGeneratedVisualLayersFor(`${introText}${marker}`);
+  const startIndex = (Math.max(0, slide.index) * 3) % SHARED_BRAND_ICON_POOL.length;
+  const rotatedIcons = [
+    ...SHARED_BRAND_ICON_POOL.slice(startIndex),
+    ...SHARED_BRAND_ICON_POOL.slice(0, startIndex),
+  ];
+  const combined: string[] = [];
+  const add = (src: string) => {
+    if (!combined.includes(src)) combined.push(src);
+  };
+  topicMatches.forEach(add);
+  rotatedIcons.forEach(add);
+  return combined.slice(0, 3);
+}
+
+function PptIntroVisualFiller({ pool, progress, introText }: { pool: string[]; progress: number; introText: string }) {
   const shown = pool.slice(0, Math.min(3, pool.length));
   if (!shown.length) return null;
   const activeIndex = Math.min(shown.length - 1, Math.floor(progress * shown.length));
   return (
     <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-visible">
-      {shown.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt=""
-          draggable={false}
-          className={`absolute inset-0 m-auto max-h-[300px] max-w-[64%] object-contain drop-shadow-[0_22px_36px_rgb(24_82_55_/_0.16)] transition-all duration-700 ease-out ${
-            i === activeIndex ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-          }`}
-        />
-      ))}
+      {shown.map((src, i) => {
+        const active = i === activeIndex;
+        return (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            draggable={false}
+            className={`absolute inset-0 m-auto max-h-[300px] max-w-[64%] object-contain drop-shadow-[0_22px_36px_rgb(24_82_55_/_0.16)] transition-[opacity,transform] duration-700 ease-out ${
+              active ? `opacity-100 motion-layer-focus ${activeVisualAnimationFor(introText, i)}` : 'scale-90 opacity-0'
+            }`}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -3458,7 +3487,8 @@ function PptStyleSlide({
   const showIntroFiller =
     slide.id.startsWith('ec1-') && cards.length > 0 && !isIntroMotion && !isConclusion &&
     started && !narrationFinished && revealedCount === 0 && narrationPosition > 0 && firstCardOffset > 60;
-  const introVisualPool = showIntroFiller ? slideVisualPool(slide, cards) : [];
+  const introText = showIntroFiller ? slide.narration.slice(0, firstCardOffset) : '';
+  const introVisualPool = showIntroFiller ? introVisualPoolFor(slide, introText) : [];
   const introProgress = showIntroFiller ? Math.max(0, Math.min(1, narrationPosition / Math.max(1, firstCardOffset))) : 0;
 
   const gridClass = isThree
@@ -3559,7 +3589,7 @@ function PptStyleSlide({
         {!isIntroMotion && <PptTitle slide={slide} showVisual={!isEmergencySlide || started || narrationPosition > 0 || narrationFinished} />}
 
         {showIntroFiller ? (
-          <PptIntroVisualFiller pool={introVisualPool} progress={introProgress} />
+          <PptIntroVisualFiller pool={introVisualPool} progress={introProgress} introText={introText} />
         ) : isIntro ? (
           <IntroMotionScene slide={slide} spoken={spoken} started={motionStarted} onStart={onStart} />
         ) : isIntroRoadmap ? (
