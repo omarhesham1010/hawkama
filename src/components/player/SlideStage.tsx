@@ -3544,14 +3544,15 @@ function PptStyleSlide({
   const isSpotlight = slide.layout === 'pptSpotlight';
   const motionStarted = started || spoken > 0 || showDialogue;
 
-  // Chapter-1 (bag 2) trial: bridge the gap between Nasser starting to talk
-  // and the first card's own exact word with plain topic images -- see
-  // PptIntroVisualFiller above. Skipped when the gap is too small to be
-  // worth bridging, and never on the dedicated intro/roadmap/conclusion
-  // scenes, which already animate from the first word on their own.
+  // Bridge the gap between Nasser starting to talk and the first card's own
+  // exact word with plain topic images -- see PptIntroVisualFiller above.
+  // Rolled out across all four bag-2 chapters (trialled on Chapter 1 first).
+  // Skipped when the gap is too small to be worth bridging, and never on the
+  // dedicated intro/roadmap/conclusion scenes, which already animate from
+  // the first word on their own.
   const firstCardOffset = revealOffsets[0] ?? 0;
   const showIntroFiller =
-    slide.id.startsWith('ec1-') && cards.length > 0 && !isIntroMotion && !isConclusion &&
+    /^ec[1-4]-/.test(slide.id) && cards.length > 0 && !isIntroMotion && !isConclusion &&
     started && !narrationFinished && revealedCount === 0 && narrationPosition > 0 && firstCardOffset > 60;
   const introText = showIntroFiller ? slide.narration.slice(0, firstCardOffset) : '';
   const introVisualPool = showIntroFiller ? introVisualPoolFor(slide, introText) : [];
