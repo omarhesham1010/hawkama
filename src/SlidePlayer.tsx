@@ -5,6 +5,7 @@ import { useNarrationContext } from './components/audio/NarrationContext';
 import { getCourseMeta, getSlidesForCourse } from './data/slides';
 import { courseHash } from './lib/courseRoutes';
 import { keepOnlyPreloadedNarrationAudio, preloadNarrationAudio } from './hooks/useNarration';
+import { toArabicDigits } from './lib/utils';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
 import { PlayerHeader } from './components/player/PlayerHeader';
@@ -263,15 +264,15 @@ export default function SlidePlayer({
               }}
             />
             {embeddedFooter && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-3 z-50 flex justify-center">
-                <div className="player-embedded-controls pointer-events-auto flex items-center gap-1 rounded-full bg-black/30 px-1.5 py-1 shadow-card backdrop-blur-sm">
+              <div className="pointer-events-none absolute inset-x-6 bottom-3 z-50 flex justify-center">
+                <div className="player-embedded-controls pointer-events-auto flex w-full max-w-3xl items-center gap-2 rounded-2xl bg-black/35 px-3 py-1.5 shadow-card backdrop-blur-sm">
                   <button
                     type="button"
                     onClick={() => goTo(index - 1)}
                     disabled={index === 0}
                     aria-label="الشريحة السابقة"
                     title="الشريحة السابقة"
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20 disabled:pointer-events-none disabled:opacity-30"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20 disabled:pointer-events-none disabled:opacity-30"
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M9 6l6 6-6 6" />
@@ -282,7 +283,7 @@ export default function SlidePlayer({
                     onClick={handlePlayPause}
                     aria-label={voicePlaying ? 'إيقاف مؤقت' : 'تشغيل'}
                     title={voicePlaying ? 'إيقاف مؤقت' : 'تشغيل'}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-white shadow-card"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white shadow-card"
                     style={{ background: 'linear-gradient(135deg, rgb(var(--brand-soft)), rgb(var(--brand)))' }}
                   >
                     {narration.isLoading ? (
@@ -300,10 +301,62 @@ export default function SlidePlayer({
                   </button>
                   <button
                     type="button"
+                    onClick={handleReplay}
+                    aria-label="إعادة الشريحة"
+                    title="إعادة الشريحة"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 12a9 9 0 109-9 9 9 0 00-7 3.3M3 3v4h4" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={toggleMute}
+                    aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
+                    title={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                  >
+                    {muted ? (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 9v6h4l5 4V5L8 9z" />
+                        <path d="M17 9l4 6M21 9l-4 6" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 9v6h4l5 4V5L8 9z" />
+                        <path d="M16 9a4 4 0 010 6" />
+                      </svg>
+                    )}
+                  </button>
+
+                  <div className="mx-1 flex min-w-0 flex-1 items-center gap-2">
+                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/20">
+                      <div
+                        className="h-full rounded-full transition-[width] duration-200 ease-linear"
+                        style={{
+                          width: `${Math.round(sync.progress * 100)}%`,
+                          background: 'linear-gradient(90deg, rgb(var(--brand-soft)), rgb(var(--brand)))',
+                        }}
+                      />
+                    </div>
+                    <span className="shrink-0 text-xs font-semibold text-white/90 tabular">
+                      {toArabicDigits(index + 1)} / {toArabicDigits(slides.length)}
+                    </span>
+                  </div>
+
+                  {sourceLabel && (
+                    <span className="hidden shrink-0 rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-semibold text-white sm:inline">
+                      {sourceLabel}
+                    </span>
+                  )}
+
+                  <button
+                    type="button"
                     onClick={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
                     aria-label={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
                     title={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
                   >
                     {index === slides.length - 1 ? (
                       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
