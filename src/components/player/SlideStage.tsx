@@ -1243,15 +1243,31 @@ function IntroMotionScene({
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
   const isEmergencyWelcome = slide.id === 'emergency-welcome';
+  // Every chapter has its own welcome/pptIntro slide (ec1-welcome,
+  // ec2-welcome, ...), not just the bag-2 top-level intro -- all of them
+  // need this same needle-based sync, not just the one slide that
+  // originally got hand-picked phrases. The bag-2 intro's own pillar
+  // labels are a paraphrase that doesn't appear verbatim in its narration
+  // (hence its hand-picked needles below), but every chapter welcome's
+  // pillar labels ARE lifted verbatim from that slide's own narration --
+  // see introPillars()/ppt.intro -- so using the pillar's own label text
+  // as the needle works generically for the rest of them.
+  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
-    : spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
+    : isEmergencyCourse
+      ? spokenPast(pillars[0]?.label ?? '', 0.2)
+      : spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
   const secondPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الثاني عن إدارة الأزمة نفسها', 0.41)
-    : spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
+    : isEmergencyCourse
+      ? spokenPast(pillars[1]?.label ?? '', 0.41)
+      : spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
   const thirdPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الثالث عن استشراف المستقبل', 0.53)
-    : spokenPast('ثم نختم بإدارة المخاطر', 0.72);
+    : isEmergencyCourse
+      ? spokenPast(pillars[2]?.label ?? '', 0.53)
+      : spokenPast('ثم نختم بإدارة المخاطر', 0.72);
   // Client call: nothing appears until Nasser actually talks about it --
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)
@@ -1260,7 +1276,6 @@ function IntroMotionScene({
   const visiblePillars = started ? (thirdPillarShown ? 3 : secondPillarShown ? 2 : firstPillarShown ? 1 : 0) : 0;
   // Bag 2 (emergency response) welcome slides get their own themed floating
   // layers instead of bag 1's governance/compliance/risk icons.
-  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const introLayerSrcs = isEmergencyCourse
     ? [
         '/assets/visual-library/intro-emergency-preparedness-shield.svg',
