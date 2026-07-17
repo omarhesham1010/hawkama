@@ -376,28 +376,42 @@ export default function SlidePlayer({
       </main>
 
       {/* Hover-near-edge hot zones (desktop mouse) — reveal chrome without
-          needing the toggle button. Harmless no-ops on touch. */}
+          needing the toggle button. Harmless no-ops on touch. The bottom
+          zone existed to surface the footer, which on the bag-2 intro is
+          now the always-visible embedded bar, not part of this chrome. */}
       <div
         className="absolute inset-x-0 top-0 z-30 h-6"
         onMouseEnter={showChrome}
         aria-hidden="true"
       />
-      <div
-        className="absolute inset-x-0 bottom-0 z-30 h-6"
-        onMouseEnter={showChrome}
-        aria-hidden="true"
-      />
+      {!embeddedFooter && (
+        <div
+          className="absolute inset-x-0 bottom-0 z-30 h-6"
+          onMouseEnter={showChrome}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Single toggle — always reachable, on every device, for showing or
-          collapsing both the header and footer chrome together. */}
+          collapsing the chrome. On the bag-2 intro the footer is the small
+          embedded bar (always visible, not part of this chrome), so here
+          it only ever shows/hides the header. */}
       <button
         type="button"
         onClick={(event) => {
           event.stopPropagation();
           toggleChrome();
         }}
-        aria-label={chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'}
-        title={chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'}
+        aria-label={
+          embeddedFooter
+            ? chromeVisible ? 'إخفاء الهيدر' : 'إظهار الهيدر'
+            : chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'
+        }
+        title={
+          embeddedFooter
+            ? chromeVisible ? 'إخفاء الهيدر' : 'إظهار الهيدر'
+            : chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'
+        }
         className="absolute left-1/2 top-1.5 z-[100] flex h-6 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-black/25 text-white/90 shadow-card backdrop-blur-sm transition-all hover:bg-black/40"
       >
         <svg
