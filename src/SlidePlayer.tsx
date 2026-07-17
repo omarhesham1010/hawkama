@@ -220,9 +220,11 @@ export default function SlidePlayer({
   const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة' : slide.title;
 
   // Client feedback: the footer (with prev/next) auto-hides and is hard to
-  // reach. Trying always-visible in-slide side arrows as a prototype on the
-  // bag-2 intro only, before deciding whether to roll it out further.
-  const showSideArrows = courseId === 'emergency-intro';
+  // reach. Trying a small always-visible control bar embedded inside the
+  // slide canvas itself (no caption text, just prev/play/next) as a
+  // prototype on the bag-2 intro only, before deciding whether to roll it
+  // out further.
+  const embeddedFooter = courseId === 'emergency-intro';
 
   return (
     <div className="relative h-[100dvh] overflow-hidden">
@@ -260,45 +262,67 @@ export default function SlidePlayer({
                 onExit: exit,
               }}
             />
+            {embeddedFooter && (
+              <div className="pointer-events-none absolute inset-x-0 bottom-3 z-50 flex justify-center">
+                <div className="player-embedded-controls pointer-events-auto flex items-center gap-1 rounded-full bg-black/30 px-1.5 py-1 shadow-card backdrop-blur-sm">
+                  <button
+                    type="button"
+                    onClick={() => goTo(index - 1)}
+                    disabled={index === 0}
+                    aria-label="الشريحة السابقة"
+                    title="الشريحة السابقة"
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20 disabled:pointer-events-none disabled:opacity-30"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePlayPause}
+                    aria-label={voicePlaying ? 'إيقاف مؤقت' : 'تشغيل'}
+                    title={voicePlaying ? 'إيقاف مؤقت' : 'تشغيل'}
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-white shadow-card"
+                    style={{ background: 'linear-gradient(135deg, rgb(var(--brand-soft)), rgb(var(--brand)))' }}
+                  >
+                    {narration.isLoading ? (
+                      <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                    ) : voicePlaying ? (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                        <rect x="6" y="5" width="4" height="14" rx="1" />
+                        <rect x="14" y="5" width="4" height="14" rx="1" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
+                    aria-label={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
+                    title={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                  >
+                    {index === slides.length - 1 ? (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 11l9-8 9 8" />
+                        <path d="M5 10v10h14V10" />
+                        <path d="M10 20v-6h4v6" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 6l-6 6 6 6" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
           </SlideCanvas>
         </div>
       </main>
-
-      {showSideArrows && (
-        <>
-          <button
-            type="button"
-            onClick={() => goTo(index - 1)}
-            disabled={index === 0}
-            aria-label="الشريحة السابقة"
-            title="الشريحة السابقة"
-            className="absolute right-3 top-1/2 z-40 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white shadow-card backdrop-blur-sm transition-all hover:bg-black/40 disabled:pointer-events-none disabled:opacity-0 sm:h-12 sm:w-12"
-          >
-            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 6l6 6-6 6" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
-            aria-label={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
-            title={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
-            className="absolute left-3 top-1/2 z-40 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white shadow-card backdrop-blur-sm transition-all hover:bg-black/40 sm:h-12 sm:w-12"
-          >
-            {index === slides.length - 1 ? (
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 11l9-8 9 8" />
-                <path d="M5 10v10h14V10" />
-                <path d="M10 20v-6h4v6" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 6l-6 6 6 6" />
-              </svg>
-            )}
-          </button>
-        </>
-      )}
 
       {/* Hover-near-edge hot zones (desktop mouse) — reveal chrome without
           needing the toggle button. Harmless no-ops on touch. */}
@@ -358,30 +382,33 @@ export default function SlidePlayer({
         />
       </div>
 
-      {/* Footer overlay — caption + playback controls together */}
-      <div
-        className={`absolute inset-x-0 bottom-0 z-[90] transition-all duration-300 ease-out ${
-          chromeVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
-        }`}
-        onMouseEnter={showChrome}
-        onMouseLeave={() => scheduleHideChrome()}
-      >
-        <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
-        <PlayerControls
-          index={index}
-          total={slides.length}
-          onPrev={() => goTo(index - 1)}
-          onNext={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
-          onPlayPause={handlePlayPause}
-          onReplay={handleReplay}
-          onToggleMute={toggleMute}
-          muted={muted}
-          isPlaying={voicePlaying}
-          isLoading={narration.isLoading}
-          progress={sync.progress}
-          sourceLabel={sourceLabel}
-        />
-      </div>
+      {/* Footer overlay — caption + playback controls together. Skipped on
+          the bag-2 intro, which uses the small embedded bar instead. */}
+      {!embeddedFooter && (
+        <div
+          className={`absolute inset-x-0 bottom-0 z-[90] transition-all duration-300 ease-out ${
+            chromeVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
+          }`}
+          onMouseEnter={showChrome}
+          onMouseLeave={() => scheduleHideChrome()}
+        >
+          <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
+          <PlayerControls
+            index={index}
+            total={slides.length}
+            onPrev={() => goTo(index - 1)}
+            onNext={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
+            onPlayPause={handlePlayPause}
+            onReplay={handleReplay}
+            onToggleMute={toggleMute}
+            muted={muted}
+            isPlaying={voicePlaying}
+            isLoading={narration.isLoading}
+            progress={sync.progress}
+            sourceLabel={sourceLabel}
+          />
+        </div>
+      )}
 
       {/* The closing screen's exit/restart buttons live inside the fixed
           16:9 canvas, so on a narrow phone they shrink down with everything
