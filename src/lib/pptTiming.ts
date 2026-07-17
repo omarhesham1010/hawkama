@@ -83,6 +83,87 @@ export function pptCardCueIndexes(cards: PptCard[], narration: string) {
   });
 }
 
+// Maps a cleaned (lowercased, punctuation-stripped, whitespace-collapsed)
+// copy of `text` back to the original character index each cleaned
+// character came from, so a match found in the cleaned copy can be
+// translated back into a real position in the source text.
+function cleanedPositionMap(text: string) {
+  let cleaned = '';
+  const positions: number[] = [];
+  let pendingSpace = false;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    if (/[\p{L}\p{N}]/u.test(ch)) {
+      if (pendingSpace && cleaned.length) {
+        cleaned += ' ';
+        positions.push(i);
+      }
+      cleaned += ch.toLowerCase();
+      positions.push(i);
+      pendingSpace = false;
+    } else {
+      pendingSpace = true;
+    }
+  }
+  return { cleaned, positions };
+}
+
+function findTitleOffset(cueText: string, cueStart: number, card: PptCard): number | null {
+  const title = cleanText(card.title);
+  if (!title) return null;
+  const { cleaned, positions } = cleanedPositionMap(cueText);
+  const idx = cleaned.indexOf(title) >= 0 ? cleaned.indexOf(title) : cleaned.indexOf(title.split(' ')[0]);
+  if (idx < 0) return null;
+  return cueStart + (positions[idx] ?? 0);
+}
+
+/** Character position (within `narration`) where each card should reveal --
+ *  finer-grained than pptCardCueIndexes' whole-sentence cue. Several cards
+ *  are routinely named in the very same sentence ("آلية التفعيل، توزيع
+ *  الأدوار، إدارة الموارد..."); snapping all of them to that sentence's
+ *  start would pop them in together the instant it begins, instead of one
+ *  by one as Nasser actually says each one. This locates each card's own
+ *  title text inside its assigned cue and orders/staggers cards that share
+ *  a cue accordingly, falling back to an even split across the cue when a
+ *  card has no individual mention (e.g. a "shown in front of you" list). */
+export function pptCardRevealOffsets(cards: PptCard[], narration: string): number[] {
+  const cues = storyCues(narration);
+  if (!cues.length) return cards.map(() => 0);
+
+  const cueIndexes = pptCardCueIndexes(cards, narration);
+  const offsets = new Array(cards.length).fill(0);
+  const cardIndexesByCue = new Map<number, number[]>();
+  cueIndexes.forEach((cueIndex, cardIndex) => {
+    if (!cardIndexesByCue.has(cueIndex)) cardIndexesByCue.set(cueIndex, []);
+    cardIndexesByCue.get(cueIndex)!.push(cardIndex);
+  });
+
+  for (const [cueIndex, cardIndexes] of cardIndexesByCue) {
+    const cue = cues[cueIndex];
+    if (!cue) continue;
+    if (cardIndexes.length === 1) {
+      const cardIndex = cardIndexes[0];
+      offsets[cardIndex] = findTitleOffset(cue.text, cue.start, cards[cardIndex]) ?? cue.start;
+      continue;
+    }
+    const found = cardIndexes.map((cardIndex) => ({
+      cardIndex,
+      pos: findTitleOffset(cue.text, cue.start, cards[cardIndex]),
+    }));
+    found.sort((a, b) => (a.pos ?? Infinity) - (b.pos ?? Infinity));
+    const span = Math.max(found.length, cue.end - cue.start);
+    let cursor = cue.start;
+    found.forEach((entry, order) => {
+      const fallback = cue.start + Math.floor((span * order) / found.length);
+      const pos = Math.max(cursor, entry.pos ?? fallback);
+      offsets[entry.cardIndex] = pos;
+      cursor = pos + 1; // strictly increasing, so ties still separate in order
+    });
+  }
+
+  return offsets;
+}
+
 export function activePptCardForCue(revealCueIndexes: number[], cueIndex: number) {
   let active = -1;
   for (let index = 0; index < revealCueIndexes.length; index += 1) {

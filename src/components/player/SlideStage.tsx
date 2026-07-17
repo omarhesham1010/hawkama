@@ -14,7 +14,7 @@ import { POSE_SRC, POSE_SRC_BAG2, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
-import { activePptCardForCue, pptCardCueIndexes, scorePptCardCue } from '../../lib/pptTiming';
+import { activePptCardForCue, pptCardCueIndexes, pptCardRevealOffsets, scorePptCardCue } from '../../lib/pptTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
 import { useCanvasPortal } from '../../lib/canvasScale';
@@ -3346,8 +3346,15 @@ function PptStyleSlide({
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const narrationPosition = started ? spoken : 0;
-  const cueState = activeStoryCue(slide.narration, narrationPosition);
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
+  // Character-level reveal timing: several cards are routinely named in the
+  // very same sentence, so snapping them all to that sentence's cue (as
+  // revealCueIndexes does, for the coarser "which chunk to replay" job
+  // below) would pop them in together the instant it starts. This finds
+  // each card's own word position instead, so a shared sentence still
+  // reveals its cards one at a time, in step with Nasser actually saying
+  // each one.
+  const revealOffsets = pptCardRevealOffsets(cards, slide.narration);
   // The exact stretch of the slide's own narration where Nasser talked
   // about this card — used to replay that original recording instead of
   // synthesizing new text/audio when the learner reopens the card.
@@ -3393,15 +3400,15 @@ function PptStyleSlide({
   const narrationFinished = narrationPosition >= slide.narration.length - 1;
   const activeCard =
     narrationPosition > 0 && !narrationFinished
-      ? activePptCardForCue(revealCueIndexes, cueState.index)
+      ? activePptCardForCue(revealOffsets, narrationPosition)
       : -1;
   // Bag 1 can rest as a complete poster, but Bag 2 is authored as a
   // Nasser-led motion scene: visuals stay hidden until the audio clock starts.
   const idleAtSlideStart = narrationPosition <= 0;
   const cardIsVisible = (index: number) =>
     isEmergencySlide
-      ? narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0))
-      : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && cueState.index >= (revealCueIndexes[index] ?? 0));
+      ? narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0))
+      : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const isIntro = slide.layout === 'pptIntro';
   const isIntroRoadmap = slide.id === 'program-map';
