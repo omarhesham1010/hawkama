@@ -272,7 +272,8 @@ export default function SlidePlayer({
                     disabled={index === 0}
                     aria-label="الشريحة السابقة"
                     title="الشريحة السابقة"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20 disabled:pointer-events-none disabled:opacity-30"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white shadow-card transition-opacity hover:opacity-85 disabled:pointer-events-none disabled:opacity-30"
+                    style={{ background: 'rgb(var(--gold))' }}
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M9 6l6 6-6 6" />
@@ -304,7 +305,8 @@ export default function SlidePlayer({
                     onClick={handleReplay}
                     aria-label="إعادة الشريحة"
                     title="إعادة الشريحة"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white shadow-card transition-opacity hover:opacity-85"
+                    style={{ background: 'rgb(var(--gold))' }}
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3 12a9 9 0 109-9 9 9 0 00-7 3.3M3 3v4h4" />
@@ -315,7 +317,8 @@ export default function SlidePlayer({
                     onClick={toggleMute}
                     aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
                     title={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white shadow-card transition-opacity hover:opacity-85"
+                    style={{ background: 'rgb(var(--gold))' }}
                   >
                     {muted ? (
                       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -345,18 +348,13 @@ export default function SlidePlayer({
                     </span>
                   </div>
 
-                  {sourceLabel && (
-                    <span className="hidden shrink-0 rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-semibold text-white sm:inline">
-                      {sourceLabel}
-                    </span>
-                  )}
-
                   <button
                     type="button"
                     onClick={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
                     aria-label={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
                     title={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white shadow-card transition-opacity hover:opacity-85"
+                    style={{ background: 'rgb(var(--gold))' }}
                   >
                     {index === slides.length - 1 ? (
                       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
