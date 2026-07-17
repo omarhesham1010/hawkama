@@ -158,7 +158,7 @@ export function PlatformHome({
             </h1>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-white/85 px-4 py-2 text-base font-extrabold text-brand-strong shadow-card">
               <Icon name="shield" className="h-5 w-5 text-gold-600" />
-              تحت إشراف أ/ ناصر
+              تحت إشراف المدرب ناصر
             </div>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">{platform.intro}</p>
 

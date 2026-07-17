@@ -292,7 +292,7 @@ function makeSlide({
     layout,
     timeline: emptyTimeline,
     ppt: {
-      eyebrow: layout === 'pptIntro' ? 'تحت إشراف أ/ ناصر' : undefined,
+      eyebrow: layout === 'pptIntro' ? 'تحت إشراف المدرب ناصر' : undefined,
       courseName,
       subtitle,
       unitTitle,

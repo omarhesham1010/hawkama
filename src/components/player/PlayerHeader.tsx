@@ -105,7 +105,7 @@ export function PlayerHeader({
           {sectionLabel}
         </span>
         <span className="-mt-px rounded-b-xl bg-white px-5 py-1 text-[13px] font-extrabold text-brand-strong shadow-card">
-          تحت إشراف أ/ ناصر
+          تحت إشراف المدرب ناصر
         </span>
       </div>
 

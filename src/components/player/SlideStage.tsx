@@ -1354,7 +1354,7 @@ function IntroMotionScene({
         <div className="mr-auto w-[49%] animate-fade-up">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
-              تحت إشراف أ/ ناصر
+              تحت إشراف المدرب ناصر
             </span>
             <span className="rounded-full border border-gold-500/25 bg-gold-50/78 px-4 py-1.5 text-[14px] font-extrabold text-gold-700 shadow-sm backdrop-blur-sm">
               بداية الرحلة
