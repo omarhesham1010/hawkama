@@ -1124,7 +1124,7 @@ function PptQuickCheckPopup({
   const revealed = phase === 'revealed';
   const ready = phase === 'ready' && !narrationLocked;
   return (
-    <div className="absolute inset-0 z-20 grid place-items-start pt-[64px]" aria-live="polite">
+    <div className="absolute inset-0 z-20 grid place-items-start pt-[104px]" aria-live="polite">
       {/* Once Nasser has answered, tapping anywhere outside the card dismisses
           it and returns to the normal slide view — only active post-reveal
           so the learner can't skip past the question itself. */}
