@@ -219,6 +219,11 @@ export default function SlidePlayer({
   const sourceLabel = voicePlaying ? (narration.source === 'audio' ? 'ملف صوتي' : 'قراءة صوتية') : null;
   const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة' : slide.title;
 
+  // Client feedback: the footer (with prev/next) auto-hides and is hard to
+  // reach. Trying always-visible in-slide side arrows as a prototype on the
+  // bag-2 intro only, before deciding whether to roll it out further.
+  const showSideArrows = courseId === 'emergency-intro';
+
   return (
     <div className="relative h-[100dvh] overflow-hidden">
       <BackgroundDecor />
@@ -258,6 +263,34 @@ export default function SlidePlayer({
           </SlideCanvas>
         </div>
       </main>
+
+      {showSideArrows && (
+        <>
+          <button
+            type="button"
+            onClick={() => goTo(index - 1)}
+            disabled={index === 0}
+            aria-label="الشريحة السابقة"
+            title="الشريحة السابقة"
+            className="absolute right-3 top-1/2 z-40 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white shadow-card backdrop-blur-sm transition-all hover:bg-black/40 disabled:pointer-events-none disabled:opacity-0 sm:h-12 sm:w-12"
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
+            aria-label={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
+            title={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
+            className="absolute left-3 top-1/2 z-40 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white shadow-card backdrop-blur-sm transition-all hover:bg-black/40 sm:h-12 sm:w-12"
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+        </>
+      )}
 
       {/* Hover-near-edge hot zones (desktop mouse) — reveal chrome without
           needing the toggle button. Harmless no-ops on touch. */}
