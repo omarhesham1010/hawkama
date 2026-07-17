@@ -1822,16 +1822,78 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
     if (!layers.includes(src)) layers.push(src);
   };
 
-  // Bag 2 (emergency response) topics — checked first so their own visuals
-  // win the primary card slot even when a word also appears in bag 1's
-  // governance vocabulary (e.g. "مخاطر", "قيادة", "تقييم").
+  // Named frameworks with their own dedicated illustration — checked FIRST,
+  // before the broader bag-2 rules below, because these are narrow, precise
+  // phrase matches (a card literally about "دورة PDCA" or the "أحمر/أسود"
+  // escalation levels) that should win even when the same card's fuller
+  // text also happens to mention a broader term like "قيادة" or "خطة
+  // تحسين" -- checking broad rules first let them steal the primary slot
+  // from a much more specific, more expressive match every time the two
+  // overlapped. See docs/bag2-visual-library-expansion-prompt.md for the
+  // audit that surfaced these gaps.
+  if (hasAny(text, ['معايير التصعيد', 'تسلسل تصعيد', 'أخضر', 'أصفر', 'أحمر', 'أسود', 'برتقالي', 'ربط العتبات بالإجراءات'])) {
+    add(variantOf(['/assets/visual-library/emergency-escalation-levels-01.svg', '/assets/visual-library/emergency-escalation-levels-02.svg'], text));
+  }
+  if (hasAny(text, ['OODA', 'Observe لاحظ', 'Orient توجّه', 'Decide قرّر', 'Act نفّذ'])) {
+    add(variantOf(['/assets/visual-library/emergency-ooda-loop-01.svg', '/assets/visual-library/emergency-ooda-loop-02.svg'], text));
+  }
+  if (hasAny(text, ['CERC', 'ما قبل الأزمة', 'المرحلة الأولية', 'مرحلة الصيانة', 'مرحلة الحل', 'مرحلة التقييم'])) {
+    add(variantOf(['/assets/visual-library/emergency-cerc-timeline-01.svg', '/assets/visual-library/emergency-cerc-timeline-02.svg'], text));
+  }
+  if (hasAny(text, ['PESTLE', 'المسح الأفقي', 'السياسة والتشريع', 'القطاع الخاص'])) {
+    add(variantOf(['/assets/visual-library/emergency-pestle-wheel-01.svg', '/assets/visual-library/emergency-pestle-wheel-02.svg'], text));
+  }
+  if (hasAny(text, ['المسح الرأسي', 'المستوى الكلي', 'Macro', 'المستوى المتوسط', 'Meso', 'المستوى الجزئي', 'Micro'])) {
+    add(variantOf(['/assets/visual-library/emergency-macro-meso-micro-01.svg', '/assets/visual-library/emergency-macro-meso-micro-02.svg'], text));
+  }
+  if (hasAny(text, ['دلفي', 'مسح الخبراء'])) {
+    add(variantOf(['/assets/visual-library/emergency-delphi-method-01.svg', '/assets/visual-library/emergency-delphi-method-02.svg'], text));
+  }
+  if (hasAny(text, ['عجلة المستقبل', 'تحليل التأثير المتبادل'])) {
+    add(variantOf(['/assets/visual-library/emergency-futures-wheel-01.svg', '/assets/visual-library/emergency-futures-wheel-02.svg'], text));
+  }
+  if (hasAny(text, ['الخطر Hazard', 'التعرض Exposure', 'الهشاشة Vulnerability', 'أخطار متتالية', 'أخطار متزامنة', 'أخطار متزايدة', 'متعددة الأخطار'])) {
+    add(variantOf(['/assets/visual-library/emergency-hazard-triangle-01.svg', '/assets/visual-library/emergency-hazard-triangle-02.svg'], text));
+  }
+  if (hasAny(text, ['مصفوفة السيناريوهات', 'حالات عدم اليقين', 'القوى الدافعة', 'الروايات', 'سؤال محوري'])) {
+    add(variantOf(['/assets/visual-library/emergency-scenario-matrix-01.svg', '/assets/visual-library/emergency-scenario-matrix-02.svg'], text));
+  }
+  if (hasAny(text, ['مؤشرات استباقية', 'Leading', 'مؤشرات متأخرة', 'Lagging', 'مؤشرات كمية', 'Quantitative', 'مؤشرات نوعية', 'Qualitative'])) {
+    add(variantOf(['/assets/visual-library/emergency-leading-lagging-01.svg', '/assets/visual-library/emergency-leading-lagging-02.svg'], text));
+  }
+  if (hasAny(text, ['الترصد القائم على المؤشرات', 'الترصد القائم على الأحداث'])) {
+    add(variantOf(['/assets/visual-library/emergency-surveillance-modes-01.svg', '/assets/visual-library/emergency-surveillance-modes-02.svg'], text));
+  }
+  if (hasAny(text, ['الفئة A', 'الفئة B', 'الفئة C', 'ABC'])) {
+    add(variantOf(['/assets/visual-library/emergency-abc-inventory-01.svg', '/assets/visual-library/emergency-abc-inventory-02.svg'], text));
+  }
+  if (hasAny(text, ['PDCA', 'دورة PDCA'])) {
+    add(variantOf(['/assets/visual-library/emergency-pdca-cycle-01.svg', '/assets/visual-library/emergency-pdca-cycle-02.svg'], text));
+  }
+  if (hasAny(text, ['القوة والاهتمام', 'راقب', 'أبقهم مطلعين', 'أبقهم راضين', 'أدرهم عن كثب'])) {
+    add(variantOf(['/assets/visual-library/emergency-power-interest-matrix-01.svg', '/assets/visual-library/emergency-power-interest-matrix-02.svg'], text));
+  }
+  if (hasAny(text, ['كن الأول', 'كن دقيقًا', 'كن ذا مصداقية', 'عبّر عن التعاطف', 'شجّع على العمل', 'أظهر الاحترام'])) {
+    add(variantOf(['/assets/visual-library/emergency-crisis-comm-principles-01.svg', '/assets/visual-library/emergency-crisis-comm-principles-02.svg'], text));
+  }
+  if (hasAny(text, ['معايير SMART', 'SMART', 'SMART-ER'])) {
+    add(variantOf(['/assets/visual-library/emergency-smart-criteria-01.svg', '/assets/visual-library/emergency-smart-criteria-02.svg'], text));
+  }
+  if (hasAny(text, ['السيناريو الأفضل', 'السيناريو الأسوأ', 'السيناريو الأكثر ترجيحًا'])) {
+    add(variantOf(['/assets/visual-library/emergency-scenario-branches-01.svg', '/assets/visual-library/emergency-scenario-branches-02.svg'], text));
+  }
+
+  // Bag 2 (emergency response) broader topics — checked after the precise
+  // rules above so their own visuals win the primary card slot even when a
+  // word also appears in bag 1's governance vocabulary (e.g. "مخاطر",
+  // "قيادة", "تقييم").
   if (hasAny(text, ['مصفوفة RACI', 'RACI', 'المسؤول عن التنفيذ', 'المساءَل', 'يجب استشارته', 'يجب إعلامه'])) {
     add(variantOf(['/assets/visual-library/emergency-raci-matrix.svg', '/assets/visual-library/emergency-raci-matrix-02.svg', '/assets/visual-library/emergency-raci-matrix-03.svg'], text));
   }
   if (hasAny(text, ['ديناميكيات الأزمات', 'أنواع الأزمات', 'الحدث Event', 'الطارئ Emergency', 'الأزمة Crisis', 'الكارثة Disaster'])) {
     add('/assets/visual-library/emergency-crisis-terms.svg');
   }
-  if (hasAny(text, ['القيادة أثناء الأزمات', 'سمات القيادة', 'الهدوء الظاهر', 'التعاطف الإنساني', 'التواجد الميداني'])) {
+  if (hasAny(text, ['القيادة أثناء الأزمات', 'سمات القيادة', 'الهدوء الظاهر', 'الحسم في القرارات', 'التعاطف الإنساني', 'التواجد الميداني'])) {
     add(variantOf(['/assets/visual-library/emergency-leadership-traits.svg', '/assets/visual-library/emergency-leadership-traits-02.svg', '/assets/visual-library/emergency-leadership-traits-03.svg'], text));
   }
   if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'مركز قيادة', 'التنسيق أثناء الطوارئ'])) {
@@ -1882,62 +1944,6 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   }
   if (hasAny(text, ['الموارد البشرية', 'تنسيق الموارد', 'تنسيق المعلومات', 'تدفق المعلومات', 'فرق الاستجابة', 'الكوادر'])) {
     add(variantOf(['/assets/visual-library/emergency-response-team.svg', '/assets/visual-library/emergency-response-team-02.svg', '/assets/visual-library/emergency-response-team-03.svg'], text));
-  }
-
-  // Named frameworks that used to have no illustration of their own and
-  // fell through to whichever generic image the fallback pool happened to
-  // pick -- see docs/bag2-visual-library-expansion-prompt.md for the audit
-  // that surfaced these.
-  if (hasAny(text, ['معايير التصعيد', 'أخضر', 'أصفر', 'أحمر', 'أسود', 'برتقالي', 'ربط العتبات بالإجراءات'])) {
-    add(variantOf(['/assets/visual-library/emergency-escalation-levels-01.svg', '/assets/visual-library/emergency-escalation-levels-02.svg'], text));
-  }
-  if (hasAny(text, ['OODA', 'Observe لاحظ', 'Orient توجّه', 'Decide قرّر', 'Act نفّذ'])) {
-    add(variantOf(['/assets/visual-library/emergency-ooda-loop-01.svg', '/assets/visual-library/emergency-ooda-loop-02.svg'], text));
-  }
-  if (hasAny(text, ['CERC', 'ما قبل الأزمة', 'المرحلة الأولية', 'مرحلة الصيانة', 'مرحلة الحل', 'مرحلة التقييم'])) {
-    add(variantOf(['/assets/visual-library/emergency-cerc-timeline-01.svg', '/assets/visual-library/emergency-cerc-timeline-02.svg'], text));
-  }
-  if (hasAny(text, ['PESTLE', 'المسح الأفقي', 'السياسة والتشريع', 'القطاع الخاص'])) {
-    add(variantOf(['/assets/visual-library/emergency-pestle-wheel-01.svg', '/assets/visual-library/emergency-pestle-wheel-02.svg'], text));
-  }
-  if (hasAny(text, ['المسح الرأسي', 'المستوى الكلي', 'Macro', 'المستوى المتوسط', 'Meso', 'المستوى الجزئي', 'Micro'])) {
-    add(variantOf(['/assets/visual-library/emergency-macro-meso-micro-01.svg', '/assets/visual-library/emergency-macro-meso-micro-02.svg'], text));
-  }
-  if (hasAny(text, ['دلفي', 'مسح الخبراء'])) {
-    add(variantOf(['/assets/visual-library/emergency-delphi-method-01.svg', '/assets/visual-library/emergency-delphi-method-02.svg'], text));
-  }
-  if (hasAny(text, ['عجلة المستقبل', 'تحليل التأثير المتبادل'])) {
-    add(variantOf(['/assets/visual-library/emergency-futures-wheel-01.svg', '/assets/visual-library/emergency-futures-wheel-02.svg'], text));
-  }
-  if (hasAny(text, ['الخطر Hazard', 'التعرض Exposure', 'الهشاشة Vulnerability', 'أخطار متتالية', 'أخطار متزامنة', 'أخطار متزايدة', 'متعددة الأخطار'])) {
-    add(variantOf(['/assets/visual-library/emergency-hazard-triangle-01.svg', '/assets/visual-library/emergency-hazard-triangle-02.svg'], text));
-  }
-  if (hasAny(text, ['مصفوفة السيناريوهات', 'حالات عدم اليقين', 'القوى الدافعة', 'الروايات', 'سؤال محوري'])) {
-    add(variantOf(['/assets/visual-library/emergency-scenario-matrix-01.svg', '/assets/visual-library/emergency-scenario-matrix-02.svg'], text));
-  }
-  if (hasAny(text, ['مؤشرات استباقية', 'Leading', 'مؤشرات متأخرة', 'Lagging', 'مؤشرات كمية', 'Quantitative', 'مؤشرات نوعية', 'Qualitative'])) {
-    add(variantOf(['/assets/visual-library/emergency-leading-lagging-01.svg', '/assets/visual-library/emergency-leading-lagging-02.svg'], text));
-  }
-  if (hasAny(text, ['الترصد القائم على المؤشرات', 'الترصد القائم على الأحداث'])) {
-    add(variantOf(['/assets/visual-library/emergency-surveillance-modes-01.svg', '/assets/visual-library/emergency-surveillance-modes-02.svg'], text));
-  }
-  if (hasAny(text, ['الفئة A', 'الفئة B', 'الفئة C', 'ABC'])) {
-    add(variantOf(['/assets/visual-library/emergency-abc-inventory-01.svg', '/assets/visual-library/emergency-abc-inventory-02.svg'], text));
-  }
-  if (hasAny(text, ['PDCA', 'دورة PDCA'])) {
-    add(variantOf(['/assets/visual-library/emergency-pdca-cycle-01.svg', '/assets/visual-library/emergency-pdca-cycle-02.svg'], text));
-  }
-  if (hasAny(text, ['القوة والاهتمام', 'راقب', 'أبقهم مطلعين', 'أبقهم راضين', 'أدرهم عن كثب'])) {
-    add(variantOf(['/assets/visual-library/emergency-power-interest-matrix-01.svg', '/assets/visual-library/emergency-power-interest-matrix-02.svg'], text));
-  }
-  if (hasAny(text, ['كن الأول', 'كن دقيقًا', 'كن ذا مصداقية', 'عبّر عن التعاطف', 'شجّع على العمل', 'أظهر الاحترام'])) {
-    add(variantOf(['/assets/visual-library/emergency-crisis-comm-principles-01.svg', '/assets/visual-library/emergency-crisis-comm-principles-02.svg'], text));
-  }
-  if (hasAny(text, ['معايير SMART', 'SMART', 'SMART-ER'])) {
-    add(variantOf(['/assets/visual-library/emergency-smart-criteria-01.svg', '/assets/visual-library/emergency-smart-criteria-02.svg'], text));
-  }
-  if (hasAny(text, ['السيناريو الأفضل', 'السيناريو الأسوأ', 'السيناريو الأكثر ترجيحًا'])) {
-    add(variantOf(['/assets/visual-library/emergency-scenario-branches-01.svg', '/assets/visual-library/emergency-scenario-branches-02.svg'], text));
   }
 
   // Bag 1's generic vocabulary (خطر/قيادة/إطار/تقييم...) overlaps heavily
@@ -2068,84 +2074,14 @@ function stableIconIndex(text: string) {
 // Every emergency-topic illustration plus the full shared icon library, for
 // cards whose title doesn't trip any of pptGeneratedVisualLayersFor's
 // specific keyword rules -- see its use there.
-const EMERGENCY_FALLBACK_POOL = [
-  '/assets/visual-library/emergency-command-center.svg',
-  '/assets/visual-library/emergency-command-center-02.svg',
-  '/assets/visual-library/emergency-command-center-03.svg',
-  '/assets/visual-library/emergency-strategic-framework.svg',
-  '/assets/visual-library/emergency-continuity-shield.svg',
-  '/assets/visual-library/emergency-continuity-shield-02.svg',
-  '/assets/visual-library/emergency-continuity-shield-03.svg',
-  '/assets/visual-library/emergency-crisis-communication.svg',
-  '/assets/visual-library/emergency-crisis-communication-02.svg',
-  '/assets/visual-library/emergency-crisis-communication-03.svg',
-  '/assets/visual-library/emergency-decision-pressure.svg',
-  '/assets/visual-library/emergency-decision-pressure-02.svg',
-  '/assets/visual-library/emergency-decision-pressure-03.svg',
-  '/assets/visual-library/emergency-proactive-scanning.svg',
-  '/assets/visual-library/emergency-risk-matrix.svg',
-  '/assets/visual-library/emergency-risk-matrix-02.svg',
-  '/assets/visual-library/emergency-risk-matrix-03.svg',
-  '/assets/visual-library/emergency-surveillance-radar.svg',
-  '/assets/visual-library/emergency-surveillance-radar-02.svg',
-  '/assets/visual-library/emergency-surveillance-radar-03.svg',
-  '/assets/visual-library/emergency-supply-chain.svg',
-  '/assets/visual-library/emergency-supply-chain-02.svg',
-  '/assets/visual-library/emergency-supply-chain-03.svg',
-  '/assets/visual-library/emergency-after-action-review.svg',
-  '/assets/visual-library/emergency-after-action-review-02.svg',
-  '/assets/visual-library/emergency-after-action-review-03.svg',
-  '/assets/visual-library/emergency-kpi-dashboard.svg',
-  '/assets/visual-library/emergency-kpi-dashboard-02.svg',
-  '/assets/visual-library/emergency-kpi-dashboard-03.svg',
-  '/assets/visual-library/emergency-stakeholder-network.svg',
-  '/assets/visual-library/emergency-stakeholder-network-02.svg',
-  '/assets/visual-library/emergency-stakeholder-network-03.svg',
-  '/assets/visual-library/emergency-response-team.svg',
-  '/assets/visual-library/emergency-response-team-02.svg',
-  '/assets/visual-library/emergency-response-team-03.svg',
-  '/assets/visual-library/emergency-raci-matrix.svg',
-  '/assets/visual-library/emergency-raci-matrix-02.svg',
-  '/assets/visual-library/emergency-raci-matrix-03.svg',
-  '/assets/visual-library/emergency-leadership-traits.svg',
-  '/assets/visual-library/emergency-leadership-traits-02.svg',
-  '/assets/visual-library/emergency-leadership-traits-03.svg',
-  '/assets/visual-library/emergency-escalation-levels-01.svg',
-  '/assets/visual-library/emergency-escalation-levels-02.svg',
-  '/assets/visual-library/emergency-ooda-loop-01.svg',
-  '/assets/visual-library/emergency-ooda-loop-02.svg',
-  '/assets/visual-library/emergency-cerc-timeline-01.svg',
-  '/assets/visual-library/emergency-cerc-timeline-02.svg',
-  '/assets/visual-library/emergency-pestle-wheel-01.svg',
-  '/assets/visual-library/emergency-pestle-wheel-02.svg',
-  '/assets/visual-library/emergency-macro-meso-micro-01.svg',
-  '/assets/visual-library/emergency-macro-meso-micro-02.svg',
-  '/assets/visual-library/emergency-delphi-method-01.svg',
-  '/assets/visual-library/emergency-delphi-method-02.svg',
-  '/assets/visual-library/emergency-futures-wheel-01.svg',
-  '/assets/visual-library/emergency-futures-wheel-02.svg',
-  '/assets/visual-library/emergency-hazard-triangle-01.svg',
-  '/assets/visual-library/emergency-hazard-triangle-02.svg',
-  '/assets/visual-library/emergency-scenario-matrix-01.svg',
-  '/assets/visual-library/emergency-scenario-matrix-02.svg',
-  '/assets/visual-library/emergency-leading-lagging-01.svg',
-  '/assets/visual-library/emergency-leading-lagging-02.svg',
-  '/assets/visual-library/emergency-surveillance-modes-01.svg',
-  '/assets/visual-library/emergency-surveillance-modes-02.svg',
-  '/assets/visual-library/emergency-abc-inventory-01.svg',
-  '/assets/visual-library/emergency-abc-inventory-02.svg',
-  '/assets/visual-library/emergency-pdca-cycle-01.svg',
-  '/assets/visual-library/emergency-pdca-cycle-02.svg',
-  '/assets/visual-library/emergency-power-interest-matrix-01.svg',
-  '/assets/visual-library/emergency-power-interest-matrix-02.svg',
-  '/assets/visual-library/emergency-crisis-comm-principles-01.svg',
-  '/assets/visual-library/emergency-crisis-comm-principles-02.svg',
-  '/assets/visual-library/emergency-smart-criteria-01.svg',
-  '/assets/visual-library/emergency-smart-criteria-02.svg',
-  '/assets/visual-library/emergency-scenario-branches-01.svg',
-  '/assets/visual-library/emergency-scenario-branches-02.svg',
-  ...SHARED_BRAND_ICON_POOL,
-];
+// Deliberately generic icons only -- NOT the specific illustrations above.
+// A card that matched none of the specific keyword rules has no real
+// connection to any of those illustrations, so showing e.g. the PESTLE
+// wheel or the surveillance radar on an unrelated card would look like a
+// confident (but wrong) claim about that card's content. A neutral shared
+// icon doesn't make that claim, while still giving every unmatched card
+// its own distinct, varied visual (see sharedBrandIconFor below).
+const EMERGENCY_FALLBACK_POOL = SHARED_BRAND_ICON_POOL;
 
 function sharedBrandIconFor(text: string, index = 0) {
   const seed = stableIconIndex(text);
