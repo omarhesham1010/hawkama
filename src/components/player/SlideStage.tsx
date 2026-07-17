@@ -1916,7 +1916,20 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   }
 
   if (layers.length === 0) {
-    add(fallback ?? (isEmergencyTopic ? '/assets/visual-library/emergency-command-center.svg' : '/assets/visual-library/governance-scene.webp'));
+    if (fallback) {
+      add(fallback);
+    } else if (isEmergencyTopic) {
+      // Most card titles are short, specific phrases ("توزيع الأدوار",
+      // "قنوات اتصال معتمدة"...) that never trip any of bag 2's keyword
+      // rules above, so they all used to fall through to this one fixed
+      // image -- across Chapter 1 that meant the exact same illustration
+      // on the majority of cards. Hashing the card's own (always-distinct)
+      // text into the combined illustration + shared-icon pool instead
+      // gives every untitled card its own consistent-but-varied visual.
+      add(EMERGENCY_FALLBACK_POOL[stableIconIndex(text) % EMERGENCY_FALLBACK_POOL.length]);
+    } else {
+      add('/assets/visual-library/governance-scene.webp');
+    }
   }
   if (layers.length === 1) {
     if (layers[0].includes('emergency-command')) add('/assets/visual-library/emergency-strategic-framework.svg');
@@ -1996,6 +2009,28 @@ function stableIconIndex(text: string) {
   for (let i = 0; i < text.length; i += 1) hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
   return hash;
 }
+
+// Every emergency-topic illustration plus the full shared icon library, for
+// cards whose title doesn't trip any of pptGeneratedVisualLayersFor's
+// specific keyword rules -- see its use there.
+const EMERGENCY_FALLBACK_POOL = [
+  '/assets/visual-library/emergency-command-center.svg',
+  '/assets/visual-library/emergency-strategic-framework.svg',
+  '/assets/visual-library/emergency-continuity-shield.svg',
+  '/assets/visual-library/emergency-crisis-communication.svg',
+  '/assets/visual-library/emergency-decision-pressure.svg',
+  '/assets/visual-library/emergency-proactive-scanning.svg',
+  '/assets/visual-library/emergency-risk-matrix.svg',
+  '/assets/visual-library/emergency-surveillance-radar.svg',
+  '/assets/visual-library/emergency-supply-chain.svg',
+  '/assets/visual-library/emergency-after-action-review.svg',
+  '/assets/visual-library/emergency-kpi-dashboard.svg',
+  '/assets/visual-library/emergency-stakeholder-network.svg',
+  '/assets/visual-library/emergency-response-team.svg',
+  '/assets/visual-library/emergency-raci-matrix.svg',
+  '/assets/visual-library/emergency-leadership-traits.svg',
+  ...SHARED_BRAND_ICON_POOL,
+];
 
 function sharedBrandIconFor(text: string, index = 0) {
   const seed = stableIconIndex(text);
