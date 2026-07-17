@@ -90,12 +90,10 @@ const emergencyChapters: PlatformChapter[] = [
 ];
 
 export const platform: {
-  name: string;
   tagline: string;
   intro: string;
   tracks: Track[];
 } = {
-  name: 'أكاديمية الحوكمة والامتثال',
   tagline: 'منصة تدريب احترافية للقطاع الصحي والمؤسسي',
   intro:
     'حقيبتان تدريبيتان متاحتان الآن بكل فصولهما، ضمن تجربة تعلم إلكتروني تفاعلية، ويُضاف محتوى حقائب جديدة بعد اعتمادها.',

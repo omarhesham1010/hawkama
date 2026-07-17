@@ -2,6 +2,7 @@ import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { PlatformHome } from './components/platform/PlatformHome';
 import { courseHash, courseIdFromLocation } from './lib/courseRoutes';
+import { platform } from './data/platformContent';
 
 const SlidePlayer = lazy(() => import('./SlidePlayer'));
 
@@ -45,6 +46,18 @@ export default function App() {
     const canonical = courseHash(route.courseId, route.slide);
     if (window.location.hash !== canonical) window.history.replaceState(null, '', canonical);
   }, [route]);
+
+  // Tab title mirrors the current bag's title while inside a slide, and
+  // reverts to a generic title on the home platform view.
+  useEffect(() => {
+    if (route.view !== 'course') {
+      document.title = 'حقيبة تدريبية تفاعلية';
+      return;
+    }
+    const trackId = route.courseId.startsWith('emergency') ? 'emergency-response' : 'governance';
+    const track = platform.tracks.find((t) => t.id === trackId);
+    document.title = track ? `${track.title} | حقيبة تدريبية تفاعلية` : 'حقيبة تدريبية تفاعلية';
+  }, [route.view, route.courseId]);
 
   // Keep the view in sync with the URL so links are shareable / deep-linkable.
   useEffect(() => {

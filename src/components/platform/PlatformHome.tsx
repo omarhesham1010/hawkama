@@ -17,8 +17,7 @@ function PlatformHeader() {
           <Icon name="shield" className="w-6 h-6" />
         </span>
         <div className="leading-tight">
-          <p className="text-sm font-bold text-ink">{platform.name}</p>
-          <p className="text-[11px] text-gold-600">{platform.tagline}</p>
+          <p className="text-sm font-bold text-ink">{platform.tagline}</p>
         </div>
       </div>
     </header>
@@ -155,11 +154,8 @@ export function PlatformHome({
               منصة تعليمية تفاعلية
             </span>
             <h1 className="text-3xl font-extrabold leading-tight text-brand-strong sm:text-4xl lg:text-5xl">
-              {platform.name}
-            </h1>
-            <p className="mt-3 text-lg font-semibold text-gold-600 dark:text-gold-400">
               {platform.tagline}
-            </p>
+            </h1>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-white/85 px-4 py-2 text-base font-extrabold text-brand-strong shadow-card">
               <Icon name="shield" className="h-5 w-5 text-gold-600" />
               تحت إشراف أ/ ناصر

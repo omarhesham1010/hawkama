@@ -49,12 +49,11 @@ export function PlayerHeader({
   return (
     <header className="relative z-30 bg-gradient-to-l from-green-800 via-green-600 to-teal-600 shadow-card-lg">
       <div className="player-header-row mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
-        {/* logo / org */}
+        {/* logo */}
         <div className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1.5">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/90 text-green-700">
             <Icon name="shield" className="w-5 h-5" />
           </span>
-          <span className="hidden text-[13px] font-bold text-white sm:block">أكاديمية الحوكمة</span>
         </div>
 
         {/* title pill */}
