@@ -9,11 +9,9 @@ import { toArabicDigits } from './lib/utils';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
 import { PlayerHeader } from './components/player/PlayerHeader';
-import { PlayerControls } from './components/player/PlayerControls';
 import { SlideMenu } from './components/player/SlideMenu';
 import { SlideStage } from './components/player/SlideStage';
 import { SlideCanvas } from './components/player/SlideCanvas';
-import { CaptionBar } from './components/player/CaptionBar';
 import { HelpOverlay } from './components/player/HelpOverlay';
 import { Icon } from './components/ui/Icon';
 
@@ -217,15 +215,7 @@ export default function SlidePlayer({
     onExit();
   }, [narration, onExit]);
 
-  const sourceLabel = voicePlaying ? (narration.source === 'audio' ? 'ملف صوتي' : 'قراءة صوتية') : null;
   const displaySlideTitle = slide.id === 'program-map' ? 'محتويات الحقيبة' : slide.title;
-
-  // Client feedback: the footer (with prev/next) auto-hides and is hard to
-  // reach. Trying a small always-visible control bar embedded inside the
-  // slide canvas itself (no caption text, just prev/play/next) as a
-  // prototype on the bag-2 intro only, before deciding whether to roll it
-  // out further.
-  const embeddedFooter = courseId === 'emergency-intro';
 
   return (
     <div className="relative h-[100dvh] overflow-hidden">
@@ -263,9 +253,8 @@ export default function SlidePlayer({
                 onExit: exit,
               }}
             />
-            {embeddedFooter && (
-              <div className="pointer-events-none absolute inset-x-6 bottom-3 z-50 flex justify-center">
-                <div className="player-embedded-controls pointer-events-auto flex w-full max-w-3xl items-center gap-2 rounded-2xl bg-black/35 px-3 py-1.5 shadow-card backdrop-blur-sm">
+            <div className="pointer-events-none absolute inset-x-6 bottom-3 z-50 flex justify-center">
+              <div className="player-embedded-controls pointer-events-auto flex w-full max-w-3xl items-center gap-2 rounded-2xl bg-black/35 px-3 py-1.5 shadow-card backdrop-blur-sm">
                   <button
                     type="button"
                     onClick={() => goTo(index - 1)}
@@ -367,51 +356,34 @@ export default function SlidePlayer({
                         <path d="M15 6l-6 6 6 6" />
                       </svg>
                     )}
-                  </button>
-                </div>
+                </button>
               </div>
-            )}
+            </div>
           </SlideCanvas>
         </div>
       </main>
 
-      {/* Hover-near-edge hot zones (desktop mouse) — reveal chrome without
-          needing the toggle button. Harmless no-ops on touch. The bottom
-          zone existed to surface the footer, which on the bag-2 intro is
-          now the always-visible embedded bar, not part of this chrome. */}
+      {/* Hover-near-edge hot zone (desktop mouse) — reveal the header
+          without needing the toggle button. Harmless no-op on touch. The
+          footer is now the always-visible embedded bar, so there's no
+          bottom zone for it anymore. */}
       <div
         className="absolute inset-x-0 top-0 z-30 h-6"
         onMouseEnter={showChrome}
         aria-hidden="true"
       />
-      {!embeddedFooter && (
-        <div
-          className="absolute inset-x-0 bottom-0 z-30 h-6"
-          onMouseEnter={showChrome}
-          aria-hidden="true"
-        />
-      )}
 
       {/* Single toggle — always reachable, on every device, for showing or
-          collapsing the chrome. On the bag-2 intro the footer is the small
-          embedded bar (always visible, not part of this chrome), so here
-          it only ever shows/hides the header. */}
+          collapsing the header. The footer is the small embedded bar
+          (always visible), so this only ever affects the header. */}
       <button
         type="button"
         onClick={(event) => {
           event.stopPropagation();
           toggleChrome();
         }}
-        aria-label={
-          embeddedFooter
-            ? chromeVisible ? 'إخفاء الهيدر' : 'إظهار الهيدر'
-            : chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'
-        }
-        title={
-          embeddedFooter
-            ? chromeVisible ? 'إخفاء الهيدر' : 'إظهار الهيدر'
-            : chromeVisible ? 'إخفاء عناصر التحكم' : 'إظهار عناصر التحكم'
-        }
+        aria-label={chromeVisible ? 'إخفاء الهيدر' : 'إظهار الهيدر'}
+        title={chromeVisible ? 'إخفاء الهيدر' : 'إظهار الهيدر'}
         className="absolute left-1/2 top-1.5 z-[100] flex h-6 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-black/25 text-white/90 shadow-card backdrop-blur-sm transition-all hover:bg-black/40"
       >
         <svg
@@ -446,34 +418,6 @@ export default function SlidePlayer({
           onOpenHelp={() => setHelpOpen(true)}
         />
       </div>
-
-      {/* Footer overlay — caption + playback controls together. Skipped on
-          the bag-2 intro, which uses the small embedded bar instead. */}
-      {!embeddedFooter && (
-        <div
-          className={`absolute inset-x-0 bottom-0 z-[90] transition-all duration-300 ease-out ${
-            chromeVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
-          }`}
-          onMouseEnter={showChrome}
-          onMouseLeave={() => scheduleHideChrome()}
-        >
-          <CaptionBar text={slide.narration} audioKey={slide.audioKey} spoken={sync.spoken} />
-          <PlayerControls
-            index={index}
-            total={slides.length}
-            onPrev={() => goTo(index - 1)}
-            onNext={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
-            onPlayPause={handlePlayPause}
-            onReplay={handleReplay}
-            onToggleMute={toggleMute}
-            muted={muted}
-            isPlaying={voicePlaying}
-            isLoading={narration.isLoading}
-            progress={sync.progress}
-            sourceLabel={sourceLabel}
-          />
-        </div>
-      )}
 
       {/* The closing screen's exit/restart buttons live inside the fixed
           16:9 canvas, so on a narrow phone they shrink down with everything
