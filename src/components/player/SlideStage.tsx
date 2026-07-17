@@ -3294,6 +3294,34 @@ function PptGuidedScenarioSlide({
   );
 }
 
+// Client feedback: a new slide feels empty right as Nasser starts talking,
+// since the real cards only reveal at their own exact word (see
+// pptCardRevealOffsets). This bridges that gap with 1-3 plain topic images
+// (no text, reusing the same keyword-matched pool the real scene draws
+// from) that cross-fade in from the very first word, then hand off to the
+// real synced scene the instant the first real card is due -- purely
+// decorative, never claiming to be "the" explanation for anything.
+function PptIntroVisualFiller({ pool, progress }: { pool: string[]; progress: number }) {
+  const shown = pool.slice(0, Math.min(3, pool.length));
+  if (!shown.length) return null;
+  const activeIndex = Math.min(shown.length - 1, Math.floor(progress * shown.length));
+  return (
+    <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-visible">
+      {shown.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          draggable={false}
+          className={`absolute inset-0 m-auto max-h-[300px] max-w-[64%] object-contain drop-shadow-[0_22px_36px_rgb(24_82_55_/_0.16)] transition-all duration-700 ease-out ${
+            i === activeIndex ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 function PptStyleSlide({
   slide,
   spoken,
@@ -3421,6 +3449,18 @@ function PptStyleSlide({
   const isSpotlight = slide.layout === 'pptSpotlight';
   const motionStarted = started || spoken > 0 || showDialogue;
 
+  // Chapter-1 (bag 2) trial: bridge the gap between Nasser starting to talk
+  // and the first card's own exact word with plain topic images -- see
+  // PptIntroVisualFiller above. Skipped when the gap is too small to be
+  // worth bridging, and never on the dedicated intro/roadmap/conclusion
+  // scenes, which already animate from the first word on their own.
+  const firstCardOffset = revealOffsets[0] ?? 0;
+  const showIntroFiller =
+    slide.id.startsWith('ec1-') && cards.length > 0 && !isIntroMotion && !isConclusion &&
+    started && !narrationFinished && revealedCount === 0 && narrationPosition > 0 && firstCardOffset > 60;
+  const introVisualPool = showIntroFiller ? slideVisualPool(slide, cards) : [];
+  const introProgress = showIntroFiller ? Math.max(0, Math.min(1, narrationPosition / Math.max(1, firstCardOffset))) : 0;
+
   const gridClass = isThree
     ? 'grid-cols-3 grid-rows-1'
     : isTwoPanel
@@ -3518,7 +3558,9 @@ function PptStyleSlide({
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
         {!isIntroMotion && <PptTitle slide={slide} showVisual={!isEmergencySlide || started || narrationPosition > 0 || narrationFinished} />}
 
-        {isIntro ? (
+        {showIntroFiller ? (
+          <PptIntroVisualFiller pool={introVisualPool} progress={introProgress} />
+        ) : isIntro ? (
           <IntroMotionScene slide={slide} spoken={spoken} started={motionStarted} onStart={onStart} />
         ) : isIntroRoadmap ? (
           <IntroRoadmapMotionScene slide={slide} spoken={spoken} started={motionStarted} />
