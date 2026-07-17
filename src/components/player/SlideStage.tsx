@@ -2768,15 +2768,26 @@ function PptMatrixScene({
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
-  // Bottom padding here isn't decorative -- this grid used to be centered
-  // across the *full* scene height with no regard for Nasser's own layer
-  // (an absolutely-positioned overlay, so it doesn't push layout and was
-  // easy to miss), so on 2x2 slides the bottom row's corner nearest him
-  // actually sat underneath his image. Pushing the whole grid up leaves
-  // clearance regardless of which side he's standing on.
+  // A full 2x2 grid (4 cards) is simply taller than the window this scene
+  // has to work with once both ends are respected: the top-left identity
+  // logo sits ~256px down from the slide's top edge, and Nasser's layer
+  // (absolutely positioned, so invisible to this flexbox) starts ~473px
+  // down -- measured live via devtools against this exact slide. That's a
+  // ~200px window for two rows. The roomy 2-card/2-row sizing (min-h-134,
+  // p-5, text-21px title, text-16px body) measures out to ~335px for real
+  // card copy, which is what actually pushed the old centered grid into the
+  // logo above and Nasser below.
+  //
+  // Packing the row tighter isn't enough on its own if body text is left
+  // free to grow: a neighboring matrix slide with a longer sentence would
+  // just reproduce the same overflow. line-clamp-2 on the body text below
+  // makes the row height *bounded*, not just smaller for this one slide's
+  // copy, so pt-[60px] here is measured against a guaranteed worst case
+  // rather than today's particular string lengths.
+  const denseQuadrant = isEmergencySlide && cards.length >= 4 && cols === 'grid-cols-2';
   return (
-    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-3 pb-[190px]">
-      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} gap-5`}>
+    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[190px]'}`}>
+      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-5'}`}>
         {showPrimaryVisual && cols === 'grid-cols-2' && (
           <span
             className={`pointer-events-none absolute left-1/2 top-1/2 z-10 ${isEmergencySlide ? 'h-[132px] w-[132px]' : 'h-[74px] w-[74px]'} -translate-x-1/2 -translate-y-1/2 animate-crown-rise rounded-full border-4 border-white bg-white/92 shadow-card-lg`}
@@ -2813,7 +2824,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative min-h-[134px] overflow-visible ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border p-5 text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative overflow-visible ${denseQuadrant ? 'h-[84px] p-2.5' : 'min-h-[134px] p-5'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -2828,22 +2839,22 @@ function PptMatrixScene({
                 />
               )}
               <span
-                className={`absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-[13px] font-extrabold tabular ${
+                className={`absolute ${denseQuadrant ? 'right-2.5 top-2.5 h-6 w-6 text-[10px]' : 'right-4 top-4 h-9 w-9 text-[13px]'} grid place-items-center rounded-full font-extrabold tabular ${
                   active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
                 }`}
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`flex max-w-[88%] items-center justify-end gap-3 pe-10 text-[21px] font-extrabold leading-tight ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`flex max-w-[88%] items-center justify-end gap-2 ${denseQuadrant ? 'pe-7 text-[14.5px] leading-none' : 'pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span>{card.title}</span>
                 {brandIcon && (
-                  <span className={`inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl p-1.5 shadow-sm ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
+                  <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-6 w-6 p-0.5' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
                     <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
               </h3>
               {card.text && (
-                <p className={`mt-3 pe-1 text-[16px] font-bold leading-relaxed ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`${denseQuadrant ? 'mt-1 line-clamp-2 overflow-hidden text-[11px] leading-snug' : 'mt-3 text-[16px] leading-relaxed'} pe-1 font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
