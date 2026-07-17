@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-labelledby="title-emergency-response-team-03">
+<title id="title-emergency-response-team-03">emergency-response-team-03</title>
+<defs>
+  <linearGradient id="g-emergency-response-team-03" x1="120" y1="90" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
+  <linearGradient id="a-emergency-response-team-03" x1="140" y1="90" x2="690" y2="690" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
+  <linearGradient id="t-emergency-response-team-03" x1="100" y1="160" x2="690" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
+</defs>
+<ellipse cx="400" cy="420" rx="270" ry="260" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="7" opacity="0.28"/>
+<g><rect x="175" y="255" width="450" height="180" rx="46" fill="url(#g-emergency-response-team-03)"/><path d="M250 345h300" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/><circle cx="285" cy="345" r="48" fill="url(#a-emergency-response-team-03)"/><circle cx="400" cy="345" r="48" fill="url(#t-emergency-response-team-03)"/><circle cx="515" cy="345" r="48" fill="url(#a-emergency-response-team-03)"/><g transform="translate(285 530) scale(0.72)"><circle cx="0" cy="0" r="28" fill="url(#a)"/><path d="M-55 110c8-62 102-62 110 0Z" fill="url(#g)"/><path d="M-33 110h66" stroke="#0B5139" stroke-width="8" opacity="0.18" stroke-linecap="round"/></g><g transform="translate(400 555) scale(0.78)"><circle cx="0" cy="0" r="28" fill="url(#a)"/><path d="M-55 110c8-62 102-62 110 0Z" fill="url(#g)"/><path d="M-33 110h66" stroke="#0B5139" stroke-width="8" opacity="0.18" stroke-linecap="round"/></g><g transform="translate(515 530) scale(0.72)"><circle cx="0" cy="0" r="28" fill="url(#a)"/><path d="M-55 110c8-62 102-62 110 0Z" fill="url(#g)"/><path d="M-33 110h66" stroke="#0B5139" stroke-width="8" opacity="0.18" stroke-linecap="round"/></g></g>
+</svg>

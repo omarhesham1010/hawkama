@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-labelledby="title-emergency-power-interest-matrix-01">
+<title id="title-emergency-power-interest-matrix-01">emergency-power-interest-matrix-01</title>
+<defs>
+  <linearGradient id="g-emergency-power-interest-matrix-01" x1="120" y1="90" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
+  <linearGradient id="a-emergency-power-interest-matrix-01" x1="140" y1="90" x2="690" y2="690" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
+  <linearGradient id="t-emergency-power-interest-matrix-01" x1="100" y1="160" x2="690" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
+</defs>
+<ellipse cx="400" cy="420" rx="270" ry="260" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="7" opacity="0.28"/>
+<g><rect x="175" y="175" width="450" height="450" rx="32" fill="#FFFFFF" stroke="#A9D0BF" stroke-width="8" opacity=".96"/><path d="M400 175v450" fill="none" stroke="#0B5139" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M175 400h450" fill="none" stroke="#0B5139" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><circle cx="285" cy="285" r="46" fill="url(#g-emergency-power-interest-matrix-01)"/><circle cx="515" cy="285" r="46" fill="url(#a-emergency-power-interest-matrix-01)"/><circle cx="285" cy="515" r="46" fill="url(#t-emergency-power-interest-matrix-01)"/><circle cx="515" cy="515" r="46" fill="url(#g-emergency-power-interest-matrix-01)"/><path d="M160 650h470M150 635l30 15-30 15M150 650V180M135 200l15-30 15 30" fill="none" stroke="url(#a-emergency-power-interest-matrix-01)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

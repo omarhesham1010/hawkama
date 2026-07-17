@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-labelledby="title-emergency-leadership-traits-02">
+<title id="title-emergency-leadership-traits-02">emergency-leadership-traits-02</title>
+<defs>
+  <linearGradient id="g-emergency-leadership-traits-02" x1="120" y1="90" x2="680" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#2F7657"/><stop offset="1" stop-color="#1F5C3A"/></linearGradient>
+  <linearGradient id="a-emergency-leadership-traits-02" x1="140" y1="90" x2="690" y2="690" gradientUnits="userSpaceOnUse"><stop stop-color="#D6B85D"/><stop offset="1" stop-color="#BF9B4A"/></linearGradient>
+  <linearGradient id="t-emergency-leadership-traits-02" x1="100" y1="160" x2="690" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
+</defs>
+<ellipse cx="400" cy="420" rx="270" ry="260" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="7" opacity="0.28"/>
+<g><g transform="translate(400 300) scale(1.15)"><circle cx="0" cy="0" r="28" fill="url(#a)"/><path d="M-55 110c8-62 102-62 110 0Z" fill="url(#g)"/><path d="M-33 110h66" stroke="#0B5139" stroke-width="8" opacity="0.18" stroke-linecap="round"/></g><g transform="translate(250 500) scale(0.75)"><circle cx="0" cy="0" r="28" fill="url(#a)"/><path d="M-55 110c8-62 102-62 110 0Z" fill="url(#t-emergency-leadership-traits-02)"/><path d="M-33 110h66" stroke="#0B5139" stroke-width="8" opacity="0.18" stroke-linecap="round"/></g><g transform="translate(550 500) scale(0.75)"><circle cx="0" cy="0" r="28" fill="url(#a)"/><path d="M-55 110c8-62 102-62 110 0Z" fill="url(#a-emergency-leadership-traits-02)"/><path d="M-33 110h66" stroke="#0B5139" stroke-width="8" opacity="0.18" stroke-linecap="round"/></g><path d="M400 385v70M330 470l-50 55M470 470l50 55" fill="none" stroke="url(#g-emergency-leadership-traits-02)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="400" cy="455" r="28" fill="url(#a-emergency-leadership-traits-02)"/></g>
+</svg>
