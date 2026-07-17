@@ -391,7 +391,7 @@ function NasserStoryLayer({
   const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
-  const bubbleLift = isQuiz ? 'mb-2' : compact ? 'mb-5' : 'mb-9';
+  const bubbleLift = isQuiz ? 'mb-3' : compact ? 'mb-6' : 'mb-10';
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
