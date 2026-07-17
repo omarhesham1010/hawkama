@@ -2805,7 +2805,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative overflow-visible ${denseQuadrant ? 'h-[94px] p-3' : 'min-h-[134px] p-5'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative overflow-visible ${denseQuadrant ? 'h-[94px] p-2' : 'min-h-[134px] p-5'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -2820,22 +2820,22 @@ function PptMatrixScene({
                 />
               )}
               <span
-                className={`absolute ${denseQuadrant ? 'right-3 top-3 h-7 w-7 text-[11px]' : 'right-4 top-4 h-9 w-9 text-[13px]'} grid place-items-center rounded-full font-extrabold tabular ${
+                className={`absolute ${denseQuadrant ? 'right-2 top-2 h-6 w-6 text-[10px]' : 'right-4 top-4 h-9 w-9 text-[13px]'} grid place-items-center rounded-full font-extrabold tabular ${
                   active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
                 }`}
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`flex max-w-[88%] items-center justify-end gap-2 ${denseQuadrant ? 'pe-8 text-[16px] leading-tight' : 'pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`flex max-w-[88%] items-center justify-end gap-1.5 ${denseQuadrant ? 'pe-7 text-[14.5px] leading-tight' : 'pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span>{card.title}</span>
                 {brandIcon && (
-                  <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-9 w-9 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
+                  <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-12 w-12 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
                     <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
               </h3>
               {card.text && (
-                <p className={`${denseQuadrant ? 'mt-1 line-clamp-2 overflow-hidden text-[12.5px] leading-snug' : 'mt-3 text-[16px] leading-relaxed'} pe-1 font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden text-[10.5px] leading-snug' : 'mt-3 text-[16px] leading-relaxed'} pe-1 font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
