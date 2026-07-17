@@ -3309,10 +3309,26 @@ function PptGuidedScenarioSlide({
 // keeps changing slide to slide -- the library is large enough that a full
 // cycle takes well over five slides, so nothing feels like it's repeating
 // on every screen.
+const TOPIC_IMAGE_COOLDOWN = 5;
+
 function introVisualPoolFor(slide: Slide, introText: string): string[] {
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const marker = isEmergencySlide ? ' __bag2__' : '';
-  const topicMatches = pptGeneratedVisualLayersFor(`${introText}${marker}`);
+  // Chapter 1's own vocabulary (ICS/EOC/قيادة/تنسيق) is broad enough that
+  // pptGeneratedVisualLayersFor's keyword rules match almost every slide's
+  // opening sentence, so its single best match alone (never mind its own
+  // "pad with a second" fallback) still tends to be the same handful of
+  // images -- mostly emergency-command-center and emergency-strategic-
+  // framework -- over and over. Each candidate image only "owns" one
+  // slide-index residue mod 5 (via a stable hash of its own filename), so
+  // the very same image can only be offered again five slides later at the
+  // earliest; every other slide it would have matched instead falls back to
+  // two more icons from the rotation below.
+  const topicCandidate = pptGeneratedVisualLayersFor(`${introText}${marker}`)[0];
+  const topicAllowed = Boolean(
+    topicCandidate && Math.max(0, slide.index) % TOPIC_IMAGE_COOLDOWN === stableIconIndex(topicCandidate) % TOPIC_IMAGE_COOLDOWN,
+  );
+  const topicMatch = topicAllowed && topicCandidate ? [topicCandidate] : [];
   const startIndex = (Math.max(0, slide.index) * 3) % SHARED_BRAND_ICON_POOL.length;
   const rotatedIcons = [
     ...SHARED_BRAND_ICON_POOL.slice(startIndex),
@@ -3322,7 +3338,7 @@ function introVisualPoolFor(slide: Slide, introText: string): string[] {
   const add = (src: string) => {
     if (!combined.includes(src)) combined.push(src);
   };
-  topicMatches.forEach(add);
+  topicMatch.forEach(add);
   rotatedIcons.forEach(add);
   return combined.slice(0, 3);
 }
