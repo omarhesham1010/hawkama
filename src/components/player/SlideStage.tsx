@@ -2083,7 +2083,26 @@ function stableIconIndex(text: string) {
 // its own distinct, varied visual (see sharedBrandIconFor below).
 const EMERGENCY_FALLBACK_POOL = SHARED_BRAND_ICON_POOL;
 
+// This is the per-card badge every matrix/spotlight/timeline card actually
+// shows -- despite pptGeneratedVisualLayersFor's ~40 keyword rules being
+// able to match a card to a real, specific illustration (PDCA cycle, RACI
+// matrix, supply chain...), this function used to skip that matching
+// entirely and always return a hash-picked *generic* icon (shield-check,
+// target-alignment...), so even a card that would have matched a precise
+// illustration never actually got to show it. Try the real match first
+// (forcing bag-2 routing via the __bag2__ marker so a short card title like
+// "قيادة واحدة" doesn't fall through to bag-1's governance imagery), and
+// only fall back to the generic hash pool when nothing specific matched.
+//
+// Only the *primary* layer counts, and only when it's a genuine bag-2
+// illustration (`/emergency-*`) -- pptGeneratedVisualLayersFor's own
+// companion-layer step (see "if (layers.length === 1)" there) tacks on a
+// second, bag-1-flavored image whenever the primary slot is a generic
+// icon, which would otherwise leak governance imagery like
+// leadership-board.webp onto confirmed emergency cards.
 function sharedBrandIconFor(text: string, index = 0) {
+  const primary = pptGeneratedVisualLayersFor(`${text} __bag2__`)[0];
+  if (primary?.includes('/emergency-')) return primary;
   const seed = stableIconIndex(text);
   return SHARED_BRAND_ICON_POOL[(seed + index * 7) % SHARED_BRAND_ICON_POOL.length];
 }
