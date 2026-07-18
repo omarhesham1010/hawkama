@@ -186,6 +186,18 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
     });
   }
 
+  // Cards are only kept monotonic *within* a shared cue above -- across
+  // different cues there's no such guarantee, so a short/generic title
+  // (like "في أي وقت؟") can occasionally exact-match an earlier, unrelated
+  // cue than a neighboring card that comes later in the list. Since cards
+  // always reveal in the order they're declared, clamp the whole sequence
+  // to be non-decreasing as a final safety net -- this only ever nudges a
+  // rare mismatched card forward to sit with its neighbors, never changes
+  // a correctly-ordered sequence.
+  for (let i = 1; i < offsets.length; i += 1) {
+    if (offsets[i] < offsets[i - 1]) offsets[i] = offsets[i - 1] + 1;
+  }
+
   return offsets;
 }
 
