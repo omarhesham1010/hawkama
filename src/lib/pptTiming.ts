@@ -5,6 +5,16 @@ function cleanText(value: string) {
   return value.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, ' ').replace(/\s+/g, ' ').trim();
 }
 
+// Strips a leading Arabic definite article from each word ("العمليات" ->
+// "عمليات"). Used only as a *fallback* when the plain exact-title search
+// below finds nothing -- applying it unconditionally would make a short
+// title match its own word's very first (often generic/unrelated) mention
+// anywhere earlier in the narration instead of the specific enumerated
+// mention it's actually meant to sync to.
+function stripDefiniteArticles(value: string) {
+  return value.replace(/(^|\s)ال(?=\S)/gu, '$1');
+}
+
 function wordsOf(value: string) {
   return cleanText(value).split(' ').filter((word) => word.length > 2);
 }
@@ -58,6 +68,21 @@ export function pptCardCueIndexes(cards: PptCard[], narration: string) {
     if (exactTitleCue >= 0) {
       previous = exactTitleCue;
       return previous;
+    }
+    // Fallback pass, article-insensitive: a title like "العمليات" should
+    // still match narration that says the bare word "عمليات" (or the
+    // reverse). Only tried after the plain search above finds nothing, so
+    // a title that already matches exactly never gets re-pointed at some
+    // earlier, unrelated mention of the same bare word.
+    const strippedTitle = stripDefiniteArticles(title);
+    if (strippedTitle && strippedTitle !== title) {
+      const articleInsensitiveCue = cues.findIndex(
+        (cue, cueIndex) => cueIndex >= previous && cleanText(stripDefiniteArticles(cue.text)).includes(strippedTitle),
+      );
+      if (articleInsensitiveCue >= 0) {
+        previous = articleInsensitiveCue;
+        return previous;
+      }
     }
 
     // No exact mention anywhere -- if the narration ever gestures at the
