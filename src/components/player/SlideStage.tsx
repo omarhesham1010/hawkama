@@ -3533,16 +3533,18 @@ function PptStyleSlide({
   // reveals its cards one at a time, in step with Nasser actually saying
   // each one.
   const revealOffsets = pptCardRevealOffsets(cards, slide.narration);
-  // The very first card of a slide is its opening "shot" -- unlike every
-  // other card, it shouldn't wait for its own exact word to be spoken.
-  // Bag-2 narration routinely opens with a paragraph of framing/context
-  // before naming that first concept, and gating the card on that exact
+  // A slide with laterActs has a deliberately-authored opening card (a
+  // framing concept, not a specific enumerated item) as card 0 -- unlike
+  // every other card, it shouldn't wait for its own exact word to be
+  // spoken, since bag-2 narration routinely opens with a paragraph of
+  // context before naming that concept, and gating the card on that exact
   // mention left a long silent gap where nothing but a generic bridging
-  // image filled the screen. Anchoring card 0 to near the very start
-  // instead means the real card+image shot is what's on screen from the
-  // moment Nasser starts talking, and the plain image bridge below is
-  // only ever needed for the rare slide with no cards at all yet.
-  if (isEmergencySlide && revealOffsets.length > 0 && revealOffsets[0] > 40) {
+  // image filled the screen. Anchoring it to near the very start instead
+  // means the real card+image shot is on screen from the moment Nasser
+  // starts talking. Single-act slides are untouched: their first card is a
+  // real specific list item (e.g. "الحدث" as item 1 of 4), which still
+  // needs to wait for its own actual mention to stay in sync.
+  if (hasMultipleActs && isEmergencySlide && revealOffsets.length > 0 && revealOffsets[0] > 40) {
     revealOffsets[0] = 40;
   }
   // The exact stretch of the slide's own narration where Nasser talked

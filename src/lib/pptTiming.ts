@@ -195,7 +195,7 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
   // rare mismatched card forward to sit with its neighbors, never changes
   // a correctly-ordered sequence.
   for (let i = 1; i < offsets.length; i += 1) {
-    if (offsets[i] < offsets[i - 1]) offsets[i] = offsets[i - 1] + 1;
+    if (offsets[i] <= offsets[i - 1]) offsets[i] = offsets[i - 1] + 1;
   }
 
   return offsets;
