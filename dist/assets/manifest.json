@@ -30,7 +30,7 @@
       "name": "emergency-abc-inventory.webp",
       "path": "/assets/visual-library/emergency-abc-inventory.webp",
       "type": "scene",
-      "size": 77658
+      "size": 62134
     },
     {
       "name": "emergency-after-action-review-02.svg",
@@ -54,7 +54,7 @@
       "name": "emergency-after-action-review.webp",
       "path": "/assets/visual-library/emergency-after-action-review.webp",
       "type": "scene",
-      "size": 68386
+      "size": 56840
     },
     {
       "name": "emergency-cerc-timeline-01.svg",
@@ -72,7 +72,7 @@
       "name": "emergency-cerc-timeline.webp",
       "path": "/assets/visual-library/emergency-cerc-timeline.webp",
       "type": "scene",
-      "size": 109450
+      "size": 69842
     },
     {
       "name": "emergency-command-center-02.svg",
@@ -96,7 +96,7 @@
       "name": "emergency-command-center.webp",
       "path": "/assets/visual-library/emergency-command-center.webp",
       "type": "scene",
-      "size": 99998
+      "size": 81898
     },
     {
       "name": "emergency-continuity-shield-02.svg",
@@ -120,7 +120,7 @@
       "name": "emergency-continuity-shield.webp",
       "path": "/assets/visual-library/emergency-continuity-shield.webp",
       "type": "scene",
-      "size": 108640
+      "size": 79130
     },
     {
       "name": "emergency-crisis-comm-principles-01.svg",
@@ -138,7 +138,7 @@
       "name": "emergency-crisis-comm-principles.webp",
       "path": "/assets/visual-library/emergency-crisis-comm-principles.webp",
       "type": "scene",
-      "size": 137630
+      "size": 75158
     },
     {
       "name": "emergency-crisis-communication-02.svg",
@@ -162,7 +162,7 @@
       "name": "emergency-crisis-communication.webp",
       "path": "/assets/visual-library/emergency-crisis-communication.webp",
       "type": "scene",
-      "size": 58798
+      "size": 47256
     },
     {
       "name": "emergency-crisis-terms.svg",
@@ -174,7 +174,7 @@
       "name": "emergency-crisis-terms.webp",
       "path": "/assets/visual-library/emergency-crisis-terms.webp",
       "type": "scene",
-      "size": 84598
+      "size": 48522
     },
     {
       "name": "emergency-decision-pressure-02.svg",
@@ -198,7 +198,7 @@
       "name": "emergency-decision-pressure.webp",
       "path": "/assets/visual-library/emergency-decision-pressure.webp",
       "type": "scene",
-      "size": 92666
+      "size": 58406
     },
     {
       "name": "emergency-delphi-method-01.svg",
@@ -216,7 +216,7 @@
       "name": "emergency-delphi-method.webp",
       "path": "/assets/visual-library/emergency-delphi-method.webp",
       "type": "scene",
-      "size": 102838
+      "size": 82120
     },
     {
       "name": "emergency-escalation-levels-01.svg",
@@ -234,7 +234,7 @@
       "name": "emergency-escalation-levels.webp",
       "path": "/assets/visual-library/emergency-escalation-levels.webp",
       "type": "scene",
-      "size": 84252
+      "size": 48522
     },
     {
       "name": "emergency-futures-wheel-01.svg",
@@ -252,7 +252,7 @@
       "name": "emergency-futures-wheel.webp",
       "path": "/assets/visual-library/emergency-futures-wheel.webp",
       "type": "scene",
-      "size": 165790
+      "size": 96634
     },
     {
       "name": "emergency-hazard-triangle-01.svg",
@@ -270,7 +270,7 @@
       "name": "emergency-hazard-triangle.webp",
       "path": "/assets/visual-library/emergency-hazard-triangle.webp",
       "type": "scene",
-      "size": 56104
+      "size": 49490
     },
     {
       "name": "emergency-kpi-dashboard-02.svg",
@@ -294,7 +294,7 @@
       "name": "emergency-kpi-dashboard.webp",
       "path": "/assets/visual-library/emergency-kpi-dashboard.webp",
       "type": "scene",
-      "size": 67232
+      "size": 64358
     },
     {
       "name": "emergency-leadership-traits-02.svg",
@@ -318,7 +318,7 @@
       "name": "emergency-leadership-traits.webp",
       "path": "/assets/visual-library/emergency-leadership-traits.webp",
       "type": "scene",
-      "size": 133966
+      "size": 81314
     },
     {
       "name": "emergency-leading-lagging-01.svg",
@@ -336,7 +336,7 @@
       "name": "emergency-leading-lagging.webp",
       "path": "/assets/visual-library/emergency-leading-lagging.webp",
       "type": "scene",
-      "size": 108472
+      "size": 66504
     },
     {
       "name": "emergency-macro-meso-micro-01.svg",
@@ -354,7 +354,7 @@
       "name": "emergency-macro-meso-micro.webp",
       "path": "/assets/visual-library/emergency-macro-meso-micro.webp",
       "type": "scene",
-      "size": 64520
+      "size": 51642
     },
     {
       "name": "emergency-ooda-loop-01.svg",
@@ -372,7 +372,7 @@
       "name": "emergency-ooda-loop.webp",
       "path": "/assets/visual-library/emergency-ooda-loop.webp",
       "type": "scene",
-      "size": 78616
+      "size": 66524
     },
     {
       "name": "emergency-pdca-cycle-01.svg",
@@ -390,7 +390,7 @@
       "name": "emergency-pdca-cycle.webp",
       "path": "/assets/visual-library/emergency-pdca-cycle.webp",
       "type": "scene",
-      "size": 78616
+      "size": 70224
     },
     {
       "name": "emergency-pestle-wheel-01.svg",
@@ -408,7 +408,7 @@
       "name": "emergency-pestle-wheel.webp",
       "path": "/assets/visual-library/emergency-pestle-wheel.webp",
       "type": "scene",
-      "size": 85666
+      "size": 55588
     },
     {
       "name": "emergency-power-interest-matrix-01.svg",
@@ -426,7 +426,7 @@
       "name": "emergency-power-interest-matrix.webp",
       "path": "/assets/visual-library/emergency-power-interest-matrix.webp",
       "type": "scene",
-      "size": 50198
+      "size": 48822
     },
     {
       "name": "emergency-proactive-scanning.svg",
@@ -438,7 +438,7 @@
       "name": "emergency-proactive-scanning.webp",
       "path": "/assets/visual-library/emergency-proactive-scanning.webp",
       "type": "scene",
-      "size": 115306
+      "size": 60066
     },
     {
       "name": "emergency-raci-matrix-02.svg",
@@ -462,7 +462,7 @@
       "name": "emergency-raci-matrix.webp",
       "path": "/assets/visual-library/emergency-raci-matrix.webp",
       "type": "scene",
-      "size": 84398
+      "size": 69156
     },
     {
       "name": "emergency-response-team-02.svg",
@@ -486,7 +486,7 @@
       "name": "emergency-response-team.webp",
       "path": "/assets/visual-library/emergency-response-team.webp",
       "type": "scene",
-      "size": 77648
+      "size": 62358
     },
     {
       "name": "emergency-risk-matrix-02.svg",
@@ -510,7 +510,7 @@
       "name": "emergency-risk-matrix.webp",
       "path": "/assets/visual-library/emergency-risk-matrix.webp",
       "type": "scene",
-      "size": 97868
+      "size": 74566
     },
     {
       "name": "emergency-scenario-branches-01.svg",
@@ -528,7 +528,7 @@
       "name": "emergency-scenario-branches.webp",
       "path": "/assets/visual-library/emergency-scenario-branches.webp",
       "type": "scene",
-      "size": 77416
+      "size": 50472
     },
     {
       "name": "emergency-scenario-matrix-01.svg",
@@ -546,7 +546,7 @@
       "name": "emergency-scenario-matrix.webp",
       "path": "/assets/visual-library/emergency-scenario-matrix.webp",
       "type": "scene",
-      "size": 50198
+      "size": 48822
     },
     {
       "name": "emergency-smart-criteria-01.svg",
@@ -564,7 +564,7 @@
       "name": "emergency-smart-criteria.webp",
       "path": "/assets/visual-library/emergency-smart-criteria.webp",
       "type": "scene",
-      "size": 67734
+      "size": 58720
     },
     {
       "name": "emergency-stakeholder-network-02.svg",
@@ -588,7 +588,7 @@
       "name": "emergency-stakeholder-network.webp",
       "path": "/assets/visual-library/emergency-stakeholder-network.webp",
       "type": "scene",
-      "size": 86752
+      "size": 75668
     },
     {
       "name": "emergency-strategic-framework.svg",
@@ -600,7 +600,7 @@
       "name": "emergency-strategic-framework.webp",
       "path": "/assets/visual-library/emergency-strategic-framework.webp",
       "type": "scene",
-      "size": 90368
+      "size": 71516
     },
     {
       "name": "emergency-supply-chain-02.svg",
@@ -624,7 +624,7 @@
       "name": "emergency-supply-chain.webp",
       "path": "/assets/visual-library/emergency-supply-chain.webp",
       "type": "scene",
-      "size": 91740
+      "size": 58096
     },
     {
       "name": "emergency-surveillance-modes-01.svg",
@@ -642,7 +642,7 @@
       "name": "emergency-surveillance-modes.webp",
       "path": "/assets/visual-library/emergency-surveillance-modes.webp",
       "type": "scene",
-      "size": 91508
+      "size": 59064
     },
     {
       "name": "emergency-surveillance-radar-02.svg",
@@ -666,7 +666,7 @@
       "name": "emergency-surveillance-radar.webp",
       "path": "/assets/visual-library/emergency-surveillance-radar.webp",
       "type": "scene",
-      "size": 99670
+      "size": 60908
     },
     {
       "name": "governance-scene.webp",
