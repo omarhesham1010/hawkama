@@ -3508,7 +3508,16 @@ function PptStyleSlide({
     return <PptGuidedScenarioSlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
 
-  const cards = slide.ppt?.cards ?? [];
+  const primaryCards = slide.ppt?.cards ?? [];
+  const secondaryActCards = slide.ppt?.secondaryCards ?? [];
+  const hasSecondaryAct = secondaryActCards.length > 0;
+  // A slide with a secondaryCards act is treated as one continuous list for
+  // every timing/index computation below (cue matching, reveal offsets,
+  // click-to-replay) -- each card still gets matched against its own real
+  // mention in the narration regardless of which "act" it conceptually
+  // belongs to. Only the final render step (see displayCards etc. further
+  // down) splits it back into two staged scenes.
+  const cards = hasSecondaryAct ? [...primaryCards, ...secondaryActCards] : primaryCards;
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const narrationPosition = started ? spoken : 0;
@@ -3687,6 +3696,29 @@ function PptStyleSlide({
       : cardNarrationRange(expandedCardIndex).text || pptDetailFor(expandedCard, isEmergencySlide)
     : undefined);
 
+  // Split the combined `cards` back into whichever single act is on screen
+  // right now. Narration crosses into act 2 the moment its first card
+  // starts revealing (same offset-matching used for every other card) --
+  // until then this is a no-op (baseIndex 0, full cards list), so slides
+  // without a secondaryCards act render through exactly the same values as
+  // before this existed.
+  const inSecondaryAct = hasSecondaryAct && cardIsVisible(primaryCards.length);
+  const actBaseIndex = inSecondaryAct ? primaryCards.length : 0;
+  const actCardCount = inSecondaryAct ? cards.length - primaryCards.length : primaryCards.length;
+  const displayCards = hasSecondaryAct ? cards.slice(actBaseIndex, actBaseIndex + actCardCount) : cards;
+  const displayActiveCard = hasSecondaryAct
+    ? activeCard >= actBaseIndex && activeCard < actBaseIndex + actCardCount
+      ? activeCard - actBaseIndex
+      : -1
+    : activeCard;
+  const displayVisibleFor = hasSecondaryAct ? (i: number) => cardIsVisible(actBaseIndex + i) : cardIsVisible;
+  const displayOnToggle = hasSecondaryAct ? (i: number) => toggleCard(actBaseIndex + i) : toggleCard;
+  const displayExpandedKey = hasSecondaryAct
+    ? expandedCardIndex >= actBaseIndex && expandedCardIndex < actBaseIndex + actCardCount
+      ? `${slide.id}:${expandedCardIndex - actBaseIndex}`
+      : null
+    : expandedCardKey;
+
   return (
     <StorySlideShell
       slide={slide}
@@ -3746,46 +3778,53 @@ function PptStyleSlide({
               </button>
             </div>
           </div>
-        ) : isTimeline ? (
-          <PptTimelineScene
-            slide={slide}
-            cards={cards}
-            activeCard={activeCard}
-            visibleFor={cardIsVisible}
-            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-            expandedKey={expandedCardKey}
-            onToggle={toggleCard}
-          />
-        ) : isMatrix ? (
-          <PptMatrixScene
-            slide={slide}
-            cards={cards}
-            activeCard={activeCard}
-            visibleFor={cardIsVisible}
-            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-            expandedKey={expandedCardKey}
-            onToggle={toggleCard}
-          />
-        ) : isSpotlight ? (
-          <PptSpotlightScene
-            slide={slide}
-            cards={cards}
-            activeCard={activeCard}
-            visibleFor={cardIsVisible}
-            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-            expandedKey={expandedCardKey}
-            onToggle={toggleCard}
-          />
         ) : (
-          <PptMotionVisualScene
-            slide={slide}
-            cards={cards}
-            activeCard={activeCard}
-            visibleFor={cardIsVisible}
-            revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-            expandedKey={expandedCardKey}
-            onToggle={toggleCard}
-          />
+          <div
+            key={hasSecondaryAct ? (inSecondaryAct ? 'act-2' : 'act-1') : 'act-1'}
+            className={`flex min-h-0 flex-1 flex-col ${hasSecondaryAct ? 'animate-epic-pop' : ''}`}
+          >
+            {isTimeline ? (
+              <PptTimelineScene
+                slide={slide}
+                cards={displayCards}
+                activeCard={displayActiveCard}
+                visibleFor={displayVisibleFor}
+                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+                expandedKey={displayExpandedKey}
+                onToggle={displayOnToggle}
+              />
+            ) : isMatrix ? (
+              <PptMatrixScene
+                slide={slide}
+                cards={displayCards}
+                activeCard={displayActiveCard}
+                visibleFor={displayVisibleFor}
+                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+                expandedKey={displayExpandedKey}
+                onToggle={displayOnToggle}
+              />
+            ) : isSpotlight ? (
+              <PptSpotlightScene
+                slide={slide}
+                cards={displayCards}
+                activeCard={displayActiveCard}
+                visibleFor={displayVisibleFor}
+                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+                expandedKey={displayExpandedKey}
+                onToggle={displayOnToggle}
+              />
+            ) : (
+              <PptMotionVisualScene
+                slide={slide}
+                cards={displayCards}
+                activeCard={displayActiveCard}
+                visibleFor={displayVisibleFor}
+                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
+                expandedKey={displayExpandedKey}
+                onToggle={displayOnToggle}
+              />
+            )}
+          </div>
         )}
       </div>
       {check && (

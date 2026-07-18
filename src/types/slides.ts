@@ -92,6 +92,13 @@ export interface PptContent {
   intro?: string;
   prompt?: string;
   cards?: PptCard[];
+  /** A second, fully independent set of cards that takes over the same
+   *  scene once narration moves past `cards` and starts naming these --
+   *  for slides whose narration covers two genuinely distinct enumerated
+   *  lists (e.g. "three non-negotiables" then "three leadership
+   *  questions"). Gets the exact same per-card visual/timing treatment as
+   *  `cards`, just staged as its own act instead of crowding one grid. */
+  secondaryCards?: PptCard[];
   checks?: PptCard[];
 }
 

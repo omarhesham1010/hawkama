@@ -68,6 +68,7 @@ function makeSlide({
   visual,
   layout,
   cards,
+  secondaryCards,
   kind = 'content',
   intro,
   prompt,
@@ -84,6 +85,7 @@ function makeSlide({
   visual: string;
   layout: PptLayout;
   cards?: PptCard[];
+  secondaryCards?: PptCard[];
   kind?: SlideKind;
   intro?: string;
   prompt?: string;
@@ -119,6 +121,7 @@ function makeSlide({
       intro,
       prompt,
       cards,
+      secondaryCards,
       checks,
     },
   };
@@ -250,6 +253,12 @@ export const emergencyIntroSlides = indexSlides([
 //  الفصل الأول — الاستعداد للطوارئ الصحية
 // ============================================================
 
+const strategicFrameworkNonNegotiablesCards: PptCard[] = [
+  { index: '01', title: 'سلامة المرضى', text: 'أول ما لا يمكن التنازل عنه مهما كانت الظروف.', tone: 'gold' },
+  { index: '02', title: 'حماية الكوادر', text: 'استمرارية الاستجابة تبدأ بحماية من يقدّمها.' },
+  { index: '03', title: 'استمرارية الخدمات الحرجة', text: 'الخدمات اللي لا يجوز أن تتوقف مهما اشتدت الأزمة.' },
+];
+
 const strategicFrameworkCards: PptCard[] = [
   { index: '01', title: 'منو يقود أثناء الطوارئ؟', text: 'تحديد مركز قيادة واضح قبل ما تبدأ الأزمة، لا أثناءها.' },
   { index: '02', title: 'تتعدد مراكز القرار أم تُوحّد؟', text: 'القيادة الموحدة تسرّع القرار وتقلل الارتباك الداخلي.' },
@@ -332,6 +341,13 @@ const icCommanderCards: PptCard[] = [
   { index: '04', title: 'توحيد الجهود' },
 ];
 
+const icsFunctionalUnitsCards: PptCard[] = [
+  { index: '01', title: 'العمليات', text: 'تنفيذ الاستجابة الفعلية على الأرض.' },
+  { index: '02', title: 'التخطيط', text: 'تتبع الموقف وتوقع ما هو قادم.' },
+  { index: '03', title: 'اللوجستيات', text: 'تأمين الموارد والمعدات اللازمة.' },
+  { index: '04', title: 'الدعم', text: 'الجوانب الإدارية والمالية للاستجابة.', tone: 'gold' },
+];
+
 const eocRolesCards: PptCard[] = [
   { title: 'جمع وتحليل المعلومات من الميدان' },
   { title: 'دعم القيادة بالبيانات' },
@@ -340,11 +356,26 @@ const eocRolesCards: PptCard[] = [
   { title: 'ضمان اتساق الرسائل', tone: 'gold' },
 ];
 
+const eocCoordinationPlatformCards: PptCard[] = [
+  { index: '01', title: 'الموارد تُدار بذكاء' },
+  { index: '02', title: 'المعلومات تتدفق بشكل صحيح' },
+  { index: '03', title: 'التنسيق الخارجي يتم بسلاسة' },
+  { index: '04', title: 'القرارات تُدعم بالتحليل', tone: 'gold' },
+];
+
 const eocDesignCards: PptCard[] = [
   { title: 'لا يتطلب أن يكون دائم التشغيل' },
   { title: 'لا يعتمد على أفراد بعينهم' },
   { title: 'يمكن تفعيله جزئيًا أو كليًا' },
   { title: 'يتكامل مع خطط استمرارية الأعمال', tone: 'gold' },
+];
+
+const eocActivationQuestionsCards: PptCard[] = [
+  { index: '01', title: 'وش صلاحياته؟' },
+  { index: '02', title: 'منو يشارك فيه؟' },
+  { index: '03', title: 'متى يُفعّل؟' },
+  { index: '04', title: 'كيف يُغلق بعد انتهاء الأزمة؟' },
+  { index: '05', title: 'كيف يتواصل مع القيادة العليا؟', tone: 'gold' },
 ];
 
 const coordinationCards: PptCard[] = [
@@ -367,6 +398,14 @@ const activity6Cards: PptCard[] = [
   { index: '3', title: 'تفعيل EOC (15 دقيقة)', text: 'تحدٍ بمعلومة ناقصة ومتضاربة — هل نحتاج تفعيل جزئي أو كامل؟' },
   { index: '4', title: 'التنسيق واتخاذ القرار (10 دقائق)', text: 'حدث مفاجئ — تحديد الرسالة الموحدة ومنو يقرر ومنو ينسّق.' },
   { index: '5', title: 'تحليل الأثر والاستمرارية (10 دقائق)', text: 'اختيار قرار واحد وتحليل أثره على المرضى والاستمرارية والسمعة.' },
+];
+
+const infoFlowSourcesCards: PptCard[] = [
+  { index: '01', title: 'أقسام سريرية' },
+  { index: '02', title: 'فرق ميدانية' },
+  { index: '03', title: 'أنظمة تقنية' },
+  { index: '04', title: 'جهات خارجية' },
+  { index: '05', title: 'إعلام ومجتمع', tone: 'gold' },
 ];
 
 const infoFlowCards: PptCard[] = [
@@ -495,7 +534,8 @@ export const emergencyChapterOneSlides = indexSlides([
       'أول محور تحت عنوان تصميم الإطار الاستراتيجي الشامل للاستجابة. الطوارئ ما تمنح وقت للتفكير الطويل، بل تفرض قرارات سريعة في بيئة غير مكتملة المعلومات، ومن هنا يأتي دور هذا الإطار كـ"العقل المسبق" للمؤسسة أثناء الأزمة — لا يُكتب ليُقرأ أثناء الطوارئ، بل ليُستوعب قبلها، وهو اللي يحدد كيف تفاضل القيادة بين الخيارات الصعبة وترتب الأولويات وقت تزاحم المطالب. عمليًا، تبدأ القيادة بتحديد أنواع الطوارئ اللي ممكن تواجهها المؤسسة وفق نهج "جميع الأخطار"، ثم تحدد ما لا يمكن التنازل عنه مهما كانت الظروف، مثل سلامة المرضى وحماية الكوادر واستمرارية الخدمات الحرجة. بعدها تُحسم مسألة القيادة عن طريق ثلاثة أسئلة: منو يقود أثناء الطوارئ؟ هل تتعدد مراكز القرار أم تُوحّد؟ ووش حدود التفويض ومتى يُسحب؟ مثال واقعي: خلال جائحة كوفيد-19، المؤسسات اللي حسمت مبكرًا نموذج القيادة الموحدة وتمسكت فيه رغم الضغوط قدرت تتخذ قرارات سريعة مثل الحجر ومنع التجول، وتوحّد رسائلها، وتقلل الارتباك الداخلي، بينما مؤسسات ثانية عانت من تضارب القرارات رغم امتلاكها خططًا مكتوبة.',
     visual: '🧭',
     layout: 'pptThreeColumns',
-    cards: strategicFrameworkCards,
+    cards: strategicFrameworkNonNegotiablesCards,
+    secondaryCards: strategicFrameworkCards,
   }),
   makeSlide({
     id: 'ec1-emergency-plans',
@@ -585,6 +625,7 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🎖️',
     layout: 'pptSpotlight',
     cards: icCommanderCards,
+    secondaryCards: icsFunctionalUnitsCards,
   }),
   makeSlide({
     id: 'ec1-eoc',
@@ -594,7 +635,8 @@ export const emergencyChapterOneSlides = indexSlides([
       'أدوار ومسؤوليات مركز عمليات الطوارئ: إذا كان ICS يقود الحدث ميدانيًا، فمركز عمليات الطوارئ EOC يقود الصورة الكبرى. EOC ليس بديلًا عن القيادة الميدانية، بل منصة تنسيقية تضمن أربع أشياء: الموارد تُدار بذكاء، المعلومات تتدفق بشكل صحيح، التنسيق الخارجي يتم بسلاسة، والقرارات تُدعم بالتحليل. في المؤسسات الصحية الناضجة يُفهم EOC على أنه غرفة القرار، لا غرفة التشغيل، وأدواره موضحة أمامك. مثال توضيحي: أثناء ضغط شديد على الطوارئ، يحلل EOC الطاقة الاستيعابية، ويتواصل مع مستشفيات أخرى، وينسّق تحويل الحالات، بدل ما يترك قائد الميدان غارق في التفاصيل.',
     visual: '🏢',
     layout: 'pptSpotlight',
-    cards: eocRolesCards,
+    cards: eocCoordinationPlatformCards,
+    secondaryCards: eocRolesCards,
   }),
   makeSlide({
     id: 'ec1-eoc-design',
@@ -603,8 +645,9 @@ export const emergencyChapterOneSlides = indexSlides([
     narration:
       'تصميم وتشغيل EOC لتحقيق الاستمرارية: تصميم EOC ما هو مجرد تجهيز غرفة، بل قرار استراتيجي حول كيف تقود المؤسسة نفسها أثناء الأزمات. أفضل الممارسات تقول إن EOC الفعّال يتصف بأربع صفات موضحة أمامك. عمليًا تبدأ القيادة بتحديد خمس أشياء: وش صلاحياته؟ منو يشارك فيه؟ متى يُفعّل؟ كيف يُغلق بعد انتهاء الأزمة؟ وكيف يتواصل مع القيادة العليا؟ مثال واقعي: خلال أزمة صحية ممتدة، فشلت بعض المراكز لأنها اعتمدت على نفس الأفراد لأيام طويلة، وما دمجت الاستمرارية البشرية، وما خططت للتناوب، بينما نجحت مراكز ثانية لأنها صممت EOC بعقلية "التحمّل طويل الأمد".',
     visual: '⚙️',
-    layout: 'pptMatrix',
+    layout: 'pptSpotlight',
     cards: eocDesignCards,
+    secondaryCards: eocActivationQuestionsCards,
     checks: [
       quickCheck({
         title: 'وش الفرق العملي بين دور ICS ودور EOC؟',
@@ -655,7 +698,8 @@ export const emergencyChapterOneSlides = indexSlides([
       'المحور الثالث والأخير من الفصل: تنسيق المعلومات والموارد. في الطوارئ الصحية، كثيرًا الخطر الأكبر مو نقص الموارد، بل سوء إدارتها، ومو غياب المعلومة، بل تشويشها أو تأخرها أو تضاربها. نبدأ بإدارة تدفق المعلومات: المعلومات تتدفق من خمس جهات — أقسام سريرية، فرق ميدانية، أنظمة تقنية، جهات خارجية، وإعلام ومجتمع — وإن ما أُديرت بوعي تتحول بسرعة لعبء على القيادة بدل ما تكون دعم. إدارة التدفق ما تعني جمع كل شيء، بل التمييز بين المهم والعاجل والضجيج. القيادة تحتاج معلومات محدثة، دقيقة، مختصرة، وقابلة للاستخدام في القرار. عمليًا تبدأ إدارة التدفق بتحديد أربعة أشياء موضحة أمامك. وجود قناة واحدة معتمدة لتجميع وتحليل المعلومات يمنع التضارب ويحمي القيادة من فخ القرارات المتناقضة. مثال واقعي: في إحدى الأزمات تلقت القيادة أرقامًا مختلفة عن عدد الأسرة المتاحة من مصادر متعددة، وغياب مركز موحد للمعلومات أدى لقرارات خاطئة في تحويل المرضى، بينما المؤسسات اللي اعتمدت نقطة تجميع واحدة داخل EOC حافظت على دقة القرار حتى مع ضغط الوقت.',
     visual: '📶',
     layout: 'pptTitleCards',
-    cards: infoFlowCards,
+    cards: infoFlowSourcesCards,
+    secondaryCards: infoFlowCards,
   }),
   makeSlide({
     id: 'ec1-hr-logistics',
