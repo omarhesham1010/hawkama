@@ -101,6 +101,14 @@ export interface PptContent {
    *  its own shot instead of crowding one grid or leaning on a generic
    *  bridging image. */
   laterActs?: PptCard[][];
+  /** Per-act layout override, same order as `[cards, ...laterActs]`. A
+   *  slide's acts don't have to share one visual shape -- naming a
+   *  different layout per index (e.g. spotlight for the framing card,
+   *  matrix for a 2x2 breakdown, titleCards for a flat list) keeps
+   *  consecutive shots from feeling like the same grid restyled. Any index
+   *  left unset (including when this whole field is omitted) falls back
+   *  to the slide's own top-level `layout`. */
+  actLayouts?: PptLayout[];
   checks?: PptCard[];
 }
 

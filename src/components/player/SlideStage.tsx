@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { Beat, BeatUnit, PptCard, Slide } from '../../types/slides';
+import type { Beat, BeatUnit, PptCard, PptLayout, Slide } from '../../types/slides';
 import type { QuizQuestion } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { CompletionMedallion } from '../ui/Badge';
@@ -2364,6 +2364,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
 
 function PptMotionVisualScene({
   slide,
+  layout,
   cards,
   activeCard,
   visibleFor,
@@ -2372,6 +2373,10 @@ function PptMotionVisualScene({
   onToggle,
 }: {
   slide: Slide;
+  /** Effective layout for this act -- defaults to slide.layout, but a
+   *  multi-act slide can point a specific act at a different shape via
+   *  actLayouts (see PptContent). */
+  layout?: PptLayout;
   cards: PptCard[];
   activeCard: number;
   visibleFor: (index: number) => boolean;
@@ -2380,6 +2385,7 @@ function PptMotionVisualScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
+  const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
@@ -2413,8 +2419,8 @@ function PptMotionVisualScene({
   }, [effectiveActiveKey, focusAnim]);
   const visualPool = slideVisualPool(slide, cards);
   const primaryVisual = visualPool[0] ?? '/assets/visual-library/governance-scene.webp';
-  const titleCardGrid = isEmergencySlide && slide.layout === 'pptTitleCards';
-  const variant = slide.layout === 'pptTwoPanels'
+  const titleCardGrid = isEmergencySlide && effectiveLayout === 'pptTitleCards';
+  const variant = effectiveLayout === 'pptTwoPanels'
     ? 'split'
     : titleCardGrid
       ? 'titleGrid'
@@ -3602,15 +3608,29 @@ function PptStyleSlide({
       ? narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0))
       : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
+  // Split the combined `cards` back into whichever single act is on screen
+  // right now. Narration crosses into the next act the moment that act's
+  // first card starts revealing (same offset-matching used for every other
+  // card) -- until then this is a no-op (act index 0, full cards list), so
+  // slides without laterActs render through exactly the same values as
+  // before this existed.
+  let activeActIndex = 0;
+  for (let i = 1; i < cardActs.length; i += 1) {
+    if (cardIsVisible(actStartIndices[i])) activeActIndex = i;
+  }
+  // A slide's acts don't have to share one visual shape -- actLayouts lets
+  // each act name its own (e.g. spotlight for the framing card, matrix for
+  // a 2x2 breakdown), falling back to the slide's own layout when unset.
+  const activeLayout = slide.ppt?.actLayouts?.[activeActIndex] ?? slide.layout;
   const isIntro = slide.layout === 'pptIntro';
   const isIntroRoadmap = slide.id === 'program-map';
   const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
-  const isThree = slide.layout === 'pptThreeColumns';
-  const isTwoPanel = slide.layout === 'pptTwoPanels';
-  const isTimeline = slide.layout === 'pptTimeline';
-  const isMatrix = slide.layout === 'pptMatrix';
-  const isSpotlight = slide.layout === 'pptSpotlight';
+  const isThree = activeLayout === 'pptThreeColumns';
+  const isTwoPanel = activeLayout === 'pptTwoPanels';
+  const isTimeline = activeLayout === 'pptTimeline';
+  const isMatrix = activeLayout === 'pptMatrix';
+  const isSpotlight = activeLayout === 'pptSpotlight';
   const motionStarted = started || spoken > 0 || showDialogue;
 
   // Bridge the gap between Nasser starting to talk and the first card's own
@@ -3713,16 +3733,6 @@ function PptStyleSlide({
       : cardNarrationRange(expandedCardIndex).text || pptDetailFor(expandedCard, isEmergencySlide)
     : undefined);
 
-  // Split the combined `cards` back into whichever single act is on screen
-  // right now. Narration crosses into the next act the moment that act's
-  // first card starts revealing (same offset-matching used for every other
-  // card) -- until then this is a no-op (act index 0, full cards list), so
-  // slides without laterActs render through exactly the same values as
-  // before this existed.
-  let activeActIndex = 0;
-  for (let i = 1; i < cardActs.length; i += 1) {
-    if (cardIsVisible(actStartIndices[i])) activeActIndex = i;
-  }
   const actBaseIndex = actStartIndices[activeActIndex];
   const actCardCount = cardActs[activeActIndex].length;
   const displayCards = hasMultipleActs ? cardActs[activeActIndex] : cards;
@@ -3836,6 +3846,7 @@ function PptStyleSlide({
             ) : (
               <PptMotionVisualScene
                 slide={slide}
+                layout={activeLayout}
                 cards={displayCards}
                 activeCard={displayActiveCard}
                 visibleFor={displayVisibleFor}

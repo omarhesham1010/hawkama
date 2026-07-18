@@ -69,6 +69,7 @@ function makeSlide({
   layout,
   cards,
   laterActs,
+  actLayouts,
   kind = 'content',
   intro,
   prompt,
@@ -86,6 +87,7 @@ function makeSlide({
   layout: PptLayout;
   cards?: PptCard[];
   laterActs?: PptCard[][];
+  actLayouts?: PptLayout[];
   kind?: SlideKind;
   intro?: string;
   prompt?: string;
@@ -122,6 +124,7 @@ function makeSlide({
       prompt,
       cards,
       laterActs,
+      actLayouts,
       checks,
     },
   };
@@ -548,6 +551,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [{ title: 'نهج جميع الأخطار', text: 'تحديد أنواع الطوارئ الممكنة بدل التركيز على سيناريو واحد بعينه.', tone: 'gold' }],
     laterActs: [strategicFrameworkNonNegotiablesCards, strategicFrameworkCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptThreeColumns'],
   }),
   makeSlide({
     id: 'ec1-emergency-plans',
@@ -559,6 +563,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'التخطيط القائم على السيناريوهات', text: 'بناء الخطة على أسوأ سيناريو معقول، لا على افتراضات مريحة.', tone: 'gold' }],
     laterActs: [emergencyPlanElements],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec1-recovery-continuity',
@@ -570,6 +575,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'متى نبدأ التعافي؟', text: 'الأزمة رحلة لا لحظة — السؤال لازم يُطرح مبكرًا، لا بعد فوات الأوان.', tone: 'gold' }],
     laterActs: [recoveryClassificationCards],
+    actLayouts: ['pptTitleCards', 'pptThreeColumns'],
   }),
   makeSlide({
     id: 'ec1-readiness',
@@ -581,6 +587,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'الجاهزية = قابلية التنفيذ', text: 'لا تُقاس بعدد الوثائق المكتوبة، بل بالقدرة الفعلية على التنفيذ.', tone: 'gold' }],
     laterActs: [readinessCards],
+    actLayouts: ['pptTitleCards', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'ليش نبني خطة الطوارئ على أكثر من سيناريو بدل سيناريو واحد متفائل؟',
@@ -600,6 +607,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'لا عمل بمعزل', text: 'الاستجابة الفعالة استجابة منسّقة تبدأ قبل الأزمة، لا أثناءها.', tone: 'gold' }],
     laterActs: [interAgencyCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec1-business-continuity',
@@ -611,6 +619,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'الضمان الأخير', text: 'خطط الاستمرارية لا تعمل بمعزل عن خطط الطوارئ، بل تتكامل معها.', tone: 'gold' }],
     laterActs: [businessContinuityCards],
+    actLayouts: ['pptTitleCards', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'التصنيف الثلاثي للخدمات في محور استمرارية الأعمال، وش هو؟',
@@ -633,6 +642,7 @@ export const emergencyChapterOneSlides = indexSlides([
     intro: 'أنتم ضمن فريق القيادة في منشأة صحية مرجعية، وخلال ٧٢ ساعة بدأت مؤشرات أزمة صحية بالظهور. المطلوب اتخاذ قرارات قيادية صحيحة في الوقت المناسب، لا كتابة خطة.',
     cards: [{ title: 'الهدف من النشاط', text: 'ممارسة التفكير القيادي أثناء الطوارئ — قرارات، لا خطة تفصيلية.', tone: 'gold' }],
     laterActs: [activity5Cards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec1-ics',
@@ -644,6 +654,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'الخطأ الأكبر', text: 'إدارة الطوارئ بنفس الهيكل الإداري اليومي — التعقيد البيروقراطي لا يحتمله الوقت.', tone: 'gold' }],
     laterActs: [icsCorePrincipleCards, icCommanderCards, icsFunctionalUnitsCards],
+    actLayouts: ['pptTitleCards', 'pptThreeColumns', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-eoc',
@@ -655,6 +666,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ICS يقود الميدان، EOC يقود الصورة الكبرى', text: 'EOC ليس بديلاً عن القيادة الميدانية، بل منصة تنسيقية.', tone: 'gold' }],
     laterActs: [eocCoordinationPlatformCards, eocRolesCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec1-eoc-design',
@@ -666,6 +678,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'قرار استراتيجي، لا تجهيز غرفة', text: 'تصميم EOC يحدد كيف تقود المؤسسة نفسها أثناء الأزمات.', tone: 'gold' }],
     laterActs: [eocDesignCards, eocActivationQuestionsCards],
+    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'وش الفرق العملي بين دور ICS ودور EOC؟',
@@ -685,6 +698,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'المشكلة الحقيقية', text: 'أغلب الإخفاقات أثناء الطوارئ سببها ضعف التنسيق، لا نقص الموارد.', tone: 'gold' }],
     laterActs: [coordinationClarityCards, coordinationCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec1-impact-modeling',
@@ -696,6 +710,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'مو كل عاجل استراتيجي', text: 'القيادة الناضجة تميّز بين الملح والمهم وقت الضغط.', tone: 'gold' }],
     laterActs: [impactModelingCards],
+    actLayouts: ['pptTitleCards', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec1-activity-6',
@@ -710,6 +725,7 @@ export const emergencyChapterOneSlides = indexSlides([
     intro: 'ارتفعت أعداد حالات تنفسية حادة بشكل غير متوقع خلال آخر ٢٤ ساعة، والمطلوب تفعيل ICS و EOC وإدارة الحدث خلال أول ست ساعات.',
     cards: [{ title: 'الهدف من النشاط', text: 'ممارسة القيادة والتنسيق واتخاذ القرار تحت الضغط.', tone: 'gold' }],
     laterActs: [activity6Cards],
+    actLayouts: ['pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-info-flow',
@@ -721,6 +737,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'الخطر الحقيقي', text: 'مو نقص الموارد أو غياب المعلومة، بل سوء إدارتها وتشويشها وتأخرها.', tone: 'gold' }],
     laterActs: [infoFlowSourcesCards, infoFlowCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec1-hr-logistics',
@@ -749,6 +766,7 @@ export const emergencyChapterOneSlides = indexSlides([
         { title: 'لا تُترك السلامة لتقدير فردي', tone: 'gold' },
       ],
     ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptThreeColumns'],
   }),
   makeSlide({
     id: 'ec1-activity-7',
@@ -763,6 +781,7 @@ export const emergencyChapterOneSlides = indexSlides([
     intro: 'أزمة صحية متصاعدة أدت لضغط غير مسبوق على الطوارئ. المعلومات تتدفق من مصادر متعددة، والموارد محدودة، والسياسات موجودة لكن التطبيق متفاوت.',
     cards: [{ title: 'الهدف من النشاط', text: 'الربط بين المعلومات والموارد والسياسات في موقف واحد.', tone: 'gold' }],
     laterActs: [activity7Cards],
+    actLayouts: ['pptTitleCards', 'pptMatrix'],
   }),
   makeQuizSlide({
     id: 'ec1-quiz',
@@ -991,6 +1010,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'لماذا التمييز مهم؟', text: 'عدم التمييز بين المصطلحات يؤدي لاستجابة مبالغ فيها أو أقل من المطلوب.', tone: 'gold' }],
     laterActs: [crisisTermsCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'وش الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
@@ -1062,6 +1082,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'ليست كل الأحداث سواء', text: 'معايير التصعيد تحدد متى ننتقل لمستوى استجابة أعلى.', tone: 'gold' }],
     laterActs: [escalationLevelsCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec2-cerc-phases',
@@ -1360,6 +1381,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'ما هو استشراف المخاطر التنظيمية؟', text: 'عملية استباقية تحدد وتحلل التغييرات التنظيمية القادمة.', tone: 'gold' }],
     laterActs: [regulatoryForesightCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec3-regulatory-tools',
@@ -1423,6 +1445,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'من التلسكوب إلى الرادار', text: 'المسح الاستباقي يرى المستقبل البعيد، والترصد يمسح الأفق القريب.', tone: 'gold' }],
     laterActs: [surveillanceImportanceCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec3-indicators',
@@ -1467,6 +1490,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'لا كيانين منفصلين', text: 'الترصد والاستجابة يجب أن يعملا كمنظومة واحدة متكاملة.', tone: 'gold' }],
     laterActs: [integrationMechanismsCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeQuizSlide({
     id: 'ec3-quiz',
