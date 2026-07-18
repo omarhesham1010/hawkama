@@ -550,8 +550,12 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🧭',
     layout: 'pptThreeColumns',
     cards: [{ title: 'نهج جميع الأخطار', text: 'تحديد أنواع الطوارئ الممكنة بدل التركيز على سيناريو واحد بعينه.', tone: 'gold' }],
-    laterActs: [strategicFrameworkNonNegotiablesCards, strategicFrameworkCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptThreeColumns'],
+    laterActs: [
+      strategicFrameworkNonNegotiablesCards,
+      strategicFrameworkCards,
+      [{ title: 'مثال واقعي: جائحة كوفيد-19', text: 'القيادة الموحدة المبكرة سرّعت القرار ووحّدت الرسائل، بينما تعدد مراكز القرار عطّل مؤسسات أخرى رغم خططها المكتوبة.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-emergency-plans',
@@ -562,8 +566,11 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '📋',
     layout: 'pptTimeline',
     cards: [{ title: 'التخطيط القائم على السيناريوهات', text: 'بناء الخطة على أسوأ سيناريو معقول، لا على افتراضات مريحة.', tone: 'gold' }],
-    laterActs: [emergencyPlanElements],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [
+      emergencyPlanElements,
+      [{ title: 'مثال: مستشفى مرجعي', text: 'خطة مبنية على أسوأ سيناريو جعلت الأداء منظمًا وقابلًا للسيطرة وقت الأزمة الفعلية، لا مثاليًا.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-recovery-continuity',
@@ -574,8 +581,11 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🎯',
     layout: 'pptSpotlight',
     cards: [{ title: 'متى نبدأ التعافي؟', text: 'الأزمة رحلة لا لحظة — السؤال لازم يُطرح مبكرًا، لا بعد فوات الأوان.', tone: 'gold' }],
-    laterActs: [recoveryClassificationCards],
-    actLayouts: ['pptTitleCards', 'pptThreeColumns'],
+    laterActs: [
+      recoveryClassificationCards,
+      [{ title: 'مثال واقعي', text: 'تعليق العمليات غير العاجلة وتعزيز خدمات الطوارئ — قرار صعب حافظ على استدامة المؤسسة ومنع الانهيار.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTitleCards', 'pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-readiness',
@@ -586,8 +596,11 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🛡️',
     layout: 'pptTimeline',
     cards: [{ title: 'الجاهزية = قابلية التنفيذ', text: 'لا تُقاس بعدد الوثائق المكتوبة، بل بالقدرة الفعلية على التنفيذ.', tone: 'gold' }],
-    laterActs: [readinessCards],
-    actLayouts: ['pptTitleCards', 'pptSpotlight'],
+    laterActs: [
+      readinessCards,
+      [{ title: 'مثال: تمرين طوارئ مفاجئ', text: 'كشف التمرين غموضًا في الصلاحيات وضعفًا في التواصل واعتمادًا مفرطًا على نظام واحد — قبل ما تكشفها أزمة حقيقية.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTitleCards', 'pptSpotlight', 'pptTitleCards'],
     checks: [
       quickCheck({
         title: 'ليش نبني خطة الطوارئ على أكثر من سيناريو بدل سيناريو واحد متفائل؟',
@@ -606,8 +619,11 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🤝',
     layout: 'pptTitleCards',
     cards: [{ title: 'لا عمل بمعزل', text: 'الاستجابة الفعالة استجابة منسّقة تبدأ قبل الأزمة، لا أثناءها.', tone: 'gold' }],
-    laterActs: [interAgencyCards],
-    actLayouts: ['pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      interAgencyCards,
+      [{ title: 'مثال واقعي', text: 'غياب التنسيق كدّس مرضى في جهة وعطّل خدمات في أخرى، بينما التكامل المسبق وزّع العبء وحسّن النتائج.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-business-continuity',
@@ -618,8 +634,11 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🔗',
     layout: 'pptSpotlight',
     cards: [{ title: 'الضمان الأخير', text: 'خطط الاستمرارية لا تعمل بمعزل عن خطط الطوارئ، بل تتكامل معها.', tone: 'gold' }],
-    laterActs: [businessContinuityCards],
-    actLayouts: ['pptTitleCards', 'pptMatrix'],
+    laterActs: [
+      businessContinuityCards,
+      [{ title: 'مثال: خطة فعالة', text: 'موردون بديلون للأدوية، وجداول طوارئ للكوادر، وخطط تشغيل عند تعطل الأنظمة — استمرت الخدمة رغم الظروف القاسية.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptTitleCards'],
     checks: [
       quickCheck({
         title: 'التصنيف الثلاثي للخدمات في محور استمرارية الأعمال، وش هو؟',
@@ -653,8 +672,13 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🎖️',
     layout: 'pptSpotlight',
     cards: [{ title: 'الخطأ الأكبر', text: 'إدارة الطوارئ بنفس الهيكل الإداري اليومي — التعقيد البيروقراطي لا يحتمله الوقت.', tone: 'gold' }],
-    laterActs: [icsCorePrincipleCards, icCommanderCards, icsFunctionalUnitsCards],
-    actLayouts: ['pptTitleCards', 'pptThreeColumns', 'pptMatrix', 'pptSpotlight'],
+    laterActs: [
+      icsCorePrincipleCards,
+      icCommanderCards,
+      icsFunctionalUnitsCards,
+      [{ title: 'مثال واقعي', text: 'سرعة القرار والمعرفة الميدانية تُقدَّم أحيانًا على المنصب الإداري الأعلى وقت الأزمة.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTitleCards', 'pptThreeColumns', 'pptMatrix', 'pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec1-eoc',
@@ -665,8 +689,12 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🏢',
     layout: 'pptSpotlight',
     cards: [{ title: 'ICS يقود الميدان، EOC يقود الصورة الكبرى', text: 'EOC ليس بديلاً عن القيادة الميدانية، بل منصة تنسيقية.', tone: 'gold' }],
-    laterActs: [eocCoordinationPlatformCards, eocRolesCards],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTitleCards'],
+    laterActs: [
+      eocCoordinationPlatformCards,
+      eocRolesCards,
+      [{ title: 'مثال توضيحي', text: 'EOC يحلل الطاقة الاستيعابية وينسّق التحويل بين المستشفيات، بدل ما يترك قائد الميدان غارقًا بالتفاصيل.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-eoc-design',
@@ -677,8 +705,12 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '⚙️',
     layout: 'pptSpotlight',
     cards: [{ title: 'قرار استراتيجي، لا تجهيز غرفة', text: 'تصميم EOC يحدد كيف تقود المؤسسة نفسها أثناء الأزمات.', tone: 'gold' }],
-    laterActs: [eocDesignCards, eocActivationQuestionsCards],
-    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptSpotlight'],
+    laterActs: [
+      eocDesignCards,
+      eocActivationQuestionsCards,
+      [{ title: 'مثال واقعي', text: 'الاعتماد على نفس الأفراد بلا تناوب أسقط بعض المراكز، بينما نجحت مراكز صُممت بعقلية التحمّل الطويل.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptSpotlight', 'pptTitleCards'],
     checks: [
       quickCheck({
         title: 'وش الفرق العملي بين دور ICS ودور EOC؟',
@@ -697,8 +729,12 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '📡',
     layout: 'pptSpotlight',
     cards: [{ title: 'المشكلة الحقيقية', text: 'أغلب الإخفاقات أثناء الطوارئ سببها ضعف التنسيق، لا نقص الموارد.', tone: 'gold' }],
-    laterActs: [coordinationClarityCards, coordinationCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
+    laterActs: [
+      coordinationClarityCards,
+      coordinationCards,
+      [{ title: 'مثال توضيحي', text: 'تعليمات متضاربة من أكثر من جهة أربكت الكوادر، بينما قناة واحدة ورسالة واحدة حافظتا على الانضباط.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-impact-modeling',
@@ -709,8 +745,11 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '📊',
     layout: 'pptSpotlight',
     cards: [{ title: 'مو كل عاجل استراتيجي', text: 'القيادة الناضجة تميّز بين الملح والمهم وقت الضغط.', tone: 'gold' }],
-    laterActs: [impactModelingCards],
-    actLayouts: ['pptTitleCards', 'pptMatrix'],
+    laterActs: [
+      impactModelingCards,
+      [{ title: 'مثال واقعي', text: 'تعليق خدمة غير حرجة قد يبدو صعبًا، لكنه قد يكون هو ما يحمي الخدمة الحرجة من الانهيار الكامل.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec1-activity-6',
@@ -736,8 +775,12 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '📶',
     layout: 'pptTitleCards',
     cards: [{ title: 'الخطر الحقيقي', text: 'مو نقص الموارد أو غياب المعلومة، بل سوء إدارتها وتشويشها وتأخرها.', tone: 'gold' }],
-    laterActs: [infoFlowSourcesCards, infoFlowCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
+    laterActs: [
+      infoFlowSourcesCards,
+      infoFlowCards,
+      [{ title: 'مثال واقعي', text: 'غياب مركز موحد للمعلومات أدى لقرارات خاطئة في تحويل المرضى، بينما نقطة تجميع واحدة داخل EOC حافظت على دقة القرار.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-hr-logistics',
@@ -748,6 +791,16 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '📦',
     layout: 'pptTwoPanels',
     cards: hrLogisticsCards,
+    laterActs: [
+      [
+        { title: 'وش المتوفر؟' },
+        { title: 'وش المستهلك؟' },
+        { title: 'وش المتوقع نفاده؟' },
+        { title: 'ووش البدائل؟', tone: 'gold' },
+      ],
+      [{ title: 'مثال توضيحي', text: 'توزيع متوازن للمناوبات وفرق احتياط ساعد مستشفى يصمد، بينما استنزاف الكوادر المبكر أسقط مؤسسات أخرى.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-operational-policies',
@@ -765,8 +818,15 @@ export const emergencyChapterOneSlides = indexSlides([
         { title: 'الجميع يلتزم بنفس القواعد' },
         { title: 'لا تُترك السلامة لتقدير فردي', tone: 'gold' },
       ],
+      [
+        { title: 'المعلومة توجّه القرار' },
+        { title: 'القرار يحرّك المورد' },
+        { title: 'المورد يُنفّذ السياسة' },
+        { title: 'السياسة تحمي الإنسان والمؤسسة', tone: 'gold' },
+      ],
+      [{ title: 'مثال واقعي', text: 'سياسة بلا تجهيز خلقت مقاومة داخلية، بينما ربط تفعيل السياسة بالتدريب والتجهيز والتواصل الواضح نجح.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptThreeColumns'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptThreeColumns', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-activity-7',
