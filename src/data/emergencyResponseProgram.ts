@@ -68,7 +68,7 @@ function makeSlide({
   visual,
   layout,
   cards,
-  secondaryCards,
+  laterActs,
   kind = 'content',
   intro,
   prompt,
@@ -85,7 +85,7 @@ function makeSlide({
   visual: string;
   layout: PptLayout;
   cards?: PptCard[];
-  secondaryCards?: PptCard[];
+  laterActs?: PptCard[][];
   kind?: SlideKind;
   intro?: string;
   prompt?: string;
@@ -121,7 +121,7 @@ function makeSlide({
       intro,
       prompt,
       cards,
-      secondaryCards,
+      laterActs,
       checks,
     },
   };
@@ -334,6 +334,12 @@ const activity5Cards: PptCard[] = [
   },
 ];
 
+const icsCorePrincipleCards: PptCard[] = [
+  { index: '01', title: 'قيادة واحدة', text: 'مركز قرار واحد يمنع تعدد المسارات.' },
+  { index: '02', title: 'أهداف واضحة', text: 'الجميع يعرف الأولوية الفعلية للحدث.' },
+  { index: '03', title: 'أدوار محددة بدقة', text: 'كل وحدة تعرف مسؤوليتها دون تداخل.', tone: 'gold' },
+];
+
 const icCommanderCards: PptCard[] = [
   { index: '01', title: 'اعتماد القرارات الحرجة' },
   { index: '02', title: 'تحديد الأهداف الفورية' },
@@ -376,6 +382,13 @@ const eocActivationQuestionsCards: PptCard[] = [
   { index: '03', title: 'متى يُفعّل؟' },
   { index: '04', title: 'كيف يُغلق بعد انتهاء الأزمة؟' },
   { index: '05', title: 'كيف يتواصل مع القيادة العليا؟', tone: 'gold' },
+];
+
+const coordinationClarityCards: PptCard[] = [
+  { index: '01', title: 'منو يرسل المعلومة؟' },
+  { index: '02', title: 'لمنو تُرسل؟' },
+  { index: '03', title: 'في أي وقت؟' },
+  { index: '04', title: 'بأي صيغة؟', tone: 'gold' },
 ];
 
 const coordinationCards: PptCard[] = [
@@ -429,8 +442,7 @@ const hrLogisticsCards: PptCard[] = [
 
 const operationalPoliciesCards: PptCard[] = [
   { title: 'فرض الالتزام بالسياسات الحرجة' },
-  { title: 'توفير الظروف التي تجعل الالتزام ممكنًا' },
-  { title: 'لا تُترك السلامة لتقدير فردي', tone: 'gold' },
+  { title: 'توفير الظروف التي تجعل الالتزام ممكنًا', tone: 'gold' },
 ];
 
 const activity7Cards: PptCard[] = [
@@ -535,7 +547,7 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🧭',
     layout: 'pptThreeColumns',
     cards: strategicFrameworkNonNegotiablesCards,
-    secondaryCards: strategicFrameworkCards,
+    laterActs: [strategicFrameworkCards],
   }),
   makeSlide({
     id: 'ec1-emergency-plans',
@@ -624,8 +636,8 @@ export const emergencyChapterOneSlides = indexSlides([
       'المحور الثاني الكبير من الفصل: أنظمة القيادة أثناء الحوادث، ويُختصر بالإنجليزي ICS، ومركز عمليات الطوارئ EOC. أكبر خطأ أثناء الطوارئ هو محاولة إدارتها بنفس الهيكل الإداري اليومي، لأن الطوارئ الصحية ما تحتمل التعقيد البيروقراطي، ولا تعدد المسارات، ولا التسلسل البطيء للقرارات. نبدأ بهيكل وتنظيم مركز القيادة أثناء الحوادث: نظام ICS جاء كنموذج قيادي مرن يقوم على مبدأ بسيط وحاسم — قيادة واحدة، أهداف واضحة، وأدوار محددة بدقة. في ICS، الهياكل الإدارية ما تُلغى، بل تُعلّق مؤقتًا لصالح هيكل طوارئ واضح يتوسع أو ينكمش حسب حجم الحدث، والقيادة هنا دور يُفعّل عند الحاجة لا منصب دائم. عمليًا، يبدأ تفعيل ICS بتحديد قائد الحادث Incident Commander، وهو المسؤول عن أربع مهام موضحة أمامك. تحته تُبنى وحدات وظيفية — عمليات، تخطيط، لوجستيات، دعم — لا بناءً على الألقاب، بل على ما يحتاجه الحدث فعليًا. مثال واقعي: في تفشٍ وبائي داخل منشأة صحية، قد يتولى القيادة شخص عنده خبرة تشغيلية قوية لا بالضرورة أعلى منصب إداري، لأن سرعة القرار والمعرفة الميدانية تصبح أهم من التسلسل الوظيفي.',
     visual: '🎖️',
     layout: 'pptSpotlight',
-    cards: icCommanderCards,
-    secondaryCards: icsFunctionalUnitsCards,
+    cards: icsCorePrincipleCards,
+    laterActs: [icCommanderCards, icsFunctionalUnitsCards],
   }),
   makeSlide({
     id: 'ec1-eoc',
@@ -636,7 +648,7 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🏢',
     layout: 'pptSpotlight',
     cards: eocCoordinationPlatformCards,
-    secondaryCards: eocRolesCards,
+    laterActs: [eocRolesCards],
   }),
   makeSlide({
     id: 'ec1-eoc-design',
@@ -647,7 +659,7 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '⚙️',
     layout: 'pptSpotlight',
     cards: eocDesignCards,
-    secondaryCards: eocActivationQuestionsCards,
+    laterActs: [eocActivationQuestionsCards],
     checks: [
       quickCheck({
         title: 'وش الفرق العملي بين دور ICS ودور EOC؟',
@@ -665,7 +677,8 @@ export const emergencyChapterOneSlides = indexSlides([
       'التنسيق أثناء الطوارئ: كثير من الإخفاقات أثناء الطوارئ الصحية ما تعود لنقص الموارد، بل لضعف التنسيق. التنسيق هنا ما يعني كثرة الاجتماعات، بل وضوح: منو يرسل المعلومة؟ لمنو تُرسل؟ في أي وقت؟ وبأي صيغة؟ في سياق ICS و EOC يُدار التنسيق عبر أربع أدوات موضحة أمامك. مثال توضيحي: أثناء أزمة، صدور تعليمات متضاربة من أكثر من جهة داخل نفس المنشأة أربك الكوادر وأضعف الثقة، بينما المؤسسات اللي اعتمدت قناة واحدة ورسالة واحدة حافظت على الانضباط حتى في أصعب الظروف.',
     visual: '📡',
     layout: 'pptSpotlight',
-    cards: coordinationCards,
+    cards: coordinationClarityCards,
+    laterActs: [coordinationCards],
   }),
   makeSlide({
     id: 'ec1-impact-modeling',
@@ -699,7 +712,7 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '📶',
     layout: 'pptTitleCards',
     cards: infoFlowSourcesCards,
-    secondaryCards: infoFlowCards,
+    laterActs: [infoFlowCards],
   }),
   makeSlide({
     id: 'ec1-hr-logistics',
@@ -720,6 +733,13 @@ export const emergencyChapterOneSlides = indexSlides([
     visual: '🚦',
     layout: 'pptThreeColumns',
     cards: operationalPoliciesCards,
+    laterActs: [
+      [
+        { title: 'الجميع يعرف وش يجب يسوي' },
+        { title: 'الجميع يلتزم بنفس القواعد' },
+        { title: 'لا تُترك السلامة لتقدير فردي', tone: 'gold' },
+      ],
+    ],
   }),
   makeSlide({
     id: 'ec1-activity-7',

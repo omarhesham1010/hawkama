@@ -1,1236 +1,766 @@
 {
-  "folder": "public/assets/visual-library",
-  "count": 205,
-  "items": [
+  "root": "/assets/visual-library/",
+  "count": 76,
+  "assets": [
     {
       "name": "audit-controls.webp",
       "path": "/assets/visual-library/audit-controls.webp",
-      "type": "image",
-      "size": 61370
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 145154,
+      "transparent": true
     },
     {
       "name": "compliance-scene.webp",
       "path": "/assets/visual-library/compliance-scene.webp",
-      "type": "image",
-      "size": 50884
-    },
-    {
-      "name": "emergency-abc-inventory-01.svg",
-      "path": "/assets/visual-library/emergency-abc-inventory-01.svg",
-      "type": "illustration",
-      "size": 1492
-    },
-    {
-      "name": "emergency-abc-inventory-02.svg",
-      "path": "/assets/visual-library/emergency-abc-inventory-02.svg",
-      "type": "illustration",
-      "size": 1492
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 98236,
+      "transparent": true
     },
     {
       "name": "emergency-abc-inventory.webp",
       "path": "/assets/visual-library/emergency-abc-inventory.webp",
       "type": "scene",
-      "size": 62134
-    },
-    {
-      "name": "emergency-after-action-review-02.svg",
-      "path": "/assets/visual-library/emergency-after-action-review-02.svg",
-      "type": "illustration",
-      "size": 1770
-    },
-    {
-      "name": "emergency-after-action-review-03.svg",
-      "path": "/assets/visual-library/emergency-after-action-review-03.svg",
-      "type": "illustration",
-      "size": 1922
-    },
-    {
-      "name": "emergency-after-action-review.svg",
-      "path": "/assets/visual-library/emergency-after-action-review.svg",
-      "type": "illustration",
-      "size": 2626
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 46640,
+      "transparent": true
     },
     {
       "name": "emergency-after-action-review.webp",
       "path": "/assets/visual-library/emergency-after-action-review.webp",
       "type": "scene",
-      "size": 56840
-    },
-    {
-      "name": "emergency-cerc-timeline-01.svg",
-      "path": "/assets/visual-library/emergency-cerc-timeline-01.svg",
-      "type": "illustration",
-      "size": 2758
-    },
-    {
-      "name": "emergency-cerc-timeline-02.svg",
-      "path": "/assets/visual-library/emergency-cerc-timeline-02.svg",
-      "type": "illustration",
-      "size": 2758
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-cerc-timeline.webp",
       "path": "/assets/visual-library/emergency-cerc-timeline.webp",
       "type": "scene",
-      "size": 69842
-    },
-    {
-      "name": "emergency-command-center-02.svg",
-      "path": "/assets/visual-library/emergency-command-center-02.svg",
-      "type": "illustration",
-      "size": 2535
-    },
-    {
-      "name": "emergency-command-center-03.svg",
-      "path": "/assets/visual-library/emergency-command-center-03.svg",
-      "type": "illustration",
-      "size": 2297
-    },
-    {
-      "name": "emergency-command-center.svg",
-      "path": "/assets/visual-library/emergency-command-center.svg",
-      "type": "illustration",
-      "size": 2287
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-command-center.webp",
       "path": "/assets/visual-library/emergency-command-center.webp",
       "type": "scene",
-      "size": 81898
-    },
-    {
-      "name": "emergency-continuity-shield-02.svg",
-      "path": "/assets/visual-library/emergency-continuity-shield-02.svg",
-      "type": "illustration",
-      "size": 1796
-    },
-    {
-      "name": "emergency-continuity-shield-03.svg",
-      "path": "/assets/visual-library/emergency-continuity-shield-03.svg",
-      "type": "illustration",
-      "size": 1547
-    },
-    {
-      "name": "emergency-continuity-shield.svg",
-      "path": "/assets/visual-library/emergency-continuity-shield.svg",
-      "type": "illustration",
-      "size": 2537
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-continuity-shield.webp",
       "path": "/assets/visual-library/emergency-continuity-shield.webp",
       "type": "scene",
-      "size": 79130
-    },
-    {
-      "name": "emergency-crisis-comm-principles-01.svg",
-      "path": "/assets/visual-library/emergency-crisis-comm-principles-01.svg",
-      "type": "illustration",
-      "size": 2686
-    },
-    {
-      "name": "emergency-crisis-comm-principles-02.svg",
-      "path": "/assets/visual-library/emergency-crisis-comm-principles-02.svg",
-      "type": "illustration",
-      "size": 2686
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47600,
+      "transparent": true
     },
     {
       "name": "emergency-crisis-comm-principles.webp",
       "path": "/assets/visual-library/emergency-crisis-comm-principles.webp",
       "type": "scene",
-      "size": 75158
-    },
-    {
-      "name": "emergency-crisis-communication-02.svg",
-      "path": "/assets/visual-library/emergency-crisis-communication-02.svg",
-      "type": "illustration",
-      "size": 2433
-    },
-    {
-      "name": "emergency-crisis-communication-03.svg",
-      "path": "/assets/visual-library/emergency-crisis-communication-03.svg",
-      "type": "illustration",
-      "size": 1897
-    },
-    {
-      "name": "emergency-crisis-communication.svg",
-      "path": "/assets/visual-library/emergency-crisis-communication.svg",
-      "type": "illustration",
-      "size": 2403
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-crisis-communication.webp",
       "path": "/assets/visual-library/emergency-crisis-communication.webp",
       "type": "scene",
-      "size": 47256
-    },
-    {
-      "name": "emergency-crisis-terms.svg",
-      "path": "/assets/visual-library/emergency-crisis-terms.svg",
-      "type": "illustration",
-      "size": 2390
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 66234,
+      "transparent": true
     },
     {
       "name": "emergency-crisis-terms.webp",
       "path": "/assets/visual-library/emergency-crisis-terms.webp",
       "type": "scene",
-      "size": 48522
-    },
-    {
-      "name": "emergency-decision-pressure-02.svg",
-      "path": "/assets/visual-library/emergency-decision-pressure-02.svg",
-      "type": "illustration",
-      "size": 1625
-    },
-    {
-      "name": "emergency-decision-pressure-03.svg",
-      "path": "/assets/visual-library/emergency-decision-pressure-03.svg",
-      "type": "illustration",
-      "size": 1678
-    },
-    {
-      "name": "emergency-decision-pressure.svg",
-      "path": "/assets/visual-library/emergency-decision-pressure.svg",
-      "type": "illustration",
-      "size": 2144
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 48148,
+      "transparent": true
     },
     {
       "name": "emergency-decision-pressure.webp",
       "path": "/assets/visual-library/emergency-decision-pressure.webp",
       "type": "scene",
-      "size": 58406
-    },
-    {
-      "name": "emergency-delphi-method-01.svg",
-      "path": "/assets/visual-library/emergency-delphi-method-01.svg",
-      "type": "illustration",
-      "size": 3237
-    },
-    {
-      "name": "emergency-delphi-method-02.svg",
-      "path": "/assets/visual-library/emergency-delphi-method-02.svg",
-      "type": "illustration",
-      "size": 3237
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-delphi-method.webp",
       "path": "/assets/visual-library/emergency-delphi-method.webp",
       "type": "scene",
-      "size": 82120
-    },
-    {
-      "name": "emergency-escalation-levels-01.svg",
-      "path": "/assets/visual-library/emergency-escalation-levels-01.svg",
-      "type": "illustration",
-      "size": 1767
-    },
-    {
-      "name": "emergency-escalation-levels-02.svg",
-      "path": "/assets/visual-library/emergency-escalation-levels-02.svg",
-      "type": "illustration",
-      "size": 1766
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 67430,
+      "transparent": true
     },
     {
       "name": "emergency-escalation-levels.webp",
       "path": "/assets/visual-library/emergency-escalation-levels.webp",
       "type": "scene",
-      "size": 48522
-    },
-    {
-      "name": "emergency-futures-wheel-01.svg",
-      "path": "/assets/visual-library/emergency-futures-wheel-01.svg",
-      "type": "illustration",
-      "size": 4927
-    },
-    {
-      "name": "emergency-futures-wheel-02.svg",
-      "path": "/assets/visual-library/emergency-futures-wheel-02.svg",
-      "type": "illustration",
-      "size": 4986
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-futures-wheel.webp",
       "path": "/assets/visual-library/emergency-futures-wheel.webp",
       "type": "scene",
-      "size": 96634
-    },
-    {
-      "name": "emergency-hazard-triangle-01.svg",
-      "path": "/assets/visual-library/emergency-hazard-triangle-01.svg",
-      "type": "illustration",
-      "size": 1519
-    },
-    {
-      "name": "emergency-hazard-triangle-02.svg",
-      "path": "/assets/visual-library/emergency-hazard-triangle-02.svg",
-      "type": "illustration",
-      "size": 1519
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-hazard-triangle.webp",
       "path": "/assets/visual-library/emergency-hazard-triangle.webp",
       "type": "scene",
-      "size": 49490
-    },
-    {
-      "name": "emergency-kpi-dashboard-02.svg",
-      "path": "/assets/visual-library/emergency-kpi-dashboard-02.svg",
-      "type": "illustration",
-      "size": 1908
-    },
-    {
-      "name": "emergency-kpi-dashboard-03.svg",
-      "path": "/assets/visual-library/emergency-kpi-dashboard-03.svg",
-      "type": "illustration",
-      "size": 1908
-    },
-    {
-      "name": "emergency-kpi-dashboard.svg",
-      "path": "/assets/visual-library/emergency-kpi-dashboard.svg",
-      "type": "illustration",
-      "size": 2337
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 52362,
+      "transparent": true
     },
     {
       "name": "emergency-kpi-dashboard.webp",
       "path": "/assets/visual-library/emergency-kpi-dashboard.webp",
       "type": "scene",
-      "size": 64358
-    },
-    {
-      "name": "emergency-leadership-traits-02.svg",
-      "path": "/assets/visual-library/emergency-leadership-traits-02.svg",
-      "type": "illustration",
-      "size": 2078
-    },
-    {
-      "name": "emergency-leadership-traits-03.svg",
-      "path": "/assets/visual-library/emergency-leadership-traits-03.svg",
-      "type": "illustration",
-      "size": 2163
-    },
-    {
-      "name": "emergency-leadership-traits.svg",
-      "path": "/assets/visual-library/emergency-leadership-traits.svg",
-      "type": "illustration",
-      "size": 2184
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 71654,
+      "transparent": true
     },
     {
       "name": "emergency-leadership-traits.webp",
       "path": "/assets/visual-library/emergency-leadership-traits.webp",
       "type": "scene",
-      "size": 81314
-    },
-    {
-      "name": "emergency-leading-lagging-01.svg",
-      "path": "/assets/visual-library/emergency-leading-lagging-01.svg",
-      "type": "illustration",
-      "size": 1817
-    },
-    {
-      "name": "emergency-leading-lagging-02.svg",
-      "path": "/assets/visual-library/emergency-leading-lagging-02.svg",
-      "type": "illustration",
-      "size": 1817
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 71654,
+      "transparent": true
     },
     {
       "name": "emergency-leading-lagging.webp",
       "path": "/assets/visual-library/emergency-leading-lagging.webp",
       "type": "scene",
-      "size": 66504
-    },
-    {
-      "name": "emergency-macro-meso-micro-01.svg",
-      "path": "/assets/visual-library/emergency-macro-meso-micro-01.svg",
-      "type": "illustration",
-      "size": 1590
-    },
-    {
-      "name": "emergency-macro-meso-micro-02.svg",
-      "path": "/assets/visual-library/emergency-macro-meso-micro-02.svg",
-      "type": "illustration",
-      "size": 1309
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 48346,
+      "transparent": true
     },
     {
       "name": "emergency-macro-meso-micro.webp",
       "path": "/assets/visual-library/emergency-macro-meso-micro.webp",
       "type": "scene",
-      "size": 51642
-    },
-    {
-      "name": "emergency-ooda-loop-01.svg",
-      "path": "/assets/visual-library/emergency-ooda-loop-01.svg",
-      "type": "illustration",
-      "size": 2008
-    },
-    {
-      "name": "emergency-ooda-loop-02.svg",
-      "path": "/assets/visual-library/emergency-ooda-loop-02.svg",
-      "type": "illustration",
-      "size": 2008
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-ooda-loop.webp",
       "path": "/assets/visual-library/emergency-ooda-loop.webp",
       "type": "scene",
-      "size": 66524
-    },
-    {
-      "name": "emergency-pdca-cycle-01.svg",
-      "path": "/assets/visual-library/emergency-pdca-cycle-01.svg",
-      "type": "illustration",
-      "size": 2022
-    },
-    {
-      "name": "emergency-pdca-cycle-02.svg",
-      "path": "/assets/visual-library/emergency-pdca-cycle-02.svg",
-      "type": "illustration",
-      "size": 2022
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 57350,
+      "transparent": true
     },
     {
       "name": "emergency-pdca-cycle.webp",
       "path": "/assets/visual-library/emergency-pdca-cycle.webp",
       "type": "scene",
-      "size": 70224
-    },
-    {
-      "name": "emergency-pestle-wheel-01.svg",
-      "path": "/assets/visual-library/emergency-pestle-wheel-01.svg",
-      "type": "illustration",
-      "size": 1784
-    },
-    {
-      "name": "emergency-pestle-wheel-02.svg",
-      "path": "/assets/visual-library/emergency-pestle-wheel-02.svg",
-      "type": "illustration",
-      "size": 1784
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 57350,
+      "transparent": true
     },
     {
       "name": "emergency-pestle-wheel.webp",
       "path": "/assets/visual-library/emergency-pestle-wheel.webp",
       "type": "scene",
-      "size": 55588
-    },
-    {
-      "name": "emergency-power-interest-matrix-01.svg",
-      "path": "/assets/visual-library/emergency-power-interest-matrix-01.svg",
-      "type": "illustration",
-      "size": 1975
-    },
-    {
-      "name": "emergency-power-interest-matrix-02.svg",
-      "path": "/assets/visual-library/emergency-power-interest-matrix-02.svg",
-      "type": "illustration",
-      "size": 1975
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-power-interest-matrix.webp",
       "path": "/assets/visual-library/emergency-power-interest-matrix.webp",
       "type": "scene",
-      "size": 48822
-    },
-    {
-      "name": "emergency-proactive-scanning.svg",
-      "path": "/assets/visual-library/emergency-proactive-scanning.svg",
-      "type": "illustration",
-      "size": 2072
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 43226,
+      "transparent": true
     },
     {
       "name": "emergency-proactive-scanning.webp",
       "path": "/assets/visual-library/emergency-proactive-scanning.webp",
       "type": "scene",
-      "size": 60066
-    },
-    {
-      "name": "emergency-raci-matrix-02.svg",
-      "path": "/assets/visual-library/emergency-raci-matrix-02.svg",
-      "type": "illustration",
-      "size": 2234
-    },
-    {
-      "name": "emergency-raci-matrix-03.svg",
-      "path": "/assets/visual-library/emergency-raci-matrix-03.svg",
-      "type": "illustration",
-      "size": 2234
-    },
-    {
-      "name": "emergency-raci-matrix.svg",
-      "path": "/assets/visual-library/emergency-raci-matrix.svg",
-      "type": "illustration",
-      "size": 3402
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 67430,
+      "transparent": true
     },
     {
       "name": "emergency-raci-matrix.webp",
       "path": "/assets/visual-library/emergency-raci-matrix.webp",
       "type": "scene",
-      "size": 69156
-    },
-    {
-      "name": "emergency-response-team-02.svg",
-      "path": "/assets/visual-library/emergency-response-team-02.svg",
-      "type": "illustration",
-      "size": 2140
-    },
-    {
-      "name": "emergency-response-team-03.svg",
-      "path": "/assets/visual-library/emergency-response-team-03.svg",
-      "type": "illustration",
-      "size": 2179
-    },
-    {
-      "name": "emergency-response-team.svg",
-      "path": "/assets/visual-library/emergency-response-team.svg",
-      "type": "illustration",
-      "size": 2784
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 43226,
+      "transparent": true
     },
     {
       "name": "emergency-response-team.webp",
       "path": "/assets/visual-library/emergency-response-team.webp",
       "type": "scene",
-      "size": 62358
-    },
-    {
-      "name": "emergency-risk-matrix-02.svg",
-      "path": "/assets/visual-library/emergency-risk-matrix-02.svg",
-      "type": "illustration",
-      "size": 2068
-    },
-    {
-      "name": "emergency-risk-matrix-03.svg",
-      "path": "/assets/visual-library/emergency-risk-matrix-03.svg",
-      "type": "illustration",
-      "size": 2068
-    },
-    {
-      "name": "emergency-risk-matrix.svg",
-      "path": "/assets/visual-library/emergency-risk-matrix.svg",
-      "type": "illustration",
-      "size": 2013
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 57304,
+      "transparent": true
     },
     {
       "name": "emergency-risk-matrix.webp",
       "path": "/assets/visual-library/emergency-risk-matrix.webp",
       "type": "scene",
-      "size": 74566
-    },
-    {
-      "name": "emergency-scenario-branches-01.svg",
-      "path": "/assets/visual-library/emergency-scenario-branches-01.svg",
-      "type": "illustration",
-      "size": 1854
-    },
-    {
-      "name": "emergency-scenario-branches-02.svg",
-      "path": "/assets/visual-library/emergency-scenario-branches-02.svg",
-      "type": "illustration",
-      "size": 1854
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 52362,
+      "transparent": true
     },
     {
       "name": "emergency-scenario-branches.webp",
       "path": "/assets/visual-library/emergency-scenario-branches.webp",
       "type": "scene",
-      "size": 50472
-    },
-    {
-      "name": "emergency-scenario-matrix-01.svg",
-      "path": "/assets/visual-library/emergency-scenario-matrix-01.svg",
-      "type": "illustration",
-      "size": 1909
-    },
-    {
-      "name": "emergency-scenario-matrix-02.svg",
-      "path": "/assets/visual-library/emergency-scenario-matrix-02.svg",
-      "type": "illustration",
-      "size": 1909
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "emergency-scenario-matrix.webp",
       "path": "/assets/visual-library/emergency-scenario-matrix.webp",
       "type": "scene",
-      "size": 48822
-    },
-    {
-      "name": "emergency-smart-criteria-01.svg",
-      "path": "/assets/visual-library/emergency-smart-criteria-01.svg",
-      "type": "illustration",
-      "size": 1616
-    },
-    {
-      "name": "emergency-smart-criteria-02.svg",
-      "path": "/assets/visual-library/emergency-smart-criteria-02.svg",
-      "type": "illustration",
-      "size": 1616
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 43226,
+      "transparent": true
     },
     {
       "name": "emergency-smart-criteria.webp",
       "path": "/assets/visual-library/emergency-smart-criteria.webp",
       "type": "scene",
-      "size": 58720
-    },
-    {
-      "name": "emergency-stakeholder-network-02.svg",
-      "path": "/assets/visual-library/emergency-stakeholder-network-02.svg",
-      "type": "illustration",
-      "size": 2203
-    },
-    {
-      "name": "emergency-stakeholder-network-03.svg",
-      "path": "/assets/visual-library/emergency-stakeholder-network-03.svg",
-      "type": "illustration",
-      "size": 2203
-    },
-    {
-      "name": "emergency-stakeholder-network.svg",
-      "path": "/assets/visual-library/emergency-stakeholder-network.svg",
-      "type": "illustration",
-      "size": 3206
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51752,
+      "transparent": true
     },
     {
       "name": "emergency-stakeholder-network.webp",
       "path": "/assets/visual-library/emergency-stakeholder-network.webp",
       "type": "scene",
-      "size": 75668
-    },
-    {
-      "name": "emergency-strategic-framework.svg",
-      "path": "/assets/visual-library/emergency-strategic-framework.svg",
-      "type": "illustration",
-      "size": 2437
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 57304,
+      "transparent": true
     },
     {
       "name": "emergency-strategic-framework.webp",
       "path": "/assets/visual-library/emergency-strategic-framework.webp",
       "type": "scene",
-      "size": 71516
-    },
-    {
-      "name": "emergency-supply-chain-02.svg",
-      "path": "/assets/visual-library/emergency-supply-chain-02.svg",
-      "type": "illustration",
-      "size": 2021
-    },
-    {
-      "name": "emergency-supply-chain-03.svg",
-      "path": "/assets/visual-library/emergency-supply-chain-03.svg",
-      "type": "illustration",
-      "size": 1896
-    },
-    {
-      "name": "emergency-supply-chain.svg",
-      "path": "/assets/visual-library/emergency-supply-chain.svg",
-      "type": "illustration",
-      "size": 2447
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 48148,
+      "transparent": true
     },
     {
       "name": "emergency-supply-chain.webp",
       "path": "/assets/visual-library/emergency-supply-chain.webp",
       "type": "scene",
-      "size": 58096
-    },
-    {
-      "name": "emergency-surveillance-modes-01.svg",
-      "path": "/assets/visual-library/emergency-surveillance-modes-01.svg",
-      "type": "illustration",
-      "size": 1702
-    },
-    {
-      "name": "emergency-surveillance-modes-02.svg",
-      "path": "/assets/visual-library/emergency-surveillance-modes-02.svg",
-      "type": "illustration",
-      "size": 1702
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 46640,
+      "transparent": true
     },
     {
       "name": "emergency-surveillance-modes.webp",
       "path": "/assets/visual-library/emergency-surveillance-modes.webp",
       "type": "scene",
-      "size": 59064
-    },
-    {
-      "name": "emergency-surveillance-radar-02.svg",
-      "path": "/assets/visual-library/emergency-surveillance-radar-02.svg",
-      "type": "illustration",
-      "size": 1783
-    },
-    {
-      "name": "emergency-surveillance-radar-03.svg",
-      "path": "/assets/visual-library/emergency-surveillance-radar-03.svg",
-      "type": "illustration",
-      "size": 1758
-    },
-    {
-      "name": "emergency-surveillance-radar.svg",
-      "path": "/assets/visual-library/emergency-surveillance-radar.svg",
-      "type": "illustration",
-      "size": 2078
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 67430,
+      "transparent": true
     },
     {
       "name": "emergency-surveillance-radar.webp",
       "path": "/assets/visual-library/emergency-surveillance-radar.webp",
       "type": "scene",
-      "size": 60908
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 67430,
+      "transparent": true
     },
     {
       "name": "governance-scene.webp",
       "path": "/assets/visual-library/governance-scene.webp",
-      "type": "image",
-      "size": 75594
-    },
-    {
-      "name": "icon-alert-bell-01.svg",
-      "path": "/assets/visual-library/icon-alert-bell-01.svg",
-      "type": "icon",
-      "size": 1169
-    },
-    {
-      "name": "icon-alert-bell-02.svg",
-      "path": "/assets/visual-library/icon-alert-bell-02.svg",
-      "type": "icon",
-      "size": 1169
-    },
-    {
-      "name": "icon-alert-bell-03.svg",
-      "path": "/assets/visual-library/icon-alert-bell-03.svg",
-      "type": "icon",
-      "size": 1169
-    },
-    {
-      "name": "icon-alert-bell-04.svg",
-      "path": "/assets/visual-library/icon-alert-bell-04.svg",
-      "type": "icon",
-      "size": 1169
-    },
-    {
-      "name": "icon-announcement-speaker-01.svg",
-      "path": "/assets/visual-library/icon-announcement-speaker-01.svg",
-      "type": "icon",
-      "size": 1115
-    },
-    {
-      "name": "icon-announcement-speaker-02.svg",
-      "path": "/assets/visual-library/icon-announcement-speaker-02.svg",
-      "type": "icon",
-      "size": 1115
-    },
-    {
-      "name": "icon-announcement-speaker-03.svg",
-      "path": "/assets/visual-library/icon-announcement-speaker-03.svg",
-      "type": "icon",
-      "size": 1115
-    },
-    {
-      "name": "icon-announcement-speaker-04.svg",
-      "path": "/assets/visual-library/icon-announcement-speaker-04.svg",
-      "type": "icon",
-      "size": 1115
-    },
-    {
-      "name": "icon-checklist-action-01.svg",
-      "path": "/assets/visual-library/icon-checklist-action-01.svg",
-      "type": "icon",
-      "size": 1432
-    },
-    {
-      "name": "icon-checklist-action-02.svg",
-      "path": "/assets/visual-library/icon-checklist-action-02.svg",
-      "type": "icon",
-      "size": 1432
-    },
-    {
-      "name": "icon-checklist-action-03.svg",
-      "path": "/assets/visual-library/icon-checklist-action-03.svg",
-      "type": "icon",
-      "size": 1432
-    },
-    {
-      "name": "icon-checklist-action-04.svg",
-      "path": "/assets/visual-library/icon-checklist-action-04.svg",
-      "type": "icon",
-      "size": 1432
-    },
-    {
-      "name": "icon-control-grid-01.svg",
-      "path": "/assets/visual-library/icon-control-grid-01.svg",
-      "type": "icon",
-      "size": 1418
-    },
-    {
-      "name": "icon-control-grid-02.svg",
-      "path": "/assets/visual-library/icon-control-grid-02.svg",
-      "type": "icon",
-      "size": 1418
-    },
-    {
-      "name": "icon-control-grid-03.svg",
-      "path": "/assets/visual-library/icon-control-grid-03.svg",
-      "type": "icon",
-      "size": 1418
-    },
-    {
-      "name": "icon-control-grid-04.svg",
-      "path": "/assets/visual-library/icon-control-grid-04.svg",
-      "type": "icon",
-      "size": 1418
-    },
-    {
-      "name": "icon-direction-sign-01.svg",
-      "path": "/assets/visual-library/icon-direction-sign-01.svg",
-      "type": "icon",
-      "size": 1251
-    },
-    {
-      "name": "icon-direction-sign-02.svg",
-      "path": "/assets/visual-library/icon-direction-sign-02.svg",
-      "type": "icon",
-      "size": 1251
-    },
-    {
-      "name": "icon-direction-sign-03.svg",
-      "path": "/assets/visual-library/icon-direction-sign-03.svg",
-      "type": "icon",
-      "size": 1251
-    },
-    {
-      "name": "icon-direction-sign-04.svg",
-      "path": "/assets/visual-library/icon-direction-sign-04.svg",
-      "type": "icon",
-      "size": 1251
-    },
-    {
-      "name": "icon-discussion-bubble-01.svg",
-      "path": "/assets/visual-library/icon-discussion-bubble-01.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-discussion-bubble-02.svg",
-      "path": "/assets/visual-library/icon-discussion-bubble-02.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-discussion-bubble-03.svg",
-      "path": "/assets/visual-library/icon-discussion-bubble-03.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-ethics-balance-01.svg",
-      "path": "/assets/visual-library/icon-ethics-balance-01.svg",
-      "type": "icon",
-      "size": 1249
-    },
-    {
-      "name": "icon-ethics-balance-02.svg",
-      "path": "/assets/visual-library/icon-ethics-balance-02.svg",
-      "type": "icon",
-      "size": 1249
-    },
-    {
-      "name": "icon-ethics-balance-03.svg",
-      "path": "/assets/visual-library/icon-ethics-balance-03.svg",
-      "type": "icon",
-      "size": 1249
-    },
-    {
-      "name": "icon-ethics-balance-04.svg",
-      "path": "/assets/visual-library/icon-ethics-balance-04.svg",
-      "type": "icon",
-      "size": 1249
-    },
-    {
-      "name": "icon-file-report-01.svg",
-      "path": "/assets/visual-library/icon-file-report-01.svg",
-      "type": "icon",
-      "size": 1192
-    },
-    {
-      "name": "icon-file-report-02.svg",
-      "path": "/assets/visual-library/icon-file-report-02.svg",
-      "type": "icon",
-      "size": 1192
-    },
-    {
-      "name": "icon-file-report-03.svg",
-      "path": "/assets/visual-library/icon-file-report-03.svg",
-      "type": "icon",
-      "size": 1192
-    },
-    {
-      "name": "icon-file-report-04.svg",
-      "path": "/assets/visual-library/icon-file-report-04.svg",
-      "type": "icon",
-      "size": 1192
-    },
-    {
-      "name": "icon-institution-board-01.svg",
-      "path": "/assets/visual-library/icon-institution-board-01.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-institution-board-02.svg",
-      "path": "/assets/visual-library/icon-institution-board-02.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-institution-board-03.svg",
-      "path": "/assets/visual-library/icon-institution-board-03.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-institution-board-04.svg",
-      "path": "/assets/visual-library/icon-institution-board-04.svg",
-      "type": "icon",
-      "size": 1346
-    },
-    {
-      "name": "icon-kpi-dashboard-01.svg",
-      "path": "/assets/visual-library/icon-kpi-dashboard-01.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-kpi-dashboard-02.svg",
-      "path": "/assets/visual-library/icon-kpi-dashboard-02.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-kpi-dashboard-03.svg",
-      "path": "/assets/visual-library/icon-kpi-dashboard-03.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-kpi-dashboard-04.svg",
-      "path": "/assets/visual-library/icon-kpi-dashboard-04.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-network-nodes-01.svg",
-      "path": "/assets/visual-library/icon-network-nodes-01.svg",
-      "type": "icon",
-      "size": 1403
-    },
-    {
-      "name": "icon-network-nodes-02.svg",
-      "path": "/assets/visual-library/icon-network-nodes-02.svg",
-      "type": "icon",
-      "size": 1403
-    },
-    {
-      "name": "icon-network-nodes-03.svg",
-      "path": "/assets/visual-library/icon-network-nodes-03.svg",
-      "type": "icon",
-      "size": 1403
-    },
-    {
-      "name": "icon-network-nodes-04.svg",
-      "path": "/assets/visual-library/icon-network-nodes-04.svg",
-      "type": "icon",
-      "size": 1403
-    },
-    {
-      "name": "icon-performance-chart-01.svg",
-      "path": "/assets/visual-library/icon-performance-chart-01.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-performance-chart-02.svg",
-      "path": "/assets/visual-library/icon-performance-chart-02.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-performance-chart-03.svg",
-      "path": "/assets/visual-library/icon-performance-chart-03.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-performance-chart-04.svg",
-      "path": "/assets/visual-library/icon-performance-chart-04.svg",
-      "type": "icon",
-      "size": 1366
-    },
-    {
-      "name": "icon-policy-document-01.svg",
-      "path": "/assets/visual-library/icon-policy-document-01.svg",
-      "type": "icon",
-      "size": 1219
-    },
-    {
-      "name": "icon-policy-document-02.svg",
-      "path": "/assets/visual-library/icon-policy-document-02.svg",
-      "type": "icon",
-      "size": 1219
-    },
-    {
-      "name": "icon-policy-document-03.svg",
-      "path": "/assets/visual-library/icon-policy-document-03.svg",
-      "type": "icon",
-      "size": 1219
-    },
-    {
-      "name": "icon-policy-document-04.svg",
-      "path": "/assets/visual-library/icon-policy-document-04.svg",
-      "type": "icon",
-      "size": 1219
-    },
-    {
-      "name": "icon-response-vehicle-01.svg",
-      "path": "/assets/visual-library/icon-response-vehicle-01.svg",
-      "type": "icon",
-      "size": 1447
-    },
-    {
-      "name": "icon-response-vehicle-02.svg",
-      "path": "/assets/visual-library/icon-response-vehicle-02.svg",
-      "type": "icon",
-      "size": 1447
-    },
-    {
-      "name": "icon-response-vehicle-03.svg",
-      "path": "/assets/visual-library/icon-response-vehicle-03.svg",
-      "type": "icon",
-      "size": 1447
-    },
-    {
-      "name": "icon-response-vehicle-04.svg",
-      "path": "/assets/visual-library/icon-response-vehicle-04.svg",
-      "type": "icon",
-      "size": 1447
-    },
-    {
-      "name": "icon-search-plus-01.svg",
-      "path": "/assets/visual-library/icon-search-plus-01.svg",
-      "type": "icon",
-      "size": 1343
-    },
-    {
-      "name": "icon-search-plus-02.svg",
-      "path": "/assets/visual-library/icon-search-plus-02.svg",
-      "type": "icon",
-      "size": 1343
-    },
-    {
-      "name": "icon-search-plus-03.svg",
-      "path": "/assets/visual-library/icon-search-plus-03.svg",
-      "type": "icon",
-      "size": 1343
-    },
-    {
-      "name": "icon-search-plus-04.svg",
-      "path": "/assets/visual-library/icon-search-plus-04.svg",
-      "type": "icon",
-      "size": 1343
-    },
-    {
-      "name": "icon-shield-check-01.svg",
-      "path": "/assets/visual-library/icon-shield-check-01.svg",
-      "type": "icon",
-      "size": 1046
-    },
-    {
-      "name": "icon-shield-check-02.svg",
-      "path": "/assets/visual-library/icon-shield-check-02.svg",
-      "type": "icon",
-      "size": 1046
-    },
-    {
-      "name": "icon-shield-check-03.svg",
-      "path": "/assets/visual-library/icon-shield-check-03.svg",
-      "type": "icon",
-      "size": 1046
-    },
-    {
-      "name": "icon-shield-check-04.svg",
-      "path": "/assets/visual-library/icon-shield-check-04.svg",
-      "type": "icon",
-      "size": 1046
-    },
-    {
-      "name": "icon-strategy-cube-01.svg",
-      "path": "/assets/visual-library/icon-strategy-cube-01.svg",
-      "type": "icon",
-      "size": 1120
-    },
-    {
-      "name": "icon-strategy-cube-02.svg",
-      "path": "/assets/visual-library/icon-strategy-cube-02.svg",
-      "type": "icon",
-      "size": 1120
-    },
-    {
-      "name": "icon-strategy-cube-03.svg",
-      "path": "/assets/visual-library/icon-strategy-cube-03.svg",
-      "type": "icon",
-      "size": 1120
-    },
-    {
-      "name": "icon-strategy-cube-04.svg",
-      "path": "/assets/visual-library/icon-strategy-cube-04.svg",
-      "type": "icon",
-      "size": 1120
-    },
-    {
-      "name": "icon-target-alignment-01.svg",
-      "path": "/assets/visual-library/icon-target-alignment-01.svg",
-      "type": "icon",
-      "size": 1308
-    },
-    {
-      "name": "icon-target-alignment-02.svg",
-      "path": "/assets/visual-library/icon-target-alignment-02.svg",
-      "type": "icon",
-      "size": 1308
-    },
-    {
-      "name": "icon-target-alignment-03.svg",
-      "path": "/assets/visual-library/icon-target-alignment-03.svg",
-      "type": "icon",
-      "size": 1308
-    },
-    {
-      "name": "icon-target-alignment-04.svg",
-      "path": "/assets/visual-library/icon-target-alignment-04.svg",
-      "type": "icon",
-      "size": 1308
-    },
-    {
-      "name": "identity-color-mosaic.png",
-      "path": "/assets/visual-library/identity-color-mosaic.png",
-      "type": "image",
-      "size": 55840
-    },
-    {
-      "name": "identity-footer-ornament.png",
-      "path": "/assets/visual-library/identity-footer-ornament.png",
-      "type": "image",
-      "size": 20683
-    },
-    {
-      "name": "identity-header-logos.png",
-      "path": "/assets/visual-library/identity-header-logos.png",
-      "type": "image",
-      "size": 19331
-    },
-    {
-      "name": "identity-health-logo-strip.png",
-      "path": "/assets/visual-library/identity-health-logo-strip.png",
-      "type": "image",
-      "size": 15611
-    },
-    {
-      "name": "identity-large-background-art.png",
-      "path": "/assets/visual-library/identity-large-background-art.png",
-      "type": "image",
-      "size": 2826688
-    },
-    {
-      "name": "identity-mosaic-corner.png",
-      "path": "/assets/visual-library/identity-mosaic-corner.png",
-      "type": "image",
-      "size": 6534
-    },
-    {
-      "name": "identity-small-accent.png",
-      "path": "/assets/visual-library/identity-small-accent.png",
-      "type": "image",
-      "size": 2253
-    },
-    {
-      "name": "identity-small-logo-mark.png",
-      "path": "/assets/visual-library/identity-small-logo-mark.png",
-      "type": "image",
-      "size": 2898
-    },
-    {
-      "name": "intro-emergency-crisis-target.svg",
-      "path": "/assets/visual-library/intro-emergency-crisis-target.svg",
-      "type": "illustration",
-      "size": 1920
-    },
-    {
-      "name": "intro-emergency-foresight-radar.svg",
-      "path": "/assets/visual-library/intro-emergency-foresight-radar.svg",
-      "type": "illustration",
-      "size": 3047
-    },
-    {
-      "name": "intro-emergency-preparedness-shield-simple.svg",
-      "path": "/assets/visual-library/intro-emergency-preparedness-shield-simple.svg",
-      "type": "illustration",
-      "size": 1399
-    },
-    {
-      "name": "intro-emergency-preparedness-shield.svg",
-      "path": "/assets/visual-library/intro-emergency-preparedness-shield.svg",
-      "type": "illustration",
-      "size": 1410
-    },
-    {
-      "name": "intro-emergency-recovery-check.svg",
-      "path": "/assets/visual-library/intro-emergency-recovery-check.svg",
-      "type": "illustration",
-      "size": 1756
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 135608,
+      "transparent": true
+    },
+    {
+      "name": "icon-alert-bell.webp",
+      "path": "/assets/visual-library/icon-alert-bell.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 46680,
+      "transparent": true
+    },
+    {
+      "name": "icon-announcement-speaker.webp",
+      "path": "/assets/visual-library/icon-announcement-speaker.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 66234,
+      "transparent": true
+    },
+    {
+      "name": "icon-checklist-action.webp",
+      "path": "/assets/visual-library/icon-checklist-action.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
+    },
+    {
+      "name": "icon-control-grid.webp",
+      "path": "/assets/visual-library/icon-control-grid.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 43226,
+      "transparent": true
+    },
+    {
+      "name": "icon-direction-sign.webp",
+      "path": "/assets/visual-library/icon-direction-sign.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
+    },
+    {
+      "name": "icon-discussion-bubble.webp",
+      "path": "/assets/visual-library/icon-discussion-bubble.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 66234,
+      "transparent": true
+    },
+    {
+      "name": "icon-ethics-balance.webp",
+      "path": "/assets/visual-library/icon-ethics-balance.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
+    },
+    {
+      "name": "icon-file-report.webp",
+      "path": "/assets/visual-library/icon-file-report.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 52936,
+      "transparent": true
+    },
+    {
+      "name": "icon-institution-board.webp",
+      "path": "/assets/visual-library/icon-institution-board.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 71654,
+      "transparent": true
+    },
+    {
+      "name": "icon-kpi-dashboard.webp",
+      "path": "/assets/visual-library/icon-kpi-dashboard.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 71654,
+      "transparent": true
+    },
+    {
+      "name": "icon-network-nodes.webp",
+      "path": "/assets/visual-library/icon-network-nodes.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 57304,
+      "transparent": true
+    },
+    {
+      "name": "icon-performance-chart.webp",
+      "path": "/assets/visual-library/icon-performance-chart.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 48346,
+      "transparent": true
+    },
+    {
+      "name": "icon-policy-document.webp",
+      "path": "/assets/visual-library/icon-policy-document.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 57350,
+      "transparent": true
+    },
+    {
+      "name": "icon-response-vehicle.webp",
+      "path": "/assets/visual-library/icon-response-vehicle.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 46640,
+      "transparent": true
+    },
+    {
+      "name": "icon-search-plus.webp",
+      "path": "/assets/visual-library/icon-search-plus.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 67430,
+      "transparent": true
+    },
+    {
+      "name": "icon-shield-check.webp",
+      "path": "/assets/visual-library/icon-shield-check.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47600,
+      "transparent": true
+    },
+    {
+      "name": "icon-strategy-cube.webp",
+      "path": "/assets/visual-library/icon-strategy-cube.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
+    },
+    {
+      "name": "icon-target-alignment.webp",
+      "path": "/assets/visual-library/icon-target-alignment.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51752,
+      "transparent": true
+    },
+    {
+      "name": "identity-color-mosaic.webp",
+      "path": "/assets/visual-library/identity-color-mosaic.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-footer-ornament.webp",
+      "path": "/assets/visual-library/identity-footer-ornament.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-header-logos.webp",
+      "path": "/assets/visual-library/identity-header-logos.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-health-logo-strip.webp",
+      "path": "/assets/visual-library/identity-health-logo-strip.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-large-background-art.webp",
+      "path": "/assets/visual-library/identity-large-background-art.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-mosaic-corner.webp",
+      "path": "/assets/visual-library/identity-mosaic-corner.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-small-accent.webp",
+      "path": "/assets/visual-library/identity-small-accent.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "identity-small-logo-mark.webp",
+      "path": "/assets/visual-library/identity-small-logo-mark.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51730,
+      "transparent": true
+    },
+    {
+      "name": "intro-emergency-crisis-target.webp",
+      "path": "/assets/visual-library/intro-emergency-crisis-target.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 51752,
+      "transparent": true
+    },
+    {
+      "name": "intro-emergency-foresight-radar.webp",
+      "path": "/assets/visual-library/intro-emergency-foresight-radar.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 67430,
+      "transparent": true
+    },
+    {
+      "name": "intro-emergency-preparedness-shield-simple.webp",
+      "path": "/assets/visual-library/intro-emergency-preparedness-shield-simple.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47600,
+      "transparent": true
+    },
+    {
+      "name": "intro-emergency-preparedness-shield.webp",
+      "path": "/assets/visual-library/intro-emergency-preparedness-shield.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47600,
+      "transparent": true
+    },
+    {
+      "name": "intro-emergency-recovery-check.webp",
+      "path": "/assets/visual-library/intro-emergency-recovery-check.webp",
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "intro-governance-building-scene.webp",
       "path": "/assets/visual-library/intro-governance-building-scene.webp",
-      "type": "image",
-      "size": 70032
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 47414,
+      "transparent": true
     },
     {
       "name": "intro-governance-compliance-scene.webp",
       "path": "/assets/visual-library/intro-governance-compliance-scene.webp",
-      "type": "image",
-      "size": 68996
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 58650,
+      "transparent": true
     },
     {
       "name": "intro-governance-risk-scene.webp",
       "path": "/assets/visual-library/intro-governance-risk-scene.webp",
-      "type": "image",
-      "size": 63104
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 52362,
+      "transparent": true
     },
     {
       "name": "leadership-board.webp",
       "path": "/assets/visual-library/leadership-board.webp",
-      "type": "image",
-      "size": 95302
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 232444,
+      "transparent": true
     },
     {
       "name": "policy-scene.webp",
       "path": "/assets/visual-library/policy-scene.webp",
-      "type": "image",
-      "size": 45930
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 82266,
+      "transparent": true
     },
     {
       "name": "policy-workflow.webp",
       "path": "/assets/visual-library/policy-workflow.webp",
-      "type": "image",
-      "size": 62756
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 124074,
+      "transparent": true
     },
     {
       "name": "risk-matrix.webp",
       "path": "/assets/visual-library/risk-matrix.webp",
-      "type": "image",
-      "size": 47682
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 90508,
+      "transparent": true
     },
     {
       "name": "risk-scene.webp",
       "path": "/assets/visual-library/risk-scene.webp",
-      "type": "image",
-      "size": 47296
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 91516,
+      "transparent": true
     },
     {
       "name": "secure-records.webp",
       "path": "/assets/visual-library/secure-records.webp",
-      "type": "image",
-      "size": 46964
+      "type": "scene",
+      "format": "webp",
+      "width": 1024,
+      "height": 1024,
+      "size": 100940,
+      "transparent": true
     }
   ]
 }

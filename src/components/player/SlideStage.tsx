@@ -1278,9 +1278,9 @@ function IntroMotionScene({
   // layers instead of bag 1's governance/compliance/risk icons.
   const introLayerSrcs = isEmergencyCourse
     ? [
-        '/assets/visual-library/intro-emergency-preparedness-shield.svg',
-        '/assets/visual-library/intro-emergency-crisis-target.svg',
-        '/assets/visual-library/intro-emergency-foresight-radar.svg',
+        '/assets/visual-library/intro-emergency-preparedness-shield.webp',
+        '/assets/visual-library/intro-emergency-crisis-target.webp',
+        '/assets/visual-library/intro-emergency-foresight-radar.webp',
       ]
     : [
         '/assets/visual-library/intro-governance-building-scene.webp',
@@ -1832,55 +1832,55 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   // overlapped. See docs/bag2-visual-library-expansion-prompt.md for the
   // audit that surfaced these gaps.
   if (hasAny(text, ['معايير التصعيد', 'تسلسل تصعيد', 'أخضر', 'أصفر', 'أحمر', 'أسود', 'برتقالي', 'ربط العتبات بالإجراءات'])) {
-    add(variantOf(['/assets/visual-library/emergency-escalation-levels-01.svg', '/assets/visual-library/emergency-escalation-levels-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-escalation-levels.webp', '/assets/visual-library/emergency-escalation-levels.webp'], text));
   }
   if (hasAny(text, ['OODA', 'Observe لاحظ', 'Orient توجّه', 'Decide قرّر', 'Act نفّذ'])) {
-    add(variantOf(['/assets/visual-library/emergency-ooda-loop-01.svg', '/assets/visual-library/emergency-ooda-loop-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-ooda-loop.webp', '/assets/visual-library/emergency-ooda-loop.webp'], text));
   }
   if (hasAny(text, ['CERC', 'ما قبل الأزمة', 'المرحلة الأولية', 'مرحلة الصيانة', 'مرحلة الحل', 'مرحلة التقييم'])) {
-    add(variantOf(['/assets/visual-library/emergency-cerc-timeline-01.svg', '/assets/visual-library/emergency-cerc-timeline-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-cerc-timeline.webp', '/assets/visual-library/emergency-cerc-timeline.webp'], text));
   }
   if (hasAny(text, ['PESTLE', 'المسح الأفقي', 'السياسة والتشريع', 'القطاع الخاص'])) {
-    add(variantOf(['/assets/visual-library/emergency-pestle-wheel-01.svg', '/assets/visual-library/emergency-pestle-wheel-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-pestle-wheel.webp', '/assets/visual-library/emergency-pestle-wheel.webp'], text));
   }
   if (hasAny(text, ['المسح الرأسي', 'المستوى الكلي', 'Macro', 'المستوى المتوسط', 'Meso', 'المستوى الجزئي', 'Micro'])) {
-    add(variantOf(['/assets/visual-library/emergency-macro-meso-micro-01.svg', '/assets/visual-library/emergency-macro-meso-micro-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-macro-meso-micro.webp', '/assets/visual-library/emergency-macro-meso-micro.webp'], text));
   }
   if (hasAny(text, ['دلفي', 'مسح الخبراء'])) {
-    add(variantOf(['/assets/visual-library/emergency-delphi-method-01.svg', '/assets/visual-library/emergency-delphi-method-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-delphi-method.webp', '/assets/visual-library/emergency-delphi-method.webp'], text));
   }
   if (hasAny(text, ['عجلة المستقبل', 'تحليل التأثير المتبادل'])) {
-    add(variantOf(['/assets/visual-library/emergency-futures-wheel-01.svg', '/assets/visual-library/emergency-futures-wheel-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-futures-wheel.webp', '/assets/visual-library/emergency-futures-wheel.webp'], text));
   }
   if (hasAny(text, ['الخطر Hazard', 'التعرض Exposure', 'الهشاشة Vulnerability', 'أخطار متتالية', 'أخطار متزامنة', 'أخطار متزايدة', 'متعددة الأخطار'])) {
-    add(variantOf(['/assets/visual-library/emergency-hazard-triangle-01.svg', '/assets/visual-library/emergency-hazard-triangle-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-hazard-triangle.webp', '/assets/visual-library/emergency-hazard-triangle.webp'], text));
   }
   if (hasAny(text, ['مصفوفة السيناريوهات', 'حالات عدم اليقين', 'القوى الدافعة', 'الروايات', 'سؤال محوري'])) {
-    add(variantOf(['/assets/visual-library/emergency-scenario-matrix-01.svg', '/assets/visual-library/emergency-scenario-matrix-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-scenario-matrix.webp', '/assets/visual-library/emergency-scenario-matrix.webp'], text));
   }
   if (hasAny(text, ['مؤشرات استباقية', 'Leading', 'مؤشرات متأخرة', 'Lagging', 'مؤشرات كمية', 'Quantitative', 'مؤشرات نوعية', 'Qualitative'])) {
-    add(variantOf(['/assets/visual-library/emergency-leading-lagging-01.svg', '/assets/visual-library/emergency-leading-lagging-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-leading-lagging.webp', '/assets/visual-library/emergency-leading-lagging.webp'], text));
   }
   if (hasAny(text, ['الترصد القائم على المؤشرات', 'الترصد القائم على الأحداث'])) {
-    add(variantOf(['/assets/visual-library/emergency-surveillance-modes-01.svg', '/assets/visual-library/emergency-surveillance-modes-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-surveillance-modes.webp', '/assets/visual-library/emergency-surveillance-modes.webp'], text));
   }
   if (hasAny(text, ['الفئة A', 'الفئة B', 'الفئة C', 'ABC'])) {
-    add(variantOf(['/assets/visual-library/emergency-abc-inventory-01.svg', '/assets/visual-library/emergency-abc-inventory-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-abc-inventory.webp', '/assets/visual-library/emergency-abc-inventory.webp'], text));
   }
   if (hasAny(text, ['PDCA', 'دورة PDCA'])) {
-    add(variantOf(['/assets/visual-library/emergency-pdca-cycle-01.svg', '/assets/visual-library/emergency-pdca-cycle-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-pdca-cycle.webp', '/assets/visual-library/emergency-pdca-cycle.webp'], text));
   }
   if (hasAny(text, ['القوة والاهتمام', 'راقب', 'أبقهم مطلعين', 'أبقهم راضين', 'أدرهم عن كثب'])) {
-    add(variantOf(['/assets/visual-library/emergency-power-interest-matrix-01.svg', '/assets/visual-library/emergency-power-interest-matrix-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-power-interest-matrix.webp', '/assets/visual-library/emergency-power-interest-matrix.webp'], text));
   }
   if (hasAny(text, ['كن الأول', 'كن دقيقًا', 'كن ذا مصداقية', 'عبّر عن التعاطف', 'شجّع على العمل', 'أظهر الاحترام'])) {
-    add(variantOf(['/assets/visual-library/emergency-crisis-comm-principles-01.svg', '/assets/visual-library/emergency-crisis-comm-principles-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-crisis-comm-principles.webp', '/assets/visual-library/emergency-crisis-comm-principles.webp'], text));
   }
   if (hasAny(text, ['معايير SMART', 'SMART', 'SMART-ER'])) {
-    add(variantOf(['/assets/visual-library/emergency-smart-criteria-01.svg', '/assets/visual-library/emergency-smart-criteria-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-smart-criteria.webp', '/assets/visual-library/emergency-smart-criteria.webp'], text));
   }
   if (hasAny(text, ['السيناريو الأفضل', 'السيناريو الأسوأ', 'السيناريو الأكثر ترجيحًا'])) {
-    add(variantOf(['/assets/visual-library/emergency-scenario-branches-01.svg', '/assets/visual-library/emergency-scenario-branches-02.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-scenario-branches.webp', '/assets/visual-library/emergency-scenario-branches.webp'], text));
   }
 
   // Bag 2 (emergency response) broader topics — checked after the precise
@@ -1888,22 +1888,22 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   // word also appears in bag 1's governance vocabulary (e.g. "مخاطر",
   // "قيادة", "تقييم").
   if (hasAny(text, ['مصفوفة RACI', 'RACI', 'المسؤول عن التنفيذ', 'المساءَل', 'يجب استشارته', 'يجب إعلامه'])) {
-    add(variantOf(['/assets/visual-library/emergency-raci-matrix.svg', '/assets/visual-library/emergency-raci-matrix-02.svg', '/assets/visual-library/emergency-raci-matrix-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-raci-matrix.webp', '/assets/visual-library/emergency-raci-matrix.webp', '/assets/visual-library/emergency-raci-matrix.webp'], text));
   }
   if (hasAny(text, ['ديناميكيات الأزمات', 'أنواع الأزمات', 'الحدث Event', 'الطارئ Emergency', 'الأزمة Crisis', 'الكارثة Disaster'])) {
-    add('/assets/visual-library/emergency-crisis-terms.svg');
+    add('/assets/visual-library/emergency-crisis-terms.webp');
   }
   if (hasAny(text, ['القيادة أثناء الأزمات', 'سمات القيادة', 'الهدوء الظاهر', 'الحسم في القرارات', 'التعاطف الإنساني', 'التواجد الميداني'])) {
-    add(variantOf(['/assets/visual-library/emergency-leadership-traits.svg', '/assets/visual-library/emergency-leadership-traits-02.svg', '/assets/visual-library/emergency-leadership-traits-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-leadership-traits.webp', '/assets/visual-library/emergency-leadership-traits.webp', '/assets/visual-library/emergency-leadership-traits.webp'], text));
   }
   if (hasAny(text, ['ICS', 'EOC', 'قائد الحادث', 'مركز عمليات الطوارئ', 'مركز القيادة', 'مركز قيادة', 'التنسيق أثناء الطوارئ'])) {
-    add(variantOf(['/assets/visual-library/emergency-command-center.svg', '/assets/visual-library/emergency-command-center-02.svg', '/assets/visual-library/emergency-command-center-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-command-center.webp', '/assets/visual-library/emergency-command-center.webp', '/assets/visual-library/emergency-command-center.webp'], text));
   }
   if (hasAny(text, ['الإطار الاستراتيجي', 'الاستعداد للطوارئ', 'خطط الطوارئ', 'الجاهزية المؤسسية', 'التكامل بين الجهات', 'السياسات التشغيلية', 'تفعيل السياسات'])) {
-    add('/assets/visual-library/emergency-strategic-framework.svg');
+    add('/assets/visual-library/emergency-strategic-framework.webp');
   }
   if (hasAny(text, ['استمرارية الأعمال', 'التعافي', 'الموارد الحيوية', 'العمليات الحرجة'])) {
-    add(variantOf(['/assets/visual-library/emergency-continuity-shield.svg', '/assets/visual-library/emergency-continuity-shield-02.svg', '/assets/visual-library/emergency-continuity-shield-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-continuity-shield.webp', '/assets/visual-library/emergency-continuity-shield.webp', '/assets/visual-library/emergency-continuity-shield.webp'], text));
   }
   if (
     hasAny(text, [
@@ -1916,34 +1916,34 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
       'الدروس المستفادة للمملكة',
     ])
   ) {
-    add(variantOf(['/assets/visual-library/emergency-crisis-communication.svg', '/assets/visual-library/emergency-crisis-communication-02.svg', '/assets/visual-library/emergency-crisis-communication-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-crisis-communication.webp', '/assets/visual-library/emergency-crisis-communication.webp', '/assets/visual-library/emergency-crisis-communication.webp'], text));
   }
   if (hasAny(text, ['اتخاذ القرار', 'شلل التحليل', 'تحت الضغط'])) {
-    add(variantOf(['/assets/visual-library/emergency-decision-pressure.svg', '/assets/visual-library/emergency-decision-pressure-02.svg', '/assets/visual-library/emergency-decision-pressure-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-decision-pressure.webp', '/assets/visual-library/emergency-decision-pressure.webp', '/assets/visual-library/emergency-decision-pressure.webp'], text));
   }
   if (hasAny(text, ['المسح الاستباقي', 'استشراف', 'التخطيط بالسيناريوهات'])) {
-    add('/assets/visual-library/emergency-proactive-scanning.svg');
+    add('/assets/visual-library/emergency-proactive-scanning.webp');
   }
   if (hasAny(text, ['خريطة المخاطر', 'خرائط المخاطر', 'مصفوفة تفاعل الأخطار'])) {
-    add(variantOf(['/assets/visual-library/emergency-risk-matrix.svg', '/assets/visual-library/emergency-risk-matrix-02.svg', '/assets/visual-library/emergency-risk-matrix-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-risk-matrix.webp', '/assets/visual-library/emergency-risk-matrix.webp', '/assets/visual-library/emergency-risk-matrix.webp'], text));
   }
   if (hasAny(text, ['الترصد', 'الإنذار المبكر', 'حصن', 'مستويات العتبة'])) {
-    add(variantOf(['/assets/visual-library/emergency-surveillance-radar.svg', '/assets/visual-library/emergency-surveillance-radar-02.svg', '/assets/visual-library/emergency-surveillance-radar-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-surveillance-radar.webp', '/assets/visual-library/emergency-surveillance-radar.webp', '/assets/visual-library/emergency-surveillance-radar.webp'], text));
   }
   if (hasAny(text, ['سلسلة التوريد', 'اللوجستيات', 'اللوجستية', 'المخزون', 'نوبكو', 'EOQ', 'الموردين', 'مرونة سلسلة'])) {
-    add(variantOf(['/assets/visual-library/emergency-supply-chain.svg', '/assets/visual-library/emergency-supply-chain-02.svg', '/assets/visual-library/emergency-supply-chain-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-supply-chain.webp', '/assets/visual-library/emergency-supply-chain.webp', '/assets/visual-library/emergency-supply-chain.webp'], text));
   }
   if (hasAny(text, ['مراجعة ما بعد الحدث', 'AAR', 'الدروس المستفادة', 'خطة التحسين', 'خطة تحسين'])) {
-    add(variantOf(['/assets/visual-library/emergency-after-action-review.svg', '/assets/visual-library/emergency-after-action-review-02.svg', '/assets/visual-library/emergency-after-action-review-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-after-action-review.webp', '/assets/visual-library/emergency-after-action-review.webp', '/assets/visual-library/emergency-after-action-review.webp'], text));
   }
   if (hasAny(text, ['مؤشرات الأداء', 'مؤشرات الجاهزية', 'مؤشرات الاستجابة', 'مؤشرات النتائج', 'مؤشرات التحسين', 'KPI', 'لوحة معلومات', 'Dashboard', 'خط الأساس'])) {
-    add(variantOf(['/assets/visual-library/emergency-kpi-dashboard.svg', '/assets/visual-library/emergency-kpi-dashboard-02.svg', '/assets/visual-library/emergency-kpi-dashboard-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-kpi-dashboard.webp', '/assets/visual-library/emergency-kpi-dashboard.webp', '/assets/visual-library/emergency-kpi-dashboard.webp'], text));
   }
   if (hasAny(text, ['أصحاب المصلحة', 'Stakeholders'])) {
-    add(variantOf(['/assets/visual-library/emergency-stakeholder-network.svg', '/assets/visual-library/emergency-stakeholder-network-02.svg', '/assets/visual-library/emergency-stakeholder-network-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-stakeholder-network.webp', '/assets/visual-library/emergency-stakeholder-network.webp', '/assets/visual-library/emergency-stakeholder-network.webp'], text));
   }
   if (hasAny(text, ['الموارد البشرية', 'تنسيق الموارد', 'تنسيق المعلومات', 'تدفق المعلومات', 'فرق الاستجابة', 'الكوادر'])) {
-    add(variantOf(['/assets/visual-library/emergency-response-team.svg', '/assets/visual-library/emergency-response-team-02.svg', '/assets/visual-library/emergency-response-team-03.svg'], text));
+    add(variantOf(['/assets/visual-library/emergency-response-team.webp', '/assets/visual-library/emergency-response-team.webp', '/assets/visual-library/emergency-response-team.webp'], text));
   }
 
   // Bag 1's generic vocabulary (خطر/قيادة/إطار/تقييم...) overlaps heavily
@@ -1993,8 +1993,8 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
     }
   }
   if (layers.length === 1) {
-    if (layers[0].includes('emergency-command')) add('/assets/visual-library/emergency-strategic-framework.svg');
-    else if (layers[0].includes('emergency')) add('/assets/visual-library/emergency-command-center.svg');
+    if (layers[0].includes('emergency-command')) add('/assets/visual-library/emergency-strategic-framework.webp');
+    else if (layers[0].includes('emergency')) add('/assets/visual-library/emergency-command-center.webp');
     else if (layers[0].includes('risk')) add('/assets/visual-library/risk-matrix.webp');
     else if (layers[0].includes('policy')) add('/assets/visual-library/policy-workflow.webp');
     else if (layers[0].includes('compliance')) add('/assets/visual-library/audit-controls.webp');
@@ -2004,65 +2004,65 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
 }
 
 const SHARED_BRAND_ICON_POOL = [
-  '/assets/visual-library/icon-shield-check-01.svg',
-  '/assets/visual-library/icon-institution-board-01.svg',
-  '/assets/visual-library/icon-target-alignment-01.svg',
-  '/assets/visual-library/icon-announcement-speaker-01.svg',
-  '/assets/visual-library/icon-performance-chart-01.svg',
-  '/assets/visual-library/icon-control-grid-01.svg',
-  '/assets/visual-library/icon-alert-bell-01.svg',
-  '/assets/visual-library/icon-network-nodes-01.svg',
-  '/assets/visual-library/icon-response-vehicle-01.svg',
-  '/assets/visual-library/icon-policy-document-01.svg',
-  '/assets/visual-library/icon-strategy-cube-01.svg',
-  '/assets/visual-library/icon-kpi-dashboard-01.svg',
-  '/assets/visual-library/icon-file-report-01.svg',
-  '/assets/visual-library/icon-ethics-balance-01.svg',
-  '/assets/visual-library/icon-direction-sign-01.svg',
-  '/assets/visual-library/icon-discussion-bubble-01.svg',
-  '/assets/visual-library/icon-shield-check-02.svg',
-  '/assets/visual-library/icon-checklist-action-02.svg',
-  '/assets/visual-library/icon-institution-board-02.svg',
-  '/assets/visual-library/icon-target-alignment-02.svg',
-  '/assets/visual-library/icon-control-grid-02.svg',
-  '/assets/visual-library/icon-alert-bell-02.svg',
-  '/assets/visual-library/icon-network-nodes-02.svg',
-  '/assets/visual-library/icon-response-vehicle-02.svg',
-  '/assets/visual-library/icon-policy-document-02.svg',
-  '/assets/visual-library/icon-search-plus-02.svg',
-  '/assets/visual-library/icon-strategy-cube-02.svg',
-  '/assets/visual-library/icon-kpi-dashboard-02.svg',
-  '/assets/visual-library/icon-file-report-02.svg',
-  '/assets/visual-library/icon-direction-sign-02.svg',
-  '/assets/visual-library/icon-discussion-bubble-02.svg',
-  '/assets/visual-library/icon-shield-check-03.svg',
-  '/assets/visual-library/icon-institution-board-03.svg',
-  '/assets/visual-library/icon-target-alignment-03.svg',
-  '/assets/visual-library/icon-announcement-speaker-03.svg',
-  '/assets/visual-library/icon-performance-chart-03.svg',
-  '/assets/visual-library/icon-control-grid-03.svg',
-  '/assets/visual-library/icon-alert-bell-03.svg',
-  '/assets/visual-library/icon-network-nodes-03.svg',
-  '/assets/visual-library/icon-policy-document-03.svg',
-  '/assets/visual-library/icon-search-plus-03.svg',
-  '/assets/visual-library/icon-strategy-cube-03.svg',
-  '/assets/visual-library/icon-kpi-dashboard-03.svg',
-  '/assets/visual-library/icon-direction-sign-03.svg',
-  '/assets/visual-library/icon-discussion-bubble-03.svg',
-  '/assets/visual-library/icon-shield-check-04.svg',
-  '/assets/visual-library/icon-checklist-action-04.svg',
-  '/assets/visual-library/icon-institution-board-04.svg',
-  '/assets/visual-library/icon-target-alignment-04.svg',
-  '/assets/visual-library/icon-announcement-speaker-04.svg',
-  '/assets/visual-library/icon-performance-chart-04.svg',
-  '/assets/visual-library/icon-control-grid-04.svg',
-  '/assets/visual-library/icon-alert-bell-04.svg',
-  '/assets/visual-library/icon-policy-document-04.svg',
-  '/assets/visual-library/icon-strategy-cube-04.svg',
-  '/assets/visual-library/icon-kpi-dashboard-04.svg',
-  '/assets/visual-library/icon-file-report-04.svg',
-  '/assets/visual-library/icon-ethics-balance-04.svg',
-  '/assets/visual-library/icon-direction-sign-04.svg',
+  '/assets/visual-library/icon-shield-check.webp',
+  '/assets/visual-library/icon-institution-board.webp',
+  '/assets/visual-library/icon-target-alignment.webp',
+  '/assets/visual-library/icon-announcement-speaker.webp',
+  '/assets/visual-library/icon-performance-chart.webp',
+  '/assets/visual-library/icon-control-grid.webp',
+  '/assets/visual-library/icon-alert-bell.webp',
+  '/assets/visual-library/icon-network-nodes.webp',
+  '/assets/visual-library/icon-response-vehicle.webp',
+  '/assets/visual-library/icon-policy-document.webp',
+  '/assets/visual-library/icon-strategy-cube.webp',
+  '/assets/visual-library/icon-kpi-dashboard.webp',
+  '/assets/visual-library/icon-file-report.webp',
+  '/assets/visual-library/icon-ethics-balance.webp',
+  '/assets/visual-library/icon-direction-sign.webp',
+  '/assets/visual-library/icon-discussion-bubble.webp',
+  '/assets/visual-library/icon-shield-check.webp',
+  '/assets/visual-library/icon-checklist-action.webp',
+  '/assets/visual-library/icon-institution-board.webp',
+  '/assets/visual-library/icon-target-alignment.webp',
+  '/assets/visual-library/icon-control-grid.webp',
+  '/assets/visual-library/icon-alert-bell.webp',
+  '/assets/visual-library/icon-network-nodes.webp',
+  '/assets/visual-library/icon-response-vehicle.webp',
+  '/assets/visual-library/icon-policy-document.webp',
+  '/assets/visual-library/icon-search-plus.webp',
+  '/assets/visual-library/icon-strategy-cube.webp',
+  '/assets/visual-library/icon-kpi-dashboard.webp',
+  '/assets/visual-library/icon-file-report.webp',
+  '/assets/visual-library/icon-direction-sign.webp',
+  '/assets/visual-library/icon-discussion-bubble.webp',
+  '/assets/visual-library/icon-shield-check.webp',
+  '/assets/visual-library/icon-institution-board.webp',
+  '/assets/visual-library/icon-target-alignment.webp',
+  '/assets/visual-library/icon-announcement-speaker.webp',
+  '/assets/visual-library/icon-performance-chart.webp',
+  '/assets/visual-library/icon-control-grid.webp',
+  '/assets/visual-library/icon-alert-bell.webp',
+  '/assets/visual-library/icon-network-nodes.webp',
+  '/assets/visual-library/icon-policy-document.webp',
+  '/assets/visual-library/icon-search-plus.webp',
+  '/assets/visual-library/icon-strategy-cube.webp',
+  '/assets/visual-library/icon-kpi-dashboard.webp',
+  '/assets/visual-library/icon-direction-sign.webp',
+  '/assets/visual-library/icon-discussion-bubble.webp',
+  '/assets/visual-library/icon-shield-check.webp',
+  '/assets/visual-library/icon-checklist-action.webp',
+  '/assets/visual-library/icon-institution-board.webp',
+  '/assets/visual-library/icon-target-alignment.webp',
+  '/assets/visual-library/icon-announcement-speaker.webp',
+  '/assets/visual-library/icon-performance-chart.webp',
+  '/assets/visual-library/icon-control-grid.webp',
+  '/assets/visual-library/icon-alert-bell.webp',
+  '/assets/visual-library/icon-policy-document.webp',
+  '/assets/visual-library/icon-strategy-cube.webp',
+  '/assets/visual-library/icon-kpi-dashboard.webp',
+  '/assets/visual-library/icon-file-report.webp',
+  '/assets/visual-library/icon-ethics-balance.webp',
+  '/assets/visual-library/icon-direction-sign.webp',
 ];
 
 function stableIconIndex(text: string) {
@@ -2338,7 +2338,7 @@ function PptCardView({
 function slideVisualPool(slide: Slide, cards: PptCard[]) {
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const fallbackVisualPool = isEmergencySlide
-    ? ['/assets/visual-library/emergency-command-center.svg', '/assets/visual-library/emergency-strategic-framework.svg', '/assets/visual-library/emergency-stakeholder-network.svg', '/assets/visual-library/emergency-kpi-dashboard.svg']
+    ? ['/assets/visual-library/emergency-command-center.webp', '/assets/visual-library/emergency-strategic-framework.webp', '/assets/visual-library/emergency-stakeholder-network.webp', '/assets/visual-library/emergency-kpi-dashboard.webp']
     : slide.id.startsWith('ch3')
       ? ['/assets/visual-library/risk-scene.webp', '/assets/visual-library/risk-matrix.webp', '/assets/visual-library/audit-controls.webp', '/assets/visual-library/secure-records.webp']
       : slide.id.startsWith('ch2')
@@ -3508,16 +3508,19 @@ function PptStyleSlide({
     return <PptGuidedScenarioSlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
 
-  const primaryCards = slide.ppt?.cards ?? [];
-  const secondaryActCards = slide.ppt?.secondaryCards ?? [];
-  const hasSecondaryAct = secondaryActCards.length > 0;
-  // A slide with a secondaryCards act is treated as one continuous list for
-  // every timing/index computation below (cue matching, reveal offsets,
+  const cardActs = [slide.ppt?.cards ?? [], ...(slide.ppt?.laterActs ?? [])];
+  const hasMultipleActs = cardActs.length > 1;
+  // A slide with laterActs is treated as one continuous list for every
+  // timing/index computation below (cue matching, reveal offsets,
   // click-to-replay) -- each card still gets matched against its own real
-  // mention in the narration regardless of which "act" it conceptually
+  // mention in the narration regardless of which act it conceptually
   // belongs to. Only the final render step (see displayCards etc. further
-  // down) splits it back into two staged scenes.
-  const cards = hasSecondaryAct ? [...primaryCards, ...secondaryActCards] : primaryCards;
+  // down) splits it back into whichever single act is on screen.
+  const cards = hasMultipleActs ? cardActs.flat() : cardActs[0];
+  const actStartIndices = cardActs.reduce<number[]>((acc, _act, i) => {
+    acc.push(i === 0 ? 0 : acc[i - 1] + cardActs[i - 1].length);
+    return acc;
+  }, []);
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const narrationPosition = started ? spoken : 0;
@@ -3697,23 +3700,26 @@ function PptStyleSlide({
     : undefined);
 
   // Split the combined `cards` back into whichever single act is on screen
-  // right now. Narration crosses into act 2 the moment its first card
-  // starts revealing (same offset-matching used for every other card) --
-  // until then this is a no-op (baseIndex 0, full cards list), so slides
-  // without a secondaryCards act render through exactly the same values as
+  // right now. Narration crosses into the next act the moment that act's
+  // first card starts revealing (same offset-matching used for every other
+  // card) -- until then this is a no-op (act index 0, full cards list), so
+  // slides without laterActs render through exactly the same values as
   // before this existed.
-  const inSecondaryAct = hasSecondaryAct && cardIsVisible(primaryCards.length);
-  const actBaseIndex = inSecondaryAct ? primaryCards.length : 0;
-  const actCardCount = inSecondaryAct ? cards.length - primaryCards.length : primaryCards.length;
-  const displayCards = hasSecondaryAct ? cards.slice(actBaseIndex, actBaseIndex + actCardCount) : cards;
-  const displayActiveCard = hasSecondaryAct
+  let activeActIndex = 0;
+  for (let i = 1; i < cardActs.length; i += 1) {
+    if (cardIsVisible(actStartIndices[i])) activeActIndex = i;
+  }
+  const actBaseIndex = actStartIndices[activeActIndex];
+  const actCardCount = cardActs[activeActIndex].length;
+  const displayCards = hasMultipleActs ? cardActs[activeActIndex] : cards;
+  const displayActiveCard = hasMultipleActs
     ? activeCard >= actBaseIndex && activeCard < actBaseIndex + actCardCount
       ? activeCard - actBaseIndex
       : -1
     : activeCard;
-  const displayVisibleFor = hasSecondaryAct ? (i: number) => cardIsVisible(actBaseIndex + i) : cardIsVisible;
-  const displayOnToggle = hasSecondaryAct ? (i: number) => toggleCard(actBaseIndex + i) : toggleCard;
-  const displayExpandedKey = hasSecondaryAct
+  const displayVisibleFor = hasMultipleActs ? (i: number) => cardIsVisible(actBaseIndex + i) : cardIsVisible;
+  const displayOnToggle = hasMultipleActs ? (i: number) => toggleCard(actBaseIndex + i) : toggleCard;
+  const displayExpandedKey = hasMultipleActs
     ? expandedCardIndex >= actBaseIndex && expandedCardIndex < actBaseIndex + actCardCount
       ? `${slide.id}:${expandedCardIndex - actBaseIndex}`
       : null
@@ -3780,8 +3786,8 @@ function PptStyleSlide({
           </div>
         ) : (
           <div
-            key={hasSecondaryAct ? (inSecondaryAct ? 'act-2' : 'act-1') : 'act-1'}
-            className={`flex min-h-0 flex-1 flex-col ${hasSecondaryAct ? 'animate-epic-pop' : ''}`}
+            key={`act-${activeActIndex}`}
+            className={`flex min-h-0 flex-1 flex-col ${hasMultipleActs ? 'animate-epic-pop' : ''}`}
           >
             {isTimeline ? (
               <PptTimelineScene

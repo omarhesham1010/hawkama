@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" fill="none">
-  <defs>
-    <linearGradient id="g" x1="80" y1="64" x2="420" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="#1F8B68"/><stop offset="1" stop-color="#0B5139"/></linearGradient>
-    <linearGradient id="a" x1="90" y1="80" x2="410" y2="420" gradientUnits="userSpaceOnUse"><stop stop-color="#E4C96F"/><stop offset="1" stop-color="#C7A24A"/></linearGradient>
-    <linearGradient id="t" x1="88" y1="80" x2="420" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
-  </defs>
-  <ellipse cx="250" cy="404" rx="120" ry="26" fill="#0B5139" opacity="0.10"/>
-  <circle cx="250" cy="244" r="172" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="8"/><circle cx="250" cy="244" r="132" stroke="#C7A24A" stroke-width="10" stroke-dasharray="24 18" opacity="0.44" transform="rotate(0 250 244)"/><rect x="154" y="148" width="192" height="192" rx="28" fill="white" stroke="#A9D0BF" stroke-width="10"/><path d="M154 244h192M250 148v192" stroke="#A9D0BF" stroke-width="10"/><rect x="262" y="160" width="72" height="72" rx="16" fill="#E4C96F" opacity="0.9"/><rect x="166" y="256" width="72" height="72" rx="16" fill="#16A394" opacity="0.85"/><path d="M282 296l20 20 42-52" stroke="#116246" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>

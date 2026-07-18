@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" fill="none">
-  <defs>
-    <linearGradient id="g" x1="80" y1="64" x2="420" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="#1F8B68"/><stop offset="1" stop-color="#0B5139"/></linearGradient>
-    <linearGradient id="a" x1="90" y1="80" x2="410" y2="420" gradientUnits="userSpaceOnUse"><stop stop-color="#E4C96F"/><stop offset="1" stop-color="#C7A24A"/></linearGradient>
-    <linearGradient id="t" x1="88" y1="80" x2="420" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#2BC7B8"/><stop offset="1" stop-color="#16A394"/></linearGradient>
-  </defs>
-  <ellipse cx="250" cy="404" rx="120" ry="26" fill="#0B5139" opacity="0.10"/>
-  <circle cx="250" cy="244" r="172" fill="#F4FBF7" stroke="#A9D0BF" stroke-width="8"/><circle cx="250" cy="244" r="132" stroke="#C7A24A" stroke-width="10" stroke-dasharray="24 18" opacity="0.44" transform="rotate(0 250 244)"/><path d="M158 334h184M188 334V242M250 334V176M312 334V268" stroke="#116246" stroke-width="20" stroke-linecap="round"/><path d="M158 222l48-42 46 30 72-70" stroke="#C7A24A" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/><circle cx="342" cy="218" r="42" fill="white" stroke="#16A394" stroke-width="14"/><path d="M342 218l26-26" stroke="#116246" stroke-width="12" stroke-linecap="round"/>
-</svg>

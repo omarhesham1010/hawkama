@@ -92,13 +92,15 @@ export interface PptContent {
   intro?: string;
   prompt?: string;
   cards?: PptCard[];
-  /** A second, fully independent set of cards that takes over the same
-   *  scene once narration moves past `cards` and starts naming these --
-   *  for slides whose narration covers two genuinely distinct enumerated
-   *  lists (e.g. "three non-negotiables" then "three leadership
-   *  questions"). Gets the exact same per-card visual/timing treatment as
-   *  `cards`, just staged as its own act instead of crowding one grid. */
-  secondaryCards?: PptCard[];
+  /** Additional acts that take over the same scene, one after another, as
+   *  narration moves past `cards` and starts naming each one -- for slides
+   *  whose narration covers several genuinely distinct enumerated lists or
+   *  named concepts (e.g. "the all-hazards approach", then "three
+   *  non-negotiables", then "three leadership questions"). Each act gets
+   *  the exact same per-card visual/timing treatment as `cards`, staged as
+   *  its own shot instead of crowding one grid or leaning on a generic
+   *  bridging image. */
+  laterActs?: PptCard[][];
   checks?: PptCard[];
 }
 
