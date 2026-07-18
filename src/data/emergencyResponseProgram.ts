@@ -557,7 +557,7 @@ export const emergencyChapterOneSlides = indexSlides([
       strategicFrameworkCards,
       [{ title: 'مثال واقعي', text: 'خلال جائحة كوفيد-19، القيادة الموحدة المبكرة سرّعت القرار ووحّدت الرسائل، بينما تعدد مراكز القرار عطّل مؤسسات أخرى رغم خططها المكتوبة.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptTitleCards', 'pptThreeColumns', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTitleCards', 'pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-emergency-plans',
@@ -574,7 +574,7 @@ export const emergencyChapterOneSlides = indexSlides([
       emergencyPlanElements,
       [{ title: 'مثال توضيحي', text: 'مستشفى مرجعي بنى خطة على أسوأ سيناريو، فكان الأداء منظمًا وقابلًا للسيطرة وقت الأزمة الفعلية، لا مثاليًا.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-recovery-continuity',
@@ -590,7 +590,7 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'أهداف التعافي', text: 'الزمن المقبول لاستعادة الخدمة، والموارد اللازمة للحفاظ على الاستمرارية.', tone: 'gold' }],
       [{ title: 'مثال واقعي', text: 'تعليق العمليات غير العاجلة وتعزيز خدمات الطوارئ — قرار صعب حافظ على استدامة المؤسسة ومنع الانهيار.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTitleCards', 'pptThreeColumns', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-readiness',
@@ -606,7 +606,7 @@ export const emergencyChapterOneSlides = indexSlides([
       readinessCards,
       [{ title: 'مثال توضيحي', text: 'أحد المستشفيات أجرى تمرين طوارئ مفاجئ، فكشف غموضًا في الصلاحيات وضعفًا في التواصل واعتمادًا مفرطًا على نظام واحد — قبل ما تكشفها أزمة حقيقية.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'ليش نبني خطة الطوارئ على أكثر من سيناريو بدل سيناريو واحد متفائل؟',
@@ -644,7 +644,7 @@ export const emergencyChapterOneSlides = indexSlides([
       businessContinuityCards,
       [{ title: 'مثال توضيحي', text: 'خطة استمرارية فعالة تضمنت موردين بديلين للأدوية، وجداول طوارئ للكوادر، وخطط تشغيل عند تعطل الأنظمة — استمرت الخدمة رغم الظروف القاسية.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'التصنيف الثلاثي للخدمات في محور استمرارية الأعمال، وش هو؟',
@@ -685,7 +685,7 @@ export const emergencyChapterOneSlides = indexSlides([
       icsFunctionalUnitsCards,
       [{ title: 'مثال واقعي', text: 'في تفشٍ وبائي، قد يتولى القيادة شخص عنده خبرة تشغيلية قوية لا بالضرورة أعلى منصب إداري — سرعة القرار والمعرفة الميدانية تُقدَّم أحيانًا على التسلسل الوظيفي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTitleCards', 'pptThreeColumns', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec1-eoc',
@@ -718,7 +718,7 @@ export const emergencyChapterOneSlides = indexSlides([
       eocActivationQuestionsCards,
       [{ title: 'مثال واقعي', text: 'الاعتماد على نفس الأفراد بلا تناوب أسقط بعض المراكز، بينما نجحت مراكز صُممت بعقلية التحمّل الطويل.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptSpotlight', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'وش الفرق العملي بين دور ICS ودور EOC؟',
@@ -762,7 +762,7 @@ export const emergencyChapterOneSlides = indexSlides([
       ],
       [{ title: 'مثال واقعي', text: 'تعليق خدمة غير حرجة قد يبدو صعبًا، لكنه قد يكون هو ما يحمي الخدمة الحرجة من الانهيار الكامل.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTitleCards', 'pptMatrix', 'pptThreeColumns', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptThreeColumns', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec1-activity-6',
@@ -777,7 +777,7 @@ export const emergencyChapterOneSlides = indexSlides([
     intro: 'ارتفعت أعداد حالات تنفسية حادة بشكل غير متوقع خلال آخر ٢٤ ساعة، والمطلوب تفعيل ICS و EOC وإدارة الحدث خلال أول ست ساعات.',
     cards: [{ title: 'الهدف من النشاط', text: 'ممارسة القيادة والتنسيق واتخاذ القرار تحت الضغط.', tone: 'gold' }],
     laterActs: [activity6Cards],
-    actLayouts: ['pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-info-flow',
@@ -795,7 +795,7 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'قناة واحدة معتمدة', text: 'تجميع وتحليل المعلومات من نقطة واحدة يمنع التضارب ويحمي القيادة من فخ القرارات المتناقضة.', tone: 'gold' }],
       [{ title: 'مثال واقعي', text: 'غياب مركز موحد للمعلومات أدى لقرارات خاطئة في تحويل المرضى، بينما نقطة تجميع واحدة داخل EOC حافظت على دقة القرار.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec1-hr-logistics',
@@ -817,7 +817,7 @@ export const emergencyChapterOneSlides = indexSlides([
       ],
       [{ title: 'مثال توضيحي', text: 'توزيع متوازن للمناوبات وفرق احتياط ساعد مستشفى يصمد، بينما استنزاف الكوادر المبكر أسقط مؤسسات أخرى.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-operational-policies',
@@ -858,7 +858,7 @@ export const emergencyChapterOneSlides = indexSlides([
     intro: 'أزمة صحية متصاعدة أدت لضغط غير مسبوق على الطوارئ. المعلومات تتدفق من مصادر متعددة، والموارد محدودة، والسياسات موجودة لكن التطبيق متفاوت.',
     cards: [{ title: 'الهدف من النشاط', text: 'الربط بين المعلومات والموارد والسياسات في موقف واحد.', tone: 'gold' }],
     laterActs: [activity7Cards],
-    actLayouts: ['pptTitleCards', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeQuizSlide({
     id: 'ec1-quiz',
@@ -1118,6 +1118,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'الفوضى هي العدو الأول', text: 'الحوكمة الفعالة تعني هيكل قيادة واضح وأدوار محددة.', tone: 'gold' }],
     laterActs: [raciCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec2-ooda',
@@ -1182,6 +1183,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTwoPanels',
     cards: [{ title: 'سيف ذو حدين', text: 'الإعلام إما أفضل شريك لنشر الحقيقة، أو أسوأ كابوس لنشر الشائعات.', tone: 'gold' }],
     laterActs: [mediaTrustCards],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec2-case-study',
@@ -1193,6 +1195,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'معيار المقارنة', text: 'أربع دول، على خمسة مؤشرات: الاستجابة، التواصل، الثقة، الالتزام، والنتائج الصحية.', tone: 'gold' }],
     laterActs: [caseStudyCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec2-lessons',
@@ -1439,6 +1442,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [{ title: 'ينظر إلى الداخل', text: 'يفهم الديناميكيات داخل المنظومة الصحية نفسها.', tone: 'gold' }],
     laterActs: [verticalScanningCards],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns'],
     checks: [
       quickCheck({
         title: 'وش الفرق بين المسح الأفقي والمسح الرأسي؟',
@@ -1470,6 +1474,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'أربع أدوات للاستشراف', text: 'كل أداة بمثال تطبيقي واحد من القطاع الصحي.', tone: 'gold' }],
     laterActs: [regulatoryToolsCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec3-multi-hazard-concepts',
@@ -1534,6 +1539,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'حساسات دقيقة', text: 'متغيرات قابلة للقياس تشير لاحتمال وقوع خطر عند وصولها لعتبة معينة.', tone: 'gold' }],
     laterActs: [indicatorTypesCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec3-surveillance-systems',
@@ -1545,6 +1551,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTwoPanels',
     cards: [{ title: 'نوعان رئيسيان', text: 'البنية التحتية اللي تجمع بيانات المؤشرات وتحللها.', tone: 'gold' }],
     laterActs: [surveillanceSystemsCards],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec3-thresholds',
@@ -1676,15 +1683,18 @@ const kpiCategoriesCards: PptCard[] = [
   { title: 'مؤشرات التحسين', text: 'مدى التزام المنظومة بالتعلم والتطور.' },
 ];
 
-const kpiDesignCards: PptCard[] = [
+const kpiDesignCardsPart1: PptCard[] = [
   { index: '01', title: 'تحديد الهدف الاستراتيجي' },
   { index: '02', title: 'اختيار المؤشر المناسب' },
   { index: '03', title: 'تعريف المؤشر بدقة' },
   { index: '04', title: 'تحديد مصدر البيانات', tone: 'gold' },
+];
+
+const kpiDesignCardsPart2: PptCard[] = [
   { index: '05', title: 'تحديد دورية القياس' },
   { index: '06', title: 'وضع خط الأساس' },
   { index: '07', title: 'تحديد الهدف' },
-  { index: '08', title: 'عرض المؤشر بلوحة معلومات' },
+  { index: '08', title: 'عرض المؤشر بلوحة معلومات', tone: 'gold' },
 ];
 
 const stakeholderTypesCards: PptCard[] = [
@@ -1805,6 +1815,7 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'العمود الفقري للاستجابة', text: 'أفضل الكوادر والتقنيات تعجز إذا نفدت الإمدادات الحيوية.', tone: 'gold' }],
     laterActs: [supplyChainWeaknessCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec4-supply-chain-strategies',
@@ -1835,6 +1846,7 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [{ title: 'نوعان من المخزون', text: 'مخزون الأمان للاحتياج اليومي، والمخزون الاستراتيجي للأحداث الكبرى.', tone: 'gold' }],
     laterActs: [inventoryManagementCards],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns'],
   }),
   makeSlide({
     id: 'ec4-inventory-governance',
@@ -1856,6 +1868,7 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'بيئة آمنة للتعلم، لا محاكمة', text: 'AAR ليست بحثًا عن كبش فداء، بل تعلّم جماعي من التجربة.', tone: 'gold' }],
     laterActs: [aarObjectivesCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec4-aar-phases',
@@ -1896,6 +1909,7 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptTwoPanels',
     cards: [{ title: 'الجسر بين النظرية والتطبيق', text: 'وثيقة حية تحدد الإجراءات التصحيحية والمسؤوليات والأطر الزمنية.', tone: 'gold' }],
     laterActs: [improvementPlanCards],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec4-kpi-categories',
@@ -1924,7 +1938,9 @@ export const emergencyChapterFourSlides = indexSlides([
       'تصميم وقياس مؤشر الأداء يمر بثمان خطوات موضحة أمامك، من تحديد الهدف الاستراتيجي إلى عرض المؤشر بلوحة معلومات واضحة. لوحة المعلومات تحتاج أربع خصائص لتكون فعالة: البساطة والوضوح، استخدام الألوان والإشارات المرئية، إمكانية التعمق، والتحديث الفوري.',
     visual: '🧮',
     layout: 'pptTimeline',
-    cards: kpiDesignCards,
+    cards: kpiDesignCardsPart1,
+    laterActs: [kpiDesignCardsPart2],
+    actLayouts: ['pptTimeline', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec4-stakeholders',
@@ -1936,6 +1952,7 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'لا أحد يستجيب بمفرده', text: 'تحديد أصحاب المصلحة هو الخطوة الأولى في أي استجابة فعالة.', tone: 'gold' }],
     laterActs: [stakeholderTypesCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec4-power-interest',
