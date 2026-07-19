@@ -3643,15 +3643,29 @@ function PptStyleSlide({
   // each act name its own (e.g. spotlight for the framing card, matrix for
   // a 2x2 breakdown), falling back to the slide's own layout when unset.
   const activeLayout = slide.ppt?.actLayouts?.[activeActIndex] ?? slide.layout;
+  // Switching acts used to hard-cut: the outgoing act's DOM just vanished
+  // the instant the new one mounted, with only the incoming side ever
+  // getting an animation. This snapshots the outgoing act's own cards +
+  // layout the moment activeActIndex changes and keeps rendering that
+  // snapshot -- frozen, fully revealed, non-interactive -- fading out behind
+  // the incoming act for one beat instead of disappearing instantly.
+  const [leavingAct, setLeavingAct] = useState<{ cards: PptCard[]; layout?: PptLayout } | null>(null);
+  const lastActIndexRef = useRef(activeActIndex);
+  useEffect(() => {
+    if (activeActIndex === lastActIndexRef.current) return;
+    const prevIndex = lastActIndexRef.current;
+    lastActIndexRef.current = activeActIndex;
+    setLeavingAct({ cards: cardActs[prevIndex], layout: slide.ppt?.actLayouts?.[prevIndex] ?? slide.layout });
+    const timer = window.setTimeout(() => setLeavingAct(null), 550);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeActIndex]);
   const isIntro = slide.layout === 'pptIntro';
   const isIntroRoadmap = slide.id === 'program-map';
   const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
   const isThree = activeLayout === 'pptThreeColumns';
   const isTwoPanel = activeLayout === 'pptTwoPanels';
-  const isTimeline = activeLayout === 'pptTimeline';
-  const isMatrix = activeLayout === 'pptMatrix';
-  const isSpotlight = activeLayout === 'pptSpotlight';
   const motionStarted = started || spoken > 0 || showDialogue;
 
   // Previously bridged the gap between Nasser starting to talk and the
@@ -3771,6 +3785,70 @@ function PptStyleSlide({
       : null
     : expandedCardKey;
 
+  // Shared by the live act and the frozen leaving-act snapshot above it --
+  // same scene picked the same way, just fed different card/visibility data.
+  const renderPptActScene = (
+    scenelLayout: PptLayout | undefined,
+    sceneCards: PptCard[],
+    sceneActiveCard: number,
+    sceneVisibleFor: (i: number) => boolean,
+    sceneExpandedKey: string | null,
+    sceneOnToggle: (i: number) => void,
+  ) => {
+    const revealAnimationFor = (i: number) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length];
+    if (scenelLayout === 'pptTimeline') {
+      return (
+        <PptTimelineScene
+          slide={slide}
+          cards={sceneCards}
+          activeCard={sceneActiveCard}
+          visibleFor={sceneVisibleFor}
+          revealAnimationFor={revealAnimationFor}
+          expandedKey={sceneExpandedKey}
+          onToggle={sceneOnToggle}
+        />
+      );
+    }
+    if (scenelLayout === 'pptMatrix') {
+      return (
+        <PptMatrixScene
+          slide={slide}
+          cards={sceneCards}
+          activeCard={sceneActiveCard}
+          visibleFor={sceneVisibleFor}
+          revealAnimationFor={revealAnimationFor}
+          expandedKey={sceneExpandedKey}
+          onToggle={sceneOnToggle}
+        />
+      );
+    }
+    if (scenelLayout === 'pptSpotlight') {
+      return (
+        <PptSpotlightScene
+          slide={slide}
+          cards={sceneCards}
+          activeCard={sceneActiveCard}
+          visibleFor={sceneVisibleFor}
+          revealAnimationFor={revealAnimationFor}
+          expandedKey={sceneExpandedKey}
+          onToggle={sceneOnToggle}
+        />
+      );
+    }
+    return (
+      <PptMotionVisualScene
+        slide={slide}
+        layout={scenelLayout}
+        cards={sceneCards}
+        activeCard={sceneActiveCard}
+        visibleFor={sceneVisibleFor}
+        revealAnimationFor={revealAnimationFor}
+        expandedKey={sceneExpandedKey}
+        onToggle={sceneOnToggle}
+      />
+    );
+  };
+
   return (
     <StorySlideShell
       slide={slide}
@@ -3831,52 +3909,21 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div
-            key={`act-${activeActIndex}`}
-            className={`flex min-h-0 flex-1 flex-col ${hasMultipleActs ? 'animate-epic-pop' : ''}`}
-          >
-            {isTimeline ? (
-              <PptTimelineScene
-                slide={slide}
-                cards={displayCards}
-                activeCard={displayActiveCard}
-                visibleFor={displayVisibleFor}
-                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                expandedKey={displayExpandedKey}
-                onToggle={displayOnToggle}
-              />
-            ) : isMatrix ? (
-              <PptMatrixScene
-                slide={slide}
-                cards={displayCards}
-                activeCard={displayActiveCard}
-                visibleFor={displayVisibleFor}
-                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                expandedKey={displayExpandedKey}
-                onToggle={displayOnToggle}
-              />
-            ) : isSpotlight ? (
-              <PptSpotlightScene
-                slide={slide}
-                cards={displayCards}
-                activeCard={displayActiveCard}
-                visibleFor={displayVisibleFor}
-                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                expandedKey={displayExpandedKey}
-                onToggle={displayOnToggle}
-              />
-            ) : (
-              <PptMotionVisualScene
-                slide={slide}
-                layout={activeLayout}
-                cards={displayCards}
-                activeCard={displayActiveCard}
-                visibleFor={displayVisibleFor}
-                revealAnimationFor={(i) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
-                expandedKey={displayExpandedKey}
-                onToggle={displayOnToggle}
-              />
+          <div className="relative min-h-0 flex-1">
+            {leavingAct && hasMultipleActs && (
+              <div
+                className="pointer-events-none absolute inset-0 flex min-h-0 flex-1 flex-col animate-shot-fade-out"
+                aria-hidden="true"
+              >
+                {renderPptActScene(leavingAct.layout, leavingAct.cards, -1, () => true, null, () => undefined)}
+              </div>
             )}
+            <div
+              key={`act-${activeActIndex}`}
+              className={`relative flex min-h-0 flex-1 flex-col ${hasMultipleActs ? 'animate-shot-fade-in' : ''}`}
+            >
+              {renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle)}
+            </div>
           </div>
         )}
       </div>

@@ -27,6 +27,8 @@ export default {
     'animate-shimmer-sweep',
     'animate-aura-spin',
     'animate-sparkle',
+    'animate-shot-fade-out',
+    'animate-shot-fade-in',
   ],
   darkMode: 'class',
   theme: {
@@ -209,6 +211,14 @@ export default {
           '0%, 100%': { opacity: '0', transform: 'scale(0.4) rotate(0deg)' },
           '50%': { opacity: '1', transform: 'scale(1) rotate(90deg)' },
         },
+        'shot-fade-out': {
+          '0%': { opacity: '1', transform: 'scale(1)', filter: 'blur(0)' },
+          '100%': { opacity: '0', transform: 'scale(0.96)', filter: 'blur(2px)' },
+        },
+        'shot-fade-in': {
+          '0%': { opacity: '0', transform: 'scale(1.03)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
       },
       animation: {
         'draw-in': 'draw-in 1.6s cubic-bezier(.22,1,.36,1) forwards',
@@ -222,6 +232,8 @@ export default {
         'crown-rise': 'crown-rise .9s cubic-bezier(.2,1.2,.3,1) both',
         'aura-spin': 'aura-spin 5s linear infinite',
         sparkle: 'sparkle 1.8s ease-in-out infinite',
+        'shot-fade-out': 'shot-fade-out .5s cubic-bezier(.4,0,.7,1) both',
+        'shot-fade-in': 'shot-fade-in .5s cubic-bezier(.2,1,.36,1) both',
         'fade-up': 'fade-up .55s cubic-bezier(.22,1,.36,1) both',
         'fade-in': 'fade-in .45s ease-out both',
         'scale-in': 'scale-in .4s cubic-bezier(.22,1,.36,1) both',
