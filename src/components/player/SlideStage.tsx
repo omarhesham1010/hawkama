@@ -2481,16 +2481,24 @@ function PptMotionVisualScene({
     3: ['right-[6%] top-[30%] w-[26%]', 'right-[37%] top-[30%] w-[26%]', 'right-[68%] top-[30%] w-[26%]'],
   };
   const isSparseGroup = cards.length >= 1 && cards.length <= 3 && !(effectiveLayout === 'pptTwoPanels' && cards.length === 2);
+  // pptTitleCards used to split 4-6 cards across a fixed 4-top + 2-bottom
+  // grid -- fine at exactly 4 or 6 (both rows full and even), but 5 cards
+  // left one lone card by itself in the bottom row: visually unbalanced,
+  // and the odd one out ended up looking like it didn't belong ("مش شكله
+  // متظبط") -- reported directly against ec1-emergency-plans' 5-element
+  // shot. titleCardGrid now always lays every count (1-6) out as a single
+  // centered row instead, sizing cards down as the count grows so more of
+  // them still fit -- no more asymmetric multi-row split for any count.
+  const titleGridRowPositions = (count: number): string[] => {
+    const width = count <= 1 ? 34 : count === 2 ? 30 : count === 3 ? 26 : count === 4 ? 21 : count === 5 ? 17.5 : 15;
+    const gap = count <= 3 ? 5 : count === 4 ? 3.5 : count === 5 ? 2.5 : 2;
+    const total = count * width + (count - 1) * gap;
+    const margin = Math.max(0, (100 - total) / 2);
+    return Array.from({ length: count }, (_, i) => `right-[${(margin + i * (width + gap)).toFixed(1)}%] top-[30%] w-[${width}%]`);
+  };
   const titleGridSparse = titleCardGrid && isSparseGroup;
   const positionsByVariant: Record<string, string[]> = {
-    titleGrid: titleGridSparse ? sparsePositions[cards.length] : [
-      'right-[7%] top-[16%] w-[18%]',
-      'right-[30%] top-[16%] w-[18%]',
-      'right-[53%] top-[16%] w-[18%]',
-      'right-[76%] top-[16%] w-[18%]',
-      'right-[30%] bottom-[4%] w-[18%]',
-      'right-[53%] bottom-[4%] w-[18%]',
-    ],
+    titleGrid: titleCardGrid ? titleGridRowPositions(Math.min(cards.length, 6) || 1) : [],
     constellation: [
       'right-[5%] top-[10%] w-[30%]',
       'left-[6%] top-[11%] w-[30%]',
