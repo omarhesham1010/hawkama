@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-TSFTIH6O.js" />
-      <file href="assets/chunks/audioAlignments-73Y5Y2GJ.js" />
-      <file href="assets/chunks/chunk-RTUWZCQX.js" />
+      <file href="assets/chunks/SlidePlayer-VEYLCLWE.js" />
+      <file href="assets/chunks/audioAlignments-TTLZYLPF.js" />
+      <file href="assets/chunks/chunk-A2Z7UUYA.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
+      <file href="assets/index-0afe0cee.js" />
       <file href="assets/index-5503d773.css" />
-      <file href="assets/index-67039b86.js" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="assets/visual-library/audit-controls.webp" />
@@ -271,6 +271,7 @@
       <file href="audio/bag2-ch1-s19-quiz-feedback-bag2-ch1-q5-correct.mp3" />
       <file href="audio/bag2-ch1-s19-quiz-feedback-bag2-ch1-q5-incorrect.mp3" />
       <file href="audio/bag2-ch1-s19-quiz.mp3" />
+      <file href="audio/bag2-ch1-s1b-goals.mp3" />
       <file href="audio/bag2-ch1-s2-strategic-framework.mp3" />
       <file href="audio/bag2-ch1-s20-closing.mp3" />
       <file href="audio/bag2-ch1-s3-emergency-plans.mp3" />
@@ -290,6 +291,8 @@
       <file href="audio/bag2-ch1-s8-activity-5-detail-6.mp3" />
       <file href="audio/bag2-ch1-s8-activity-5.mp3" />
       <file href="audio/bag2-ch1-s9-ics.mp3" />
+      <file href="avatar-assets/avatar-female.png" />
+      <file href="avatar-assets/avatar-male.png" />
       <file href="favicon.svg" />
       <file href="index.html" />
       <file href="nasser-assets/Default/nasser-completion.webp" />

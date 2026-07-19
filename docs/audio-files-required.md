@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **268**.
+Generated from `src/data/audioScripts.ts`. Total required: **257**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -45,6 +45,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch0-s1-welcome.mp3` - إدارة الاستجابة للطوارئ
 - `bag2-ch0-s2-map.mp3` - محتويات الحقيبة
 - `bag2-ch1-s1-welcome.mp3` - الاستعداد للطوارئ الصحية
+- `bag2-ch1-s1b-goals.mp3` - أهداف الفصل الأول
 - `bag2-ch1-s2-strategic-framework.mp3` - تصميم الإطار الاستراتيجي الشامل للاستجابة
 - `bag2-ch1-s3-emergency-plans.mp3` - خطط الطوارئ الصحية
 - `bag2-ch1-s4-recovery-continuity.mp3` - تحديد أهداف التعافي واستمرارية الأعمال
@@ -65,6 +66,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s19-quiz.mp3` - اختبار الفصل الأول
 - `bag2-ch1-s20-closing.mp3` - ختام الفصل الأول
 - `bag2-ch2-s1-welcome.mp3` - إدارة الأزمات الصحية
+- `bag2-ch2-s1b-goals.mp3` - أهداف الفصل الثاني
 - `bag2-ch2-s2-crisis-terms.mp3` - فهم ديناميكيات الأزمات
 - `bag2-ch2-s3-scenario-analysis.mp3` - تحليل السيناريوهات
 - `bag2-ch2-s4-raci.mp3` - حوكمة الاستجابة ومصفوفة RACI
@@ -78,6 +80,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch2-s12-quiz.mp3` - اختبار الفصل الثاني
 - `bag2-ch2-s13-closing.mp3` - ختام الفصل الثاني
 - `bag2-ch3-s1-welcome.mp3` - المسح الاستباقي والترصد المبكر
+- `bag2-ch3-s1b-goals.mp3` - أهداف الفصل الثالث
 - `bag2-ch3-s2-scanning-intro.mp3` - أهمية المسح الاستباقي
 - `bag2-ch3-s3-horizontal-scanning.mp3` - المسح الأفقي
 - `bag2-ch3-s4-vertical-scanning.mp3` - المسح الرأسي
@@ -94,6 +97,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch3-s15-quiz.mp3` - اختبار الفصل الثالث
 - `bag2-ch3-s16-closing.mp3` - ختام الفصل الثالث
 - `bag2-ch4-s1-welcome.mp3` - التعافي والتحسين المستمر
+- `bag2-ch4-s1b-goals.mp3` - أهداف الفصل الرابع
 - `bag2-ch4-s2-supply-chain-intro.mp3` - اللوجستيات ومرونة سلسلة التوريد
 - `bag2-ch4-s3-supply-chain-strategies.mp3` - استراتيجيات بناء المرونة
 - `bag2-ch4-s4-inventory-management.mp3` - إدارة المخزون أثناء الطوارئ
@@ -128,24 +132,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s6-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
 - `bag1-ch3-s6-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
 - `bag2-ch1-s8-activity-5-detail-1.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 1
-- `bag2-ch1-s8-activity-5-detail-2.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 2
-- `bag2-ch1-s8-activity-5-detail-3.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 3
-- `bag2-ch1-s8-activity-5-detail-4.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 4
-- `bag2-ch1-s8-activity-5-detail-5.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 5
-- `bag2-ch1-s8-activity-5-detail-6.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 6
 - `bag2-ch1-s14-activity-6-detail-1.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 1
-- `bag2-ch1-s14-activity-6-detail-2.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 2
-- `bag2-ch1-s14-activity-6-detail-3.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 3
-- `bag2-ch1-s14-activity-6-detail-4.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 4
-- `bag2-ch1-s14-activity-6-detail-5.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 5
 - `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 1
-- `bag2-ch1-s18-activity-7-detail-2.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 2
-- `bag2-ch1-s18-activity-7-detail-3.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 3
-- `bag2-ch1-s18-activity-7-detail-4.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 4
 - `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
-- `bag2-ch4-s16-closing-workshops-detail-2.mp3` - ورش العمل الختامية - مناقشة 2
-- `bag2-ch4-s16-closing-workshops-detail-3.mp3` - ورش العمل الختامية - مناقشة 3
-- `bag2-ch4-s16-closing-workshops-detail-4.mp3` - ورش العمل الختامية - مناقشة 4
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4

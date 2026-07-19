@@ -160,6 +160,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s19-quiz-feedback-bag2-ch1-q5-correct",
   "bag2-ch1-s19-quiz-feedback-bag2-ch1-q5-incorrect",
   "bag2-ch1-s19-quiz",
+  "bag2-ch1-s1b-goals",
   "bag2-ch1-s2-strategic-framework",
   "bag2-ch1-s20-closing",
   "bag2-ch1-s3-emergency-plans",
@@ -180,7 +181,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s8-activity-5",
   "bag2-ch1-s9-ics"
 ];
-export const AUDIO_MANIFEST_VERSION = '9f17319c802c';
+export const AUDIO_MANIFEST_VERSION = '61f4bee88a30';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
