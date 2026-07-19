@@ -580,6 +580,7 @@ function StorySlideShell({
   showDialogue,
   dialogueOverride,
   revealedCount,
+  isActivityShot,
   children,
 }: {
   slide: Slide;
@@ -589,6 +590,11 @@ function StorySlideShell({
   /** How many of the slide's cards are currently revealed — lets the
    *  ornament fill the still-empty canvas before the first card appears. */
   revealedCount?: number;
+  /** The slide's final shot is a real interactive activity (MCQ, drag-drop,
+   *  flip cards, true/false) rather than a narrated card scene -- those
+   *  components need far more vertical room than the usual card layout, so
+   *  they get a much smaller Nasser-reservation band than other ppt shots. */
+  isActivityShot?: boolean;
   children: React.ReactNode;
 }) {
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
@@ -601,8 +607,8 @@ function StorySlideShell({
   // leaving a large dead zone under the visual on the right (Nasser only
   // occupies the left). Give them most of that space back.
   const isIntroMotion = slide.layout === 'pptIntro' || slide.id === 'program-map';
-  const bottomSpace = isIntroMotion ? 'pb-[104px]' : isGuidedPptActivity ? 'pb-[184px]' : isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
-  const topSpace = isIntroMotion ? 'pt-[64px]' : isGuidedPptActivity ? 'pt-[72px]' : isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
+  const bottomSpace = isActivityShot ? 'pb-[40px]' : isIntroMotion ? 'pb-[104px]' : isGuidedPptActivity ? 'pb-[184px]' : isPpt ? 'pb-[232px]' : isQuiz ? 'pb-[172px]' : compact ? 'pb-[254px]' : 'pb-[292px]';
+  const topSpace = isActivityShot ? 'pt-[56px]' : isIntroMotion ? 'pt-[64px]' : isGuidedPptActivity ? 'pt-[72px]' : isPpt ? 'pt-[86px]' : isQuiz ? 'pt-[68px]' : compact ? 'pt-[92px]' : 'pt-[106px]';
   void revealedCount;
 
   return (
@@ -3939,9 +3945,31 @@ function PptStyleSlide({
     );
   };
 
+  // A real interactive activity (MCQ, drag-and-drop, flip cards, true/false)
+  // lives as the FINAL shot of the slide, not a separate slide -- narration
+  // sets up the scenario across the earlier shots, then hands off to
+  // "طبّق بنفسك" for the actual interaction, all one continuous slide.
+  const isActivityShot = Boolean(slide.activity) && hasMultipleActs && activeActIndex === cardActs.length - 1;
+  const renderActivityShot = () => {
+    const a = slide.activity;
+    if (!a) return null;
+    return (
+      <div className="flex h-full min-h-0 flex-col items-stretch justify-center px-6 py-2">
+        <ActivityChip label={slide.activityLabel ?? 'نشاط تفاعلي · طبّق بنفسك'} />
+        {a.kind === 'classification' && <ClassificationActivity data={a} onDone={() => onActivityDone(slide.id)} />}
+        {a.kind === 'flipCards' && <FlipCardActivity data={a} onDone={() => onActivityDone(slide.id)} />}
+        {a.kind === 'scenarioDecision' && (
+          <DecisionSimulation data={a} mode={slide.activityMode ?? 'both'} onDone={() => onActivityDone(slide.id)} />
+        )}
+        {a.kind === 'trueFalse' && <TrueFalseGame data={a} onDone={() => onActivityDone(slide.id)} />}
+      </div>
+    );
+  };
+
   return (
     <StorySlideShell
       slide={slide}
+      isActivityShot={isActivityShot}
       spoken={started ? spoken : 0}
       showDialogue={showDialogue || Boolean(interactionLine)}
       dialogueOverride={interactionLine}
@@ -4016,7 +4044,9 @@ function PptStyleSlide({
               key={`act-${activeActIndex}`}
               className={`relative flex min-h-0 flex-1 flex-col ${hasMultipleActs ? 'animate-shot-fade-in' : ''}`}
             >
-              {renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle)}
+              {isActivityShot
+                ? renderActivityShot()
+                : renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle)}
             </div>
           </div>
         )}
