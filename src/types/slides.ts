@@ -109,7 +109,22 @@ export interface PptContent {
    *  left unset (including when this whole field is omitted) falls back
    *  to the slide's own top-level `layout`. */
   actLayouts?: PptLayout[];
+  /** Turns specific acts into interactive checkpoints instead of pure
+   *  narrated shots: once that act's own narration finishes, playback
+   *  pauses, the act's cards are replaced by the interactive activity, and
+   *  narration only resumes into the next act once the learner completes
+   *  it. Indexed the same as `actLayouts` -- most slides leave most
+   *  indexes undefined. Lets one activity slide interleave several small
+   *  "narrate a bit, then do a bit" interactions instead of one long
+   *  narrated setup followed by a single interactive shot at the end. */
+  actActivities?: (ActivityCheckpoint | undefined)[];
   checks?: PptCard[];
+}
+
+export interface ActivityCheckpoint {
+  activity: ActivityData;
+  /** For a split decision simulation checkpoint: which stage this one shows. */
+  mode?: 'both' | 'identify' | 'path';
 }
 
 export interface Slide {

@@ -3596,6 +3596,8 @@ function PptStyleSlide({
   const guidedSpeech = useGuidedSpeech(slide, muted);
   const narration = useNarrationContext();
   const { isPlaying: narrationLocked } = narration;
+  const [resolvedCheckpoints, setResolvedCheckpoints] = useState<Set<number>>(() => new Set());
+  const pausedCheckpointRef = useRef<number | null>(null);
 
   // When real audio is missing/fails for a slide, the sync clock can snap
   // `spoken` straight to the narration's full length within a second or two
@@ -3610,6 +3612,8 @@ function PptStyleSlide({
   if (slideIdRef.current !== slide.id) {
     slideIdRef.current = slide.id;
     slideEnteredAtRef.current = performance.now();
+    pausedCheckpointRef.current = null;
+    if (resolvedCheckpoints.size > 0) setResolvedCheckpoints(new Set());
   }
   const minDwellMs = Math.max(4000, slide.duration * 1000 * 0.6);
 
@@ -3966,10 +3970,87 @@ function PptStyleSlide({
     );
   };
 
+  // Interactive checkpoints (PptContent.actActivities): some acts hand off
+  // to a small interactive activity right after their OWN narration ends,
+  // instead of only ever doing that once at the very end of the slide.
+  // Once this act's last card has been named, narration pauses in place
+  // (not stopped -- `resume()` continues the same track from that exact
+  // spot) and stays paused until the learner finishes this checkpoint's
+  // interaction, so "narrate a beat, then act on it" can repeat across a
+  // slide instead of one long setup followed by a single interactive shot.
+  //
+  // This deliberately does NOT key off `activeActIndex` -- that state is
+  // gated by the ~1.8s minimum-hold timer above, so it can lag well behind
+  // the real (ungated) `narrationPosition` when a checkpoint act is just a
+  // single short sentence. Scan every checkpoint act directly against the
+  // raw narration position instead, so the pause fires exactly when that
+  // act's own narration finishes, however fast the surrounding acts are.
+  const checkpointEndOffsetFor = (actIndex: number) => {
+    const nextStart = actStartIndices[actIndex + 1];
+    if (nextStart == null) return slide.narration.length;
+    return revealOffsets[nextStart] ?? slide.narration.length;
+  };
+  const pendingCheckpoint = (() => {
+    const list = slide.ppt?.actActivities ?? [];
+    for (let i = 0; i < list.length; i += 1) {
+      const cp = list[i];
+      if (!cp || resolvedCheckpoints.has(i)) continue;
+      if (narrationPosition >= checkpointEndOffsetFor(i)) return { index: i, checkpoint: cp };
+    }
+    return null;
+  })();
+  const checkpointReached = Boolean(pendingCheckpoint);
+
+  useEffect(() => {
+    if (pendingCheckpoint && pausedCheckpointRef.current !== pendingCheckpoint.index && narration.isPlaying) {
+      narration.pause();
+      pausedCheckpointRef.current = pendingCheckpoint.index;
+    }
+  }, [pendingCheckpoint, narration]);
+
+  const isLastCheckpointAct = (() => {
+    if (!pendingCheckpoint) return false;
+    const acts = slide.ppt?.actActivities ?? [];
+    for (let i = acts.length - 1; i >= 0; i -= 1) {
+      if (acts[i]) return i === pendingCheckpoint.index;
+    }
+    return false;
+  })();
+
+  const resolveCheckpoint = () => {
+    const doneIndex = pendingCheckpoint?.index;
+    if (doneIndex == null) return;
+    setResolvedCheckpoints((prev) => {
+      if (prev.has(doneIndex)) return prev;
+      const next = new Set(prev);
+      next.add(doneIndex);
+      return next;
+    });
+    pausedCheckpointRef.current = null;
+    if (isLastCheckpointAct) onActivityDone(slide.id);
+    narration.resume();
+  };
+
+  const renderCheckpointShot = () => {
+    if (!pendingCheckpoint) return null;
+    const a = pendingCheckpoint.checkpoint.activity;
+    return (
+      <div className="flex h-full min-h-0 flex-col items-stretch justify-center px-6 py-2">
+        <ActivityChip label={slide.activityLabel ?? 'طبّق بنفسك'} />
+        {a.kind === 'classification' && <ClassificationActivity data={a} onDone={resolveCheckpoint} />}
+        {a.kind === 'flipCards' && <FlipCardActivity data={a} onDone={resolveCheckpoint} />}
+        {a.kind === 'scenarioDecision' && (
+          <DecisionSimulation data={a} mode={pendingCheckpoint.checkpoint.mode ?? 'both'} onDone={resolveCheckpoint} />
+        )}
+        {a.kind === 'trueFalse' && <TrueFalseGame data={a} onDone={resolveCheckpoint} />}
+      </div>
+    );
+  };
+
   return (
     <StorySlideShell
       slide={slide}
-      isActivityShot={isActivityShot}
+      isActivityShot={isActivityShot || checkpointReached}
       spoken={started ? spoken : 0}
       showDialogue={showDialogue || Boolean(interactionLine)}
       dialogueOverride={interactionLine}
@@ -4044,9 +4125,11 @@ function PptStyleSlide({
               key={`act-${activeActIndex}`}
               className={`relative flex min-h-0 flex-1 flex-col ${hasMultipleActs ? 'animate-shot-fade-in' : ''}`}
             >
-              {isActivityShot
-                ? renderActivityShot()
-                : renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle)}
+              {checkpointReached
+                ? renderCheckpointShot()
+                : isActivityShot
+                  ? renderActivityShot()
+                  : renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle)}
             </div>
           </div>
         )}

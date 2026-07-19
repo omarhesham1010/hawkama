@@ -181,7 +181,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s8-activity-5",
   "bag2-ch1-s9-ics"
 ];
-export const AUDIO_MANIFEST_VERSION = '61f4bee88a30';
+export const AUDIO_MANIFEST_VERSION = '977e84f45bdf';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

@@ -52,17 +52,17 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s5-readiness.mp3` - الجاهزية المؤسسية: الاختبار الحقيقي قبل أن تبدأ الأزمة
 - `bag2-ch1-s6-inter-agency-integration.mp3` - التكامل بين الجهات
 - `bag2-ch1-s7-business-continuity.mp3` - بناء وتكامل خطط استمرارية الأعمال
-- `bag2-ch1-s8-activity-5.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال
+- `bag2-ch1-s8-activity-5.mp3` - نشاط: أول قرار قيادي
 - `bag2-ch1-s9-ics.mp3` - هيكل وتنظيم مركز القيادة أثناء الحوادث
 - `bag2-ch1-s10-eoc.mp3` - أدوار ومسؤوليات مركز عمليات الطوارئ
 - `bag2-ch1-s11-eoc-design.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية
 - `bag2-ch1-s12-coordination.mp3` - التنسيق أثناء الطوارئ
 - `bag2-ch1-s13-impact-modeling.mp3` - نمذجة تحليل الأثر واستمرارية الأعمال
-- `bag2-ch1-s14-activity-6.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال
+- `bag2-ch1-s14-activity-6.mp3` - نشاط: ICS أو EOC
 - `bag2-ch1-s15-info-flow.mp3` - إدارة تدفق المعلومات
 - `bag2-ch1-s16-hr-logistics.mp3` - تنسيق الموارد البشرية واللوجستية
 - `bag2-ch1-s17-operational-policies.mp3` - تفعيل السياسات التشغيلية للطوارئ والسلامة
-- `bag2-ch1-s18-activity-7.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة
+- `bag2-ch1-s18-activity-7.mp3` - نشاط: المعلومات والموارد والسياسات
 - `bag2-ch1-s19-quiz.mp3` - اختبار الفصل الأول
 - `bag2-ch1-s20-closing.mp3` - ختام الفصل الأول
 - `bag2-ch2-s1-welcome.mp3` - إدارة الأزمات الصحية
@@ -131,9 +131,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s6-risk-activity-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
 - `bag1-ch3-s6-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
 - `bag1-ch3-s6-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
-- `bag2-ch1-s8-activity-5-detail-1.mp3` - نشاط: بناء وتكامل خطط استمرارية الأعمال - مناقشة 1
-- `bag2-ch1-s14-activity-6-detail-1.mp3` - نشاط تطبيقي: نمذجة تحليل الأثر واستمرارية الأعمال - مناقشة 1
-- `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: تفعيل السياسات التشغيلية للطوارئ والسلامة - مناقشة 1
+- `bag2-ch1-s8-activity-5-detail-1.mp3` - نشاط: أول قرار قيادي - مناقشة 1
+- `bag2-ch1-s14-activity-6-detail-1.mp3` - نشاط: ICS أو EOC - مناقشة 1
+- `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: المعلومات والموارد والسياسات - مناقشة 1
 - `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
