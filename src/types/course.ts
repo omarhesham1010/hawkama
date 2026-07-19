@@ -139,6 +139,8 @@ export interface ClassificationItem {
   answer: string;
   rationale: string;
   needsReview: boolean;
+  /** Pre-recorded key (see public/audio) Nasser reads once this item is placed. */
+  voiceKey?: string;
 }
 
 export interface ClassificationActivityData {
@@ -188,9 +190,15 @@ export interface ScenarioDecisionData {
     options: { id: string; label: string; correct: boolean }[];
     suggestedNote: string; // Educational rationale shown after answering.
     tags: string[];
+    /** Pre-recorded keys Nasser reads right after the learner picks an option. */
+    correctVoiceKey?: string;
+    incorrectVoiceKey?: string;
   };
   correctPath: DecisionStep[]; // ordered correct response
   reflection: string[]; // open, ungraded
+  /** Pre-recorded keys Nasser reads right after "تحقّق من المسار" is checked. */
+  pathCorrectVoiceKey?: string;
+  pathIncorrectVoiceKey?: string;
 }
 
 export interface FlipCard {
@@ -198,6 +206,8 @@ export interface FlipCard {
   front: string;
   back: string;
   icon: IconKey;
+  /** Pre-recorded key (see public/audio) Nasser reads once this card is flipped. */
+  voiceKey?: string;
 }
 
 export interface FlipCardsData {

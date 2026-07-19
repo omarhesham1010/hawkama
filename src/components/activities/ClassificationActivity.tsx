@@ -4,6 +4,7 @@ import { Icon } from '../ui/Icon';
 import { useCanvasScale } from '../../lib/canvasScale';
 import { toArabicDigits } from '../../lib/utils';
 import { useNarrationContext } from '../audio/NarrationContext';
+import { playVoiceClip } from '../../lib/playVoiceClip';
 
 type Cat = string;
 
@@ -76,6 +77,7 @@ export function ClassificationActivity({
     if (cat) {
       setAssignment((a) => ({ ...a, [dragId]: cat }));
       setLastId(dragId);
+      playVoiceClip(data.items.find((it) => it.id === dragId)?.voiceKey);
     }
     setDragId(null);
     setOver(null);

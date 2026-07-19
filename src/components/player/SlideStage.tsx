@@ -3597,6 +3597,7 @@ function PptStyleSlide({
   const narration = useNarrationContext();
   const { isPlaying: narrationLocked } = narration;
   const [resolvedCheckpoints, setResolvedCheckpoints] = useState<Set<number>>(() => new Set());
+  const [answeredCheckpointIndex, setAnsweredCheckpointIndex] = useState<number | null>(null);
   const pausedCheckpointRef = useRef<number | null>(null);
 
   // When real audio is missing/fails for a slide, the sync clock can snap
@@ -3614,6 +3615,7 @@ function PptStyleSlide({
     slideEnteredAtRef.current = performance.now();
     pausedCheckpointRef.current = null;
     if (resolvedCheckpoints.size > 0) setResolvedCheckpoints(new Set());
+    if (answeredCheckpointIndex != null) setAnsweredCheckpointIndex(null);
   }
   const minDwellMs = Math.max(4000, slide.duration * 1000 * 0.6);
 
@@ -4031,18 +4033,46 @@ function PptStyleSlide({
     narration.resume();
   };
 
+  // A checkpoint's activity component signals "the learner is done here" the
+  // instant its own success condition is met (e.g. the moment any MCQ option
+  // is picked, or the last card is flipped) -- advancing straight to the
+  // next shot right then would cut the learner off before they can even see
+  // Nasser's reaction or read the feedback. Only mark it *answered* on that
+  // signal; a "التالي" button then appears and narration only resumes (and
+  // the act actually advances) once the learner presses it themselves.
+  const checkpointAnswered = pendingCheckpoint != null && answeredCheckpointIndex === pendingCheckpoint.index;
+  const markCheckpointAnswered = () => {
+    if (pendingCheckpoint) setAnsweredCheckpointIndex(pendingCheckpoint.index);
+  };
+  const advanceCheckpoint = () => {
+    setAnsweredCheckpointIndex(null);
+    resolveCheckpoint();
+  };
+
   const renderCheckpointShot = () => {
     if (!pendingCheckpoint) return null;
     const a = pendingCheckpoint.checkpoint.activity;
     return (
-      <div className="flex h-full min-h-0 flex-col items-stretch justify-center px-6 py-2">
+      <div className="relative flex h-full min-h-0 flex-col items-stretch justify-center px-6 py-2">
         <ActivityChip label={slide.activityLabel ?? 'طبّق بنفسك'} />
-        {a.kind === 'classification' && <ClassificationActivity data={a} onDone={resolveCheckpoint} />}
-        {a.kind === 'flipCards' && <FlipCardActivity data={a} onDone={resolveCheckpoint} />}
+        {a.kind === 'classification' && <ClassificationActivity data={a} onDone={markCheckpointAnswered} />}
+        {a.kind === 'flipCards' && <FlipCardActivity data={a} onDone={markCheckpointAnswered} />}
         {a.kind === 'scenarioDecision' && (
-          <DecisionSimulation data={a} mode={pendingCheckpoint.checkpoint.mode ?? 'both'} onDone={resolveCheckpoint} />
+          <DecisionSimulation data={a} mode={pendingCheckpoint.checkpoint.mode ?? 'both'} onDone={markCheckpointAnswered} />
         )}
-        {a.kind === 'trueFalse' && <TrueFalseGame data={a} onDone={resolveCheckpoint} />}
+        {a.kind === 'trueFalse' && <TrueFalseGame data={a} onDone={markCheckpointAnswered} />}
+        {checkpointAnswered && (
+          <button
+            type="button"
+            onClick={advanceCheckpoint}
+            className="btn-primary animate-epic-pop absolute bottom-3 left-1/2 z-30 -translate-x-1/2 px-8 py-2.5 text-base shadow-card-lg"
+          >
+            التالي
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+        )}
       </div>
     );
   };

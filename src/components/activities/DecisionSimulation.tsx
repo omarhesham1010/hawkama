@@ -5,6 +5,7 @@ import { Chip } from '../ui/Chip';
 import { FeedbackBox } from '../ui/FeedbackBox';
 import { shuffle, toArabicDigits } from '../../lib/utils';
 import { useNarrationContext } from '../audio/NarrationContext';
+import { playVoiceClip } from '../../lib/playVoiceClip';
 
 function StageTitle({ n, text }: { n: string; text: string }) {
   return (
@@ -79,7 +80,10 @@ export function DecisionSimulation({
                   key={opt.id}
                   type="button"
                   disabled={reveal || narrationLocked}
-                  onClick={() => setIdentify(opt.id)}
+                  onClick={() => {
+                    setIdentify(opt.id);
+                    playVoiceClip(opt.correct ? data.identify.correctVoiceKey : data.identify.incorrectVoiceKey);
+                  }}
                   className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors disabled:cursor-not-allowed ${
                     !reveal && narrationLocked ? '!bg-white !text-ink-muted' : ''
                   } ${cls}`}
@@ -214,7 +218,10 @@ export function DecisionSimulation({
             <div className="mt-3 flex justify-center">
               <button
                 type="button"
-                onClick={() => setPathChecked(true)}
+                onClick={() => {
+                  setPathChecked(true);
+                  playVoiceClip(pathCorrect ? data.pathCorrectVoiceKey : data.pathIncorrectVoiceKey);
+                }}
                 disabled={!pathFull || narrationLocked}
                 className={`btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
                   pathFull && !narrationLocked ? 'animate-pulse-ring' : ''

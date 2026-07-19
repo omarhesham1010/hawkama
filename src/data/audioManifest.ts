@@ -140,10 +140,22 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s14-activity-6-detail-3",
   "bag2-ch1-s14-activity-6-detail-4",
   "bag2-ch1-s14-activity-6-detail-5",
+  "bag2-ch1-s14-activity-6-item-i1",
+  "bag2-ch1-s14-activity-6-item-i2",
+  "bag2-ch1-s14-activity-6-item-i3",
+  "bag2-ch1-s14-activity-6-item-i4",
+  "bag2-ch1-s14-activity-6-item-i5",
+  "bag2-ch1-s14-activity-6-item-i6",
   "bag2-ch1-s14-activity-6",
   "bag2-ch1-s15-info-flow",
   "bag2-ch1-s16-hr-logistics",
   "bag2-ch1-s17-operational-policies",
+  "bag2-ch1-s18-activity-7-card-c1",
+  "bag2-ch1-s18-activity-7-card-c2",
+  "bag2-ch1-s18-activity-7-card-c3",
+  "bag2-ch1-s18-activity-7-card-c4",
+  "bag2-ch1-s18-activity-7-card-c5",
+  "bag2-ch1-s18-activity-7-card-c6",
   "bag2-ch1-s18-activity-7-detail-1",
   "bag2-ch1-s18-activity-7-detail-2",
   "bag2-ch1-s18-activity-7-detail-3",
@@ -178,10 +190,14 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s8-activity-5-detail-4",
   "bag2-ch1-s8-activity-5-detail-5",
   "bag2-ch1-s8-activity-5-detail-6",
+  "bag2-ch1-s8-activity-5-identify-correct",
+  "bag2-ch1-s8-activity-5-identify-incorrect",
+  "bag2-ch1-s8-activity-5-path-correct",
+  "bag2-ch1-s8-activity-5-path-incorrect",
   "bag2-ch1-s8-activity-5",
   "bag2-ch1-s9-ics"
 ];
-export const AUDIO_MANIFEST_VERSION = '977e84f45bdf';
+export const AUDIO_MANIFEST_VERSION = '3060c2567ede';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

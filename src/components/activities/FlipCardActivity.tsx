@@ -4,6 +4,7 @@ import { Icon } from '../ui/Icon';
 import { IconBadge } from '../ui/IconBadge';
 import { toArabicDigits } from '../../lib/utils';
 import { useNarrationContext } from '../audio/NarrationContext';
+import { playVoiceClip } from '../../lib/playVoiceClip';
 
 export function FlipCardActivity({
   data,
@@ -21,12 +22,11 @@ export function FlipCardActivity({
     const nowFlipped = !flipped[id];
     setFlipped((f) => ({ ...f, [id]: nowFlipped }));
     setSeen((s) => new Set(s).add(id));
-    // When revealing the back, read its definition aloud automatically.
-    if (nowFlipped && card) {
-      narration.play(`card-${id}`, `${card.front}. ${card.back}`, card.front);
-    } else {
-      narration.stop();
-    }
+    // When revealing the back, have Nasser read it aloud with his own
+    // pre-recorded voice instead of the shared narration track -- that
+    // track is mid-pause on the slide's own narration while this
+    // checkpoint is open, and playing through it here would tear that down.
+    if (nowFlipped && card) playVoiceClip(card.voiceKey);
   };
 
   const seenCount = seen.size;

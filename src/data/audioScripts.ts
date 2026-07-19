@@ -212,6 +212,91 @@ const checkItems = slides.flatMap((slide) => {
   ];
 });
 
+// Nasser's spoken reaction to each interactive checkpoint (PptContent.
+// actActivities): correct/incorrect feedback for a decision, the rationale
+// once an item is classified, or a flip card's own front+back. Text is
+// derived straight from the same activity data the components render, so
+// the recording can never drift from what's on screen. See
+// src/lib/playVoiceClip.ts for how these play independently of the slide's
+// own (possibly mid-pause) narration track.
+const checkpointVoiceItems = slides.flatMap((slide) => {
+  const acts = slide.ppt?.actActivities ?? [];
+  return acts.flatMap((checkpoint, actIndex) => {
+    if (!checkpoint) return [];
+    const a = checkpoint.activity;
+    const label = `${slide.title} - نشاط تفاعلي ${actIndex + 1}`;
+
+    if (a.kind === 'scenarioDecision') {
+      const correctOpt = a.identify.options.find((o) => o.correct);
+      const correctPathSummary = a.correctPath.map((s) => s.label).join('، ثم ');
+      const out: AudioScriptItem[] = [];
+      if (a.identify.correctVoiceKey) {
+        out.push(item(
+          a.identify.correctVoiceKey,
+          `${label} - إجابة صحيحة`,
+          `إجابة صحيحة، ${correctOpt?.label}. ${a.identify.suggestedNote}`,
+          'activity-feedback',
+          slide.id,
+        ));
+      }
+      if (a.identify.incorrectVoiceKey) {
+        out.push(item(
+          a.identify.incorrectVoiceKey,
+          `${label} - إجابة غير صحيحة`,
+          `الإجابة الصحيحة هي، ${correctOpt?.label}. ${a.identify.suggestedNote}`,
+          'activity-feedback',
+          slide.id,
+        ));
+      }
+      if (a.pathCorrectVoiceKey) {
+        out.push(item(
+          a.pathCorrectVoiceKey,
+          `${label} - مسار صحيح`,
+          `مسار صحيح تمامًا! ${correctPathSummary}`,
+          'activity-feedback',
+          slide.id,
+        ));
+      }
+      if (a.pathIncorrectVoiceKey) {
+        out.push(item(
+          a.pathIncorrectVoiceKey,
+          `${label} - مسار غير صحيح`,
+          `المسار غير مرتّب بشكل صحيح. الترتيب الصحيح، ${correctPathSummary}`,
+          'activity-feedback',
+          slide.id,
+        ));
+      }
+      return out;
+    }
+
+    if (a.kind === 'classification') {
+      return a.items
+        .filter((it) => it.voiceKey)
+        .map((it) => item(
+          it.voiceKey!,
+          `${label} - ${it.id}`,
+          `التصنيف المقترح، ${a.categories.find((c) => c.id === it.answer)?.label ?? ''}. ${it.rationale}`,
+          'activity-feedback',
+          slide.id,
+        ));
+    }
+
+    if (a.kind === 'flipCards') {
+      return a.cards
+        .filter((c) => c.voiceKey)
+        .map((c) => item(
+          c.voiceKey!,
+          `${label} - ${c.id}`,
+          `${c.front}. ${c.back}`,
+          'activity-feedback',
+          slide.id,
+        ));
+    }
+
+    return [];
+  });
+});
+
 export const audioScripts: AudioScriptItem[] = [
   ...mainSlideItems,
   ...genericActivityDetailItems,
@@ -220,6 +305,7 @@ export const audioScripts: AudioScriptItem[] = [
   ...scenarioItems,
   ...quizFeedbackItems,
   ...checkItems,
+  ...checkpointVoiceItems,
 ];
 
 export function audioScriptByKey(key: string) {

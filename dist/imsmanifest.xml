@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-5QHY2XUC.js" />
-      <file href="assets/chunks/audioAlignments-M5YSQEHL.js" />
-      <file href="assets/chunks/chunk-DL26RNWM.js" />
+      <file href="assets/chunks/SlidePlayer-X774OY4I.js" />
+      <file href="assets/chunks/audioAlignments-UVCO67TN.js" />
+      <file href="assets/chunks/chunk-NFN4VBWD.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
+      <file href="assets/index-4ea51596.js" />
       <file href="assets/index-5503d773.css" />
-      <file href="assets/index-6cdfa0d1.js" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="assets/visual-library/audit-controls.webp" />
@@ -251,10 +251,22 @@
       <file href="audio/bag2-ch1-s14-activity-6-detail-3.mp3" />
       <file href="audio/bag2-ch1-s14-activity-6-detail-4.mp3" />
       <file href="audio/bag2-ch1-s14-activity-6-detail-5.mp3" />
+      <file href="audio/bag2-ch1-s14-activity-6-item-i1.mp3" />
+      <file href="audio/bag2-ch1-s14-activity-6-item-i2.mp3" />
+      <file href="audio/bag2-ch1-s14-activity-6-item-i3.mp3" />
+      <file href="audio/bag2-ch1-s14-activity-6-item-i4.mp3" />
+      <file href="audio/bag2-ch1-s14-activity-6-item-i5.mp3" />
+      <file href="audio/bag2-ch1-s14-activity-6-item-i6.mp3" />
       <file href="audio/bag2-ch1-s14-activity-6.mp3" />
       <file href="audio/bag2-ch1-s15-info-flow.mp3" />
       <file href="audio/bag2-ch1-s16-hr-logistics.mp3" />
       <file href="audio/bag2-ch1-s17-operational-policies.mp3" />
+      <file href="audio/bag2-ch1-s18-activity-7-card-c1.mp3" />
+      <file href="audio/bag2-ch1-s18-activity-7-card-c2.mp3" />
+      <file href="audio/bag2-ch1-s18-activity-7-card-c3.mp3" />
+      <file href="audio/bag2-ch1-s18-activity-7-card-c4.mp3" />
+      <file href="audio/bag2-ch1-s18-activity-7-card-c5.mp3" />
+      <file href="audio/bag2-ch1-s18-activity-7-card-c6.mp3" />
       <file href="audio/bag2-ch1-s18-activity-7-detail-1.mp3" />
       <file href="audio/bag2-ch1-s18-activity-7-detail-2.mp3" />
       <file href="audio/bag2-ch1-s18-activity-7-detail-3.mp3" />
@@ -289,6 +301,10 @@
       <file href="audio/bag2-ch1-s8-activity-5-detail-4.mp3" />
       <file href="audio/bag2-ch1-s8-activity-5-detail-5.mp3" />
       <file href="audio/bag2-ch1-s8-activity-5-detail-6.mp3" />
+      <file href="audio/bag2-ch1-s8-activity-5-identify-correct.mp3" />
+      <file href="audio/bag2-ch1-s8-activity-5-identify-incorrect.mp3" />
+      <file href="audio/bag2-ch1-s8-activity-5-path-correct.mp3" />
+      <file href="audio/bag2-ch1-s8-activity-5-path-incorrect.mp3" />
       <file href="audio/bag2-ch1-s8-activity-5.mp3" />
       <file href="audio/bag2-ch1-s9-ics.mp3" />
       <file href="avatar-assets/avatar-female.png" />

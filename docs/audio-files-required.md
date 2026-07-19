@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **257**.
+Generated from `src/data/audioScripts.ts`. Total required: **273**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -263,3 +263,19 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s7-aar-phases-check-answer.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - إجابة السؤال التفاعلي
 - `bag2-ch4-s10-kpi-categories-check-ask.mp3` - إدارة وقياس مؤشرات الأداء - سؤال تفاعلي
 - `bag2-ch4-s10-kpi-categories-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي
+- `bag2-ch1-s8-activity-5-identify-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch1-s8-activity-5-identify-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - مسار صحيح
+- `bag2-ch1-s8-activity-5-path-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - مسار غير صحيح
+- `bag2-ch1-s14-activity-6-item-i1.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i1
+- `bag2-ch1-s14-activity-6-item-i2.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i2
+- `bag2-ch1-s14-activity-6-item-i3.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i3
+- `bag2-ch1-s14-activity-6-item-i4.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i4
+- `bag2-ch1-s14-activity-6-item-i5.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i5
+- `bag2-ch1-s14-activity-6-item-i6.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i6
+- `bag2-ch1-s18-activity-7-card-c1.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c1
+- `bag2-ch1-s18-activity-7-card-c2.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c2
+- `bag2-ch1-s18-activity-7-card-c3.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c3
+- `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c4
+- `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c5
+- `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c6
