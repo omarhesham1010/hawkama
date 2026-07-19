@@ -1717,6 +1717,13 @@ const aarObjectivesCards: PptCard[] = [
   { title: 'تطوير توصيات للتحسين', text: 'إجراءات تصحيحية محددة وقابلة للتنفيذ.' },
 ];
 
+const aarFourQuestionsCards: PptCard[] = [
+  { title: 'وش المفترض إنه يحدث؟' },
+  { title: 'وش اللي حدث بالفعل؟' },
+  { title: 'ليش صار فيه فرق بينهم؟', tone: 'gold' },
+  { title: 'كيف نتعلم ونحسّن أداءنا مستقبلًا؟' },
+];
+
 const aarPhasesCards: PptCard[] = [
   {
     index: '01',
@@ -1777,6 +1784,13 @@ const kpiDesignCardsPart2: PptCard[] = [
   { index: '08', title: 'عرض المؤشر بلوحة معلومات', tone: 'gold' },
 ];
 
+const dashboardTraitsCards: PptCard[] = [
+  { title: 'البساطة والوضوح' },
+  { title: 'استخدام الألوان والإشارات المرئية', tone: 'gold' },
+  { title: 'إمكانية التعمق' },
+  { title: 'التحديث الفوري' },
+];
+
 const stakeholderTypesCards: PptCard[] = [
   { title: 'الداخليون', text: 'موظفو المستشفى، الإدارة العليا، المتطوعون.' },
   { title: 'الخارجيون', text: 'المرضى وعائلاتهم، المجتمع المحلي، الإعلام.', tone: 'gold' },
@@ -1798,6 +1812,13 @@ const cdcPrinciplesCards: PptCard[] = [
   { index: '04', title: 'عبّر عن التعاطف' },
   { index: '05', title: 'شجّع على العمل' },
   { index: '06', title: 'أظهر الاحترام' },
+];
+
+const commChannelsCards: PptCard[] = [
+  { title: 'الإعلام التقليدي' },
+  { title: 'الإعلام الرقمي', tone: 'gold' },
+  { title: 'التواصل المباشر' },
+  { title: 'المتحدثون الرسميون' },
 ];
 
 const trustBuildingCards: PptCard[] = [
@@ -1924,9 +1945,14 @@ export const emergencyChapterFourSlides = indexSlides([
       'إدارة المخزون بالأوقات العادية تهدف لتقليل التكاليف، لكن بالطوارئ الأولوية تتحول لضمان التوافر. المخزون الطبي نوعين رئيسيين: مخزون الأمان، وهو الكميات اللي تغطي الاحتياج اليومي العادي مع كمية إضافية للتقلبات؛ والمخزون الاستراتيجي أو الاحتياطي، كميات كبيرة تُخزَّن للاستجابة للأحداث الكبرى وتُدار غالبًا على المستوى الوطني أو الإقليمي. وتحليل ABC يصنف المنتجات لثلاث فئات موضحة أمامك، وبالطوارئ لازم يُعاد التصنيف بناءً على "الأهمية السريرية" لا التكلفة فقط. ونموذج كمية الطلب الاقتصادي EOQ قد ما يناسب المنتجات الحيوية وقت الأزمات لأن تكلفة النفاذ تصبح أعلى بكثير من أي تكلفة أخرى.',
     visual: '📊',
     layout: 'pptThreeColumns',
-    cards: [{ title: 'نوعان من المخزون', text: 'مخزون الأمان للاحتياج اليومي، والمخزون الاستراتيجي للأحداث الكبرى.', tone: 'gold' }],
-    laterActs: [inventoryManagementCards],
-    actLayouts: ['pptSpotlight', 'pptThreeColumns'],
+    cards: [{ title: 'إدارة المخزون بالأوقات العادية تهدف لتقليل التكاليف', text: 'لكن بالطوارئ الأولوية تتحول لضمان التوافر.', tone: 'gold' }],
+    laterActs: [
+      [{ title: 'المخزون الطبي نوعين رئيسيين', text: 'مخزون الأمان للاحتياج اليومي، والمخزون الاستراتيجي للأحداث الكبرى.', tone: 'gold' }],
+      inventoryManagementCards,
+      [{ title: 'إعادة التصنيف بناءً على الأهمية السريرية', text: 'بالطوارئ لازم يُعاد تصنيف المخزون بناءً على "الأهمية السريرية" لا التكلفة فقط.', tone: 'gold' }],
+      [{ title: 'نموذج EOQ ما يناسب وقت الأزمات', text: 'لأن تكلفة النفاذ تصبح أعلى بكثير من أي تكلفة أخرى وقت الطوارئ.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-inventory-governance',
@@ -1937,6 +1963,10 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🏭',
     layout: 'pptMatrix',
     cards: inventoryGovernanceCards,
+    laterActs: [
+      [{ title: 'نوبكو', text: 'الشركة السعودية للشراء الموحد تلعب دورًا محوريًا بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات، وتوفر طبقة أمان إضافية للنظام الصحي.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-aar-intro',
@@ -1946,9 +1976,12 @@ export const emergencyChapterFourSlides = indexSlides([
       'ثاني محور كبير: التمارين ومراجعات ما بعد الحدث وخطط التحسين، والفكرة الرئيسية التعلّم من التجربة. مراجعات ما بعد الحدث، أو AAR، هي عملية منظمة وميسّرة تحلل استجابة تمت لحدث معين، بهدف تحديد نقاط القوة والضعف والدروس المستفادة — وهي ليست بحث عن كبش فداء، بل بيئة آمنة للتعلم الجماعي. أهدافها أربعة موضحة أمامك. المنهجية تدور حول أربعة أسئلة رئيسية: وش المفترض إنه يحدث؟ وش اللي حدث بالفعل؟ ليش صار فيه فرق بينهم؟ وكيف نتعلم ونحسّن أداءنا مستقبلًا؟',
     visual: '🔎',
     layout: 'pptTitleCards',
-    cards: [{ title: 'بيئة آمنة للتعلم، لا محاكمة', text: 'AAR ليست بحثًا عن كبش فداء، بل تعلّم جماعي من التجربة.', tone: 'gold' }],
-    laterActs: [aarObjectivesCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    cards: [{ title: 'التمارين ومراجعات ما بعد الحدث وخطط التحسين', text: 'الفكرة الرئيسية: التعلّم من التجربة — ليست بحثًا عن كبش فداء، بل بيئة آمنة للتعلم الجماعي.', tone: 'gold' }],
+    laterActs: [
+      aarObjectivesCards,
+      aarFourQuestionsCards,
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-aar-phases',
@@ -1987,7 +2020,7 @@ export const emergencyChapterFourSlides = indexSlides([
       'خطة التحسين المستمر هي الجسر بين الدرس المستفاد "النظرية" والتطبيق الفعلي — وثيقة حية تحدد الإجراءات التصحيحية وتعيّن المسؤوليات وتضع أطر زمنية ومؤشرات نجاح. كل توصية لازم تتحول لبند عمل بمعايير SMART، وخطط التحسين جزء لا يتجزأ من دورة PDCA موضحة أمامك.',
     visual: '📈',
     layout: 'pptTwoPanels',
-    cards: [{ title: 'الجسر بين النظرية والتطبيق', text: 'وثيقة حية تحدد الإجراءات التصحيحية والمسؤوليات والأطر الزمنية.', tone: 'gold' }],
+    cards: [{ title: 'خطة التحسين المستمر', text: 'الجسر بين الدرس المستفاد (النظرية) والتطبيق الفعلي — وثيقة حية تحدد الإجراءات التصحيحية وتعيّن المسؤوليات وتضع أطر زمنية ومؤشرات نجاح.', tone: 'gold' }],
     laterActs: [improvementPlanCards],
     actLayouts: ['pptSpotlight', 'pptTwoPanels'],
   }),
@@ -2000,7 +2033,11 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '📉',
     layout: 'pptSpotlight',
     cards: [{ title: 'ما لا يمكن قياسه لا يمكن إدارته', text: 'مؤشرات الأداء تحوّل الاستجابة من انطباع إلى دليل.', tone: 'gold' }],
-    laterActs: [kpiCategoriesCards],
+    laterActs: [
+      kpiCategoriesCards,
+      [{ title: 'المركز الوطني لقياس أداء الأجهزة العامة "أداء"', text: 'يلعب دورًا مهمًا بمتابعة المؤشرات الاستراتيجية ضمن نهج قائم على البيانات.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'وش الفرق بين مؤشرات الجاهزية ومؤشرات النتائج؟',
@@ -2019,8 +2056,8 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🧮',
     layout: 'pptTimeline',
     cards: kpiDesignCardsPart1,
-    laterActs: [kpiDesignCardsPart2],
-    actLayouts: ['pptTimeline', 'pptTimeline'],
+    laterActs: [kpiDesignCardsPart2, dashboardTraitsCards],
+    actLayouts: ['pptTimeline', 'pptTimeline', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-stakeholders',
@@ -2052,8 +2089,12 @@ export const emergencyChapterFourSlides = indexSlides([
       'ونعود لمحور التواصل الفعال، ومكمّل لما أخذناه بالفصل الثاني، بستة مبادئ من مركز مكافحة الأمراض الأمريكي CDC موضحة أمامك. أما قنوات التواصل فتحتاج مزيج من أربعة أنواع: الإعلام التقليدي، الإعلام الرقمي، التواصل المباشر، والمتحدثون الرسميون.',
     visual: '📢',
     layout: 'pptSpotlight',
-    cards: [{ title: 'امتداد لمحور التواصل', text: 'ستة مبادئ من مركز مكافحة الأمراض الأمريكي CDC.', tone: 'gold' }],
-    laterActs: [cdcPrinciplesCards],
+    cards: [{ title: 'ونعود لمحور التواصل الفعال', text: 'مكمّل لما أخذناه بالفصل الثاني، بستة مبادئ من مركز مكافحة الأمراض الأمريكي CDC.', tone: 'gold' }],
+    laterActs: [
+      cdcPrinciplesCards,
+      commChannelsCards,
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-trust-building',
@@ -2064,6 +2105,10 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🛡️',
     layout: 'pptTwoPanels',
     cards: trustBuildingCards,
+    laterActs: [
+      [{ title: 'التطبيق بالسياق السعودي', text: 'نجح بالاستفادة من المنصات الرسمية الموحدة والمؤتمر الصحفي اليومي وقت كورونا، مع مراعاة الحساسية الثقافية دائمًا.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-closing-workshops',
