@@ -2100,11 +2100,26 @@ const EMERGENCY_FALLBACK_POOL = SHARED_BRAND_ICON_POOL;
 // second, bag-1-flavored image whenever the primary slot is a generic
 // icon, which would otherwise leak governance imagery like
 // leadership-board.webp onto confirmed emergency cards.
-function sharedBrandIconFor(text: string, index = 0) {
+// `usedIcons`, when passed, is a per-scene Set shared across every card in
+// the SAME shot -- without it, every card whose content matches the same
+// pptGeneratedVisualLayersFor keyword rule (very common: several cards in
+// one act are often variations on the same topic) got back the exact same
+// primary illustration, so a single shot could show 3-4 identical images
+// side by side. With it, a repeat falls through to the next untaken icon in
+// this card's own hash-ordered candidate list instead, so every card in a
+// shot gets something visually distinct.
+function sharedBrandIconFor(text: string, index = 0, usedIcons?: Set<string>) {
   const primary = pptGeneratedVisualLayersFor(`${text} __bag2__`)[0];
-  if (primary?.includes('/emergency-')) return primary;
+  const candidates: string[] = [];
+  if (primary?.includes('/emergency-')) candidates.push(primary);
   const seed = stableIconIndex(text);
-  return SHARED_BRAND_ICON_POOL[(seed + index * 7) % SHARED_BRAND_ICON_POOL.length];
+  for (let k = 0; k < SHARED_BRAND_ICON_POOL.length; k += 1) {
+    candidates.push(SHARED_BRAND_ICON_POOL[(seed + index * 7 + k) % SHARED_BRAND_ICON_POOL.length]);
+  }
+  if (!usedIcons) return candidates[0];
+  const pick = candidates.find((c) => !usedIcons.has(c)) ?? candidates[0];
+  usedIcons.add(pick);
+  return pick;
 }
 
 function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boolean }) {
@@ -2559,6 +2574,10 @@ function PptMotionVisualScene({
   const preferredFill = emptyCandidates.find(({ pos }) => sideOfPosition(pos) === emptySide);
   const emptyFillIndex = (preferredFill ?? emptyCandidates[0])?.i ?? -1;
   const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
+  // Shared across every card below so two cards in the same shot never end
+  // up with the same big illustration or the same badge icon.
+  const usedCardVisuals = new Set<string>();
+  const usedBrandIcons = new Set<string>();
 
   return (
     <div className="relative min-h-0 flex-1 overflow-visible rounded-[30px]">
@@ -2599,8 +2618,14 @@ function PptMotionVisualScene({
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
         const cardMarker = slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '';
         const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`, visualPool[index % visualPool.length]);
-        const cardVisual = (denseMotion ? visualPool[index % visualPool.length] : cardVisuals[0]) ?? visualPool[index % visualPool.length] ?? primaryVisual;
-        const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
+        const cardVisualCandidates = [
+          ...(denseMotion ? [visualPool[index % visualPool.length]] : cardVisuals),
+          ...visualPool,
+          primaryVisual,
+        ].filter((src): src is string => Boolean(src));
+        const cardVisual = cardVisualCandidates.find((src) => !usedCardVisuals.has(src)) ?? cardVisualCandidates[0];
+        usedCardVisuals.add(cardVisual);
+        const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
         return (
           <button
             key={index}
@@ -2695,6 +2720,7 @@ function PptTimelineScene({
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
+  const usedBrandIcons = new Set<string>();
   return (
     <div className={`relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-visible px-2 py-2 ${denseEmergencyTimeline ? 'gap-3' : 'gap-5'}`}>
       {/* Centered with a fixed negative margin instead of -translate-x-1/2:
@@ -2723,7 +2749,7 @@ function PptTimelineScene({
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
           const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
-          const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
+          const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
           return (
             <div key={index} className="flex items-start">
               {index > 0 && (
@@ -2831,6 +2857,7 @@ function PptMatrixScene({
   // copy, so pt-[60px] here is measured against a guaranteed worst case
   // rather than today's particular string lengths.
   const denseQuadrant = isEmergencySlide && cards.length >= 4 && cols === 'grid-cols-2';
+  const usedBrandIcons = new Set<string>();
   return (
     <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[190px]'}`}>
       <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-5'}`}>
@@ -2839,7 +2866,7 @@ function PptMatrixScene({
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
           const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
-          const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
+          const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
           const tone = card.tone ?? 'green';
           const toneShell =
             tone === 'gold'
@@ -2929,7 +2956,8 @@ function PptSpotlightScene({
   const focusDetail = pptDetailFor(focusCard, isEmergencySlide);
   const showFocusDetail = focusActive && Boolean(focusDetail);
   const primaryVisual = slideVisualPool(slide, cards)[0];
-  const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex) : null;
+  const usedBrandIcons = new Set<string>();
+  const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex, usedBrandIcons) : null;
   const showFocusVisual = !isEmergencySlide || focusVisible;
   // Enough supporting chips (5+, i.e. a 6-card slide -- only two of these
   // exist in bag 2) would wrap onto a second row at the normal chip size;
@@ -2997,7 +3025,7 @@ function PptSpotlightScene({
             const index = cards.indexOf(card);
             const visible = visibleFor(index);
             const active = expandedKey === `${slide.id}:${index}`;
-            const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index) : null;
+            const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
             return (
               <button
                 key={index}
