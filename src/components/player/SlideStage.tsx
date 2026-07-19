@@ -2489,16 +2489,24 @@ function PptMotionVisualScene({
   // shot. titleCardGrid now always lays every count (1-6) out as a single
   // centered row instead, sizing cards down as the count grows so more of
   // them still fit -- no more asymmetric multi-row split for any count.
-  const titleGridRowPositions = (count: number): string[] => {
-    const width = count <= 1 ? 34 : count === 2 ? 30 : count === 3 ? 26 : count === 4 ? 21 : count === 5 ? 17.5 : 15;
-    const gap = count <= 3 ? 5 : count === 4 ? 3.5 : count === 5 ? 2.5 : 2;
-    const total = count * width + (count - 1) * gap;
-    const margin = Math.max(0, (100 - total) / 2);
-    return Array.from({ length: count }, (_, i) => `right-[${(margin + i * (width + gap)).toFixed(1)}%] top-[30%] w-[${width}%]`);
+  // Values are STATIC string literals, not computed via template
+  // interpolation -- Tailwind's build only ever generates CSS for
+  // arbitrary-value classes it can find as literal text while scanning the
+  // source, so a runtime-built class like `right-[${margin}%]` silently
+  // produces no CSS at all and every card collapses to the same spot. Learned
+  // this the hard way: an earlier version of this exact block computed the
+  // positions dynamically and every card rendered stacked in one corner.
+  const titleGridRowPositions: Record<number, string[]> = {
+    1: ['right-[33%] top-[30%] w-[34%]'],
+    2: ['right-[16%] top-[30%] w-[30%]', 'right-[54%] top-[30%] w-[30%]'],
+    3: ['right-[6%] top-[30%] w-[26%]', 'right-[37%] top-[30%] w-[26%]', 'right-[68%] top-[30%] w-[26%]'],
+    4: ['right-[2.8%] top-[30%] w-[21%]', 'right-[27.3%] top-[30%] w-[21%]', 'right-[51.8%] top-[30%] w-[21%]', 'right-[76.3%] top-[30%] w-[21%]'],
+    5: ['right-[1.3%] top-[30%] w-[17.5%]', 'right-[21.3%] top-[30%] w-[17.5%]', 'right-[41.3%] top-[30%] w-[17.5%]', 'right-[61.3%] top-[30%] w-[17.5%]', 'right-[81.3%] top-[30%] w-[17.5%]'],
+    6: ['right-[0%] top-[30%] w-[15%]', 'right-[17%] top-[30%] w-[15%]', 'right-[34%] top-[30%] w-[15%]', 'right-[51%] top-[30%] w-[15%]', 'right-[68%] top-[30%] w-[15%]', 'right-[85%] top-[30%] w-[15%]'],
   };
   const titleGridSparse = titleCardGrid && isSparseGroup;
   const positionsByVariant: Record<string, string[]> = {
-    titleGrid: titleCardGrid ? titleGridRowPositions(Math.min(cards.length, 6) || 1) : [],
+    titleGrid: titleCardGrid ? (titleGridRowPositions[Math.min(Math.max(cards.length, 1), 6)] ?? titleGridRowPositions[6]) : [],
     constellation: [
       'right-[5%] top-[10%] w-[30%]',
       'left-[6%] top-[11%] w-[30%]',
