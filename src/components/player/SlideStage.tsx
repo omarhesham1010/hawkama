@@ -2568,9 +2568,22 @@ function PptMotionVisualScene({
   // actually collides with him.
   const collidesWithNasser = (pos: string) => sideOfPosition(pos) === nasserVisualSide && pos.includes('bottom-');
   const usedPositionIndexes = new Set(cards.map((_, i) => i % labelPositions.length));
+  // A lone unused slot sharing a row with a real card (e.g. 5 cards on the
+  // 6-slot titleGrid: the top row fills all 4 slots, the bottom row gets
+  // exactly 1 real card plus 1 "empty" slot right next to it) used to still
+  // get the decorative filler image -- a fixed 190px-tall image sitting
+  // immediately beside a ~142px card reads as visual clutter/overlap, not a
+  // quiet empty corner. Only fill a slot when its WHOLE row has no real
+  // cards in it at all.
+  const rowOf = (pos: string): 'top' | 'bottom' => (pos.includes('top-') ? 'top' : 'bottom');
+  const usedRows = new Set(
+    labelPositions
+      .map((pos, i) => (usedPositionIndexes.has(i) ? rowOf(pos) : null))
+      .filter((row): row is 'top' | 'bottom' => row !== null),
+  );
   const emptyCandidates = labelPositions
     .map((pos, i) => ({ pos, i }))
-    .filter(({ pos, i }) => !usedPositionIndexes.has(i) && !collidesWithNasser(pos));
+    .filter(({ pos, i }) => !usedPositionIndexes.has(i) && !collidesWithNasser(pos) && !usedRows.has(rowOf(pos)));
   const preferredFill = emptyCandidates.find(({ pos }) => sideOfPosition(pos) === emptySide);
   const emptyFillIndex = (preferredFill ?? emptyCandidates[0])?.i ?? -1;
   const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
