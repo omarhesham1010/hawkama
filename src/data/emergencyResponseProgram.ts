@@ -1318,6 +1318,13 @@ const multiHazardMethodologyCards: PptCard[] = [
   { index: '04', title: 'تقدير المخاطر وتحديد الأولويات', text: 'دمج نتائج التحليل والهشاشة، واستخدام خرائط المخاطر لتحديد الأولوية القصوى.' },
 ];
 
+const hazardCategoriesExampleCards: PptCard[] = [
+  { title: 'طبيعية', text: 'مثل الفيضانات بجدة والزلازل بتبوك.' },
+  { title: 'بيولوجية', text: 'مثل الأوبئة.', tone: 'gold' },
+  { title: 'تكنولوجية', text: 'مثل الهجمات السيبرانية.' },
+  { title: 'مجتمعية', text: 'مثل حوادث الحشود بموسم الحج.' },
+];
+
 const scenarioPlanningStepsCards: PptCard[] = [
   { index: '01', title: 'تحديد سؤال محوري واضح' },
   { index: '02', title: 'تحديد القوى الدافعة' },
@@ -1332,6 +1339,16 @@ const surveillanceImportanceCards: PptCard[] = [
   { title: 'الاستجابة السريعة', text: 'توفير وقت كافٍ لتفعيل خطط الاستجابة.', tone: 'gold' },
   { title: 'تقييم فعالية التدخلات', text: 'استخدام بيانات الترصد لتقييم نجاح الإجراءات الوقائية.' },
   { title: 'تقليل الأضرار', text: 'تقليل معدلات الأمراض والوفيات بالتدخل بالوقت المناسب.' },
+];
+
+const smartErCriteriaCards: PptCard[] = [
+  { title: 'محدد' },
+  { title: 'قابل للقياس' },
+  { title: 'قابل للتحقيق' },
+  { title: 'ذو صلة', tone: 'gold' },
+  { title: 'محدد بوقت' },
+  { title: 'تقييمي' },
+  { title: 'قابل للمراجعة' },
 ];
 
 const indicatorTypesCards: PptCard[] = [
@@ -1460,7 +1477,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🌐',
     layout: 'pptSpotlight',
     cards: [{ title: 'ينظر إلى الخارج', text: 'يفهم كيف تؤثر تطورات القطاعات الأخرى على القطاع الصحي.', tone: 'gold' }],
-    laterActs: [horizontalScanningCards],
+    laterActs: [
+      horizontalScanningCards,
+      [{ title: 'مثال تطبيقي', text: 'رصد فريق المسح اتجاه عالمي نحو "التوائم الرقمية"، وطبّقه على القطاع الصحي بنماذج افتراضية للمرضى تحاكي استجابتهم للعلاجات — انتهى بتوصية مشروع تجريبي.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-vertical-scanning',
@@ -1471,8 +1492,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🏥',
     layout: 'pptThreeColumns',
     cards: [{ title: 'ينظر إلى الداخل', text: 'يفهم الديناميكيات داخل المنظومة الصحية نفسها.', tone: 'gold' }],
-    laterActs: [verticalScanningCards],
-    actLayouts: ['pptSpotlight', 'pptThreeColumns'],
+    laterActs: [
+      verticalScanningCards,
+      [{ title: 'مثال تطبيقي', text: 'فريق المسح لاحظ من بيانات المستوى الجزئي ارتفاعًا بمعدلات الإرهاق الوظيفي بين الممرضين بعد جائحة كورونا، ورفعوها للمستوى المتوسط ثم الكلي — والنتيجة سياسة وطنية جديدة لصحة وسلامة الممارسين.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'وش الفرق بين المسح الأفقي والمسح الرأسي؟',
@@ -1503,8 +1527,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🧰',
     layout: 'pptTitleCards',
     cards: [{ title: 'أربع أدوات للاستشراف', text: 'كل أداة بمثال تطبيقي واحد من القطاع الصحي.', tone: 'gold' }],
-    laterActs: [regulatoryToolsCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [
+      regulatoryToolsCards,
+      [{ title: 'ورشة عمل (٤٥ دقيقة)', text: 'بناء خريطة المخاطر التنظيمية المستقبلية: اختر مجال التركيز، طبّق PESTLE، حدد ٣-٥ مخاطر، قيّمها بالاحتمالية والتأثير، وارسم خريطة حرارية.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-multi-hazard-concepts',
@@ -1525,8 +1552,13 @@ export const emergencyChapterThreeSlides = indexSlides([
       'منهجية التقييم الشامل تمر بأربع خطوات منظمة موضحة أمامك، مثالها تصنيف الأخطار بالمملكة لأربع فئات: طبيعية مثل الفيضانات بجدة والزلازل بتبوك، بيولوجية مثل الأوبئة، تكنولوجية مثل الهجمات السيبرانية، ومجتمعية مثل حوادث الحشود بموسم الحج. وفي الحقيبة تمرين عملي مدته ٣٠ دقيقة، سيناريوه فريق إدارة مخاطر بمدينة ساحلية معرضة للأعاصير والفيضانات، والمهمة تحديد الأخطار المتتالية ونقاط الهشاشة واقتراح ثلاثة إجراءات تخفيف متكاملة.',
     visual: '📐',
     layout: 'pptSpotlight',
-    cards: [{ title: 'منهجية منظمة', text: 'أربع خطوات لتقييم شامل للمخاطر متعددة الأخطار.', tone: 'gold' }],
-    laterActs: [multiHazardMethodologyCards],
+    cards: [{ title: 'منهجية التقييم الشامل تمر بأربع خطوات منظمة', text: 'خطوات لتقييم شامل للمخاطر متعددة الأخطار.', tone: 'gold' }],
+    laterActs: [
+      multiHazardMethodologyCards,
+      hazardCategoriesExampleCards,
+      [{ title: 'تمرين عملي (٣٠ دقيقة)', text: 'سيناريو فريق إدارة مخاطر بمدينة ساحلية معرضة للأعاصير والفيضانات — حدد الأخطار المتتالية ونقاط الهشاشة واقترح ثلاثة إجراءات تخفيف متكاملة.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptMatrix', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'وش يعني إن خطرين "متزامنين"؟',
@@ -1544,8 +1576,12 @@ export const emergencyChapterThreeSlides = indexSlides([
       'رابع محور كبير: التخطيط بالسيناريوهات. بعد ما نحدد ونقيّم المخاطر ذات الأولوية، المستقبل مو مسار واحد محدد بل مجموعة احتمالات، وهذي الأداة تساعدنا نفكر في "المستقبلات الممكنة" ونستعد لها. خطوات بناء السيناريوهات ست خطوات موضحة أمامك، مثالها مصفوفة تبني أربعة سيناريوهات مثل "الصحة الفائقة" عند تمويل وتبني رقمي مرتفعين. وفي الحقيبة ورشة عمل ٤٥ دقيقة لبناء سيناريوهات مواجهة جائحة مستقبلية بسؤال محوري "كيف يمكن لوزارة الصحة الاستعداد لمواجهة جائحة X القادمة بعد خمس سنوات؟"',
     visual: '🗂️',
     layout: 'pptTimeline',
-    cards: [{ title: 'المستقبل ليس مسارًا واحدًا', text: 'مجموعة احتمالات نستعد لها جميعًا، لا نتنبأ بواحد منها.', tone: 'gold' }],
-    laterActs: [scenarioPlanningStepsCards],
+    cards: [{ title: 'المستقبل مو مسار واحد محدد', text: 'بل مجموعة احتمالات — نفكر في "المستقبلات الممكنة" ونستعد لها.', tone: 'gold' }],
+    laterActs: [
+      scenarioPlanningStepsCards,
+      [{ title: 'ورشة عمل (٤٥ دقيقة)', text: 'بناء سيناريوهات مواجهة جائحة مستقبلية بسؤال محوري: "كيف يمكن لوزارة الصحة الاستعداد لمواجهة جائحة X القادمة بعد خمس سنوات؟"', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-surveillance-intro',
@@ -1555,7 +1591,7 @@ export const emergencyChapterThreeSlides = indexSlides([
       'المحور الأخير من الفصل: الترصد ودمج الإنذار المبكر، وننتقل فيه من الرصد السلبي للترصد الاستباقي. إذا كان المسح الاستباقي هو "التلسكوب" اللي نشوف فيه المستقبل البعيد، فالترصد والإنذار المبكر هو "الرادار" اللي يمسح الأفق القريب بحثًا عن إشارات خطر وشيك. الترصد في الصحة العامة هو عملية مستمرة ومنهجية لجمع وتحليل وتفسير البيانات الصحية ونشرها بالوقت المناسب لمن يحتاجها لاتخاذ إجراء. أهميته أربعة أشياء موضحة أمامك.',
     visual: '📡',
     layout: 'pptMatrix',
-    cards: [{ title: 'من التلسكوب إلى الرادار', text: 'المسح الاستباقي يرى المستقبل البعيد، والترصد يمسح الأفق القريب.', tone: 'gold' }],
+    cards: [{ title: 'الترصد ودمج الإنذار المبكر', text: 'من التلسكوب إلى الرادار — من الرصد السلبي للترصد الاستباقي.', tone: 'gold' }],
     laterActs: [surveillanceImportanceCards],
     actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
@@ -1568,8 +1604,12 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🌡️',
     layout: 'pptTitleCards',
     cards: [{ title: 'حساسات دقيقة', text: 'متغيرات قابلة للقياس تشير لاحتمال وقوع خطر عند وصولها لعتبة معينة.', tone: 'gold' }],
-    laterActs: [indicatorTypesCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [
+      smartErCriteriaCards,
+      indicatorTypesCards,
+      [{ title: 'تمرين عملي (٢٠ دقيقة)', text: 'سيناريو موسم صيف بمكة المكرمة وقت المعتمرين مع خطر الإجهاد الحراري — صمم ثلاثة مؤشرات إنذار مبكر: استباقي، وكمي، ونوعي.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-surveillance-systems',
@@ -1579,9 +1619,12 @@ export const emergencyChapterThreeSlides = indexSlides([
       'أنظمة الترصد هي البنية التحتية اللي تجمع بيانات المؤشرات وتحللها، وفيه نوعان رئيسيان موضحان أمامك. والتكامل بين النوعين هو المفتاح: النظام الأكثر فعالية يستخدم الترصد القائم على الأحداث للكشف السريع عن إشارة محتملة، ثم يستخدم الترصد القائم على المؤشرات للتحقق منها وتأكيدها ومتابعتها.',
     visual: '🖥️',
     layout: 'pptTwoPanels',
-    cards: [{ title: 'نوعان رئيسيان', text: 'البنية التحتية اللي تجمع بيانات المؤشرات وتحللها.', tone: 'gold' }],
-    laterActs: [surveillanceSystemsCards],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
+    cards: [{ title: 'أنظمة الترصد هي البنية التحتية اللي تجمع بيانات المؤشرات وتحللها', text: 'وفيه نوعان رئيسيان.', tone: 'gold' }],
+    laterActs: [
+      surveillanceSystemsCards,
+      [{ title: 'التكامل بين النوعين هو المفتاح', text: 'النظام الأكثر فعالية يستخدم الترصد القائم على الأحداث للكشف السريع، ثم الترصد القائم على المؤشرات للتحقق والمتابعة.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-thresholds',
@@ -1591,8 +1634,12 @@ export const emergencyChapterThreeSlides = indexSlides([
       'بعدها ننتقل لربط الترصد بالقرار — جمع البيانات وتحليلها ما له قيمة إن ما أدى لإجراء، والهدف تحويل البيانات لمعلومات، والمعلومات لرؤى، والرؤى لقرارات فعالة بالوقت المناسب. يتم هذا بتحديد مستويات عتبة متعددة موضحة أمامك، كل عتبة مرتبطة بإجراءات محددة. مثال تطبيقي بمؤشر الإجهاد الحراري: الأخضر عند درجة حرارة أقل من ٤٠، الأصفر عند توقعات ٤٢، البرتقالي عند ٤٥ فعليًا مع خمس حالات إجهاد حراري بساعة، والأحمر عند أكثر من عشرين حالة بساعة مع وفيات.',
     visual: '🚨',
     layout: 'pptSpotlight',
-    cards: [{ title: 'من البيانات إلى القرار', text: 'الهدف تحويل البيانات لمعلومات، والمعلومات لقرارات فعالة بالوقت المناسب.', tone: 'gold' }],
-    laterActs: [thresholdLevelsCards],
+    cards: [{ title: 'ربط الترصد بالقرار', text: 'جمع البيانات وتحليلها ما له قيمة إن ما أدى لإجراء — الهدف تحويل البيانات لمعلومات، والمعلومات لرؤى، والرؤى لقرارات فعالة بالوقت المناسب.', tone: 'gold' }],
+    laterActs: [
+      thresholdLevelsCards,
+      [{ title: 'مثال تطبيقي بمؤشر الإجهاد الحراري', text: 'الأخضر: أقل من ٤٠°. الأصفر: توقعات ٤٢°. البرتقالي: ٤٥° فعليًا مع ٥ حالات بالساعة. الأحمر: أكثر من ٢٠ حالة بالساعة مع وفيات.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-integration',
@@ -1602,9 +1649,12 @@ export const emergencyChapterThreeSlides = indexSlides([
       'ودمج الترصد والإنذار بخطط الاستجابة يعني إن ما يكونان كيانين منفصلين — الدمج الفعّال يضمن إن الاستجابة تلقائية ومنهجية ومبنية على أدلة نظام الترصد. آليات الدمج أربعة موضحة أمامك. وفي الحقيبة جلسة نقاش تفاعلية خمس عشرة دقيقة تطرح أسئلة عن أكبر فجوة بين الترصد والاستجابة، وكيف نستخدم التقنيات الحديثة لتحسين الربط، والتحديات الثقافية أو التنظيمية اللي تعيقه.',
     visual: '🔗',
     layout: 'pptMatrix',
-    cards: [{ title: 'لا كيانين منفصلين', text: 'الترصد والاستجابة يجب أن يعملا كمنظومة واحدة متكاملة.', tone: 'gold' }],
-    laterActs: [integrationMechanismsCards],
-    actLayouts: ['pptSpotlight', 'pptMatrix'],
+    cards: [{ title: 'دمج الترصد والإنذار بخطط الاستجابة', text: 'يعني إن ما يكونان كيانين منفصلين — الدمج الفعّال يضمن استجابة تلقائية ومنهجية ومبنية على أدلة الترصد.', tone: 'gold' }],
+    laterActs: [
+      integrationMechanismsCards,
+      [{ title: 'جلسة نقاش تفاعلية (١٥ دقيقة)', text: 'أكبر فجوة بين الترصد والاستجابة؟ كيف نستخدم التقنيات الحديثة لتحسين الربط؟ وش التحديات الثقافية أو التنظيمية اللي تعيقه؟', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeQuizSlide({
     id: 'ec3-quiz',
