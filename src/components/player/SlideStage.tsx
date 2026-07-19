@@ -9,6 +9,7 @@ import { LessonBlockView } from '../course/LessonBlocks';
 import { ClassificationActivity } from '../activities/ClassificationActivity';
 import { FlipCardActivity } from '../activities/FlipCardActivity';
 import { DecisionSimulation } from '../activities/DecisionSimulation';
+import { TrueFalseGame } from '../activities/TrueFalseGame';
 import { KnowledgeCheck } from '../activities/KnowledgeCheck';
 import { POSE_SRC, POSE_SRC_BAG2, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
@@ -4234,6 +4235,9 @@ export function SlideStage({
             )}
             {a.kind === 'scenarioDecision' && (
               <DecisionSimulation data={a} mode={slide.activityMode ?? 'both'} onDone={() => onActivityDone(slide.id)} />
+            )}
+            {a.kind === 'trueFalse' && (
+              <TrueFalseGame data={a} onDone={() => onActivityDone(slide.id)} />
             )}
           </div>
         </div>

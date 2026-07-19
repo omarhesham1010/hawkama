@@ -46,6 +46,7 @@ export function DecisionSimulation({
   }, [done, onDone]);
 
   const stepLabel = (id: string) => data.correctPath.find((s) => s.id === id)?.label ?? '';
+  const correctPathSummary = data.correctPath.map((s) => s.label).join('، ثم ');
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-3">
@@ -59,7 +60,7 @@ export function DecisionSimulation({
 
       {showIdentify && (
         <div className="min-h-0">
-          <StageTitle n={toArabicDigits(1)} text="تحديد المخالفة" />
+          <StageTitle n={toArabicDigits(1)} text="حدد القرار الصحيح" />
           <p className="mb-2 text-base font-semibold text-ink-soft">{data.identify.question}</p>
           <div className="flex flex-wrap gap-1.5">
             {data.identify.options.map((opt) => {
@@ -225,16 +226,12 @@ export function DecisionSimulation({
             </div>
           ) : pathCorrect ? (
             <FeedbackBox tone="success" title="مسار صحيح تماماً" className="mt-3">
-              <p className="text-[15px] leading-snug">
-                الإفصاح، فالتنحّي عن القرار، فتوثيق الحالة، فإشراف لجنة الامتثال والأخلاقيات.
-              </p>
+              <p className="text-[15px] leading-snug">{correctPathSummary}</p>
             </FeedbackBox>
           ) : (
             <div className="mt-3 space-y-2">
               <FeedbackBox tone="error" title="المسار غير مرتّب بشكل صحيح.">
-                <p className="text-[15px] leading-snug">
-                  يبدأ الإجراء الصحيح بالإفصاح، وينتهي بإشراف لجنة الامتثال والأخلاقيات.
-                </p>
+                <p className="text-[15px] leading-snug">الترتيب الصحيح: {correctPathSummary}</p>
               </FeedbackBox>
               <div className="flex justify-center">
                 <button

@@ -5,12 +5,13 @@ import { useCanvasScale } from '../../lib/canvasScale';
 import { toArabicDigits } from '../../lib/utils';
 import { useNarrationContext } from '../audio/NarrationContext';
 
-type Cat = 'governance' | 'compliance';
+type Cat = string;
 
-const zoneStyle: Record<Cat, string> = {
-  governance: 'border-green-500/50 bg-green-500/[0.06]',
-  compliance: 'border-teal-500/50 bg-teal-500/[0.06]',
-};
+const ZONE_STYLES = [
+  'border-green-500/50 bg-green-500/[0.06]',
+  'border-teal-500/50 bg-teal-500/[0.06]',
+] as const;
+const ZONE_EMOJI = ['🏛️', '✅'] as const;
 
 /** Real pointer-based drag & drop (mouse + touch), aware of the canvas scale. */
 export function ClassificationActivity({
@@ -29,7 +30,8 @@ export function ClassificationActivity({
   const [lastId, setLastId] = useState<string | null>(null);
 
   const startRef = useRef({ x: 0, y: 0 });
-  const zoneRefs = useRef<Record<Cat, HTMLDivElement | null>>({ governance: null, compliance: null });
+  const zoneRefs = useRef<Record<Cat, HTMLDivElement | null>>({});
+  const zoneIds = useMemo(() => data.categories.map((c) => c.id), [data.categories]);
 
   const pool = data.items.filter((it) => !assignment[it.id]);
   const done = Object.keys(assignment).length === data.items.length;
@@ -43,7 +45,7 @@ export function ClassificationActivity({
   }, [done, onDone]);
 
   const zoneAt = (x: number, y: number): Cat | null => {
-    for (const cat of ['governance', 'compliance'] as Cat[]) {
+    for (const cat of zoneIds) {
       const el = zoneRefs.current[cat];
       if (!el) continue;
       const r = el.getBoundingClientRect();
@@ -94,16 +96,18 @@ export function ClassificationActivity({
 
       {/* drop zones */}
       <div className="grid grid-cols-2 gap-4">
-        {(['governance', 'compliance'] as Cat[]).map((cat) => (
+        {data.categories.map((category, zoneIndex) => {
+          const cat = category.id;
+          return (
           <div
             key={cat}
             ref={(el) => (zoneRefs.current[cat] = el)}
             className={`min-h-[150px] rounded-2xl border-2 border-dashed p-3 transition-colors ${
               over === cat ? 'ring-2 ring-brand ' : ''
-            }${zoneStyle[cat]}`}
+            }${ZONE_STYLES[zoneIndex % ZONE_STYLES.length]}`}
           >
             <p className="mb-2 flex items-center justify-center gap-2 text-lg font-extrabold text-ink">
-              {cat === 'governance' ? '🏛️' : '✅'} {catLabel(cat)}
+              {ZONE_EMOJI[zoneIndex % ZONE_EMOJI.length]} {catLabel(cat)}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               {data.items
@@ -126,7 +130,8 @@ export function ClassificationActivity({
                 })}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* pool */}

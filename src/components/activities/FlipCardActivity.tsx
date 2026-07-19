@@ -98,7 +98,7 @@ export function FlipCardActivity({
         }`}
       >
         {allSeen
-          ? 'راجعت البطاقات الست جميعها ✓ — أنت جاهز للمحاكاة.'
+          ? 'راجعت البطاقات جميعها ✓ — أنت جاهز للمحاكاة.'
           : `قلبت ${toArabicDigits(seenCount)} من ${toArabicDigits(data.cards.length)} — اقلب البقية لإكمال المراجعة.`}
       </p>
     </div>

@@ -136,7 +136,7 @@ export type LessonBlock =
 export interface ClassificationItem {
   id: string;
   text: string;
-  answer: 'governance' | 'compliance';
+  answer: string;
   rationale: string;
   needsReview: boolean;
 }
@@ -144,7 +144,7 @@ export interface ClassificationItem {
 export interface ClassificationActivityData {
   kind: 'classification';
   scenario: string;
-  categories: { id: 'governance' | 'compliance'; label: string; color: string }[];
+  categories: { id: string; label: string; color: string }[];
   items: ClassificationItem[];
 }
 

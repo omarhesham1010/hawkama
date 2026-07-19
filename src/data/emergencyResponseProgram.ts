@@ -1,5 +1,5 @@
 import type { PptCard, PptLayout, Slide, SlideKind } from '../types/slides';
-import type { QuizData } from '../types/course';
+import type { ActivityData, QuizData } from '../types/course';
 
 const emptyTimeline: Slide['timeline'] = [];
 
@@ -78,13 +78,15 @@ function makeSlide({
   subtitle,
   unitTitle,
   activityLabel,
+  activity,
+  activityMode,
 }: {
   id: string;
   title: string;
   audioKey: string;
   narration: string;
   visual: string;
-  layout: PptLayout;
+  layout?: PptLayout;
   cards?: PptCard[];
   laterActs?: PptCard[][];
   actLayouts?: PptLayout[];
@@ -96,6 +98,8 @@ function makeSlide({
   subtitle?: string;
   unitTitle?: string;
   activityLabel?: string;
+  activity?: ActivityData;
+  activityMode?: 'both' | 'identify' | 'path';
 }): Slide {
   const titleVariation = slideOpeningSequence % TITLE_BRIDGES.length;
   slideOpeningSequence += 1;
@@ -115,6 +119,8 @@ function makeSlide({
     layout,
     timeline: emptyTimeline,
     activityLabel,
+    activity,
+    activityMode,
     ppt: {
       eyebrow: layout === 'pptIntro' ? 'تحت إشراف المدرب ناصر' : undefined,
       courseName,
@@ -703,6 +709,43 @@ export const emergencyChapterOneSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptMatrix', 'pptTimeline', 'pptThreeColumns'],
   }),
   makeSlide({
+    id: 'ec1-activity-5-interactive',
+    audioKey: 'bag2-ch1-s8b-activity-5-interactive',
+    title: 'طبّق بنفسك: أول قرار وترتيب المسار',
+    narration:
+      'الحين جاء دورك. طبّق بنفسك: حدد أول قرار قيادي صحيح في هذا الموقف، وبعدين رتّب مسار الاستجابة كامل بالترتيب الصحيح.',
+    visual: '🧩',
+    kind: 'activity',
+    activityLabel: 'نشاط تفاعلي · طبّق بنفسك',
+    activity: {
+      kind: 'scenarioDecision',
+      scenario:
+        'أنتم ضمن فريق القيادة في منشأة صحية مرجعية، وخلال ٧٢ ساعة بدأت مؤشرات أزمة صحية بالظهور — ضغط مفاجئ على الطوارئ، نقص محتمل في بعض الإمدادات، وتزايد القلق المجتمعي.',
+      identify: {
+        question: 'وش أول قرار يجب تتخذه القيادة في هذا الموقف؟',
+        options: [
+          { id: 'unify', label: 'تحديد قائد واحد يقود القرار فورًا', correct: true },
+          { id: 'wait', label: 'الانتظار لحين اكتمال كل المعلومات', correct: false },
+          { id: 'split', label: 'تكليف كل قسم يتخذ قراره بشكل مستقل', correct: false },
+          { id: 'defer', label: 'تأجيل القرار لاجتماع الأسبوع القادم', correct: false },
+        ],
+        suggestedNote: 'القيادة الموحدة المبكرة هي أول خطوة تمنع الفوضى وتسرّع بقية القرارات — تأخير هذا القرار يضاعف الارتباك لاحقًا.',
+        tags: ['قيادة موحدة', 'استعداد للطوارئ'],
+      },
+      correctPath: [
+        { id: 'p1', label: 'حدد قائد واحد يقود القرار', order: 1 },
+        { id: 'p2', label: 'صنّف الخدمات: ما لا يحتمل التوقف، وما يمكن تقليصه', order: 2 },
+        { id: 'p3', label: 'فعّل خطة الطوارئ الموثقة مسبقًا', order: 3 },
+        { id: 'p4', label: 'وحّد الرسائل الداخلية والخارجية', order: 4 },
+      ],
+      reflection: [
+        'أصعب قرار اتخذته المجموعة ولماذا',
+        'أكثر افتراض كان مضللًا',
+        'ماذا لو ما حُسم مبكرًا؟',
+      ],
+    },
+  }),
+  makeSlide({
     id: 'ec1-ics',
     audioKey: 'bag2-ch1-s9-ics',
     title: 'هيكل وتنظيم مركز القيادة أثناء الحوادث',
@@ -832,6 +875,69 @@ export const emergencyChapterOneSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptMatrix', 'pptTimeline', 'pptThreeColumns'],
   }),
   makeSlide({
+    id: 'ec1-activity-6-interactive',
+    audioKey: 'bag2-ch1-s14b-activity-6-interactive',
+    title: 'طبّق بنفسك: ICS أم EOC؟',
+    narration:
+      'الحين جاء دورك. طبّق بنفسك: اسحب كل موقف إلى المكان الصحيح — هل يحتاج تفعيل ICS الميداني، أو تفعيل EOC الاستراتيجي؟',
+    visual: '🧩',
+    kind: 'activity',
+    activityLabel: 'نشاط تفاعلي · طبّق بنفسك',
+    activity: {
+      kind: 'classification',
+      scenario:
+        'ارتفعت أعداد حالات تنفسية حادة بشكل غير متوقع خلال آخر ٢٤ ساعة، والمطلوب تفعيل ICS و EOC وإدارة الحدث خلال أول ست ساعات. صنّف كل موقف أدناه: هل يحتاج تفعيل ICS الميداني أم EOC الاستراتيجي؟',
+      categories: [
+        { id: 'ics', label: 'يحتاج تفعيل ICS', color: 'green' },
+        { id: 'eoc', label: 'يحتاج تفعيل EOC', color: 'gold' },
+      ],
+      items: [
+        {
+          id: 'i1',
+          text: 'قائد ميداني يحدد أولويات الفرز داخل قسم الطوارئ',
+          answer: 'ics',
+          rationale: 'قرار ميداني فوري يحتاج قيادة واحدة على الأرض — من صميم ICS.',
+          needsReview: false,
+        },
+        {
+          id: 'i2',
+          text: 'التواصل مع وزارة الصحة وتنسيق نقل المرضى بين مستشفيات',
+          answer: 'eoc',
+          rationale: 'تنسيق خارجي على المستوى المؤسسي — من صميم EOC.',
+          needsReview: false,
+        },
+        {
+          id: 'i3',
+          text: 'توزيع فرق الإسعاف والتمريض على مواقع الاستقبال',
+          answer: 'ics',
+          rationale: 'تنفيذ ميداني مباشر — من صميم ICS.',
+          needsReview: false,
+        },
+        {
+          id: 'i4',
+          text: 'تحليل الطاقة الاستيعابية للمنشأة على مستوى المؤسسة كاملة',
+          answer: 'eoc',
+          rationale: 'قرار استراتيجي يخص الصورة الكبرى — من صميم EOC.',
+          needsReview: false,
+        },
+        {
+          id: 'i5',
+          text: 'تحديد وحدات العمليات والتخطيط واللوجستيات ميدانيًا',
+          answer: 'ics',
+          rationale: 'بناء الهيكل الوظيفي تحت قائد الحادث — من صميم ICS.',
+          needsReview: false,
+        },
+        {
+          id: 'i6',
+          text: 'دعم القيادة الميدانية بالبيانات والموارد الاستراتيجية',
+          answer: 'eoc',
+          rationale: 'منصة تنسيقية تدعم الميدان من الخلف — من صميم EOC.',
+          needsReview: false,
+        },
+      ],
+    },
+  }),
+  makeSlide({
     id: 'ec1-info-flow',
     audioKey: 'bag2-ch1-s15-info-flow',
     title: 'إدارة تدفق المعلومات',
@@ -930,6 +1036,28 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'ما ينقذك كثرة الموارد ولا كثرة التعليمات', text: 'بل قدرتك على تنسيق المعلومة، وتحريك المورد، وتفعيل السياسة في اللحظة الصحيحة.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptThreeColumns', 'pptMatrix', 'pptThreeColumns', 'pptSpotlight'],
+  }),
+  makeSlide({
+    id: 'ec1-activity-7-interactive',
+    audioKey: 'bag2-ch1-s18b-activity-7-interactive',
+    title: 'طبّق بنفسك: مراجعة سريعة',
+    narration:
+      'الحين جاء دورك. طبّق بنفسك: اقلب كل بطاقة واستمع للإجابة، وراجع أهم أفكار المحور الثالث بسرعة.',
+    visual: '🧩',
+    kind: 'activity',
+    activityLabel: 'نشاط تفاعلي · طبّق بنفسك',
+    activity: {
+      kind: 'flipCards',
+      instruction: 'اقلب كل بطاقة لتسمع الإجابة وتراجع أهم أفكار المحور.',
+      cards: [
+        { id: 'c1', front: 'متى تُفعّل السياسات التشغيلية؟', back: 'فور الإعلان عن حالة الطوارئ، لا بعد التأكد الكامل من الموقف.', icon: 'flag' },
+        { id: 'c2', front: 'وش يمنع الالتزام بالسياسة رغم وجودها؟', back: 'غياب التدريب والتجهيز والتواصل الواضح حولها.', icon: 'alert' },
+        { id: 'c3', front: 'منو المسؤول عن إنتاج المعلومة الدقيقة؟', back: 'الأقسام السريرية والفرق الميدانية، مع مراجعة قبل الاعتماد.', icon: 'clipboard' },
+        { id: 'c4', front: 'وش أول قناة تواصل معتمدة أثناء الأزمة؟', back: 'نقطة تجميع واحدة داخل EOC تمنع تضارب الرسائل.', icon: 'link' },
+        { id: 'c5', front: 'كيف تُدار الموارد اللوجستية وقت الضغط؟', back: 'بمعرفة المتوفر والمستهلك والمتوقع نفاده والبدائل باستمرار.', icon: 'layers' },
+        { id: 'c6', front: 'ما نتيجة تكامل المعلومة والمورد والسياسة؟', back: 'تحوّل الاستجابة من فوضى محتملة إلى استجابة منظمة.', icon: 'check' },
+      ],
+    },
   }),
   makeQuizSlide({
     id: 'ec1-quiz',
@@ -2235,6 +2363,57 @@ export const emergencyChapterFourSlides = indexSlides([
     activityLabel: 'أربع ورش عمل ختامية',
     cards: [{ title: 'ورش تطبيقية', text: 'تطبيق كل محاور الفصل عمليًا، من التخطيط للتنفيذ.', tone: 'gold' }],
     laterActs: [closingWorkshopsCards],
+  }),
+  makeSlide({
+    id: 'ec4-closing-workshops-interactive',
+    audioKey: 'bag2-ch4-s16b-closing-workshops-interactive',
+    title: 'طبّق بنفسك: صواب أم خطأ؟',
+    narration:
+      'الحين جاء دورك. طبّق بنفسك: راجع أهم أفكار الفصل الرابع بلعبة صواب أو خطأ سريعة.',
+    visual: '🧩',
+    kind: 'activity',
+    activityLabel: 'نشاط تفاعلي · طبّق بنفسك',
+    activity: {
+      kind: 'trueFalse',
+      statements: [
+        {
+          id: 't1',
+          text: 'خطر نفاذ المخزون الحيوي أثناء الطوارئ أهم من تكلفة تخزينه — ولهذا نموذج EOQ ما يناسب وقت الأزمات.',
+          answer: true,
+          explanation: 'صحيح — تكلفة النفاذ تصبح أعلى بكثير من أي تكلفة تخزين وقت الأزمة.',
+        },
+        {
+          id: 't2',
+          text: 'مراجعة ما بعد الحدث (AAR) هدفها تحديد الشخص المسؤول عن الخطأ.',
+          answer: false,
+          explanation: 'خطأ — AAR تركز على "ليش" حدث الفرق بين المخطط والواقع، لا على "منو" المخطئ.',
+        },
+        {
+          id: 't3',
+          text: 'مؤشرات الأداء في إدارة الطوارئ تُصنف لأربع فئات: الجاهزية، الاستجابة، النتائج، والتحسين.',
+          answer: true,
+          explanation: 'صحيح — كل فئة تقيس جانبًا مختلفًا من دورة إدارة الطوارئ.',
+        },
+        {
+          id: 't4',
+          text: 'مصفوفة القوة والاهتمام تدير أصحاب المصلحة ذوي القوة والاهتمام العاليين عن بُعد دون تواصل مباشر.',
+          answer: false,
+          explanation: 'خطأ — أصحاب القوة والاهتمام العاليين يُدارون "عن كثب" بشراكة كاملة، لا عن بُعد.',
+        },
+        {
+          id: 't5',
+          text: 'خطة التحسين المستمر جزء لا يتجزأ من دورة PDCA.',
+          answer: true,
+          explanation: 'صحيح — خطط، نفّذ، تحقق، تصرف — دورة مستمرة تربط التوصية بالتنفيذ الفعلي.',
+        },
+        {
+          id: 't6',
+          text: 'نوبكو (الشركة السعودية للشراء الموحد) لا علاقة لها بإدارة المخزون الاستراتيجي الوطني.',
+          answer: false,
+          explanation: 'خطأ — نوبكو تلعب دورًا محوريًا بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات.',
+        },
+      ],
+    },
   }),
   makeQuizSlide({
     id: 'ec4-quiz',
