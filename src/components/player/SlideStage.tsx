@@ -2961,7 +2961,7 @@ function PptSpotlightScene({
         )}
         {showFocusVisual && (
           <span
-            className={`pointer-events-none absolute z-0 ${isEmergencySlide ? '-left-8 -top-7 h-[178px] w-[178px] opacity-75' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
+            className={`pointer-events-none absolute z-0 ${isEmergencySlide ? '-left-6 -top-6 h-[152px] w-[152px] opacity-75' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
             aria-hidden="true"
           >
             <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
@@ -3941,7 +3941,11 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div className="relative flex min-h-0 flex-1 flex-col">
+          // A small top offset here (not on the title above, and small
+          // enough to stay clear of Nasser's dialogue box fixed near the
+          // bottom) keeps card content -- especially the highlighted/active
+          // one -- from crowding the slide title right above it.
+          <div className="relative flex min-h-0 flex-1 flex-col pt-3">
             {leavingAct && hasMultipleActs && (
               <div
                 className="pointer-events-none absolute inset-0 flex min-h-0 flex-1 flex-col animate-shot-fade-out"
