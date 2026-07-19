@@ -2450,8 +2450,20 @@ function PptMotionVisualScene({
         : slide.index % 3 === 1
           ? 'path'
           : 'split';
+  // titleGrid's default 6-slot array is a fixed 4-top + 2-bottom-center
+  // grid tuned for 4-6 cards -- with fewer cards it only ever fills the top
+  // row, so the group sits stranded near the top with the whole bottom half
+  // of the canvas empty instead of looking centered. 1-3 cards get their own
+  // single centered row instead, sized larger since there's more room per
+  // card when there are fewer of them.
+  const titleGridSparsePositions: Record<number, string[]> = {
+    1: ['right-[33%] top-[30%] w-[34%]'],
+    2: ['right-[16%] top-[30%] w-[30%]', 'right-[54%] top-[30%] w-[30%]'],
+    3: ['right-[6%] top-[30%] w-[26%]', 'right-[37%] top-[30%] w-[26%]', 'right-[68%] top-[30%] w-[26%]'],
+  };
+  const titleGridSparse = titleCardGrid && cards.length <= 3;
   const positionsByVariant: Record<string, string[]> = {
-    titleGrid: [
+    titleGrid: titleGridSparse ? titleGridSparsePositions[cards.length] : [
       'right-[7%] top-[16%] w-[18%]',
       'right-[30%] top-[16%] w-[18%]',
       'right-[53%] top-[16%] w-[18%]',
@@ -2508,8 +2520,10 @@ function PptMotionVisualScene({
   // touching, at any position tuning. 2-card layouts (now opposite sides,
   // see splitTwo) don't have this problem and keep the larger visual.
   const denseFloatingCards = !titleCardGrid && cards.length >= 3;
-  const openLabelTitleClass = titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
-  const openLabelImageClass = titleCardGrid
+  const openLabelTitleClass = titleGridSparse ? 'text-[22px]' : titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
+  const openLabelImageClass = titleGridSparse
+    ? 'h-36 w-40'
+    : titleCardGrid
     ? 'h-28 w-32'
     : emergencyOpenLabels
       ? (denseFloatingCards ? 'h-24 w-28' : 'h-36 w-40')
@@ -2589,7 +2603,9 @@ function PptMotionVisualScene({
             className={`absolute ${labelPositions[index % labelPositions.length]} isolate text-right transition-all duration-700 ease-out ${
               usesOpenLabels
                 ? titleCardGrid
-                  ? 'min-h-[142px] rounded-[28px] border border-green-700/10 bg-white/34 px-3 py-3 shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-[2px]'
+                  ? titleGridSparse
+                    ? 'min-h-[178px] rounded-[32px] border border-green-700/10 bg-white/34 px-4 py-4 shadow-[0_18px_38px_rgb(24_82_55_/_0.09)] backdrop-blur-[2px]'
+                    : 'min-h-[142px] rounded-[28px] border border-green-700/10 bg-white/34 px-3 py-3 shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-[2px]'
                   : 'min-h-[104px] rounded-none border-0 bg-transparent px-1 py-1 shadow-none backdrop-blur-0'
                 : 'min-h-[118px] rounded-[999px] border border-green-700/10 bg-white/45 px-5 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
             } ${
@@ -3638,14 +3654,15 @@ function PptStyleSlide({
   const isSpotlight = activeLayout === 'pptSpotlight';
   const motionStarted = started || spoken > 0 || showDialogue;
 
-  // Bridge the gap between Nasser starting to talk and the first card's own
-  // exact word with plain topic images -- see PptIntroVisualFiller above.
-  // Rolled out across all four bag-2 chapters (trialled on Chapter 1 first).
-  // Skipped when the gap is too small to be worth bridging, and never on the
-  // dedicated intro/roadmap/conclusion scenes, which already animate from
-  // the first word on their own.
+  // Previously bridged the gap between Nasser starting to talk and the
+  // first card's own exact word with a plain crossfading topic image (see
+  // PptIntroVisualFiller above) -- explicitly rejected: a lone image with no
+  // card structure, not tracking the narration. Disabled outright rather
+  // than reworked; the real fix is giving every slide's opening card an
+  // early enough reveal offset that there's no gap left to bridge (see the
+  // chapter-1 narration-coverage pass).
   const firstCardOffset = revealOffsets[0] ?? 0;
-  const showIntroFiller =
+  const showIntroFiller = false &&
     /^ec[1-4]-/.test(slide.id) && cards.length > 0 && !isIntroMotion && !isConclusion &&
     started && !narrationFinished && revealedCount === 0 && narrationPosition > 0 && firstCardOffset > 60;
   const introText = showIntroFiller ? slide.narration.slice(0, firstCardOffset) : '';
