@@ -1,6 +1,8 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { useNarrationContext } from './components/audio/NarrationContext';
 import { PlatformHome } from './components/platform/PlatformHome';
+import { PersonalizationGate } from './components/platform/PersonalizationGate';
+import { useLearnerProfile } from './hooks/useLearnerProfile';
 import { courseHash, courseIdFromLocation } from './lib/courseRoutes';
 import { platform } from './data/platformContent';
 
@@ -40,6 +42,7 @@ function parseHash(): Route {
 export default function App() {
   const narration = useNarrationContext();
   const [route, setRoute] = useState<Route>(() => parseHash());
+  const { profile, saveProfile } = useLearnerProfile();
 
   useEffect(() => {
     if (route.view !== 'course') return;
@@ -77,6 +80,10 @@ export default function App() {
   const exitToHome = useCallback(() => {
     window.location.hash = '#/';
   }, []);
+
+  if (!profile) {
+    return <PersonalizationGate onDone={saveProfile} />;
+  }
 
   if (route.view === 'course') {
     return (
