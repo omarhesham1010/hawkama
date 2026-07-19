@@ -3642,10 +3642,35 @@ function PptStyleSlide({
   // card) -- until then this is a no-op (act index 0, full cards list), so
   // slides without laterActs render through exactly the same values as
   // before this existed.
-  let activeActIndex = 0;
+  let rawActiveActIndex = 0;
   for (let i = 1; i < cardActs.length; i += 1) {
-    if (cardIsVisible(actStartIndices[i])) activeActIndex = i;
+    if (cardIsVisible(actStartIndices[i])) rawActiveActIndex = i;
   }
+  // Narration doesn't pace itself evenly around every act boundary -- two
+  // acts can be named only a couple words apart, which (followed literally)
+  // would swap the whole shot on screen for well under a second, too fast
+  // to actually read. Gate act switches to a minimum real dwell time
+  // regardless of how close the underlying narration offsets are, so every
+  // shot stays up long enough to register before the next one arrives.
+  const minActHoldMs = 1800;
+  const [activeActIndex, setActiveActIndex] = useState(rawActiveActIndex);
+  const lastActSwitchAtRef = useRef(performance.now());
+  useEffect(() => {
+    if (rawActiveActIndex === activeActIndex) return;
+    const elapsed = performance.now() - lastActSwitchAtRef.current;
+    const remaining = minActHoldMs - elapsed;
+    if (remaining <= 0) {
+      lastActSwitchAtRef.current = performance.now();
+      setActiveActIndex(rawActiveActIndex);
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      lastActSwitchAtRef.current = performance.now();
+      setActiveActIndex(rawActiveActIndex);
+    }, remaining);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawActiveActIndex]);
   // A slide's acts don't have to share one visual shape -- actLayouts lets
   // each act name its own (e.g. spotlight for the framing card, matrix for
   // a 2x2 breakdown), falling back to the slide's own layout when unset.
