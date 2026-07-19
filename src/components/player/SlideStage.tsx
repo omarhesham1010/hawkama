@@ -2450,20 +2450,25 @@ function PptMotionVisualScene({
         : slide.index % 3 === 1
           ? 'path'
           : 'split';
-  // titleGrid's default 6-slot array is a fixed 4-top + 2-bottom-center
-  // grid tuned for 4-6 cards -- with fewer cards it only ever fills the top
-  // row, so the group sits stranded near the top with the whole bottom half
-  // of the canvas empty instead of looking centered. 1-3 cards get their own
-  // single centered row instead, sized larger since there's more room per
-  // card when there are fewer of them.
-  const titleGridSparsePositions: Record<number, string[]> = {
+  // Every variant's default slot array (titleGrid, orbit, path, split,
+  // constellation) is a 4-6 slot layout that only fills top-first (or
+  // top+bottom split at 4+), so with fewer cards the group sits stranded
+  // in whatever corner the first N slots happen to occupy -- centered on
+  // neither axis, with the rest of the canvas empty. 1-3 cards always get
+  // this single row instead, both horizontally AND vertically centered in
+  // the scene, sized larger since there's more room per card. Skipped only
+  // for pptTwoPanels's dedicated 2-card splitTwo layout below, which is a
+  // deliberate side-by-side "compare" shape already tuned to stay clear of
+  // Nasser regardless of which side he's standing on.
+  const sparsePositions: Record<number, string[]> = {
     1: ['right-[33%] top-[30%] w-[34%]'],
     2: ['right-[16%] top-[30%] w-[30%]', 'right-[54%] top-[30%] w-[30%]'],
     3: ['right-[6%] top-[30%] w-[26%]', 'right-[37%] top-[30%] w-[26%]', 'right-[68%] top-[30%] w-[26%]'],
   };
-  const titleGridSparse = titleCardGrid && cards.length <= 3;
+  const isSparseGroup = cards.length >= 1 && cards.length <= 3 && !(effectiveLayout === 'pptTwoPanels' && cards.length === 2);
+  const titleGridSparse = titleCardGrid && isSparseGroup;
   const positionsByVariant: Record<string, string[]> = {
-    titleGrid: titleGridSparse ? titleGridSparsePositions[cards.length] : [
+    titleGrid: titleGridSparse ? sparsePositions[cards.length] : [
       'right-[7%] top-[16%] w-[18%]',
       'right-[30%] top-[16%] w-[18%]',
       'right-[53%] top-[16%] w-[18%]',
@@ -2507,7 +2512,9 @@ function PptMotionVisualScene({
   };
   const labelPositions = variant === 'split' && cards.length === 2
     ? positionsByVariant.splitTwo
-    : positionsByVariant[variant] ?? positionsByVariant.orbit;
+    : isSparseGroup && !titleCardGrid
+      ? sparsePositions[cards.length]
+      : positionsByVariant[variant] ?? positionsByVariant.orbit;
   const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
@@ -2519,7 +2526,7 @@ function PptMotionVisualScene({
   // room for two full-size card visuals stacked on one side without
   // touching, at any position tuning. 2-card layouts (now opposite sides,
   // see splitTwo) don't have this problem and keep the larger visual.
-  const denseFloatingCards = !titleCardGrid && cards.length >= 3;
+  const denseFloatingCards = !titleCardGrid && !isSparseGroup && cards.length >= 3;
   const openLabelTitleClass = titleGridSparse ? 'text-[22px]' : titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
   const openLabelImageClass = titleGridSparse
     ? 'h-36 w-40'
@@ -3909,7 +3916,7 @@ function PptStyleSlide({
             </div>
           </div>
         ) : (
-          <div className="relative min-h-0 flex-1">
+          <div className="relative flex min-h-0 flex-1 flex-col">
             {leavingAct && hasMultipleActs && (
               <div
                 className="pointer-events-none absolute inset-0 flex min-h-0 flex-1 flex-col animate-shot-fade-out"
