@@ -1270,6 +1270,107 @@ const chapterTwoQuiz: QuizData = {
   ],
 };
 
+const chapterTwoTermClassification: ActivityData = {
+  kind: 'classification',
+  scenario:
+    'فريق إدارة الأزمة أمام أربع بطاقات تصف مواقف مختلفة داخل القطاع الصحي. صنّف كل موقف: هل هو حدث أو طارئ محدود، أم أزمة أو كارثة واسعة؟',
+  categories: [
+    { id: 'event', label: 'حدث أو طارئ محدود', color: 'green' },
+    { id: 'crisis', label: 'أزمة أو كارثة واسعة', color: 'gold' },
+  ],
+  items: [
+    {
+      id: 'term-1',
+      text: 'عطل مؤقت في نظام المواعيد داخل عيادة واحدة وتم احتواؤه بنفس الموارد.',
+      answer: 'event',
+      rationale: 'هذا حدث محدود؛ أثره موضعي ويمكن التعامل معه بالإجراءات المعتادة دون تصعيد واسع.',
+      needsReview: false,
+      voiceKey: 'bag2-ch2-s3b-activity-terms-card-1',
+    },
+    {
+      id: 'term-2',
+      text: 'ارتفاع مفاجئ في مراجعي الطوارئ مع نقص في الأسرة والحاجة لقرار قيادي عاجل.',
+      answer: 'crisis',
+      rationale: 'هذا يدخل في نطاق الأزمة لأن الموارد المعتادة لم تعد كافية والقرار يحتاج قيادة استثنائية.',
+      needsReview: false,
+      voiceKey: 'bag2-ch2-s3b-activity-terms-card-2',
+    },
+    {
+      id: 'term-3',
+      text: 'تسرب بسيط داخل مختبر وتم عزله وفق الخطة دون تعطيل خدمات المنشأة.',
+      answer: 'event',
+      rationale: 'هذا طارئ قابل للاحتواء بالموارد المتاحة، ولا يتحول لأزمة إلا إذا اتسع أثره أو فشلت السيطرة عليه.',
+      needsReview: false,
+      voiceKey: 'bag2-ch2-s3b-activity-terms-card-3',
+    },
+    {
+      id: 'term-4',
+      text: 'انتشار وبائي يتجاوز قدرة المنشآت ويستلزم تنسيقًا وطنيًا متعدد الجهات.',
+      answer: 'crisis',
+      rationale: 'هذا أقرب للكارثة الصحية لأنه واسع الأثر ويتطلب تعبئة موارد وتنسيقًا يتجاوز المنشأة الواحدة.',
+      needsReview: false,
+      voiceKey: 'bag2-ch2-s3b-activity-terms-card-4',
+    },
+  ],
+};
+
+const chapterTwoRaciDecision: ActivityData = {
+  kind: 'scenarioDecision',
+  scenario:
+    'في مستشفى مرجعي ظهرت حالات تسمم غذائي بين مراجعين وموظفين. الخطة تحتاج تفعيلًا سريعًا، ورسالة إعلامية أولية، وتنسيقًا مع مكافحة العدوى.',
+  identify: {
+    question: 'حسب RACI، من يكون مسؤولًا عن تنفيذ خطة الطوارئ داخل السيناريو؟',
+    options: [
+      { id: 'ed-chief', label: 'رئيس قسم الطوارئ', correct: true },
+      { id: 'hospital-director', label: 'مدير المستشفى', correct: false },
+      { id: 'infection-team', label: 'فريق مكافحة العدوى', correct: false },
+      { id: 'communication', label: 'مدير التواصل', correct: false },
+    ],
+    suggestedNote:
+      'رئيس قسم الطوارئ هو المسؤول عن التنفيذ، ومدير المستشفى يكون مساءلًا عن القرار النهائي، وفريق مكافحة العدوى يُستشار، ومدير التواصل يُعلم أو يقود الرسالة حسب نوع المهمة.',
+    tags: ['RACI', 'حوكمة الاستجابة', 'توزيع الأدوار'],
+    correctVoiceKey: 'bag2-ch2-s5b-activity-raci-identify-correct',
+    incorrectVoiceKey: 'bag2-ch2-s5b-activity-raci-identify-incorrect',
+  },
+  correctPath: [
+    { id: 'r1', label: 'حدّد المسؤول عن التنفيذ', order: 1 },
+    { id: 'r2', label: 'ثبّت صاحب المساءلة النهائي', order: 2 },
+    { id: 'r3', label: 'استشر الجهات الفنية المؤثرة', order: 3 },
+    { id: 'r4', label: 'أبلغ الجهات التي تحتاج معرفة القرار', order: 4 },
+  ],
+  reflection: [],
+  pathCorrectVoiceKey: 'bag2-ch2-s5b-activity-raci-path-correct',
+  pathIncorrectVoiceKey: 'bag2-ch2-s5b-activity-raci-path-incorrect',
+};
+
+const chapterTwoCercCards: ActivityData = {
+  kind: 'flipCards',
+  instruction: 'اقلب البطاقات لتراجع كيف تتحول مبادئ CERC إلى رسالة مطمئنة وواضحة.',
+  cards: [
+    {
+      id: 'cerc-1',
+      front: 'وش أول جملة في رسالة وفاة مؤكدة؟',
+      back: 'ابدأ بالتعاطف والوضوح: نؤكد تسجيل حالة وفاة، ونتقدم بخالص العزاء، ونعمل على مشاركة المستجدات بشفافية.',
+      icon: 'sound',
+      voiceKey: 'bag2-ch2-s9b-activity-cerc-card-1',
+    },
+    {
+      id: 'cerc-2',
+      front: 'وش الخطأ في انتظار اكتمال كل المعلومات؟',
+      back: 'الانتظار يترك فراغًا تملؤه الشائعات؛ الأفضل تحديث مبكر مع توضيح ما هو مؤكد وما لا يزال قيد التحقق.',
+      icon: 'alert',
+      voiceKey: 'bag2-ch2-s9b-activity-cerc-card-2',
+    },
+    {
+      id: 'cerc-3',
+      front: 'كيف نحمي الثقة في البيان؟',
+      back: 'بلغة بسيطة، مصدر واحد، توقيت واضح للتحديث القادم، وخطوة عملية يعرف الجمهور ماذا يفعل بعدها.',
+      icon: 'check',
+      voiceKey: 'bag2-ch2-s9b-activity-cerc-card-3',
+    },
+  ],
+};
+
 export const emergencyChapterTwoSlides = indexSlides([
   makeSlide({
     id: 'ec2-welcome',
@@ -1335,6 +1436,21 @@ export const emergencyChapterTwoSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
+    id: 'ec2-activity-terms',
+    audioKey: 'bag2-ch2-s3b-activity-terms',
+    title: 'نشاط تفاعلي: صنّف مستوى الموقف',
+    narration:
+      'قبل ما ننتقل إلى مصفوفة الأدوار، خلونا نختبر التمييز بين الحدث والطوارئ من جهة، وبين الأزمة والكارثة من جهة ثانية. اقرأ كل بطاقة، واسحبها للتصنيف المناسب. لا تبحث عن الكلمة الأضخم؛ ابحث عن نطاق الأثر، ومدى كفاية الموارد، وهل القرار يحتاج تصعيدًا قياديًا أم لا. بعد كل اختيار بنناقش السبب مباشرة.',
+    visual: '🔎',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'تصنيف المواقف',
+    cards: [{ title: 'نقطة القرار', text: 'هل الموقف محدود الموارد والأثر، أم واسع ويحتاج قيادة وتنسيقًا أعلى؟', tone: 'gold' }],
+    laterActs: [[{ title: 'طبّق التصنيف', text: 'اسحب كل بطاقة إلى الفئة الأنسب، ثم راجع تعليق ناصر على السبب.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { activity: chapterTwoTermClassification }],
+  }),
+  makeSlide({
     id: 'ec2-raci',
     audioKey: 'bag2-ch2-s4-raci',
     title: 'حوكمة الاستجابة ومصفوفة RACI',
@@ -1348,6 +1464,22 @@ export const emergencyChapterTwoSlides = indexSlides([
       [{ title: 'مثال تطبيقي', text: 'في تفشي تسمم غذائي: مدير المستشفى مساءَل، رئيس الطوارئ مسؤول عن التنفيذ، فريق مكافحة العدوى يُستشار، ومدير التواصل يُعلَم.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
+  }),
+  makeSlide({
+    id: 'ec2-activity-raci',
+    audioKey: 'bag2-ch2-s5b-activity-raci',
+    title: 'نشاط تفاعلي: طبّق RACI',
+    narration:
+      'الحين نأخذ مصفوفة RACI ونطبقها على موقف سريع. الفكرة ليست حفظ الحروف، الفكرة أن نمنع تداخل الصلاحيات وقت الأزمة. أولًا حدّد المسؤول عن تنفيذ خطة الطوارئ، وبعدها رتّب مسار توزيع الدور: من ينفذ، من يملك المساءلة، من نستشيره، ومن نبلغه. جاوب خطوة خطوة، وبعد كل خطوة بنناقشها.',
+    visual: '🧭',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'قرار أدوار RACI',
+    activityMode: 'both',
+    cards: [{ title: 'من يملك أي دور؟', text: 'حوّل RACI من حروف إلى قرار تشغيلي واضح وقت الضغط.', tone: 'gold' }],
+    laterActs: [[{ title: 'ابدأ التطبيق', text: 'اختر المسؤول أولًا، ثم رتّب مسار التعامل الصحيح.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { mode: 'both', activity: chapterTwoRaciDecision }],
   }),
   makeSlide({
     id: 'ec2-ooda',
@@ -1428,6 +1560,21 @@ export const emergencyChapterTwoSlides = indexSlides([
       [{ title: 'الثقة العملة الأكثر قيمة في الأزمات', text: 'لو وثق فيك الجمهور يتبعون إرشاداتك، ولو فقدوها تفشل حتى أفضل الخطط.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
+  }),
+  makeSlide({
+    id: 'ec2-activity-cerc',
+    audioKey: 'bag2-ch2-s9b-activity-cerc',
+    title: 'نشاط تفاعلي: رسالة CERC',
+    narration:
+      'قبل دراسة الحالة، خلونا نوقف عند مهارة الرسالة وقت الخوف. CERC يطلب منك تكون سريعًا، دقيقًا، متعاطفًا، وتعطي الناس خطوة عملية. اقلب البطاقات واحدة واحدة، وفكر كيف تتحول كل قاعدة إلى جملة إعلامية يثق فيها الجمهور.',
+    visual: '📣',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'بطاقات رسالة الأزمة',
+    cards: [{ title: 'من المبدأ إلى الجملة', text: 'كل بطاقة تعرض موقفًا صغيرًا داخل الرسالة الإعلامية، ثم تكشف صياغة أو توجيه مناسب.', tone: 'gold' }],
+    laterActs: [[{ title: 'اقلب البطاقات', text: 'راجع كل بطاقة، واستمع لتعليق ناصر بعد كل كشف.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { activity: chapterTwoCercCards }],
   }),
   makeSlide({
     id: 'ec2-case-study',
@@ -1656,6 +1803,107 @@ const chapterThreeQuiz: QuizData = {
   ],
 };
 
+const chapterThreeScanClassification: ActivityData = {
+  kind: 'classification',
+  scenario:
+    'أمامك إشارات جمعها فريق المسح الاستباقي. صنّف كل إشارة: هل هي مسح أفقي ينظر للخارج، أم مسح رأسي يقرأ الداخل؟',
+  categories: [
+    { id: 'horizontal', label: 'مسح أفقي', color: 'green' },
+    { id: 'vertical', label: 'مسح رأسي', color: 'gold' },
+  ],
+  items: [
+    {
+      id: 'scan-1',
+      text: 'اتجاه عالمي متزايد لاستخدام التوائم الرقمية في قطاعات هندسية.',
+      answer: 'horizontal',
+      rationale: 'هذه إشارة خارج القطاع الصحي لكنها قد تؤثر عليه؛ لذلك هي مسح أفقي.',
+      needsReview: false,
+      voiceKey: 'bag2-ch3-s4b-activity-scan-card-1',
+    },
+    {
+      id: 'scan-2',
+      text: 'ارتفاع الإرهاق الوظيفي في أقسام الطوارئ حسب بيانات داخلية.',
+      answer: 'vertical',
+      rationale: 'هذه قراءة داخل المنظومة الصحية نفسها؛ لذلك هي مسح رأسي.',
+      needsReview: false,
+      voiceKey: 'bag2-ch3-s4b-activity-scan-card-2',
+    },
+    {
+      id: 'scan-3',
+      text: 'تشريع دولي جديد يرفع متطلبات خصوصية البيانات الصحية.',
+      answer: 'horizontal',
+      rationale: 'تغيير تنظيمي خارجي قد ينتقل أثره للقطاع الصحي، فيُلتقط بالمسح الأفقي.',
+      needsReview: false,
+      voiceKey: 'bag2-ch3-s4b-activity-scan-card-3',
+    },
+    {
+      id: 'scan-4',
+      text: 'زيادة زمن انتظار المرضى في منشآت محددة داخل الشبكة الصحية.',
+      answer: 'vertical',
+      rationale: 'المؤشر صادر من داخل النظام ويكشف ديناميكية داخلية تحتاج تحليلًا رأسيًا.',
+      needsReview: false,
+      voiceKey: 'bag2-ch3-s4b-activity-scan-card-4',
+    },
+  ],
+};
+
+const chapterThreeIndicatorCards: ActivityData = {
+  kind: 'flipCards',
+  instruction: 'اقلب كل بطاقة لتسمع كيف نراجع جودة مؤشر الإنذار المبكر.',
+  cards: [
+    {
+      id: 'indicator-1',
+      front: 'متى يكون المؤشر استباقيًا؟',
+      back: 'عندما يظهر قبل الأزمة بوقت يسمح بالتصرف، مثل ارتفاع البلاغات الحرارية قبل موجة إجهاد واسعة.',
+      icon: 'eye',
+      voiceKey: 'bag2-ch3-s11b-activity-indicator-card-1',
+    },
+    {
+      id: 'indicator-2',
+      front: 'متى يكون المؤشر كميًا؟',
+      back: 'عندما نقدر نقيسه برقم وعتبة واضحة: نسبة إشغال، عدد بلاغات، أو درجة حرارة محددة.',
+      icon: 'matrix',
+      voiceKey: 'bag2-ch3-s11b-activity-indicator-card-2',
+    },
+    {
+      id: 'indicator-3',
+      front: 'متى يكون المؤشر نوعيًا؟',
+      back: 'عندما يلتقط إشارة وصفية مهمة، مثل تغير نمط شكاوى الممارسين أو ملاحظات فرق الميدان.',
+      icon: 'clipboard',
+      voiceKey: 'bag2-ch3-s11b-activity-indicator-card-3',
+    },
+  ],
+};
+
+const chapterThreeThresholdDecision: ActivityData = {
+  kind: 'scenarioDecision',
+  scenario:
+    'نظام الترصد رصد ارتفاعًا مستمرًا في مؤشرات الإجهاد الحراري بمكة خلال موسم الصيف، مع زيادة مراجعات الطوارئ المرتبطة بالحرارة.',
+  identify: {
+    question: 'ما القرار الأنسب عند وصول المؤشر إلى العتبة البرتقالية؟',
+    options: [
+      { id: 'activate', label: 'تفعيل خطة استجابة محددة مسبقًا ورفع الجاهزية', correct: true },
+      { id: 'ignore', label: 'انتظار وصول المؤشر إلى الأحمر قبل أي إجراء', correct: false },
+      { id: 'announce-only', label: 'الاكتفاء بإعلان عام دون إجراءات تشغيلية', correct: false },
+      { id: 'cancel', label: 'إلغاء الترصد لأن المؤشر لم يصل للخطر الأقصى', correct: false },
+    ],
+    suggestedNote:
+      'العتبة البرتقالية ليست للمتابعة فقط؛ هي نقطة تشغيلية تربط المعلومة بالقرار وتفعّل إجراءات محددة قبل الوصول للمستوى الأحمر.',
+    tags: ['ترصد', 'عتبات', 'إنذار مبكر'],
+    correctVoiceKey: 'bag2-ch3-s14b-activity-threshold-identify-correct',
+    incorrectVoiceKey: 'bag2-ch3-s14b-activity-threshold-identify-incorrect',
+  },
+  correctPath: [
+    { id: 't1', label: 'تأكيد جودة المؤشر ومصدر البيانات', order: 1 },
+    { id: 't2', label: 'رفع مستوى الجاهزية حسب العتبة', order: 2 },
+    { id: 't3', label: 'إبلاغ الجهات التشغيلية والاتصالية', order: 3 },
+    { id: 't4', label: 'متابعة المؤشر وتحديث القرار', order: 4 },
+  ],
+  reflection: [],
+  pathCorrectVoiceKey: 'bag2-ch3-s14b-activity-threshold-path-correct',
+  pathIncorrectVoiceKey: 'bag2-ch3-s14b-activity-threshold-path-incorrect',
+};
+
 export const emergencyChapterThreeSlides = indexSlides([
   makeSlide({
     id: 'ec3-welcome',
@@ -1733,6 +1981,21 @@ export const emergencyChapterThreeSlides = indexSlides([
         rationale: 'من أعلى مستوى إلى أدنى مستوى والعكس صحيح.',
       }),
     ],
+  }),
+  makeSlide({
+    id: 'ec3-activity-scan',
+    audioKey: 'bag2-ch3-s4b-activity-scan',
+    title: 'نشاط تفاعلي: أفقي أم رأسي؟',
+    narration:
+      'بعد ما فرّقنا بين المسح الأفقي والمسح الرأسي، جاء وقت التطبيق. أمامك إشارات مختلفة؛ بعضها جاي من خارج القطاع الصحي، وبعضها من داخل المنظومة نفسها. صنّف كل إشارة، وخل معيارك واضح: هل ننظر للخارج لنلتقط اتجاهًا مؤثرًا، أو ننظر للداخل لنفهم ديناميكية النظام؟',
+    visual: '🧭',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'تصنيف إشارات المسح',
+    cards: [{ title: 'اتجاه النظر', text: 'الخارج يعني مسح أفقي، والداخل يعني مسح رأسي.', tone: 'gold' }],
+    laterActs: [[{ title: 'ابدأ التصنيف', text: 'اسحب كل إشارة للمسار المناسب، ثم راجع التعليق التعليمي.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { activity: chapterThreeScanClassification }],
   }),
   makeSlide({
     id: 'ec3-regulatory-foresight',
@@ -1855,6 +2118,21 @@ export const emergencyChapterThreeSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
+    id: 'ec3-activity-indicators',
+    audioKey: 'bag2-ch3-s11b-activity-indicators',
+    title: 'نشاط تفاعلي: جودة مؤشر الإنذار',
+    narration:
+      'قبل ما نربط الترصد بالقرار، نحتاج نتأكد أن المؤشر نفسه صالح للتشغيل. المؤشر الممتاز لا يكون رقمًا جميلًا فقط؛ لازم يكون مبكرًا، قابلًا للقياس، وله معنى تشغيلي. اقلب البطاقات وشوف كيف نقرأ كل نوع من المؤشرات.',
+    visual: '📡',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'بطاقات مؤشرات الإنذار',
+    cards: [{ title: 'هل المؤشر يقود لقرار؟', text: 'المؤشر الجيد يعطي الفريق وقتًا للتصرف قبل تحوّل الإشارة إلى أزمة.', tone: 'gold' }],
+    laterActs: [[{ title: 'راجع البطاقات', text: 'اقلب كل بطاقة واستمع لتفسير ناصر.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { activity: chapterThreeIndicatorCards }],
+  }),
+  makeSlide({
     id: 'ec3-thresholds',
     audioKey: 'bag2-ch3-s13-thresholds',
     title: 'ربط الترصد بالقرار',
@@ -1868,6 +2146,22 @@ export const emergencyChapterThreeSlides = indexSlides([
       [{ title: 'مثال تطبيقي بمؤشر الإجهاد الحراري', text: 'الأخضر: أقل من ٤٠°. الأصفر: توقعات ٤٢°. البرتقالي: ٤٥° فعليًا مع ٥ حالات بالساعة. الأحمر: أكثر من ٢٠ حالة بالساعة مع وفيات.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+  }),
+  makeSlide({
+    id: 'ec3-activity-thresholds',
+    audioKey: 'bag2-ch3-s14b-activity-thresholds',
+    title: 'نشاط تفاعلي: من العتبة إلى القرار',
+    narration:
+      'الآن نختبر أهم نقطة في الترصد: متى تتحول الإشارة إلى قرار؟ عندنا مؤشر إجهاد حراري وصل إلى مستوى يحتاج تصرفًا. اختر القرار المناسب، ثم رتّب المسار الصحيح من التحقق إلى رفع الجاهزية ثم الإبلاغ والمتابعة.',
+    visual: '🚦',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'قرار العتبات',
+    activityMode: 'both',
+    cards: [{ title: 'العتبة ليست لونًا فقط', text: 'كل مستوى عتبة له إجراء واضح، وإلا صار الترصد معلومة بلا أثر.', tone: 'gold' }],
+    laterActs: [[{ title: 'طبّق المسار', text: 'اختر القرار ثم رتّب إجراءات التعامل مع العتبة.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { mode: 'both', activity: chapterThreeThresholdDecision }],
   }),
   makeSlide({
     id: 'ec3-integration',
@@ -2119,6 +2413,114 @@ const chapterFourQuiz: QuizData = {
   ],
 };
 
+const chapterFourInventoryClassification: ActivityData = {
+  kind: 'classification',
+  scenario:
+    'أزمة صحية رفعت الطلب على المستلزمات. المطلوب إعادة تصنيف قرارات المخزون حسب منطق الطوارئ: هل القرار يعزز التوفر السريري أم يركز على كفاءة التكلفة فقط؟',
+  categories: [
+    { id: 'clinical', label: 'توفر سريري ومرونة', color: 'green' },
+    { id: 'cost', label: 'كفاءة تكلفة فقط', color: 'gold' },
+  ],
+  items: [
+    {
+      id: 'inv-1',
+      text: 'رفع مخزون الأمان للكمامات عالية الاستخدام أثناء موسم العدوى.',
+      answer: 'clinical',
+      rationale: 'في الطوارئ الأولوية للتوفر السريري واستمرارية الخدمة قبل تقليل التكلفة.',
+      needsReview: false,
+      voiceKey: 'bag2-ch4-s4b-activity-inventory-card-1',
+    },
+    {
+      id: 'inv-2',
+      text: 'الاعتماد على مورد واحد لأنه الأقل سعرًا في الظروف العادية.',
+      answer: 'cost',
+      rationale: 'هذا قرار كفاءة تكلفة فقط، لكنه يرفع هشاشة سلسلة التوريد وقت الأزمة.',
+      needsReview: false,
+      voiceKey: 'bag2-ch4-s4b-activity-inventory-card-2',
+    },
+    {
+      id: 'inv-3',
+      text: 'إعادة تصنيف منتج منخفض التكلفة إلى فئة حرجة بسبب أهميته السريرية.',
+      answer: 'clinical',
+      rationale: 'هذا هو منطق الطوارئ: الأهمية السريرية قد تكون أعلى من معيار التكلفة.',
+      needsReview: false,
+      voiceKey: 'bag2-ch4-s4b-activity-inventory-card-3',
+    },
+    {
+      id: 'inv-4',
+      text: 'تطبيق EOQ بحرفيته على مستلزمات تنفس حرجة أثناء موجة طلب حادة.',
+      answer: 'cost',
+      rationale: 'EOQ قد لا يناسب المنتجات الحيوية وقت الأزمات لأن تكلفة النفاد تصبح أعلى بكثير.',
+      needsReview: false,
+      voiceKey: 'bag2-ch4-s4b-activity-inventory-card-4',
+    },
+  ],
+};
+
+const chapterFourAarCards: ActivityData = {
+  kind: 'flipCards',
+  instruction: 'اقلب البطاقات لتراجع منطق AAR بدون لوم وبدون تجميل للواقع.',
+  cards: [
+    {
+      id: 'aar-1',
+      front: 'وش المفترض إنه يحدث؟',
+      back: 'نرجع للخطة والمعايير: ما الاستجابة التي كان يفترض تنفيذها؟ وما المؤشرات المتوقعة؟',
+      icon: 'doc',
+      voiceKey: 'bag2-ch4-s7b-activity-aar-card-1',
+    },
+    {
+      id: 'aar-2',
+      front: 'وش اللي حدث بالفعل؟',
+      back: 'نجمع الوقائع كما هي من الميدان والبيانات، بدون دفاع وبدون اتهام.',
+      icon: 'eye',
+      voiceKey: 'bag2-ch4-s7b-activity-aar-card-2',
+    },
+    {
+      id: 'aar-3',
+      front: 'ليش صار الفرق؟',
+      back: 'نبحث عن سبب الفجوة في النظام والموارد والتواصل، لا عن شخص نلقي عليه اللوم.',
+      icon: 'alert',
+      voiceKey: 'bag2-ch4-s7b-activity-aar-card-3',
+    },
+    {
+      id: 'aar-4',
+      front: 'كيف نتحسن؟',
+      back: 'نحوّل الدرس إلى إجراء واضح بمسؤول وموعد ومؤشر متابعة.',
+      icon: 'check',
+      voiceKey: 'bag2-ch4-s7b-activity-aar-card-4',
+    },
+  ],
+};
+
+const chapterFourStakeholderDecision: ActivityData = {
+  kind: 'scenarioDecision',
+  scenario:
+    'بعد أزمة صحية، ظهرت توصيات لتحسين المخزون والتواصل مع الجمهور. أمامك أصحاب مصلحة مختلفون، وبعضهم تأثيره عالٍ وبعضهم اهتمامه عالٍ.',
+  identify: {
+    question: 'من الأولى أن تديره القيادة عن قرب في مصفوفة القوة والاهتمام؟',
+    options: [
+      { id: 'high-power-high-interest', label: 'صاحب مصلحة عالي القوة وعالي الاهتمام', correct: true },
+      { id: 'low-power-low-interest', label: 'صاحب مصلحة منخفض القوة ومنخفض الاهتمام', correct: false },
+      { id: 'low-power-high-interest', label: 'صاحب مصلحة منخفض القوة وعالي الاهتمام فقط', correct: false },
+      { id: 'high-power-low-interest', label: 'صاحب مصلحة عالي القوة ومنخفض الاهتمام فقط', correct: false },
+    ],
+    suggestedNote:
+      'من يجمع القوة العالية والاهتمام العالي يحتاج إدارة لصيقة؛ لأنه قادر على التأثير ومهتم بنتيجة القرار في نفس الوقت.',
+    tags: ['أصحاب المصلحة', 'مصفوفة القوة والاهتمام', 'تحسين مستمر'],
+    correctVoiceKey: 'bag2-ch4-s15b-activity-stakeholder-identify-correct',
+    incorrectVoiceKey: 'bag2-ch4-s15b-activity-stakeholder-identify-incorrect',
+  },
+  correctPath: [
+    { id: 's1', label: 'حدّد أصحاب المصلحة المتأثرين', order: 1 },
+    { id: 's2', label: 'قيّم القوة والاهتمام لكل طرف', order: 2 },
+    { id: 's3', label: 'اختر أسلوب التعامل المناسب', order: 3 },
+    { id: 's4', label: 'اربط التواصل بخطة التحسين والمتابعة', order: 4 },
+  ],
+  reflection: [],
+  pathCorrectVoiceKey: 'bag2-ch4-s15b-activity-stakeholder-path-correct',
+  pathIncorrectVoiceKey: 'bag2-ch4-s15b-activity-stakeholder-path-incorrect',
+};
+
 export const emergencyChapterFourSlides = indexSlides([
   makeSlide({
     id: 'ec4-welcome',
@@ -2197,6 +2599,21 @@ export const emergencyChapterFourSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
+    id: 'ec4-activity-inventory',
+    audioKey: 'bag2-ch4-s4b-activity-inventory',
+    title: 'نشاط تفاعلي: قرار المخزون وقت الطوارئ',
+    narration:
+      'خلونا نطبق منطق المخزون في الطوارئ. القرار الصحيح هنا لا يُقاس بالسعر وحده، بل بقدرته على حماية الخدمة السريرية وقت ارتفاع الطلب. صنّف كل قرار: هل يعزز التوفر والمرونة، أم أنه قرار كفاءة تكلفة فقط وقد يصبح خطرًا وقت الأزمة؟',
+    visual: '📦',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'تصنيف قرارات المخزون',
+    cards: [{ title: 'التوفر قبل التوفير', text: 'وقت الأزمة، تكلفة نفاد المنتج الحيوي أعلى من تكلفة تخزينه.', tone: 'gold' }],
+    laterActs: [[{ title: 'ابدأ التصنيف', text: 'اسحب كل قرار إلى المنطق المناسب، ثم راجع سبب الاختيار.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { activity: chapterFourInventoryClassification }],
+  }),
+  makeSlide({
     id: 'ec4-inventory-governance',
     audioKey: 'bag2-ch4-s5-inventory-governance',
     title: 'حوكمة المخزون الاحتياطي',
@@ -2243,6 +2660,21 @@ export const emergencyChapterFourSlides = indexSlides([
         rationale: 'الهدف تعلم مؤسسي، مو محاسبة فردية.',
       }),
     ],
+  }),
+  makeSlide({
+    id: 'ec4-activity-aar',
+    audioKey: 'bag2-ch4-s7b-activity-aar',
+    title: 'نشاط تفاعلي: أسئلة AAR الأربعة',
+    narration:
+      'قبل ما ندخل في عوامل النجاح وخطط التحسين، نراجع قلب جلسة AAR. الجلسة الناجحة تسأل أربع أسئلة بهدوء: ما المفترض أن يحدث؟ ماذا حدث بالفعل؟ لماذا ظهر الفرق؟ وكيف نتحسن؟ اقلب كل بطاقة، وخلك مركز على فكرة التعلم بدون لوم.',
+    visual: '🔎',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'بطاقات مراجعة ما بعد الحدث',
+    cards: [{ title: 'تعلم بلا لوم', text: 'AAR ليست محاكمة؛ هي طريقة منظمة لتحويل التجربة إلى تحسين قابل للتنفيذ.', tone: 'gold' }],
+    laterActs: [[{ title: 'اقلب البطاقات', text: 'راجع السؤال ومعناه التشغيلي، واستمع لتعليق ناصر.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { activity: chapterFourAarCards }],
   }),
   makeSlide({
     id: 'ec4-aar-success',
@@ -2322,6 +2754,22 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🎛️',
     layout: 'pptMatrix',
     cards: powerInterestCards,
+  }),
+  makeSlide({
+    id: 'ec4-activity-stakeholders',
+    audioKey: 'bag2-ch4-s15b-activity-stakeholders',
+    title: 'نشاط تفاعلي: إدارة أصحاب المصلحة',
+    narration:
+      'بعد مصفوفة القوة والاهتمام، خلونا نقرر كيف نتعامل مع الأطراف المؤثرة. لا يكفي أن نعرف أسماء أصحاب المصلحة؛ لازم نحدد من يحتاج إدارة عن قرب، ومن يحتاج إبقاءه مطلعًا أو راضيًا. اختر الإجابة، ثم رتّب مسار التعامل من التحديد إلى المتابعة.',
+    visual: '🤝',
+    layout: 'pptSpotlight',
+    kind: 'activity',
+    activityLabel: 'قرار أصحاب المصلحة',
+    activityMode: 'both',
+    cards: [{ title: 'من نُديره عن قرب؟', text: 'القوة العالية مع الاهتمام العالي تعني شراكة لصيقة ومتابعة مستمرة.', tone: 'gold' }],
+    laterActs: [[{ title: 'طبّق المصفوفة', text: 'اختر الفئة الصحيحة، ثم رتّب مسار إدارة العلاقة.', tone: 'gold' }]],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actActivities: [undefined, { mode: 'both', activity: chapterFourStakeholderDecision }],
   }),
   makeSlide({
     id: 'ec4-crisis-comm',
@@ -2431,3 +2879,4 @@ export const emergencyChapterFourSlides = indexSlides([
     ],
   }),
 ]);
+
