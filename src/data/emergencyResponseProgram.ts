@@ -1454,8 +1454,8 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [{ title: 'أهداف الفصل الثاني', text: 'بنهايته، بإذن الله، بتكون قادر على التمييز بين مستويات الموقف، وتوزيع الأدوار، واتخاذ قرارات سريعة وصحيحة، والتواصل بثقة.', tone: 'gold' }],
-    laterActs: chapterTwoGoalActs,
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptMatrix', 'pptTitleCards'],
+    laterActs: [chapterTwoGoalActs.slice(0, 2).flat(), chapterTwoGoalActs.slice(2).flat()],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec2-crisis-terms',
@@ -1466,8 +1466,8 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🔍',
     layout: 'pptMatrix',
     cards: [{ title: 'فهم ديناميكيات الأزمات', text: 'أول محور: تحليل الأزمات، وفهم ديناميكياتها. لازم نميّز بدقة بين أربع مصطلحات.', tone: 'gold' }],
-    laterActs: [[{ title: 'تحليل الأزمات، وفهم ديناميكياتها', text: 'لازم نميّز بدقة بين أربع مصطلحات، لأن عدم التمييز يؤدي لاستجابة إما مبالغ فيها أو أقل من المطلوب.', tone: 'gold' }], crisisTermsCards],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
+    laterActs: [crisisTermsCards],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'وش الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
@@ -1519,10 +1519,12 @@ export const emergencyChapterTwoSlides = indexSlides([
     cards: [{ title: 'مصفوفة RACI', text: 'الفوضى هي العدو الأول في الأزمات، والحوكمة الفعالة تعني هيكل قيادة واضح وأدوار محددة.', tone: 'gold' }],
     laterActs: [
       raciCards,
-      [{ title: 'تفشي تسمم غذائي', text: 'مدير المستشفى مساءَل، رئيس الطوارئ مسؤول عن التنفيذ، فريق مكافحة العدوى يُستشار، ومدير التواصل يُعلَم.', tone: 'gold' }],
-      [{ title: 'إصدار البيان الإعلامي الأولي', text: 'مدير التواصل هو المسؤول عن التنفيذ، ورئيس الطوارئ يُعلَم فقط حسب نوع المهمة.', tone: 'gold' }],
+      [
+        { title: 'تفشي تسمم غذائي', text: 'مدير المستشفى مساءَل، رئيس الطوارئ مسؤول عن التنفيذ، فريق مكافحة العدوى يُستشار، ومدير التواصل يُعلَم.', tone: 'gold' },
+        { title: 'إصدار البيان الإعلامي الأولي', text: 'مدير التواصل هو المسؤول عن التنفيذ، ورئيس الطوارئ يُعلَم فقط حسب نوع المهمة.', tone: 'gold' },
+      ],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptTwoPanels', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec2-activity-raci',
@@ -1634,11 +1636,13 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTwoPanels',
     cards: [{ title: 'إدارة الرسائل الإعلامية وبناء الثقة المجتمعية', text: 'في الأزمات، الإعلام سيف ذو حدين، ويمكن يكون أفضل شريك لنشر المعلومات الصحيحة.', tone: 'gold' }],
     laterActs: [
-      [{ title: 'سيف ذو حدين', text: 'الإعلام إما أفضل شريك لنشر الحقيقة، أو أسوأ كابوس لنشر الشائعات.', tone: 'gold' }],
-      mediaTrustCards,
+      [
+        { title: 'سيف ذو حدين', text: 'الإعلام إما أفضل شريك لنشر الحقيقة، أو أسوأ كابوس لنشر الشائعات.', tone: 'gold' },
+        ...mediaTrustCards,
+      ],
       [{ title: 'الثقة العملة الأكثر قيمة في الأزمات', text: 'لو وثق فيك الجمهور يتبعون إرشاداتك، ولو فقدوها تفشل حتى أفضل الخطط.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-activity-cerc',
@@ -1676,8 +1680,8 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '💡',
     layout: 'pptSpotlight',
     cards: [{ title: 'الدروس المستفادة للمملكة', text: 'أربعة دروس مستفادة للمملكة من هذي المقارنة موضحة أمامك.', tone: 'gold' }],
-    laterActs: [[{ title: 'أربعة دروس مستفادة للمملكة من هذي المقارنة', text: 'الثقة أصل يُبنى قبل الأزمة، لا وقتها.', tone: 'gold' }], lessonsForSaudiCards],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    laterActs: [lessonsForSaudiCards],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
   }),
   makeQuizSlide({
     id: 'ec2-quiz',
