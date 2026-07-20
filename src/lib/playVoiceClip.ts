@@ -9,16 +9,31 @@ import { AUDIO_MANIFEST_VERSION, hasAudio } from '../data/audioManifest';
 let current: HTMLAudioElement | null = null;
 let currentFinish: (() => void) | null = null;
 let currentCancel: (() => void) | null = null;
+const activeClips = new Set<HTMLAudioElement>();
+
+function silenceAudio(audio: HTMLAudioElement) {
+  try {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.src = '';
+    audio.load();
+  } catch {
+    /* best-effort cleanup for detached browser audio objects */
+  }
+}
 
 export function stopVoiceClip() {
-  if (!current) return;
-  currentCancel?.();
-  current.pause();
-  current.src = '';
-  current.load();
+  const audio = current;
+  const cancel = currentCancel;
   current = null;
   currentFinish = null;
   currentCancel = null;
+  cancel?.();
+  if (audio) silenceAudio(audio);
+  for (const clip of [...activeClips]) {
+    if (clip !== audio) silenceAudio(clip);
+    activeClips.delete(clip);
+  }
 }
 
 export function playVoiceClip(key: string | undefined) {
@@ -27,14 +42,17 @@ export function playVoiceClip(key: string | undefined) {
   const base = import.meta.env.BASE_URL || '/';
   const audio = new Audio(`${base}audio/${key}.mp3?v=${AUDIO_MANIFEST_VERSION}`);
   current = audio;
+  activeClips.add(audio);
   return new Promise<void>((resolve, reject) => {
     const finish = () => {
+      activeClips.delete(audio);
       if (current === audio) current = null;
       if (currentFinish === finish) currentFinish = null;
       if (currentCancel === cancel) currentCancel = null;
       resolve();
     };
     const cancel = () => {
+      activeClips.delete(audio);
       if (current === audio) current = null;
       if (currentFinish === finish) currentFinish = null;
       if (currentCancel === cancel) currentCancel = null;
