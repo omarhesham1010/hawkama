@@ -250,7 +250,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch2-s9b-activity-cerc-detail-1",
   "bag2-ch2-s9b-activity-cerc"
 ];
-export const AUDIO_MANIFEST_VERSION = '6b9647b986be';
+export const AUDIO_MANIFEST_VERSION = '77a83a236b68';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
