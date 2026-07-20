@@ -1455,7 +1455,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [{ title: 'أهداف الفصل الثاني', text: 'بنهايته، بإذن الله، بتكون قادر على التمييز بين مستويات الموقف، وتوزيع الأدوار، واتخاذ قرارات سريعة وصحيحة، والتواصل بثقة.', tone: 'gold' }],
     laterActs: chapterTwoGoalActs,
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptMatrix', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec2-crisis-terms',
@@ -1467,7 +1467,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'فهم ديناميكيات الأزمات', text: 'أول محور: تحليل الأزمات، وفهم ديناميكياتها. لازم نميّز بدقة بين أربع مصطلحات.', tone: 'gold' }],
     laterActs: [[{ title: 'تحليل الأزمات، وفهم ديناميكياتها', text: 'لازم نميّز بدقة بين أربع مصطلحات، لأن عدم التمييز يؤدي لاستجابة إما مبالغ فيها أو أقل من المطلوب.', tone: 'gold' }], crisisTermsCards],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'وش الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
@@ -1505,7 +1505,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityLabel: 'تصنيف المواقف',
     cards: [{ title: 'نشاط تفاعلي: صنّف مستوى الموقف', text: 'قبل ما ننتقل إلى مصفوفة الأدوار، خلونا نختبر التمييز بين الحدث والطوارئ، وبين الأزمة والكارثة.', tone: 'gold' }],
     laterActs: [[{ title: 'اقرأ كل بطاقة', text: 'واسحبها للتصنيف المناسب. ابحث عن نطاق الأثر، ومدى كفاية الموارد، وهل القرار يحتاج تصعيدًا قياديًا أم لا.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
     actActivities: [undefined, { activity: chapterTwoTermClassification }],
   }),
   makeSlide({
@@ -1522,7 +1522,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       [{ title: 'تفشي تسمم غذائي', text: 'مدير المستشفى مساءَل، رئيس الطوارئ مسؤول عن التنفيذ، فريق مكافحة العدوى يُستشار، ومدير التواصل يُعلَم.', tone: 'gold' }],
       [{ title: 'إصدار البيان الإعلامي الأولي', text: 'مدير التواصل هو المسؤول عن التنفيذ، ورئيس الطوارئ يُعلَم فقط حسب نوع المهمة.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptTwoPanels', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec2-activity-raci',
@@ -1537,7 +1537,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityMode: 'identify',
     cards: [{ title: 'نشاط تفاعلي: طبّق RACI', text: 'نأخذ مصفوفة RACI ونطبقها على موقف سريع. الفكرة ليست حفظ الحروف، بل منع تداخل الصلاحيات وقت الأزمة.', tone: 'gold' }],
     laterActs: [[{ title: 'من المسؤول عن تنفيذ خطة الطوارئ؟', text: 'اختر الإجابة، وبعد اختيارك بنناقش السبب ونربطه بتوزيع الأدوار الصحيح.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
     actActivities: [undefined, { mode: 'identify', activity: chapterTwoRaciDecision }],
   }),
   makeSlide({
@@ -1553,7 +1553,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityMode: 'path',
     cards: [{ title: 'نشاط تفاعلي: رتّب مسار RACI', text: 'نكمّل على نفس السيناريو ونحوّل القرار إلى مسار عملي واضح.', tone: 'gold' }],
     laterActs: [[{ title: 'رتّب خطوات توزيع الدور', text: 'حدّد المسؤول، ثم ثبّت صاحب المساءلة النهائي، ثم استشر الجهات الفنية المؤثرة، ثم أبلغ الجهات التي تحتاج معرفة القرار.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { mode: 'path', activity: chapterTwoRaciDecision }],
   }),
   makeSlide({
@@ -1566,7 +1566,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'اتخاذ القرار تحت الضغط', text: 'ثاني محور: اتخاذ القرار تحت الضغط، والتغلب على شلل التحليل.', tone: 'gold' }],
     laterActs: [[{ title: 'شلل التحليل', text: 'الضغط الشديد يدفع القائد إما للتردد المفرط أو لقرارات متسرعة.', tone: 'gold' }], oodaPressureCards, oodaCards],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'وش أهم خطوة في نموذج OODA وليش؟',
@@ -1590,7 +1590,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       leadershipTraitsCards,
       [{ title: 'مثال واقعي', text: 'قيادة صاحب السمو الملكي الأمير محمد بن سلمان للاستجابة الوطنية لجائحة كورونا، اتسمت بالقرارات الحاسمة والرسائل الواضحة والدعم غير المحدود للقطاع الصحي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTitleCards', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec2-escalation',
@@ -1606,7 +1606,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       escalationLevelsCards,
       [{ title: 'ورشة عمل (٣٠ دقيقة)', text: 'سيناريو "تسرب مادة كيميائية في أحد مختبرات المستشفى" — صمم معايير تصعيد بسيطة من المستوى الأول للرابع.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec2-cerc-phases',
@@ -1638,7 +1638,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       mediaTrustCards,
       [{ title: 'الثقة العملة الأكثر قيمة في الأزمات', text: 'لو وثق فيك الجمهور يتبعون إرشاداتك، ولو فقدوها تفشل حتى أفضل الخطط.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-activity-cerc',
@@ -1652,7 +1652,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityLabel: 'بطاقات رسالة الأزمة',
     cards: [{ title: 'نشاط تفاعلي: رسالة CERC', text: 'قبل دراسة الحالة، خلونا نوقف عند مهارة الرسالة وقت الخوف.', tone: 'gold' }],
     laterActs: [[{ title: 'مهارة الرسالة وقت الخوف', text: 'اقلب البطاقات واحدة واحدة، وفكر كيف تتحول كل قاعدة إلى جملة إعلامية يثق فيها الجمهور.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
     actActivities: [undefined, { activity: chapterTwoCercCards }],
   }),
   makeSlide({
@@ -1665,7 +1665,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'الثقة المجتمعية والالتزام بالإجراءات الوقائية خلال جائحة كورونا', text: 'تقارن استجابات أربع دول على خمسة مؤشرات: الاستجابة، التواصل، الثقة، الالتزام، والنتائج الصحية.', tone: 'gold' }],
     laterActs: [caseStudyCards.slice(0, 2), caseStudyCards.slice(2)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec2-lessons',
@@ -1677,6 +1677,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'الدروس المستفادة للمملكة', text: 'أربعة دروس مستفادة للمملكة من هذي المقارنة موضحة أمامك.', tone: 'gold' }],
     laterActs: [[{ title: 'أربعة دروس مستفادة للمملكة من هذي المقارنة', text: 'الثقة أصل يُبنى قبل الأزمة، لا وقتها.', tone: 'gold' }], lessonsForSaudiCards],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
   }),
   makeQuizSlide({
     id: 'ec2-quiz',

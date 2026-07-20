@@ -3720,6 +3720,18 @@ function PptStyleSlide({
       ? narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0))
       : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
+  const actSwitchOffsets = actStartIndices.map((startIndex) => revealOffsets[startIndex] ?? 0);
+  if (hasMultipleActs) {
+    const minReadableActChars = 105;
+    const minGapBetweenActs = 42;
+    for (let i = actSwitchOffsets.length - 2; i > 0; i -= 1) {
+      const current = actSwitchOffsets[i];
+      const next = actSwitchOffsets[i + 1];
+      if (next - current >= minReadableActChars) continue;
+      const earliest = actSwitchOffsets[i - 1] + minGapBetweenActs;
+      actSwitchOffsets[i] = Math.max(earliest, Math.min(current, next - minReadableActChars));
+    }
+  }
   // Split the combined `cards` back into whichever single act is on screen
   // right now. Narration crosses into the next act the moment that act's
   // first card starts revealing (same offset-matching used for every other
@@ -3728,33 +3740,9 @@ function PptStyleSlide({
   // before this existed.
   let rawActiveActIndex = 0;
   for (let i = 1; i < cardActs.length; i += 1) {
-    if (cardIsVisible(actStartIndices[i])) rawActiveActIndex = i;
+    if (narrationFinished || (narrationPosition > 0 && narrationPosition >= (actSwitchOffsets[i] ?? 0))) rawActiveActIndex = i;
   }
-  // Narration doesn't pace itself evenly around every act boundary -- two
-  // acts can be named only a couple words apart, which (followed literally)
-  // would swap the whole shot on screen for well under a second, too fast
-  // to actually read. Gate act switches to a minimum real dwell time
-  // regardless of how close the underlying narration offsets are, so every
-  // shot stays up long enough to register before the next one arrives.
-  const minActHoldMs = 1800;
-  const [activeActIndex, setActiveActIndex] = useState(rawActiveActIndex);
-  const lastActSwitchAtRef = useRef(performance.now());
-  useEffect(() => {
-    if (rawActiveActIndex === activeActIndex) return;
-    const elapsed = performance.now() - lastActSwitchAtRef.current;
-    const remaining = minActHoldMs - elapsed;
-    if (remaining <= 0) {
-      lastActSwitchAtRef.current = performance.now();
-      setActiveActIndex(rawActiveActIndex);
-      return;
-    }
-    const timer = window.setTimeout(() => {
-      lastActSwitchAtRef.current = performance.now();
-      setActiveActIndex(rawActiveActIndex);
-    }, remaining);
-    return () => window.clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rawActiveActIndex]);
+  const activeActIndex = rawActiveActIndex;
   // A slide's acts don't have to share one visual shape -- actLayouts lets
   // each act name its own (e.g. spotlight for the framing card, matrix for
   // a 2x2 breakdown), falling back to the slide's own layout when unset.
@@ -3893,7 +3881,12 @@ function PptStyleSlide({
       ? activeCard - actBaseIndex
       : -1
     : activeCard;
-  const displayVisibleFor = hasMultipleActs ? (i: number) => cardIsVisible(actBaseIndex + i) : cardIsVisible;
+  const displayVisibleFor = hasMultipleActs
+    ? (i: number) => {
+        const globalIndex = actBaseIndex + i;
+        return i === 0 || cardIsVisible(globalIndex);
+      }
+    : cardIsVisible;
   const displayOnToggle = hasMultipleActs ? (i: number) => toggleCard(actBaseIndex + i) : toggleCard;
   const displayExpandedKey = hasMultipleActs
     ? expandedCardIndex >= actBaseIndex && expandedCardIndex < actBaseIndex + actCardCount
