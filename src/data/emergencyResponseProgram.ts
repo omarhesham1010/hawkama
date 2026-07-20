@@ -647,6 +647,7 @@ export const emergencyChapterOneSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     actActivities: [
       undefined,
+      undefined,
       {
         mode: 'identify',
         activity: {
@@ -675,7 +676,6 @@ export const emergencyChapterOneSlides = indexSlides([
           reflection: [],
         },
       },
-      undefined,
     ],
   }),
   makeSlide({
@@ -694,6 +694,7 @@ export const emergencyChapterOneSlides = indexSlides([
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [
+      undefined,
       {
         mode: 'path',
         activity: {
@@ -722,7 +723,6 @@ export const emergencyChapterOneSlides = indexSlides([
           pathIncorrectVoiceKey: 'bag2-ch1-s8-activity-5-path-incorrect',
         },
       },
-      undefined,
     ],
   }),
   makeSlide({
@@ -838,6 +838,7 @@ export const emergencyChapterOneSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     actActivities: [
       undefined,
+      undefined,
       {
         activity: {
           kind: 'classification',
@@ -874,7 +875,6 @@ export const emergencyChapterOneSlides = indexSlides([
           ],
         },
       },
-      undefined,
     ],
   }),
   makeSlide({
@@ -893,6 +893,7 @@ export const emergencyChapterOneSlides = indexSlides([
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [
+      undefined,
       {
         activity: {
           kind: 'classification',
@@ -929,7 +930,6 @@ export const emergencyChapterOneSlides = indexSlides([
           ],
         },
       },
-      undefined,
     ],
   }),
   makeSlide({
@@ -1016,6 +1016,7 @@ export const emergencyChapterOneSlides = indexSlides([
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     actActivities: [
       undefined,
+      undefined,
       {
         activity: {
           kind: 'flipCards',
@@ -1027,7 +1028,6 @@ export const emergencyChapterOneSlides = indexSlides([
           ],
         },
       },
-      undefined,
     ],
   }),
   makeSlide({
@@ -1046,6 +1046,7 @@ export const emergencyChapterOneSlides = indexSlides([
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [
+      undefined,
       {
         activity: {
           kind: 'flipCards',
@@ -1057,7 +1058,6 @@ export const emergencyChapterOneSlides = indexSlides([
           ],
         },
       },
-      undefined,
     ],
   }),
   makeQuizSlide({
