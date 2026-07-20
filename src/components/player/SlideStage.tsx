@@ -3721,17 +3721,6 @@ function PptStyleSlide({
       : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
   const actSwitchOffsets = actStartIndices.map((startIndex) => revealOffsets[startIndex] ?? 0);
-  if (hasMultipleActs) {
-    const minReadableActChars = 105;
-    const minGapBetweenActs = 42;
-    for (let i = actSwitchOffsets.length - 2; i > 0; i -= 1) {
-      const current = actSwitchOffsets[i];
-      const next = actSwitchOffsets[i + 1];
-      if (next - current >= minReadableActChars) continue;
-      const earliest = actSwitchOffsets[i - 1] + minGapBetweenActs;
-      actSwitchOffsets[i] = Math.max(earliest, Math.min(current, next - minReadableActChars));
-    }
-  }
   // Split the combined `cards` back into whichever single act is on screen
   // right now. Narration crosses into the next act the moment that act's
   // first card starts revealing (same offset-matching used for every other
