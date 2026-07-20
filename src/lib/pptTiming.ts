@@ -65,10 +65,6 @@ export function pptCardCueIndexes(cards: PptCard[], narration: string) {
     const exactTitleCue = cues.findIndex(
       (cue, cueIndex) => cueIndex >= previous && title && cleanText(cue.text).includes(title),
     );
-    if (shownHereCueIndex >= 0 && shownHereCueIndex >= previous && exactTitleCue >= 0 && shownHereCueIndex < exactTitleCue) {
-      previous = shownHereCueIndex;
-      return previous;
-    }
     if (exactTitleCue >= 0) {
       previous = exactTitleCue;
       return previous;
@@ -89,13 +85,24 @@ export function pptCardCueIndexes(cards: PptCard[], narration: string) {
       }
     }
 
+    // No exact mention anywhere -- if the narration ever gestures at the
+    // screen instead of naming items, that gesture IS this card's real
+    // moment. A word-overlap score here is usually a coincidental match
+    // against an unrelated sentence (e.g. a station card whose title
+    // happens to share one word with the activity's stated objective), not
+    // a genuine second mention, so it shouldn't outrank the explicit cue.
+    if (shownHereCueIndex >= 0 && shownHereCueIndex >= previous) {
+      previous = shownHereCueIndex;
+      return previous;
+    }
+
     let best = { cueIndex: -1, score: 0 };
     for (let cueIndex = Math.max(previous, 0); cueIndex < cues.length; cueIndex += 1) {
       const score = scorePptCardCue(card, cues[cueIndex].text);
       if (score > best.score) best = { cueIndex, score };
     }
     const proportional = Math.floor(((cardIndex + 1) * cues.length) / (cards.length + 1));
-    const selected = best.score >= 5 ? best.cueIndex : shownHereCueIndex >= previous ? shownHereCueIndex : proportional;
+    const selected = best.score >= 5 ? best.cueIndex : proportional;
     previous = Math.min(cues.length - 1, Math.max(previous, selected));
     return previous;
   });
@@ -191,13 +198,6 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
     if (offsets[i] <= offsets[i - 1]) offsets[i] = offsets[i - 1] + 1;
   }
   if (offsets.length) offsets[0] = 0;
-  // Even with correct cue matching, a narrated slide can spend too long on
-  // one shot before naming the next list/card explicitly. Keep the visual
-  // story moving on the same audio clock so no card waits until the very end.
-  const maxRevealGap = 240;
-  for (let i = 1; i < offsets.length; i += 1) {
-    if (offsets[i] - offsets[i - 1] > maxRevealGap) offsets[i] = offsets[i - 1] + maxRevealGap;
-  }
 
   return offsets;
 }
