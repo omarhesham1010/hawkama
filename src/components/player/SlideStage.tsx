@@ -402,7 +402,8 @@ function NasserStoryLayer({
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const poseSrc = isEmergencySlide ? POSE_SRC_BAG2 : POSE_SRC;
-  const stripDiacritics = (value: string) => value.normalize('NFKD').replace(/\p{M}/gu, '');
+  const stripDiacritics = (value: string) =>
+    value.replace(/[\u0610-\u061A\u064B-\u0652\u0670\u06D6-\u06ED]/gu, '');
   const displayLine = stripDiacritics(line);
   const displaySpokenPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.spokenPart) : displayLine;
   const displayRemainingPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.remainingPart) : '';
