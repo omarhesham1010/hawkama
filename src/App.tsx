@@ -5,6 +5,7 @@ import { PersonalizationGate } from './components/platform/PersonalizationGate';
 import { useLearnerProfile } from './hooks/useLearnerProfile';
 import { courseHash, courseIdFromLocation } from './lib/courseRoutes';
 import { platform } from './data/platformContent';
+import { stopVoiceClip } from './lib/playVoiceClip';
 
 const SlidePlayer = lazy(() => import('./SlidePlayer'));
 
@@ -66,6 +67,7 @@ export default function App() {
   useEffect(() => {
     const onHash = () => {
       narration.stop();
+      stopVoiceClip();
       setRoute(parseHash());
       window.scrollTo({ top: 0 });
     };

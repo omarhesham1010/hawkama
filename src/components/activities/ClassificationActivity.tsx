@@ -76,9 +76,11 @@ export function ClassificationActivity({
       setAssignment((a) => ({ ...a, [dragId]: cat }));
       setLastId(dragId);
       setVoicePlaying(true);
-      void playVoiceClip(item?.voiceKey).finally(() => {
+      void playVoiceClip(item?.voiceKey).then(() => {
         setVoicePlaying(false);
         if (willBeDone) onDone();
+      }).catch(() => {
+        setVoicePlaying(false);
       });
     }
     setDragId(null);

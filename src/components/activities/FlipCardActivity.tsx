@@ -32,9 +32,11 @@ export function FlipCardActivity({
     // checkpoint is open, and playing through it here would tear that down.
     if (nowFlipped && card) {
       setVoicePlaying(true);
-      void playVoiceClip(card.voiceKey).finally(() => {
+      void playVoiceClip(card.voiceKey).then(() => {
         setVoicePlaying(false);
         if (allSeenAfter) onDone();
+      }).catch(() => {
+        setVoicePlaying(false);
       });
     } else if (allSeenAfter) {
       onDone();

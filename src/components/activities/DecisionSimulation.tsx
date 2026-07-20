@@ -79,9 +79,12 @@ export function DecisionSimulation({
                     setIdentify(opt.id);
                     setVoicePlaying(true);
                     void playVoiceClip(opt.correct ? data.identify.correctVoiceKey : data.identify.incorrectVoiceKey)
-                      .finally(() => {
+                      .then(() => {
                         setVoicePlaying(false);
                         if (!showPath) onDone();
+                      })
+                      .catch(() => {
+                        setVoicePlaying(false);
                       });
                   }}
                   className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors disabled:cursor-not-allowed ${
@@ -222,9 +225,12 @@ export function DecisionSimulation({
                   setPathChecked(true);
                   setVoicePlaying(true);
                   void playVoiceClip(pathCorrect ? data.pathCorrectVoiceKey : data.pathIncorrectVoiceKey)
-                    .finally(() => {
+                    .then(() => {
                       setVoicePlaying(false);
                       if (pathCorrect) onDone();
+                    })
+                    .catch(() => {
+                      setVoicePlaying(false);
                     });
                 }}
                 disabled={!pathFull || narrationLocked || voicePlaying}

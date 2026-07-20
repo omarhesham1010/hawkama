@@ -352,11 +352,13 @@ function NasserStoryLayer({
   spoken,
   showDialogue,
   dialogueOverride,
+  compactActivity,
 }: {
   slide: Slide;
   spoken: number;
   showDialogue: boolean;
   dialogueOverride?: string;
+  compactActivity?: boolean;
 }) {
   const guide = nasserGuide(slide, spoken);
   const line = dialogueOverride ?? guide.line;
@@ -379,7 +381,9 @@ function NasserStoryLayer({
   const compact = isPpt || slide.kind === 'activity' || slide.kind === 'quiz' || slide.kind === 'reflection';
   // Client call: make Nasser noticeably larger across every slide kind, and
   // scale the dialogue bubble text next to him to match (see SpeechBubble).
-  const imageSize = isPpt
+  const imageSize = compactActivity
+    ? 'h-[176px] w-[176px]'
+    : isPpt
     ? keepsLargePresence
       ? 'h-[300px] w-[300px]'
       : 'h-[258px] w-[258px]'
@@ -388,11 +392,11 @@ function NasserStoryLayer({
       : compact
         ? 'h-[268px] w-[268px]'
         : 'h-[330px] w-[330px]';
-  const layerHeight = isPpt ? (keepsLargePresence ? 'h-[262px]' : 'h-[220px]') : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
-  const bottomOffset = isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
+  const layerHeight = compactActivity ? 'h-[156px]' : isPpt ? (keepsLargePresence ? 'h-[262px]' : 'h-[220px]') : isQuiz ? 'h-[188px]' : compact ? 'h-[238px]' : 'h-[282px]';
+  const bottomOffset = compactActivity ? 'bottom-[8px]' : isPpt ? 'bottom-[14px]' : isQuiz ? 'bottom-[18px]' : 'bottom-[30px]';
   const rowDirection = guide.side === 'right' ? 'flex-row-reverse' : 'flex-row';
   const justify = guide.side === 'right' ? 'justify-end' : 'justify-start';
-  const bubbleLift = isQuiz ? 'mb-3' : compact ? 'mb-6' : 'mb-10';
+  const bubbleLift = compactActivity ? 'mb-2' : isQuiz ? 'mb-3' : compact ? 'mb-6' : 'mb-10';
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
@@ -404,7 +408,7 @@ function NasserStoryLayer({
   const displayRemainingPart = cueSpokenSplit ? stripDiacritics(cueSpokenSplit.remainingPart) : '';
 
   return (
-    <div data-nasser-layer="true" className={`pointer-events-none absolute inset-x-0 ${bottomOffset} z-50 ${layerHeight} overflow-visible px-7 pb-3`}>
+    <div data-nasser-layer="true" className={`pointer-events-none absolute inset-x-0 ${bottomOffset} ${compactActivity ? 'z-30' : 'z-50'} ${layerHeight} overflow-visible px-7 pb-3`}>
       <div className={`flex h-full w-full items-end ${justify}`}>
         <div className={`flex max-w-[980px] items-end gap-3 ${rowDirection}`}>
           <img
@@ -616,7 +620,15 @@ function StorySlideShell({
   return (
     <div className="relative isolate h-full overflow-hidden">
       <div data-slide-content="true" className={`relative z-40 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
-      {!hideNasser && <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />}
+      {!hideNasser && (
+        <NasserStoryLayer
+          slide={slide}
+          spoken={spoken}
+          showDialogue={showDialogue}
+          dialogueOverride={dialogueOverride}
+          compactActivity={isActivityShot}
+        />
+      )}
     </div>
   );
 }
@@ -4021,7 +4033,7 @@ function PptStyleSlide({
     return false;
   })();
 
-  const resolveCheckpoint = () => {
+  const resolveCheckpoint = (resumeNarration = true) => {
     const doneIndex = pendingCheckpoint?.index;
     if (doneIndex == null) return;
     setResolvedCheckpoints((prev) => {
@@ -4032,7 +4044,7 @@ function PptStyleSlide({
     });
     pausedCheckpointRef.current = null;
     if (isLastCheckpointAct) onActivityDone(slide.id);
-    narration.resume();
+    if (resumeNarration) narration.resume();
   };
 
   // A checkpoint's activity component signals "the learner is done here" the
@@ -4044,7 +4056,12 @@ function PptStyleSlide({
   // the act actually advances) once the learner presses it themselves.
   const checkpointAnswered = pendingCheckpoint != null && answeredCheckpointIndex === pendingCheckpoint.index;
   const markCheckpointAnswered = () => {
-    if (pendingCheckpoint) setAnsweredCheckpointIndex(pendingCheckpoint.index);
+    if (!pendingCheckpoint) return;
+    if (isLastCheckpointAct) {
+      resolveCheckpoint(false);
+      return;
+    }
+    setAnsweredCheckpointIndex(pendingCheckpoint.index);
   };
   const advanceCheckpoint = () => {
     setAnsweredCheckpointIndex(null);
@@ -4083,7 +4100,6 @@ function PptStyleSlide({
     <StorySlideShell
       slide={slide}
       isActivityShot={isActivityShot || checkpointReached}
-      hideNasser={isActivityShot || checkpointReached}
       spoken={started ? spoken : 0}
       showDialogue={showDialogue || Boolean(interactionLine)}
       dialogueOverride={interactionLine}

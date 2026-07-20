@@ -192,6 +192,7 @@ export default function SlidePlayer({
 
   const handleReplay = useCallback(() => {
     setReplayNonce((n) => n + 1);
+    stopVoiceClip();
     if (!muted) playNarration();
     else narration.stop();
   }, [muted, narration, playNarration]);
@@ -199,6 +200,7 @@ export default function SlidePlayer({
   const toggleMute = useCallback(() => {
     const next = !muted;
     setMuted(next);
+    stopVoiceClip();
     if (next) narration.stop();
     else {
       setReplayNonce((n) => n + 1);
@@ -209,12 +211,14 @@ export default function SlidePlayer({
   const restartCourse = useCallback(() => {
     progress.reset();
     narration.stop();
+    stopVoiceClip();
     setStarted(false);
     setIndex(0);
   }, [narration, progress]);
 
   const exit = useCallback(() => {
     narration.stop();
+    stopVoiceClip();
     onExit();
   }, [narration, onExit]);
 

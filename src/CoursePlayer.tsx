@@ -17,6 +17,7 @@ import { ActivityScreen } from './components/course/ActivityScreen';
 import { QuizScreen } from './components/course/QuizScreen';
 import { SummaryScreen } from './components/course/SummaryScreen';
 import { CompletionScreen } from './components/course/CompletionScreen';
+import { stopVoiceClip } from './lib/playVoiceClip';
 
 /** The full chapter experience. Theme is owned by App; onExit returns to the platform. */
 export default function CoursePlayer({
@@ -47,6 +48,7 @@ export default function CoursePlayer({
   const goTo = useCallback(
     (index: number) => {
       narration.stop();
+      stopVoiceClip();
       const clamped = Math.max(0, Math.min(index, sections.length - 1));
       setCurrentIndex(clamped);
       progress.setLastSection(sections[clamped].id);
@@ -68,6 +70,7 @@ export default function CoursePlayer({
   const restart = useCallback(() => {
     progress.reset();
     narration.stop();
+    stopVoiceClip();
     setCurrentIndex(0);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [narration, progress]);
