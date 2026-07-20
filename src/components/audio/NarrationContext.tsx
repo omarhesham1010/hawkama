@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { useNarration } from '../../hooks/useNarration';
+import { stopVoiceClip } from '../../lib/playVoiceClip';
 
 interface NarrationContextValue {
   status: ReturnType<typeof useNarration>['status'];
@@ -42,6 +43,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
 
   const play = useCallback(
     (key: string, script: string, label?: string, segment?: { start: number; end: number }, sourceKey?: string) => {
+      stopVoiceClip();
       setNowLabel(label ?? null);
       setNowKey(key);
       n.play(key, script, segment, sourceKey);

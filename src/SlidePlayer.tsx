@@ -138,6 +138,7 @@ export default function SlidePlayer({
     }
     progress.markComplete(slide.id);
     progress.setLastSection(slide.id);
+    return () => stopVoiceClip();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, started]);
 

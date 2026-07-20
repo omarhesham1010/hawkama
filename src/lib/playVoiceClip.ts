@@ -15,6 +15,7 @@ export function stopVoiceClip() {
   currentCancel?.();
   current.pause();
   current.src = '';
+  current.load();
   current = null;
   currentFinish = null;
   currentCancel = null;
