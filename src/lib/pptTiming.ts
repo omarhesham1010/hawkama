@@ -20,7 +20,7 @@ function wordsOf(value: string) {
 }
 
 function cardText(card: PptCard) {
-  return [card.title, card.text, ...(card.bullets ?? [])].filter(Boolean).join(' ');
+  return [card.title, card.text, card.syncText, ...(card.bullets ?? [])].filter(Boolean).join(' ');
 }
 
 export function scorePptCardCue(card: PptCard, cueText: string) {
@@ -65,6 +65,18 @@ export function pptCardCueIndexes(cards: PptCard[], narration: string) {
     const exactTitleCue = cues.findIndex(
       (cue, cueIndex) => cueIndex >= previous && title && cleanText(cue.text).includes(title),
     );
+    const syncText = cleanText(card.syncText ?? '');
+    const exactSyncCue = cues.findIndex(
+      (cue, cueIndex) => cueIndex >= previous && syncText && cleanText(cue.text).includes(syncText),
+    );
+    if (exactSyncCue >= 0) {
+      previous = exactSyncCue;
+      return previous;
+    }
+    if (shownHereCueIndex >= 0 && shownHereCueIndex >= previous && exactTitleCue >= 0 && shownHereCueIndex < exactTitleCue) {
+      previous = shownHereCueIndex;
+      return previous;
+    }
     if (exactTitleCue >= 0) {
       previous = exactTitleCue;
       return previous;
@@ -137,7 +149,9 @@ function findTitleOffset(cueText: string, cueStart: number, card: PptCard): numb
   const title = cleanText(card.title);
   if (!title) return null;
   const { cleaned, positions } = cleanedPositionMap(cueText);
-  const idx = cleaned.indexOf(title) >= 0 ? cleaned.indexOf(title) : cleaned.indexOf(title.split(' ')[0]);
+  const firstWord = title.split(' ')[0] ?? '';
+  const fallbackIdx = firstWord.length > 2 ? cleaned.indexOf(firstWord) : -1;
+  const idx = cleaned.indexOf(title) >= 0 ? cleaned.indexOf(title) : fallbackIdx;
   if (idx < 0) return null;
   return cueStart + (positions[idx] ?? 0);
 }

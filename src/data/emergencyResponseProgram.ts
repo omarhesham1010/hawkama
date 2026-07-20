@@ -735,7 +735,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'أكبر خطأ أثناء الطوارئ', text: 'محاولة إدارتها بنفس الهيكل الإداري اليومي — التعقيد البيروقراطي لا يحتمله الوقت.', tone: 'gold' }],
     laterActs: [
-      icsCorePrincipleCards,
+      icsCorePrincipleCards.map((card) => ({ ...card, syncText: 'مبدأ بسيط وحاسم' })),
       [{ title: 'دور يُفعّل عند الحاجة لا منصب دائم', text: 'الهياكل الإدارية تُعلّق مؤقتًا لصالح هيكل طوارئ يتوسع أو ينكمش حسب حجم الحدث.', tone: 'gold' }],
       icCommanderCards,
       icsFunctionalUnitsCards,
@@ -1153,20 +1153,22 @@ const raciCards: PptCard[] = [
 ];
 
 const oodaCards: PptCard[] = [
-  { index: '01', title: 'Observe لاحظ', text: 'اجمع كل المعلومات المتاحة من مصادر متعددة.' },
-  { index: '02', title: 'Orient توجّه', text: 'حلّل المعلومات في سياق الأزمة الحالية — أهم خطوة.', tone: 'gold' },
-  { index: '03', title: 'Decide قرّر', text: 'اختر أفضل مسار للعمل بناءً على تحليلك.' },
-  { index: '04', title: 'Act نفّذ', text: 'قم بتنفيذ القرار بسرعة.' },
+  { index: '01', title: 'Observe لاحظ', text: 'اجمع كل المعلومات المتاحة من مصادر متعددة.', syncText: 'نموذج اسمه OODA Loop' },
+  { index: '02', title: 'Orient توجّه', text: 'حلّل المعلومات في سياق الأزمة الحالية — أهم خطوة.', syncText: 'نموذج اسمه OODA Loop', tone: 'gold' },
+  { index: '03', title: 'Decide قرّر', text: 'اختر أفضل مسار للعمل بناءً على تحليلك.', syncText: 'نموذج اسمه OODA Loop' },
+  { index: '04', title: 'Act نفّذ', text: 'قم بتنفيذ القرار بسرعة.', syncText: 'نموذج اسمه OODA Loop' },
 ];
 
 const oodaPressureCards: PptCard[] = [
   {
     title: 'التردد المفرط',
     text: 'تعطّل القرار عندما يطول التحليل أكثر من اللازم.',
+    syncText: 'التردد المفرط وتعطّل القرار',
   },
   {
     title: 'القرارات المتسرعة',
     text: 'استجابة سريعة بلا تقييم كافٍ قد تزيد أثر الأزمة.',
+    syncText: 'قرارات سريعة ومتسرعة',
     tone: 'gold',
   },
 ];
@@ -1616,9 +1618,9 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'التواصل والمشاركة المجتمعية', text: 'عن طريق نموذج CERC — هدف التواصل وقت الأزمة ليس نقل المعلومة فقط، بل إدارة الخوف وتقليل عدم اليقين وحماية الثقة.', tone: 'gold' }],
     laterActs: [
-      cercPhaseCards,
-      cercMistakesCards,
-      [{ title: 'تطبيق مبادئ CERC', text: 'سيناريو "تأكيد أول حالة وفاة بسبب التفشي الفيروسي الغامض" — اكتب تغريدة وبيانًا صحفيًا قصيرًا بمبادئ CERC.', tone: 'gold' }],
+      cercPhaseCards.map((card) => ({ ...card, syncText: 'مراحل CERC خمسة' })),
+      cercMistakesCards.map((card) => ({ ...card, syncText: 'أخطاء شائعة يتجنبها CERC' })),
+      [{ title: 'تطبيق مبادئ CERC', text: 'سيناريو "تأكيد أول حالة وفاة بسبب التفشي الفيروسي الغامض" — اكتب تغريدة وبيانًا صحفيًا قصيرًا بمبادئ CERC.', syncText: 'نطبقها على سيناريو', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTitleCards', 'pptSpotlight'],
   }),
@@ -2019,7 +2021,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🧭',
     layout: 'pptTimeline',
     cards: [{ title: 'عملية منهجية ومنظمة لجمع وتحليل المعلومات', text: 'من البيئة الداخلية والخارجية للمنظمة، لتحديد الاتجاهات والتهديدات والفرص المستقبلية.', tone: 'gold' }],
-    laterActs: [scanningImportanceCards],
+    laterActs: [scanningImportanceCards.map((card) => ({ ...card, syncText: 'خمسة أهداف استراتيجية' }))],
   }),
   makeSlide({
     id: 'ec3-horizontal-scanning',
@@ -2160,7 +2162,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '📡',
     layout: 'pptMatrix',
     cards: [{ title: 'الترصد ودمج الإنذار المبكر', text: 'من التلسكوب إلى الرادار — من الرصد السلبي للترصد الاستباقي.', tone: 'gold' }],
-    laterActs: [surveillanceImportanceCards],
+    laterActs: [surveillanceImportanceCards.map((card) => ({ ...card, syncText: 'أهميته أربعة أشياء' }))],
     actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({

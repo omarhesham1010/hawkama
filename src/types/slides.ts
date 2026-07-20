@@ -79,6 +79,7 @@ export interface PptCard {
   title: string;
   text?: string;
   bullets?: string[];
+  syncText?: string;
   answer?: string;
   rationale?: string;
   tone?: 'green' | 'gold' | 'blue' | 'gray';
