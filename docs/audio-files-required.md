@@ -309,17 +309,17 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c4
 - `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c5
 - `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c6
-- `bag2-ch2-s3b-activity-terms-card-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 1 - term-1
-- `bag2-ch2-s3b-activity-terms-card-2.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 1 - term-2
-- `bag2-ch2-s3b-activity-terms-card-3.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 1 - term-3
-- `bag2-ch2-s3b-activity-terms-card-4.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 1 - term-4
-- `bag2-ch2-s5b-activity-raci-identify-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 1 - إجابة صحيحة
-- `bag2-ch2-s5b-activity-raci-identify-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 1 - إجابة غير صحيحة
-- `bag2-ch2-s5b-activity-raci-path-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 1 - مسار صحيح
-- `bag2-ch2-s5b-activity-raci-path-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 1 - مسار غير صحيح
-- `bag2-ch2-s9b-activity-cerc-card-1.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 1 - cerc-1
-- `bag2-ch2-s9b-activity-cerc-card-2.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 1 - cerc-2
-- `bag2-ch2-s9b-activity-cerc-card-3.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 1 - cerc-3
+- `bag2-ch2-s3b-activity-terms-card-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-1
+- `bag2-ch2-s3b-activity-terms-card-2.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-2
+- `bag2-ch2-s3b-activity-terms-card-3.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-3
+- `bag2-ch2-s3b-activity-terms-card-4.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-4
+- `bag2-ch2-s5b-activity-raci-identify-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch2-s5b-activity-raci-identify-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch2-s5b-activity-raci-path-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch2-s5b-activity-raci-path-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch2-s9b-activity-cerc-card-1.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-1
+- `bag2-ch2-s9b-activity-cerc-card-2.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-2
+- `bag2-ch2-s9b-activity-cerc-card-3.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-3
 - `bag2-ch3-s4b-activity-scan-card-1.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-1
 - `bag2-ch3-s4b-activity-scan-card-2.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-2
 - `bag2-ch3-s4b-activity-scan-card-3.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-3

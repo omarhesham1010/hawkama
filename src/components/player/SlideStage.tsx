@@ -2930,7 +2930,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative overflow-visible ${denseQuadrant ? 'h-[94px] p-2' : 'min-h-[134px] p-5'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border text-right shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative overflow-visible ${denseQuadrant ? 'h-[94px] p-2 text-center' : 'min-h-[134px] p-5 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -2951,7 +2951,7 @@ function PptMatrixScene({
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`flex max-w-[88%] items-center justify-end gap-1.5 ${denseQuadrant ? 'pe-7 text-[14.5px] leading-tight' : 'pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[14.5px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span>{card.title}</span>
                 {brandIcon && (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-12 w-12 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
@@ -2960,7 +2960,7 @@ function PptMatrixScene({
                 )}
               </h3>
               {card.text && (
-                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden text-[10.5px] leading-snug' : 'mt-3 text-[16px] leading-relaxed'} pe-1 font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[10.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
