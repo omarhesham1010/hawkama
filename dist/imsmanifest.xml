@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-LDHN4OMA.js" />
-      <file href="assets/chunks/audioAlignments-7EOW445A.js" />
-      <file href="assets/chunks/chunk-G3FUPTGG.js" />
+      <file href="assets/chunks/SlidePlayer-GW3ZNMQN.js" />
+      <file href="assets/chunks/audioAlignments-SK45NE4K.js" />
+      <file href="assets/chunks/chunk-TBIFTYC4.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
       <file href="assets/index-c124d660.css" />
-      <file href="assets/index-c7b722f4.js" />
+      <file href="assets/index-cca45492.js" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="assets/visual-library/audit-controls.webp" />
@@ -349,6 +349,8 @@
       <file href="audio/bag2-ch2-s5b-activity-raci-path-correct.mp3" />
       <file href="audio/bag2-ch2-s5b-activity-raci-path-incorrect.mp3" />
       <file href="audio/bag2-ch2-s5b-activity-raci.mp3" />
+      <file href="audio/bag2-ch2-s5c-activity-raci-path-detail-1.mp3" />
+      <file href="audio/bag2-ch2-s5c-activity-raci-path.mp3" />
       <file href="audio/bag2-ch2-s6-leadership.mp3" />
       <file href="audio/bag2-ch2-s7-escalation.mp3" />
       <file href="audio/bag2-ch2-s8-cerc-phases.mp3" />

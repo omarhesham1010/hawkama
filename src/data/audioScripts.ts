@@ -297,7 +297,22 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
   });
 });
 
-export const audioScripts: AudioScriptItem[] = [
+function uniqueAudioScripts(items: AudioScriptItem[]) {
+  const byKey = new Map<string, AudioScriptItem>();
+  for (const entry of items) {
+    const existing = byKey.get(entry.key);
+    if (!existing) {
+      byKey.set(entry.key, entry);
+      continue;
+    }
+    if (existing.text !== entry.text || existing.category !== entry.category) {
+      throw new Error(`Duplicate audio key with different script text: ${entry.key}`);
+    }
+  }
+  return [...byKey.values()];
+}
+
+export const audioScripts: AudioScriptItem[] = uniqueAudioScripts([
   ...mainSlideItems,
   ...genericActivityDetailItems,
   ...governanceQuestionItems,
@@ -306,7 +321,7 @@ export const audioScripts: AudioScriptItem[] = [
   ...quizFeedbackItems,
   ...checkItems,
   ...checkpointVoiceItems,
-];
+]);
 
 export function audioScriptByKey(key: string) {
   return audioScripts.find((entry) => entry.key === key);

@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **331**.
+Generated from `src/data/audioScripts.ts`. Total required: **337**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -75,6 +75,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch2-s3b-activity-terms.mp3` - نشاط تفاعلي: صنّف مستوى الموقف
 - `bag2-ch2-s4-raci.mp3` - حوكمة الاستجابة ومصفوفة RACI
 - `bag2-ch2-s5b-activity-raci.mp3` - نشاط تفاعلي: طبّق RACI
+- `bag2-ch2-s5c-activity-raci-path.mp3` - نشاط تفاعلي: رتّب مسار RACI
 - `bag2-ch2-s5-ooda.mp3` - اتخاذ القرار تحت الضغط
 - `bag2-ch2-s6-leadership.mp3` - القيادة أثناء الأزمات
 - `bag2-ch2-s7-escalation.mp3` - معايير التصعيد وتفعيل القيادة الطارئة
@@ -102,6 +103,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch3-s11b-activity-indicators.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار
 - `bag2-ch3-s13-thresholds.mp3` - ربط الترصد بالقرار
 - `bag2-ch3-s14b-activity-thresholds.mp3` - نشاط تفاعلي: من العتبة إلى القرار
+- `bag2-ch3-s14c-activity-thresholds-path.mp3` - نشاط تفاعلي: رتّب مسار العتبة
 - `bag2-ch3-s14-integration.mp3` - دمج الترصد والإنذار بخطط الاستجابة
 - `bag2-ch3-s15-quiz.mp3` - اختبار الفصل الثالث
 - `bag2-ch3-s16-closing.mp3` - ختام الفصل الثالث
@@ -122,6 +124,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s12-stakeholders.mp3` - تحديد أصحاب المصلحة
 - `bag2-ch4-s13-power-interest.mp3` - مصفوفة القوة والاهتمام
 - `bag2-ch4-s15b-activity-stakeholders.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة
+- `bag2-ch4-s15c-activity-stakeholders-path.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة
 - `bag2-ch4-s14-crisis-comm.mp3` - استراتيجيات التواصل الفعال
 - `bag2-ch4-s15-trust-building.mp3` - بناء الثقة والتأثير
 - `bag2-ch4-s16-closing-workshops.mp3` - ورش العمل الختامية
@@ -151,13 +154,16 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s18b-activity-7-followup-detail-1.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - مناقشة 1
 - `bag2-ch2-s3b-activity-terms-detail-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - مناقشة 1
 - `bag2-ch2-s5b-activity-raci-detail-1.mp3` - نشاط تفاعلي: طبّق RACI - مناقشة 1
+- `bag2-ch2-s5c-activity-raci-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار RACI - مناقشة 1
 - `bag2-ch2-s9b-activity-cerc-detail-1.mp3` - نشاط تفاعلي: رسالة CERC - مناقشة 1
 - `bag2-ch3-s4b-activity-scan-detail-1.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - مناقشة 1
 - `bag2-ch3-s11b-activity-indicators-detail-1.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - مناقشة 1
 - `bag2-ch3-s14b-activity-thresholds-detail-1.mp3` - نشاط تفاعلي: من العتبة إلى القرار - مناقشة 1
+- `bag2-ch3-s14c-activity-thresholds-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار العتبة - مناقشة 1
 - `bag2-ch4-s4b-activity-inventory-detail-1.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - مناقشة 1
 - `bag2-ch4-s7b-activity-aar-detail-1.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - مناقشة 1
 - `bag2-ch4-s15b-activity-stakeholders-detail-1.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - مناقشة 1
+- `bag2-ch4-s15c-activity-stakeholders-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة - مناقشة 1
 - `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3

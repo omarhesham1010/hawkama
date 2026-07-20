@@ -238,6 +238,8 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch2-s5b-activity-raci-path-correct",
   "bag2-ch2-s5b-activity-raci-path-incorrect",
   "bag2-ch2-s5b-activity-raci",
+  "bag2-ch2-s5c-activity-raci-path-detail-1",
+  "bag2-ch2-s5c-activity-raci-path",
   "bag2-ch2-s6-leadership",
   "bag2-ch2-s7-escalation",
   "bag2-ch2-s8-cerc-phases",
@@ -248,7 +250,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch2-s9b-activity-cerc-detail-1",
   "bag2-ch2-s9b-activity-cerc"
 ];
-export const AUDIO_MANIFEST_VERSION = '370429b7c79b';
+export const AUDIO_MANIFEST_VERSION = '6b9647b986be';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
