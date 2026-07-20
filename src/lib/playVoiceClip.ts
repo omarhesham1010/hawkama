@@ -9,13 +9,18 @@ import { AUDIO_MANIFEST_VERSION, hasAudio } from '../data/audioManifest';
 let current: HTMLAudioElement | null = null;
 let currentFinish: (() => void) | null = null;
 
+export function stopVoiceClip() {
+  if (!current) return;
+  currentFinish?.();
+  current.pause();
+  current.src = '';
+  current = null;
+  currentFinish = null;
+}
+
 export function playVoiceClip(key: string | undefined) {
   if (!key || !hasAudio(key)) return Promise.resolve();
-  if (current) {
-    currentFinish?.();
-    current.pause();
-    current.src = '';
-  }
+  stopVoiceClip();
   const base = import.meta.env.BASE_URL || '/';
   const audio = new Audio(`${base}audio/${key}.mp3?v=${AUDIO_MANIFEST_VERSION}`);
   current = audio;

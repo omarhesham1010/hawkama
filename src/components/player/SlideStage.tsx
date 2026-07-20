@@ -581,6 +581,7 @@ function StorySlideShell({
   dialogueOverride,
   revealedCount,
   isActivityShot,
+  hideNasser,
   children,
 }: {
   slide: Slide;
@@ -595,6 +596,7 @@ function StorySlideShell({
    *  components need far more vertical room than the usual card layout, so
    *  they get a much smaller Nasser-reservation band than other ppt shots. */
   isActivityShot?: boolean;
+  hideNasser?: boolean;
   children: React.ReactNode;
 }) {
   const isPpt = Boolean(slide.layout?.startsWith('ppt'));
@@ -614,7 +616,7 @@ function StorySlideShell({
   return (
     <div className="relative isolate h-full overflow-hidden">
       <div data-slide-content="true" className={`relative z-40 h-full px-[70px] ${topSpace} ${bottomSpace}`}>{children}</div>
-      <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />
+      {!hideNasser && <NasserStoryLayer slide={slide} spoken={spoken} showDialogue={showDialogue} dialogueOverride={dialogueOverride} />}
     </div>
   );
 }
@@ -4081,6 +4083,7 @@ function PptStyleSlide({
     <StorySlideShell
       slide={slide}
       isActivityShot={isActivityShot || checkpointReached}
+      hideNasser={isActivityShot || checkpointReached}
       spoken={started ? spoken : 0}
       showDialogue={showDialogue || Boolean(interactionLine)}
       dialogueOverride={interactionLine}
@@ -4364,7 +4367,7 @@ export function SlideStage({
   if (slide.kind === 'activity' && slide.activity) {
     const a = slide.activity;
     return (
-      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
+      <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue} hideNasser>
         <div className="flex h-full flex-col p-5">
         <TitleHead slide={slide} />
         <div className="mt-1.5 min-h-0 flex-1 overflow-visible animate-fade-in">

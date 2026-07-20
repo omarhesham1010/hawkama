@@ -5,6 +5,7 @@ import { useNarrationContext } from './components/audio/NarrationContext';
 import { getCourseMeta, getSlidesForCourse } from './data/slides';
 import { courseHash } from './lib/courseRoutes';
 import { keepOnlyPreloadedNarrationAudio, preloadNarrationAudio } from './hooks/useNarration';
+import { stopVoiceClip } from './lib/playVoiceClip';
 import { toArabicDigits } from './lib/utils';
 
 import { BackgroundDecor } from './components/course/BackgroundDecor';
@@ -129,6 +130,7 @@ export default function SlidePlayer({
   // On each slide (once started) → narrate; reveal follows the voice.
   useEffect(() => {
     if (!started) return;
+    stopVoiceClip();
     if (skipNextAutoPlayRef.current) {
       skipNextAutoPlayRef.current = false;
     } else {
@@ -141,6 +143,7 @@ export default function SlidePlayer({
 
   const goTo = useCallback((i: number) => {
     narration.stop();
+    stopVoiceClip();
     setIndex(Math.max(0, Math.min(i, slides.length - 1)));
   }, [narration]);
 
