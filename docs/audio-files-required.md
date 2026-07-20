@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **279**.
+Generated from `src/data/audioScripts.ts`. Total required: **331**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -72,12 +72,15 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch2-s1b-goals.mp3` - أهداف الفصل الثاني
 - `bag2-ch2-s2-crisis-terms.mp3` - فهم ديناميكيات الأزمات
 - `bag2-ch2-s3-scenario-analysis.mp3` - تحليل السيناريوهات
+- `bag2-ch2-s3b-activity-terms.mp3` - نشاط تفاعلي: صنّف مستوى الموقف
 - `bag2-ch2-s4-raci.mp3` - حوكمة الاستجابة ومصفوفة RACI
+- `bag2-ch2-s5b-activity-raci.mp3` - نشاط تفاعلي: طبّق RACI
 - `bag2-ch2-s5-ooda.mp3` - اتخاذ القرار تحت الضغط
 - `bag2-ch2-s6-leadership.mp3` - القيادة أثناء الأزمات
 - `bag2-ch2-s7-escalation.mp3` - معايير التصعيد وتفعيل القيادة الطارئة
 - `bag2-ch2-s8-cerc-phases.mp3` - التواصل والمشاركة المجتمعية — نموذج CERC
 - `bag2-ch2-s9-media-trust.mp3` - إدارة الرسائل الإعلامية وبناء الثقة
+- `bag2-ch2-s9b-activity-cerc.mp3` - نشاط تفاعلي: رسالة CERC
 - `bag2-ch2-s10-case-study.mp3` - دراسة حالة: الثقة المجتمعية خلال جائحة كورونا
 - `bag2-ch2-s11-lessons.mp3` - الدروس المستفادة للمملكة العربية السعودية
 - `bag2-ch2-s12-quiz.mp3` - اختبار الفصل الثاني
@@ -87,6 +90,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch3-s2-scanning-intro.mp3` - أهمية المسح الاستباقي
 - `bag2-ch3-s3-horizontal-scanning.mp3` - المسح الأفقي
 - `bag2-ch3-s4-vertical-scanning.mp3` - المسح الرأسي
+- `bag2-ch3-s4b-activity-scan.mp3` - نشاط تفاعلي: أفقي أم رأسي؟
 - `bag2-ch3-s5-regulatory-foresight.mp3` - استشراف المخاطر التنظيمية
 - `bag2-ch3-s6-regulatory-tools.mp3` - أدوات وتقنيات استشراف المخاطر التنظيمية
 - `bag2-ch3-s7-multi-hazard-concepts.mp3` - تقييم المخاطر متعددة الأخطار — المفاهيم الأساسية
@@ -95,7 +99,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch3-s10-surveillance-intro.mp3` - الترصد ودمج الإنذار المبكر
 - `bag2-ch3-s11-indicators.mp3` - تصميم مؤشرات الإنذار المبكر
 - `bag2-ch3-s12-surveillance-systems.mp3` - أنظمة الترصد المبكر للأخطار
+- `bag2-ch3-s11b-activity-indicators.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار
 - `bag2-ch3-s13-thresholds.mp3` - ربط الترصد بالقرار
+- `bag2-ch3-s14b-activity-thresholds.mp3` - نشاط تفاعلي: من العتبة إلى القرار
 - `bag2-ch3-s14-integration.mp3` - دمج الترصد والإنذار بخطط الاستجابة
 - `bag2-ch3-s15-quiz.mp3` - اختبار الفصل الثالث
 - `bag2-ch3-s16-closing.mp3` - ختام الفصل الثالث
@@ -104,15 +110,18 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s2-supply-chain-intro.mp3` - اللوجستيات ومرونة سلسلة التوريد
 - `bag2-ch4-s3-supply-chain-strategies.mp3` - استراتيجيات بناء المرونة
 - `bag2-ch4-s4-inventory-management.mp3` - إدارة المخزون أثناء الطوارئ
+- `bag2-ch4-s4b-activity-inventory.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ
 - `bag2-ch4-s5-inventory-governance.mp3` - حوكمة المخزون الاحتياطي
 - `bag2-ch4-s6-aar-intro.mp3` - مراجعات ما بعد الحدث
 - `bag2-ch4-s7-aar-phases.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث
+- `bag2-ch4-s7b-activity-aar.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة
 - `bag2-ch4-s8-aar-success-factors.mp3` - عوامل نجاح مراجعة ما بعد الحدث
 - `bag2-ch4-s9-improvement-plans.mp3` - خطط التحسين المستمر
 - `bag2-ch4-s10-kpi-categories.mp3` - إدارة وقياس مؤشرات الأداء
 - `bag2-ch4-s11-kpi-design.mp3` - خطوات تصميم وقياس مؤشر الأداء
 - `bag2-ch4-s12-stakeholders.mp3` - تحديد أصحاب المصلحة
 - `bag2-ch4-s13-power-interest.mp3` - مصفوفة القوة والاهتمام
+- `bag2-ch4-s15b-activity-stakeholders.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة
 - `bag2-ch4-s14-crisis-comm.mp3` - استراتيجيات التواصل الفعال
 - `bag2-ch4-s15-trust-building.mp3` - بناء الثقة والتأثير
 - `bag2-ch4-s16-closing-workshops.mp3` - ورش العمل الختامية
@@ -140,6 +149,15 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s14b-activity-6-followup-detail-1.mp3` - نشاط: تطبيق إضافي على ICS و EOC - مناقشة 1
 - `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: المعلومات والموارد والسياسات - مناقشة 1
 - `bag2-ch1-s18b-activity-7-followup-detail-1.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - مناقشة 1
+- `bag2-ch2-s3b-activity-terms-detail-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - مناقشة 1
+- `bag2-ch2-s5b-activity-raci-detail-1.mp3` - نشاط تفاعلي: طبّق RACI - مناقشة 1
+- `bag2-ch2-s9b-activity-cerc-detail-1.mp3` - نشاط تفاعلي: رسالة CERC - مناقشة 1
+- `bag2-ch3-s4b-activity-scan-detail-1.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - مناقشة 1
+- `bag2-ch3-s11b-activity-indicators-detail-1.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - مناقشة 1
+- `bag2-ch3-s14b-activity-thresholds-detail-1.mp3` - نشاط تفاعلي: من العتبة إلى القرار - مناقشة 1
+- `bag2-ch4-s4b-activity-inventory-detail-1.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - مناقشة 1
+- `bag2-ch4-s7b-activity-aar-detail-1.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - مناقشة 1
+- `bag2-ch4-s15b-activity-stakeholders-detail-1.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - مناقشة 1
 - `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
@@ -269,19 +287,53 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s7-aar-phases-check-answer.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - إجابة السؤال التفاعلي
 - `bag2-ch4-s10-kpi-categories-check-ask.mp3` - إدارة وقياس مؤشرات الأداء - سؤال تفاعلي
 - `bag2-ch4-s10-kpi-categories-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي
-- `bag2-ch1-s8-activity-5-identify-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 2 - إجابة صحيحة
-- `bag2-ch1-s8-activity-5-identify-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 2 - إجابة غير صحيحة
-- `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 1 - مسار صحيح
-- `bag2-ch1-s8-activity-5-path-incorrect.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 1 - مسار غير صحيح
-- `bag2-ch1-s14-activity-6-item-i1.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i1
-- `bag2-ch1-s14-activity-6-item-i2.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i2
-- `bag2-ch1-s14-activity-6-item-i3.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i3
-- `bag2-ch1-s14-activity-6-item-i4.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 1 - i4
-- `bag2-ch1-s14-activity-6-item-i5.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 1 - i5
-- `bag2-ch1-s14-activity-6-item-i6.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 1 - i6
-- `bag2-ch1-s18-activity-7-card-c1.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c1
-- `bag2-ch1-s18-activity-7-card-c2.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c2
-- `bag2-ch1-s18-activity-7-card-c3.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c3
-- `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 1 - c4
-- `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 1 - c5
-- `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 1 - c6
+- `bag2-ch1-s8-activity-5-identify-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - إجابة صحيحة
+- `bag2-ch1-s8-activity-5-identify-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - إجابة غير صحيحة
+- `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch1-s8-activity-5-path-incorrect.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch1-s14-activity-6-item-i1.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i1
+- `bag2-ch1-s14-activity-6-item-i2.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i2
+- `bag2-ch1-s14-activity-6-item-i3.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i3
+- `bag2-ch1-s14-activity-6-item-i4.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 2 - i4
+- `bag2-ch1-s14-activity-6-item-i5.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 2 - i5
+- `bag2-ch1-s14-activity-6-item-i6.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 2 - i6
+- `bag2-ch1-s18-activity-7-card-c1.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c1
+- `bag2-ch1-s18-activity-7-card-c2.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c2
+- `bag2-ch1-s18-activity-7-card-c3.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c3
+- `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c4
+- `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c5
+- `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c6
+- `bag2-ch2-s3b-activity-terms-card-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-1
+- `bag2-ch2-s3b-activity-terms-card-2.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-2
+- `bag2-ch2-s3b-activity-terms-card-3.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-3
+- `bag2-ch2-s3b-activity-terms-card-4.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-4
+- `bag2-ch2-s5b-activity-raci-identify-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch2-s5b-activity-raci-identify-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch2-s5b-activity-raci-path-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch2-s5b-activity-raci-path-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch2-s9b-activity-cerc-card-1.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-1
+- `bag2-ch2-s9b-activity-cerc-card-2.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-2
+- `bag2-ch2-s9b-activity-cerc-card-3.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-3
+- `bag2-ch3-s4b-activity-scan-card-1.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-1
+- `bag2-ch3-s4b-activity-scan-card-2.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-2
+- `bag2-ch3-s4b-activity-scan-card-3.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-3
+- `bag2-ch3-s4b-activity-scan-card-4.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-4
+- `bag2-ch3-s11b-activity-indicator-card-1.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - نشاط تفاعلي 2 - indicator-1
+- `bag2-ch3-s11b-activity-indicator-card-2.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - نشاط تفاعلي 2 - indicator-2
+- `bag2-ch3-s11b-activity-indicator-card-3.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - نشاط تفاعلي 2 - indicator-3
+- `bag2-ch3-s14b-activity-threshold-identify-correct.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch3-s14b-activity-threshold-identify-incorrect.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch3-s14b-activity-threshold-path-correct.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch3-s14b-activity-threshold-path-incorrect.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch4-s4b-activity-inventory-card-1.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-1
+- `bag2-ch4-s4b-activity-inventory-card-2.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-2
+- `bag2-ch4-s4b-activity-inventory-card-3.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-3
+- `bag2-ch4-s4b-activity-inventory-card-4.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-4
+- `bag2-ch4-s7b-activity-aar-card-1.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-1
+- `bag2-ch4-s7b-activity-aar-card-2.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-2
+- `bag2-ch4-s7b-activity-aar-card-3.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-3
+- `bag2-ch4-s7b-activity-aar-card-4.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-4
+- `bag2-ch4-s15b-activity-stakeholder-identify-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch4-s15b-activity-stakeholder-identify-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch4-s15b-activity-stakeholder-path-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch4-s15b-activity-stakeholder-path-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار غير صحيح
