@@ -1159,18 +1159,6 @@ const oodaCards: PptCard[] = [
   { index: '04', title: 'Act نفّذ', text: 'قم بتنفيذ القرار بسرعة.' },
 ];
 
-const oodaPressureCards: PptCard[] = [
-  {
-    title: 'التردد المفرط',
-    text: 'تعطّل القرار عندما يطول التحليل أكثر من اللازم.',
-  },
-  {
-    title: 'القرارات المتسرعة',
-    text: 'استجابة سريعة بلا تقييم كافٍ قد تزيد أثر الأزمة.',
-    tone: 'gold',
-  },
-];
-
 const leadershipTraitsCards: PptCard[] = [
   { title: 'الهدوء الظاهر' },
   { title: 'الوضوح في التواصل' },
@@ -1516,11 +1504,12 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'مصفوفة RACI', text: 'الفوضى هي العدو الأول في الأزمات، والحوكمة الفعالة تعني هيكل قيادة واضح وأدوار محددة.', tone: 'gold' }],
     laterActs: [
+      [{ title: 'هيكل قيادة واضح', text: 'الحوكمة الفعالة تعني وجود هيكل قيادة واضح وأدوار ومسؤوليات محددة قبل ضغط الأزمة.', tone: 'gold' }],
       raciCards,
       [{ title: 'تفشي تسمم غذائي', text: 'مدير المستشفى مساءَل، رئيس الطوارئ مسؤول عن التنفيذ، فريق مكافحة العدوى يُستشار، ومدير التواصل يُعلَم.', tone: 'gold' }],
       [{ title: 'إصدار البيان الإعلامي الأولي', text: 'مدير التواصل هو المسؤول عن التنفيذ، ورئيس الطوارئ يُعلَم فقط حسب نوع المهمة.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-activity-raci',
@@ -1563,8 +1552,13 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🎯',
     layout: 'pptTimeline',
     cards: [{ title: 'اتخاذ القرار تحت الضغط', text: 'ثاني محور: اتخاذ القرار تحت الضغط، والتغلب على شلل التحليل.', tone: 'gold' }],
-    laterActs: [[{ title: 'شلل التحليل', text: 'الضغط الشديد يدفع القائد إما للتردد المفرط أو لقرارات متسرعة.', tone: 'gold' }], oodaPressureCards, oodaCards],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    laterActs: [
+      [{ title: 'هرمونات التوتر', text: 'الأدرينالين والكورتيزول يحدّان من قدرة الدماغ على التفكير الهادئ وقت الضغط الشديد.', tone: 'gold' }],
+      [{ title: 'نمطين خطيرين', text: 'إما التردد المفرط وتعطّل القرار، أو قرارات سريعة ومتسرعة بدون تقييم كافٍ.', tone: 'gold' }],
+      [{ title: 'نموذج OODA Loop', text: 'للتغلب على هذا، نستخدم نموذج OODA Loop لتسريع التفكير دون فقدان جودة القرار.', tone: 'gold' }],
+      oodaCards,
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'وش أهم خطوة في نموذج OODA وليش؟',
@@ -1616,11 +1610,13 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'التواصل والمشاركة المجتمعية', text: 'عن طريق نموذج CERC — هدف التواصل وقت الأزمة ليس نقل المعلومة فقط، بل إدارة الخوف وتقليل عدم اليقين وحماية الثقة.', tone: 'gold' }],
     laterActs: [
+      [{ title: 'نموذج CERC', text: 'نموذج التواصل بالمخاطر وقت الأزمات والطوارئ، طورته مراكز مكافحة الأمراض الأمريكية CDC.', tone: 'gold' }],
+      [{ title: 'إدارة الخوف وحماية الثقة', text: 'الجمهور يتأثر نفسيًا قبل ما يتأثر عقلانيًا؛ لذلك نحتاج طمأنة ووضوحًا واستمرارية.', tone: 'gold' }],
       cercPhaseCards,
       cercMistakesCards,
       [{ title: 'تطبيق مبادئ CERC', text: 'سيناريو "تأكيد أول حالة وفاة بسبب التفشي الفيروسي الغامض" — اكتب تغريدة وبيانًا صحفيًا قصيرًا بمبادئ CERC.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-media-trust',
@@ -1662,8 +1658,12 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🌍',
     layout: 'pptTitleCards',
     cards: [{ title: 'الثقة المجتمعية والالتزام بالإجراءات الوقائية خلال جائحة كورونا', text: 'تقارن استجابات أربع دول على خمسة مؤشرات: الاستجابة، التواصل، الثقة، الالتزام، والنتائج الصحية.', tone: 'gold' }],
-    laterActs: [caseStudyCards.slice(0, 2), caseStudyCards.slice(2)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    laterActs: [
+      [{ title: 'خمسة مؤشرات للمقارنة', text: 'استراتيجية الاستجابة، استراتيجية التواصل، مستوى الثقة، مستوى الالتزام، والنتائج الصحية.', tone: 'gold' }],
+      caseStudyCards.slice(0, 2),
+      caseStudyCards.slice(2),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec2-lessons',
