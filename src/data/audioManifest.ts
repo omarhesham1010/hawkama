@@ -147,6 +147,8 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s14-activity-6-item-i5",
   "bag2-ch1-s14-activity-6-item-i6",
   "bag2-ch1-s14-activity-6",
+  "bag2-ch1-s14b-activity-6-followup-detail-1",
+  "bag2-ch1-s14b-activity-6-followup",
   "bag2-ch1-s15-info-flow",
   "bag2-ch1-s16-hr-logistics",
   "bag2-ch1-s17-operational-policies",
@@ -161,6 +163,8 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s18-activity-7-detail-3",
   "bag2-ch1-s18-activity-7-detail-4",
   "bag2-ch1-s18-activity-7",
+  "bag2-ch1-s18b-activity-7-followup-detail-1",
+  "bag2-ch1-s18b-activity-7-followup",
   "bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-correct",
   "bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-incorrect",
   "bag2-ch1-s19-quiz-feedback-bag2-ch1-q2-correct",
@@ -195,9 +199,11 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch1-s8-activity-5-path-correct",
   "bag2-ch1-s8-activity-5-path-incorrect",
   "bag2-ch1-s8-activity-5",
+  "bag2-ch1-s8b-activity-5-path-detail-1",
+  "bag2-ch1-s8b-activity-5-path",
   "bag2-ch1-s9-ics"
 ];
-export const AUDIO_MANIFEST_VERSION = '3060c2567ede';
+export const AUDIO_MANIFEST_VERSION = 'bd090a950c6f';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

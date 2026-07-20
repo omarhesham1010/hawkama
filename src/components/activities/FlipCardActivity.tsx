@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { FlipCardsData } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { IconBadge } from '../ui/IconBadge';
@@ -16,25 +16,33 @@ export function FlipCardActivity({
   const narration = useNarrationContext();
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const [seen, setSeen] = useState<Set<string>>(new Set());
+  const [voicePlaying, setVoicePlaying] = useState(false);
 
   const toggle = (id: string) => {
+    if (narration.isPlaying || voicePlaying) return;
     const card = data.cards.find((c) => c.id === id);
     const nowFlipped = !flipped[id];
+    const nextSeen = new Set(seen).add(id);
+    const allSeenAfter = nextSeen.size === data.cards.length;
     setFlipped((f) => ({ ...f, [id]: nowFlipped }));
-    setSeen((s) => new Set(s).add(id));
+    setSeen(nextSeen);
     // When revealing the back, have Nasser read it aloud with his own
     // pre-recorded voice instead of the shared narration track -- that
     // track is mid-pause on the slide's own narration while this
     // checkpoint is open, and playing through it here would tear that down.
-    if (nowFlipped && card) playVoiceClip(card.voiceKey);
+    if (nowFlipped && card) {
+      setVoicePlaying(true);
+      void playVoiceClip(card.voiceKey).finally(() => {
+        setVoicePlaying(false);
+        if (allSeenAfter) onDone();
+      });
+    } else if (allSeenAfter) {
+      onDone();
+    }
   };
 
   const seenCount = seen.size;
   const allSeen = seenCount === data.cards.length;
-
-  useEffect(() => {
-    if (allSeen) onDone();
-  }, [allSeen, onDone]);
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2">
@@ -45,10 +53,10 @@ export function FlipCardActivity({
             <button
               key={card.id}
               type="button"
-              disabled={narration.isPlaying}
+              disabled={narration.isPlaying || voicePlaying}
               onClick={() => toggle(card.id)}
               className={`group h-full w-full text-right [perspective:1200px] disabled:cursor-not-allowed disabled:opacity-70 ${
-                narration.isPlaying ? '' : 'animate-pulse-ring'
+                narration.isPlaying || voicePlaying ? '' : 'animate-pulse-ring'
               }`}
               aria-pressed={isFlipped}
             >

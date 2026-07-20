@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { ScenarioDecisionData } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { Chip } from '../ui/Chip';
@@ -31,6 +31,7 @@ export function DecisionSimulation({
   const [identify, setIdentify] = useState<string | null>(null);
   const [path, setPath] = useState<string[]>([]);
   const [pathChecked, setPathChecked] = useState(false);
+  const [voicePlaying, setVoicePlaying] = useState(false);
 
   const correctIds = useMemo(() => data.correctPath.map((s) => s.id), [data.correctPath]);
   const shuffledSteps = useMemo(() => shuffle(data.correctPath), [data.correctPath]);
@@ -40,12 +41,6 @@ export function DecisionSimulation({
 
   const showIdentify = mode !== 'path';
   const showPath = mode !== 'identify';
-  const done = (!showIdentify || Boolean(identify)) && (!showPath || (pathChecked && pathCorrect));
-
-  useEffect(() => {
-    if (done) onDone();
-  }, [done, onDone]);
-
   const stepLabel = (id: string) => data.correctPath.find((s) => s.id === id)?.label ?? '';
   const correctPathSummary = data.correctPath.map((s) => s.label).join('، ثم ');
 
@@ -79,13 +74,18 @@ export function DecisionSimulation({
                 <button
                   key={opt.id}
                   type="button"
-                  disabled={reveal || narrationLocked}
+                  disabled={reveal || narrationLocked || voicePlaying}
                   onClick={() => {
                     setIdentify(opt.id);
-                    playVoiceClip(opt.correct ? data.identify.correctVoiceKey : data.identify.incorrectVoiceKey);
+                    setVoicePlaying(true);
+                    void playVoiceClip(opt.correct ? data.identify.correctVoiceKey : data.identify.incorrectVoiceKey)
+                      .finally(() => {
+                        setVoicePlaying(false);
+                        if (!showPath) onDone();
+                      });
                   }}
                   className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors disabled:cursor-not-allowed ${
-                    !reveal && narrationLocked ? '!bg-white !text-ink-muted' : ''
+                    !reveal && (narrationLocked || voicePlaying) ? '!bg-white !text-ink-muted' : ''
                   } ${cls}`}
                 >
                   {opt.label}
@@ -162,7 +162,7 @@ export function DecisionSimulation({
                       {!pathChecked && (
                         <button
                           type="button"
-                          disabled={narrationLocked}
+                          disabled={narrationLocked || voicePlaying}
                           onClick={() => setPath((p) => p.filter((_, idx) => idx !== i))}
                           className="text-ink-muted hover:text-rose-500 disabled:cursor-not-allowed disabled:opacity-40"
                           aria-label="إزالة"
@@ -202,10 +202,10 @@ export function DecisionSimulation({
                 <button
                   key={s.id}
                   type="button"
-                  disabled={narrationLocked}
+                  disabled={narrationLocked || voicePlaying}
                   onClick={() => setPath((p) => [...p, s.id])}
                   className={`rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
-                    narrationLocked ? '' : 'animate-pulse-ring'
+                    narrationLocked || voicePlaying ? '' : 'animate-pulse-ring'
                   }`}
                 >
                   {s.label}
@@ -220,11 +220,16 @@ export function DecisionSimulation({
                 type="button"
                 onClick={() => {
                   setPathChecked(true);
-                  playVoiceClip(pathCorrect ? data.pathCorrectVoiceKey : data.pathIncorrectVoiceKey);
+                  setVoicePlaying(true);
+                  void playVoiceClip(pathCorrect ? data.pathCorrectVoiceKey : data.pathIncorrectVoiceKey)
+                    .finally(() => {
+                      setVoicePlaying(false);
+                      if (pathCorrect) onDone();
+                    });
                 }}
-                disabled={!pathFull || narrationLocked}
+                disabled={!pathFull || narrationLocked || voicePlaying}
                 className={`btn-primary px-5 py-2 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
-                  pathFull && !narrationLocked ? 'animate-pulse-ring' : ''
+                  pathFull && !narrationLocked && !voicePlaying ? 'animate-pulse-ring' : ''
                 }`}
               >
                 <Icon name="check" className="h-5 w-5" />
@@ -243,7 +248,7 @@ export function DecisionSimulation({
               <div className="flex justify-center">
                 <button
                   type="button"
-                  disabled={narrationLocked}
+                  disabled={narrationLocked || voicePlaying}
                   onClick={() => {
                     setPath([]);
                     setPathChecked(false);

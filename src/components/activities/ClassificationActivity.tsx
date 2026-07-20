@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { ClassificationActivityData } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { useCanvasScale } from '../../lib/canvasScale';
@@ -29,21 +29,17 @@ export function ClassificationActivity({
   const [delta, setDelta] = useState({ x: 0, y: 0 });
   const [over, setOver] = useState<Cat | null>(null);
   const [lastId, setLastId] = useState<string | null>(null);
+  const [voicePlaying, setVoicePlaying] = useState(false);
 
   const startRef = useRef({ x: 0, y: 0 });
   const zoneRefs = useRef<Record<Cat, HTMLDivElement | null>>({});
   const zoneIds = useMemo(() => data.categories.map((c) => c.id), [data.categories]);
 
   const pool = data.items.filter((it) => !assignment[it.id]);
-  const done = Object.keys(assignment).length === data.items.length;
   const correctCount = useMemo(
     () => data.items.reduce((a, it) => a + (assignment[it.id] === it.answer ? 1 : 0), 0),
     [assignment, data.items],
   );
-
-  useEffect(() => {
-    if (done) onDone();
-  }, [done, onDone]);
 
   const zoneAt = (x: number, y: number): Cat | null => {
     for (const cat of zoneIds) {
@@ -75,9 +71,15 @@ export function ClassificationActivity({
     if (!dragId) return;
     const cat = zoneAt(e.clientX, e.clientY);
     if (cat) {
+      const item = data.items.find((it) => it.id === dragId);
+      const willBeDone = Object.keys(assignment).length + 1 === data.items.length;
       setAssignment((a) => ({ ...a, [dragId]: cat }));
       setLastId(dragId);
-      playVoiceClip(data.items.find((it) => it.id === dragId)?.voiceKey);
+      setVoicePlaying(true);
+      void playVoiceClip(item?.voiceKey).finally(() => {
+        setVoicePlaying(false);
+        if (willBeDone) onDone();
+      });
     }
     setDragId(null);
     setOver(null);
@@ -159,7 +161,7 @@ export function ClassificationActivity({
                 }}
                 className={`relative flex max-w-[310px] cursor-grab select-none items-center gap-2 rounded-xl border-2 bg-surface px-3 py-2 text-base font-bold text-ink shadow-card active:cursor-grabbing ${
                   dragId === it.id ? 'border-brand' : 'border-line'
-                } ${narrationLocked ? 'pointer-events-none cursor-not-allowed !bg-white !text-ink-muted' : 'animate-pulse-ring'}`}
+                  } ${narrationLocked || voicePlaying ? 'pointer-events-none cursor-not-allowed !bg-white !text-ink-muted' : 'animate-pulse-ring'}`}
               >
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-surface-3 text-xs font-bold tabular">
                   {toArabicDigits(i + 1)}

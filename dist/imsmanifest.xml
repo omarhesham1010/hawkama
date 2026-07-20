@@ -32,11 +32,11 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-X774OY4I.js" />
-      <file href="assets/chunks/audioAlignments-UVCO67TN.js" />
-      <file href="assets/chunks/chunk-NFN4VBWD.js" />
+      <file href="assets/chunks/SlidePlayer-6IPR44QA.js" />
+      <file href="assets/chunks/audioAlignments-K7EPRIZN.js" />
+      <file href="assets/chunks/chunk-ISYALF7S.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
-      <file href="assets/index-4ea51596.js" />
+      <file href="assets/index-101dabd9.js" />
       <file href="assets/index-5503d773.css" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
@@ -258,6 +258,8 @@
       <file href="audio/bag2-ch1-s14-activity-6-item-i5.mp3" />
       <file href="audio/bag2-ch1-s14-activity-6-item-i6.mp3" />
       <file href="audio/bag2-ch1-s14-activity-6.mp3" />
+      <file href="audio/bag2-ch1-s14b-activity-6-followup-detail-1.mp3" />
+      <file href="audio/bag2-ch1-s14b-activity-6-followup.mp3" />
       <file href="audio/bag2-ch1-s15-info-flow.mp3" />
       <file href="audio/bag2-ch1-s16-hr-logistics.mp3" />
       <file href="audio/bag2-ch1-s17-operational-policies.mp3" />
@@ -272,6 +274,8 @@
       <file href="audio/bag2-ch1-s18-activity-7-detail-3.mp3" />
       <file href="audio/bag2-ch1-s18-activity-7-detail-4.mp3" />
       <file href="audio/bag2-ch1-s18-activity-7.mp3" />
+      <file href="audio/bag2-ch1-s18b-activity-7-followup-detail-1.mp3" />
+      <file href="audio/bag2-ch1-s18b-activity-7-followup.mp3" />
       <file href="audio/bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-correct.mp3" />
       <file href="audio/bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-incorrect.mp3" />
       <file href="audio/bag2-ch1-s19-quiz-feedback-bag2-ch1-q2-correct.mp3" />
@@ -306,6 +310,8 @@
       <file href="audio/bag2-ch1-s8-activity-5-path-correct.mp3" />
       <file href="audio/bag2-ch1-s8-activity-5-path-incorrect.mp3" />
       <file href="audio/bag2-ch1-s8-activity-5.mp3" />
+      <file href="audio/bag2-ch1-s8b-activity-5-path-detail-1.mp3" />
+      <file href="audio/bag2-ch1-s8b-activity-5-path.mp3" />
       <file href="audio/bag2-ch1-s9-ics.mp3" />
       <file href="avatar-assets/avatar-female.png" />
       <file href="avatar-assets/avatar-male.png" />

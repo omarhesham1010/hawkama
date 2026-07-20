@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **273**.
+Generated from `src/data/audioScripts.ts`. Total required: **279**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -53,16 +53,19 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s6-inter-agency-integration.mp3` - التكامل بين الجهات
 - `bag2-ch1-s7-business-continuity.mp3` - بناء وتكامل خطط استمرارية الأعمال
 - `bag2-ch1-s8-activity-5.mp3` - نشاط: أول قرار قيادي
+- `bag2-ch1-s8b-activity-5-path.mp3` - نشاط: ترتيب مسار الاستجابة
 - `bag2-ch1-s9-ics.mp3` - هيكل وتنظيم مركز القيادة أثناء الحوادث
 - `bag2-ch1-s10-eoc.mp3` - أدوار ومسؤوليات مركز عمليات الطوارئ
 - `bag2-ch1-s11-eoc-design.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية
 - `bag2-ch1-s12-coordination.mp3` - التنسيق أثناء الطوارئ
 - `bag2-ch1-s13-impact-modeling.mp3` - نمذجة تحليل الأثر واستمرارية الأعمال
 - `bag2-ch1-s14-activity-6.mp3` - نشاط: ICS أو EOC
+- `bag2-ch1-s14b-activity-6-followup.mp3` - نشاط: تطبيق إضافي على ICS و EOC
 - `bag2-ch1-s15-info-flow.mp3` - إدارة تدفق المعلومات
 - `bag2-ch1-s16-hr-logistics.mp3` - تنسيق الموارد البشرية واللوجستية
 - `bag2-ch1-s17-operational-policies.mp3` - تفعيل السياسات التشغيلية للطوارئ والسلامة
 - `bag2-ch1-s18-activity-7.mp3` - نشاط: المعلومات والموارد والسياسات
+- `bag2-ch1-s18b-activity-7-followup.mp3` - نشاط: تكامل المعلومة والمورد والسياسة
 - `bag2-ch1-s19-quiz.mp3` - اختبار الفصل الأول
 - `bag2-ch1-s20-closing.mp3` - ختام الفصل الأول
 - `bag2-ch2-s1-welcome.mp3` - إدارة الأزمات الصحية
@@ -132,8 +135,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s6-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
 - `bag1-ch3-s6-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
 - `bag2-ch1-s8-activity-5-detail-1.mp3` - نشاط: أول قرار قيادي - مناقشة 1
+- `bag2-ch1-s8b-activity-5-path-detail-1.mp3` - نشاط: ترتيب مسار الاستجابة - مناقشة 1
 - `bag2-ch1-s14-activity-6-detail-1.mp3` - نشاط: ICS أو EOC - مناقشة 1
+- `bag2-ch1-s14b-activity-6-followup-detail-1.mp3` - نشاط: تطبيق إضافي على ICS و EOC - مناقشة 1
 - `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: المعلومات والموارد والسياسات - مناقشة 1
+- `bag2-ch1-s18b-activity-7-followup-detail-1.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - مناقشة 1
 - `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
@@ -265,17 +271,17 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s10-kpi-categories-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي
 - `bag2-ch1-s8-activity-5-identify-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 2 - إجابة صحيحة
 - `bag2-ch1-s8-activity-5-identify-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 2 - إجابة غير صحيحة
-- `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - مسار صحيح
-- `bag2-ch1-s8-activity-5-path-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - مسار غير صحيح
+- `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 1 - مسار صحيح
+- `bag2-ch1-s8-activity-5-path-incorrect.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 1 - مسار غير صحيح
 - `bag2-ch1-s14-activity-6-item-i1.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i1
 - `bag2-ch1-s14-activity-6-item-i2.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i2
 - `bag2-ch1-s14-activity-6-item-i3.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 2 - i3
-- `bag2-ch1-s14-activity-6-item-i4.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i4
-- `bag2-ch1-s14-activity-6-item-i5.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i5
-- `bag2-ch1-s14-activity-6-item-i6.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i6
+- `bag2-ch1-s14-activity-6-item-i4.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 1 - i4
+- `bag2-ch1-s14-activity-6-item-i5.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 1 - i5
+- `bag2-ch1-s14-activity-6-item-i6.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 1 - i6
 - `bag2-ch1-s18-activity-7-card-c1.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c1
 - `bag2-ch1-s18-activity-7-card-c2.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c2
 - `bag2-ch1-s18-activity-7-card-c3.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 2 - c3
-- `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c4
-- `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c5
-- `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c6
+- `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 1 - c4
+- `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 1 - c5
+- `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 1 - c6
