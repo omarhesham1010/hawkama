@@ -146,12 +146,15 @@ function cleanedPositionMap(text: string) {
 }
 
 function findTitleOffset(cueText: string, cueStart: number, card: PptCard): number | null {
+  const syncText = cleanText(card.syncText ?? '');
   const title = cleanText(card.title);
-  if (!title) return null;
+  const target = syncText || title;
+  if (!target) return null;
   const { cleaned, positions } = cleanedPositionMap(cueText);
-  const firstWord = title.split(' ')[0] ?? '';
+  const firstWord = target.split(' ')[0] ?? '';
   const fallbackIdx = firstWord.length > 2 ? cleaned.indexOf(firstWord) : -1;
-  const idx = cleaned.indexOf(title) >= 0 ? cleaned.indexOf(title) : fallbackIdx;
+  const exactIdx = cleaned.indexOf(target);
+  const idx = exactIdx >= 0 ? exactIdx : fallbackIdx;
   if (idx < 0) return null;
   return cueStart + (positions[idx] ?? 0);
 }
