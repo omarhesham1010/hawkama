@@ -2061,7 +2061,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🧭',
     layout: 'pptTimeline',
     cards: [{ title: 'عملية منهجية ومنظمة لجمع وتحليل المعلومات', text: 'من البيئة الداخلية والخارجية للمنظمة، لتحديد الاتجاهات والتهديدات والفرص المستقبلية.', tone: 'gold' }],
-    laterActs: [scanningImportanceCards.map((card) => ({ ...card, syncText: 'خمسة أهداف استراتيجية' }))],
+    laterActs: [scanningImportanceCards.map((card) => ({ ...card, syncText: card.title }))],
     actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
@@ -2189,8 +2189,8 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'منهجية التقييم الشامل تمر بأربع خطوات منظمة', text: 'خطوات لتقييم شامل للمخاطر متعددة الأخطار.', tone: 'gold' }],
     laterActs: [
-      multiHazardMethodologyCards.map((card) => ({ ...card, syncText: 'بأربع خطوات منظمة' })),
-      hazardCategoriesExampleCards.map((card) => ({ ...card, syncText: 'أربع فئات تطبيقية' })),
+      multiHazardMethodologyCards.map((card) => ({ ...card, syncText: card.title })),
+      hazardCategoriesExampleCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'سؤال تطبيقي: ترابط الأخطار', text: 'مدينة ساحلية معرضة للأعاصير والفيضانات — ما الخطر الأول؟ ما الخطر المتتالي؟ أين الهشاشة؟ وما إجراء التخفيف المتكامل؟', tone: 'gold', syncText: 'نطبّق المنهجية مباشرة بسؤال داخل العرض' }],
     ],
     actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptMatrix', 'pptSpotlight'],
@@ -2217,7 +2217,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'المستقبل مو مسار واحد محدد', text: 'بل مجموعة احتمالات — نفكر في "المستقبلات الممكنة" ونستعد لها.', tone: 'gold' }],
     laterActs: [
-      scenarioPlanningStepsCards.map((card) => ({ ...card, syncText: 'ست خطوات موضحة أمامك' })),
+      scenarioPlanningStepsCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'سؤال تطبيقي: جائحة X', text: 'كيف نستعد لجائحة X بعد خمس سنوات؟ اختر قوتين دافعتين، وحالة عدم يقين حرجة، وقرارًا يحافظ على الجاهزية عبر أكثر من سيناريو.', tone: 'gold', syncText: 'سؤال تطبيقي داخل العرض' }],
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
@@ -2234,7 +2234,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '📡',
     layout: 'pptMatrix',
     cards: [{ title: 'الترصد ودمج الإنذار المبكر', text: 'من التلسكوب إلى الرادار — من الرصد السلبي للترصد الاستباقي.', tone: 'gold' }],
-    laterActs: [surveillanceImportanceCards.map((card) => ({ ...card, syncText: 'أهميته أربعة أشياء' }))],
+    laterActs: [surveillanceImportanceCards.map((card) => ({ ...card, syncText: card.title }))],
     actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
@@ -2252,8 +2252,8 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'حساسات دقيقة', text: 'متغيرات قابلة للقياس تشير لاحتمال وقوع خطر عند وصولها لعتبة معينة.', tone: 'gold' }],
     laterActs: [
-      smartErCriteriaCards.map((card) => ({ ...card, syncText: 'خصائص المؤشرات الفعالة' })),
-      indicatorTypesCards.map((card) => ({ ...card, syncText: 'أربع طرق موضحة أمامك' })),
+      smartErCriteriaCards.map((card) => ({ ...card, syncText: card.title })),
+      indicatorTypesCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'تمرين عملي (٢٠ دقيقة)', text: 'سيناريو موسم صيف بمكة المكرمة وقت المعتمرين مع خطر الإجهاد الحراري — صمم ثلاثة مؤشرات إنذار مبكر: استباقي، وكمي، ونوعي.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
@@ -2338,7 +2338,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     activityLabel: 'ترتيب مسار العتبة',
     activityMode: 'path',
     cards: [{ title: 'من الإشارة إلى الإجراء', text: 'الترصد الناجح يربط العتبة بخطوات تشغيلية محددة.', tone: 'gold' }],
-    laterActs: [[{ title: 'رتّب الخطوات', text: 'اضغط خطوات التعامل مع العتبة بالترتيب الصحيح.', tone: 'gold' }]],
+    laterActs: [[{ title: 'رتّب الخطوات', text: 'اضغط خطوات التعامل مع العتبة بالترتيب الصحيح.', tone: 'gold', syncText: 'بعد اختيار القرار' }]],
     actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [undefined, { mode: 'path', activity: chapterThreeThresholdDecision }],
   }),
@@ -2356,7 +2356,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'دمج الترصد والإنذار بخطط الاستجابة', text: 'يعني إن ما يكونان كيانين منفصلين — الدمج الفعّال يضمن استجابة تلقائية ومنهجية ومبنية على أدلة الترصد.', tone: 'gold' }],
     laterActs: [
-      integrationMechanismsCards.map((card) => ({ ...card, syncText: 'آليات الدمج أربعة' })),
+      integrationMechanismsCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'جلسة نقاش تفاعلية (١٥ دقيقة)', text: 'أكبر فجوة بين الترصد والاستجابة؟ كيف نستخدم التقنيات الحديثة لتحسين الربط؟ وش التحديات الثقافية أو التنظيمية اللي تعيقه؟', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
@@ -2760,7 +2760,7 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🚚',
     layout: 'pptSpotlight',
     cards: [{ title: 'بناء المرونة', text: 'أربع استراتيجيات، كل واحدة بمثال تطبيقي.', tone: 'gold' }],
-    laterActs: [supplyChainStrategiesCards.map((card) => ({ ...card, syncText: 'أربع استراتيجيات' }))],
+    laterActs: [supplyChainStrategiesCards.map((card) => ({ ...card, syncText: card.title }))],
     actLayouts: ['pptSpotlight', 'pptTitleCards'],
     checks: [
       quickCheck({
@@ -2819,7 +2819,7 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '🏭',
     layout: 'pptMatrix',
-    cards: inventoryGovernanceCards.map((card) => ({ ...card, syncText: 'أربعة عناصر' })),
+    cards: inventoryGovernanceCards.map((card) => ({ ...card, syncText: card.title })),
     laterActs: [
       [{ title: 'نوبكو', text: 'الشركة السعودية للشراء الموحد تلعب دورًا محوريًا بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات، وتوفر طبقة أمان إضافية للنظام الصحي.', tone: 'gold' }],
     ],
@@ -2856,7 +2856,7 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🗓️',
     layout: 'pptTimeline',
     cards: [{ title: 'دليل منظمة الصحة العالمية', text: 'ثلاث مراحل منظمة لمراجعة ما بعد الحدث.', tone: 'gold' }],
-    laterActs: [aarPhasesCards.map((card) => ({ ...card, syncText: 'ثلاث مراحل' }))],
+    laterActs: [aarPhasesCards.map((card) => ({ ...card, syncText: card.title }))],
     actLayouts: ['pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
@@ -2894,7 +2894,7 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '✅',
     layout: 'pptTimeline',
-    cards: aarSuccessFactorsCards.map((card) => ({ ...card, syncText: 'خمسة موضحة أمامك' })),
+    cards: aarSuccessFactorsCards.map((card) => ({ ...card, syncText: card.title })),
     actLayouts: ['pptTitleCards'],
   }),
   makeSlide({
@@ -2951,10 +2951,10 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '🧮',
     layout: 'pptTimeline',
-    cards: kpiDesignCardsPart1.map((card) => ({ ...card, syncText: 'ثمان خطوات موضحة أمامك' })),
+    cards: kpiDesignCardsPart1.map((card) => ({ ...card, syncText: card.title })),
     laterActs: [
-      kpiDesignCardsPart2.map((card) => ({ ...card, syncText: 'ثمان خطوات موضحة أمامك' })),
-      dashboardTraitsCards.map((card) => ({ ...card, syncText: 'أربع خصائص' })),
+      kpiDesignCardsPart2.map((card) => ({ ...card, syncText: card.title })),
+      dashboardTraitsCards.map((card) => ({ ...card, syncText: card.title })),
     ],
     actLayouts: ['pptTimeline', 'pptTimeline', 'pptMatrix'],
   }),
@@ -2999,7 +2999,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityLabel: 'قرار أصحاب المصلحة',
     activityMode: 'identify',
     cards: [{ title: 'من نُديره عن قرب؟', text: 'القوة العالية مع الاهتمام العالي تعني شراكة لصيقة ومتابعة مستمرة.', tone: 'gold' }],
-    laterActs: [[{ title: 'اختر الفئة', text: 'حدد صاحب المصلحة الذي يحتاج إدارة لصيقة حسب مصفوفة القوة والاهتمام.', tone: 'gold' }]],
+    laterActs: [[{ title: 'اختر الفئة', text: 'حدد صاحب المصلحة الذي يحتاج إدارة لصيقة حسب مصفوفة القوة والاهتمام.', tone: 'gold', syncText: 'لازم نحدد من يحتاج إدارة عن قرب' }]],
     actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [undefined, { mode: 'identify', activity: chapterFourStakeholderDecision }],
   }),
@@ -3033,8 +3033,8 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ونعود لمحور التواصل الفعال', text: 'مكمّل لما أخذناه بالفصل الثاني، بستة مبادئ من مركز مكافحة الأمراض الأمريكي CDC.', tone: 'gold' }],
     laterActs: [
-      cdcPrinciplesCards.map((card) => ({ ...card, syncText: 'المبادئ الستة' })),
-      commChannelsCards.map((card) => ({ ...card, syncText: 'قنوات التواصل' })),
+      cdcPrinciplesCards.map((card) => ({ ...card, syncText: card.title })),
+      commChannelsCards.map((card) => ({ ...card, syncText: card.title })),
     ],
     actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
   }),
@@ -3075,7 +3075,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityLabel: 'تطبيقات ختامية تفاعلية',
     cards: [{ title: 'تطبيقات داخل العرض', text: 'مراجعة عملية لمحاور الفصل الرابع: الإمداد، AAR، المؤشرات، وأصحاب المصلحة.', tone: 'gold' }],
     laterActs: [
-      closingApplicationCards.map((card) => ({ ...card, syncText: 'سؤال قرار سريع' })),
+      closingApplicationCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'جاوب بعقلية قائد طوارئ', text: 'راجع أهم أفكار الفصل الرابع بلعبة صواب أو خطأ سريعة.', tone: 'gold' }],
     ],
     activity: {
