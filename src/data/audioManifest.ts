@@ -356,7 +356,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch4-s8-aar-success-factors",
   "bag2-ch4-s9-improvement-plans"
 ];
-export const AUDIO_MANIFEST_VERSION = 'fac161ffd68d';
+export const AUDIO_MANIFEST_VERSION = '1e2446219ac6';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
