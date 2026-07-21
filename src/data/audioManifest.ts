@@ -316,8 +316,8 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch4-s15b-activity-stakeholders",
   "bag2-ch4-s15c-activity-stakeholders-path-detail-1",
   "bag2-ch4-s15c-activity-stakeholders-path",
-  "bag2-ch4-s16-closing-workshops-detail-1",
-  "bag2-ch4-s16-closing-workshops",
+  "bag2-ch4-s16-closing-applications-detail-1",
+  "bag2-ch4-s16-closing-applications",
   "bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-correct",
   "bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-incorrect",
   "bag2-ch4-s17-quiz-feedback-bag2-ch4-q2-correct",
@@ -356,7 +356,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch4-s8-aar-success-factors",
   "bag2-ch4-s9-improvement-plans"
 ];
-export const AUDIO_MANIFEST_VERSION = '2a4c77f25d84';
+export const AUDIO_MANIFEST_VERSION = '406c7eb21258';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

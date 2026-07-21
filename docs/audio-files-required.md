@@ -127,7 +127,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15c-activity-stakeholders-path.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة
 - `bag2-ch4-s14-crisis-comm.mp3` - استراتيجيات التواصل الفعال
 - `bag2-ch4-s15-trust-building.mp3` - بناء الثقة والتأثير
-- `bag2-ch4-s16-closing-workshops.mp3` - ورش العمل الختامية
+- `bag2-ch4-s16-closing-applications.mp3` - تطبيقات ختامية تفاعلية
 - `bag2-ch4-s17-quiz.mp3` - اختبار الفصل الرابع
 - `bag2-ch4-s18-closing.mp3` - ختام الفصل الرابع والحقيبة
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
@@ -164,7 +164,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s7b-activity-aar-detail-1.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - مناقشة 1
 - `bag2-ch4-s15b-activity-stakeholders-detail-1.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - مناقشة 1
 - `bag2-ch4-s15c-activity-stakeholders-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة - مناقشة 1
-- `bag2-ch4-s16-closing-workshops-detail-1.mp3` - ورش العمل الختامية - مناقشة 1
+- `bag2-ch4-s16-closing-applications-detail-1.mp3` - تطبيقات ختامية تفاعلية - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4

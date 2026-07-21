@@ -32,12 +32,12 @@
 
   <resources>
     <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
-      <file href="assets/chunks/SlidePlayer-JHJG3SXN.js" />
-      <file href="assets/chunks/audioAlignments-QXQKGRXQ.js" />
-      <file href="assets/chunks/chunk-W6GG6CSK.js" />
+      <file href="assets/chunks/SlidePlayer-UJJN5773.js" />
+      <file href="assets/chunks/audioAlignments-XFTCSQRG.js" />
+      <file href="assets/chunks/chunk-3GGQ2G7S.js" />
       <file href="assets/chunks/chunk-Y6SLVHK3.js" />
+      <file href="assets/index-328577ff.js" />
       <file href="assets/index-d1de4966.css" />
-      <file href="assets/index-ed721ba5.js" />
       <file href="assets/manifest.json" />
       <file href="assets/preview.html" />
       <file href="assets/visual-library/audit-controls.webp" />
@@ -427,8 +427,8 @@
       <file href="audio/bag2-ch4-s15b-activity-stakeholders.mp3" />
       <file href="audio/bag2-ch4-s15c-activity-stakeholders-path-detail-1.mp3" />
       <file href="audio/bag2-ch4-s15c-activity-stakeholders-path.mp3" />
-      <file href="audio/bag2-ch4-s16-closing-workshops-detail-1.mp3" />
-      <file href="audio/bag2-ch4-s16-closing-workshops.mp3" />
+      <file href="audio/bag2-ch4-s16-closing-applications-detail-1.mp3" />
+      <file href="audio/bag2-ch4-s16-closing-applications.mp3" />
       <file href="audio/bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-correct.mp3" />
       <file href="audio/bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-incorrect.mp3" />
       <file href="audio/bag2-ch4-s17-quiz-feedback-bag2-ch4-q2-correct.mp3" />
