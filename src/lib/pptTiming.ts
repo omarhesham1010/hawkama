@@ -191,12 +191,43 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
     const found = cardIndexes.map((cardIndex) => ({
       cardIndex,
       pos: findTitleOffset(cue.text, cue.start, cards[cardIndex]),
+      syncText: cleanText(cards[cardIndex].syncText ?? ''),
     }));
-    found.sort((a, b) => (a.pos ?? Infinity) - (b.pos ?? Infinity));
-    const span = Math.max(found.length, cue.end - cue.start);
+    if (found.every((entry) => entry.pos == null)) {
+      found.forEach((entry) => {
+        offsets[entry.cardIndex] = cue.start;
+      });
+      continue;
+    }
+    const positioned = found.map((entry) => entry.pos).filter((pos): pos is number => pos != null);
+    if (positioned.length === found.length && new Set(positioned).size === 1) {
+      found.forEach((entry) => {
+        offsets[entry.cardIndex] = positioned[0];
+      });
+      continue;
+    }
+    const syncGroups = new Map<string, typeof found>();
+    found.forEach((entry) => {
+      if (!entry.syncText || entry.pos == null) return;
+      if (!syncGroups.has(entry.syncText)) syncGroups.set(entry.syncText, []);
+      syncGroups.get(entry.syncText)!.push(entry);
+    });
+    const groupedIndexes = new Set<number>();
+    for (const group of syncGroups.values()) {
+      if (group.length <= 1) continue;
+      const groupPos = Math.min(...group.map((entry) => entry.pos!));
+      group.forEach((entry) => {
+        offsets[entry.cardIndex] = groupPos;
+        groupedIndexes.add(entry.cardIndex);
+      });
+    }
+    if (groupedIndexes.size === found.length) continue;
+    const remaining = found.filter((entry) => !groupedIndexes.has(entry.cardIndex));
+    remaining.sort((a, b) => (a.pos ?? Infinity) - (b.pos ?? Infinity));
+    const span = Math.max(remaining.length, cue.end - cue.start);
     let cursor = cue.start;
-    found.forEach((entry, order) => {
-      const fallback = cue.start + Math.floor((span * order) / found.length);
+    remaining.forEach((entry, order) => {
+      const fallback = cue.start + Math.floor((span * order) / remaining.length);
       const pos = Math.max(cursor, entry.pos ?? fallback);
       offsets[entry.cardIndex] = pos;
       cursor = pos + 1; // strictly increasing, so ties still separate in order
@@ -212,7 +243,7 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
   // rare mismatched card forward to sit with its neighbors, never changes
   // a correctly-ordered sequence.
   for (let i = 1; i < offsets.length; i += 1) {
-    if (offsets[i] <= offsets[i - 1]) offsets[i] = offsets[i - 1] + 1;
+    if (offsets[i] < offsets[i - 1]) offsets[i] = offsets[i - 1];
   }
   if (offsets.length) offsets[0] = 0;
 

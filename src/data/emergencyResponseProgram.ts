@@ -2049,6 +2049,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'عملية منهجية ومنظمة لجمع وتحليل المعلومات', text: 'من البيئة الداخلية والخارجية للمنظمة، لتحديد الاتجاهات والتهديدات والفرص المستقبلية.', tone: 'gold' }],
     laterActs: [scanningImportanceCards.map((card) => ({ ...card, syncText: 'خمسة أهداف استراتيجية' }))],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec3-horizontal-scanning',
@@ -2140,6 +2141,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'ما وراء الخطر الواحد', text: 'الكوارث نادرًا ما تحدث بمعزل عن بعضها البعض.', tone: 'gold' }],
     laterActs: [multiHazardConceptsCards],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ec3-multi-hazard-methodology',
@@ -2151,7 +2153,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'منهجية التقييم الشامل تمر بأربع خطوات منظمة', text: 'خطوات لتقييم شامل للمخاطر متعددة الأخطار.', tone: 'gold' }],
     laterActs: [
-      multiHazardMethodologyCards,
+      multiHazardMethodologyCards.map((card) => ({ ...card, syncText: 'بأربع خطوات منظمة' })),
       hazardCategoriesExampleCards,
       [{ title: 'تمرين عملي (٣٠ دقيقة)', text: 'سيناريو فريق إدارة مخاطر بمدينة ساحلية معرضة للأعاصير والفيضانات — حدد الأخطار المتتالية ونقاط الهشاشة واقترح ثلاثة إجراءات تخفيف متكاملة.', tone: 'gold' }],
     ],
@@ -2175,7 +2177,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'المستقبل مو مسار واحد محدد', text: 'بل مجموعة احتمالات — نفكر في "المستقبلات الممكنة" ونستعد لها.', tone: 'gold' }],
     laterActs: [
-      scenarioPlanningStepsCards,
+      scenarioPlanningStepsCards.map((card) => ({ ...card, syncText: 'ست خطوات موضحة أمامك' })),
       [{ title: 'ورشة عمل (٤٥ دقيقة)', text: 'بناء سيناريوهات مواجهة جائحة مستقبلية بسؤال محوري: "كيف يمكن لوزارة الصحة الاستعداد لمواجهة جائحة X القادمة بعد خمس سنوات؟"', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
@@ -2203,7 +2205,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     cards: [{ title: 'حساسات دقيقة', text: 'متغيرات قابلة للقياس تشير لاحتمال وقوع خطر عند وصولها لعتبة معينة.', tone: 'gold' }],
     laterActs: [
       smartErCriteriaCards,
-      indicatorTypesCards,
+      indicatorTypesCards.map((card) => ({ ...card, syncText: 'أربع طرق موضحة أمامك' })),
       [{ title: 'تمرين عملي (٢٠ دقيقة)', text: 'سيناريو موسم صيف بمكة المكرمة وقت المعتمرين مع خطر الإجهاد الحراري — صمم ثلاثة مؤشرات إنذار مبكر: استباقي، وكمي، ونوعي.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
@@ -2248,7 +2250,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ربط الترصد بالقرار', text: 'جمع البيانات وتحليلها ما له قيمة إن ما أدى لإجراء — الهدف تحويل البيانات لمعلومات، والمعلومات لرؤى، والرؤى لقرارات فعالة بالوقت المناسب.', tone: 'gold' }],
     laterActs: [
-      thresholdLevelsCards,
+      thresholdLevelsCards.map((card) => ({ ...card, syncText: 'مستويات عتبة متعددة' })),
       [{ title: 'مثال تطبيقي بمؤشر الإجهاد الحراري', text: 'الأخضر: أقل من ٤٠°. الأصفر: توقعات ٤٢°. البرتقالي: ٤٥° فعليًا مع ٥ حالات بالساعة. الأحمر: أكثر من ٢٠ حالة بالساعة مع وفيات.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
@@ -2295,7 +2297,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'دمج الترصد والإنذار بخطط الاستجابة', text: 'يعني إن ما يكونان كيانين منفصلين — الدمج الفعّال يضمن استجابة تلقائية ومنهجية ومبنية على أدلة الترصد.', tone: 'gold' }],
     laterActs: [
-      integrationMechanismsCards,
+      integrationMechanismsCards.map((card) => ({ ...card, syncText: 'آليات الدمج أربعة' })),
       [{ title: 'جلسة نقاش تفاعلية (١٥ دقيقة)', text: 'أكبر فجوة بين الترصد والاستجابة؟ كيف نستخدم التقنيات الحديثة لتحسين الربط؟ وش التحديات الثقافية أو التنظيمية اللي تعيقه؟', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
@@ -2693,7 +2695,8 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🚚',
     layout: 'pptSpotlight',
     cards: [{ title: 'بناء المرونة', text: 'أربع استراتيجيات، كل واحدة بمثال تطبيقي.', tone: 'gold' }],
-    laterActs: [supplyChainStrategiesCards],
+    laterActs: [supplyChainStrategiesCards.map((card) => ({ ...card, syncText: 'أربع استراتيجيات' }))],
+    actLayouts: ['pptSpotlight', 'pptTitleCards'],
     checks: [
       quickCheck({
         title: 'ليش فشل مخزون "في الوقت المناسب" وقت جائحة كورونا؟',
@@ -2714,9 +2717,9 @@ export const emergencyChapterFourSlides = indexSlides([
     cards: [{ title: 'إدارة المخزون بالأوقات العادية تهدف لتقليل التكاليف', text: 'لكن بالطوارئ الأولوية تتحول لضمان التوافر.', tone: 'gold' }],
     laterActs: [
       [{ title: 'المخزون الطبي نوعين رئيسيين', text: 'مخزون الأمان للاحتياج اليومي، والمخزون الاستراتيجي للأحداث الكبرى.', tone: 'gold' }],
-      inventoryManagementCards,
-      [{ title: 'إعادة التصنيف بناءً على الأهمية السريرية', text: 'بالطوارئ لازم يُعاد تصنيف المخزون بناءً على "الأهمية السريرية" لا التكلفة فقط.', tone: 'gold' }],
-      [{ title: 'نموذج EOQ ما يناسب وقت الأزمات', text: 'لأن تكلفة النفاذ تصبح أعلى بكثير من أي تكلفة أخرى وقت الطوارئ.', tone: 'gold' }],
+      inventoryManagementCards.map((card) => ({ ...card, syncText: 'تحليل ABC' })),
+      [{ title: 'إعادة التصنيف بناءً على الأهمية السريرية', text: 'بالطوارئ لازم يُعاد تصنيف المخزون بناءً على "الأهمية السريرية" لا التكلفة فقط.', tone: 'gold', syncText: 'وبالطوارئ' }],
+      [{ title: 'نموذج EOQ ما يناسب وقت الأزمات', text: 'لأن تكلفة النفاذ تصبح أعلى بكثير من أي تكلفة أخرى وقت الطوارئ.', tone: 'gold', syncText: 'ونموذج كمية الطلب' }],
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight', 'pptSpotlight'],
   }),
@@ -2743,7 +2746,7 @@ export const emergencyChapterFourSlides = indexSlides([
       'حوكمة المخزون الاحتياطي تحتاج أربعة عناصر موضحة أمامك. مثال: الشركة السعودية للشراء الموحد "نوبكو" تلعب دور محوري بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات، وتوفر طبقة أمان إضافية للنظام الصحي.',
     visual: '🏭',
     layout: 'pptMatrix',
-    cards: inventoryGovernanceCards,
+    cards: inventoryGovernanceCards.map((card) => ({ ...card, syncText: 'أربعة عناصر' })),
     laterActs: [
       [{ title: 'نوبكو', text: 'الشركة السعودية للشراء الموحد تلعب دورًا محوريًا بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات، وتوفر طبقة أمان إضافية للنظام الصحي.', tone: 'gold' }],
     ],
@@ -2773,7 +2776,8 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🗓️',
     layout: 'pptTimeline',
     cards: [{ title: 'دليل منظمة الصحة العالمية', text: 'ثلاث مراحل منظمة لمراجعة ما بعد الحدث.', tone: 'gold' }],
-    laterActs: [aarPhasesCards],
+    laterActs: [aarPhasesCards.map((card) => ({ ...card, syncText: 'ثلاث مراحل' }))],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'مراجعة ما بعد الحدث تركز على إيش بالضبط؟',
@@ -2806,7 +2810,8 @@ export const emergencyChapterFourSlides = indexSlides([
       'عوامل نجاح مراجعة ما بعد الحدث خمسة موضحة أمامك: بيئة آمنة وخالية من اللوم، ميسّر ماهر، مشاركة شاملة، التركيز على "ليش" لا "منو"، والالتزام بالمتابعة — لأن المراجعة بدون تحويل توصياتها لإجراءات فعلية ما لها قيمة.',
     visual: '✅',
     layout: 'pptTimeline',
-    cards: aarSuccessFactorsCards,
+    cards: aarSuccessFactorsCards.map((card) => ({ ...card, syncText: 'خمسة موضحة أمامك' })),
+    actLayouts: ['pptTitleCards'],
   }),
   makeSlide({
     id: 'ec4-improvement-plans',
@@ -2851,8 +2856,11 @@ export const emergencyChapterFourSlides = indexSlides([
       'تصميم وقياس مؤشر الأداء يمر بثمان خطوات موضحة أمامك، من تحديد الهدف الاستراتيجي إلى عرض المؤشر بلوحة معلومات واضحة. لوحة المعلومات تحتاج أربع خصائص لتكون فعالة: البساطة والوضوح، استخدام الألوان والإشارات المرئية، إمكانية التعمق، والتحديث الفوري.',
     visual: '🧮',
     layout: 'pptTimeline',
-    cards: kpiDesignCardsPart1,
-    laterActs: [kpiDesignCardsPart2, dashboardTraitsCards],
+    cards: kpiDesignCardsPart1.map((card) => ({ ...card, syncText: 'ثمان خطوات موضحة أمامك' })),
+    laterActs: [
+      kpiDesignCardsPart2.map((card) => ({ ...card, syncText: 'ثمان خطوات موضحة أمامك' })),
+      dashboardTraitsCards.map((card) => ({ ...card, syncText: 'أربع خصائص' })),
+    ],
     actLayouts: ['pptTimeline', 'pptTimeline', 'pptMatrix'],
   }),
   makeSlide({
@@ -2875,7 +2883,8 @@ export const emergencyChapterFourSlides = indexSlides([
       'وأداة تحليل أصحاب المصلحة هي مصفوفة القوة والاهتمام، تصنفهم على مستويين — مستوى القوة، ومستوى الاهتمام — موضحة أمامك بأربع فئات وأسلوب التعامل الأنسب مع كل واحدة.',
     visual: '🎛️',
     layout: 'pptMatrix',
-    cards: powerInterestCards,
+    cards: powerInterestCards.map((card) => ({ ...card, syncText: 'أربع فئات' })),
+    actLayouts: ['pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-activity-stakeholders',
@@ -2919,8 +2928,8 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ونعود لمحور التواصل الفعال', text: 'مكمّل لما أخذناه بالفصل الثاني، بستة مبادئ من مركز مكافحة الأمراض الأمريكي CDC.', tone: 'gold' }],
     laterActs: [
-      cdcPrinciplesCards,
-      commChannelsCards,
+      cdcPrinciplesCards.map((card) => ({ ...card, syncText: 'ستة مبادئ' })),
+      commChannelsCards.map((card) => ({ ...card, syncText: 'أربعة أنواع' })),
     ],
     actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
   }),
@@ -2932,7 +2941,10 @@ export const emergencyChapterFourSlides = indexSlides([
       'بناء الثقة والتأثير: الثقة نتاج مزيج من أربعة عناصر موضحة أمامك، ومكافحة المعلومات المضللة أو "الإنفوديميك" تحتاج استراتيجية استباقية بأربع أدوات موضحة أمامك أيضًا. والتطبيق بالسياق السعودي أثبت نجاحه بالاستفادة من المنصات الرسمية الموحدة والمؤتمر الصحفي اليومي وقت كورونا، مع مراعاة الحساسية الثقافية دائمًا.',
     visual: '🛡️',
     layout: 'pptTwoPanels',
-    cards: trustBuildingCards,
+    cards: [
+      { ...trustBuildingCards[0], syncText: 'أربعة عناصر' },
+      { ...trustBuildingCards[1], syncText: 'ومكافحة المعلومات المضللة' },
+    ],
     laterActs: [
       [{ title: 'التطبيق بالسياق السعودي', text: 'نجح بالاستفادة من المنصات الرسمية الموحدة والمؤتمر الصحفي اليومي وقت كورونا، مع مراعاة الحساسية الثقافية دائمًا.', tone: 'gold' }],
     ],
@@ -2950,7 +2962,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityLabel: 'أربع ورش عمل ختامية',
     cards: [{ title: 'ورش تطبيقية', text: 'تطبيق كل محاور الفصل عمليًا، من التخطيط للتنفيذ.', tone: 'gold' }],
     laterActs: [
-      closingWorkshopsCards,
+      closingWorkshopsCards.map((card) => ({ ...card, syncText: 'أربع ورش عمل ختامية' })),
       [{ title: 'طبّق بنفسك', text: 'راجع أهم أفكار الفصل الرابع بلعبة صواب أو خطأ سريعة.', tone: 'gold' }],
     ],
     activity: {
