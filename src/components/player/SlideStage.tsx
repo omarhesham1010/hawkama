@@ -1835,7 +1835,12 @@ function CourseGlyph({
  *  that matches dozens of different cards doesn't show the exact same
  *  illustration on all of them once it has more than one variant. */
 function variantOf(paths: string[], text: string): string {
-  return paths[stableIconIndex(text) % paths.length];
+  const uniquePaths = [...new Set(paths)];
+  return uniquePaths[stableIconIndex(text) % uniquePaths.length];
+}
+
+function uniqueVisualCandidates(paths: Array<string | null | undefined>) {
+  return paths.filter((src, index): src is string => Boolean(src) && paths.indexOf(src) === index);
 }
 
 function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
@@ -2025,7 +2030,7 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   return layers.slice(0, 3);
 }
 
-const SHARED_BRAND_ICON_POOL = [
+const SHARED_BRAND_ICON_POOL = [...new Set([
   '/assets/visual-library/icon-shield-check.webp',
   '/assets/visual-library/icon-institution-board.webp',
   '/assets/visual-library/icon-target-alignment.webp',
@@ -2085,7 +2090,7 @@ const SHARED_BRAND_ICON_POOL = [
   '/assets/visual-library/icon-file-report.webp',
   '/assets/visual-library/icon-ethics-balance.webp',
   '/assets/visual-library/icon-direction-sign.webp',
-];
+])];
 
 function stableIconIndex(text: string) {
   let hash = 0;
@@ -2130,7 +2135,7 @@ const EMERGENCY_FALLBACK_POOL = SHARED_BRAND_ICON_POOL;
 // side by side. With it, a repeat falls through to the next untaken icon in
 // this card's own hash-ordered candidate list instead, so every card in a
 // shot gets something visually distinct.
-function sharedBrandIconFor(text: string, index = 0, usedIcons?: Set<string>) {
+function sharedBrandIconFor(text: string, index = 0, usedIcons?: Set<string>, avoidIcons?: Set<string>) {
   const primary = pptGeneratedVisualLayersFor(`${text} __bag2__`)[0];
   const candidates: string[] = [];
   if (primary?.includes('/emergency-')) candidates.push(primary);
@@ -2138,8 +2143,12 @@ function sharedBrandIconFor(text: string, index = 0, usedIcons?: Set<string>) {
   for (let k = 0; k < SHARED_BRAND_ICON_POOL.length; k += 1) {
     candidates.push(SHARED_BRAND_ICON_POOL[(seed + index * 7 + k) % SHARED_BRAND_ICON_POOL.length]);
   }
-  if (!usedIcons) return candidates[0];
-  const pick = candidates.find((c) => !usedIcons.has(c)) ?? candidates[0];
+  const uniqueCandidates = uniqueVisualCandidates(candidates);
+  if (!usedIcons) return uniqueCandidates[0];
+  const pick =
+    uniqueCandidates.find((c) => !usedIcons.has(c) && !avoidIcons?.has(c)) ??
+    uniqueCandidates.find((c) => !usedIcons.has(c)) ??
+    uniqueCandidates[0];
   usedIcons.add(pick);
   return pick;
 }
@@ -2669,14 +2678,14 @@ function PptMotionVisualScene({
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
         const cardMarker = slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '';
         const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`, visualPool[index % visualPool.length]);
-        const cardVisualCandidates = [
+        const cardVisualCandidates = uniqueVisualCandidates([
           ...(denseMotion ? [visualPool[index % visualPool.length]] : cardVisuals),
           ...visualPool,
           primaryVisual,
-        ].filter((src): src is string => Boolean(src));
+        ]);
         const cardVisual = cardVisualCandidates.find((src) => !usedCardVisuals.has(src)) ?? cardVisualCandidates[0];
         usedCardVisuals.add(cardVisual);
-        const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
+        const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons, usedCardVisuals) : null;
         return (
           <button
             key={index}
