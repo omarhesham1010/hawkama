@@ -8,9 +8,10 @@ import { platform } from './data/platformContent';
 import { stopVoiceClip } from './lib/playVoiceClip';
 
 const SlidePlayer = lazy(() => import('./SlidePlayer'));
+const CourseTwoBlank = lazy(() => import('./CourseTwoBlank'));
 
 interface Route {
-  view: 'home' | 'course';
+  view: 'home' | 'course' | 'course2';
   courseId: string;
   slide: number; // 1-based
 }
@@ -18,6 +19,12 @@ interface Route {
 function parseHash(): Route {
   const h = (window.location.hash || '').replace(/^#\/?/, '');
   const parts = h.split('/').filter(Boolean);
+  // New in-progress build for bag 2, kept fully separate from the legacy
+  // #/bag/2/... routes below so the old content stays reachable/shareable
+  // while this one is worked on.
+  if (parts[0] === 'course' && parts[1] === '2') {
+    return { view: 'course2', courseId: 'course-2', slide: 1 };
+  }
   if (parts[0] === 'bag' && parts[2] === 'chapter') {
     const bag = Number.parseInt(parts[1] || '', 10);
     const chapter = Number.parseInt(parts[3] || '', 10);
@@ -82,6 +89,14 @@ export default function App() {
   const exitToHome = useCallback(() => {
     window.location.hash = '#/';
   }, []);
+
+  if (route.view === 'course2') {
+    return (
+      <Suspense fallback={null}>
+        <CourseTwoBlank />
+      </Suspense>
+    );
+  }
 
   if (!profile) {
     return <PersonalizationGate onDone={saveProfile} />;

@@ -70,25 +70,39 @@ function setValue(key: string, value: string) {
   scorm.SetValue(key, value);
 }
 
-export function loadScormProgress(): Partial<ProgressState> | null {
-  if (!initializeScorm()) return null;
+type SuspendMap = Record<string, ProgressState>;
+
+function loadSuspendMap(): SuspendMap {
   const raw = getValue('cmi.suspend_data');
-  if (!raw) return null;
+  if (!raw) return {};
   try {
-    return JSON.parse(raw) as Partial<ProgressState>;
+    const parsed = JSON.parse(raw) as SuspendMap | Partial<ProgressState>;
+    // Backward-compat: earlier versions stored a single course's ProgressState
+    // directly (no per-course keys). Treat that shape as a foreign course's
+    // data so it isn't misread as this course's state.
+    if (parsed && typeof parsed === 'object' && 'completed' in parsed) return {};
+    return parsed as SuspendMap;
   } catch {
-    return null;
+    return {};
   }
 }
 
-export function saveScormProgress(state: ProgressState, totalSections: number) {
+export function loadScormProgress(courseId: string): Partial<ProgressState> | null {
+  if (!initializeScorm()) return null;
+  const map = loadSuspendMap();
+  return map[courseId] ?? null;
+}
+
+export function saveScormProgress(courseId: string, state: ProgressState, totalSections: number) {
   if (!initializeScorm()) return;
 
   const completedCount = Math.min(state.completed.length, totalSections);
   const progress = totalSections > 0 ? completedCount / totalSections : 0;
   const isComplete = progress >= 1;
 
-  setValue('cmi.suspend_data', JSON.stringify(state));
+  const map = loadSuspendMap();
+  map[courseId] = state;
+  setValue('cmi.suspend_data', JSON.stringify(map));
   if (state.lastSectionId) setValue('cmi.location', state.lastSectionId);
   setValue('cmi.progress_measure', progress.toFixed(4));
   setValue('cmi.completion_status', isComplete ? 'completed' : 'incomplete');
@@ -108,9 +122,11 @@ export function saveScormProgress(state: ProgressState, totalSections: number) {
   getApi()?.Commit('');
 }
 
-export function resetScormProgress() {
+export function resetScormProgress(courseId: string) {
   if (!initializeScorm()) return;
-  setValue('cmi.suspend_data', '');
+  const map = loadSuspendMap();
+  delete map[courseId];
+  setValue('cmi.suspend_data', JSON.stringify(map));
   setValue('cmi.location', '');
   setValue('cmi.progress_measure', '0');
   setValue('cmi.completion_status', 'incomplete');

@@ -21,14 +21,23 @@ const EMPTY: ProgressState = {
   lastSectionId: null,
 };
 
+const SCORM_TRACKED_COURSES = new Set([
+  'governance-ch1',
+  'emergency-intro',
+  'emergency-ch1',
+  'emergency-ch2',
+  'emergency-ch3',
+  'emergency-ch4',
+]);
+
 function storageKey(courseId: string) {
   return `${STORAGE_PREFIX}:${courseId}`;
 }
 
 function load(courseId: string): ProgressState {
   if (typeof window === 'undefined') return EMPTY;
-  if (courseId === 'governance-ch1') {
-    const scormState = loadScormProgress();
+  if (SCORM_TRACKED_COURSES.has(courseId)) {
+    const scormState = loadScormProgress(courseId);
     if (scormState) return { ...EMPTY, ...scormState };
   }
   try {
@@ -50,7 +59,7 @@ export function useProgress(totalSections: number, courseId = 'governance-ch1') 
 
   useEffect(() => {
     window.localStorage.setItem(storageKey(courseId), JSON.stringify(state));
-    if (courseId === 'governance-ch1') saveScormProgress(state, totalSections);
+    if (SCORM_TRACKED_COURSES.has(courseId)) saveScormProgress(courseId, state, totalSections);
   }, [courseId, state, totalSections]);
 
   useEffect(() => {
@@ -86,7 +95,7 @@ export function useProgress(totalSections: number, courseId = 'governance-ch1') 
   const reset = useCallback(() => {
     setState(EMPTY);
     window.localStorage.removeItem(storageKey(courseId));
-    if (courseId === 'governance-ch1') resetScormProgress();
+    if (SCORM_TRACKED_COURSES.has(courseId)) resetScormProgress(courseId);
   }, [courseId]);
 
   const percent = useMemo(() => {

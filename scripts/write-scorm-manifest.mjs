@@ -48,11 +48,18 @@ const manifest = `<?xml version="1.0" encoding="UTF-8"?>
     <schemaversion>2004 4th Edition</schemaversion>
   </metadata>
 
-  <organizations default="ORG-GOVERNANCE">
-    <organization identifier="ORG-GOVERNANCE" adlseq:objectivesGlobalToSystem="false">
-      <title>الحوكمة والمخاطر والامتثال</title>
-      <item identifier="ITEM-GOVERNANCE-CH1" identifierref="RES-GOVERNANCE-CH1" isvisible="true">
-        <title>الحوكمة والمخاطر والامتثال - المقدمة والفصول الثلاثة</title>
+  <organizations default="ORG-PLATFORM">
+    <organization identifier="ORG-PLATFORM" adlseq:objectivesGlobalToSystem="false">
+      <title>منصة التدريب الرقمي</title>
+      <item identifier="ITEM-GOVERNANCE" identifierref="RES-PLATFORM" isvisible="true">
+        <title>الحوكمة والمخاطر والامتثال</title>
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" flow="true" />
+          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
+        </imsss:sequencing>
+      </item>
+      <item identifier="ITEM-EMERGENCY" identifierref="RES-PLATFORM" isvisible="true">
+        <title>إدارة الاستجابة للطوارئ</title>
         <imsss:sequencing>
           <imsss:controlMode choice="true" flow="true" />
           <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
@@ -62,7 +69,7 @@ const manifest = `<?xml version="1.0" encoding="UTF-8"?>
   </organizations>
 
   <resources>
-    <resource identifier="RES-GOVERNANCE-CH1" type="webcontent" adlcp:scormType="sco" href="index.html">
+    <resource identifier="RES-PLATFORM" type="webcontent" adlcp:scormType="sco" href="index.html">
 ${fileNodes}
     </resource>
   </resources>
