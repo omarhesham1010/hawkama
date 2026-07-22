@@ -7,7 +7,13 @@ import { SlideTemplateFrame } from './SlideTemplateFrame';
 export const CANVAS_W = 1280;
 export const CANVAS_H = 720;
 
-export function SlideCanvas({ children }: { children: React.ReactNode }) {
+export function SlideCanvas({
+  children,
+  variant = 'default',
+}: {
+  children: React.ReactNode;
+  variant?: 'default' | 'intro';
+}) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [portalNode, setPortalNode] = useState<HTMLDivElement | null>(null);
@@ -51,7 +57,7 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
         >
           <CanvasPortalContext.Provider value={portalNode}>
             <div className="absolute inset-0 overflow-hidden rounded-[22px]">
-              <SlideTemplateFrame />
+              <SlideTemplateFrame variant={variant} />
               {children}
             </div>
             <div ref={setPortalNode} className="pointer-events-none absolute inset-0" />

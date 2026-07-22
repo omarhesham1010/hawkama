@@ -8,7 +8,7 @@ import { platform } from './data/platformContent';
 import { stopVoiceClip } from './lib/playVoiceClip';
 
 const SlidePlayer = lazy(() => import('./SlidePlayer'));
-const CourseTwoBlank = lazy(() => import('./CourseTwoBlank'));
+const CourseTwoShell = lazy(() => import('./CourseTwoShell'));
 
 interface Route {
   view: 'home' | 'course' | 'course2';
@@ -93,7 +93,7 @@ export default function App() {
   if (route.view === 'course2') {
     return (
       <Suspense fallback={null}>
-        <CourseTwoBlank />
+        <CourseTwoShell />
       </Suspense>
     );
   }

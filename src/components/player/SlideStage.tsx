@@ -1089,10 +1089,10 @@ function pptDetailFor(card: PptCard, forceEmergency = false) {
       return 'قيّم الاحتمالية والأثر معًا قبل ترتيب الأولويات.';
     }
     if (/ترصد|إنذار مبكر|عتبة/.test(text)) {
-      return 'حدد مستوى العتبة اللي يُفعّل الإنذار قبل فوات الأوان.';
+      return 'حدد مستوى العتبة الذي يُفعّل الإنذار قبل فوات الأوان.';
     }
     if (/سلسلة التوريد|لوجست|مخزون|موردين/.test(text)) {
-      return 'اضمن بديلًا جاهزًا قبل ما يتعطل المصدر الأساسي.';
+      return 'اضمن بديلًا جاهزًا قبل أن يتعطل المصدر الأساسي.';
     }
     if (/مراجعة ما بعد|الدروس المستفادة|تحسين/.test(text)) {
       return 'وثّق الدرس واربطه بخطة تحسين لها مالك ومتابعة.';
@@ -1422,7 +1422,7 @@ function IntroMotionScene({
             }`}
           >
             <Icon name="flag" className="h-6 w-6" />
-            {started ? 'استمع للمقدمة' : 'خلونا نبدأ'}
+            {started ? 'استمع للمقدمة' : 'لنبدأ'}
           </button>
         </div>
       </div>
@@ -1453,12 +1453,13 @@ function IntroRoadmapMotionScene({
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
   const narrationComplete = started && progress >= 0.985;
-  const spokenPast = (needle: string, fallback: number) => {
-    const index = slide.narration.indexOf(needle);
+  const spokenPast = (needles: string | string[], fallback: number) => {
+    const list = Array.isArray(needles) ? needles : [needles];
+    const index = list.reduce((found, n) => (found >= 0 ? found : slide.narration.indexOf(n)), -1);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
-  const firstStepShown = spokenPast('أول فكرة معنا', 0.18);
-  const secondStepShown = spokenPast('بعد ما تتضح البداية', 0.42);
+  const firstStepShown = spokenPast(['أول فكرة معنا', 'الفكرة الأولى هي الفصل الأول'], 0.18);
+  const secondStepShown = spokenPast(['بعد ما تتضح البداية', 'وبعد أن تتضح البداية'], 0.42);
   const thirdStepShown = spokenPast('ثم نصل إلى الفصل الثالث', 0.64);
   const fourthStepShown = spokenPast('وأخيرًا الفصل الرابع', 0.82);
   // Client call: nothing appears until Nasser actually talks about it.

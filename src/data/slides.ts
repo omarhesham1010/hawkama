@@ -99,6 +99,21 @@ export const courseCatalog = {
     },
     slides: emergencyChapterFourSlides,
   },
+  // The whole bag as one continuous slide sequence, for the single-link
+  // #/course/2 shell (sidebar-driven navigation instead of per-chapter URLs).
+  'emergency-full': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...emergencyIntroSlides,
+      ...emergencyChapterOneSlides,
+      ...emergencyChapterTwoSlides,
+      ...emergencyChapterThreeSlides,
+      ...emergencyChapterFourSlides,
+    ],
+  },
 };
 
 export type CourseId = keyof typeof courseCatalog;
