@@ -70,7 +70,7 @@ export function CourseTwoSidebar({
               <HamburgerIcon className="h-4 w-4" />
             </button>
           </div>
-          <nav className="flex-1 space-y-1 bg-surface p-3">
+          <nav className="flex-1 space-y-1 bg-[#E1F3E4] p-3">
         {groups.map((group, gi) => {
           const isOpen = openGroup === gi;
           const isActiveGroup = gi === activeGroup;

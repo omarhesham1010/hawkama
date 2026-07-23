@@ -49,7 +49,7 @@ export default function CourseTwoShell() {
   };
 
   return (
-    <div dir="rtl" className="flex h-[100dvh] gap-3 overflow-hidden bg-canvas p-3">
+    <div dir="rtl" className="flex h-[100dvh] gap-3 overflow-hidden bg-[#E1F3E4] p-3">
       <CourseTwoSidebar
         groups={groups}
         activeIndex={activeIndex}
