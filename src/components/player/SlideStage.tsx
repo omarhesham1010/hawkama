@@ -2608,7 +2608,11 @@ function PptMotionVisualScene({
     : isSparseGroup && !titleCardGrid
       ? sparsePositions[cards.length]
       : positionsByVariant[variant] ?? positionsByVariant.orbit;
-  const chapterAccent = slide.id.startsWith('ch2') ? 'bg-gold-50/80' : 'bg-green-50/80';
+  // Was a pale green/gold tint, but with the green/gold Tailwind scale now
+  // collapsed to one exact solid color each (no lighter shades allowed),
+  // that tint became a solid color fill instead. Plain white per client
+  // feedback, rather than reintroducing a "shade" to fake the old tint.
+  const chapterAccent = 'bg-white/90';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
@@ -2620,13 +2624,13 @@ function PptMotionVisualScene({
   // touching, at any position tuning. 2-card layouts (now opposite sides,
   // see splitTwo) don't have this problem and keep the larger visual.
   const denseFloatingCards = !titleCardGrid && !isSparseGroup && cards.length >= 3;
-  const openLabelTitleClass = titleGridSparse ? 'text-[22px]' : titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[19px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
+  const openLabelTitleClass = titleGridSparse ? 'text-[22px]' : titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[15.5px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
   const openLabelImageClass = titleGridSparse
     ? 'h-36 w-40'
     : titleCardGrid
     ? 'h-28 w-32'
     : emergencyOpenLabels
-      ? (denseFloatingCards ? 'h-24 w-28' : 'h-36 w-40')
+      ? (denseFloatingCards ? 'h-24 w-28' : 'h-28 w-32')
     : showDetailText
       ? (isEmergencySlide ? 'h-40 w-44' : 'h-24 w-28')
       : (isEmergencySlide ? 'h-40 w-44' : 'h-28 w-32');
