@@ -2,7 +2,14 @@ import { useMemo } from 'react';
 
 /** Lightweight CSS confetti burst — celebratory but tasteful (green/gold + accents). */
 export function Confetti({ count = 40 }: { count?: number }) {
-  const colors = ['#008755', '#4cab88', '#9b945f', '#b9b48f', '#005f3c', '#6d6843'];
+  // Only the two exact identity colors -- variety comes from opacity, not a
+  // different shade.
+  const colors = [
+    '#008755',
+    'rgb(0 135 85 / 0.72)',
+    '#9b945f',
+    'rgb(155 148 95 / 0.72)',
+  ];
   const pieces = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({

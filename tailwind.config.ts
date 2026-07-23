@@ -34,34 +34,38 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Ministry green (#008755, from the ministry logo) -- every step is a
-        // tint/shade of this ONE hue, not an independent color, per the
-        // client's strict two-color identity directive (no other shades).
+        // Ministry green (#008755, from the ministry logo) -- literally one
+        // exact color. Client directive: no other shade of green anywhere,
+        // period -- not even a lighter/darker tint. Every numbered step
+        // resolves to the identical hex; visual lightness differences in
+        // existing markup come only from the `/NN` opacity suffix (e.g.
+        // bg-green-50/90), which is the same color made translucent, not a
+        // different color.
         green: {
-          50: '#f2f9f7',
-          100: '#e0f1eb',
-          200: '#bde0d3',
-          300: '#8cc9b3',
-          400: '#4cab88',
+          50: '#008755',
+          100: '#008755',
+          200: '#008755',
+          300: '#008755',
+          400: '#008755',
           500: '#008755',
-          600: '#007348',
-          700: '#005f3c',
-          800: '#004a2f',
-          900: '#003622',
-          950: '#002215',
+          600: '#008755',
+          700: '#008755',
+          800: '#008755',
+          900: '#008755',
+          950: '#008755',
         },
         // Ministry gold (#9B945F, from the ministry logo) -- same rule.
         gold: {
-          50: '#fafaf7',
-          100: '#f3f2ec',
-          200: '#e5e3d5',
-          300: '#d2cfb7',
-          400: '#b9b48f',
+          50: '#9b945f',
+          100: '#9b945f',
+          200: '#9b945f',
+          300: '#9b945f',
+          400: '#9b945f',
           500: '#9b945f',
-          600: '#847e51',
-          700: '#6d6843',
-          800: '#555134',
-          900: '#3e3b26',
+          600: '#9b945f',
+          700: '#9b945f',
+          800: '#9b945f',
+          900: '#9b945f',
         },
         // Semantic surfaces driven by CSS variables (theme-aware)
         surface: 'rgb(var(--surface) / <alpha-value>)',

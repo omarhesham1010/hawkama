@@ -3093,7 +3093,7 @@ function PptSpotlightScene({
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
           </svg>
           <svg className="pointer-events-none absolute -bottom-1.5 -left-1.5 h-2.5 w-2.5 animate-sparkle" style={{ animationDelay: '0.9s' }} viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#b9b48f" />
+            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
           </svg>
         </span>
         <h3 className={`relative z-10 ${isEmergencySlide ? 'text-[24px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
