@@ -1426,26 +1426,26 @@ function IntroMotionScene({
       </div>
 
       <div className="relative z-10 flex h-full min-h-0 flex-col justify-between px-6 py-5 text-right">
-        <div className="mr-auto w-[49%] animate-fade-up">
+        <div className="mr-auto w-[56%] animate-fade-up">
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[14px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
+            <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[13px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
               تحت إشراف المدرب ناصر
             </span>
-            <span className="rounded-full border border-gold-500/25 bg-gold-50/78 px-4 py-1.5 text-[14px] font-extrabold text-gold-700 shadow-sm backdrop-blur-sm">
+            <span className="rounded-full border border-gold-500/25 bg-gold-50/78 px-4 py-1.5 text-[13px] font-extrabold text-gold-700 shadow-sm backdrop-blur-sm">
               بداية الرحلة
             </span>
           </div>
 
-          <p className="mb-2 text-[20px] font-extrabold text-green-800">{slide.ppt?.courseName}</p>
+          <p className="mb-2 text-[18px] font-extrabold text-green-800">{slide.ppt?.courseName}</p>
           {slide.ppt?.subtitle && (
-            <p className="mb-2 w-fit rounded-lg bg-green-700 px-4 py-1.5 text-[18px] font-extrabold text-white shadow-card">
+            <p className="mb-2 w-fit rounded-lg bg-green-700 px-4 py-1.5 text-[16px] font-extrabold text-white shadow-card">
               {slide.ppt.subtitle}
             </p>
           )}
-          <h2 className="text-[36px] font-black leading-[1.12] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
+          <h2 className="text-[30px] font-black leading-[1.18] text-brand-strong drop-shadow-[0_2px_0_rgb(255_255_255_/_0.8)]">
             {slide.ppt?.unitTitle ?? slide.title}
           </h2>
-          <p className="mt-3 max-w-[520px] text-[18px] font-bold leading-relaxed text-ink-soft">
+          <p className="mt-3 max-w-[560px] text-[16px] font-bold leading-relaxed text-ink-soft">
             {slide.ppt?.intro}
           </p>
         </div>
@@ -2965,7 +2965,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative overflow-visible ${denseQuadrant ? 'h-[94px] p-2 text-center' : 'min-h-[134px] p-5 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[134px] overflow-visible p-5 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -2986,16 +2986,16 @@ function PptMatrixScene({
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[14.5px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
-                <span>{card.title}</span>
+              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
+                <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
                 {brandIcon && (
-                  <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-12 w-12 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
+                  <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-8 w-8 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   </span>
                 )}
               </h3>
               {card.text && (
-                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[10.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
