@@ -1043,6 +1043,16 @@ function activeVisualClass(active: boolean, text: string, index = 0) {
   return active ? activeVisualAnimationFor(text, index) : '';
 }
 
+/** Brand icons are colored, transparent-background PNGs. They read fine on
+ *  a light tile but vanish on the dark green/gold "active" gradient (or a
+ *  same-tone colored tile), so any icon sitting on a dark surface needs to
+ *  render as solid white instead -- forcing that via CSS filter means one
+ *  icon asset works on every background rather than needing a white variant
+ *  of every icon. */
+function brandIconToneClass(onDark: boolean) {
+  return onDark ? 'brightness-0 invert' : '';
+}
+
 function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
   const text = `${card.title} ${card.text ?? ''}`;
   const match = PPT_EMOJIS.find((item) => item.terms.some((term) => text.includes(term)));
@@ -2326,7 +2336,7 @@ function PptCardView({
         aria-hidden="true"
       >
         {brandIcon ? (
-          <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} loading="lazy" decoding="async" />
+          <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))} ${brandIconToneClass(active)}`} loading="lazy" decoding="async" />
         ) : (
           <CourseGlyph kind={glyphKind} active={active} />
         )}
@@ -2842,7 +2852,7 @@ function PptTimelineScene({
                     }`}
                   >
                   {brandIcon ? (
-                    <img src={brandIcon} alt="" className={`h-[68%] w-[68%] object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" aria-hidden="true" />
+                    <img src={brandIcon} alt="" className={`h-[68%] w-[68%] object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)} ${brandIconToneClass(active)}`} loading="lazy" decoding="async" aria-hidden="true" />
                   ) : (
                     card.index ?? index + 1
                   )}
@@ -2966,7 +2976,7 @@ function PptMatrixScene({
                 <span>{card.title}</span>
                 {brandIcon && (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-12 w-12 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
-                    <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
+                    <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)} ${brandIconToneClass(active)}`} loading="lazy" decoding="async" />
                   </span>
                 )}
               </h3>
@@ -3061,7 +3071,7 @@ function PptSpotlightScene({
         )}
         <span className="relative z-10 mx-auto mb-2 grid h-12 w-12 place-items-center rounded-full bg-white/16 p-2.5 ring-2 ring-white/25">
           {focusBrandIcon ? (
-            <img src={focusBrandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" aria-hidden="true" />
+            <img src={focusBrandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)} brightness-0 invert`} loading="lazy" decoding="async" aria-hidden="true" />
           ) : (
             <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
           )}
