@@ -1043,14 +1043,50 @@ function activeVisualClass(active: boolean, text: string, index = 0) {
   return active ? activeVisualAnimationFor(text, index) : '';
 }
 
-/** Brand icons are colored, transparent-background PNGs. They read fine on
- *  a light tile but vanish on the dark green/gold "active" gradient (or a
- *  same-tone colored tile), so any icon sitting on a dark surface needs to
- *  render as solid white instead -- forcing that via CSS filter means one
- *  icon asset works on every background rather than needing a white variant
- *  of every icon. */
-function brandIconToneClass(onDark: boolean) {
-  return onDark ? 'brightness-0 invert' : '';
+/** Brand icons are single-silhouette PNGs. Instead of baking one fixed
+ *  color into the asset (or approximating a recolor with CSS filters, which
+ *  only really gets you to white), render them as a CSS mask: the icon file
+ *  supplies the shape via its alpha channel, and `background-color` -- any
+ *  Tailwind color, chosen per call site -- supplies the color. One asset
+ *  then renders correctly in primary green, secondary gold, white, or any
+ *  other tone a background needs, with no per-color asset variants.
+ *  Only for flat brand-icon silhouettes (`sharedBrandIconFor`); the
+ *  multi-color topic illustrations from `pptGeneratedVisualLayersFor` stay
+ *  plain <img> tags -- masking would flatten their own internal color. */
+type BrandIconTone = 'primary' | 'secondary' | 'white' | 'ink';
+
+const BRAND_ICON_TONE_CLASS: Record<BrandIconTone, string> = {
+  primary: 'bg-brand',
+  secondary: 'bg-[#9B945F]',
+  white: 'bg-white',
+  ink: 'bg-ink',
+};
+
+function BrandIcon({
+  src,
+  tone = 'primary',
+  className = '',
+}: {
+  src: string;
+  tone?: BrandIconTone;
+  className?: string;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-block shrink-0 ${BRAND_ICON_TONE_CLASS[tone]} ${className}`}
+      style={{
+        WebkitMaskImage: `url(${src})`,
+        maskImage: `url(${src})`,
+        WebkitMaskSize: 'contain',
+        maskSize: 'contain',
+        WebkitMaskRepeat: 'no-repeat',
+        maskRepeat: 'no-repeat',
+        WebkitMaskPosition: 'center',
+        maskPosition: 'center',
+      }}
+    />
+  );
 }
 
 function pptEmojiFor(card: PptCard, fallback?: string, index = 0) {
@@ -2188,7 +2224,7 @@ function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boo
         {showVisual && (
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/16 bg-white/80 p-1.5 shadow-sm">
             {brandIcon ? (
-              <img src={brandIcon} alt="" className="h-full w-full object-contain drop-shadow-[0_8px_10px_rgb(24_82_55_/_0.12)]" loading="lazy" decoding="async" aria-hidden="true" />
+              <BrandIcon src={brandIcon} tone="primary" className="h-full w-full drop-shadow-[0_8px_10px_rgb(24_82_55_/_0.12)]" />
             ) : (
               <CourseGlyph kind={glyphKind} compact />
             )}
@@ -2336,7 +2372,7 @@ function PptCardView({
         aria-hidden="true"
       >
         {brandIcon ? (
-          <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))} ${brandIconToneClass(active)}`} loading="lazy" decoding="async" />
+          <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} />
         ) : (
           <CourseGlyph kind={glyphKind} active={active} />
         )}
@@ -2351,7 +2387,7 @@ function PptCardView({
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
             {brandIcon && (
               <span className="pointer-events-none absolute right-2 top-2 z-10 grid h-10 w-10 place-items-center rounded-2xl border border-white/75 bg-white/88 p-1.5 shadow-sm" aria-hidden="true">
-                <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} loading="lazy" decoding="async" />
+                <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} />
               </span>
             )}
             {visualLayers[0] && (
@@ -2727,7 +2763,7 @@ function PptMotionVisualScene({
                   <span>{card.title}</span>
                   {brandIcon && !titleCardGrid && !emergencyOpenLabels && (
                     <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
-                      <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
+                      <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                     </span>
                   )}
                 </span>
@@ -2740,14 +2776,12 @@ function PptMotionVisualScene({
               </span>
               <span className={`relative z-0 ${titleCardGrid ? 'order-1' : ''} ${openLabelImageClass} shrink-0 rounded-full bg-white/35 ring-1 ring-gold-500/16 transition-all duration-700 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
                 {brandIcon && (
-                  <img
-                    src={brandIcon}
-                    alt=""
-                    className={`absolute -right-3 -top-3 z-10 h-16 w-16 rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`}
-                    loading="lazy"
-                    decoding="async"
+                  <span
+                    className="absolute -right-3 -top-3 z-10 grid h-16 w-16 place-items-center rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)]"
                     aria-hidden="true"
-                  />
+                  >
+                    <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
+                  </span>
                 )}
                 <img
                   src={cardVisual}
@@ -2852,7 +2886,7 @@ function PptTimelineScene({
                     }`}
                   >
                   {brandIcon ? (
-                    <img src={brandIcon} alt="" className={`h-[68%] w-[68%] object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)} ${brandIconToneClass(active)}`} loading="lazy" decoding="async" aria-hidden="true" />
+                    <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-[68%] w-[68%] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   ) : (
                     card.index ?? index + 1
                   )}
@@ -2871,7 +2905,7 @@ function PptTimelineScene({
                 >
                   {brandIcon && !isEmergencySlide && (
                     <span className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-2xl border border-green-700/10 bg-white/80 p-1.5 shadow-sm" aria-hidden="true">
-                      <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
+                      <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                     </span>
                   )}
                   <span className={`relative z-10 block font-extrabold leading-snug ${denseEmergencyTimeline ? 'text-[15.5px]' : isEmergencySlide ? 'text-[18px]' : 'text-[15.5px]'}`}>{card.title}</span>
@@ -2976,7 +3010,7 @@ function PptMatrixScene({
                 <span>{card.title}</span>
                 {brandIcon && (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-12 w-12 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
-                    <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)} ${brandIconToneClass(active)}`} loading="lazy" decoding="async" />
+                    <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   </span>
                 )}
               </h3>
@@ -3071,7 +3105,7 @@ function PptSpotlightScene({
         )}
         <span className="relative z-10 mx-auto mb-2 grid h-12 w-12 place-items-center rounded-full bg-white/16 p-2.5 ring-2 ring-white/25">
           {focusBrandIcon ? (
-            <img src={focusBrandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)} brightness-0 invert`} loading="lazy" decoding="async" aria-hidden="true" />
+            <BrandIcon src={focusBrandIcon} tone="white" className={`h-full w-full ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} />
           ) : (
             <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
           )}
@@ -3117,7 +3151,7 @@ function PptSpotlightScene({
               >
                 {brandIcon && (
                   <span className={`mx-auto ${denseSupporting ? 'mb-1 h-10 w-10' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm`} aria-hidden="true">
-                    <img src={brandIcon} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
+                    <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   </span>
                 )}
                 <span className={`block ${denseSupporting ? 'text-[12.5px]' : 'text-[14.5px]'} font-extrabold leading-snug`}>{card.title}</span>
