@@ -137,6 +137,14 @@
   .scroll-slim::-webkit-scrollbar-track {
     background: transparent;
   }
+
+  /* Course-2 sidebar only: scrollbar in the ministry's secondary gold. */
+  .scroll-slim-gold::-webkit-scrollbar-thumb {
+    background: #9b945f;
+  }
+  .scroll-slim-gold {
+    scrollbar-color: #9b945f transparent;
+  }
 }
 
 /* Equalizer bars for the "speaking" narration state */

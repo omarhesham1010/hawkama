@@ -57,7 +57,7 @@ export function CourseTwoSidebar({
           open ? 'w-[300px]' : 'w-0 border-0 shadow-none'
         }`}
       >
-        <div className="scroll-slim flex h-full w-[300px] flex-col overflow-y-auto">
+        <div className="scroll-slim scroll-slim-gold flex h-full w-[300px] flex-col overflow-y-auto">
           <div className="flex shrink-0 items-center justify-between bg-brand px-4 py-3.5">
             <p className="text-sm font-bold text-white">محتويات الحقيبة</p>
             <button
