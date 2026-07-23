@@ -70,7 +70,7 @@ export function CourseTwoSidebar({
               <HamburgerIcon className="h-4 w-4" />
             </button>
           </div>
-          <nav className="flex-1 space-y-1 bg-[#7EC7A0] p-3">
+          <nav className="flex-1 space-y-1 bg-[#1F9569] p-3">
         {groups.map((group, gi) => {
           const isOpen = openGroup === gi;
           const isActiveGroup = gi === activeGroup;
@@ -79,8 +79,8 @@ export function CourseTwoSidebar({
               <button
                 type="button"
                 onClick={() => setOpenGroup(isOpen ? -1 : gi)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-right transition-colors ${
-                  isActiveGroup ? 'bg-brand/12 ring-1 ring-brand/30' : 'hover:bg-surface-2'
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-right shadow-sm transition-colors ${
+                  isActiveGroup ? 'bg-white ring-1 ring-brand/30' : 'bg-white/90 hover:bg-white'
                 }`}
                 aria-expanded={isOpen}
               >
@@ -112,7 +112,7 @@ export function CourseTwoSidebar({
               </button>
 
               {isOpen && (
-                <div className="mr-4 mt-1 space-y-0.5 border-e border-line pe-3">
+                <div className="mr-4 mt-1 space-y-0.5 rounded-lg bg-white/85 p-1.5 pe-3 shadow-sm">
                   {group.slides.map((slide, si) => {
                     const globalIndex = group.startIndex + si;
                     const active = globalIndex === activeIndex;
