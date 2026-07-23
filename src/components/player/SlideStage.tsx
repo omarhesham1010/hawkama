@@ -1367,6 +1367,14 @@ function IntroMotionScene({
   const introHeroSrc = isEmergencyCourse
     ? '/assets/visual-library/intro-emergency-preparedness-shield.webp'
     : '/assets/visual-library/intro-governance-building-scene.webp';
+  // Keep the pillar row's horizontal center locked to the hero image's own
+  // center (both anchored from the right edge) so it never reads as
+  // shifted off to one side, regardless of how many pillars are shown.
+  const heroRightPct = 6;
+  const heroWidthPct = 26;
+  const heroCenterFromRight = heroRightPct + heroWidthPct / 2;
+  const pillarRowWidthPct = pillars.length > 3 ? 34 : 30;
+  const pillarRowRightPct = heroCenterFromRight - pillarRowWidthPct / 2;
 
   return (
     <div className="relative h-full min-h-0 overflow-visible">
@@ -1386,7 +1394,7 @@ function IntroMotionScene({
         />
         <div
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
-          style={{ right: '5%', bottom: '10%', width: pillars.length > 3 ? '41%' : '32%' }}
+          style={{ right: `${pillarRowRightPct}%`, bottom: '10%', width: `${pillarRowWidthPct}%` }}
         >
         {/* Narration reveals pillars in content order (governance →
             compliance → risk), but the client wants them displayed
@@ -1398,7 +1406,7 @@ function IntroMotionScene({
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
-          const cardWidth = pillars.length > 3 ? 'w-[96px]' : 'w-[112px]';
+          const cardWidth = pillars.length > 3 ? 'w-[80px]' : 'w-[94px]';
           const visualOrder = index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
