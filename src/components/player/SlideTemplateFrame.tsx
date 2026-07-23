@@ -12,11 +12,12 @@ export function SlideTemplateFrame({ variant = 'default' }: { variant?: 'default
       />
       {variant === 'intro' ? (
         <img
-          src="/template-assets/ministry-logo.svg"
+          src="/template-assets/intro-topright-swoosh.webp"
           alt=""
-          className="absolute left-6 top-6 h-[92px] w-[92px] object-contain"
+          className="absolute right-0 top-0 h-[135px] w-[440px] object-contain object-right-top"
           loading="eager"
           decoding="async"
+          fetchPriority="high"
           draggable={false}
         />
       ) : (
