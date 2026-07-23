@@ -48,7 +48,7 @@ export function CourseHeader({
         </button>
 
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-green-400 to-green-800 text-white shadow-card">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-700 text-white shadow-card">
             <Icon name="shield" className="w-6 h-6" />
           </span>
           <div className="leading-tight">

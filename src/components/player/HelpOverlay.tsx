@@ -82,7 +82,7 @@ export function HelpOverlay({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-6">
       <div className="absolute inset-0 bg-green-950/60 backdrop-blur-sm animate-fade-in" onClick={onClose} />
       <div className="relative z-10 w-full max-w-3xl overflow-hidden rounded-3xl border border-line bg-surface shadow-card-lg animate-scale-in">
-        <div className="flex items-center justify-between bg-gradient-to-l from-green-800 via-green-600 to-green-600 px-6 py-4 text-white">
+        <div className="flex items-center justify-between bg-green-700 px-6 py-4 text-white">
           <p className="text-lg font-bold">دليل استخدام المشغّل</p>
           <button
             type="button"

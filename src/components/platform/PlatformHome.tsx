@@ -13,7 +13,7 @@ function PlatformHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-surface/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-green-800 text-white shadow-card">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-700 text-white shadow-card">
           <Icon name="shield" className="w-6 h-6" />
         </span>
         <div className="leading-tight">

@@ -160,7 +160,7 @@ export default function SlidePlayer({
                     aria-label={voicePlaying ? 'إيقاف مؤقت' : 'تشغيل'}
                     title={voicePlaying ? 'إيقاف مؤقت' : 'تشغيل'}
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white shadow-card"
-                    style={{ background: 'linear-gradient(135deg, rgb(var(--brand-soft)), rgb(var(--brand)))' }}
+                    style={{ background: 'rgb(var(--brand))' }}
                   >
                     {narration.isLoading ? (
                       <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
@@ -214,7 +214,7 @@ export default function SlidePlayer({
                         className="h-full rounded-full transition-[width] duration-200 ease-linear"
                         style={{
                           width: `${Math.round(sync.progress * 100)}%`,
-                          background: 'linear-gradient(90deg, rgb(var(--brand-soft)), rgb(var(--brand)))',
+                          background: 'rgb(var(--brand))',
                         }}
                       />
                     </div>

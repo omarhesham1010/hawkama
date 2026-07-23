@@ -47,7 +47,7 @@ export function PlayerHeader({
   const [showVoice, setShowVoice] = useState(false);
 
   return (
-    <header className="relative z-30 bg-gradient-to-l from-green-800 via-green-600 to-green-600 shadow-card-lg">
+    <header className="relative z-30 bg-green-700 shadow-card-lg">
       <div className="player-header-row mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
         {/* logo */}
         <div className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1.5">

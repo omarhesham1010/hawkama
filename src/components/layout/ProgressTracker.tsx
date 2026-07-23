@@ -12,7 +12,7 @@ export function ProgressBar({ percent, className = '' }: { percent: number; clas
         className="h-full rounded-full transition-[width] duration-500 ease-out"
         style={{
           width: `${percent}%`,
-          background: 'linear-gradient(90deg, rgb(var(--brand-soft)), rgb(var(--brand)))',
+          background: 'rgb(var(--brand))',
         }}
       />
     </div>

@@ -17,9 +17,7 @@ function CompareBoard({ block }: { block: CompareBlock }) {
         {block.columns.map((col, colIndex) => {
           // Column ٣ (integration) is gold, like the PPT; the rest are green.
           const gold = col.index === '٣';
-          const headerBg = gold
-            ? 'bg-gradient-to-l from-gold-600 to-gold-500'
-            : 'bg-gradient-to-l from-green-700 to-green-600';
+          const headerBg = gold ? 'bg-gold-500' : 'bg-green-700';
           const dot = gold ? 'bg-gold-500' : 'bg-green-600 dark:bg-green-400';
           const topLine = gold ? 'bg-gold-500' : 'bg-green-600';
           return (
@@ -150,8 +148,7 @@ export function LessonBlockView({ block }: { block: LessonBlock }) {
       const tones = {
         info: 'bg-brand/8 border-brand/25',
         gold: 'bg-gold-500/10 border-gold-500/30',
-        contrast:
-          'bg-gradient-to-l from-green-800 to-green-600 text-white border-green-600 dark:from-green-900 dark:to-green-700',
+        contrast: 'bg-green-700 text-white border-green-600',
       } as const;
       const isContrast = block.tone === 'contrast';
       return (

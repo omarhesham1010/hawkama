@@ -126,7 +126,7 @@ const ACCENTS = [
   { border: 'border-gold-400/80', tile: 'bg-gold-500/22 text-gold-700' },
 ];
 
-const ACTIVE_BOX = 'border-green-600 bg-gradient-to-br from-green-500 to-green-700 shadow-glow';
+const ACTIVE_BOX = 'border-green-600 bg-green-700 shadow-glow';
 
 type NasserGuide = {
   pose: NasserPose;
@@ -691,7 +691,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
     case 'callout': {
       const isContrast = unit.tone === 'contrast';
       const cls = isContrast
-        ? 'border-green-600 bg-gradient-to-l from-green-800 to-green-600 text-white'
+        ? 'border-green-600 bg-green-700 text-white'
         : active
           ? `${ACTIVE_BOX} text-white`
           : unit.tone === 'gold'
@@ -745,9 +745,7 @@ function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
       className={`relative grid h-full w-[220px] shrink-0 place-items-center overflow-visible ${
         alt ? 'rounded-[2.5rem]' : 'rounded-3xl'
       } border-2 border-green-500/35 shadow-card-lg ${
-        alt
-          ? 'bg-gradient-to-tr from-gold-600/28 via-green-500/24 to-green-700/30'
-          : 'bg-gradient-to-br from-green-500/30 via-gold-500/22 to-green-700/28'
+        alt ? 'bg-green-700/28' : 'bg-green-600/28'
       }`}
     >
       <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-green-400/40 blur-3xl" />
@@ -772,7 +770,7 @@ function NumberNode({ n, active }: { n: number; active: boolean }) {
   return (
     <span
       className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-[15px] font-extrabold text-white shadow-card ring-4 ring-surface transition-transform ${
-        active ? 'scale-110 bg-gradient-to-br from-green-500 to-green-700' : 'bg-gradient-to-br from-green-400 to-green-600'
+        active ? 'scale-110 bg-green-700' : 'bg-green-500'
       }`}
     >
       {toArabicDigits(n)}
@@ -785,7 +783,7 @@ function ShapeNode({ active }: { active: boolean }) {
   return (
     <span
       className={`grid h-9 w-9 shrink-0 rotate-45 place-items-center rounded-xl shadow-card ring-4 ring-surface transition-transform ${
-        active ? 'scale-110 bg-gradient-to-br from-green-500 to-green-700' : 'bg-gradient-to-br from-gold-400 to-gold-600'
+        active ? 'scale-110 bg-green-700' : 'bg-gold-500'
       }`}
     >
       <span className="block h-2 w-2 -rotate-45 rounded-full bg-white" />
@@ -822,7 +820,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
 
   const visual = <SideVisual slide={slide} alt={alt} />;
   const compactVisual = (
-    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-visible rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 to-gold-500/14 px-5 shadow-card">
+    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-visible rounded-3xl border-2 border-green-500/30 bg-green-500/16 px-5 shadow-card">
       <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(0 135 85 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
       <div className="relative z-10 flex items-center gap-4 self-center">
         <span className="grid h-[72px] w-[72px] place-items-center rounded-2xl bg-white/90 p-3 shadow-card ring-4 ring-white/40">
@@ -869,7 +867,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
     <div className="relative flex min-h-0 flex-1 flex-col justify-center gap-3">
       {/* connecting spine */}
       <span
-        className={`absolute bottom-7 top-7 z-0 w-1 rounded-full bg-gradient-to-b from-green-500/60 to-gold-500/55 ${
+        className={`absolute bottom-7 top-7 z-0 w-1 rounded-full bg-green-500/60 ${
           mirror ? 'left-[19px]' : 'right-[19px]'
         } ${spineDashed ? 'opacity-70 [background-image:repeating-linear-gradient(180deg,rgb(0_135_85/0.6)_0_10px,transparent_10px_18px)] [background-color:transparent]' : ''}`}
       />
@@ -879,7 +877,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
 
   const topDownFlow = (
     <div className="relative grid min-h-0 flex-1 grid-cols-2 content-center gap-3.5">
-      <span className="absolute left-6 right-6 top-1/2 z-0 h-1 -translate-y-1/2 rounded-full bg-gradient-to-l from-green-500/55 to-gold-500/50" />
+      <span className="absolute left-6 right-6 top-1/2 z-0 h-1 -translate-y-1/2 rounded-full bg-green-500/55" />
       {flowRows}
     </div>
   );
@@ -889,7 +887,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
       <div className="flex h-full flex-col px-9 py-5">
       {/* title (beat 0) */}
       <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
-      <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-green-700 p-2 text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
+      <span className={`grid h-14 w-14 shrink-0 place-items-center bg-green-700 p-2 text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
           <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} active compact />
         </span>
         {slide.title}
@@ -1195,7 +1193,7 @@ function PptQuickCheckPopup({
       <div
         className={`pointer-events-auto relative mx-auto w-full max-w-[720px] animate-scale-in overflow-visible rounded-2xl border-2 shadow-card-lg transition-colors duration-500 ${
           revealed
-            ? 'border-green-700 bg-gradient-to-br from-green-700 to-green-600 text-white'
+            ? 'border-green-700 bg-green-700 text-white'
             : 'border-gold-500/60 bg-white text-ink'
         }`}
       >
@@ -1580,7 +1578,7 @@ function IntroRoadmapMotionScene({
                   shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
-                    ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-green-600 text-white shadow-card-lg'
+                    ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-green-700 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
                 style={{ minHeight: 76 }}
@@ -2315,11 +2313,9 @@ function PptCardView({
           : 'h-36 w-36';
   const glyphKind = courseGlyphKind(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''} ${card.answer ?? ''}`);
   const passiveShell =
-    tone === 'gold'
-      ? 'border-gold-500/18 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(249_244_226_/_0.78)_58%,rgb(255_255_255_/_0.9))]'
-      : 'border-green-700/14 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(233_246_239_/_0.74)_58%,rgb(255_255_255_/_0.9))]';
+    tone === 'gold' ? 'border-gold-500/18 bg-gold-50/90' : 'border-green-700/14 bg-green-50/90';
   const activeShell = active
-    ? 'scale-[1.025] border-gold-500/45 bg-[linear-gradient(145deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
+    ? 'scale-[1.025] border-gold-500/45 bg-green-700 text-white shadow-card-lg'
     : passiveShell;
   const titleTone = active ? 'text-white' : 'text-brand-strong';
   const bodyTone = active ? 'text-green-50' : 'text-ink';
@@ -2612,7 +2608,7 @@ function PptMotionVisualScene({
     : isSparseGroup && !titleCardGrid
       ? sparsePositions[cards.length]
       : positionsByVariant[variant] ?? positionsByVariant.orbit;
-  const chapterAccent = slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
+  const chapterAccent = slide.id.startsWith('ch2') ? 'bg-gold-50/80' : 'bg-green-50/80';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
@@ -2676,7 +2672,7 @@ function PptMotionVisualScene({
 
   return (
     <div className="relative min-h-0 flex-1 overflow-visible rounded-[30px]">
-      <div className={`absolute inset-[1%] rounded-[34px] bg-gradient-to-br ${chapterAccent} via-white/35 to-white/0`} />
+      <div className={`absolute inset-[1%] rounded-[34px] ${chapterAccent}`} />
       {showMotionGraphics && emptyFillIndex !== -1 && (
         <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} relative h-[190px]`} aria-hidden="true">
           <img
@@ -2869,7 +2865,7 @@ function PptTimelineScene({
                   <span
                     className={`absolute inset-0 grid place-items-center rounded-full border-4 text-[22px] font-extrabold tabular shadow-card transition-all duration-500 ${
                       active
-                        ? 'animate-glow-cycle border-gold-400 bg-gradient-to-br from-green-700 to-green-600 text-white shadow-card-lg'
+                        ? 'animate-glow-cycle border-gold-400 bg-green-700 text-white shadow-card-lg'
                         : 'border-white bg-white text-green-800 ring-1 ring-green-700/16'
                     }`}
                   >
@@ -2962,9 +2958,7 @@ function PptMatrixScene({
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
           const tone = card.tone ?? 'green';
           const toneShell =
-            tone === 'gold'
-              ? 'border-gold-500/25 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(249_244_226_/_0.7))]'
-              : 'border-green-700/18 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(233_246_239_/_0.68))]';
+            tone === 'gold' ? 'border-gold-500/25 bg-gold-50/95' : 'border-green-700/18 bg-green-50/95';
           return (
             <button
               key={index}
@@ -2975,7 +2969,7 @@ function PptMatrixScene({
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
-                  ? 'scale-[1.02] animate-glow-cycle border-gold-500/45 bg-[linear-gradient(150deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
+                  ? 'scale-[1.02] animate-glow-cycle border-gold-500/45 bg-green-700 text-white shadow-card-lg'
                   : toneShell
               }`}
             >
@@ -3070,7 +3064,7 @@ function PptSpotlightScene({
         onClick={() => onToggle(focusIndex)}
         className={`relative isolate w-full ${isEmergencySlide ? 'min-h-[150px] max-w-[720px] px-8 py-5' : 'max-w-[620px] p-7'} overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
           focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
-        } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-[linear-gradient(160deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white`}
+        } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-green-700 text-white`}
       >
         {focusVisible && (
           <span
@@ -3229,7 +3223,7 @@ function PptActivitySlide({
               aria-hidden={!currentCardVisible}
               className={`relative grid h-full min-h-0 grid-cols-[190px_1fr] items-center gap-5 overflow-visible rounded-[34px] border px-6 py-4 text-right shadow-[0_18px_42px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
                 answerVisible
-                  ? 'scale-[1.01] border-gold-500/45 bg-[linear-gradient(145deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white'
+                  ? 'scale-[1.01] border-gold-500/45 bg-green-700 text-white'
                   : 'border-green-700/14 bg-white/90 text-brand-strong'
               } ${currentCardVisible ? PPT_REVEAL_ANIMS[currentStep % PPT_REVEAL_ANIMS.length] : 'pointer-events-none opacity-0'}`}
             >
@@ -3453,7 +3447,7 @@ function PptGuidedScenarioSlide({
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
               </button>
-              <div className="relative flex min-h-0 flex-col justify-center overflow-visible bg-[linear-gradient(145deg,rgb(247_252_249),rgb(255_255_255)_48%,rgb(244_238_221))] p-9 text-right">
+              <div className="relative flex min-h-0 flex-col justify-center overflow-visible bg-white p-9 text-right">
                 <span className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-green-700/10 blur-3xl" />
                 <span className="pointer-events-none absolute -left-16 -bottom-16 h-56 w-56 rounded-full bg-gold-500/14 blur-3xl" />
                 <div className="relative z-10">
@@ -4233,7 +4227,7 @@ function TitleHead({ slide, showVisual = true }: { slide: Slide; showVisual?: bo
   return (
     <h2 className={`flex shrink-0 items-center text-[26px] font-extrabold leading-tight text-brand-strong animate-fade-up ${showVisual ? 'gap-2.5' : ''}`}>
       {showVisual && (
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-green-500/12 to-gold-500/16 p-1.5 shadow-card">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-green-500/14 p-1.5 shadow-card">
           <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
         </span>
       )}

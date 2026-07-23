@@ -60,7 +60,7 @@ export function CompletionScreen({
       </div>
 
       {/* Certificate-style card */}
-      <div className="relative mt-8 overflow-hidden rounded-3xl border border-gold-500/30 bg-gradient-to-br from-surface to-surface-2 p-8 text-center shadow-card-lg">
+      <div className="relative mt-8 overflow-hidden rounded-3xl border border-gold-500/30 bg-surface p-8 text-center shadow-card-lg">
         <div className="absolute inset-0 opacity-[0.06]" aria-hidden="true">
           <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full border-[16px] border-brand" />
           <div className="absolute -left-10 -bottom-10 h-48 w-48 rounded-full border-[16px] border-gold-500" />
