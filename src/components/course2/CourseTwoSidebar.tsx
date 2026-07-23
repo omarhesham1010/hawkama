@@ -79,28 +79,28 @@ export function CourseTwoSidebar({
               <button
                 type="button"
                 onClick={() => setOpenGroup(isOpen ? -1 : gi)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-right shadow-sm transition-colors ${
-                  isActiveGroup ? 'bg-white ring-1 ring-brand/30' : 'bg-white/90 hover:bg-white'
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-right transition-colors hover:bg-[#9B945F]/25 ${
+                  isActiveGroup ? 'bg-[#9B945F]/25 ring-1 ring-[#9B945F]/60' : ''
                 }`}
                 aria-expanded={isOpen}
               >
                 <span
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                    isActiveGroup ? 'bg-brand text-white' : 'bg-surface-3 text-ink-muted'
+                    isActiveGroup ? 'bg-[#9B945F] text-white' : 'border border-white/40 text-white'
                   }`}
                 >
                   {gi + 1}
                 </span>
                 <span
                   className={`flex-1 truncate text-sm ${
-                    isActiveGroup ? 'font-bold text-ink' : 'font-medium text-ink-soft'
+                    isActiveGroup ? 'font-bold text-white' : 'font-medium text-white/85'
                   }`}
                 >
                   {group.label}
                 </span>
                 <svg
                   viewBox="0 0 24 24"
-                  className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${isOpen ? '-rotate-90' : 'rotate-90'}`}
+                  className={`h-4 w-4 shrink-0 text-white/70 transition-transform duration-200 ${isOpen ? '-rotate-90' : 'rotate-90'}`}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -112,7 +112,7 @@ export function CourseTwoSidebar({
               </button>
 
               {isOpen && (
-                <div className="mr-4 mt-1 space-y-0.5 rounded-lg bg-white/85 p-1.5 pe-3 shadow-sm">
+                <div className="mr-4 mt-1 space-y-0.5 border-e border-white/25 pe-3">
                   {group.slides.map((slide, si) => {
                     const globalIndex = group.startIndex + si;
                     const active = globalIndex === activeIndex;
@@ -121,12 +121,12 @@ export function CourseTwoSidebar({
                         key={slide.id}
                         type="button"
                         onClick={() => onJump(globalIndex)}
-                        className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-right text-xs transition-colors ${
-                          active ? 'bg-brand/12 font-bold text-brand' : 'text-ink-soft hover:bg-surface-2'
+                        className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-[#9B945F]/25 ${
+                          active ? 'bg-[#9B945F]/25 font-bold text-white' : 'text-white/80'
                         }`}
                         aria-current={active ? 'step' : undefined}
                       >
-                        <span className="w-4 shrink-0 tabular text-[10px] text-ink-muted">
+                        <span className="w-4 shrink-0 tabular text-[10px] text-white/60">
                           {toArabicDigits(si + 1)}
                         </span>
                         <span className="min-w-0 flex-1 truncate">{slide.title}</span>
