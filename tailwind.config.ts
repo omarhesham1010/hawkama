@@ -77,8 +77,8 @@ export default {
         'brand-strong': 'rgb(var(--brand-strong) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['"IBM Plex Sans Arabic"', '"Tajawal"', 'system-ui', 'sans-serif'],
-        display: ['"Tajawal"', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
+        sans: ['"Montserrat Arabic"', 'system-ui', 'sans-serif'],
+        display: ['"Montserrat Arabic"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         xl: '0.9rem',

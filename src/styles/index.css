@@ -3,6 +3,75 @@
 @tailwind utilities;
 
 /* ============================================================
+   Single typeface, per the client's directive: only Montserrat Arabic,
+   everywhere in the bag. Self-hosted (SIL Open Font License), all nine
+   weights so no other font is ever needed as a bold/light substitute.
+   ============================================================ */
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Arabic';
+  src: url('/fonts/montserrat-arabic/MontserratArabic-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
    Theme tokens — identity from the source PowerPoint (green + gold).
    Values are space-separated RGB channels for Tailwind's
    `rgb(var(--x) / <alpha>)` syntax.
@@ -40,7 +109,7 @@
   body {
     margin: 0;
     color: rgb(var(--ink));
-    font-family: 'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+    font-family: 'Montserrat Arabic', system-ui, sans-serif;
     font-weight: 500; /* clearer, bolder Arabic text */
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
