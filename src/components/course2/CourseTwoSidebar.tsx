@@ -97,8 +97,8 @@ export function CourseTwoSidebar({
               <button
                 type="button"
                 onClick={() => setOpenGroup(isOpen ? -1 : gi)}
-                className={`flex w-full items-center gap-3 rounded-xl border-r-4 px-3 py-2.5 text-right transition-colors hover:bg-[#9B945F]/30 ${
-                  isActiveGroup ? 'border-white bg-[#9B945F] shadow-[0_2px_8px_rgba(0,0,0,0.25)]' : 'border-transparent'
+                className={`flex w-full items-center gap-3 rounded-xl border-r-4 px-3 py-2.5 text-right transition-colors hover:bg-[#9B945F]/20 ${
+                  isActiveGroup ? 'border-white/80 bg-[#9B945F]/35' : 'border-transparent'
                 }`}
                 aria-expanded={isOpen}
               >
@@ -140,8 +140,8 @@ export function CourseTwoSidebar({
                         key={slide.id}
                         type="button"
                         onClick={() => onJump(globalIndex)}
-                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-[#9B945F]/30 ${
-                          active ? 'border-white bg-[#9B945F] font-bold text-white shadow-sm' : 'border-transparent text-white/80'
+                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-[#9B945F]/20 ${
+                          active ? 'border-white/80 bg-[#9B945F]/35 font-bold text-white' : 'border-transparent text-white/80'
                         }`}
                         aria-current={active ? 'step' : undefined}
                       >
