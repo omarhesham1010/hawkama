@@ -3078,7 +3078,7 @@ function PptSpotlightScene({
         )}
         {showFocusVisual && (
           <span
-            className={`pointer-events-none absolute z-0 ${isEmergencySlide ? '-left-6 -top-6 h-[152px] w-[152px] opacity-75' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
+            className={`pointer-events-none absolute z-0 ${isEmergencySlide ? '-left-4 -top-4 h-[104px] w-[104px] opacity-70' : '-left-8 -top-8 h-[92px] w-[92px]'} rounded-full border-4 border-white bg-white shadow-card-lg`}
             aria-hidden="true"
           >
             <svg className="absolute -inset-2 animate-aura-spin opacity-70" viewBox="0 0 100 100" aria-hidden="true">
@@ -3100,8 +3100,8 @@ function PptSpotlightScene({
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
           </svg>
         </span>
-        <h3 className={`relative z-10 ${isEmergencySlide ? 'text-[24px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
-        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[16px]' : 'text-[16px]'} mt-1.5 font-bold leading-snug text-green-50`}>{focusCard.text}</p>}
+        <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
+        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[16px]'} mt-1.5 font-bold leading-snug text-green-50`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
             <p className="text-[13px] font-bold leading-snug text-green-50">{focusDetail}</p>
