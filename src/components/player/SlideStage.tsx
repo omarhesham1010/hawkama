@@ -1342,55 +1342,31 @@ function IntroMotionScene({
   // the "currently talking about this" active highlight.
   const activeIndex = thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
   const visiblePillars = started ? (thirdPillarShown ? 3 : secondPillarShown ? 2 : firstPillarShown ? 1 : 0) : 0;
-  // Bag 2 (emergency response) welcome slides get their own themed floating
-  // layers instead of bag 1's governance/compliance/risk icons.
-  const introLayerSrcs = isEmergencyCourse
-    ? [
-        '/assets/visual-library/intro-emergency-preparedness-shield.webp',
-        '/assets/visual-library/intro-emergency-crisis-target.webp',
-        '/assets/visual-library/intro-emergency-foresight-radar.webp',
-      ]
-    : [
-        '/assets/visual-library/intro-governance-building-scene.webp',
-        '/assets/visual-library/intro-governance-compliance-scene.webp',
-        '/assets/visual-library/intro-governance-risk-scene.webp',
-      ];
-  const layerState = [
-    {
-      src: introLayerSrcs[0],
-      className: 'right-[8%] top-[18%] w-[28%]',
-      visible: firstPillarShown,
-      transform: `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`,
-    },
-    {
-      src: introLayerSrcs[1],
-      className: 'right-[31%] top-[45%] w-[17%]',
-      visible: secondPillarShown,
-      transform: `translate3d(${(0.46 - visualProgress) * 12}px, ${Math.cos(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
-    },
-    {
-      src: introLayerSrcs[2],
-      className: 'right-[-5%] top-[45%] w-[17%]',
-      visible: thirdPillarShown,
-      transform: `translate3d(${(0.74 - visualProgress) * 12}px, ${Math.sin(visualProgress * Math.PI * 2 + 1) * 2}px, 0) scale(${0.97 + visualProgress * 0.025})`,
-    },
-  ];
+  // Bag 2 (emergency response) welcome slides get their own themed hero
+  // image instead of bag 1's governance building scene. Only one image --
+  // the client wants a single, most-expressive visual here instead of a
+  // cluster of three -- raised toward the top so the pillar cards docked
+  // at the bottom of this scene never crop it.
+  const introHeroSrc = isEmergencyCourse
+    ? '/assets/visual-library/intro-emergency-preparedness-shield.webp'
+    : '/assets/visual-library/intro-governance-building-scene.webp';
 
   return (
     <div className="relative h-full min-h-0 overflow-visible">
       <div className="pointer-events-none absolute inset-0">
-        {layerState.map((layer, index) => (
-          <img
-            key={layer.src}
-            src={layer.src}
-            alt=""
-            draggable={false}
-            className={`absolute ${layer.className} drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
-              layer.visible ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
-            } ${started && !narrationComplete && index === activeIndex ? `motion-layer-focus ${activeVisualAnimationFor(layer.src, index)}` : ''}`}
-            style={{ transform: layer.visible ? layer.transform : undefined }}
-          />
-        ))}
+        <img
+          src={introHeroSrc}
+          alt=""
+          draggable={false}
+          className={`absolute right-[10%] top-[6%] w-[36%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+            started ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
+          } ${started && !narrationComplete ? `motion-layer-focus ${activeVisualAnimationFor(introHeroSrc, 0)}` : ''}`}
+          style={{
+            transform: started
+              ? `translate3d(${(1 - visualProgress) * 10}px, ${Math.sin(visualProgress * Math.PI * 2) * 2}px, 0) scale(${0.98 + visualProgress * 0.025})`
+              : undefined,
+          }}
+        />
         <div
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
           style={{ right: '5%', bottom: '10%', width: '32%' }}
