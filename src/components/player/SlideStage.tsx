@@ -1264,10 +1264,10 @@ function introPillars(slide: Slide) {
   const afterColon = introText.includes(':') ? introText.slice(introText.indexOf(':') + 1) : introText;
   const parts = afterColon.split(/\s*-\s*/).map((part) => part.trim()).filter(Boolean);
   return (parts.length ? parts : [slide.title, slide.ppt?.subtitle ?? 'مسار تدريبي', slide.ppt?.unitTitle ?? slide.title])
-    .slice(0, 3)
+    .slice(0, 4)
     .map((label, index) => ({
       label,
-      detail: ['مدخل بصري', 'تطبيق عملي', 'قرار أوضح'][index],
+      detail: ['مدخل بصري', 'تطبيق عملي', 'قرار أوضح', 'تحسين مستمر'][index],
     }));
 }
 
@@ -1336,12 +1336,29 @@ function IntroMotionScene({
     : isEmergencyCourse
       ? spokenPast(pillars[2]?.label ?? '', 0.53)
       : spokenPast('ثم نختم بإدارة المخاطر', 0.72);
+  // Only the bag-level welcome slide has a real 4th pillar (chapter 4) --
+  // every chapter's own welcome slide covers just its own 3 sub-topics.
+  const fourthPillarShown = isEmergencyWelcome
+    ? spokenPast('الفصل الرابع عن التعافي والتحسين المستمر', 0.65)
+    : isEmergencyCourse && pillars[3]
+      ? spokenPast(pillars[3].label, 0.65)
+      : false;
   // Client call: nothing appears until Nasser actually talks about it --
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)
   // the "currently talking about this" active highlight.
-  const activeIndex = thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
-  const visiblePillars = started ? (thirdPillarShown ? 3 : secondPillarShown ? 2 : firstPillarShown ? 1 : 0) : 0;
+  const activeIndex = fourthPillarShown ? 3 : thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
+  const visiblePillars = started
+    ? fourthPillarShown
+      ? 4
+      : thirdPillarShown
+        ? 3
+        : secondPillarShown
+          ? 2
+          : firstPillarShown
+            ? 1
+            : 0
+    : 0;
   // Bag 2 (emergency response) welcome slides get their own themed hero
   // image instead of bag 1's governance building scene. Only one image --
   // the client wants a single, most-expressive visual here instead of a
@@ -1358,7 +1375,7 @@ function IntroMotionScene({
           src={introHeroSrc}
           alt=""
           draggable={false}
-          className={`absolute right-[10%] top-[6%] w-[36%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+          className={`absolute right-[6%] top-[8%] w-[26%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
             started ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
           } ${started && !narrationComplete ? `motion-layer-focus ${activeVisualAnimationFor(introHeroSrc, 0)}` : ''}`}
           style={{
@@ -1369,19 +1386,20 @@ function IntroMotionScene({
         />
         <div
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
-          style={{ right: '5%', bottom: '10%', width: '32%' }}
+          style={{ right: '5%', bottom: '10%', width: pillars.length > 3 ? '41%' : '32%' }}
         >
         {/* Narration reveals pillars in content order (governance →
             compliance → risk), but the client wants them displayed
             governance-middle, compliance-left, risk-right — reorder
             visually with `order` instead of reordering the array, so the
             reveal/highlight timing (tied to `index`) still lines up with
-            what the narration says. */}
+            what the narration says. A 4th pillar (only the bag-level
+            welcome slide has one) just appends after the reordered three. */}
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
-          const cardWidth = 'w-[112px]';
-          const visualOrder = [1, 2, 0][index] ?? index;
+          const cardWidth = pillars.length > 3 ? 'w-[96px]' : 'w-[112px]';
+          const visualOrder = index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
