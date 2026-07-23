@@ -10,7 +10,7 @@
 @layer base {
   /* Single unified "luxury" identity — green + teal + gold blend (no dark mode). */
   :root {
-    --canvas: 240 246 242; /* soft blended background */
+    --canvas: 163 219 189; /* site-wide green background, matching the ministry LMS identity */
     --surface: 255 255 255; /* white cards */
     --surface-2: 244 250 246; /* subtle raised */
     --surface-3: 232 242 236; /* insets / tints */
