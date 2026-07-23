@@ -56,7 +56,7 @@ export function GovernanceFrameworkBuilder({
                 key={i}
                 className={`flex items-center gap-3 rounded-xl border-2 p-3 transition-colors ${
                   isRight
-                    ? 'border-teal-500/50 bg-teal-500/10'
+                    ? 'border-green-500/50 bg-green-500/10'
                     : isWrong
                       ? 'border-rose-400/50 bg-rose-500/10'
                       : piece
@@ -89,7 +89,7 @@ export function GovernanceFrameworkBuilder({
                     {checked && (
                       <Icon
                         name={isRight ? 'check' : 'alert'}
-                        className={`w-5 h-5 ${isRight ? 'text-teal-600 dark:text-teal-300' : 'text-rose-500'}`}
+                        className={`w-5 h-5 ${isRight ? 'text-green-600 dark:text-green-300' : 'text-rose-500'}`}
                       />
                     )}
                   </>

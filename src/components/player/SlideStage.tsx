@@ -121,8 +121,8 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
 
 const ACCENTS = [
   { border: 'border-green-400/70', tile: 'bg-green-500/18 text-green-700' },
-  { border: 'border-teal-400/70', tile: 'bg-teal-500/18 text-teal-700' },
-  { border: 'border-sky-400/70', tile: 'bg-sky-500/18 text-sky-700' },
+  { border: 'border-gold-400/80', tile: 'bg-gold-500/22 text-gold-700' },
+  { border: 'border-green-400/70', tile: 'bg-green-500/18 text-green-700' },
   { border: 'border-gold-400/80', tile: 'bg-gold-500/22 text-gold-700' },
 ];
 
@@ -696,7 +696,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
           ? `${ACTIVE_BOX} text-white`
           : unit.tone === 'gold'
             ? 'border-gold-400/70 bg-gold-500/10'
-            : 'border-teal-400/70 bg-teal-500/10';
+            : 'border-green-400/70 bg-green-500/10';
       const titleCls = isContrast || active ? 'text-white' : 'text-ink';
       const textCls = isContrast || active ? 'text-green-50' : 'text-ink-soft';
       return (
@@ -746,8 +746,8 @@ function SideVisual({ slide, alt }: { slide: Slide; alt: boolean }) {
         alt ? 'rounded-[2.5rem]' : 'rounded-3xl'
       } border-2 border-green-500/35 shadow-card-lg ${
         alt
-          ? 'bg-gradient-to-tr from-teal-600/28 via-green-500/24 to-green-700/30'
-          : 'bg-gradient-to-br from-green-500/30 via-teal-500/22 to-green-700/28'
+          ? 'bg-gradient-to-tr from-gold-600/28 via-green-500/24 to-green-700/30'
+          : 'bg-gradient-to-br from-green-500/30 via-gold-500/22 to-green-700/28'
       }`}
     >
       <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-green-400/40 blur-3xl" />
@@ -772,7 +772,7 @@ function NumberNode({ n, active }: { n: number; active: boolean }) {
   return (
     <span
       className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-[15px] font-extrabold text-white shadow-card ring-4 ring-surface transition-transform ${
-        active ? 'scale-110 bg-gradient-to-br from-green-500 to-green-700' : 'bg-gradient-to-br from-green-400 to-teal-600'
+        active ? 'scale-110 bg-gradient-to-br from-green-500 to-green-700' : 'bg-gradient-to-br from-green-400 to-green-600'
       }`}
     >
       {toArabicDigits(n)}
@@ -785,7 +785,7 @@ function ShapeNode({ active }: { active: boolean }) {
   return (
     <span
       className={`grid h-9 w-9 shrink-0 rotate-45 place-items-center rounded-xl shadow-card ring-4 ring-surface transition-transform ${
-        active ? 'scale-110 bg-gradient-to-br from-green-500 to-green-700' : 'bg-gradient-to-br from-teal-400 to-sky-500'
+        active ? 'scale-110 bg-gradient-to-br from-green-500 to-green-700' : 'bg-gradient-to-br from-gold-400 to-gold-600'
       }`}
     >
       <span className="block h-2 w-2 -rotate-45 rounded-full bg-white" />
@@ -822,8 +822,8 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
 
   const visual = <SideVisual slide={slide} alt={alt} />;
   const compactVisual = (
-    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-visible rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 via-teal-500/12 to-gold-500/14 px-5 shadow-card">
-      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(20 160 120 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+    <div className="relative flex h-32 min-w-[220px] flex-1 items-end justify-between overflow-visible rounded-3xl border-2 border-green-500/30 bg-gradient-to-l from-green-500/18 to-gold-500/14 px-5 shadow-card">
+      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(rgb(0 135 85 / 0.35) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
       <div className="relative z-10 flex items-center gap-4 self-center">
         <span className="grid h-[72px] w-[72px] place-items-center rounded-2xl bg-white/90 p-3 shadow-card ring-4 ring-white/40">
           <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} />
@@ -869,9 +869,9 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
     <div className="relative flex min-h-0 flex-1 flex-col justify-center gap-3">
       {/* connecting spine */}
       <span
-        className={`absolute bottom-7 top-7 z-0 w-1 rounded-full bg-gradient-to-b from-green-500/60 via-teal-500/55 to-gold-500/55 ${
+        className={`absolute bottom-7 top-7 z-0 w-1 rounded-full bg-gradient-to-b from-green-500/60 to-gold-500/55 ${
           mirror ? 'left-[19px]' : 'right-[19px]'
-        } ${spineDashed ? 'opacity-70 [background-image:repeating-linear-gradient(180deg,rgb(20_160_120/0.6)_0_10px,transparent_10px_18px)] [background-color:transparent]' : ''}`}
+        } ${spineDashed ? 'opacity-70 [background-image:repeating-linear-gradient(180deg,rgb(0_135_85/0.6)_0_10px,transparent_10px_18px)] [background-color:transparent]' : ''}`}
       />
       {flowRows}
     </div>
@@ -879,7 +879,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
 
   const topDownFlow = (
     <div className="relative grid min-h-0 flex-1 grid-cols-2 content-center gap-3.5">
-      <span className="absolute left-6 right-6 top-1/2 z-0 h-1 -translate-y-1/2 rounded-full bg-gradient-to-l from-green-500/55 via-teal-500/45 to-gold-500/50" />
+      <span className="absolute left-6 right-6 top-1/2 z-0 h-1 -translate-y-1/2 rounded-full bg-gradient-to-l from-green-500/55 to-gold-500/50" />
       {flowRows}
     </div>
   );
@@ -889,7 +889,7 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
       <div className="flex h-full flex-col px-9 py-5">
       {/* title (beat 0) */}
       <h2 className={`flex items-center gap-3 text-[30px] font-extrabold leading-tight transition-colors ${activeIdx === 0 ? 'text-brand' : 'text-brand-strong'}`}>
-      <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-teal-600 p-2 text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
+      <span className={`grid h-14 w-14 shrink-0 place-items-center bg-gradient-to-br from-green-500 to-green-700 p-2 text-white shadow-card ${alt ? 'rounded-full' : 'rounded-2xl'}`}>
           <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} active compact />
         </span>
         {slide.title}
@@ -912,14 +912,6 @@ function BeatSlide({ slide, spoken, showDialogue }: { slide: Slide; spoken: numb
 }
 
 // ---- PowerPoint-matched chapter slides -------------------------------------
-
-const PPT_ACCENTS: Record<NonNullable<PptCard['tone']>, string> = {
-  green: 'border-green-600/30 bg-white',
-  gold: 'border-gold-500/45 bg-gold-50/80',
-  blue: 'border-sky-500/35 bg-sky-50/80',
-  gray: 'border-slate-300 bg-white',
-};
-void PPT_ACCENTS;
 
 const PPT_EMOJIS = [
   { terms: ['سيناريو'], emoji: '🎬' },
@@ -1588,7 +1580,7 @@ function IntroRoadmapMotionScene({
                   shown ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none -translate-x-10 scale-95 opacity-0'
                 } ${
                   active
-                    ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-teal-700 text-white shadow-card-lg'
+                    ? 'z-20 translate-x-2 scale-[1.02] border-gold-500/55 bg-gradient-to-br from-green-800 via-green-700 to-green-600 text-white shadow-card-lg'
                     : 'border-green-700/14 bg-white/88 text-brand-strong'
                 }`}
                 style={{ minHeight: 76 }}
@@ -2325,11 +2317,7 @@ function PptCardView({
   const passiveShell =
     tone === 'gold'
       ? 'border-gold-500/18 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(249_244_226_/_0.78)_58%,rgb(255_255_255_/_0.9))]'
-      : tone === 'blue'
-        ? 'border-sky-500/16 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(232_247_249_/_0.72)_58%,rgb(255_255_255_/_0.9))]'
-        : tone === 'gray'
-          ? 'border-slate-300/42 bg-white/86'
-          : 'border-green-700/14 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(233_246_239_/_0.74)_58%,rgb(255_255_255_/_0.9))]';
+      : 'border-green-700/14 bg-[linear-gradient(145deg,rgb(255_255_255_/_0.96),rgb(233_246_239_/_0.74)_58%,rgb(255_255_255_/_0.9))]';
   const activeShell = active
     ? 'scale-[1.025] border-gold-500/45 bg-[linear-gradient(145deg,rgb(17_92_58),rgb(18_119_96)_62%,rgb(197_162_80))] text-white shadow-card-lg'
     : passiveShell;
@@ -2339,10 +2327,8 @@ function PptCardView({
     ? 'border-white/35 bg-white/16 text-white shadow-card'
     : tone === 'gold'
       ? 'border-gold-500/22 bg-white/90'
-      : tone === 'blue'
-        ? 'border-sky-500/20 bg-white/90'
-        : 'border-green-700/14 bg-white/90';
-  const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : tone === 'blue' ? 'bg-teal-500' : 'bg-green-700';
+      : 'border-green-700/14 bg-white/90';
+  const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
   const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${emergencyHint ? ' __bag2__' : ''}`);
@@ -2626,7 +2612,7 @@ function PptMotionVisualScene({
     : isSparseGroup && !titleCardGrid
       ? sparsePositions[cards.length]
       : positionsByVariant[variant] ?? positionsByVariant.orbit;
-  const chapterAccent = slide.id.startsWith('ch3') ? 'from-teal-50/80' : slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
+  const chapterAccent = slide.id.startsWith('ch2') ? 'from-gold-50/80' : 'from-green-50/80';
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
@@ -2978,9 +2964,7 @@ function PptMatrixScene({
           const toneShell =
             tone === 'gold'
               ? 'border-gold-500/25 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(249_244_226_/_0.7))]'
-              : tone === 'blue'
-                ? 'border-sky-500/22 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(232_247_249_/_0.68))]'
-                : 'border-green-700/18 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(233_246_239_/_0.68))]';
+              : 'border-green-700/18 bg-[linear-gradient(150deg,rgb(255_255_255_/_0.97),rgb(233_246_239_/_0.68))]';
           return (
             <button
               key={index}
@@ -3112,10 +3096,10 @@ function PptSpotlightScene({
             <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
           )}
           <svg className="pointer-events-none absolute -right-1.5 -top-1.5 h-3.5 w-3.5 animate-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#F6D37A" />
+            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
           </svg>
           <svg className="pointer-events-none absolute -bottom-1.5 -left-1.5 h-2.5 w-2.5 animate-sparkle" style={{ animationDelay: '0.9s' }} viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#FBE7B4" />
+            <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#b9b48f" />
           </svg>
         </span>
         <h3 className={`relative z-10 ${isEmergencySlide ? 'text-[24px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
@@ -3388,7 +3372,7 @@ function PptGuidedScenarioSlide({
         <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_0.95fr] gap-5">
           {scenarioCard && (
             <div className="relative flex min-h-0 flex-col justify-center overflow-visible rounded-[34px] border border-green-700/12 bg-white/96 p-4 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
-              <span className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-teal-500/12 blur-3xl" />
+              <span className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-green-500/12 blur-3xl" />
               <span className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full bg-gold-500/14 blur-3xl" />
               <div className="relative z-10 min-h-[164px]">
                 {spoken > 0 && (
@@ -3435,7 +3419,7 @@ function PptGuidedScenarioSlide({
                     <span className="block text-[23px] font-black leading-tight">{card.title}</span>
                     <span className={`mt-1 block text-[15px] font-bold ${active ? 'text-white/82' : 'text-ink-soft'}`}>اضغط لفتح المحطة ومناقشتها</span>
                   </span>
-                  <Icon name={active ? 'check' : 'flow'} className={`h-7 w-7 shrink-0 ${active ? `text-teal-600 ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index + 3)}` : 'text-gold-600 group-hover:text-green-700'}`} />
+                  <Icon name={active ? 'check' : 'flow'} className={`h-7 w-7 shrink-0 ${active ? `text-green-600 ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index + 3)}` : 'text-gold-600 group-hover:text-green-700'}`} />
                 </button>
               );
             })}
@@ -3443,7 +3427,7 @@ function PptGuidedScenarioSlide({
         </div>
 
         {complete && (
-          <div className="pointer-events-none absolute inset-x-[18%] bottom-7 rounded-3xl border border-teal-500/35 bg-white/88 px-6 py-4 text-center text-[20px] font-extrabold text-brand-strong shadow-card animate-fade-up">
+          <div className="pointer-events-none absolute inset-x-[18%] bottom-7 rounded-3xl border border-green-500/35 bg-white/88 px-6 py-4 text-center text-[20px] font-extrabold text-brand-strong shadow-card animate-fade-up">
             تم تحليل السيناريو. انتقل للاختبار لما تكون جاهزًا.
           </div>
         )}
@@ -3488,8 +3472,8 @@ function PptGuidedScenarioSlide({
                     <p className="text-[21px] font-extrabold leading-relaxed text-brand-strong">{currentQuestion}</p>
                   </div>
                   {discussionVisible && (
-                    <div className="mt-4 rounded-[26px] border border-teal-500/28 bg-teal-500/8 p-5 animate-fade-up">
-                      <p className="mb-2 text-[16px] font-black text-teal-700">مناقشة ناصر</p>
+                    <div className="mt-4 rounded-[26px] border border-green-500/28 bg-green-500/8 p-5 animate-fade-up">
+                      <p className="mb-2 text-[16px] font-black text-green-700">مناقشة ناصر</p>
                       <p className="text-[19px] font-bold leading-relaxed text-ink">{currentCard.text}</p>
                     </div>
                   )}

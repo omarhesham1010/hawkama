@@ -5,7 +5,7 @@ import { toArabicDigits } from '../../lib/utils';
 
 const kindLabel: Record<string, { label: string; cls: string }> = {
   welcome: { label: 'مقدمة', cls: 'bg-surface-3 text-ink-muted' },
-  content: { label: 'شريحة', cls: 'bg-teal-500/12 text-teal-700 dark:text-teal-300' },
+  content: { label: 'شريحة', cls: 'bg-green-500/12 text-green-700 dark:text-green-300' },
   activity: { label: 'نشاط', cls: 'bg-brand/12 text-brand' },
   quiz: { label: 'اختبار', cls: 'bg-gold-500/15 text-gold-600 dark:text-gold-300' },
   reflection: { label: 'تأمّل', cls: 'bg-gold-500/12 text-gold-600 dark:text-gold-300' },

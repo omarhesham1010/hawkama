@@ -5,7 +5,7 @@ import { IconBadge } from '../ui/IconBadge';
 type TagTone = 'lesson' | 'activity' | 'quiz' | 'neutral';
 
 const tagCls: Record<TagTone, string> = {
-  lesson: 'bg-teal-500/12 text-teal-700 dark:text-teal-300',
+  lesson: 'bg-green-500/12 text-green-700 dark:text-green-300',
   activity: 'bg-brand/12 text-brand',
   quiz: 'bg-gold-500/15 text-gold-600 dark:text-gold-400',
   neutral: 'bg-surface-3 text-ink-muted',

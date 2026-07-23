@@ -47,7 +47,7 @@ export function PlayerHeader({
   const [showVoice, setShowVoice] = useState(false);
 
   return (
-    <header className="relative z-30 bg-gradient-to-l from-green-800 via-green-600 to-teal-600 shadow-card-lg">
+    <header className="relative z-30 bg-gradient-to-l from-green-800 via-green-600 to-green-600 shadow-card-lg">
       <div className="player-header-row mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
         {/* logo */}
         <div className="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1.5">
@@ -101,7 +101,7 @@ export function PlayerHeader({
 
       {/* section label pill (like the client's "الأهداف" tab) */}
       <div className="player-section-tabs flex items-start justify-center gap-3">
-        <span className="-mt-px rounded-b-xl bg-teal-800/85 px-8 py-1 text-[13px] font-semibold text-white shadow-card">
+        <span className="-mt-px rounded-b-xl bg-green-800/85 px-8 py-1 text-[13px] font-semibold text-white shadow-card">
           {sectionLabel}
         </span>
         <span className="-mt-px rounded-b-xl bg-white px-5 py-1 text-[13px] font-extrabold text-brand-strong shadow-card">

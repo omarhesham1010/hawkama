@@ -62,7 +62,7 @@ export function ScenarioDecisionActivity({
             let cls = 'border-line bg-surface-2 text-ink-soft hover:border-brand/40';
             if (reveal) {
               if (opt.correct)
-                cls = 'border-teal-500/50 bg-teal-500/10 text-teal-700 dark:text-teal-200';
+                cls = 'border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-200';
               else if (selected)
                 cls = 'border-gold-500/50 bg-gold-500/10 text-ink';
               else cls = 'border-line bg-surface-2 text-ink-muted opacity-60';
@@ -114,7 +114,7 @@ export function ScenarioDecisionActivity({
                 key={i}
                 className={`flex items-center gap-3 rounded-xl border-2 p-3 ${
                   isRight
-                    ? 'border-teal-500/50 bg-teal-500/10'
+                    ? 'border-green-500/50 bg-green-500/10'
                     : isWrong
                       ? 'border-rose-400/50 bg-rose-500/10'
                       : id
@@ -143,7 +143,7 @@ export function ScenarioDecisionActivity({
                     {pathChecked && (
                       <Icon
                         name={isRight ? 'check' : 'alert'}
-                        className={`w-5 h-5 ${isRight ? 'text-teal-600 dark:text-teal-300' : 'text-rose-500'}`}
+                        className={`w-5 h-5 ${isRight ? 'text-green-600 dark:text-green-300' : 'text-rose-500'}`}
                       />
                     )}
                   </>

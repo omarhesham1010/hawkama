@@ -75,7 +75,7 @@ export function HeroArt({ className = '' }: { className?: string }) {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle r="4" cx="0" cy="-58" fill="#d8b45a" />
+        <circle r="4" cx="0" cy="-58" fill="#9b945f" />
       </g>
     </svg>
   );

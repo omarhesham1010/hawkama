@@ -64,7 +64,7 @@ export function DecisionSimulation({
               const reveal = Boolean(identify);
               let cls = 'border-line bg-surface-2 text-ink-soft hover:border-brand/40';
               if (reveal) {
-                if (opt.correct) cls = 'border-teal-500/60 bg-teal-500/10 text-teal-800';
+                if (opt.correct) cls = 'border-green-500/60 bg-green-500/10 text-green-800';
                 else if (selected) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
                 else cls = 'border-line bg-surface-2 text-ink-muted opacity-60';
               } else if (!narrationLocked) {
@@ -148,7 +148,7 @@ export function DecisionSimulation({
                   key={i}
                   className={`flex min-h-[58px] items-center gap-2 rounded-xl border-2 p-2 ${
                     isRight
-                      ? 'border-teal-500/50 bg-teal-500/10'
+                      ? 'border-green-500/50 bg-green-500/10'
                       : isWrong
                         ? 'border-rose-400/50 bg-rose-500/10'
                         : id
@@ -185,7 +185,7 @@ export function DecisionSimulation({
                       {pathChecked && (
                         <Icon
                           name={isRight ? 'check' : 'alert'}
-                          className={`h-5 w-5 ${isRight ? 'text-teal-600' : 'text-rose-500'}`}
+                          className={`h-5 w-5 ${isRight ? 'text-green-600' : 'text-rose-500'}`}
                         />
                       )}
                     </>

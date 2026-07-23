@@ -15,7 +15,7 @@ export function Badge({
     <span
       className={`chip text-sm font-semibold ${
         earned
-          ? 'bg-teal-500/12 text-teal-700 dark:text-teal-200'
+          ? 'bg-green-500/12 text-green-700 dark:text-green-200'
           : 'bg-surface-3 text-ink-muted'
       }`}
     >
@@ -48,7 +48,7 @@ export function CompletionMedallion({ className = '' }: { className?: string }) 
         />
       ))}
       <circle cx="80" cy="80" r="58" fill="url(#med-g)" />
-      <circle cx="80" cy="80" r="58" fill="none" stroke="#d8b45a" strokeWidth="2.5" />
+      <circle cx="80" cy="80" r="58" fill="none" stroke="#9b945f" strokeWidth="2.5" />
       <circle cx="80" cy="80" r="47" fill="none" stroke="#ffffff" strokeOpacity="0.4" strokeWidth="1.5" />
       <path
         d="M62 82l12 12 24-27"

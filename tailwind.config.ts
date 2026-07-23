@@ -34,45 +34,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand green (from the PPT header boxes)
+        // Ministry green (#008755, from the ministry logo) -- every step is a
+        // tint/shade of this ONE hue, not an independent color, per the
+        // client's strict two-color identity directive (no other shades).
         green: {
-          50: '#eef6f1',
-          100: '#d3e9dc',
-          200: '#a8d3ba',
-          300: '#74b791',
-          400: '#459c6c',
-          500: '#2f8457',
-          600: '#256b47',
-          700: '#1f5638',
-          800: '#1a442e',
-          900: '#153826',
-          950: '#0c1f15',
+          50: '#f2f9f7',
+          100: '#e0f1eb',
+          200: '#bde0d3',
+          300: '#8cc9b3',
+          400: '#4cab88',
+          500: '#008755',
+          600: '#007348',
+          700: '#005f3c',
+          800: '#004a2f',
+          900: '#003622',
+          950: '#002215',
         },
-        // Gold (from the PPT third column)
+        // Ministry gold (#9B945F, from the ministry logo) -- same rule.
         gold: {
-          50: '#faf6ea',
-          100: '#f2e8c9',
-          200: '#e6d095',
-          300: '#d8b866',
-          400: '#c9a24a',
-          500: '#bf9b4a',
-          600: '#9d7f38',
-          700: '#7c632c',
-          800: '#5f4c24',
-          900: '#4d3e20',
-        },
-        // Kept for success/correct states (a cooler green so it reads distinct from brand)
-        teal: {
-          50: '#e6faf7',
-          100: '#c9f2ee',
-          200: '#9be6df',
-          300: '#63d3c9',
-          400: '#31b8ae',
-          500: '#149a90',
-          600: '#0e7c7b',
-          700: '#0f6263',
-          800: '#114e50',
-          900: '#123f41',
+          50: '#fafaf7',
+          100: '#f3f2ec',
+          200: '#e5e3d5',
+          300: '#d2cfb7',
+          400: '#b9b48f',
+          500: '#9b945f',
+          600: '#847e51',
+          700: '#6d6843',
+          800: '#555134',
+          900: '#3e3b26',
         },
         // Semantic surfaces driven by CSS variables (theme-aware)
         surface: 'rgb(var(--surface) / <alpha-value>)',

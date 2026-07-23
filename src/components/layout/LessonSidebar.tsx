@@ -6,11 +6,11 @@ const typeTag: Record<SectionType, { label: string; cls: string }> = {
   welcome: { label: 'تمهيد', cls: 'bg-surface-3 text-ink-muted' },
   objectives: { label: 'تمهيد', cls: 'bg-surface-3 text-ink-muted' },
   roadmap: { label: 'تمهيد', cls: 'bg-surface-3 text-ink-muted' },
-  lesson: { label: 'درس', cls: 'bg-teal-500/12 text-teal-700 dark:text-teal-300' },
+  lesson: { label: 'درس', cls: 'bg-green-500/12 text-green-700 dark:text-green-300' },
   activity: { label: 'نشاط', cls: 'bg-brand/12 text-brand' },
   quiz: { label: 'اختبار', cls: 'bg-gold-500/15 text-gold-600 dark:text-gold-400' },
   summary: { label: 'ملخص', cls: 'bg-surface-3 text-ink-muted' },
-  completion: { label: 'إنهاء', cls: 'bg-teal-500/12 text-teal-700 dark:text-teal-200' },
+  completion: { label: 'إنهاء', cls: 'bg-green-500/12 text-green-700 dark:text-green-200' },
 };
 
 export function LessonSidebar({
@@ -89,7 +89,7 @@ export function LessonSidebar({
                 <span
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                     done
-                      ? 'bg-teal-500/15 text-teal-600 dark:text-teal-300'
+                      ? 'bg-green-500/15 text-green-600 dark:text-green-300'
                       : active
                         ? 'bg-brand text-white'
                         : 'bg-surface-3 text-ink-muted'

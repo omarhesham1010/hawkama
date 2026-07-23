@@ -88,7 +88,7 @@ export function CourseTwoSidebar({
               <HamburgerIcon className="h-4 w-4" />
             </button>
           </div>
-          <nav className="flex-1 space-y-1 bg-[#1F9569] p-3">
+          <nav className="flex-1 space-y-1 bg-brand p-3">
         {groups.map((group, gi) => {
           const isOpen = openGroup === gi;
           const isActiveGroup = gi === activeGroup;
@@ -97,14 +97,14 @@ export function CourseTwoSidebar({
               <button
                 type="button"
                 onClick={() => setOpenGroup(isOpen ? -1 : gi)}
-                className={`flex w-full items-center gap-3 rounded-xl border-r-4 px-3 py-2.5 text-right transition-colors hover:bg-[#9B945F]/20 ${
-                  isActiveGroup ? 'border-white/80 bg-[#9B945F]/35' : 'border-transparent'
+                className={`flex w-full items-center gap-3 rounded-xl border-r-4 px-3 py-2.5 text-right transition-colors hover:bg-gold-500/20 ${
+                  isActiveGroup ? 'border-white/80 bg-gold-500/35' : 'border-transparent'
                 }`}
                 aria-expanded={isOpen}
               >
                 <span
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                    isActiveGroup ? 'bg-white text-[#9B945F]' : 'border border-white/40 text-white'
+                    isActiveGroup ? 'bg-white text-gold-500' : 'border border-white/40 text-white'
                   }`}
                 >
                   {gi + 1}
@@ -140,8 +140,8 @@ export function CourseTwoSidebar({
                         key={slide.id}
                         type="button"
                         onClick={() => onJump(globalIndex)}
-                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-[#9B945F]/20 ${
-                          active ? 'border-white/80 bg-[#9B945F]/35 font-bold text-white' : 'border-transparent text-white/80'
+                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-gold-500/20 ${
+                          active ? 'border-white/80 bg-gold-500/35 font-bold text-white' : 'border-transparent text-white/80'
                         }`}
                         aria-current={active ? 'step' : undefined}
                       >

@@ -114,7 +114,7 @@ export default function App() {
 
 function CourseLoader() {
   return (
-    <div className="grid min-h-screen place-items-center bg-[#f7fbf8] px-6 text-center text-brand-strong" dir="rtl">
+    <div className="grid min-h-screen place-items-center bg-canvas px-6 text-center text-brand-strong" dir="rtl">
       <div className="rounded-2xl border border-brand/15 bg-white/90 px-8 py-7 shadow-card">
         <div className="mx-auto mb-4 h-11 w-11 animate-spin rounded-full border-4 border-brand/15 border-t-brand" />
         <p className="text-lg font-extrabold">جاري تجهيز الفصل...</p>

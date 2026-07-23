@@ -10,7 +10,7 @@ type Cat = string;
 
 const ZONE_STYLES = [
   'border-green-500/50 bg-green-500/[0.06]',
-  'border-teal-500/50 bg-teal-500/[0.06]',
+  'border-green-500/50 bg-green-500/[0.06]',
 ] as const;
 const ZONE_EMOJI = ['🏛️', '✅'] as const;
 
@@ -174,7 +174,7 @@ export function ClassificationActivity({
           </div>
         </div>
       ) : (
-        <div className="rounded-xl border border-teal-500/30 bg-teal-500/[0.06] px-4 py-2.5 text-center text-base font-semibold text-ink-soft">
+        <div className="rounded-xl border border-green-500/30 bg-green-500/[0.06] px-4 py-2.5 text-center text-base font-semibold text-ink-soft">
           أحسنت! صنّفت جميع الإجراءات — إجاباتك الصحيحة{' '}
           <b className="text-brand">
             {toArabicDigits(correctCount)} من {toArabicDigits(data.items.length)}

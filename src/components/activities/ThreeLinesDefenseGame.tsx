@@ -95,7 +95,7 @@ export function ThreeLinesDefenseGame({
               key={slot.id}
               className={`flex items-center gap-4 rounded-2xl border-2 p-4 transition-colors ${
                 isRight
-                  ? 'border-teal-500/50 bg-teal-500/10'
+                  ? 'border-green-500/50 bg-green-500/10'
                   : isWrong
                     ? 'border-rose-400/50 bg-rose-500/10'
                     : 'border-line bg-surface'
@@ -125,7 +125,7 @@ export function ThreeLinesDefenseGame({
               {checked && (
                 <Icon
                   name={isRight ? 'check' : 'alert'}
-                  className={`w-6 h-6 shrink-0 ${isRight ? 'text-teal-600 dark:text-teal-300' : 'text-rose-500'}`}
+                  className={`w-6 h-6 shrink-0 ${isRight ? 'text-green-600 dark:text-green-300' : 'text-rose-500'}`}
                 />
               )}
             </div>

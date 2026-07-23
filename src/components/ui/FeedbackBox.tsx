@@ -5,9 +5,9 @@ type Tone = 'success' | 'error' | 'info' | 'review';
 
 const config: Record<Tone, { wrap: string; icon: IconKey; iconWrap: string }> = {
   success: {
-    wrap: 'bg-teal-500/10 border-teal-500/30 text-teal-800 dark:text-teal-100',
+    wrap: 'bg-green-500/10 border-green-500/30 text-green-800 dark:text-green-100',
     icon: 'check',
-    iconWrap: 'text-teal-600 dark:text-teal-300',
+    iconWrap: 'text-green-600 dark:text-green-300',
   },
   error: {
     wrap: 'bg-rose-500/10 border-rose-400/40 text-rose-900 dark:text-rose-100',

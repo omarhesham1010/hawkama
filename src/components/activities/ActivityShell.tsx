@@ -9,7 +9,10 @@ interface AccentStyle {
   doneChip: string;
 }
 
-/** Cheerful per-activity accents so each game feels distinct and lively. */
+/** Per-activity accents, restricted to the two brand colors (green/gold) --
+ *  the `Accent` keys stay as-is so existing call sites don't need to change,
+ *  but every key now resolves to one of the two identity colors instead of
+ *  its own distinct hue. */
 export const accentStyles: Record<Accent, AccentStyle> = {
   brand: {
     banner: 'border-brand/45 bg-brand/5',
@@ -18,40 +21,40 @@ export const accentStyles: Record<Accent, AccentStyle> = {
     doneChip: 'bg-brand/12 text-brand',
   },
   sky: {
-    banner: 'border-sky-400/50 bg-sky-500/[0.07]',
-    iconBg: 'bg-sky-500',
-    text: 'text-sky-600 dark:text-sky-300',
-    doneChip: 'bg-sky-500/12 text-sky-600 dark:text-sky-300',
+    banner: 'border-brand/45 bg-brand/5',
+    iconBg: 'bg-brand',
+    text: 'text-brand',
+    doneChip: 'bg-brand/12 text-brand',
   },
   violet: {
-    banner: 'border-violet-400/50 bg-violet-500/[0.07]',
-    iconBg: 'bg-violet-500',
-    text: 'text-violet-600 dark:text-violet-300',
-    doneChip: 'bg-violet-500/12 text-violet-600 dark:text-violet-300',
+    banner: 'border-gold-400/50 bg-gold-500/[0.07]',
+    iconBg: 'bg-gold-500',
+    text: 'text-gold-600',
+    doneChip: 'bg-gold-500/12 text-gold-600',
   },
   amber: {
-    banner: 'border-amber-400/50 bg-amber-500/[0.08]',
-    iconBg: 'bg-amber-500',
-    text: 'text-amber-600 dark:text-amber-300',
-    doneChip: 'bg-amber-500/15 text-amber-600 dark:text-amber-300',
+    banner: 'border-gold-400/50 bg-gold-500/[0.08]',
+    iconBg: 'bg-gold-500',
+    text: 'text-gold-600',
+    doneChip: 'bg-gold-500/15 text-gold-600',
   },
   rose: {
-    banner: 'border-rose-400/50 bg-rose-500/[0.07]',
-    iconBg: 'bg-rose-500',
-    text: 'text-rose-600 dark:text-rose-300',
-    doneChip: 'bg-rose-500/12 text-rose-600 dark:text-rose-300',
+    banner: 'border-gold-400/50 bg-gold-500/[0.07]',
+    iconBg: 'bg-gold-500',
+    text: 'text-gold-600',
+    doneChip: 'bg-gold-500/12 text-gold-600',
   },
   emerald: {
-    banner: 'border-emerald-400/50 bg-emerald-500/[0.07]',
-    iconBg: 'bg-emerald-500',
-    text: 'text-emerald-600 dark:text-emerald-300',
-    doneChip: 'bg-emerald-500/12 text-emerald-600 dark:text-emerald-300',
+    banner: 'border-brand/45 bg-brand/5',
+    iconBg: 'bg-brand',
+    text: 'text-brand',
+    doneChip: 'bg-brand/12 text-brand',
   },
   cyan: {
-    banner: 'border-cyan-400/50 bg-cyan-500/[0.07]',
-    iconBg: 'bg-cyan-500',
-    text: 'text-cyan-600 dark:text-cyan-300',
-    doneChip: 'bg-cyan-500/12 text-cyan-600 dark:text-cyan-300',
+    banner: 'border-gold-400/50 bg-gold-500/[0.07]',
+    iconBg: 'bg-gold-500',
+    text: 'text-gold-600',
+    doneChip: 'bg-gold-500/12 text-gold-600',
   },
 };
 

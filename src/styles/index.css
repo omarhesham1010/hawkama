@@ -8,9 +8,13 @@
    `rgb(var(--x) / <alpha>)` syntax.
    ============================================================ */
 @layer base {
-  /* Single unified "luxury" identity — green + teal + gold blend (no dark mode). */
+  /* Strict two-color identity, both taken directly from the ministry's own
+     logo file: green #008755 and gold #9B945F. Client directive: no other
+     hues or shades anywhere in the bag, so every brand/gold token below
+     resolves to one of these two exact values -- no lighter/darker
+     variants, no teal/blue/gray accents. */
   :root {
-    --canvas: 64 165 128; /* site-wide background, tinted from the ministry logo's official green (#008755) */
+    --canvas: 0 135 85; /* site-wide background = the ministry logo's official green (#008755) */
     --surface: 255 255 255; /* white cards */
     --surface-2: 244 250 246; /* subtle raised */
     --surface-3: 232 242 236; /* insets / tints */
@@ -18,11 +22,11 @@
     --ink-soft: 40 62 51;
     --ink-muted: 82 104 92;
     --line: 205 224 213; /* visible greenish border */
-    --brand: 34 122 82; /* refined green */
-    --brand-soft: 52 152 118; /* green→teal blend */
-    --brand-strong: 24 82 55; /* deep green for headers */
-    --gold: 191 155 74;
-    --gold-soft: 216 184 102;
+    --brand: 0 135 85; /* ministry green (#008755) */
+    --brand-soft: 0 135 85; /* same green -- no lighter blend variant */
+    --brand-strong: 0 135 85; /* same green -- no darker variant */
+    --gold: 155 148 95; /* ministry gold (#9B945F) */
+    --gold-soft: 155 148 95; /* same gold -- no lighter variant */
   }
 
   * {
@@ -41,7 +45,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     letter-spacing: 0;
-    /* creative blended mesh: green + teal + gold whispers over a soft canvas */
+    /* subtle green + gold whispers over the canvas -- both from the same two identity colors */
     background-color: rgb(var(--canvas));
     background-image:
       radial-gradient(1100px 620px at 88% -8%, rgb(var(--brand-soft) / 0.14), transparent 60%),
@@ -92,25 +96,22 @@
     @apply btn bg-surface-2 text-ink border border-line hover:bg-surface-3;
   }
 
-  /* Gold CTA — the PPT's second identity color */
+  /* Gold CTA — the ministry's exact gold, flat (no gradient/shade variation). */
   .btn-gold {
     @apply btn text-white shadow-card;
-    background: linear-gradient(135deg, #d8b866, #bf9b4a);
+    background: #9b945f;
   }
   .btn-gold:hover {
     transform: translateY(-1px);
-    box-shadow: 0 14px 32px -14px rgb(191 155 74 / 0.7);
+    box-shadow: 0 14px 32px -14px rgb(155 148 95 / 0.7);
   }
   .btn-gold:active {
     transform: translateY(0) scale(0.98);
   }
 
-  /* Gilded text for premium headings */
+  /* Gilded text for premium headings — flat ministry gold, no shimmer gradient. */
   .text-gilded {
-    background: linear-gradient(100deg, #bf9b4a, #e6d095, #bf9b4a);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #9b945f;
   }
 
   .chip {

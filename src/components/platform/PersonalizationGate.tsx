@@ -25,7 +25,7 @@ function AvatarOption({
       className="group flex flex-col items-center gap-3 outline-none"
     >
       <span
-        className={`grid h-[132px] w-[132px] shrink-0 place-items-center overflow-hidden rounded-full bg-[#F4F1E9] shadow-card transition-all duration-300 ${
+        className={`grid h-[132px] w-[132px] shrink-0 place-items-center overflow-hidden rounded-full bg-gold-100 shadow-card transition-all duration-300 ${
           selected
             ? 'scale-[1.06] shadow-[0_16px_30px_rgb(31_105_72_/_0.22)] ring-4 ring-green-600/30'
             : 'ring-1 ring-green-700/12 group-hover:scale-[1.03] group-hover:ring-green-600/25'
@@ -50,7 +50,7 @@ export function PersonalizationGate({ onDone }: { onDone: (profile: LearnerProfi
   };
 
   return (
-    <div dir="rtl" className="grid h-screen w-screen place-items-center bg-[#f7fbf8] p-2">
+    <div dir="rtl" className="grid h-screen w-screen place-items-center bg-canvas p-2">
       <SlideCanvas>
         <div className="relative z-10 flex h-full min-h-0 flex-col items-center justify-center gap-7 px-10 py-10">
           <div className="flex items-center gap-10">
@@ -66,7 +66,7 @@ export function PersonalizationGate({ onDone }: { onDone: (profile: LearnerProfi
               onKeyDown={(e) => e.key === 'Enter' && submit()}
               placeholder="اكتب اسمك هنا"
               dir="rtl"
-              className="w-full rounded-2xl border border-green-700/15 bg-[#F4F1E9] px-5 py-4 text-center text-[17px] font-bold text-brand-strong placeholder:text-ink-muted shadow-inner outline-none transition-colors focus:border-green-600/50 focus:bg-white"
+              className="w-full rounded-2xl border border-green-700/15 bg-gold-100 px-5 py-4 text-center text-[17px] font-bold text-brand-strong placeholder:text-ink-muted shadow-inner outline-none transition-colors focus:border-green-600/50 focus:bg-white"
             />
           </div>
 

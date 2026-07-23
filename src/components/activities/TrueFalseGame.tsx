@@ -67,7 +67,7 @@ export function TrueFalseGame({
     return (
       <div className="relative animate-scale-in space-y-5 text-center">
         {perfect && <Confetti count={40} />}
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-300">
+        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gold-500/15 text-gold-600 dark:text-gold-500">
           <Icon name="target" className="h-10 w-10" />
         </div>
         <div>
@@ -76,7 +76,7 @@ export function TrueFalseGame({
             {toArabicDigits(correctCount)}/{toArabicDigits(total)}
           </p>
           <p className="mt-1 text-ink-soft">
-            أطول سلسلة صحيحة: <b className="text-amber-600 dark:text-amber-400">{toArabicDigits(bestStreak)}</b> 🔥
+            أطول سلسلة صحيحة: <b className="text-gold-600 dark:text-gold-500">{toArabicDigits(bestStreak)}</b> 🔥
           </p>
         </div>
         <FeedbackBox tone={perfect ? 'success' : 'info'} title={perfect ? 'ممتاز! إجابات كاملة 🎉' : 'أحسنت — راجع ما فاتك ثم انتقل للاختبار.'}>
@@ -105,7 +105,7 @@ export function TrueFalseGame({
         </div>
         <span
           className={`chip shrink-0 text-sm font-bold ${
-            streak > 1 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-300' : 'bg-surface-3 text-ink-muted'
+            streak > 1 ? 'bg-gold-500/15 text-gold-600 dark:text-gold-500' : 'bg-surface-3 text-ink-muted'
           }`}
         >
           🔥 {toArabicDigits(streak)}

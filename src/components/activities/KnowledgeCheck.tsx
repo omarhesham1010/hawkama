@@ -69,14 +69,14 @@ export function KnowledgeCheck({
     return (
       <div data-quiz-result="true" className="relative flex h-full animate-scale-in flex-col items-center justify-center gap-3 text-center">
         {passed && <Confetti count={44} />}
-        <div className={`grid h-20 w-20 place-items-center rounded-full ${passed ? 'bg-teal-500/15 text-teal-600' : 'bg-gold-500/15 text-gold-600'}`}>
+        <div className={`grid h-20 w-20 place-items-center rounded-full ${passed ? 'bg-green-500/15 text-green-600' : 'bg-gold-500/15 text-gold-600'}`}>
           <Icon name={passed ? 'check' : 'target'} className="h-10 w-10" />
         </div>
         <p className="text-5xl font-extrabold text-ink tabular">{toArabicDigits(score.percent)}٪</p>
         <p className="text-lg font-semibold text-ink-soft">
           أجبت بشكل صحيح عن {toArabicDigits(score.correct)} من {toArabicDigits(total)} أسئلة
         </p>
-        <p className={`rounded-xl px-4 py-2 text-base font-semibold ${passed ? 'bg-teal-500/10 text-teal-700' : 'bg-gold-500/10 text-gold-700'}`}>
+        <p className={`rounded-xl px-4 py-2 text-base font-semibold ${passed ? 'bg-green-500/10 text-green-700' : 'bg-gold-500/10 text-gold-700'}`}>
           {passed
             ? `مبروك! اجتزت الاختبار (${toArabicDigits(quiz.passScore)}٪ فأكثر).`
             : `تحتاج ${toArabicDigits(quiz.passScore)}٪ للاجتياز — حاول مرة أخرى.`}
@@ -120,7 +120,7 @@ export function KnowledgeCheck({
           const isSel = selected === i;
           let cls = 'border-line bg-surface hover:border-brand/40 text-ink-soft';
           if (answered) {
-            if (isRight) cls = 'border-teal-500/60 bg-teal-500/10 text-teal-800';
+            if (isRight) cls = 'border-green-500/60 bg-green-500/10 text-green-800';
             else if (isSel) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
             else cls = 'border-line bg-surface text-ink-muted opacity-60';
           } else if (!narrationLocked) {
@@ -137,7 +137,7 @@ export function KnowledgeCheck({
                 !answered && narrationLocked ? '!bg-white !text-ink-muted' : ''
               } ${cls}`}
             >
-              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base font-extrabold tabular ${answered && isRight ? 'bg-teal-500 text-white' : answered && isSel ? 'bg-rose-500 text-white' : 'bg-surface-3 text-ink-muted'}`}>
+              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base font-extrabold tabular ${answered && isRight ? 'bg-green-500 text-white' : answered && isSel ? 'bg-rose-500 text-white' : 'bg-surface-3 text-ink-muted'}`}>
                 {answered && isRight ? <Icon name="check" className="h-5 w-5" /> : toArabicDigits(i + 1)}
               </span>
               <span>{opt}</span>
@@ -149,8 +149,8 @@ export function KnowledgeCheck({
       {/* pinned footer: feedback + next (always visible) */}
       <div className="mt-2 flex shrink-0 items-stretch gap-3">
         {answered ? (
-          <div className={`flex flex-1 items-start gap-2 rounded-2xl border px-4 py-3 text-base font-semibold leading-snug ${isCorrect ? 'border-teal-500/40 bg-teal-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
-            <Icon name={isCorrect ? 'check' : 'alert'} className={`mt-0.5 h-5 w-5 shrink-0 ${isCorrect ? 'text-teal-600' : 'text-rose-500'}`} />
+          <div className={`flex flex-1 items-start gap-2 rounded-2xl border px-4 py-3 text-base font-semibold leading-snug ${isCorrect ? 'border-green-500/40 bg-green-500/[0.06] text-ink' : 'border-rose-400/40 bg-rose-500/[0.06] text-ink'}`}>
+            <Icon name={isCorrect ? 'check' : 'alert'} className={`mt-0.5 h-5 w-5 shrink-0 ${isCorrect ? 'text-green-600' : 'text-rose-500'}`} />
             <span><b>{isCorrect ? 'إجابة صحيحة. ' : 'إجابة غير صحيحة. '}</b><span className="text-ink-soft">{q.explanation}</span></span>
           </div>
         ) : (

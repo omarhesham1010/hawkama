@@ -6,7 +6,7 @@ import { SectionHeader } from './SectionHeader';
 import { toArabicDigits } from '../../lib/utils';
 
 const kindCls: Record<string, string> = {
-  درس: 'bg-teal-500/12 text-teal-700 dark:text-teal-300',
+  درس: 'bg-green-500/12 text-green-700 dark:text-green-300',
   نشاط: 'bg-brand/12 text-brand',
   اختبار: 'bg-gold-500/15 text-gold-600 dark:text-gold-400',
   ملخص: 'bg-surface-3 text-ink-muted',
