@@ -17,6 +17,19 @@ function HamburgerIcon({ className = 'h-5 w-5' }: { className?: string }) {
   );
 }
 
+/** Cosmetic-only preview of the future sequential-unlock gating: shows which
+ *  chapters/slides will require finishing everything before them, without
+ *  actually restricting navigation yet -- the client still wants free
+ *  jumping between slides while the bag is being built. */
+function LockIcon({ className = 'h-3.5 w-3.5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="5" y="11" width="14" height="9" rx="2" />
+      <path d="M8 11V7a4 4 0 018 0v4" />
+    </svg>
+  );
+}
+
 /** Persistent (but collapsible) right-side menu for the single-link
  *  course-2 shell: one group per chapter, each expanding to list its real
  *  slides, styled to match the ministry LMS's green identity. */
@@ -57,7 +70,12 @@ export function CourseTwoSidebar({
           open ? 'w-[300px]' : 'w-0 border-0 shadow-none'
         }`}
       >
-        <div className="scroll-slim scroll-slim-gold flex h-full w-[300px] flex-col overflow-y-auto">
+        {/* dir="ltr" on the scrolling box puts its scrollbar on the right;
+            the nested dir="rtl" wrapper keeps all the actual content RTL.
+            Without this, Chrome/Firefox place an RTL element's own
+            scrollbar on its logical end, i.e. the left. */}
+        <div dir="ltr" className="scroll-slim scroll-slim-gold flex h-full w-[300px] flex-col overflow-y-auto">
+        <div dir="rtl" className="flex h-full w-full flex-col">
           <div className="flex shrink-0 items-center justify-between bg-brand px-4 py-3.5">
             <p className="text-sm font-bold text-white">محتويات الحقيبة</p>
             <button
@@ -79,14 +97,14 @@ export function CourseTwoSidebar({
               <button
                 type="button"
                 onClick={() => setOpenGroup(isOpen ? -1 : gi)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-right transition-colors hover:bg-[#9B945F]/25 ${
-                  isActiveGroup ? 'bg-[#9B945F]/25 ring-1 ring-[#9B945F]/60' : ''
+                className={`flex w-full items-center gap-3 rounded-xl border-r-4 px-3 py-2.5 text-right transition-colors hover:bg-[#9B945F]/30 ${
+                  isActiveGroup ? 'border-white bg-[#9B945F] shadow-[0_2px_8px_rgba(0,0,0,0.25)]' : 'border-transparent'
                 }`}
                 aria-expanded={isOpen}
               >
                 <span
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                    isActiveGroup ? 'bg-[#9B945F] text-white' : 'border border-white/40 text-white'
+                    isActiveGroup ? 'bg-white text-[#9B945F]' : 'border border-white/40 text-white'
                   }`}
                 >
                   {gi + 1}
@@ -98,6 +116,7 @@ export function CourseTwoSidebar({
                 >
                   {group.label}
                 </span>
+                {gi !== 0 && <LockIcon className="h-3.5 w-3.5 shrink-0 text-white/60" />}
                 <svg
                   viewBox="0 0 24 24"
                   className={`h-4 w-4 shrink-0 text-white/70 transition-transform duration-200 ${isOpen ? '-rotate-90' : 'rotate-90'}`}
@@ -121,8 +140,8 @@ export function CourseTwoSidebar({
                         key={slide.id}
                         type="button"
                         onClick={() => onJump(globalIndex)}
-                        className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-[#9B945F]/25 ${
-                          active ? 'bg-[#9B945F]/25 font-bold text-white' : 'text-white/80'
+                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-[#9B945F]/30 ${
+                          active ? 'border-white bg-[#9B945F] font-bold text-white shadow-sm' : 'border-transparent text-white/80'
                         }`}
                         aria-current={active ? 'step' : undefined}
                       >
@@ -130,6 +149,7 @@ export function CourseTwoSidebar({
                           {toArabicDigits(si + 1)}
                         </span>
                         <span className="min-w-0 flex-1 truncate">{slide.title}</span>
+                        {gi !== 0 && <LockIcon className="h-3 w-3 shrink-0 text-white/50" />}
                       </button>
                     );
                   })}
@@ -139,6 +159,7 @@ export function CourseTwoSidebar({
           );
           })}
           </nav>
+        </div>
         </div>
       </aside>
     </>
