@@ -1359,7 +1359,7 @@ function IntroMotionScene({
   // pixels never re-checks after we edit the file in place -- append a
   // manual version query so updating this file always busts the cache.
   const introHeroSrc = isEmergencyCourse
-    ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=3'
+    ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
     : '/assets/visual-library/intro-governance-building-scene.webp';
   // Keep the pillar row's horizontal center locked to the hero image's own
   // center (both anchored from the right edge) so it never reads as
