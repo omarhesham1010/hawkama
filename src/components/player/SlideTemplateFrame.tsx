@@ -21,7 +21,7 @@ export function SlideTemplateFrame({ variant = 'default' }: { variant?: 'default
             draggable={false}
           />
           <img
-            src="/template-assets/intro-topright-swoosh.webp?v=4"
+            src="/template-assets/intro-topright-swoosh.webp?v=5"
             alt=""
             className="absolute right-0 top-0 h-[135px] w-[440px] object-contain object-right-top"
             loading="eager"
@@ -32,7 +32,7 @@ export function SlideTemplateFrame({ variant = 'default' }: { variant?: 'default
         </>
       ) : (
         <img
-          src="/template-assets/top-left-identity-mark-color.webp?v=2"
+          src="/template-assets/top-left-identity-mark-color.webp?v=3"
           alt=""
           className="absolute left-0 top-0 h-[135px] w-[440px] object-contain object-left-top opacity-100"
           loading="eager"
