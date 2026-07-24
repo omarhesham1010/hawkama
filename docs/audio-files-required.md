@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **337**.
+Generated from `src/data/audioScripts.ts`. Total required: **365**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -44,6 +44,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s11-closing.mp3` - ختام الفصل الثالث والحقيبة
 - `bag2-ch0-s1-welcome.mp3` - إدارة الاستجابة للطوارئ
 - `bag2-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag2-ch0-s3-pre-test.mp3` - الاختبار القبلي
 - `bag2-ch1-s1-welcome.mp3` - الاستعداد للطوارئ الصحية
 - `bag2-ch1-s1b-goals.mp3` - أهداف الفصل الأول
 - `bag2-ch1-s2-strategic-framework.mp3` - تصميم الإطار الاستراتيجي الشامل للاستجابة
@@ -129,6 +130,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15-trust-building.mp3` - بناء الثقة والتأثير
 - `bag2-ch4-s16-closing-applications.mp3` - تطبيقات ختامية تفاعلية
 - `bag2-ch4-s17-quiz.mp3` - اختبار الفصل الرابع
+- `bag2-ch4-s17b-post-test.mp3` - الاختبار الختامي الشامل
 - `bag2-ch4-s18-closing.mp3` - ختام الفصل الرابع والحقيبة
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
@@ -213,6 +215,16 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s10-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
 - `bag1-ch3-s10-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
 - `bag1-ch3-s10-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
 - `bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
 - `bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
 - `bag2-ch1-s19-quiz-feedback-bag2-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
@@ -253,6 +265,22 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q4-incorrect.mp3` - اختبار الفصل الرابع - السؤال 4 - إجابة غير صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-correct.mp3` - اختبار الفصل الرابع - السؤال 5 - إجابة صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-incorrect.mp3` - اختبار الفصل الرابع - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
