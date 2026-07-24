@@ -1367,7 +1367,7 @@ function IntroMotionScene({
   const heroRightPct = 6;
   const heroWidthPct = 26;
   const heroCenterFromRight = heroRightPct + heroWidthPct / 2;
-  const pillarRowWidthPct = pillars.length > 3 ? 34 : 30;
+  const pillarRowWidthPct = pillars.length > 3 ? 38 : 30;
   const pillarRowRightPct = heroCenterFromRight - pillarRowWidthPct / 2;
 
   return (
@@ -1398,12 +1398,12 @@ function IntroMotionScene({
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
-          const cardWidth = pillars.length > 3 ? 'w-[86px]' : 'w-[94px]';
+          const cardWidth = pillars.length > 3 ? 'w-[98px]' : 'w-[100px]';
           const visualOrder = isEmergencyCourse ? index : index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`${cardWidth} shrink-0 rounded-2xl border px-2.5 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
+              className={`${cardWidth} shrink-0 rounded-2xl border px-3 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
                 shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
               } ${
                 active
@@ -1419,8 +1419,8 @@ function IntroMotionScene({
               <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white/88 p-1 shadow-sm">
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
-              <p className="text-[14px] font-black leading-tight">{pillar.label}</p>
-              <p className={`mt-1 text-[11px] font-extrabold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{pillar.detail}</p>
+              <p className={`${pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} font-black leading-tight`}>{pillar.label}</p>
+              <p className={`mt-1 ${pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} font-extrabold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{pillar.detail}</p>
             </div>
           );
         })}
