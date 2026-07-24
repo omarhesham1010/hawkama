@@ -9,12 +9,21 @@ import {
   emergencyChapterFourSlides,
 } from './data/emergencyResponseProgram';
 
+// Chapter 4's own content ends at "ec4-closing-applications" -- the quiz,
+// bag-wide post-test, and final closing screen after it are split into
+// their own group so they get a standalone dropdown, mirroring how the
+// intro ("مقدمة الحقيبة") is its own group rather than folded into ch.1.
+const CH4_CLOSING_START = emergencyChapterFourSlides.findIndex((s) => s.id === 'ec4-quiz');
+const chapterFourContent = emergencyChapterFourSlides.slice(0, CH4_CLOSING_START);
+const chapterFourClosing = emergencyChapterFourSlides.slice(CH4_CLOSING_START);
+
 const RAW_GROUPS: { label: string; slides: typeof emergencyIntroSlides }[] = [
   { label: 'مقدمة الحقيبة', slides: emergencyIntroSlides },
   { label: 'الفصل الأول', slides: emergencyChapterOneSlides },
   { label: 'الفصل الثاني', slides: emergencyChapterTwoSlides },
   { label: 'الفصل الثالث', slides: emergencyChapterThreeSlides },
-  { label: 'الفصل الرابع', slides: emergencyChapterFourSlides },
+  { label: 'الفصل الرابع', slides: chapterFourContent },
+  { label: 'خاتمة الحقيبة والاختبار البعدي', slides: chapterFourClosing },
 ];
 
 /** Single-link (#/course/2) shell. Exactly three things on screen: the
