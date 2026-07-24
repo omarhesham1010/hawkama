@@ -1386,18 +1386,16 @@ function IntroMotionScene({
           className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
           style={{ right: `${pillarRowRightPct}%`, bottom: '10%', width: `${pillarRowWidthPct}%` }}
         >
-        {/* Narration reveals pillars in content order (governance →
-            compliance → risk), but the client wants them displayed
-            governance-middle, compliance-left, risk-right — reorder
-            visually with `order` instead of reordering the array, so the
-            reveal/highlight timing (tied to `index`) still lines up with
-            what the narration says. A 4th pillar (only the bag-level
-            welcome slide has one) just appends after the reordered three. */}
+        {/* Governance's 3-pillar slide reorders visually (governance-middle,
+            compliance-left, risk-right) per an old client request, without
+            touching the reveal-order array. Emergency slides instead need
+            strict chapter-1-to-4 left-to-right order, so they skip that
+            reorder entirely. */}
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
-          const cardWidth = pillars.length > 3 ? 'w-[80px]' : 'w-[94px]';
-          const visualOrder = index < 3 ? [1, 2, 0][index] : index;
+          const cardWidth = pillars.length > 3 ? 'w-[86px]' : 'w-[94px]';
+          const visualOrder = isEmergencyCourse ? index : index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
