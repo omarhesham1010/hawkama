@@ -4472,6 +4472,7 @@ export function SlideStage({
 
   // Completion
   if (slide.kind === 'completion') {
+    const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-14 text-center">
@@ -4501,28 +4502,30 @@ export function SlideStage({
             <p className="text-xs text-ink-muted">الأنشطة المكتملة</p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-3">
-          <button
-            type="button"
-            disabled={narrationLocked}
-            onClick={completion.onExit}
-            className={`btn-gold px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
-              narrationLocked ? '' : 'animate-pulse-ring'
-            }`}
-          >
-            <Icon name="flag" className="w-5 h-5" />
-            إنهاء والعودة للمنصة
-          </button>
-          <button
-            type="button"
-            disabled={narrationLocked}
-            onClick={completion.onRestart}
-            className="btn-ghost px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
-          >
-            <Icon name="flow" className="w-5 h-5" />
-            إعادة الفصل
-          </button>
-        </div>
+        {!isEmergencySlide && (
+          <div className="flex items-center justify-center gap-3">
+            <button
+              type="button"
+              disabled={narrationLocked}
+              onClick={completion.onExit}
+              className={`btn-gold px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
+                narrationLocked ? '' : 'animate-pulse-ring'
+              }`}
+            >
+              <Icon name="flag" className="w-5 h-5" />
+              إنهاء والعودة للمنصة
+            </button>
+            <button
+              type="button"
+              disabled={narrationLocked}
+              onClick={completion.onRestart}
+              className="btn-ghost px-7 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
+            >
+              <Icon name="flow" className="w-5 h-5" />
+              إعادة الفصل
+            </button>
+          </div>
+        )}
       </div>
       </StorySlideShell>
     );
