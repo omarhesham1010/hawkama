@@ -9,11 +9,12 @@ import {
   emergencyChapterFourSlides,
 } from './data/emergencyResponseProgram';
 
-// Chapter 4's own content ends at "ec4-closing-applications" -- the quiz,
-// bag-wide post-test, and final closing screen after it are split into
-// their own group so they get a standalone dropdown, mirroring how the
-// intro ("مقدمة الحقيبة") is its own group rather than folded into ch.1.
-const CH4_CLOSING_START = emergencyChapterFourSlides.findIndex((s) => s.id === 'ec4-quiz');
+// Chapter 4's own content -- including its own "ec4-quiz" -- stays in the
+// chapter group; only the bag-wide post-test and final closing screen
+// after it split into their own group so they get a standalone dropdown,
+// mirroring how the intro ("مقدمة الحقيبة") is its own group rather than
+// folded into ch.1.
+const CH4_CLOSING_START = emergencyChapterFourSlides.findIndex((s) => s.id === 'emergency-post-test');
 const chapterFourContent = emergencyChapterFourSlides.slice(0, CH4_CLOSING_START);
 const chapterFourClosing = emergencyChapterFourSlides.slice(CH4_CLOSING_START);
 
