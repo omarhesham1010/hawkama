@@ -46,7 +46,7 @@ export default function CourseTwoShell() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [jumpTarget, setJumpTarget] = useState(1);
   const [jumpNonce, setJumpNonce] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const jumpTo = (index: number) => {
     setJumpTarget(index + 1);
