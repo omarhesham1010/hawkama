@@ -9,6 +9,12 @@ import {
   emergencyChapterFourSlides,
 } from './data/emergencyResponseProgram';
 
+// Set only by `npm run build:sample` -- locks this shell to just the
+// intro's first 2 slides in a single group, for the ministry-review
+// sample package. See src/App.tsx for the matching routing lock.
+const SAMPLE_MODE = import.meta.env.VITE_SAMPLE_MODE === 'true';
+const COURSE_ID = SAMPLE_MODE ? 'emergency-sample' : 'emergency-full';
+
 // Chapter 4's own content -- including its own "ec4-quiz" -- stays in the
 // chapter group; only the bag-wide post-test and final closing screen
 // after it split into their own group so they get a standalone dropdown,
@@ -18,14 +24,16 @@ const CH4_CLOSING_START = emergencyChapterFourSlides.findIndex((s) => s.id === '
 const chapterFourContent = emergencyChapterFourSlides.slice(0, CH4_CLOSING_START);
 const chapterFourClosing = emergencyChapterFourSlides.slice(CH4_CLOSING_START);
 
-const RAW_GROUPS: { label: string; slides: typeof emergencyIntroSlides }[] = [
-  { label: 'مقدمة الحقيبة', slides: emergencyIntroSlides },
-  { label: 'الفصل الأول', slides: emergencyChapterOneSlides },
-  { label: 'الفصل الثاني', slides: emergencyChapterTwoSlides },
-  { label: 'الفصل الثالث', slides: emergencyChapterThreeSlides },
-  { label: 'الفصل الرابع', slides: chapterFourContent },
-  { label: 'خاتمة الحقيبة والاختبار البعدي', slides: chapterFourClosing },
-];
+const RAW_GROUPS: { label: string; slides: typeof emergencyIntroSlides }[] = SAMPLE_MODE
+  ? [{ label: 'مقدمة الحقيبة', slides: emergencyIntroSlides.slice(0, 2) }]
+  : [
+      { label: 'مقدمة الحقيبة', slides: emergencyIntroSlides },
+      { label: 'الفصل الأول', slides: emergencyChapterOneSlides },
+      { label: 'الفصل الثاني', slides: emergencyChapterTwoSlides },
+      { label: 'الفصل الثالث', slides: emergencyChapterThreeSlides },
+      { label: 'الفصل الرابع', slides: chapterFourContent },
+      { label: 'خاتمة الحقيبة والاختبار البعدي', slides: chapterFourClosing },
+    ];
 
 /** Single-link (#/course/2) shell. Exactly three things on screen: the
  *  collapsible right-side chapter menu, the bare rectangular slide (the
@@ -69,8 +77,8 @@ export default function CourseTwoShell() {
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
-          key={`emergency-full-${jumpNonce}`}
-          courseId="emergency-full"
+          key={`${COURSE_ID}-${jumpNonce}`}
+          courseId={COURSE_ID}
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}

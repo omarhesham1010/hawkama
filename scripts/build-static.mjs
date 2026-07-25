@@ -54,6 +54,40 @@ if (SAMPLE) {
     }
   }
   console.log(`Sample build: pruned ${removed} unused audio file(s), kept ${SAMPLE_AUDIO_FILES.size}.`);
+
+  // Same idea for images/icons: keep only what the 2 sample slides and the
+  // shared course-2 shell actually render (verified via source + a live
+  // network trace), drop everything else -- including public/icons/moh-library,
+  // ~70 generically-named files (image8.svg etc.) that aren't referenced
+  // anywhere in src/ at all.
+  const SAMPLE_VISUAL_LIBRARY_FILES = new Set([
+    'intro-emergency-preparedness-shield.webp', // slide 1 hero image
+    // slide 2 (محتويات الحقيبة) previews all 4 chapters, so its cards'
+    // keyword-matched illustrations (pptGeneratedVisualLayersFor) span
+    // chapters that aren't otherwise in this sample -- confirmed via a
+    // live network trace of every image the map slide actually requests.
+    'emergency-strategic-framework.webp',
+    'emergency-cerc-timeline.webp',
+    'emergency-proactive-scanning.webp',
+    'emergency-continuity-shield.webp',
+    'icon-performance-chart.webp',
+  ]);
+  const visualLibraryDir = join(dist, 'assets', 'visual-library');
+  let visualLibraryRemoved = 0;
+  for (const name of readdirSync(visualLibraryDir)) {
+    if (!SAMPLE_VISUAL_LIBRARY_FILES.has(name)) {
+      rmSync(join(visualLibraryDir, name), { force: true, recursive: true });
+      visualLibraryRemoved += 1;
+    }
+  }
+  console.log(`Sample build: pruned ${visualLibraryRemoved} unused visual-library file(s).`);
+
+  rmSync(join(dist, 'icons', 'moh-library'), { force: true, recursive: true });
+  rmSync(join(dist, 'nasser-assets', 'Default'), { force: true, recursive: true });
+  rmSync(join(dist, 'avatar-assets'), { force: true, recursive: true });
+  rmSync(join(dist, 'assets', 'manifest.json'), { force: true });
+  rmSync(join(dist, 'assets', 'preview.html'), { force: true });
+  console.log('Sample build: removed unused moh-library icons, bag-1 Nasser poses, and personalization-gate avatars.');
 }
 
 const contentFiles = [
