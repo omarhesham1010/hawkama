@@ -185,7 +185,7 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
     if (!cue) continue;
     if (cardIndexes.length === 1) {
       const cardIndex = cardIndexes[0];
-      offsets[cardIndex] = cardIndex === 0 ? cue.start : findTitleOffset(cue.text, cue.start, cards[cardIndex]) ?? cue.start;
+      offsets[cardIndex] = findTitleOffset(cue.text, cue.start, cards[cardIndex]) ?? cue.start;
       continue;
     }
     const found = cardIndexes.map((cardIndex) => ({
