@@ -1407,7 +1407,7 @@ function IntroMotionScene({
                 shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
               } ${
                 active
-                  ? 'z-10 -translate-y-1 scale-[1.04] border-gold-500/55 bg-green-800/94 text-white shadow-card-lg'
+                  ? 'z-10 -translate-y-1 scale-[1.04] border-gold-500/55 bg-green-800 text-white shadow-card-lg'
                   : 'border-green-700/20 bg-white/90 text-green-900'
               }`}
               style={{
@@ -1415,7 +1415,7 @@ function IntroMotionScene({
                 transitionDelay: shown ? `${index * 80}ms` : '0ms',
               }}
             >
-              <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white/88 p-1 shadow-sm">
+              <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white p-1 shadow-sm">
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
               <p className={`${pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} font-black leading-tight`}>{pillar.label}</p>
