@@ -1377,7 +1377,7 @@ function IntroMotionScene({
           src={introHeroSrc}
           alt=""
           draggable={false}
-          className={`absolute right-[6%] top-[8%] w-[26%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+          className={`motion-always-on absolute right-[6%] top-[8%] w-[26%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
             started ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
           } ${started && !narrationComplete ? `motion-layer-focus ${activeVisualAnimationFor(introHeroSrc, 0)}` : ''}`}
           style={{

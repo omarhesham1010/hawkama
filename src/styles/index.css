@@ -518,9 +518,11 @@
   animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Respect reduced motion */
+/* Respect reduced motion -- except .motion-always-on, a small allowlist of
+   purely decorative effects (e.g. the intro hero image's continuous
+   breathing pulse) the client wants visible regardless of this setting. */
 @media (prefers-reduced-motion: reduce) {
-  *,
+  *:not(.motion-always-on),
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
