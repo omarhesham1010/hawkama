@@ -1413,7 +1413,6 @@ function IntroMotionScene({
               style={{
                 order: visualOrder,
                 transitionDelay: shown ? `${index * 80}ms` : '0ms',
-                ...(active ? { backgroundColor: 'rgb(26 68 46 / 0.94)', borderColor: 'rgb(191 155 74 / 0.55)' } : {}),
               }}
             >
               <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white/88 p-1 shadow-sm">
