@@ -58,7 +58,7 @@ export function CourseTwoSidebar({
         onClick={onToggle}
         aria-label="فتح القائمة"
         title="فتح القائمة"
-        className={`fixed right-3 top-3 z-30 flex h-10 w-10 items-center justify-center rounded-xl bg-brand text-white shadow-card transition-all duration-300 ${
+        className={`fixed right-3 top-3 z-30 flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand shadow-card transition-all duration-300 ${
           open ? 'pointer-events-none translate-x-2 opacity-0' : 'translate-x-0 opacity-100'
         }`}
       >
