@@ -1419,7 +1419,7 @@ function IntroMotionScene({
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
               <p className={`${pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} font-black leading-tight`}>{pillar.label}</p>
-              <p className={`mt-1 ${pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} font-extrabold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{pillar.detail}</p>
+              <p className={`mt-1 ${pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
             </div>
           );
         })}
