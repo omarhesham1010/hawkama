@@ -1,7 +1,9 @@
 import { readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
-const distDir = join(process.cwd(), 'dist');
+const SAMPLE = process.argv.includes('--sample');
+
+const distDir = join(process.cwd(), SAMPLE ? 'dist-sample' : 'dist');
 const manifestPath = join(distDir, 'imsmanifest.xml');
 
 function walk(dir) {
@@ -29,8 +31,31 @@ const files = walk(distDir)
 
 const fileNodes = files.map((file) => `      <file href="${xmlEscape(file)}" />`).join('\n');
 
+const organizationItems = SAMPLE
+  ? `      <item identifier="ITEM-EMERGENCY-SAMPLE" identifierref="RES-PLATFORM" isvisible="true">
+        <title>إدارة الاستجابة للطوارئ - نموذج أولي (أول شريحتين)</title>
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" flow="true" />
+          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
+        </imsss:sequencing>
+      </item>`
+  : `      <item identifier="ITEM-GOVERNANCE" identifierref="RES-PLATFORM" isvisible="true">
+        <title>الحوكمة والمخاطر والامتثال</title>
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" flow="true" />
+          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
+        </imsss:sequencing>
+      </item>
+      <item identifier="ITEM-EMERGENCY" identifierref="RES-PLATFORM" isvisible="true">
+        <title>إدارة الاستجابة للطوارئ</title>
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" flow="true" />
+          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
+        </imsss:sequencing>
+      </item>`;
+
 const manifest = `<?xml version="1.0" encoding="UTF-8"?>
-<manifest identifier="hawkama-governance-module"
+<manifest identifier="${SAMPLE ? 'hawkama-emergency-sample-module' : 'hawkama-governance-module'}"
   version="1.0"
   xmlns="http://www.imsglobal.org/xsd/imscp_v1p1"
   xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3"
@@ -50,21 +75,8 @@ const manifest = `<?xml version="1.0" encoding="UTF-8"?>
 
   <organizations default="ORG-PLATFORM">
     <organization identifier="ORG-PLATFORM" adlseq:objectivesGlobalToSystem="false">
-      <title>منصة التدريب الرقمي</title>
-      <item identifier="ITEM-GOVERNANCE" identifierref="RES-PLATFORM" isvisible="true">
-        <title>الحوكمة والمخاطر والامتثال</title>
-        <imsss:sequencing>
-          <imsss:controlMode choice="true" flow="true" />
-          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
-        </imsss:sequencing>
-      </item>
-      <item identifier="ITEM-EMERGENCY" identifierref="RES-PLATFORM" isvisible="true">
-        <title>إدارة الاستجابة للطوارئ</title>
-        <imsss:sequencing>
-          <imsss:controlMode choice="true" flow="true" />
-          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
-        </imsss:sequencing>
-      </item>
+      <title>${SAMPLE ? 'نموذج أولي - إدارة الاستجابة للطوارئ' : 'منصة التدريب الرقمي'}</title>
+${organizationItems}
     </organization>
   </organizations>
 
@@ -77,4 +89,4 @@ ${fileNodes}
 `;
 
 writeFileSync(manifestPath, manifest, 'utf8');
-console.log(`SCORM manifest written with ${files.length} file(s).`);
+console.log(`SCORM manifest written with ${files.length} file(s) to ${SAMPLE ? 'dist-sample' : 'dist'}/imsmanifest.xml.`);

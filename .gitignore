@@ -5,6 +5,8 @@ node_modules/
 *.log
 *.tsbuildinfo
 governance-scorm2004.zip
+emergency-response-sample-slides-1-2-scorm2004.zip
+/dist-sample/
 .elevenlabs-pending/
 
 .env

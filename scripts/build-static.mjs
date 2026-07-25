@@ -5,8 +5,10 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import * as esbuild from 'esbuild';
 
+const SAMPLE = process.argv.includes('--sample');
+
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const dist = join(root, 'dist');
+const dist = join(root, SAMPLE ? 'dist-sample' : 'dist');
 const assetsDir = join(dist, 'assets');
 const entry = join(root, 'src', 'main.tsx');
 const cssInput = join(root, 'src', 'styles', 'index.css');
@@ -36,6 +38,23 @@ rmSync(dist, { recursive: true, force: true });
 mkdirSync(assetsDir, { recursive: true });
 
 cpSync(join(root, 'public'), dist, { recursive: true });
+
+if (SAMPLE) {
+  // The sample ships only the intro's first 2 slides (emergency-sample
+  // courseId, see src/data/slides.ts) -- strip every other audio file so
+  // the ministry-review ZIP doesn't ship ~190MB of narration for chapters
+  // they haven't approved yet, and doesn't leak unfinished script content.
+  const SAMPLE_AUDIO_FILES = new Set(['bag2-ch0-s1-welcome.mp3', 'bag2-ch0-s2-map.mp3']);
+  const audioDir = join(dist, 'audio');
+  let removed = 0;
+  for (const name of readdirSync(audioDir)) {
+    if (!SAMPLE_AUDIO_FILES.has(name)) {
+      rmSync(join(audioDir, name), { force: true, recursive: true });
+      removed += 1;
+    }
+  }
+  console.log(`Sample build: pruned ${removed} unused audio file(s), kept ${SAMPLE_AUDIO_FILES.size}.`);
+}
 
 const contentFiles = [
   join(root, 'index.html'),
@@ -76,6 +95,7 @@ await esbuild.build({
     'import.meta.env.DEV': 'false',
     'import.meta.env.PROD': 'true',
     'import.meta.env.MODE': JSON.stringify('production'),
+    'import.meta.env.VITE_SAMPLE_MODE': JSON.stringify(SAMPLE ? 'true' : 'false'),
   },
   plugins: [
     {
@@ -108,4 +128,4 @@ const htmlTemplate = readFileSync(join(root, 'index.html'), 'utf8')
 
 writeFileSync(join(dist, 'index.html'), htmlTemplate, 'utf8');
 
-console.log('Static build written to dist/');
+console.log(`Static build written to ${SAMPLE ? 'dist-sample' : 'dist'}/`);

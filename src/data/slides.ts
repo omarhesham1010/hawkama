@@ -99,6 +99,15 @@ export const courseCatalog = {
     },
     slides: emergencyChapterFourSlides,
   },
+  // First two intro slides only -- used for the locked ministry-review
+  // sample SCORM package (build:sample), never linked from the live site.
+  'emergency-sample': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'نموذج أولي · مقدمة الحقيبة',
+    },
+    slides: emergencyIntroSlides.slice(0, 2),
+  },
   // The whole bag as one continuous slide sequence, for the single-link
   // #/course/2 shell (sidebar-driven navigation instead of per-chapter URLs).
   'emergency-full': {

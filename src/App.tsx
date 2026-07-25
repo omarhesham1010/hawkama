@@ -16,7 +16,21 @@ interface Route {
   slide: number; // 1-based
 }
 
+/** Set only by `npm run build:sample` -- produces a build locked to the
+ *  2-slide ministry-review sample, regardless of URL/hash, so a reviewer
+ *  can never navigate into the rest of the (in-progress) platform. */
+const SAMPLE_MODE = import.meta.env.VITE_SAMPLE_MODE === 'true';
+const SAMPLE_COURSE_ID = 'emergency-sample';
+const SAMPLE_SLIDE_COUNT = 2;
+
 function parseHash(): Route {
+  if (SAMPLE_MODE) {
+    const h = (window.location.hash || '').replace(/^#\/?/, '');
+    const parts = h.split('/').filter(Boolean);
+    const requested = parts[0] === 'slide' ? Number.parseInt(parts[1] || '1', 10) : 1;
+    const slide = Number.isNaN(requested) ? 1 : Math.min(Math.max(1, requested), SAMPLE_SLIDE_COUNT);
+    return { view: 'course', courseId: SAMPLE_COURSE_ID, slide };
+  }
   const h = (window.location.hash || '').replace(/^#\/?/, '');
   const parts = h.split('/').filter(Boolean);
   // New in-progress build for bag 2, kept fully separate from the legacy
@@ -54,7 +68,7 @@ export default function App() {
 
   useEffect(() => {
     if (route.view !== 'course') return;
-    const canonical = courseHash(route.courseId, route.slide);
+    const canonical = SAMPLE_MODE ? `#/slide/${route.slide}` : courseHash(route.courseId, route.slide);
     if (window.location.hash !== canonical) window.history.replaceState(null, '', canonical);
   }, [route]);
 
@@ -105,7 +119,14 @@ export default function App() {
   if (route.view === 'course') {
     return (
       <Suspense fallback={<CourseLoader />}>
-        <SlidePlayer key={route.courseId} courseId={route.courseId} initialSlide={route.slide} onExit={exitToHome} />
+        <SlidePlayer
+          key={route.courseId}
+          courseId={route.courseId}
+          initialSlide={route.slide}
+          onExit={exitToHome}
+          syncUrl={!SAMPLE_MODE}
+          onSlideChange={SAMPLE_MODE ? (index) => setRoute((r) => ({ ...r, slide: index + 1 })) : undefined}
+        />
       </Suspense>
     );
   }

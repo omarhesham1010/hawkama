@@ -15,7 +15,9 @@
     "test:sync": "node scripts/validate-slide-sync.js",
     "dev": "npm run sync-audio && vite",
     "build": "npm run sync-audio && tsc -b && node scripts/build-static.mjs && node scripts/write-scorm-manifest.mjs",
+    "build:sample": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --sample && node scripts/write-scorm-manifest.mjs --sample",
     "package:scorm": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm.ps1",
+    "package:scorm:sample": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm-sample.ps1",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -28,6 +28,7 @@ const SCORM_TRACKED_COURSES = new Set([
   'emergency-ch2',
   'emergency-ch3',
   'emergency-ch4',
+  'emergency-sample',
 ]);
 
 function storageKey(courseId: string) {
