@@ -30,7 +30,12 @@ const unknownArgs = [...args].filter((arg) =>
 const MAX_ATTEMPTS = 3;
 const REQUEST_DELAY_MS = 900;
 const CHUNK_DELAY_MS = 350;
-const MAX_CHUNK_CHARS = 520;
+// Raised from 520 -> 1500: the longest of all 90 slides in the new formal
+// script is 1123 chars, so every slide now fits in a single request instead
+// of being split into multiple chunks stitched together with previous/next
+// context hints. Matches how the client generates manually on the website
+// (whole slide text pasted at once, one generation).
+const MAX_CHUNK_CHARS = 1500;
 const ARABIC_DIACRITICS = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g;
 const ARABIC_DIACRITIC = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
 const runFile = promisify(execFile);
@@ -181,6 +186,13 @@ function numericSetting(env, key, fallback, min, max) {
 }
 
 function voiceSettingsFromEnv(env, modelId) {
+  // When set, omit voice_settings from the request entirely so ElevenLabs
+  // applies the voice's own saved/default settings (what the website uses
+  // when you pick the voice without touching any sliders) instead of our
+  // explicit stability/similarity values.
+  if (env.ELEVENLABS_USE_VOICE_DEFAULTS?.trim().toLowerCase() === 'true') {
+    return undefined;
+  }
   const similarityBoost = numericSetting(
     env,
     'ELEVENLABS_SIMILARITY_BOOST',
