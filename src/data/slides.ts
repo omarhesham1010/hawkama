@@ -13,7 +13,15 @@ import {
   emergencyChapterTwoSlides,
   emergencyIntroSlides,
 } from './emergencyResponseProgram';
-import { licensingIntroSlides } from './licensingProgram';
+import {
+  licensingClosingSlides,
+  licensingIntroSlides,
+  licensingUnitFiveSlides,
+  licensingUnitFourSlides,
+  licensingUnitOneSlides,
+  licensingUnitThreeSlides,
+  licensingUnitTwoSlides,
+} from './licensingProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
 
 export const courseMeta = {
@@ -124,14 +132,22 @@ export const courseCatalog = {
       ...emergencyChapterFourSlides,
     ],
   },
-  // In-progress: ترخيص المنشآت الصحية والقوى العاملة, single-link #/course/3
-  // shell. Intro sequence only so far -- units 1-5 are being built next.
+  // ترخيص المنشآت الصحية والقوى العاملة, single-link #/course/3 shell --
+  // the whole bag (intro + 5 units + closing/post-test) as one sequence.
   'licensing-full': {
     meta: {
       title: 'ترخيص المنشآت الصحية والقوى العاملة',
       chapter: 'الحقيبة كاملة',
     },
-    slides: [...licensingIntroSlides],
+    slides: [
+      ...licensingIntroSlides,
+      ...licensingUnitOneSlides,
+      ...licensingUnitTwoSlides,
+      ...licensingUnitThreeSlides,
+      ...licensingUnitFourSlides,
+      ...licensingUnitFiveSlides,
+      ...licensingClosingSlides,
+    ],
   },
 };
 

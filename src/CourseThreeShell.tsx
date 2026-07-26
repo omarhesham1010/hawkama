@@ -1,13 +1,24 @@
 import { useMemo, useState } from 'react';
 import { CourseTwoSidebar, type CourseTwoGroup } from './components/course2/CourseTwoSidebar';
 import { CourseTwoPlayer } from './components/course2/CourseTwoPlayer';
-import { licensingIntroSlides } from './data/licensingProgram';
+import {
+  licensingClosingSlides,
+  licensingIntroSlides,
+  licensingUnitFiveSlides,
+  licensingUnitFourSlides,
+  licensingUnitOneSlides,
+  licensingUnitThreeSlides,
+  licensingUnitTwoSlides,
+} from './data/licensingProgram';
 
-// In progress: only the intro sequence exists so far -- units 1-5 are being
-// authored next, each will get its own group here exactly like
-// CourseTwoShell's chapters.
 const RAW_GROUPS: { label: string; slides: typeof licensingIntroSlides }[] = [
   { label: 'مقدمة الحقيبة', slides: licensingIntroSlides },
+  { label: 'الوحدة الأولى · البيانات والأداء واتخاذ القرار', slides: licensingUnitOneSlides },
+  { label: 'الوحدة الثانية · سوق العمل وأصحاب المصلحة', slides: licensingUnitTwoSlides },
+  { label: 'الوحدة الثالثة · الإطار التنظيمي وحوكمة التراخيص', slides: licensingUnitThreeSlides },
+  { label: 'الوحدة الرابعة · المخاطر والسياسات الداعمة للتراخيص', slides: licensingUnitFourSlides },
+  { label: 'الوحدة الخامسة · التفتيش والتقارير والرقابة', slides: licensingUnitFiveSlides },
+  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: licensingClosingSlides },
 ];
 
 /** Single-link (#/course/3) shell for ترخيص المنشآت الصحية والقوى العاملة,
