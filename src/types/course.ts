@@ -27,7 +27,12 @@ export type IconKey =
   | 'doc'
   | 'eye'
   | 'sound'
-  | 'sparkles';
+  | 'sparkles'
+  | 'license'
+  | 'inspection'
+  | 'chart'
+  | 'cycle'
+  | 'handshake';
 
 export type SectionType =
   | 'welcome'

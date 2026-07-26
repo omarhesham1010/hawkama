@@ -159,6 +159,46 @@ const paths: Record<IconKey, React.ReactNode> = {
       <path d="M18 15l.7 1.8L20.5 17.5l-1.8.7L18 20l-.7-1.8L15.5 17.5l1.8-.7z" />
     </>
   ),
+  license: (
+    <>
+      <path d="M6 3h9l3 3v15H6z" />
+      <path d="M15 3v3h3" />
+      <circle cx="11" cy="14.5" r="2.6" />
+      <path d="M9.3 16.6L8.6 21l2.4-1.4 2.4 1.4-.7-4.4" />
+    </>
+  ),
+  inspection: (
+    <>
+      <path d="M5 3h9l4 4v6" />
+      <path d="M14 3v4h4" />
+      <path d="M7.5 9h6M7.5 12h4" />
+      <circle cx="9.5" cy="17" r="3.2" />
+      <path d="M11.8 19.3L14.5 22" />
+    </>
+  ),
+  chart: (
+    <>
+      <path d="M4 20V10M10 20V4M16 20v-7" />
+      <path d="M3 20h18" />
+    </>
+  ),
+  cycle: (
+    <>
+      <path d="M4.5 12a7.5 7.5 0 0112.5-5.6" />
+      <path d="M14 4.5l3 2-2 3" />
+      <path d="M19.5 12a7.5 7.5 0 01-12.5 5.6" />
+      <path d="M10 19.5l-3-2 2-3" />
+    </>
+  ),
+  handshake: (
+    <>
+      <path d="M2.5 9.5h5l3.3 3.3" />
+      <path d="M21.5 9.5h-5l-2.6 2.6" />
+      <path d="M9 11l3.3 3.3a1.3 1.3 0 001.9-1.8L11 9.3" />
+      <path d="M12.6 14.6l1.6 1.6a1.3 1.3 0 001.9-1.8" />
+      <path d="M2.5 9.5v6.5M21.5 9.5v6.5" />
+    </>
+  ),
 };
 
 export function Icon({ name, className = 'w-6 h-6', strokeWidth = 1.7 }: IconProps) {

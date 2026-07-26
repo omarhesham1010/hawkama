@@ -9,9 +9,10 @@ import { stopVoiceClip } from './lib/playVoiceClip';
 
 const SlidePlayer = lazy(() => import('./SlidePlayer'));
 const CourseTwoShell = lazy(() => import('./CourseTwoShell'));
+const CourseThreeShell = lazy(() => import('./CourseThreeShell'));
 
 interface Route {
-  view: 'home' | 'course' | 'course2';
+  view: 'home' | 'course' | 'course2' | 'course3';
   courseId: string;
   slide: number; // 1-based
 }
@@ -34,6 +35,9 @@ function parseHash(): Route {
   // while this one is worked on.
   if (parts[0] === 'course' && parts[1] === '2') {
     return { view: 'course2', courseId: 'course-2', slide: 1 };
+  }
+  if (parts[0] === 'course' && parts[1] === '3') {
+    return { view: 'course3', courseId: 'course-3', slide: 1 };
   }
   if (parts[0] === 'bag' && parts[2] === 'chapter') {
     const bag = Number.parseInt(parts[1] || '', 10);
@@ -104,6 +108,14 @@ export default function App() {
     return (
       <Suspense fallback={null}>
         <CourseTwoShell />
+      </Suspense>
+    );
+  }
+
+  if (route.view === 'course3') {
+    return (
+      <Suspense fallback={null}>
+        <CourseThreeShell />
       </Suspense>
     );
   }
