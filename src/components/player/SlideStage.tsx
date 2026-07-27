@@ -1358,9 +1358,12 @@ function IntroMotionScene({
   // cache-control header, so a visitor whose browser already cached the old
   // pixels never re-checks after we edit the file in place -- append a
   // manual version query so updating this file always busts the cache.
+  const isLicensingCourse = slide.id.startsWith('lic');
   const introHeroSrc = isEmergencyCourse
     ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
-    : '/assets/visual-library/intro-governance-building-scene.webp';
+    : isLicensingCourse
+      ? '/assets/visual-library/intro-licensing-training-scene.webp'
+      : '/assets/visual-library/intro-governance-building-scene.webp';
   // Keep the pillar row's horizontal center locked to the hero image's own
   // center (both anchored from the right edge) so it never reads as
   // shifted off to one side, regardless of how many pillars are shown.
