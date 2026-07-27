@@ -1359,10 +1359,20 @@ function IntroMotionScene({
   // pixels never re-checks after we edit the file in place -- append a
   // manual version query so updating this file always busts the cache.
   const isLicensingCourse = slide.id.startsWith('lic');
+  // The licensing PPTX has no photography of its own (surveyed every image
+  // in it: all decorative template backgrounds or generic clipart) -- per
+  // client direction, reuse its clipart here instead of an icon, picking
+  // the best-fitting piece per unit where one exists and falling back to
+  // the general training scene for units without a good thematic match.
+  const licensingHeroByUnit: Record<string, string> = {
+    'lic-u1-welcome': '/assets/visual-library/intro-licensing-data-records-scene.webp',
+    'lic-u3-welcome': '/assets/visual-library/intro-licensing-compliance-shield-scene.webp',
+    'lic-u4-welcome': '/assets/visual-library/intro-licensing-framework-scene.webp',
+  };
   const introHeroSrc = isEmergencyCourse
     ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
     : isLicensingCourse
-      ? '/assets/visual-library/intro-licensing-training-scene.webp'
+      ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
       : '/assets/visual-library/intro-governance-building-scene.webp';
   // Keep the pillar row's horizontal center locked to the hero image's own
   // center (both anchored from the right edge) so it never reads as
