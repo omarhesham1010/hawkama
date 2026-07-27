@@ -48,6 +48,7 @@ export function CourseTwoPlayer({
           <SlideCanvas variant={slide.kind === 'welcome' ? 'intro' : 'default'}>
             <SlideStage
               slide={slide}
+              courseId={courseId}
               spoken={sync.spoken}
               started={started}
               muted={muted}

@@ -3674,6 +3674,7 @@ function PptStyleSlide({
   onStart,
   onActivityDone,
   completion,
+  courseId,
 }: {
   slide: Slide;
   spoken: number;
@@ -3683,6 +3684,7 @@ function PptStyleSlide({
   onStart: () => void;
   onActivityDone: (id: string) => void;
   completion: CompletionInfo;
+  courseId?: string;
 }) {
   const [expandedCardKey, setExpandedCardKey] = useState<string | null>(null);
   const [checkPhase, setCheckPhase] = useState<CheckPhase>('idle');
@@ -4198,28 +4200,30 @@ function PptStyleSlide({
                 />
               ))}
             </div>
-            <div className="mt-5 flex items-center justify-center gap-4">
-              <button
-                type="button"
-                disabled={narrationLocked}
-                onClick={completion.onExit}
-                className={`btn-gold px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
-                  narrationLocked ? '' : 'animate-pulse-ring'
-                }`}
-              >
-                <Icon name="flag" className="h-6 w-6" />
-                إنهاء والعودة للمنصة
-              </button>
-              <button
-                type="button"
-                disabled={narrationLocked}
-                onClick={completion.onRestart}
-                className="btn-ghost px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
-              >
-                <Icon name="flow" className="h-6 w-6" />
-                إعادة الفصل
-              </button>
-            </div>
+            {courseId !== 'governance-full' && (
+              <div className="mt-5 flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  disabled={narrationLocked}
+                  onClick={completion.onExit}
+                  className={`btn-gold px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none ${
+                    narrationLocked ? '' : 'animate-pulse-ring'
+                  }`}
+                >
+                  <Icon name="flag" className="h-6 w-6" />
+                  إنهاء والعودة للمنصة
+                </button>
+                <button
+                  type="button"
+                  disabled={narrationLocked}
+                  onClick={completion.onRestart}
+                  className="btn-ghost px-9 py-4 text-lg disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted disabled:shadow-none"
+                >
+                  <Icon name="flow" className="h-6 w-6" />
+                  إعادة الفصل
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           // A small top offset here (not on the title above, and small
@@ -4359,6 +4363,7 @@ export function SlideStage({
   onActivityDone,
   onQuizComplete,
   completion,
+  courseId,
 }: {
   slide: Slide;
   spoken: number;
@@ -4369,6 +4374,7 @@ export function SlideStage({
   onActivityDone: (id: string) => void;
   onQuizComplete: (score: number) => void;
   completion: CompletionInfo;
+  courseId?: string;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   if (slide.layout?.startsWith('ppt')) {
@@ -4382,6 +4388,7 @@ export function SlideStage({
         onStart={onStart}
         onActivityDone={onActivityDone}
         completion={completion}
+        courseId={courseId}
       />
     );
   }
@@ -4544,7 +4551,7 @@ export function SlideStage({
             <p className="text-xs text-ink-muted">الأنشطة المكتملة</p>
           </div>
         </div>
-        {!isEmergencySlide && (
+        {!isEmergencySlide && courseId !== 'governance-full' && (
           <div className="flex items-center justify-center gap-3">
             <button
               type="button"
