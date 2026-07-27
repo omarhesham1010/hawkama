@@ -13,6 +13,16 @@ import {
   emergencyChapterTwoSlides,
   emergencyIntroSlides,
 } from './emergencyResponseProgram';
+// The legacy /bag/2/chapter/N/slide/S route must keep rendering its
+// pre-course/2 content (text, audio keys, everything) while #/course/2
+// keeps the current data above -- see src/legacy-bag2/data/emergencyResponseProgram.ts.
+import {
+  emergencyChapterFourSlides as emergencyChapterFourSlidesLegacy,
+  emergencyChapterOneSlides as emergencyChapterOneSlidesLegacy,
+  emergencyChapterThreeSlides as emergencyChapterThreeSlidesLegacy,
+  emergencyChapterTwoSlides as emergencyChapterTwoSlidesLegacy,
+  emergencyIntroSlides as emergencyIntroSlidesLegacy,
+} from '../legacy-bag2/data/emergencyResponseProgram';
 import {
   licensingClosingSlides,
   licensingIntroSlides,
@@ -78,35 +88,35 @@ export const courseCatalog = {
       title: 'إدارة الاستجابة للطوارئ',
       chapter: 'مقدمة الحقيبة',
     },
-    slides: emergencyIntroSlides,
+    slides: emergencyIntroSlidesLegacy,
   },
   'emergency-ch1': {
     meta: {
       title: 'إدارة الاستجابة للطوارئ',
       chapter: 'الفصل الأول · الاستعداد للطوارئ الصحية',
     },
-    slides: emergencyChapterOneSlides,
+    slides: emergencyChapterOneSlidesLegacy,
   },
   'emergency-ch2': {
     meta: {
       title: 'إدارة الاستجابة للطوارئ',
       chapter: 'الفصل الثاني · إدارة الأزمات الصحية',
     },
-    slides: emergencyChapterTwoSlides,
+    slides: emergencyChapterTwoSlidesLegacy,
   },
   'emergency-ch3': {
     meta: {
       title: 'إدارة الاستجابة للطوارئ',
       chapter: 'الفصل الثالث · المسح الاستباقي والترصد المبكر',
     },
-    slides: emergencyChapterThreeSlides,
+    slides: emergencyChapterThreeSlidesLegacy,
   },
   'emergency-ch4': {
     meta: {
       title: 'إدارة الاستجابة للطوارئ',
       chapter: 'الفصل الرابع · التعافي والتحسين المستمر',
     },
-    slides: emergencyChapterFourSlides,
+    slides: emergencyChapterFourSlidesLegacy,
   },
   // First two intro slides only -- used for the locked ministry-review
   // sample SCORM package (build:sample), never linked from the live site.
