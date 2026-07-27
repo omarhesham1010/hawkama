@@ -192,7 +192,10 @@ export interface ScenarioDecisionData {
   scenario: string;
   identify: {
     question: string;
-    options: { id: string; label: string; correct: boolean }[];
+    /** `note` is this option's own feedback, shown when the learner picks it --
+     *  falls back to `suggestedNote` when omitted, so every option can get
+     *  a specific reaction instead of one generic line for every wrong pick. */
+    options: { id: string; label: string; correct: boolean; note?: string }[];
     suggestedNote: string; // Educational rationale shown after answering.
     tags: string[];
     /** Pre-recorded keys Nasser reads right after the learner picks an option. */

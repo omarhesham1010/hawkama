@@ -120,7 +120,7 @@ export function DecisionSimulation({
                         : `الإجابة الصحيحة هي: ${correctOpt?.label}`
                     }
                   >
-                    <p className="text-[15px] leading-snug">{data.identify.suggestedNote}</p>
+                    <p className="text-[15px] leading-snug">{chosen?.note ?? data.identify.suggestedNote}</p>
                   </FeedbackBox>
                 </div>
               );
