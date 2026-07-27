@@ -96,6 +96,7 @@ const contentFiles = [
   join(root, 'src', 'SlidePlayer.tsx'),
   ...uiSourceFiles(join(root, 'src', 'components')),
   ...uiSourceFiles(join(root, 'src', 'hooks')),
+  ...uiSourceFiles(join(root, 'src', 'legacy-bag2')),
 ];
 writeFileSync(
   tailwindContent,
