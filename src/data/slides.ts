@@ -31,6 +31,7 @@ import {
   governanceChapterOneSlides as governanceChapterOneSlidesCourse1,
   governanceChapterThreeSlides as governanceChapterThreeSlidesCourse1,
   governanceChapterTwoSlides as governanceChapterTwoSlidesCourse1,
+  governanceClosingSlides as governanceClosingSlidesCourse1,
   governanceIntroSlides as governanceIntroSlidesCourse1,
 } from '../course1/data/governanceProgram';
 import {
@@ -61,6 +62,7 @@ export const allNarratedSlides = [
   ...governanceChapterOneSlidesCourse1,
   ...governanceChapterTwoSlidesCourse1,
   ...governanceChapterThreeSlidesCourse1,
+  ...governanceClosingSlidesCourse1,
 ];
 
 export const courseCatalog = {
@@ -169,6 +171,7 @@ export const courseCatalog = {
       ...governanceChapterOneSlidesCourse1,
       ...governanceChapterTwoSlidesCourse1,
       ...governanceChapterThreeSlidesCourse1,
+      ...governanceClosingSlidesCourse1,
     ],
   },
   // ترخيص المنشآت الصحية والقوى العاملة, single-link #/course/3 shell --

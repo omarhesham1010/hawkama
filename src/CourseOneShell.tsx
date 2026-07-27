@@ -6,6 +6,7 @@ import {
   governanceChapterOneSlides,
   governanceChapterTwoSlides,
   governanceChapterThreeSlides,
+  governanceClosingSlides,
 } from './course1/data/governanceProgram';
 
 const RAW_GROUPS: { label: string; slides: typeof governanceIntroSlides }[] = [
@@ -13,6 +14,7 @@ const RAW_GROUPS: { label: string; slides: typeof governanceIntroSlides }[] = [
   { label: 'الفصل الأول · الحوكمة التنظيمية والامتثال', slides: governanceChapterOneSlides },
   { label: 'الفصل الثاني · الامتثال والتدقيق والضوابط', slides: governanceChapterTwoSlides },
   { label: 'الفصل الثالث · إدارة المخاطر المؤسسية', slides: governanceChapterThreeSlides },
+  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: governanceClosingSlides },
 ];
 
 /** Single-link (#/course/1) shell for الحوكمة والمخاطر والامتثال, built on
