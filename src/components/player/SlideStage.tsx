@@ -1432,7 +1432,7 @@ function IntroMotionScene({
             <span className="rounded-full border border-green-700/18 bg-white/78 px-4 py-1.5 text-[13px] font-extrabold text-green-800 shadow-sm backdrop-blur-sm">
               تحت إشراف المدرب ناصر
             </span>
-            <span className="rounded-full border border-gold-500/25 bg-gold-50/78 px-4 py-1.5 text-[13px] font-extrabold text-gold-700 shadow-sm backdrop-blur-sm">
+            <span className="rounded-full border border-gold-500/25 bg-white/78 px-4 py-1.5 text-[13px] font-extrabold text-gold-700 shadow-sm backdrop-blur-sm">
               بداية الرحلة
             </span>
           </div>
@@ -2314,7 +2314,7 @@ function PptCardView({
           : 'h-36 w-36';
   const glyphKind = courseGlyphKind(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''} ${card.answer ?? ''}`);
   const passiveShell =
-    tone === 'gold' ? 'border-gold-500/18 bg-gold-50/90' : 'border-green-700/14 bg-green-50/90';
+    tone === 'gold' ? 'border-gold-500/18 bg-gold-50/12' : 'border-green-700/14 bg-green-50/10';
   const activeShell = active
     ? 'scale-[1.025] border-gold-500/45 bg-green-700 text-white shadow-card-lg'
     : passiveShell;
@@ -2989,7 +2989,7 @@ function PptMatrixScene({
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
           const tone = card.tone ?? 'green';
           const toneShell =
-            tone === 'gold' ? 'border-gold-500/25 bg-gold-50/95' : 'border-green-700/18 bg-green-50/95';
+            tone === 'gold' ? 'border-gold-500/25 bg-gold-50/12' : 'border-green-700/18 bg-green-50/10';
           return (
             <button
               key={index}
