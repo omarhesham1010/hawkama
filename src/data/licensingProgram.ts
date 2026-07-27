@@ -265,6 +265,8 @@ export const licensingUnitOneSlides = indexSlides([
     visual: '📈',
     layout: 'pptMatrix',
     cards: unit1KpiTypeCards,
+    laterActs: [[unit1KpiTypeCards[2]]],
+    actLayouts: ['pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u1-activity-2',
@@ -310,6 +312,8 @@ export const licensingUnitOneSlides = indexSlides([
     visual: '⚖️',
     layout: 'pptTimeline',
     cards: unit1DecisionSteps,
+    laterActs: [[unit1DecisionSteps[3]]],
+    actLayouts: ['pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u1-activity-3',
@@ -503,6 +507,8 @@ export const licensingUnitTwoSlides = indexSlides([
       { title: 'المواءمة مع رؤية 2030', text: 'كفاءة الإنفاق، جودة الخدمات، ومشاركة القطاع الخاص.', tone: 'gold' },
       { title: 'تطبيق للحوكمة الصحية', text: 'وضوح الأدوار، شفافية القرار، ومساءلة أعلى.' },
     ],
+    laterActs: [[{ title: 'المواءمة مع رؤية 2030', text: 'كفاءة الإنفاق، جودة الخدمات، ومشاركة القطاع الخاص — الترخيص كأداة استراتيجية لا إجراء معزول.', tone: 'gold' }]],
+    actLayouts: ['pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u2-activity-1',
@@ -548,6 +554,8 @@ export const licensingUnitTwoSlides = indexSlides([
     visual: '🤝',
     layout: 'pptMatrix',
     cards: unit2StakeholderCards,
+    laterActs: [[unit2StakeholderCards[3]]],
+    actLayouts: ['pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u2-trust',
@@ -562,6 +570,8 @@ export const licensingUnitTwoSlides = indexSlides([
       { title: 'المساءلة والمراجعة الدورية', text: 'قنوات رسمية للشكاوى وآليات مراجعة للقرارات.', tone: 'gold' },
       { title: 'التنسيق بين الجهات', text: 'توحيد المعايير بين وزارة الصحة وCBAHI وSCFHS.' },
     ],
+    laterActs: [[{ title: 'المساءلة والمراجعة الدورية', text: 'قنوات رسمية للشكاوى وآليات مراجعة دورية للقرارات — الثقة تُبنى بالمحاسبة لا بالنوايا فقط.', tone: 'gold' }]],
+    actLayouts: ['pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u2-activity-2',
@@ -601,6 +611,8 @@ export const licensingUnitTwoSlides = indexSlides([
     visual: '🌐',
     layout: 'pptTimeline',
     cards: unit2GlobalCards,
+    laterActs: [[unit2GlobalCards[0]]],
+    actLayouts: ['pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u2-activity-3',
@@ -801,6 +813,8 @@ export const licensingUnitThreeSlides = indexSlides([
     visual: '🧾',
     layout: 'pptMatrix',
     cards: unit3ComplianceCards,
+    laterActs: [[unit3ComplianceCards[2]]],
+    actLayouts: ['pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u3-activity-1',
@@ -846,6 +860,8 @@ export const licensingUnitThreeSlides = indexSlides([
     visual: '🏛️',
     layout: 'pptTimeline',
     cards: unit3LifecycleCards,
+    laterActs: [[unit3LifecycleCards[4]]],
+    actLayouts: ['pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u3-activity-2',
@@ -898,6 +914,8 @@ export const licensingUnitThreeSlides = indexSlides([
       { title: 'العدالة في التقييم', text: 'معايير واضحة، تقييم موضوعي بالأدلة، وإتاحة الاعتراض والمراجعة.', tone: 'gold' },
       { title: 'المساءلة والانضباط', text: 'توثيق القرارات، مراجعة داخلية وخارجية، وإجراءات تصحيحية عند المخالفة.' },
     ],
+    laterActs: [[{ title: 'تضارب المصالح', text: 'إفصاح مبكر، فصل الشخص عن القرار، وتوثيق كل إجراء — العمود الفقري لثقة النظام في نزاهة القرار.' }]],
+    actLayouts: ['pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u3-activity-3',
@@ -1130,6 +1148,8 @@ export const licensingUnitFourSlides = indexSlides([
     visual: '🌪️',
     layout: 'pptMatrix',
     cards: unit4ScenarioCards,
+    laterActs: [[unit4ScenarioCards[0]]],
+    actLayouts: ['pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u4-activity-2',
@@ -1178,6 +1198,8 @@ export const licensingUnitFourSlides = indexSlides([
     visual: '📝',
     layout: 'pptTimeline',
     cards: unit4PolicyStages,
+    laterActs: [[unit4PolicyStages[4]]],
+    actLayouts: ['pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u4-stakeholder-policy',
@@ -1192,6 +1214,8 @@ export const licensingUnitFourSlides = indexSlides([
       { title: 'اللجان الفنية متعددة التخصصات', text: 'تضم ممثلين عن جهات مختلفة لضمان واقعية السياسة.', tone: 'gold' },
       { title: 'فترات التعليق العام', text: 'إتاحة المراجعة والملاحظات قبل الاعتماد النهائي.' },
     ],
+    laterActs: [[{ title: 'اللجان الفنية متعددة التخصصات', text: 'ممثلون من جهات مختلفة يضمنون أن تكون السياسة واقعية وقابلة للتطبيق الفعلي.', tone: 'gold' }]],
+    actLayouts: ['pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u4-activity-3',
@@ -1433,6 +1457,8 @@ export const licensingUnitFiveSlides = indexSlides([
     visual: '📋',
     layout: 'pptMatrix',
     cards: unit5ReportComponents,
+    laterActs: [[unit5ReportComponents[4]]],
+    actLayouts: ['pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u5-activity-2',
@@ -1488,6 +1514,8 @@ export const licensingUnitFiveSlides = indexSlides([
     visual: '📊',
     layout: 'pptTimeline',
     cards: unit5PerformanceStages,
+    laterActs: [[unit5PerformanceStages[3]]],
+    actLayouts: ['pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'lic-u5-activity-3',
