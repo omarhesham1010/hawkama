@@ -8,11 +8,12 @@ import { platform } from './data/platformContent';
 import { stopVoiceClip } from './lib/playVoiceClip';
 
 const SlidePlayer = lazy(() => import('./SlidePlayer'));
+const CourseOneShell = lazy(() => import('./CourseOneShell'));
 const CourseTwoShell = lazy(() => import('./CourseTwoShell'));
 const CourseThreeShell = lazy(() => import('./CourseThreeShell'));
 
 interface Route {
-  view: 'home' | 'course' | 'course2' | 'course3';
+  view: 'home' | 'course' | 'course1' | 'course2' | 'course3';
   courseId: string;
   slide: number; // 1-based
 }
@@ -33,6 +34,9 @@ function parseHash(): Route {
   // New in-progress build for bag 2, kept fully separate from the legacy
   // #/bag/2/... routes below so the old content stays reachable/shareable
   // while this one is worked on.
+  if (parts[0] === 'course' && parts[1] === '1') {
+    return { view: 'course1', courseId: 'course-1', slide: 1 };
+  }
   if (parts[0] === 'course' && parts[1] === '2') {
     return { view: 'course2', courseId: 'course-2', slide: 1 };
   }
@@ -103,6 +107,14 @@ export default function App() {
   const exitToHome = useCallback(() => {
     window.location.hash = '#/';
   }, []);
+
+  if (route.view === 'course1') {
+    return (
+      <Suspense fallback={null}>
+        <CourseOneShell />
+      </Suspense>
+    );
+  }
 
   if (route.view === 'course2') {
     return (

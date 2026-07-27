@@ -23,6 +23,16 @@ import {
   emergencyChapterTwoSlides as emergencyChapterTwoSlidesLegacy,
   emergencyIntroSlides as emergencyIntroSlidesLegacy,
 } from '../legacy-bag2/data/emergencyResponseProgram';
+// The single-link #/course/1 shell reads from its own fork of the
+// governance data (rewritten into formal Arabic), kept fully separate so
+// /bag/1/chapter/N/slide/S keeps rendering the shared file above untouched
+// -- see src/course1/data/governanceProgram.ts.
+import {
+  governanceChapterOneSlides as governanceChapterOneSlidesCourse1,
+  governanceChapterThreeSlides as governanceChapterThreeSlidesCourse1,
+  governanceChapterTwoSlides as governanceChapterTwoSlidesCourse1,
+  governanceIntroSlides as governanceIntroSlidesCourse1,
+} from '../course1/data/governanceProgram';
 import {
   licensingClosingSlides,
   licensingIntroSlides,
@@ -47,6 +57,10 @@ export const allNarratedSlides = [
   ...emergencyChapterTwoSlides,
   ...emergencyChapterThreeSlides,
   ...emergencyChapterFourSlides,
+  ...governanceIntroSlidesCourse1,
+  ...governanceChapterOneSlidesCourse1,
+  ...governanceChapterTwoSlidesCourse1,
+  ...governanceChapterThreeSlidesCourse1,
 ];
 
 export const courseCatalog = {
@@ -140,6 +154,21 @@ export const courseCatalog = {
       ...emergencyChapterTwoSlides,
       ...emergencyChapterThreeSlides,
       ...emergencyChapterFourSlides,
+    ],
+  },
+  // الحوكمة والمخاطر والامتثال, single-link #/course/1 shell -- reads from
+  // the course1 fork above, not the shared governanceProgram.ts that
+  // /bag/1/... uses, so edits here never touch bag/1.
+  'governance-full': {
+    meta: {
+      title: 'الحوكمة والمخاطر والامتثال',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...governanceIntroSlidesCourse1,
+      ...governanceChapterOneSlidesCourse1,
+      ...governanceChapterTwoSlidesCourse1,
+      ...governanceChapterThreeSlidesCourse1,
     ],
   },
   // ترخيص المنشآت الصحية والقوى العاملة, single-link #/course/3 shell --
