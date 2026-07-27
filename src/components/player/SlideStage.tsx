@@ -4017,7 +4017,11 @@ function PptStyleSlide({
   // lives as the FINAL shot of the slide, not a separate slide -- narration
   // sets up the scenario across the earlier shots, then hands off to
   // "طبّق بنفسك" for the actual interaction, all one continuous slide.
-  const isActivityShot = Boolean(slide.activity) && hasMultipleActs && activeActIndex === cardActs.length - 1;
+  // Single-act activity slides (no laterActs -- just one setup card plus
+  // `slide.activity`) have no act-switch offset to arrive at, so they
+  // hand off once the setup narration itself finishes instead.
+  const isActivityShot =
+    Boolean(slide.activity) && activeActIndex === cardActs.length - 1 && (hasMultipleActs || narrationFinished);
   const renderActivityShot = () => {
     const a = slide.activity;
     if (!a) return null;
