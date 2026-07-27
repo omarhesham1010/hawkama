@@ -36,7 +36,7 @@ export function TrackModal({
           </span>
           <div className="min-w-0 flex-1">
             <h3 className="text-lg font-bold">{track.title}</h3>
-            <p className="truncate text-sm text-green-50/90">{track.short}</p>
+            <p className="truncate text-sm text-white/90">{track.short}</p>
           </div>
           <button
             type="button"

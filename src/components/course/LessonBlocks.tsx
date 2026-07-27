@@ -163,7 +163,7 @@ export function LessonBlockView({ block }: { block: LessonBlock }) {
                   {block.title}
                 </p>
               )}
-              <p className={`text-[17px] leading-relaxed ${isContrast ? 'text-green-50' : 'text-ink-soft'}`}>
+              <p className={`text-[17px] leading-relaxed ${isContrast ? 'text-white/90' : 'text-ink-soft'}`}>
                 {block.text}
               </p>
             </div>
