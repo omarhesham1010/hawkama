@@ -662,7 +662,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
             <h3 className={`mb-1 text-[22px] font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
               {unit.term}
             </h3>
-            <p className={`text-[20px] font-semibold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+            <p className={`text-[20px] font-semibold leading-relaxed ${active ? 'text-white/90' : 'text-ink-soft'}`}>
               {unit.text}
             </p>
           </div>
@@ -681,7 +681,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
               </p>
             )}
             {unit.text && (
-              <p className={`text-[18px] font-semibold leading-relaxed ${active ? 'text-green-50' : 'text-ink-soft'}`}>
+              <p className={`text-[18px] font-semibold leading-relaxed ${active ? 'text-white/90' : 'text-ink-soft'}`}>
                 {unit.text}
               </p>
             )}
@@ -698,7 +698,7 @@ function UnitView({ unit, active, accent }: { unit: BeatUnit; active: boolean; a
             ? 'border-gold-400/70 bg-gold-500/10'
             : 'border-green-400/70 bg-green-500/10';
       const titleCls = isContrast || active ? 'text-white' : 'text-ink';
-      const textCls = isContrast || active ? 'text-green-50' : 'text-ink-soft';
+      const textCls = isContrast || active ? 'text-white/90' : 'text-ink-soft';
       return (
         <div className={`min-h-[64px] rounded-2xl border-2 p-4 shadow-card transition-all duration-300 ${cls}`}>
           {unit.title && <p className={`mb-1 text-[22px] font-extrabold ${titleCls}`}>{unit.title}</p>}
@@ -1207,7 +1207,7 @@ function PptQuickCheckPopup({
           <h3 className={`text-[24px] font-extrabold leading-snug ${revealed ? 'text-white' : 'text-brand-strong'}`}>
             {revealed ? check.answer : check.title}
           </h3>
-          <p className={`mt-2 text-[16px] font-bold leading-relaxed ${revealed ? 'text-green-50' : 'text-ink-soft'}`}>
+          <p className={`mt-2 text-[16px] font-bold leading-relaxed ${revealed ? 'text-white/90' : 'text-ink-soft'}`}>
             {revealed ? check.rationale : check.text}
           </p>
         </div>
@@ -1230,7 +1230,7 @@ function PptQuickCheckPopup({
               type="button"
               disabled={narrationLocked}
               onClick={onDismiss}
-              className="text-[13px] font-bold text-green-50/80 underline underline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+              className="text-[13px] font-bold text-white/80 underline underline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
             >
               اضغط في أي مكان للمتابعة
             </button>
@@ -2196,7 +2196,7 @@ function sharedBrandIconFor(text: string, index = 0, usedIcons?: Set<string>, av
 function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boolean }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const brandIcon = showVisual && isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
   return (
     <div className="mb-4 text-center">
@@ -2319,7 +2319,7 @@ function PptCardView({
     ? 'scale-[1.025] border-gold-500/45 bg-green-700 text-white shadow-card-lg'
     : passiveShell;
   const titleTone = active ? 'text-white' : 'text-brand-strong';
-  const bodyTone = active ? 'text-green-50' : 'text-ink';
+  const bodyTone = active ? 'text-white/90' : 'text-ink';
   const tileTone = active
     ? 'border-white/35 bg-white/16 text-white shadow-card'
     : tone === 'gold'
@@ -2433,6 +2433,13 @@ function PptCardView({
  *  slide never ends up with no visual at all. First entry is the primary
  *  (best) match. */
 function slideVisualPool(slide: Slide, cards: PptCard[]) {
+  // The licensing bag (course/3) has no dedicated photo/illustration set of
+  // its own -- letting it fall through to governance's stock scenes would
+  // show content-unrelated imagery. Per client direction it uses the brand
+  // icon system everywhere outside the intro instead, so it gets no photo
+  // pool at all: an empty array here means every consumer's `primaryVisual`
+  // is undefined and they skip rendering the circle/badge entirely.
+  if (slide.id.startsWith('lic')) return [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const fallbackVisualPool = isEmergencySlide
     ? ['/assets/visual-library/emergency-command-center.webp', '/assets/visual-library/emergency-strategic-framework.webp', '/assets/visual-library/emergency-stakeholder-network.webp', '/assets/visual-library/emergency-kpi-dashboard.webp']
@@ -2483,7 +2490,7 @@ function PptMotionVisualScene({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const effectiveLayout = layout ?? slide.layout;
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
   // used only to know when to re-roll the highlight animation below.
@@ -2515,7 +2522,7 @@ function PptMotionVisualScene({
     return () => window.clearTimeout(timer);
   }, [effectiveActiveKey, focusAnim]);
   const visualPool = slideVisualPool(slide, cards);
-  const primaryVisual = visualPool[0] ?? '/assets/visual-library/governance-scene.webp';
+  const primaryVisual = visualPool[0];
   const titleCardGrid = isEmergencySlide && effectiveLayout === 'pptTitleCards';
   const variant = effectiveLayout === 'pptTwoPanels'
     ? 'split'
@@ -2669,6 +2676,12 @@ function PptMotionVisualScene({
     .filter(({ pos, i }) => !usedPositionIndexes.has(i) && !collidesWithNasser(pos) && !usedRows.has(rowOf(pos)));
   const preferredFill = emptyCandidates.find(({ pos }) => sideOfPosition(pos) === emptySide);
   const emptyFillIndex = (preferredFill ?? emptyCandidates[0])?.i ?? -1;
+  // The licensing bag has no photo/illustration assets of its own (see
+  // slideVisualPool) -- it relies purely on the brand icon system here, so
+  // this scene never paints a background photo watermark or per-card photo
+  // for it (guarded below), only the icon badges and decorative vector
+  // motifs, which stay on for every bag.
+  const isLicensingSlide = slide.id.startsWith('lic');
   const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   // Shared across every card below so two cards in the same shot never end
   // up with the same big illustration or the same badge icon.
@@ -2678,7 +2691,7 @@ function PptMotionVisualScene({
   return (
     <div className="relative min-h-0 flex-1 overflow-visible rounded-[30px]">
       <div className={`absolute inset-[1%] rounded-[34px] ${chapterAccent}`} />
-      {showMotionGraphics && emptyFillIndex !== -1 && (
+      {showMotionGraphics && !isLicensingSlide && emptyFillIndex !== -1 && primaryVisual && (
         <div className={`pointer-events-none absolute ${labelPositions[emptyFillIndex]} relative h-[190px]`} aria-hidden="true">
           <img
             src={primaryVisual}
@@ -2764,22 +2777,35 @@ function PptMotionVisualScene({
                 />
               </span>
               <span className={`relative z-0 ${titleCardGrid ? 'order-1' : ''} ${openLabelImageClass} shrink-0 rounded-full bg-white/35 ring-1 ring-gold-500/16 transition-all duration-700 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
-                {brandIcon && (
-                  <span
-                    className="absolute -right-3 -top-3 z-10 grid h-16 w-16 place-items-center rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)]"
-                    aria-hidden="true"
-                  >
-                    <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
-                  </span>
+                {isLicensingSlide ? (
+                  brandIcon && (
+                    <span
+                      className={`absolute inset-[14%] z-10 grid place-items-center rounded-2xl bg-white/88 p-2.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
+                      aria-hidden="true"
+                    >
+                      <BrandIcon src={brandIcon} tone="primary" className="h-full w-full" />
+                    </span>
+                  )
+                ) : (
+                  <>
+                    {brandIcon && (
+                      <span
+                        className="absolute -right-3 -top-3 z-10 grid h-16 w-16 place-items-center rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)]"
+                        aria-hidden="true"
+                      >
+                        <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
+                      </span>
+                    )}
+                    <img
+                      src={cardVisual}
+                      alt=""
+                      className={`absolute inset-0 z-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
+                      loading="lazy"
+                      decoding="async"
+                      aria-hidden="true"
+                    />
+                  </>
                 )}
-                <img
-                  src={cardVisual}
-                  alt=""
-                  className={`absolute inset-0 z-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
-                  loading="lazy"
-                  decoding="async"
-                  aria-hidden="true"
-                />
               </span>
             </span>
           </button>
@@ -2810,9 +2836,9 @@ function PptTimelineScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const primaryVisual = slideVisualPool(slide, cards)[0];
-  const showPrimaryVisual = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
+  const showPrimaryVisual = Boolean(primaryVisual) && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   const usedBrandIcons = new Set<string>();
   return (
@@ -2932,7 +2958,7 @@ function PptMatrixScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   // A full 2x2 grid (4 cards) is simply taller than the window this scene
   // has to work with once both ends are respected: the top-left identity
@@ -3000,11 +3026,11 @@ function PptMatrixScene({
                 )}
               </h3>
               {card.text && (
-                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-green-50' : 'text-ink'}`}>{card.text}</p>
+                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-white/90' : 'text-ink'}`}>{card.text}</p>
               )}
               {showDetail && detail && (
                 <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
-                  <p className={`text-[12px] font-bold leading-snug ${active ? 'text-green-50' : 'text-ink'}`}>{detail}</p>
+                  <p className={`text-[12px] font-bold leading-snug ${active ? 'text-white/90' : 'text-ink'}`}>{detail}</p>
                 </div>
               )}
             </button>
@@ -3037,7 +3063,7 @@ function PptSpotlightScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
   const supporting = cards.filter((_, i) => i !== focusIndex);
@@ -3048,7 +3074,7 @@ function PptSpotlightScene({
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const usedBrandIcons = new Set<string>();
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex, usedBrandIcons) : null;
-  const showFocusVisual = !isEmergencySlide || focusVisible;
+  const showFocusVisual = Boolean(primaryVisual) && (!isEmergencySlide || focusVisible);
   // Enough supporting chips (5+, i.e. a 6-card slide -- only two of these
   // exist in bag 2) would wrap onto a second row at the normal chip size;
   // packed tighter they fit a single row instead, which matters below.
@@ -3102,10 +3128,10 @@ function PptSpotlightScene({
           </svg>
         </span>
         <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
-        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[16px]'} mt-1.5 font-bold leading-snug text-green-50`}>{focusCard.text}</p>}
+        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[16px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
-            <p className="text-[13px] font-bold leading-snug text-green-50">{focusDetail}</p>
+            <p className="text-[13px] font-bold leading-snug text-white/90">{focusDetail}</p>
           </div>
         )}
       </button>
@@ -3248,7 +3274,7 @@ function PptActivitySlide({
                 <h3 className={`text-[25px] font-black leading-tight ${answerVisible ? 'text-white' : 'text-brand-strong'}`}>
                   {answerVisible ? `الإجابة: ${currentCard.answer}` : currentCard.title}
                 </h3>
-                <p className={`mt-3 text-[20px] font-bold leading-relaxed ${answerVisible ? 'text-green-50' : 'text-ink'}`}>
+                <p className={`mt-3 text-[20px] font-bold leading-relaxed ${answerVisible ? 'text-white/90' : 'text-ink'}`}>
                   {answerVisible ? currentCard.rationale : currentCard.text}
                 </p>
               </div>
@@ -3694,7 +3720,7 @@ function PptStyleSlide({
     return acc;
   }, []);
   const checks = slide.ppt?.checks ?? [];
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const narrationPosition = started ? spoken : 0;
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
   // Character-level reveal timing: several cards are routinely named in the
@@ -4471,7 +4497,7 @@ export function SlideStage({
 
   // Completion
   if (slide.kind === 'completion') {
-    const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+    const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-14 text-center">
