@@ -67,6 +67,47 @@ export default {
           800: '#9b945f',
           900: '#9b945f',
         },
+        // Pre-course/2 palette, kept ONLY for the legacy /bag/2/... route
+        // (src/legacy-bag2/**) so it can render exactly as it did before the
+        // two-color brand-identity directive collapsed green/gold above.
+        // Never reference these outside that tree.
+        greenLegacy: {
+          50: '#eef6f1',
+          100: '#d3e9dc',
+          200: '#a8d3ba',
+          300: '#74b791',
+          400: '#459c6c',
+          500: '#2f8457',
+          600: '#256b47',
+          700: '#1f5638',
+          800: '#1a442e',
+          900: '#153826',
+          950: '#0c1f15',
+        },
+        goldLegacy: {
+          50: '#faf6ea',
+          100: '#f2e8c9',
+          200: '#e6d095',
+          300: '#d8b866',
+          400: '#c9a24a',
+          500: '#bf9b4a',
+          600: '#9d7f38',
+          700: '#7c632c',
+          800: '#5f4c24',
+          900: '#4d3e20',
+        },
+        tealLegacy: {
+          50: '#e6faf7',
+          100: '#c9f2ee',
+          200: '#9be6df',
+          300: '#63d3c9',
+          400: '#31b8ae',
+          500: '#149a90',
+          600: '#0e7c7b',
+          700: '#0f6263',
+          800: '#114e50',
+          900: '#123f41',
+        },
         // Semantic surfaces driven by CSS variables (theme-aware)
         surface: 'rgb(var(--surface) / <alpha-value>)',
         'surface-2': 'rgb(var(--surface-2) / <alpha-value>)',
@@ -83,6 +124,9 @@ export default {
       fontFamily: {
         sans: ['"Montserrat Arabic"', 'system-ui', 'sans-serif'],
         display: ['"Montserrat Arabic"', 'system-ui', 'sans-serif'],
+        // Pre-course/2 typeface, legacy /bag/2/... route only (see greenLegacy above).
+        legacySans: ['"IBM Plex Sans Arabic"', '"Tajawal"', 'system-ui', 'sans-serif'],
+        legacyDisplay: ['"Tajawal"', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         xl: '0.9rem',

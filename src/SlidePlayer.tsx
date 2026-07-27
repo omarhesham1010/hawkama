@@ -9,6 +9,17 @@ import { SlideStage } from './components/player/SlideStage';
 import { SlideCanvas } from './components/player/SlideCanvas';
 import { HelpOverlay } from './components/player/HelpOverlay';
 import { Icon } from './components/ui/Icon';
+// The client asked for /bag/2/... (the emergency-response bag's legacy
+// per-chapter route) to keep rendering exactly as it did before course/2
+// work began, while course/2 and course/3 keep the current styling --
+// those two shells never render through SlidePlayer, only this legacy
+// route does. See src/legacy-bag2/README (colocated notes in each file)
+// and the ".legacy-bag2-scope" CSS block in src/styles/index.css.
+import { PlayerHeader as PlayerHeaderLegacy } from './legacy-bag2/components/player/PlayerHeader';
+import { SlideMenu as SlideMenuLegacy } from './legacy-bag2/components/player/SlideMenu';
+import { SlideStage as SlideStageLegacy } from './legacy-bag2/components/player/SlideStage';
+import { HelpOverlay as HelpOverlayLegacy } from './legacy-bag2/components/player/HelpOverlay';
+import { Icon as IconLegacy } from './legacy-bag2/components/ui/Icon';
 
 const SECTION_LABEL: Record<string, string> = {
   welcome: 'مقدمة الوحدة',
@@ -66,6 +77,15 @@ export default function SlidePlayer({
   const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
 
+  // See the legacy-bag2 imports above -- only this route (courseId starting
+  // with "emergency", i.e. /bag/2/...) uses the pre-course/2 rendering.
+  const isLegacyEmergency = courseId.startsWith('emergency');
+  const Stage = isLegacyEmergency ? SlideStageLegacy : SlideStage;
+  const Header = isLegacyEmergency ? PlayerHeaderLegacy : PlayerHeader;
+  const Menu = isLegacyEmergency ? SlideMenuLegacy : SlideMenu;
+  const Help = isLegacyEmergency ? HelpOverlayLegacy : HelpOverlay;
+  const RouteIcon = isLegacyEmergency ? IconLegacy : Icon;
+
   // Header/footer are overlays, not permanent layout rows -- the page's real
   // footprint is only the 16:9 body rectangle (LMS embeds size the iframe to
   // that box). Chrome slides in on hover-near-edge / the toggle button, and
@@ -104,7 +124,7 @@ export default function SlidePlayer({
   }, []);
 
   return (
-    <div className="relative h-[100dvh] overflow-hidden">
+    <div className={`relative h-[100dvh] overflow-hidden ${isLegacyEmergency ? 'legacy-bag2-scope' : ''}`}>
       <BackgroundDecor />
 
       {/* Body — the only permanent-footprint region. Header/footer overlay
@@ -116,7 +136,7 @@ export default function SlidePlayer({
       >
         <div key={`${slide.id}#${replayNonce}`} className="h-full w-full animate-fade-in">
           <SlideCanvas variant={slide.kind === 'welcome' ? 'intro' : 'default'}>
-            <SlideStage
+            <Stage
               slide={slide}
               spoken={sync.spoken}
               started={started}
@@ -293,7 +313,7 @@ export default function SlidePlayer({
         onMouseEnter={showChrome}
         onMouseLeave={() => scheduleHideChrome()}
       >
-        <PlayerHeader
+        <Header
           courseTitle={`${courseMeta.title} · ${courseMeta.chapter}`}
           slideTitle={displaySlideTitle}
           sectionLabel={SECTION_LABEL[slide.kind] ?? 'شرح مصوّر'}
@@ -311,21 +331,21 @@ export default function SlidePlayer({
           a real, always-tappable size — mobile only, canvas design untouched.
           Kept above the footer overlay so it's reachable even while chrome
           is tucked away. */}
-      {((slide.kind === 'completion' && !slide.id.startsWith('ec') && !slide.id.startsWith('emergency')) ||
+      {((slide.kind === 'completion' && (isLegacyEmergency || (!slide.id.startsWith('ec') && !slide.id.startsWith('emergency')))) ||
         slide.layout === 'pptConclusion') && (
         <div className="absolute inset-x-0 bottom-2 z-[45] flex items-center justify-center gap-3 px-4 sm:hidden">
           <button type="button" onClick={exit} className="btn-gold min-h-[48px] flex-1 max-w-[220px] justify-center text-[15px]">
-            <Icon name="flag" className="h-5 w-5" />
+            <RouteIcon name="flag" className="h-5 w-5" />
             إنهاء والعودة للمنصة
           </button>
           <button type="button" onClick={restartCourse} className="btn-ghost min-h-[48px] flex-1 max-w-[220px] justify-center text-[15px]">
-            <Icon name="flow" className="h-5 w-5" />
+            <RouteIcon name="flow" className="h-5 w-5" />
             إعادة الفصل
           </button>
         </div>
       )}
 
-      <SlideMenu
+      <Menu
         slides={slides}
         current={index}
         visited={progress.isComplete}
@@ -334,7 +354,7 @@ export default function SlidePlayer({
         onJump={goTo}
       />
 
-      {helpOpen && <HelpOverlay onClose={() => setHelpOpen(false)} />}
+      {helpOpen && <Help onClose={() => setHelpOpen(false)} />}
     </div>
   );
 }

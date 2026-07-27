@@ -217,6 +217,48 @@
   }
 }
 
+/* ============================================================
+   Legacy /bag/2/... scope. The client asked for that route to render
+   exactly as it did before course/2 work began -- every value below is
+   the pre-course/2 value for these same tokens (see the strict-two-color
+   and font-switch commits for the current ones). Wrap the legacy render
+   tree (src/legacy-bag2/**) in a `.legacy-bag2-scope` element and every
+   `rgb(var(--brand))`-style usage inside it inherits these automatically;
+   only .btn-primary/.btn-gold/.text-gilded need explicit overrides since
+   they also carry non-variable values (gradients).
+   ============================================================ */
+.legacy-bag2-scope {
+  --canvas: 240 246 242;
+  --surface: 255 255 255;
+  --surface-2: 244 250 246;
+  --surface-3: 232 242 236;
+  --ink: 15 34 25;
+  --ink-soft: 40 62 51;
+  --ink-muted: 82 104 92;
+  --line: 205 224 213;
+  --brand: 34 122 82;
+  --brand-soft: 52 152 118;
+  --brand-strong: 24 82 55;
+  --gold: 191 155 74;
+  --gold-soft: 216 184 102;
+  font-family: 'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+}
+.legacy-bag2-scope .btn-primary {
+  background: linear-gradient(135deg, rgb(var(--brand-soft)), rgb(var(--brand)));
+}
+.legacy-bag2-scope .btn-gold {
+  background: linear-gradient(135deg, #d8b866, #bf9b4a);
+}
+.legacy-bag2-scope .btn-gold:hover {
+  box-shadow: 0 14px 32px -14px rgb(191 155 74 / 0.7);
+}
+.legacy-bag2-scope .text-gilded {
+  background: linear-gradient(100deg, #bf9b4a, #e6d095, #bf9b4a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Equalizer bars for the "speaking" narration state */
 .sound-bar {
   transform-origin: bottom;
