@@ -22,15 +22,6 @@ const OPENING_BRIDGES = [
   'ومدخلنا الطبيعي لهذا الموضوع هو',
 ];
 
-const TITLE_BRIDGES = [
-  'لنركز في هذه الشريحة على',
-  'محورنا هنا هو',
-  'وفي هذه المحطة نتحدث عن',
-  'موضوعنا الآن هو',
-  'وتدور هذه الشريحة حول',
-  'وننتقل الآن إلى',
-];
-
 const POINT_BRIDGES = [
   'أول ما يستحق التوقف عنده:',
   'وهذا يقودنا إلى نقطة أخرى مهمة:',
@@ -136,8 +127,6 @@ function spokenTakeaway(card: PptCard) {
   return '';
 }
 
-let slideOpeningSequence = 0;
-
 /** Spoken-only number normalization: Nasser reads round-thousand figures
  *  (like ISO standard numbers) as "٣١ ألف" instead of the raw digit string,
  *  which TTS engines otherwise read out digit-by-digit or awkwardly. Only
@@ -224,25 +213,6 @@ function fullNarration(lead: string, cards: PptCard[], close = '') {
     .join(' ');
 }
 
-function narrationCoversTitle(title: string, narration: string) {
-  const words = title
-    .normalize('NFKC')
-    .toLowerCase()
-    .replace(/\p{M}/gu, '')
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .split(/\s+/)
-    .filter((word) => word.length > 1);
-  const spoken = new Set(
-    narration
-      .normalize('NFKC')
-      .toLowerCase()
-      .replace(/\p{M}/gu, '')
-      .replace(/[^\p{L}\p{N}]+/gu, ' ')
-      .split(/\s+/),
-  );
-  return words.every((word) => spoken.has(word));
-}
-
 function makeSlide({
   id,
   title,
@@ -274,11 +244,13 @@ function makeSlide({
   subtitle?: string;
   unitTitle?: string;
 }): Slide {
-  const titleVariation = slideOpeningSequence % TITLE_BRIDGES.length;
-  slideOpeningSequence += 1;
-  const completeNarration = humanizeNumbers(
-    narrationCoversTitle(title, narration) ? narration : `${TITLE_BRIDGES[titleVariation]} ${title}. ${narration}`,
-  );
+  // No auto-prepended "topic bridge" here (unlike the original file this
+  // was forked from): every narration below is hand-written to state its
+  // own topic once, naturally, as its opening line -- an automatic prefix
+  // risked doubling up with that opening line (e.g. "موضوعنا الآن هو
+  // الخلاصة... وصلنا إلى الخلاصة..."), which reads as a scripting bug, not
+  // a professional voice.
+  const completeNarration = humanizeNumbers(narration);
 
   return {
     id,
@@ -1961,14 +1933,14 @@ export const governanceClosingSlides = indexSlides([
     audioKey: 'bag1-ch4-s3-leadership-questions-course1',
     title: 'ما بعد التدريب – ثلاثة أسئلة قيادية',
     narration: fullNarration(
-      'خذ دقيقة قبل أن تغادر القاعة وأجب بصدق؛ فنحن لا نحتاج إلى إجابة مثالية، بل إلى خطوة واضحة تبدأ بها من واقع منشأتك.',
+      'خذ دقيقة الآن، قبل أن تُنهي هذه الحقيبة، وأجب بصدق؛ فنحن لا نحتاج إلى إجابة مثالية، بل إلى خطوة واضحة تبدأ بها من واقع منشأتك.',
       leadershipQuestions,
       'وبعد أن تحدد خطوتك الأولى، انتقل إلى الاختبار الختامي الشامل لمراجعة أهم مفاهيم الحقيبة كاملة.',
     ),
     visual: '🎯',
     layout: 'pptConclusion',
     kind: 'completion',
-    subtitle: 'خذ دقيقة قبل أن تغادر القاعة وأجب بصدق:',
+    subtitle: 'خذ دقيقة الآن، قبل أن تُنهي هذه الحقيبة، وأجب بصدق:',
     cards: leadershipQuestions,
   }),
   makeQuizSlide({
