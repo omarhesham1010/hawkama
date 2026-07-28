@@ -152,6 +152,16 @@ export const courseCatalog = {
     },
     slides: emergencyIntroSlides.slice(0, 2),
   },
+  // Client-facing teaser link (#/advcourse/2): only the bag's first 3
+  // slides (the intro group), used to demo the value of digitizing a
+  // training bag to prospective clients without exposing the full course.
+  'emergency-demo': {
+    meta: {
+      title: 'إدارة الاستجابة للطوارئ',
+      chapter: 'نموذج تعريفي · مقدمة الحقيبة',
+    },
+    slides: emergencyIntroSlides,
+  },
   // The whole bag as one continuous slide sequence, for the single-link
   // #/course/2 shell (sidebar-driven navigation instead of per-chapter URLs).
   'emergency-full': {

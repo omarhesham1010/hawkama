@@ -11,9 +11,10 @@ const SlidePlayer = lazy(() => import('./SlidePlayer'));
 const CourseOneShell = lazy(() => import('./CourseOneShell'));
 const CourseTwoShell = lazy(() => import('./CourseTwoShell'));
 const CourseThreeShell = lazy(() => import('./CourseThreeShell'));
+const AdvCourseTwoShell = lazy(() => import('./AdvCourseTwoShell'));
 
 interface Route {
-  view: 'home' | 'course' | 'course1' | 'course2' | 'course3';
+  view: 'home' | 'course' | 'course1' | 'course2' | 'course3' | 'advcourse2';
   courseId: string;
   slide: number; // 1-based
 }
@@ -39,6 +40,11 @@ function parseHash(): Route {
   }
   if (parts[0] === 'course' && parts[1] === '2') {
     return { view: 'course2', courseId: 'course-2', slide: 1 };
+  }
+  // Client-facing teaser link -- same shell as #/course/2, locked to the
+  // bag's first 3 slides only. See src/AdvCourseTwoShell.tsx.
+  if (parts[0] === 'advcourse' && parts[1] === '2') {
+    return { view: 'advcourse2', courseId: 'advcourse-2', slide: 1 };
   }
   if (parts[0] === 'course' && parts[1] === '3') {
     return { view: 'course3', courseId: 'course-3', slide: 1 };
@@ -120,6 +126,14 @@ export default function App() {
     return (
       <Suspense fallback={null}>
         <CourseTwoShell />
+      </Suspense>
+    );
+  }
+
+  if (route.view === 'advcourse2') {
+    return (
+      <Suspense fallback={null}>
+        <AdvCourseTwoShell />
       </Suspense>
     );
   }
