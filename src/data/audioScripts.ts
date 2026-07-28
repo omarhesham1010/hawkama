@@ -34,13 +34,13 @@ export function governanceFeedbackText(card: PptCard, answer: string) {
   const correct = answer === card.answer;
   const response = correct
     ? `ممتاز، اختيارك صحيح. ${card.rationale ?? ''}`
-    : `خلنا نراجعها معًا. التصنيف الصحيح هو ${card.answer}. ${card.rationale ?? ''}`;
+    : `لنراجعها معًا. التصنيف الصحيح هو ${card.answer}. ${card.rationale ?? ''}`;
   return response;
 }
 
 export function activityCardDiscussion(card: PptCard) {
   const discussion = card.rationale ?? 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
-  return `خلنا نناقشها معًا. ${discussion}`;
+  return `لنناقشها معًا. ${discussion}`;
 }
 
 export function quizFeedbackText(question: QuizQuestion, correct: boolean) {
@@ -48,11 +48,11 @@ export function quizFeedbackText(question: QuizQuestion, correct: boolean) {
     return `ممتاز، إجابتك صحيحة. ${question.explanation}`;
   }
 
-  return `خلنا نراجعها معًا. إجابتك غير صحيحة. الإجابة الصحيحة هي: ${question.options[question.correctIndex]}. ${question.explanation}`;
+  return `لنراجعها معًا. إجابتك غير صحيحة. الإجابة الصحيحة هي: ${question.options[question.correctIndex]}. ${question.explanation}`;
 }
 
 export const conflictScenarioQuestions = [
-  'بعد ما عرفت السيناريو، فكر بهدوء: ما نوع المخالفة هنا؟ وهل التضارب فعلي أم محتمل؟',
+  'بعد أن عرفت السيناريو، فكر بهدوء: ما نوع المخالفة هنا؟ وهل التضارب فعلي أم محتمل؟',
   'الآن فكر كمسؤول امتثال: ما الإجراء المؤسسي الصحيح لحماية القرار؟',
   'السؤال الأخير: هل يكفي الإفصاح وحده؟ وما الضوابط التي تمنع أن يصبح الامتثال شكليًا؟',
 ] as const;
@@ -64,7 +64,7 @@ export const conflictScenarioDiscussions = [
 ] as const;
 
 export const conflictScenarioCompletion =
-  'ممتاز. كذا حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. الأهم أن الإفصاح بداية المعالجة وليس نهايتها.';
+  'ممتاز. بذلك حللنا الحالة من تحديد المخالفة إلى الإجراء الصحيح ثم الضوابط المؤسسية. والأهم أن الإفصاح بداية المعالجة وليس نهايتها.';
 
 function item(
   key: string,

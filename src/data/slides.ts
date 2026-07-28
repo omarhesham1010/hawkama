@@ -63,6 +63,15 @@ export const allNarratedSlides = [
   ...governanceChapterTwoSlidesCourse1,
   ...governanceChapterThreeSlidesCourse1,
   ...governanceClosingSlidesCourse1,
+  // licensing (course/3) was missing here entirely -- meaning it never
+  // showed up in docs/audio-scripts.md or any audio-doc-generation pass.
+  ...licensingIntroSlides,
+  ...licensingUnitOneSlides,
+  ...licensingUnitTwoSlides,
+  ...licensingUnitThreeSlides,
+  ...licensingUnitFourSlides,
+  ...licensingUnitFiveSlides,
+  ...licensingClosingSlides,
 ];
 
 export const courseCatalog = {
