@@ -2453,6 +2453,16 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   // pool at all: an empty array here means every consumer's `primaryVisual`
   // is undefined and they skip rendering the circle/badge entirely.
   if (slide.id.startsWith('lic')) return [];
+  // course/1 (the governance fork) has no keyword-matched icon set of its
+  // own either -- every governance slide.id is shared with bag/1 (same
+  // 'ch1-...'/'ppt-...' ids by design), so it always fell through to
+  // governance-scene.webp/policy-scene.webp/etc, the old elaborate 3D-scene
+  // illustrations. Per client direction, course/1's content slides should
+  // read the same as course/2 and course/3: plain icons only, no scene
+  // photos outside the intro. Every course/1 slide's own audioKey (unlike
+  // its shared slide.id) carries a unique -course1 suffix, so that's the
+  // only reliable signal here to opt out without touching bag/1.
+  if (slide.audioKey?.endsWith('-course1')) return [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const fallbackVisualPool = isEmergencySlide
     ? ['/assets/visual-library/emergency-command-center.webp', '/assets/visual-library/emergency-strategic-framework.webp', '/assets/visual-library/emergency-stakeholder-network.webp', '/assets/visual-library/emergency-kpi-dashboard.webp']
