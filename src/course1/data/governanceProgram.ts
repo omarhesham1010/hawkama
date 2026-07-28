@@ -59,8 +59,8 @@ const PRACTICAL_OPENERS = [
 ];
 
 /** Bridge phrases must NOT repeat every few sentences (sounds like a
- *  stamped AI template, e.g. "أول شيء يستاهل وقفة" firing at the start of
- *  almost every card's bullet list). A plain rotating index still repeats
+ *  stamped AI template, e.g. "أول ما يستحق التوقف عنده" firing at the
+ *  start of almost every card's bullet list). A plain rotating index still repeats
  *  every `pool.length` picks, which a single content-heavy slide can blow
  *  through several times over. Instead, deal from a shuffled "bag" of the
  *  whole pool (drawn without replacement) and reshuffle only once it's
@@ -131,7 +131,7 @@ function spokenTakeaway(card: PptCard) {
  *  (like ISO standard numbers) as "٣١ ألف" instead of the raw digit string,
  *  which TTS engines otherwise read out digit-by-digit or awkwardly. Only
  *  applied to narration text — the on-screen card text keeps the raw number
- *  (e.g. "أيزو 31000") untouched. */
+ *  (e.g. "آيزو 31000") untouched. */
 function humanizeNumbers(text: string): string {
   return text.replace(/\b(\d{1,3})000\b/g, (_match, n: string) => `${n} ألف`);
 }
@@ -428,7 +428,7 @@ const chapterTwoQuiz: QuizData = {
       options: ['التخطيط Plan', 'التنفيذ Do', 'التحقق Check', 'الاستجابة Act'],
       correctIndex: 2,
       explanation: 'مرحلة التحقق Check تشمل مراقبة التطبيق واختبار فعالية السياسات والضوابط.',
-      source: 'الفصل الثاني · أيزو 37301',
+      source: 'الفصل الثاني · آيزو 37301',
     },
     {
       id: 'ch2-q3',
@@ -472,7 +472,7 @@ const chapterThreeQuiz: QuizData = {
   questions: [
     {
       id: 'ch3-q1',
-      prompt: 'كيف يعرّف أيزو 31000 الخطر؟',
+      prompt: 'كيف يعرّف آيزو 31000 الخطر؟',
       options: [
         'الخسارة المالية المؤكدة',
         'تأثير عدم اليقين على تحقيق الأهداف',
@@ -559,7 +559,7 @@ const governancePreTest: QuizData = {
     },
     {
       id: 'bag1-pre-q3',
-      prompt: 'وفق أيزو 31000، كيف يُعرَّف الخطر؟',
+      prompt: 'وفق آيزو 31000، كيف يُعرَّف الخطر؟',
       options: [
         'خسارة مالية مؤكدة الحدوث',
         'تأثير عدم اليقين على تحقيق الأهداف',
@@ -614,7 +614,7 @@ const programCards: PptCard[] = [
   {
     title: 'إدارة المخاطر المؤسسية',
     text: 'إطار آيزو 31000، إدارة المخاطر والضوابط، تحليل المخاطر',
-    bullets: ['إطار أيزو 31000', 'إدارة المخاطر والضوابط', 'تحليل المخاطر'],
+    bullets: ['إطار آيزو 31000', 'إدارة المخاطر والضوابط', 'تحليل المخاطر'],
     tone: 'blue',
   },
 ];
@@ -692,7 +692,7 @@ const regulatoryCards: PptCard[] = [
   {
     index: '03',
     title: 'الجودة والاعتماد',
-    text: 'CBAHI، JCI، أيزو 9001، أيزو 45001، أيزو 27001، أيزو 31000، HIMSS – معايير تضمان الجودة وحماية المرضى والعاملين.',
+    text: 'CBAHI، JCI، آيزو 9001، آيزو 45001، آيزو 27001، آيزو 31000، HIMSS – معايير تضمان الجودة وحماية المرضى والعاملين.',
   },
   {
     index: '04',
@@ -1389,9 +1389,9 @@ export const governanceChapterTwoSlides = indexSlides([
   makeSlide({
     id: 'ch2-pdca',
     audioKey: 'bag1-ch2-s4-pdca-course1',
-    title: 'أيزو 37301 – دورة PDCA للامتثال',
+    title: 'آيزو 37301 – دورة PDCA للامتثال',
     narration: fullNarration(
-      'ولكي يتحول الامتثال إلى نظام مستمر، نستخدم دورة أيزو 37301 المعروفة بـ PDCA.',
+      'ولكي يتحول الامتثال إلى نظام مستمر، نستخدم دورة آيزو 37301 المعروفة بـ PDCA.',
       pdcaCards,
       'فالدورة لا تتوقف عند التنفيذ؛ إذ يعيدنا التحقق والاستجابة إلى التخطيط بنظام أنضج وقدرة أعلى على منع التكرار.',
     ),
@@ -1494,8 +1494,8 @@ export const governanceChapterTwoSlides = indexSlides([
 
 const chapterThreeOverview: PptCard[] = [
   {
-    title: 'إطار إدارة المخاطر المؤسسية (أيزو 31000)',
-    bullets: ['مبادئ أيزو 31000', 'الحوكمة القائمة على المخاطر', 'ربط المخاطر بالقرار'],
+    title: 'إطار إدارة المخاطر المؤسسية (آيزو 31000)',
+    bullets: ['مبادئ آيزو 31000', 'الحوكمة القائمة على المخاطر', 'ربط المخاطر بالقرار'],
   },
   {
     title: 'إدارة المخاطر والضوابط',
@@ -1517,7 +1517,7 @@ const isoRiskCards: PptCard[] = [
   },
   {
     index: '02',
-    title: 'المبادئ الثمانية لأيزو31000',
+    title: 'المبادئ الثمانية لآيزو31000',
     text: 'التكامل - التنظيم والشمول - مُخصَّصة حسب السياق - الجماعية (مشاركة أصحاب المصلحة) - التفاعل والديناميكية - إتاحة أفضل المعلومات - مراعاة العوامل البشرية - التحسين المستمر',
     tone: 'gold',
   },
@@ -1608,7 +1608,7 @@ const riskActivityCards: PptCard[] = [
   {
     index: '01',
     title: 'السيناريو',
-    text: 'منشأة صحية تواجه مخاطر في مجال خصوصية بيانات المرضى (أيزو 27001 / سياسة الخصوصية)',
+    text: 'منشأة صحية تواجه مخاطر في مجال خصوصية بيانات المرضى (آيزو 27001 / سياسة الخصوصية)',
     rationale: 'ابدأ بتحديد المتطلب التنظيمي ونطاق البيانات والجهات المتأثرة قبل تقييم مستوى الخطر.',
   },
   {
@@ -1675,14 +1675,14 @@ export const governanceChapterThreeSlides = indexSlides([
     audioKey: 'bag1-ch3-s1-welcome-course1',
     title: 'إدارة المخاطر المؤسسية',
     narration:
-      'أهلًا وسهلًا بكم، والسلام عليكم ورحمة الله وبركاته. نصل اليوم في حقيبة الحوكمة والمخاطر والامتثال إلى الفصل الثالث: إدارة المخاطر المؤسسية. ومحاورنا هي: إطار أيزو 31000، ثم إدارة المخاطر والضوابط، ثم تحليل المخاطر. وبعد أن بنينا الحوكمة في الفصل الأول، وتأكدنا من التطبيق وفعالية الضوابط في الفصل الثاني، نصل إلى السؤال القيادي: أين يمكن أن نتعثر، وما القرار المناسب قبل أن يتحول الاحتمال إلى أثر؟ نبدأ على بركة الله.',
+      'أهلًا وسهلًا بكم، والسلام عليكم ورحمة الله وبركاته. نصل اليوم في حقيبة الحوكمة والمخاطر والامتثال إلى الفصل الثالث: إدارة المخاطر المؤسسية. ومحاورنا هي: إطار آيزو 31000، ثم إدارة المخاطر والضوابط، ثم تحليل المخاطر. وبعد أن بنينا الحوكمة في الفصل الأول، وتأكدنا من التطبيق وفعالية الضوابط في الفصل الثاني، نصل إلى السؤال القيادي: أين يمكن أن نتعثر، وما القرار المناسب قبل أن يتحول الاحتمال إلى أثر؟ نبدأ على بركة الله.',
     visual: '🛡️',
     layout: 'pptIntro',
     kind: 'welcome',
     courseName: 'الحوكمة والمخاطر والامتثال',
     subtitle: 'الفصل الثالث',
     unitTitle: 'إدارة المخاطر المؤسسية',
-    intro: 'المحاور: إطار أيزو 31000 - إدارة المخاطر والضوابط - تحليل المخاطر',
+    intro: 'المحاور: إطار آيزو 31000 - إدارة المخاطر والضوابط - تحليل المخاطر',
   }),
   makeSlide({
     id: 'ch3-overview',
@@ -1708,9 +1708,9 @@ export const governanceChapterThreeSlides = indexSlides([
   makeSlide({
     id: 'ch3-risk-definition',
     audioKey: 'bag1-ch3-s3-risk-definition-course1',
-    title: 'تعريف الخطر ومبادئ أيزو 31000',
+    title: 'تعريف الخطر ومبادئ آيزو 31000',
     narration: fullNarration(
-      'نبدأ بتعريف الخطر ومبادئ أيزو 31000، والمهم أن نفهم أن الخطر مرتبط بعدم اليقين وتأثيره على الأهداف.',
+      'نبدأ بتعريف الخطر ومبادئ آيزو 31000، والمهم أن نفهم أن الخطر مرتبط بعدم اليقين وتأثيره على الأهداف.',
       isoRiskCards,
       'إدارة المخاطر الناضجة تدخل قبل القرار، وتستخدم أفضل المعلومات مع مراعاة السياق والعوامل البشرية.',
     ),
@@ -1781,7 +1781,7 @@ export const governanceChapterThreeSlides = indexSlides([
     narration:
       'الحمد لله، بذلك نكون قد أتممنا الفصل الثالث. تعرّفنا على إطار إدارة المخاطر المؤسسية وفق آيزو 31 ألف، وربطنا تحديد المخاطر وتقييمها بتصميم الضوابط وقياس فعاليتها. وميّزنا بين الخطر الكامن والخطر المتبقي، وفهمنا دور سجل المخاطر ومؤشرات المخاطر في دعم القرار والتقارير القيادية. وتظهر نتيجتك أمامك الآن، فاستفد منها في تحديد ما أتقنته وما يحتاج مراجعة إضافية. وتذكّر أن إدارة المخاطر الفاعلة تبدأ بتقدير الاحتمالية والأثر، لا بمجرد رد الفعل بعد وقوع الحدث. شكرًا لحسن استماعكم ومشاركتكم، ونلتقي بإذن الله في خاتمة الحقيبة.',
     takeaways: [
-      { title: 'إطار متكامل', text: 'تعريف الخطر ومبادئ أيزو 31000 كأساس للقرار.', emoji: '🛡️' },
+      { title: 'إطار متكامل', text: 'تعريف الخطر ومبادئ آيزو 31000 كأساس للقرار.', emoji: '🛡️' },
       { title: 'عملية واضحة', text: 'من تحديد السياق إلى التحليل والتقييم والمعالجة.', emoji: '🔄' },
       { title: 'سجل حي', text: 'ربط المخاطر بالأولويات والقرار المؤسسي.', emoji: '📊' },
     ],
@@ -1827,7 +1827,7 @@ const governancePostTest: QuizData = {
       options: ['التخطيط Plan', 'التنفيذ Do', 'التحقق Check', 'الاستجابة Act'],
       correctIndex: 2,
       explanation: 'مرحلة التحقق Check هي التي تراقب التطبيق وتختبر فعالية الضوابط.',
-      source: 'الفصل الثاني · أيزو 37301 ودورة PDCA',
+      source: 'الفصل الثاني · آيزو 37301 ودورة PDCA',
     },
     {
       id: 'post-q4',
@@ -1844,7 +1844,7 @@ const governancePostTest: QuizData = {
     },
     {
       id: 'post-q5',
-      prompt: 'كيف يعرّف أيزو 31000 الخطر؟',
+      prompt: 'كيف يعرّف آيزو 31000 الخطر؟',
       options: [
         'الخسارة المالية المؤكدة',
         'تأثير عدم اليقين على تحقيق الأهداف',

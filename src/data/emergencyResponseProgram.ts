@@ -2036,7 +2036,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     narration:
       [
         'ثالث محور كبير: تقييم المخاطر متعددة الأخطار، وننتقل فيه من فكرة ما وراء الخطر الواحد. في الواقع، نادرًا ما تحدث الكوارث بمعزل عن بعضها؛ الزلزال ممكن يسبب انقطاع كهرباء يؤثر على المستشفيات، وممكن يتزامن مع تفشي مرض معدٍ.',
-        explainCards(multiHazardConceptsCards, 'عشان نفهم الصورة، نمر على المفاهيم الأساسية والتفاعلات بين الأخطار:'),
+        explainCards(multiHazardConceptsCards, 'ولكي نفهم الصورة كاملة، نستعرض المفاهيم الأساسية والتفاعلات بين الأخطار:'),
       ].join(' '),
     visual: '🕸️',
     layout: 'pptTimeline',
