@@ -130,6 +130,16 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch0-s1-welcome",
   "bag2-ch0-s2-map-legacy",
   "bag2-ch0-s2-map",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-correct",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-incorrect",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-correct",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-incorrect",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-correct",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-incorrect",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-correct",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-incorrect",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-correct",
+  "bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-incorrect",
   "bag2-ch0-s3-pre-test",
   "bag2-ch1-s1-welcome",
   "bag2-ch1-s10-eoc",
@@ -359,7 +369,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch4-s8-aar-success-factors",
   "bag2-ch4-s9-improvement-plans"
 ];
-export const AUDIO_MANIFEST_VERSION = '37fd3fe3db2b';
+export const AUDIO_MANIFEST_VERSION = 'f667b4149f32';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
