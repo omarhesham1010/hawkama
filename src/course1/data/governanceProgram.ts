@@ -748,32 +748,35 @@ const policyCards: PptCard[] = [
 
 const policyActivityCards: PptCard[] = [
   {
+    // This layout's card only ever shows `title` on screen (never `text`)
+    // -- a generic "السيناريو (N)" told the viewer nothing until they
+    // clicked. Titles now summarize the actual scenario.
     index: '01',
-    title: 'السيناريو (1)',
+    title: 'سياسة تلقيح الموظفين',
     text: 'سياسة تلقيح الموظفين لجميع العاملين – توفير اللقاحات، آلية التسجيل، التوثيق',
     rationale: 'ابدأ بتحديد الهدف والنطاق، ثم مسؤولية توفير اللقاح وآلية التسجيل ودليل التوثيق ومواعيد المراجعة.',
   },
   {
     index: '02',
-    title: 'السيناريو (2)',
+    title: 'حماية بيانات المرضى',
     text: 'حماية بيانات المرضى (خصوصية) – صلاحيات الوصول، حماية السجلات، الإبلاغ عن الاختراقات',
     rationale: 'اربط السياسة بصلاحيات الوصول، وحماية السجلات، ومسار الإبلاغ عن الاختراق، والمسؤول عن الاستجابة.',
   },
   {
     index: '03',
-    title: 'السيناريو (3)',
+    title: 'التعامل مع الأوبئة والطوارئ',
     text: 'التعامل مع الأوبئة وإجراءات الطوارئ – بروتوكولات الحجر، إدارة الحالات، التنسيق مع الجهات',
     rationale: 'حدّد بروتوكولات الحجر وإدارة الحالات وآلية التنسيق مع الجهات، ثم ضع نقطة واضحة لتفعيل الخطة.',
   },
   {
     index: '04',
-    title: 'السيناريو (4)',
+    title: 'إدارة مخاطر الجهات الخارجية',
     text: 'إدارة مخاطر الجهات الخارجية – تقييم المورّدين، معايير العقود، متابعة الامتثال',
     rationale: 'حوّل تقييم المورّدين ومعايير العقود ومتابعة الامتثال إلى ضوابط موثقة لها مسؤول ومؤشر متابعة.',
   },
   {
     index: '05',
-    title: 'السيناريو (5)',
+    title: 'حقوق المريض والإبلاغ عن الحوادث',
     text: 'حقوق المريض والإبلاغ عن الحوادث – الحق في المعلومة، آليات الشكاوى، التحقيق وإجراء التصحيح',
     rationale: 'اجمع حق المريض في المعلومة مع آلية الشكاوى والتحقيق وإجراء التصحيح ضمن مسار واحد واضح وقابل للتتبع.',
   },
@@ -1657,8 +1660,10 @@ const riskRegisterCards: PptCard[] = [
 
 const riskActivityCards: PptCard[] = [
   {
+    // Same fix as policyActivityCards above: this layout only ever shows
+    // `title`, so a bare "السيناريو" told the viewer nothing on screen.
     index: '01',
-    title: 'السيناريو',
+    title: 'مخاطر خصوصية بيانات المرضى',
     text: 'منشأة صحية تواجه مخاطر في مجال خصوصية بيانات المرضى (آيزو 27001 / سياسة الخصوصية)',
     rationale: 'ابدأ بتحديد المتطلب التنظيمي ونطاق البيانات والجهات المتأثرة قبل تقييم مستوى الخطر.',
   },
@@ -1968,9 +1973,15 @@ export const governanceClosingSlides = indexSlides([
     ),
     visual: '✨',
     layout: 'pptThreeColumns',
+    // pptTimeline only shows each card's title (never its text) -- fine for
+    // acts 1-2 above where card.text still renders (spotlight/matrix both
+    // show it), but summaryCards' titles are bare "الفصل الأول/الثاني/
+    // الثالث" labels with the actual takeaway in text, so a timeline act
+    // here would show an empty label. Reuses spotlight (non-consecutive to
+    // matrix) instead of introducing that gap.
     cards: summaryCards.slice(0, 1),
     laterActs: [summaryCards.slice(1, 2), summaryCards.slice(2, 3)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'الخلاصة الكبرى: ما العلاقة بين الثلاثة؟',
