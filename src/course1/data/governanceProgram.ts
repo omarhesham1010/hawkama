@@ -645,8 +645,12 @@ export const governanceIntroSlides = indexSlides([
       'محورنا هنا هو محتويات البرنامج التدريبي. وقبل الدخول في التفاصيل، نستعرض معًا خريطة البرنامج التدريبي، وكيف يُبنى كل فصل على الفصل الذي يسبقه. فأول محطة معنا هي الفصل الأول، الحوكمة التنظيمية والامتثال، ويشمل المعرفة التنظيمية، وهياكل الحوكمة، والأخلاقيات وتضارب المصالح. وبعد أن تتضح هذه البداية، ننتقل إلى الفصل الثاني، الامتثال والتدقيق والضوابط، ونركز فيه على إدارة الامتثال، ومراقبة الضوابط، والتدريب والتوعية. ثم نصل إلى الفصل الثالث، إدارة المخاطر المؤسسية، ويشمل إطار آيزو 31 ألف، وإدارة المخاطر والضوابط، وتحليل المخاطر. وبهذا الترتيب، نبدأ بتحديد من يقرر وكيف يُحاسَب، ثم نتأكد من التطبيق وفعالية الضوابط، وبعدها نربط المخاطر بالقرار. وإذا اتضحت الخريطة، نبدأ الفصل الأول بإذن الله.',
     visual: '🗺️',
     layout: 'pptThreeColumns',
-    cards: programCards.slice(0, 1),
-    laterActs: [programCards.slice(1, 2), programCards.slice(2, 3)],
+    // Do NOT split this one: id === 'program-map' is special-cased to
+    // IntroRoadmapMotionScene (see SlideStage.tsx isIntroRoadmap), which
+    // reads slide.ppt.cards directly as its roadmap pillars and ignores
+    // laterActs entirely -- slicing this array changes how many pillars
+    // and connecting arrows the roadmap scene draws, not which act shows.
+    cards: programCards,
   }),
   makeQuizSlide({
     id: 'governance-pre-test',
