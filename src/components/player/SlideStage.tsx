@@ -1510,21 +1510,33 @@ function IntroRoadmapMotionScene({
     const index = list.reduce((found, n) => (found >= 0 ? found : slide.narration.indexOf(n)), -1);
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
-  const firstStepShown = spokenPast(['أول فكرة معنا', 'الفكرة الأولى هي الفصل الأول'], 0.18);
-  const secondStepShown = spokenPast(['بعد ما تتضح البداية', 'وبعد أن تتضح البداية'], 0.42);
-  const thirdStepShown = spokenPast('ثم نصل إلى الفصل الثالث', 0.64);
-  const fourthStepShown = spokenPast('وأخيرًا الفصل الرابع', 0.82);
+  const orderedPillars = pillars;
+  // Built for bag/2's 4-chapter roadmap, but this scene is shared with
+  // bag/1 and course/1 (both id="program-map"), which only ever have 3
+  // chapters -- rendering a hardcoded 4th step/arrow left one dangling
+  // arrow pointing at an empty spot below the last real pillar. Every step
+  // array below is sliced to the real pillar count so a 3-chapter bag never
+  // renders a 4th step, and a future 4-chapter one still gets all 4.
+  const stepDefs: { needles: string | string[]; fallback: number }[] = [
+    { needles: ['أول فكرة معنا', 'الفكرة الأولى هي الفصل الأول'], fallback: 0.18 },
+    { needles: ['بعد ما تتضح البداية', 'وبعد أن تتضح البداية'], fallback: 0.42 },
+    { needles: 'ثم نصل إلى الفصل الثالث', fallback: 0.64 },
+    { needles: 'وأخيرًا الفصل الرابع', fallback: 0.82 },
+  ].slice(0, orderedPillars.length);
+  const stepShown = stepDefs.map(({ needles, fallback }) => spokenPast(needles, fallback));
   // Client call: nothing appears until Nasser actually talks about it.
-  const current = fourthStepShown ? 3 : thirdStepShown ? 2 : secondStepShown ? 1 : 0;
-  const visibleStepCount = started ? (fourthStepShown ? 4 : thirdStepShown ? 3 : secondStepShown ? 2 : firstStepShown ? 1 : 0) : 0;
+  const current = stepShown.reduce((lastShown, shown, index) => (shown ? index : lastShown), 0);
+  const visibleStepCount = started ? stepShown.filter(Boolean).length : 0;
   const roadmapArrows = [
     { d: 'M720 210 C626 184 552 158 478 158', color: 'rgb(31 105 72)', delay: '0ms' },
     { d: 'M720 252 C628 250 552 250 478 250', color: 'rgb(191 155 74)', delay: '90ms' },
     { d: 'M720 294 C628 310 552 336 478 342', color: 'rgb(23 150 132)', delay: '180ms' },
     { d: 'M720 336 C622 384 540 438 478 436', color: 'rgb(104 112 118)', delay: '270ms' },
-  ];
-  const chapterGlyphs: CourseGlyphKind[] = ['strategicFramework', 'crisisComm', 'earlyWarning', 'afterAction'];
-  const orderedPillars = pillars;
+  ].slice(0, orderedPillars.length);
+  const chapterGlyphs: CourseGlyphKind[] = (['strategicFramework', 'crisisComm', 'earlyWarning', 'afterAction'] as CourseGlyphKind[]).slice(
+    0,
+    orderedPillars.length,
+  );
   const cleanRoadmapTitle = (label: string) => label.replace(/^الفصل\s+(الأول|الثاني|الثالث|الرابع)\s*[:：\-–—]?\s*/u, '');
 
   return (
@@ -2514,6 +2526,7 @@ function PptMotionVisualScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
   // used only to know when to re-roll the highlight animation below.
@@ -2647,7 +2660,14 @@ function PptMotionVisualScene({
   const denseMotion = cards.length >= 4;
   const showDetailText = cards.length <= 3;
   const usesOpenLabels = isEmergencySlide || variant === 'constellation' || denseMotion;
-  const emergencyOpenLabels = isEmergencySlide && usesOpenLabels && !titleCardGrid;
+  // Originally gated to isEmergencySlide only -- but course/1 hits this
+  // exact same crowding whenever a slide has 4+ cards (see denseFloatingCards
+  // just below): the full-size 25px title + 28px icon was sized for 1-3
+  // sparse cards, and with 4 cards sharing this scene's ~305px band, a
+  // same-side top/bottom pair's boxes grow tall enough (multi-line Arabic
+  // titles) to touch or overlap. Course/1's cards need the same compact
+  // sizing course/2 already got for its own dense slides.
+  const emergencyOpenLabels = (isEmergencySlide || isCourse1Slide) && usesOpenLabels && !titleCardGrid;
   // orbit/path/split (non-grid) floating layouts with 3+ cards always end
   // up with at least one same-side top+bottom pair (see positionsByVariant
   // above) sharing this scene's ~305px-tall band -- there simply isn't
@@ -2712,7 +2732,6 @@ function PptMotionVisualScene({
   // `<img src={cardVisual}>` with cardVisual undefined: a broken/blank
   // image instead of an icon. Falls back to the same vector CourseGlyph
   // system already used for course/1's title icon and spotlight focus card.
-  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   // Shared across every card below so two cards in the same shot never end
   // up with the same big illustration or the same badge icon.
