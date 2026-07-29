@@ -2841,7 +2841,16 @@ function PptMotionVisualScene({
                     className={`absolute inset-[14%] z-10 grid place-items-center rounded-2xl bg-white/88 p-2.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
                     aria-hidden="true"
                   >
-                    <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} active={active} />
+                    {/* CourseGlyph's `active` prop swaps its stroke to a
+                        pale mint meant to sit on a dark-green background --
+                        this badge's own background stays bg-white/88
+                        regardless of `active`, so passing active={active}
+                        here washed the icon out to near-invisible right
+                        when a card was highlighted. Always render the
+                        constant, readable dark-green stroke instead; the
+                        surrounding span's focusAnim/glow classes already
+                        carry the "this card is active" motion. */}
+                    <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} />
                   </span>
                 ) : (
                   <>
@@ -2894,6 +2903,7 @@ function PptTimelineScene({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const showPrimaryVisual = Boolean(primaryVisual) && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
@@ -2959,6 +2969,10 @@ function PptTimelineScene({
                   >
                   {brandIcon ? (
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-[68%] w-[68%] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
+                  ) : isCourse1Slide ? (
+                    <span className="h-[62%] w-[62%]">
+                      <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} active={active} compact />
+                    </span>
                   ) : (
                     card.index ?? index + 1
                   )}
@@ -3016,6 +3030,7 @@ function PptMatrixScene({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   // A full 2x2 grid (4 cards) is simply taller than the window this scene
   // has to work with once both ends are respected: the top-left identity
@@ -3076,10 +3091,16 @@ function PptMatrixScene({
               </span>
               <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
-                {brandIcon && (
+                {brandIcon ? (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-8 w-8 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   </span>
+                ) : (
+                  isCourse1Slide && !denseQuadrant && (
+                    <span className="inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
+                      <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} />
+                    </span>
+                  )
                 )}
               </h3>
               {card.text && (
