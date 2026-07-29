@@ -3165,6 +3165,16 @@ function PptMatrixScene({
               {card.text && (
                 <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-white/90' : 'text-ink'}`}>{card.text}</p>
               )}
+              {!card.text && !denseQuadrant && card.bullets && card.bullets.length > 0 && (
+                <ul className={`mt-3 flex flex-col gap-1 pe-1 text-[14px] leading-snug font-bold ${active ? 'text-white/90' : 'text-ink'}`}>
+                  {card.bullets.map((bullet, i) => (
+                    <li key={i} className="flex items-start justify-end gap-2">
+                      <span>{bullet}</span>
+                      <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${active ? 'bg-white/70' : 'bg-green-700/50'}`} aria-hidden="true" />
+                    </li>
+                  ))}
+                </ul>
+              )}
               {showDetail && detail && (
                 <div className={`mt-2 rounded-2xl border p-2 ${active ? 'border-white/25 bg-white/15' : 'border-green-700/20 bg-white/60'}`}>
                   <p className={`text-[12px] font-bold leading-snug ${active ? 'text-white/90' : 'text-ink'}`}>{detail}</p>
@@ -3273,6 +3283,20 @@ function PptSpotlightScene({
         </span>
         <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[28px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
         {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
+        {/* Cards authored with `bullets` instead of `text` (e.g. the chapter
+            roadmap-preview cards) rendered nothing here before -- the focus
+            card is the one place in this scene meant to show real detail,
+            so it shouldn't silently drop a card's only content. */}
+        {!focusCard?.text && focusCard?.bullets && focusCard.bullets.length > 0 && (
+          <ul className={`relative z-10 mx-auto mt-2 flex max-w-[480px] flex-col gap-1 text-right ${isEmergencySlide ? 'text-[13.5px]' : 'text-[15px]'} font-bold leading-snug text-white/90`}>
+            {focusCard.bullets.map((bullet, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-300" aria-hidden="true" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        )}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
             <p className="text-[13px] font-bold leading-snug text-white/90">{focusDetail}</p>

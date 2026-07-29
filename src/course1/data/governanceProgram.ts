@@ -1012,13 +1012,16 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '🏥',
     layout: 'pptSixCards',
-    // Six distinct concepts read as one crowded shot when staged together --
-    // split into three 2-card acts (matching course/2 & course/3's own
-    // pptSixCards-free authoring, ~1-2 cards/act) so the scene keeps
-    // changing shape through the whole narration instead of settling once.
-    cards: regulatoryCards.slice(0, 2),
-    laterActs: [regulatoryCards.slice(2, 4), regulatoryCards.slice(4, 6)],
-    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTimeline'],
+    // pptSixCards/pptTimeline only ever show a card's title, never its
+    // text -- fine for a flat list of self-explanatory labels, but these
+    // 6 cards each carry a real 90-110 character description worth
+    // surfacing. Rebuilt as 4 acts alternating spotlight (1 card, full
+    // detail) and matrix (2 cards, both still show their text) instead of
+    // 3 title-only acts, so every concept gets its actual explanation on
+    // screen, not just its name.
+    cards: regulatoryCards.slice(0, 1),
+    laterActs: [regulatoryCards.slice(1, 3), regulatoryCards.slice(3, 4), regulatoryCards.slice(4, 6)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ch1-health-policies',
