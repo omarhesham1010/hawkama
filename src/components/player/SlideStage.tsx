@@ -1689,6 +1689,44 @@ function courseGlyphKind(text: string): CourseGlyphKind {
   return 'default';
 }
 
+// Governance-topic cards routinely share the same keyword (e.g. three
+// cards all mentioning "حوكمة") and courseGlyphKind is a single
+// deterministic best-match, so two or three cards in the very same shot
+// could otherwise render the identical glyph. Picks the keyword match when
+// it's still free in this shot; otherwise rotates through the other
+// governance-relevant kinds (skips the emergency-only ones, meaningless
+// for course/1 content) seeded off the text so the fallback stays stable
+// across re-renders instead of flickering between choices.
+const COURSE1_GLYPH_ROTATION: CourseGlyphKind[] = [
+  'governance',
+  'compliance',
+  'risk',
+  'ethics',
+  'policy',
+  'audit',
+  'training',
+  'decision',
+  'target',
+  'question',
+  'default',
+];
+function courseGlyphKindDeduped(text: string, usedKinds: Set<CourseGlyphKind>): CourseGlyphKind {
+  const primary = courseGlyphKind(text);
+  if (!usedKinds.has(primary)) {
+    usedKinds.add(primary);
+    return primary;
+  }
+  const seed = stableIconIndex(text);
+  for (let k = 0; k < COURSE1_GLYPH_ROTATION.length; k += 1) {
+    const candidate = COURSE1_GLYPH_ROTATION[(seed + k) % COURSE1_GLYPH_ROTATION.length];
+    if (!usedKinds.has(candidate)) {
+      usedKinds.add(candidate);
+      return candidate;
+    }
+  }
+  return primary;
+}
+
 function CourseGlyph({
   kind = 'default',
   active = false,
@@ -2737,6 +2775,7 @@ function PptMotionVisualScene({
   // up with the same big illustration or the same badge icon.
   const usedCardVisuals = new Set<string>();
   const usedBrandIcons = new Set<string>();
+  const usedGlyphKinds = new Set<CourseGlyphKind>();
 
   return (
     <div className="relative min-h-0 flex-1 overflow-visible rounded-[30px]">
@@ -2850,7 +2889,7 @@ function PptMotionVisualScene({
                         constant, readable dark-green stroke instead; the
                         surrounding span's focusAnim/glow classes already
                         carry the "this card is active" motion. */}
-                    <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} />
+                    <CourseGlyph kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)} />
                   </span>
                 ) : (
                   <>
@@ -2908,6 +2947,7 @@ function PptTimelineScene({
   const showPrimaryVisual = Boolean(primaryVisual) && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   const usedBrandIcons = new Set<string>();
+  const usedGlyphKinds = new Set<CourseGlyphKind>();
   return (
     <div className={`relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-visible px-2 py-2 ${denseEmergencyTimeline ? 'gap-3' : 'gap-5'}`}>
       {/* Centered with a fixed negative margin instead of -translate-x-1/2:
@@ -2971,7 +3011,11 @@ function PptTimelineScene({
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-[68%] w-[68%] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   ) : isCourse1Slide ? (
                     <span className="h-[62%] w-[62%]">
-                      <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} active={active} compact />
+                      <CourseGlyph
+                        kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)}
+                        active={active}
+                        compact
+                      />
                     </span>
                   ) : (
                     card.index ?? index + 1
@@ -3050,6 +3094,7 @@ function PptMatrixScene({
   // rather than today's particular string lengths.
   const denseQuadrant = isEmergencySlide && cards.length >= 4 && cols === 'grid-cols-2';
   const usedBrandIcons = new Set<string>();
+  const usedGlyphKinds = new Set<CourseGlyphKind>();
   return (
     <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[190px]'}`}>
       <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-5'}`}>
@@ -3098,7 +3143,7 @@ function PptMatrixScene({
                 ) : (
                   isCourse1Slide && !denseQuadrant && (
                     <span className="inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
-                      <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} />
+                      <CourseGlyph kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)} />
                     </span>
                   )
                 )}
