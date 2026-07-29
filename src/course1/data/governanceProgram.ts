@@ -1015,7 +1015,11 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '📜',
     layout: 'pptTitleCards',
-    cards: policyCards,
+    // titleCardGrid styling only kicks in for emergency-flagged slides, so
+    // course/1 renders this exactly like pptSixCards -- same 4-card single
+    // shot sitting still for the whole 135s narration. Split into two beats.
+    cards: policyCards.slice(0, 2),
+    laterActs: [policyCards.slice(2, 4)],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
@@ -1050,7 +1054,10 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '🏛️',
     layout: 'pptTitleCards',
-    cards: governanceModelCards,
+    // Same as regulatory-framework above: 6 cards in one shot for a 215s
+    // narration. Split into two 3-card acts.
+    cards: governanceModelCards.slice(0, 3),
+    laterActs: [governanceModelCards.slice(3, 6)],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -1393,7 +1400,8 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '📋',
     layout: 'pptTitleCards',
-    cards: complianceConceptCards,
+    cards: complianceConceptCards.slice(0, 2),
+    laterActs: [complianceConceptCards.slice(2, 4)],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1727,7 +1735,8 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🛡️',
     layout: 'pptTitleCards',
-    cards: isoRiskCards,
+    cards: isoRiskCards.slice(0, 2),
+    laterActs: [isoRiskCards.slice(2, 4)],
   }),
   makeSlide({
     id: 'ch3-risk-process',
