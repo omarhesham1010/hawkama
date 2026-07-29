@@ -222,6 +222,7 @@ function makeSlide({
   layout,
   cards,
   laterActs,
+  actLayouts,
   kind = 'content',
   intro,
   prompt,
@@ -238,6 +239,7 @@ function makeSlide({
   layout: PptLayout;
   cards?: PptCard[];
   laterActs?: PptCard[][];
+  actLayouts?: PptLayout[];
   kind?: SlideKind;
   intro?: string;
   prompt?: string;
@@ -274,6 +276,7 @@ function makeSlide({
       prompt,
       cards,
       laterActs,
+      actLayouts,
       checks,
     },
   };
@@ -985,6 +988,7 @@ export const governanceChapterOneSlides = indexSlides([
     // for the whole 122s narration -- matches course/2's per-concept pacing.
     cards: chapterOneOverview.slice(0, 1),
     laterActs: [chapterOneOverview.slice(1, 2), chapterOneOverview.slice(2, 3)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'قبل ما نبدأ: أي محور يحمي نزاهة القرار؟',
@@ -1011,6 +1015,7 @@ export const governanceChapterOneSlides = indexSlides([
     // changing shape through the whole narration instead of settling once.
     cards: regulatoryCards.slice(0, 2),
     laterActs: [regulatoryCards.slice(2, 4), regulatoryCards.slice(4, 6)],
+    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -1028,6 +1033,7 @@ export const governanceChapterOneSlides = indexSlides([
     // shot sitting still for the whole 135s narration. Split into two beats.
     cards: policyCards.slice(0, 2),
     laterActs: [policyCards.slice(2, 4)],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
@@ -1066,6 +1072,7 @@ export const governanceChapterOneSlides = indexSlides([
     // narration. Split into three 2-card acts.
     cards: governanceModelCards.slice(0, 2),
     laterActs: [governanceModelCards.slice(2, 4), governanceModelCards.slice(4, 6)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTitleCards'],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -1104,6 +1111,7 @@ export const governanceChapterOneSlides = indexSlides([
     // sustains) than as one crowded three-column shot for 201s straight.
     cards: governanceComplianceCards.slice(0, 1),
     laterActs: [governanceComplianceCards.slice(1, 2), governanceComplianceCards.slice(2, 3)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ppt-activity-governance-or-compliance',
@@ -1132,6 +1140,7 @@ export const governanceChapterOneSlides = indexSlides([
     layout: 'pptSixCards',
     cards: ethicsCards.slice(0, 2),
     laterActs: [ethicsCards.slice(2, 4), ethicsCards.slice(4, 6)],
+    actLayouts: ['pptMatrix', 'pptSpotlight', 'pptSixCards'],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1393,6 +1402,7 @@ export const governanceChapterTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: chapterTwoOverview.slice(0, 1),
     laterActs: [chapterTwoOverview.slice(1, 2), chapterTwoOverview.slice(2, 3)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'قبل التفاصيل: ما سؤال الفصل الثاني الرئيسي؟',
@@ -1415,6 +1425,7 @@ export const governanceChapterTwoSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: complianceConceptCards.slice(0, 2),
     laterActs: [complianceConceptCards.slice(2, 4)],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1426,7 +1437,9 @@ export const governanceChapterTwoSlides = indexSlides([
       'فالدورة لا تتوقف عند التنفيذ؛ إذ يعيدنا التحقق والاستجابة إلى التخطيط بنظام أنضج وقدرة أعلى على منع التكرار.',
     ),
     visual: '🔄',
-    layout: 'pptTitleCards',
+    // A real 4-step cycle (Plan/Do/Check/Act) reads far better as a
+    // connected numbered sequence than as generic floating cards.
+    layout: 'pptTimeline',
     cards: pdcaCards,
     checks: [
       quickCheck({
@@ -1462,8 +1475,13 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🔍',
     layout: 'pptSixCards',
-    cards: monitoringCards.slice(0, 2),
-    laterActs: [monitoringCards.slice(2, 4), monitoringCards.slice(4, 6)],
+    // Content is itself a monitoring lifecycle -- philosophy/planning/
+    // methods (the setup) then testing/reporting/follow-up (the
+    // execution) -- so it splits into two 3-card acts by that logic
+    // instead of blind halves, staged as a step sequence then a grid.
+    cards: monitoringCards.slice(0, 3),
+    laterActs: [monitoringCards.slice(3, 6)],
+    actLayouts: ['pptTimeline', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1478,6 +1496,7 @@ export const governanceChapterTwoSlides = indexSlides([
     layout: 'pptSixCards',
     cards: cultureCards.slice(0, 2),
     laterActs: [cultureCards.slice(2, 4), cultureCards.slice(4, 6)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSixCards'],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -1729,6 +1748,7 @@ export const governanceChapterThreeSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: chapterThreeOverview.slice(0, 1),
     laterActs: [chapterThreeOverview.slice(1, 2), chapterThreeOverview.slice(2, 3)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'سؤال افتتاحي: لماذا نربط المخاطر بالقرار؟',
@@ -1751,6 +1771,7 @@ export const governanceChapterThreeSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: isoRiskCards.slice(0, 2),
     laterActs: [isoRiskCards.slice(2, 4)],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ch3-risk-process',
@@ -1763,8 +1784,12 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🔄',
     layout: 'pptSixCards',
-    cards: riskProcessCards.slice(0, 2),
-    laterActs: [riskProcessCards.slice(2, 4), riskProcessCards.slice(4, 6)],
+    // The title literally means "stages of the risk process" -- a real
+    // ordered sequence. First half (scope/identify/analyze) as timeline
+    // steps, second half (evaluate/treat/monitor) as an execution grid.
+    cards: riskProcessCards.slice(0, 3),
+    laterActs: [riskProcessCards.slice(3, 6)],
+    actLayouts: ['pptTimeline', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -1785,8 +1810,11 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '📊',
     layout: 'pptSixCards',
-    cards: riskRegisterCards.slice(0, 2),
-    laterActs: [riskRegisterCards.slice(2, 4), riskRegisterCards.slice(4, 6)],
+    // الخطر الكامن/المتبقي (indices 1-2) is a natural before/after pair --
+    // grouped together instead of split across acts by position.
+    cards: riskRegisterCards.slice(0, 1),
+    laterActs: [riskRegisterCards.slice(1, 3), riskRegisterCards.slice(3, 6)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSixCards'],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
@@ -1942,6 +1970,7 @@ export const governanceClosingSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: summaryCards.slice(0, 1),
     laterActs: [summaryCards.slice(1, 2), summaryCards.slice(2, 3)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'الخلاصة الكبرى: ما العلاقة بين الثلاثة؟',
@@ -1965,6 +1994,7 @@ export const governanceClosingSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: finalMessageCards.slice(0, 1),
     laterActs: [finalMessageCards.slice(1, 2), finalMessageCards.slice(2, 3)],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline'],
   }),
   makeSlide({
     id: 'program-leadership-questions',
