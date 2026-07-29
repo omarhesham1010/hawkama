@@ -221,6 +221,7 @@ function makeSlide({
   visual,
   layout,
   cards,
+  laterActs,
   kind = 'content',
   intro,
   prompt,
@@ -236,6 +237,7 @@ function makeSlide({
   visual: string;
   layout: PptLayout;
   cards?: PptCard[];
+  laterActs?: PptCard[][];
   kind?: SlideKind;
   intro?: string;
   prompt?: string;
@@ -271,6 +273,7 @@ function makeSlide({
       intro,
       prompt,
       cards,
+      laterActs,
       checks,
     },
   };
@@ -994,7 +997,12 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '🏥',
     layout: 'pptSixCards',
-    cards: regulatoryCards,
+    // Six distinct concepts read as one crowded shot when staged together --
+    // split into two 3-card acts (matching course/2 & course/3's own
+    // pptSixCards-free authoring) so the scene actually changes shape
+    // partway through instead of sitting static for the whole narration.
+    cards: regulatoryCards.slice(0, 3),
+    laterActs: [regulatoryCards.slice(3, 6)],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -1103,7 +1111,8 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '⚖️',
     layout: 'pptSixCards',
-    cards: ethicsCards,
+    cards: ethicsCards.slice(0, 3),
+    laterActs: [ethicsCards.slice(3, 6)],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1432,7 +1441,8 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🔍',
     layout: 'pptSixCards',
-    cards: monitoringCards,
+    cards: monitoringCards.slice(0, 3),
+    laterActs: [monitoringCards.slice(3, 6)],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1445,7 +1455,8 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🎓',
     layout: 'pptSixCards',
-    cards: cultureCards,
+    cards: cultureCards.slice(0, 3),
+    laterActs: [cultureCards.slice(3, 6)],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -1729,7 +1740,8 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🔄',
     layout: 'pptSixCards',
-    cards: riskProcessCards,
+    cards: riskProcessCards.slice(0, 3),
+    laterActs: [riskProcessCards.slice(3, 6)],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -1750,7 +1762,8 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '📊',
     layout: 'pptSixCards',
-    cards: riskRegisterCards,
+    cards: riskRegisterCards.slice(0, 3),
+    laterActs: [riskRegisterCards.slice(3, 6)],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
