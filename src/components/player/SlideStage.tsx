@@ -2721,8 +2721,13 @@ function PptMotionVisualScene({
     : emergencyOpenLabels
       ? (denseFloatingCards ? 'h-24 w-28' : 'h-28 w-32')
     : showDetailText
-      ? (isEmergencySlide ? 'h-40 w-44' : 'h-24 w-28')
-      : (isEmergencySlide ? 'h-40 w-44' : 'h-28 w-32');
+      // course/1's sparse (<=3 card) shots sit in a wide/tall floating slot
+      // (~30-38% of the scene) -- the old 96px icon left a lot of visible
+      // room around it next to a 25px title. Only this sparse case grows;
+      // the dense (emergencyOpenLabels) branch above stays compact on
+      // purpose to avoid re-crowding a 4+ card shot.
+      ? (isEmergencySlide ? 'h-40 w-44' : isCourse1Slide ? 'h-32 w-36' : 'h-24 w-28')
+      : (isEmergencySlide ? 'h-40 w-44' : isCourse1Slide ? 'h-32 w-36' : 'h-28 w-32');
 
   // Nasser stands on the same side for 'ppt' slides as nasserGuide computes
   // (odd slide.index -> visually left, even -> visually right; see
@@ -3246,10 +3251,17 @@ function PptSpotlightScene({
             <img src={primaryVisual} alt="" className={`absolute inset-0 h-full w-full rounded-full object-contain p-1.5 ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} loading="lazy" decoding="async" />
           </span>
         )}
-        <span className="relative z-10 mx-auto mb-2 grid h-12 w-12 place-items-center rounded-full bg-white/16 p-2.5 ring-2 ring-white/25">
+        <span
+          className={`relative z-10 mx-auto mb-2 grid place-items-center rounded-full bg-white/16 ring-2 ring-white/25 ${
+            focusBrandIcon ? 'h-12 w-12 p-2.5' : 'h-20 w-20 p-3.5'
+          }`}
+        >
           {focusBrandIcon ? (
             <BrandIcon src={focusBrandIcon} tone="white" className={`h-full w-full ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} />
           ) : (
+            // Non-emergency (course/1) focus card has no brand-icon set, so it
+            // always lands here -- and this card can run up to 620px wide, so
+            // the old 48px badge left a lot of visible empty ring around it.
             <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
           )}
           <svg className="pointer-events-none absolute -right-1.5 -top-1.5 h-3.5 w-3.5 animate-sparkle" viewBox="0 0 24 24" aria-hidden="true">
@@ -3259,8 +3271,8 @@ function PptSpotlightScene({
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
           </svg>
         </span>
-        <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[26px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
-        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[16px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
+        <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[28px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
+        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
             <p className="text-[13px] font-bold leading-snug text-white/90">{focusDetail}</p>
