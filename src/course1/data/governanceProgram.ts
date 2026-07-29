@@ -645,7 +645,8 @@ export const governanceIntroSlides = indexSlides([
       'محورنا هنا هو محتويات البرنامج التدريبي. وقبل الدخول في التفاصيل، نستعرض معًا خريطة البرنامج التدريبي، وكيف يُبنى كل فصل على الفصل الذي يسبقه. فأول محطة معنا هي الفصل الأول، الحوكمة التنظيمية والامتثال، ويشمل المعرفة التنظيمية، وهياكل الحوكمة، والأخلاقيات وتضارب المصالح. وبعد أن تتضح هذه البداية، ننتقل إلى الفصل الثاني، الامتثال والتدقيق والضوابط، ونركز فيه على إدارة الامتثال، ومراقبة الضوابط، والتدريب والتوعية. ثم نصل إلى الفصل الثالث، إدارة المخاطر المؤسسية، ويشمل إطار آيزو 31 ألف، وإدارة المخاطر والضوابط، وتحليل المخاطر. وبهذا الترتيب، نبدأ بتحديد من يقرر وكيف يُحاسَب، ثم نتأكد من التطبيق وفعالية الضوابط، وبعدها نربط المخاطر بالقرار. وإذا اتضحت الخريطة، نبدأ الفصل الأول بإذن الله.',
     visual: '🗺️',
     layout: 'pptThreeColumns',
-    cards: programCards,
+    cards: programCards.slice(0, 1),
+    laterActs: [programCards.slice(1, 2), programCards.slice(2, 3)],
   }),
   makeQuizSlide({
     id: 'governance-pre-test',
@@ -976,7 +977,10 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '🧭',
     layout: 'pptThreeColumns',
-    cards: chapterOneOverview,
+    // One topic per beat instead of all three sitting on screen together
+    // for the whole 122s narration -- matches course/2's per-concept pacing.
+    cards: chapterOneOverview.slice(0, 1),
+    laterActs: [chapterOneOverview.slice(1, 2), chapterOneOverview.slice(2, 3)],
     checks: [
       quickCheck({
         title: 'قبل ما نبدأ: أي محور يحمي نزاهة القرار؟',
@@ -998,11 +1002,11 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🏥',
     layout: 'pptSixCards',
     // Six distinct concepts read as one crowded shot when staged together --
-    // split into two 3-card acts (matching course/2 & course/3's own
-    // pptSixCards-free authoring) so the scene actually changes shape
-    // partway through instead of sitting static for the whole narration.
-    cards: regulatoryCards.slice(0, 3),
-    laterActs: [regulatoryCards.slice(3, 6)],
+    // split into three 2-card acts (matching course/2 & course/3's own
+    // pptSixCards-free authoring, ~1-2 cards/act) so the scene keeps
+    // changing shape through the whole narration instead of settling once.
+    cards: regulatoryCards.slice(0, 2),
+    laterActs: [regulatoryCards.slice(2, 4), regulatoryCards.slice(4, 6)],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -1055,9 +1059,9 @@ export const governanceChapterOneSlides = indexSlides([
     visual: '🏛️',
     layout: 'pptTitleCards',
     // Same as regulatory-framework above: 6 cards in one shot for a 215s
-    // narration. Split into two 3-card acts.
-    cards: governanceModelCards.slice(0, 3),
-    laterActs: [governanceModelCards.slice(3, 6)],
+    // narration. Split into three 2-card acts.
+    cards: governanceModelCards.slice(0, 2),
+    laterActs: [governanceModelCards.slice(2, 4), governanceModelCards.slice(4, 6)],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -1091,7 +1095,11 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '🔗',
     layout: 'pptThreeColumns',
-    cards: governanceComplianceCards,
+    // Three dense, bullet-heavy cards read better as three individual
+    // beats (governance defines -> compliance ensures -> integration
+    // sustains) than as one crowded three-column shot for 201s straight.
+    cards: governanceComplianceCards.slice(0, 1),
+    laterActs: [governanceComplianceCards.slice(1, 2), governanceComplianceCards.slice(2, 3)],
   }),
   makeSlide({
     id: 'ppt-activity-governance-or-compliance',
@@ -1118,8 +1126,8 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '⚖️',
     layout: 'pptSixCards',
-    cards: ethicsCards.slice(0, 3),
-    laterActs: [ethicsCards.slice(3, 6)],
+    cards: ethicsCards.slice(0, 2),
+    laterActs: [ethicsCards.slice(2, 4), ethicsCards.slice(4, 6)],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1379,7 +1387,8 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🧭',
     layout: 'pptThreeColumns',
-    cards: chapterTwoOverview,
+    cards: chapterTwoOverview.slice(0, 1),
+    laterActs: [chapterTwoOverview.slice(1, 2), chapterTwoOverview.slice(2, 3)],
     checks: [
       quickCheck({
         title: 'قبل التفاصيل: ما سؤال الفصل الثاني الرئيسي؟',
@@ -1449,8 +1458,8 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🔍',
     layout: 'pptSixCards',
-    cards: monitoringCards.slice(0, 3),
-    laterActs: [monitoringCards.slice(3, 6)],
+    cards: monitoringCards.slice(0, 2),
+    laterActs: [monitoringCards.slice(2, 4), monitoringCards.slice(4, 6)],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1463,8 +1472,8 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🎓',
     layout: 'pptSixCards',
-    cards: cultureCards.slice(0, 3),
-    laterActs: [cultureCards.slice(3, 6)],
+    cards: cultureCards.slice(0, 2),
+    laterActs: [cultureCards.slice(2, 4), cultureCards.slice(4, 6)],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -1714,7 +1723,8 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🧭',
     layout: 'pptThreeColumns',
-    cards: chapterThreeOverview,
+    cards: chapterThreeOverview.slice(0, 1),
+    laterActs: [chapterThreeOverview.slice(1, 2), chapterThreeOverview.slice(2, 3)],
     checks: [
       quickCheck({
         title: 'سؤال افتتاحي: لماذا نربط المخاطر بالقرار؟',
@@ -1749,8 +1759,8 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🔄',
     layout: 'pptSixCards',
-    cards: riskProcessCards.slice(0, 3),
-    laterActs: [riskProcessCards.slice(3, 6)],
+    cards: riskProcessCards.slice(0, 2),
+    laterActs: [riskProcessCards.slice(2, 4), riskProcessCards.slice(4, 6)],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -1771,8 +1781,8 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '📊',
     layout: 'pptSixCards',
-    cards: riskRegisterCards.slice(0, 3),
-    laterActs: [riskRegisterCards.slice(3, 6)],
+    cards: riskRegisterCards.slice(0, 2),
+    laterActs: [riskRegisterCards.slice(2, 4), riskRegisterCards.slice(4, 6)],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
@@ -1926,7 +1936,8 @@ export const governanceClosingSlides = indexSlides([
     ),
     visual: '✨',
     layout: 'pptThreeColumns',
-    cards: summaryCards,
+    cards: summaryCards.slice(0, 1),
+    laterActs: [summaryCards.slice(1, 2), summaryCards.slice(2, 3)],
     checks: [
       quickCheck({
         title: 'الخلاصة الكبرى: ما العلاقة بين الثلاثة؟',
@@ -1948,7 +1959,8 @@ export const governanceClosingSlides = indexSlides([
     ),
     visual: '💡',
     layout: 'pptThreeColumns',
-    cards: finalMessageCards,
+    cards: finalMessageCards.slice(0, 1),
+    laterActs: [finalMessageCards.slice(1, 2), finalMessageCards.slice(2, 3)],
   }),
   makeSlide({
     id: 'program-leadership-questions',
