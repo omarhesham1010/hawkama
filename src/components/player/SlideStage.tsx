@@ -2705,6 +2705,14 @@ function PptMotionVisualScene({
   // for it (guarded below), only the icon badges and decorative vector
   // motifs, which stay on for every bag.
   const isLicensingSlide = slide.id.startsWith('lic');
+  // course/1 (governance) has no photo assets either -- slideVisualPool
+  // returns [] for it (see there), same as licensing -- but it also has no
+  // brand-icon set (sharedBrandIconFor only matches emergency/licensing
+  // keywords), so without this it would fall straight through to
+  // `<img src={cardVisual}>` with cardVisual undefined: a broken/blank
+  // image instead of an icon. Falls back to the same vector CourseGlyph
+  // system already used for course/1's title icon and spotlight focus card.
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
   // Shared across every card below so two cards in the same shot never end
   // up with the same big illustration or the same badge icon.
@@ -2809,6 +2817,13 @@ function PptMotionVisualScene({
                       <BrandIcon src={brandIcon} tone="primary" className="h-full w-full" />
                     </span>
                   )
+                ) : isCourse1Slide ? (
+                  <span
+                    className={`absolute inset-[14%] z-10 grid place-items-center rounded-2xl bg-white/88 p-2.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
+                    aria-hidden="true"
+                  >
+                    <CourseGlyph kind={courseGlyphKind(`${card.title} ${card.text ?? ''}`)} active={active} />
+                  </span>
                 ) : (
                   <>
                     {brandIcon && (
