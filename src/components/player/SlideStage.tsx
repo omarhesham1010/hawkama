@@ -2992,11 +2992,16 @@ function PptTimelineScene({
                 type="button"
                 disabled={!visible || narrationLocked}
                 onClick={() => onToggle(index)}
-                className={`relative z-10 flex ${denseEmergencyTimeline ? 'w-[166px]' : isEmergencySlide ? 'w-[190px]' : 'w-[172px]'} flex-col items-center text-center transition-all duration-700 ease-out ${
+                className={`relative z-10 flex ${denseEmergencyTimeline ? 'w-[166px]' : isEmergencySlide ? 'w-[190px]' : isCourse1Slide ? 'w-[190px]' : 'w-[172px]'} flex-col items-center text-center transition-all duration-700 ease-out ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
                 } ${active ? (denseEmergencyTimeline ? 'scale-[1.025]' : 'scale-[1.06]') : ''}`}
               >
-                <span className={`relative grid ${denseEmergencyTimeline ? 'h-[84px] w-[84px]' : isEmergencySlide ? 'h-[104px] w-[104px]' : 'h-[64px] w-[64px]'} shrink-0 place-items-center`}>
+                {/* course/1 timelines rarely have more than 2-3 steps sharing
+                    this scene, unlike course/2's denser ones -- a badge sized
+                    for that crowded case (64px) left a lot of empty space
+                    around it here. Sized up to match the emergency-slide
+                    badge instead. */}
+                <span className={`relative grid ${denseEmergencyTimeline ? 'h-[84px] w-[84px]' : isEmergencySlide ? 'h-[104px] w-[104px]' : isCourse1Slide ? 'h-[100px] w-[100px]' : 'h-[64px] w-[64px]'} shrink-0 place-items-center`}>
                   {active && (
                     <span className="absolute inset-0 rounded-full border-2 border-gold-400 animate-ring-shockwave" aria-hidden="true" />
                   )}
@@ -3038,7 +3043,7 @@ function PptTimelineScene({
                       <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                     </span>
                   )}
-                  <span className={`relative z-10 block font-extrabold leading-snug ${denseEmergencyTimeline ? 'text-[15.5px]' : isEmergencySlide ? 'text-[18px]' : 'text-[15.5px]'}`}>{card.title}</span>
+                  <span className={`relative z-10 block font-extrabold leading-snug ${denseEmergencyTimeline ? 'text-[15.5px]' : isEmergencySlide ? 'text-[18px]' : isCourse1Slide ? 'text-[17px]' : 'text-[15.5px]'}`}>{card.title}</span>
                   {showDetail && detail && (
                     <span className="mt-1.5 block text-[11.5px] font-bold leading-snug text-ink">{detail}</span>
                   )}
@@ -3142,7 +3147,11 @@ function PptMatrixScene({
                   </span>
                 ) : (
                   isCourse1Slide && !denseQuadrant && (
-                    <span className="inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
+                    // Bigger than the emergency/licensing badge above (h-14) --
+                    // course/1's matrix cards are roomy (min-h-134, up to
+                    // ~500px wide) with only 2-3 cards per shot, so a 56px
+                    // badge left a lot of visible empty space around it.
+                    <span className="inline-grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-white/78 p-2 shadow-sm" aria-hidden="true">
                       <CourseGlyph kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)} />
                     </span>
                   )
