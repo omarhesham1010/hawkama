@@ -3651,7 +3651,7 @@ function PptGuidedScenarioSlide({
               its last button's bottom edge drift down into Nasser's zone,
               which sits fixed near the bottom of the slide regardless of
               this column's own content height. */}
-          <div className={`grid min-h-0 content-start gap-3 pt-2 transition-all duration-500 ${ready ? 'opacity-100' : 'pointer-events-none opacity-0 translate-y-3'}`}>
+          <div className={`grid min-h-0 content-start gap-2 pt-1 transition-all duration-500 ${ready ? 'opacity-100' : 'pointer-events-none opacity-0 translate-y-3'}`}>
             {analysisCards.map((card, index) => {
               const active = selectedStep === index;
               return (
@@ -3660,7 +3660,7 @@ function PptGuidedScenarioSlide({
                   type="button"
                   onClick={() => openStep(index)}
                   disabled={!ready || guidedSpeech.speaking || complete || narrationLocked}
-                  className={`group flex items-center justify-between gap-4 rounded-[28px] border px-5 py-4 text-right shadow-[0_16px_38px_rgb(24_82_55_/_0.10)] transition-all duration-300 hover:-translate-y-1 ${
+                  className={`group flex items-center justify-between gap-3 rounded-[28px] border px-4 py-3 text-right shadow-[0_16px_38px_rgb(24_82_55_/_0.10)] transition-all duration-300 hover:-translate-y-1 ${
                     active
                       ? 'border-green-700 bg-green-800 text-white'
                       : 'border-green-700/12 bg-white/86 text-brand-strong hover:border-gold-500/45 hover:bg-gold-50'
@@ -3668,12 +3668,12 @@ function PptGuidedScenarioSlide({
                     ready && !guidedSpeech.speaking && !complete && !narrationLocked ? 'animate-pulse-ring' : ''
                   } ${narrationLocked && ready ? '!bg-white !text-ink-muted !border-line' : ''}`}
                 >
-                  <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${active ? 'bg-white/16' : 'bg-green-700/8'}`}>
-                    <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-8 w-8 ${active ? `text-white ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : 'text-green-700'}`} />
+                  <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl ${active ? 'bg-white/16' : 'bg-green-700/8'}`}>
+                    <Icon name={index === 0 ? 'gavel' : index === 1 ? 'shield' : 'sparkles'} className={`h-6 w-6 ${active ? `text-white ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : 'text-green-700'}`} />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[23px] font-black leading-tight">{card.title}</span>
-                    <span className={`mt-1 block text-[15px] font-bold ${active ? 'text-white/82' : 'text-ink-soft'}`}>اضغط لفتح المحطة ومناقشتها</span>
+                    <span className="block text-[19px] font-black leading-tight">{card.title}</span>
+                    <span className={`mt-0.5 block text-[13.5px] font-bold ${active ? 'text-white/82' : 'text-ink-soft'}`}>اضغط لفتح المحطة ومناقشتها</span>
                   </span>
                   <Icon name={active ? 'check' : 'flow'} className={`h-7 w-7 shrink-0 ${active ? `text-green-600 ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index + 3)}` : 'text-gold-600 group-hover:text-green-700'}`} />
                 </button>
