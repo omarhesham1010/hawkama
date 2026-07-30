@@ -1359,6 +1359,7 @@ function IntroMotionScene({
   // pixels never re-checks after we edit the file in place -- append a
   // manual version query so updating this file always busts the cache.
   const isLicensingCourse = slide.id.startsWith('lic');
+  const isCourse1Course = slide.audioKey?.endsWith('-course1') ?? false;
   // The licensing PPTX has no photography of its own (surveyed every image
   // in it: all decorative template backgrounds or generic clipart) -- per
   // client direction, reuse its clipart here instead of an icon, picking
@@ -1373,7 +1374,18 @@ function IntroMotionScene({
     ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
     : isLicensingCourse
       ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
-      : '/assets/visual-library/intro-governance-building-scene.webp';
+      : isCourse1Course
+        // Pulled straight from the client's own governance PPTX title
+        // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
+        // stock illustration bag/1 uses -- already on-brand since it's the
+        // client's own source material, so it needs no separate approval.
+        ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
+        : '/assets/visual-library/intro-governance-building-scene.webp';
+  // The skyline is a real rectangular photo (no transparency), unlike the
+  // illustration it replaces for course/1 -- frame it as a photo card
+  // (rounded corners + a light border) instead of letting a hard-edged
+  // rectangle float directly over the scene.
+  const heroIsPhoto = isCourse1Course;
   // Keep the pillar row's horizontal center locked to the hero image's own
   // center (both anchored from the right edge) so it never reads as
   // shifted off to one side, regardless of how many pillars are shown.
@@ -1391,6 +1403,8 @@ function IntroMotionScene({
           alt=""
           draggable={false}
           className={`motion-always-on absolute right-[6%] top-[8%] w-[26%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+            heroIsPhoto ? 'rounded-[22px] border-4 border-white shadow-card-lg' : ''
+          } ${
             started ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
           } ${started && !narrationComplete ? `motion-layer-focus ${activeVisualAnimationFor(introHeroSrc, 0)}` : ''}`}
           style={{
@@ -3448,7 +3462,12 @@ function PptActivitySlide({
               </div>
             </div>
           )}
-          <div className={`flex min-h-0 flex-col justify-center gap-2 rounded-lg border-2 border-green-700/20 bg-white/92 p-2.5 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
+          {/* self-start (not the parent grid's items-center) -- centering
+              this short 2-3-button column within the full row height could
+              drift its bottom edge down into Nasser's zone, which sits
+              fixed near the bottom of the slide regardless of this
+              column's own height. */}
+          <div className={`flex min-h-0 flex-col justify-center gap-2 self-start rounded-lg border-2 border-green-700/20 bg-white/92 p-2.5 transition-all ${activityReady ? 'animate-slide-in opacity-100' : 'pointer-events-none opacity-0'}`}>
             <button
               type="button"
               disabled={phase !== 'awaiting-answer' || narrationLocked}
@@ -3588,7 +3607,12 @@ function PptGuidedScenarioSlide({
               </div>
             </div>
           )}
-          <div className={`grid min-h-0 content-center gap-4 transition-all duration-500 ${ready ? 'opacity-100' : 'pointer-events-none opacity-0 translate-y-3'}`}>
+          {/* content-start (not content-center) -- with only 3 stations,
+              centering this column within the full row height could let
+              its last button's bottom edge drift down into Nasser's zone,
+              which sits fixed near the bottom of the slide regardless of
+              this column's own content height. */}
+          <div className={`grid min-h-0 content-start gap-3 pt-2 transition-all duration-500 ${ready ? 'opacity-100' : 'pointer-events-none opacity-0 translate-y-3'}`}>
             {analysisCards.map((card, index) => {
               const active = selectedStep === index;
               return (
@@ -3597,7 +3621,7 @@ function PptGuidedScenarioSlide({
                   type="button"
                   onClick={() => openStep(index)}
                   disabled={!ready || guidedSpeech.speaking || complete || narrationLocked}
-                  className={`group flex items-center justify-between gap-4 rounded-[28px] border px-5 py-5 text-right shadow-[0_16px_38px_rgb(24_82_55_/_0.10)] transition-all duration-300 hover:-translate-y-1 ${
+                  className={`group flex items-center justify-between gap-4 rounded-[28px] border px-5 py-4 text-right shadow-[0_16px_38px_rgb(24_82_55_/_0.10)] transition-all duration-300 hover:-translate-y-1 ${
                     active
                       ? 'border-green-700 bg-green-800 text-white'
                       : 'border-green-700/12 bg-white/86 text-brand-strong hover:border-gold-500/45 hover:bg-gold-50'
