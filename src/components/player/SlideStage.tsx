@@ -3130,14 +3130,17 @@ function PptMatrixScene({
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
   return (
-    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[248px]'}`}>
+    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[320px]'}`}>
       {/* Two stacked cards (grid-cols-1, the common course/1 case) have no
           clamp on card.text -- a normal ~110-char description wraps to 2-3
           lines, and two of those stacked plus each card's own padding
           routinely grows taller than the old pb-[190px] reserve, letting
           the second card's bottom edge slide under Nasser (fixed near the
           bottom, absolutely positioned so invisible to this flow). Measured
-          live against that exact case. */}
+          live against that exact case -- pb-[248px] still wasn't enough,
+          confirmed with a second live measurement, hence the larger
+          pb-[320px] plus the tighter card padding below (p-4 instead of
+          p-5) to reclaim some of that space back for the cards themselves. */}
       <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-3'}`}>
         {cards.map((card, index) => {
           const visible = visibleFor(index);
@@ -3154,7 +3157,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[134px] overflow-visible p-5 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[120px] overflow-visible p-4 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
