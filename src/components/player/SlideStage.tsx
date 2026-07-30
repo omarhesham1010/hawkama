@@ -2322,6 +2322,7 @@ function PptCardView({
   onClick,
   locked = false,
   emergencyHint = false,
+  isCourse1 = false,
 }: {
   card: PptCard;
   dense?: boolean;
@@ -2337,6 +2338,9 @@ function PptCardView({
   /** True for bag-2 cards, so a card whose own text has no strong keyword
    *  still falls back to an emergency-themed visual instead of bag 1's. */
   emergencyHint?: boolean;
+  /** course/1 uses the icon system everywhere, never the photo-scene
+   *  visuals -- see slideVisualPool's course1 opt-out for the same rule. */
+  isCourse1?: boolean;
 }) {
   void emoji;
   const tone = card.tone ?? 'green';
@@ -2452,15 +2456,21 @@ function PptCardView({
                 <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} />
               </span>
             )}
-            {visualLayers[0] && (
-              <img
-                src={visualLayers[0]}
-                alt=""
-                className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${active ? activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, Number(card.index ?? 0)) : 'animate-float'}`}
-                loading="lazy"
-                decoding="async"
-                aria-hidden="true"
-              />
+            {isCourse1 && !brandIcon ? (
+              <span className="h-[62%] w-[62%]">
+                <CourseGlyph kind={glyphKind} active={active} compact />
+              </span>
+            ) : (
+              visualLayers[0] && (
+                <img
+                  src={visualLayers[0]}
+                  alt=""
+                  className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${active ? activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, Number(card.index ?? 0)) : 'animate-float'}`}
+                  loading="lazy"
+                  decoding="async"
+                  aria-hidden="true"
+                />
+              )
             )}
           </span>
           {card.index && (
@@ -3120,8 +3130,15 @@ function PptMatrixScene({
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
   return (
-    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[190px]'}`}>
-      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-5'}`}>
+    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[248px]'}`}>
+      {/* Two stacked cards (grid-cols-1, the common course/1 case) have no
+          clamp on card.text -- a normal ~110-char description wraps to 2-3
+          lines, and two of those stacked plus each card's own padding
+          routinely grows taller than the old pb-[190px] reserve, letting
+          the second card's bottom edge slide under Nasser (fixed near the
+          bottom, absolutely positioned so invisible to this flow). Measured
+          live against that exact case. */}
+      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-3'}`}>
         {cards.map((card, index) => {
           const visible = visibleFor(index);
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
@@ -3371,6 +3388,7 @@ function PptActivitySlide({
   onActivityDone: (id: string) => void;
 }) {
   const cards = slide.ppt?.cards ?? [];
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [phase, setPhase] = useState<'intro' | 'awaiting-answer' | 'feedback' | 'awaiting-next' | 'asking-next'>('intro');
@@ -3444,13 +3462,19 @@ function PptActivitySlide({
               <span className={`relative grid h-[132px] w-[180px] place-items-center rounded-[28px] border shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] ${
                 answerVisible ? 'border-white/35 bg-white/16' : 'border-green-700/14 bg-white'
               }`}>
-                <img
-                  src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0]}
-                  alt=""
-                  className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${activeVisualClass(currentCardVisible, `${currentCard.title} ${currentCard.text ?? ''}`, currentStep) || 'animate-float'}`}
-                  loading="lazy"
-                  decoding="async"
-                />
+                {isCourse1Slide ? (
+                  <span className="h-[58%] w-[58%]">
+                    <CourseGlyph kind={courseGlyphKind(`${currentCard.title} ${currentCard.text ?? ''}`)} active={answerVisible} compact />
+                  </span>
+                ) : (
+                  <img
+                    src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0]}
+                    alt=""
+                    className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${activeVisualClass(currentCardVisible, `${currentCard.title} ${currentCard.text ?? ''}`, currentStep) || 'animate-float'}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
               </span>
               <div className="relative z-10 min-w-0">
                 <h3 className={`text-[25px] font-black leading-tight ${answerVisible ? 'text-white' : 'text-brand-strong'}`}>
@@ -3521,6 +3545,7 @@ function PptGuidedScenarioSlide({
   onActivityDone: (id: string) => void;
 }) {
   const cards = slide.ppt?.cards ?? [];
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const scenarioCard = cards[0];
   const analysisCards = cards.slice(1);
   const [selectedStep, setSelectedStep] = useState<number | null>(null);
@@ -3588,13 +3613,19 @@ function PptGuidedScenarioSlide({
               <span className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full bg-gold-500/14 blur-3xl" />
               <div className="relative z-10 min-h-[164px]">
                 {spoken > 0 && (
-                  <img
-                    src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}`)[0] ?? '/assets/visual-library/audit-controls.webp'}
-                    alt=""
-                    className="pointer-events-none absolute left-3 top-2 h-[118px] w-[132px] object-contain opacity-20 drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  isCourse1Slide ? (
+                    <span className="pointer-events-none absolute left-3 top-2 h-[92px] w-[92px] opacity-20">
+                      <CourseGlyph kind={courseGlyphKind(`${scenarioCard.title} ${scenarioCard.text}`)} compact />
+                    </span>
+                  ) : (
+                    <img
+                      src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}`)[0] ?? '/assets/visual-library/audit-controls.webp'}
+                      alt=""
+                      className="pointer-events-none absolute left-3 top-2 h-[118px] w-[132px] object-contain opacity-20 drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )
                 )}
                 <div className="relative z-10 min-w-0 rounded-[24px] border border-green-700/10 bg-white/95 p-3.5 shadow-[0_14px_26px_rgb(24_82_55_/_0.08)]">
                   <p className="text-[16px] font-black text-gold-700">سيناريو تطبيقي</p>
@@ -3713,6 +3744,11 @@ function PptGuidedScenarioSlide({
                     </span>
                   )}
                 </div>
+                {isCourse1Slide ? (
+                  <span className="relative z-10 mb-5 h-[110px] w-[110px]">
+                    <CourseGlyph kind={courseGlyphKind(`${currentCard.title} ${currentCard.text ?? ''}`)} active compact />
+                  </span>
+                ) : (
                 <img
                   src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}`)[0] ?? '/assets/visual-library/audit-controls.webp'}
                   alt=""
@@ -3720,6 +3756,7 @@ function PptGuidedScenarioSlide({
                   loading="lazy"
                   decoding="async"
                 />
+                )}
                 <p className="relative z-10 text-[22px] font-black leading-relaxed">
                   اقرأ السيناريو، فكر في إجابتك، ثم افتح مناقشة ناصر.
                 </p>
@@ -3915,6 +3952,7 @@ function PptStyleSlide({
   }, []);
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const narrationPosition = started ? spoken : 0;
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
   // Character-level reveal timing: several cards are routinely named in the
@@ -4369,6 +4407,7 @@ function PptStyleSlide({
                   card={card}
                   emoji={pptEmojiFor(card, slide.visual, i)}
                   emergencyHint={slide.id.startsWith('ec') || slide.id.startsWith('emergency')}
+                  isCourse1={isCourse1Slide}
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
                   visible={cardIsVisible(i)}
                   revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
