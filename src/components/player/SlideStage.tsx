@@ -3130,18 +3130,22 @@ function PptMatrixScene({
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
   return (
-    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-2 pb-[320px]'}`}>
-      {/* Two stacked cards (grid-cols-1, the common course/1 case) have no
-          clamp on card.text -- a normal ~110-char description wraps to 2-3
-          lines, and two of those stacked plus each card's own padding
-          routinely grows taller than the old pb-[190px] reserve, letting
-          the second card's bottom edge slide under Nasser (fixed near the
-          bottom, absolutely positioned so invisible to this flow). Measured
-          live against that exact case -- pb-[248px] still wasn't enough,
-          confirmed with a second live measurement, hence the larger
-          pb-[320px] plus the tighter card padding below (p-4 instead of
-          p-5) to reclaim some of that space back for the cards themselves. */}
-      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-3'}`}>
+    <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-1 pb-[190px]'}`}>
+      {/* Two stacked cards (grid-cols-1, the common course/1 case): this
+          container's own bottom padding does NOT actually reserve space --
+          it's a top-aligned column with overflow:visible, so padding-bottom
+          never clips or repositions content, it just goes unused once the
+          content itself is short enough. Bumping it from 190 to 248 to 320px
+          across two live-measured attempts changed nothing, which is what
+          exposed this: the real driver of each card's height is the 80px
+          course1 icon badge sitting inline with the title (h-20 w-20, added
+          in an earlier icon-enlargement pass) plus the unclamped body text.
+          Two stacked cards at that badge size routinely push the second
+          card's bottom edge under Nasser (fixed near the bottom, absolutely
+          positioned so invisible to this flow). Shrunk the badge and
+          tightened the card's own spacing below instead -- the actual
+          levers that change the rendered height. */}
+      <div className={`relative grid w-full max-w-[1040px] auto-rows-fr ${cols} ${denseQuadrant ? 'gap-2' : 'gap-2.5'}`}>
         {cards.map((card, index) => {
           const visible = visibleFor(index);
           const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
@@ -3157,7 +3161,7 @@ function PptMatrixScene({
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[120px] overflow-visible p-4 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[108px] overflow-visible p-3.5 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -3178,7 +3182,7 @@ function PptMatrixScene({
               >
                 {card.index ?? index + 1}
               </span>
-              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[21px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
                 {brandIcon ? (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-8 w-8 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
@@ -3186,21 +3190,22 @@ function PptMatrixScene({
                   </span>
                 ) : (
                   isCourse1Slide && !denseQuadrant && (
-                    // Bigger than the emergency/licensing badge above (h-14) --
-                    // course/1's matrix cards are roomy (min-h-134, up to
-                    // ~500px wide) with only 2-3 cards per shot, so a 56px
-                    // badge left a lot of visible empty space around it.
-                    <span className="inline-grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-white/78 p-2 shadow-sm" aria-hidden="true">
+                    // Sized to match the emergency/licensing badge (h-14) --
+                    // was h-20 (80px), but that made a 2-card stacked matrix
+                    // act's combined height routinely slide under Nasser
+                    // (see the container's own comment above). Spotlight's
+                    // single-card badge is unrelated and stays large.
+                    <span className="inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
                       <CourseGlyph kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)} />
                     </span>
                   )
                 )}
               </h3>
               {card.text && (
-                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-3 pe-1 text-[16px] leading-relaxed'} font-bold ${active ? 'text-white/90' : 'text-ink'}`}>{card.text}</p>
+                <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-1.5 pe-1 text-[14.5px] leading-snug'} font-bold ${active ? 'text-white/90' : 'text-ink'}`}>{card.text}</p>
               )}
               {!card.text && !denseQuadrant && card.bullets && card.bullets.length > 0 && (
-                <ul className={`mt-3 flex flex-col gap-1 pe-1 text-[14px] leading-snug font-bold ${active ? 'text-white/90' : 'text-ink'}`}>
+                <ul className={`mt-1.5 flex flex-col gap-1 pe-1 text-[14px] leading-snug font-bold ${active ? 'text-white/90' : 'text-ink'}`}>
                   {card.bullets.map((bullet, i) => (
                     <li key={i} className="flex items-start justify-end gap-2">
                       <span>{bullet}</span>
