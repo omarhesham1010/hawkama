@@ -83,6 +83,15 @@ export interface PptCard {
   answer?: string;
   rationale?: string;
   tone?: 'green' | 'gold' | 'blue' | 'gray';
+  /** course/1's cardNarration() auto-prepends a bridge phrase (drawn from a
+   *  shuffled pool) before the card title/text when speaking it -- a small
+   *  number of cards read awkwardly with whichever bridge lands on them
+   *  (e.g. "وببساطة، فإن الأثر العملي هو أن الانتقال من..."). Setting these
+   *  replaces just that one bridge+title or bridge+text line with fixed,
+   *  hand-written phrasing, leaving the rest of the card's narration
+   *  (bullets, takeaway) generated as normal. */
+  spokenIntro?: string;
+  spokenDetail?: string;
 }
 
 export interface PptContent {
