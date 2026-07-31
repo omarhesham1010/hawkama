@@ -342,6 +342,23 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-correct",
   "bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-incorrect",
   "bag2-ch4-s17-quiz",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q1-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q1-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q2-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q2-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q3-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q3-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q4-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q4-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q5-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q5-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q6-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q6-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q7-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q7-incorrect",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q8-correct",
+  "bag2-ch4-s17b-post-test-feedback-bag2-post-q8-incorrect",
+  "bag2-ch4-s17b-post-test",
   "bag2-ch4-s18-closing",
   "bag2-ch4-s1b-goals",
   "bag2-ch4-s2-supply-chain-intro",
@@ -369,7 +386,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag2-ch4-s8-aar-success-factors",
   "bag2-ch4-s9-improvement-plans"
 ];
-export const AUDIO_MANIFEST_VERSION = 'f667b4149f32';
+export const AUDIO_MANIFEST_VERSION = '85f5a2def6ef';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);
