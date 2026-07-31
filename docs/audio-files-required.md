@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **365**.
+Generated from `src/data/audioScripts.ts`. Total required: **646**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -132,6 +132,104 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s17-quiz.mp3` - اختبار الفصل الرابع
 - `bag2-ch4-s17b-post-test.mp3` - الاختبار الختامي الشامل
 - `bag2-ch4-s18-closing.mp3` - ختام الفصل الرابع والحقيبة
+- `bag1-ch0-s1-welcome-course1.mp3` - الحوكمة والمخاطر والامتثال
+- `bag1-ch0-s2-map-course1.mp3` - محتويات البرنامج التدريبي
+- `bag1-ch0-s3-pre-test-course1.mp3` - الاختبار القبلي
+- `bag1-ch1-s1-welcome-course1.mp3` - الحوكمة التنظيمية والامتثال
+- `bag1-ch1-s2-overview-course1.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال
+- `bag1-ch1-s3-regulatory-framework-course1.mp3` - الإطار التنظيمي للقطاع الصحي
+- `bag1-ch1-s4-health-policies-course1.mp3` - صياغة وتطوير السياسات الصحية
+- `bag1-ch1-s5-policy-activity-course1.mp3` - نشاط: تطوير سياسة صحية
+- `bag1-ch1-s6-governance-models-course1.mp3` - نماذج وهياكل الحوكمة الصحية
+- `bag1-ch1-s7-framework-course1.mp3` - تطوير وتطبيق أطر الحوكمة
+- `bag1-ch1-s8-governance-compliance-course1.mp3` - العلاقة بين الحوكمة والامتثال
+- `bag1-ch1-s9-activity-governance-or-compliance-course1.mp3` - نشاط: الحوكمة أم الامتثال؟ — تمييز الأدوار
+- `bag1-ch1-s10-ethics-conflict-course1.mp3` - أخلاقيات العمل وتضارب المصالح
+- `bag1-ch1-s11-conflict-scenario-course1.mp3` - نشاط: سيناريوهات تضارب المصالح
+- `bag1-ch1-s12-quiz-course1.mp3` - اختبار الفصل الأول
+- `bag1-ch1-s13-closing-course1.mp3` - ختام الفصل الأول
+- `bag1-ch2-s1-welcome-course1.mp3` - الامتثال والتدقيق والضوابط
+- `bag1-ch2-s2-overview-course1.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط
+- `bag1-ch2-s3-compliance-concept-course1.mp3` - مفهوم الامتثال وأهميته ووظيفته
+- `bag1-ch2-s4-pdca-course1.mp3` - آيزو 37301 – دورة PDCA للامتثال
+- `bag1-ch2-s5-self-assessment-course1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال
+- `bag1-ch2-s6-monitoring-course1.mp3` - مراقبة الامتثال واختبار الضوابط
+- `bag1-ch2-s7-culture-course1.mp3` - بناء ثقافة الامتثال وبرامج التوعية
+- `bag1-ch2-s8-action-plan-course1.mp3` - نشاط: بناء خطة العمل القيادي
+- `bag1-ch2-s9-quiz-course1.mp3` - اختبار الفصل الثاني
+- `bag1-ch2-s10-closing-course1.mp3` - ختام الفصل الثاني
+- `bag1-ch3-s1-welcome-course1.mp3` - إدارة المخاطر المؤسسية
+- `bag1-ch3-s2-overview-course1.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية
+- `bag1-ch3-s3-risk-definition-course1.mp3` - تعريف الخطر ومبادئ آيزو 31000
+- `bag1-ch3-s4-risk-process-course1.mp3` - مراحل عملية إدارة المخاطر
+- `bag1-ch3-s5-risk-register-course1.mp3` - سجل المخاطر وإعداد التقارير التحليلية
+- `bag1-ch3-s6-risk-activity-course1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر
+- `bag1-ch3-s7-quiz-course1.mp3` - اختبار الفصل الثالث
+- `bag1-ch3-s8-closing-course1.mp3` - ختام الفصل الثالث
+- `bag1-ch4-s1-summary-course1.mp3` - الخلاصة – أبرز ما تعلمناه
+- `bag1-ch4-s2-final-message-course1.mp3` - الامتثال بلا حوكمة.. شكلٌ بلا روح
+- `bag1-ch4-s3-leadership-questions-course1.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
+- `bag1-ch4-s4-post-test-course1.mp3` - الاختبار الختامي الشامل
+- `bag1-ch4-s5-closing-course1.mp3` - ختام حقيبة الحوكمة والمخاطر والامتثال
+- `bag3-ch0-s1-welcome.mp3` - ترخيص المنشآت الصحية والقوى العاملة
+- `bag3-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag3-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag3-ch1-s1-welcome.mp3` - البيانات والأداء واتخاذ القرار في التراخيص الصحية
+- `bag3-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
+- `bag3-ch1-s2-data-sources.mp3` - تحليل البيانات واستخلاص الأدلة
+- `bag3-ch1-s3-activity-1.mp3` - نشاط: البيانات بين الأنواع الثلاثة
+- `bag3-ch1-s4-kpis.mp3` - إدارة وقياس مؤشرات الأداء
+- `bag3-ch1-s5-activity-2.mp3` - نشاط: كفاءة أم فاعلية؟
+- `bag3-ch1-s6-decisions.mp3` - اتخاذ القرارات التنظيمية والاستراتيجية
+- `bag3-ch1-s7-activity-3.mp3` - نشاط: قرار ترخيص منشأة جديدة
+- `bag3-ch1-s8-quiz.mp3` - اختبار الوحدة الأولى
+- `bag3-ch1-s9-closing.mp3` - ختام الوحدة الأولى
+- `bag3-ch2-s1-welcome.mp3` - سوق العمل وأصحاب المصلحة والاستدامة التنظيمية
+- `bag3-ch2-s1b-goals.mp3` - أهداف الوحدة الثانية
+- `bag3-ch2-s2-labor-market.mp3` - تحليل سوق العمل الصحي والبيانات الإحصائية
+- `bag3-ch2-s3-alignment.mp3` - ربط الترخيص بالسياسات الصحية الوطنية
+- `bag3-ch2-s4-activity-1.mp3` - نشاط: العرض والطلب والمواءمة
+- `bag3-ch2-s5-stakeholders.mp3` - إدارة أصحاب المصلحة
+- `bag3-ch2-s6-trust.mp3` - بناء الثقة وتعزيز التنسيق المؤسسي
+- `bag3-ch2-s7-activity-2.mp3` - نشاط: أصحاب المصلحة والثقة المؤسسية
+- `bag3-ch2-s8-global.mp3` - التعلم المستمر والمواءمة العالمية
+- `bag3-ch2-s9-activity-3.mp3` - نشاط: أفضل الممارسات الدولية
+- `bag3-ch2-s10-quiz.mp3` - اختبار الوحدة الثانية
+- `bag3-ch2-s11-closing.mp3` - ختام الوحدة الثانية
+- `bag3-ch3-s1-welcome.mp3` - الإطار التنظيمي وحوكمة التراخيص
+- `bag3-ch3-s1b-goals.mp3` - أهداف الوحدة الثالثة
+- `bag3-ch3-s2-framework.mp3` - المعرفة التنظيمية وتفسير اللوائح
+- `bag3-ch3-s3-compliance.mp3` - متطلبات الامتثال التنظيمي
+- `bag3-ch3-s4-activity-1.mp3` - نشاط: تفسير اللوائح والامتثال
+- `bag3-ch3-s5-governance.mp3` - حوكمة تراخيص القطاع الصحي
+- `bag3-ch3-s6-activity-2.mp3` - نشاط: فصل الأدوار ودورة حياة الترخيص
+- `bag3-ch3-s7-ethics.mp3` - الأخلاقيات والنزاهة
+- `bag3-ch3-s8-activity-3.mp3` - نشاط: تضارب المصالح والعدالة
+- `bag3-ch3-s9-quiz.mp3` - اختبار الوحدة الثالثة
+- `bag3-ch3-s10-closing.mp3` - ختام الوحدة الثالثة
+- `bag3-ch4-s1-welcome.mp3` - المخاطر والسياسات الداعمة للتراخيص
+- `bag3-ch4-s1b-goals.mp3` - أهداف الوحدة الرابعة
+- `bag3-ch4-s2-risk.mp3` - تحليل وإدارة المخاطر المؤسسية
+- `bag3-ch4-s3-activity-1.mp3` - نشاط: مخاطر مؤسسية أم إجراء ثانوي؟
+- `bag3-ch4-s4-scenarios.mp3` - تقييم المخاطر متعددة الأخطار والتخطيط بالسيناريوهات
+- `bag3-ch4-s5-activity-2.mp3` - نشاط: قرار وقت الضغط
+- `bag3-ch4-s6-policy.mp3` - صياغة وتطوير السياسات الصحية
+- `bag3-ch4-s7-stakeholder-policy.mp3` - إشراك أصحاب المصلحة في صياغة السياسات
+- `bag3-ch4-s8-activity-3.mp3` - نشاط: تحديث سياسة ترخيص
+- `bag3-ch4-s9-quiz.mp3` - اختبار الوحدة الرابعة
+- `bag3-ch4-s10-closing.mp3` - ختام الوحدة الرابعة
+- `bag3-ch5-s1-welcome.mp3` - التفتيش، التقارير، والرقابة الداعمة للترخيص
+- `bag3-ch5-s1b-goals.mp3` - أهداف الوحدة الخامسة
+- `bag3-ch5-s2-audit.mp3` - الفحص والتدقيق التنظيمي
+- `bag3-ch5-s3-activity-1.mp3` - نشاط: فحص أم تدقيق؟
+- `bag3-ch5-s4-reports.mp3` - إعداد التقارير التنظيمية
+- `bag3-ch5-s5-activity-2.mp3` - دراسة حالة: تفتيش مركز الشفاء التخصصي
+- `bag3-ch5-s6-performance.mp3` - الرقابة وتقييم الأداء
+- `bag3-ch5-s7-activity-3.mp3` - نشاط: اتساق وجودة القرار
+- `bag3-ch5-s8-quiz.mp3` - اختبار الوحدة الخامسة
+- `bag3-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
+- `bag3-ch5-s10-post-test.mp3` - الاختبار الختامي الشامل
+- `bag3-ch5-s11-closing.mp3` - ختام حقيبة ترخيص المنشآت الصحية والقوى العاملة
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
 - `bag1-ch1-s5-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
@@ -167,6 +265,37 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15b-activity-stakeholders-detail-1.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - مناقشة 1
 - `bag2-ch4-s15c-activity-stakeholders-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة - مناقشة 1
 - `bag2-ch4-s16-closing-applications-detail-1.mp3` - تطبيقات ختامية تفاعلية - مناقشة 1
+- `bag1-ch1-s5-policy-activity-course1-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
+- `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
+- `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
+- `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - نشاط: تطوير سياسة صحية - مناقشة 4
+- `bag1-ch1-s5-policy-activity-course1-detail-5.mp3` - نشاط: تطوير سياسة صحية - مناقشة 5
+- `bag1-ch2-s5-self-assessment-course1-detail-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 1
+- `bag1-ch2-s5-self-assessment-course1-detail-2.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 2
+- `bag1-ch2-s5-self-assessment-course1-detail-3.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 3
+- `bag1-ch2-s5-self-assessment-course1-detail-4.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 4
+- `bag1-ch2-s5-self-assessment-course1-detail-5.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 5
+- `bag1-ch2-s8-action-plan-course1-detail-1.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 1
+- `bag1-ch2-s8-action-plan-course1-detail-2.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 2
+- `bag1-ch2-s8-action-plan-course1-detail-3.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 3
+- `bag1-ch3-s6-risk-activity-course1-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
+- `bag1-ch3-s6-risk-activity-course1-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
+- `bag1-ch3-s6-risk-activity-course1-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
+- `bag3-ch1-s3-activity-1-detail-1.mp3` - نشاط: البيانات بين الأنواع الثلاثة - مناقشة 1
+- `bag3-ch1-s5-activity-2-detail-1.mp3` - نشاط: كفاءة أم فاعلية؟ - مناقشة 1
+- `bag3-ch1-s7-activity-3-detail-1.mp3` - نشاط: قرار ترخيص منشأة جديدة - مناقشة 1
+- `bag3-ch2-s4-activity-1-detail-1.mp3` - نشاط: العرض والطلب والمواءمة - مناقشة 1
+- `bag3-ch2-s7-activity-2-detail-1.mp3` - نشاط: أصحاب المصلحة والثقة المؤسسية - مناقشة 1
+- `bag3-ch2-s9-activity-3-detail-1.mp3` - نشاط: أفضل الممارسات الدولية - مناقشة 1
+- `bag3-ch3-s4-activity-1-detail-1.mp3` - نشاط: تفسير اللوائح والامتثال - مناقشة 1
+- `bag3-ch3-s6-activity-2-detail-1.mp3` - نشاط: فصل الأدوار ودورة حياة الترخيص - مناقشة 1
+- `bag3-ch3-s8-activity-3-detail-1.mp3` - نشاط: تضارب المصالح والعدالة - مناقشة 1
+- `bag3-ch4-s3-activity-1-detail-1.mp3` - نشاط: مخاطر مؤسسية أم إجراء ثانوي؟ - مناقشة 1
+- `bag3-ch4-s5-activity-2-detail-1.mp3` - نشاط: قرار وقت الضغط - مناقشة 1
+- `bag3-ch4-s8-activity-3-detail-1.mp3` - نشاط: تحديث سياسة ترخيص - مناقشة 1
+- `bag3-ch5-s3-activity-1-detail-1.mp3` - نشاط: فحص أم تدقيق؟ - مناقشة 1
+- `bag3-ch5-s5-activity-2-detail-1.mp3` - دراسة حالة: تفتيش مركز الشفاء التخصصي - مناقشة 1
+- `bag3-ch5-s7-activity-3-detail-1.mp3` - نشاط: اتساق وجودة القرار - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
@@ -281,6 +410,138 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
 - `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
 - `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q2-incorrect.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q3-correct.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q3-incorrect.mp3` - اختبار الفصل الأول - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q4-correct.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q4-incorrect.mp3` - اختبار الفصل الأول - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q5-correct.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة صحيحة
+- `bag1-ch1-s12-quiz-course1-feedback-ch1-q5-incorrect.mp3` - اختبار الفصل الأول - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q1-correct.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q1-incorrect.mp3` - اختبار الفصل الثاني - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q2-correct.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q2-incorrect.mp3` - اختبار الفصل الثاني - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q3-correct.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q3-incorrect.mp3` - اختبار الفصل الثاني - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q4-correct.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q4-incorrect.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q5-correct.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة صحيحة
+- `bag1-ch2-s9-quiz-course1-feedback-ch2-q5-incorrect.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
+- `bag1-ch3-s7-quiz-course1-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q2-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q3-correct.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q3-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q4-correct.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q4-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q5-correct.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة صحيحة
+- `bag3-ch1-s8-quiz-feedback-u1-q5-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q1-correct.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q1-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q2-correct.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q2-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q3-correct.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q3-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q4-correct.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q4-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q5-correct.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة صحيحة
+- `bag3-ch2-s10-quiz-feedback-u2-q5-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q1-correct.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q1-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q2-correct.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q2-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q3-correct.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q3-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q4-correct.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q4-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q5-correct.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة صحيحة
+- `bag3-ch3-s9-quiz-feedback-u3-q5-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q1-correct.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q1-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q2-correct.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q2-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q3-correct.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q3-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q4-correct.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q4-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q5-correct.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة صحيحة
+- `bag3-ch4-s9-quiz-feedback-u4-q5-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q1-correct.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q1-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q2-correct.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q2-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q3-correct.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q3-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q4-correct.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
+- `bag3-ch5-s8-quiz-feedback-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -321,6 +582,26 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s7-aar-phases-check-answer.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - إجابة السؤال التفاعلي
 - `bag2-ch4-s10-kpi-categories-check-ask.mp3` - إدارة وقياس مؤشرات الأداء - سؤال تفاعلي
 - `bag2-ch4-s10-kpi-categories-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي
+- `bag1-ch1-s2-overview-course1-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
+- `bag1-ch1-s2-overview-course1-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
+- `bag1-ch1-s4-health-policies-course1-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
+- `bag1-ch1-s4-health-policies-course1-check-answer.mp3` - صياغة وتطوير السياسات الصحية - إجابة السؤال التفاعلي
+- `bag1-ch1-s7-framework-course1-check-ask.mp3` - تطوير وتطبيق أطر الحوكمة - سؤال تفاعلي
+- `bag1-ch1-s7-framework-course1-check-answer.mp3` - تطوير وتطبيق أطر الحوكمة - إجابة السؤال التفاعلي
+- `bag1-ch1-s10-ethics-conflict-course1-check-ask.mp3` - أخلاقيات العمل وتضارب المصالح - سؤال تفاعلي
+- `bag1-ch1-s10-ethics-conflict-course1-check-answer.mp3` - أخلاقيات العمل وتضارب المصالح - إجابة السؤال التفاعلي
+- `bag1-ch2-s2-overview-course1-check-ask.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - سؤال تفاعلي
+- `bag1-ch2-s2-overview-course1-check-answer.mp3` - الفصل الثاني: الامتثال والتدقيق والضوابط - إجابة السؤال التفاعلي
+- `bag1-ch2-s4-pdca-course1-check-ask.mp3` - آيزو 37301 – دورة PDCA للامتثال - سؤال تفاعلي
+- `bag1-ch2-s4-pdca-course1-check-answer.mp3` - آيزو 37301 – دورة PDCA للامتثال - إجابة السؤال التفاعلي
+- `bag1-ch2-s7-culture-course1-check-ask.mp3` - بناء ثقافة الامتثال وبرامج التوعية - سؤال تفاعلي
+- `bag1-ch2-s7-culture-course1-check-answer.mp3` - بناء ثقافة الامتثال وبرامج التوعية - إجابة السؤال التفاعلي
+- `bag1-ch3-s2-overview-course1-check-ask.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - سؤال تفاعلي
+- `bag1-ch3-s2-overview-course1-check-answer.mp3` - الفصل الثالث: إدارة المخاطر المؤسسية - إجابة السؤال التفاعلي
+- `bag1-ch3-s4-risk-process-course1-check-ask.mp3` - مراحل عملية إدارة المخاطر - سؤال تفاعلي
+- `bag1-ch3-s4-risk-process-course1-check-answer.mp3` - مراحل عملية إدارة المخاطر - إجابة السؤال التفاعلي
+- `bag1-ch4-s1-summary-course1-check-ask.mp3` - الخلاصة – أبرز ما تعلمناه - سؤال تفاعلي
+- `bag1-ch4-s1-summary-course1-check-answer.mp3` - الخلاصة – أبرز ما تعلمناه - إجابة السؤال التفاعلي
 - `bag2-ch1-s8-activity-5-identify-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - إجابة صحيحة
 - `bag2-ch1-s8-activity-5-identify-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - إجابة غير صحيحة
 - `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 2 - مسار صحيح
