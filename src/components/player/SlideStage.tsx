@@ -1402,7 +1402,7 @@ function IntroMotionScene({
           src={introHeroSrc}
           alt=""
           draggable={false}
-          className={`motion-always-on absolute right-[6%] top-[8%] w-[26%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
+          className={`motion-always-on absolute right-[6%] top-[15%] w-[26%] drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.16)] transition-all duration-1000 ease-out ${
             heroIsPhoto ? 'rounded-[22px] border-4 border-white shadow-card-lg' : ''
           } ${
             started ? 'translate-y-0 scale-100 opacity-100 blur-0' : 'translate-y-5 scale-95 opacity-0 blur-0'
@@ -1607,7 +1607,11 @@ function IntroRoadmapMotionScene({
           </h2>
         </div>
 
-        <div className="absolute flex flex-col gap-3" style={{ left: '5%', top: 86, width: '46%' }}>
+        {/* left nudged from 5% -> 1%: the connecting arrows land around
+            x=478 in the 1000-wide viewBox (~47.8%), which sat inside this
+            row's old 5%-51% span and hid every arrowhead behind the pillar
+            card instead of showing it pointing in. */}
+        <div className="absolute flex flex-col gap-3" style={{ left: '1%', top: 86, width: '46%' }}>
           {orderedPillars.map((pillar, index) => {
             const shown = index < visibleStepCount;
             const active = started && !narrationComplete && index === current;
@@ -3052,7 +3056,7 @@ function PptTimelineScene({
                       />
                     </span>
                   ) : (
-                    card.index ?? index + 1
+                    card.index ?? ''
                   )}
                   </span>
                 </span>
@@ -3175,13 +3179,19 @@ function PptMatrixScene({
                   aria-hidden="true"
                 />
               )}
-              <span
-                className={`absolute ${denseQuadrant ? 'right-2 top-2 h-6 w-6 text-[10px]' : 'right-4 top-4 h-9 w-9 text-[13px]'} grid place-items-center rounded-full font-extrabold tabular ${
-                  active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
-                }`}
-              >
-                {card.index ?? index + 1}
-              </span>
+              {/* Only ever the card's own authored step number (e.g. RACI's
+                  01-04) -- never an auto `index + 1` fallback, which just
+                  showed this card's position within whichever act it landed
+                  in after splitting, not anything tied to the content. */}
+              {card.index && (
+                <span
+                  className={`absolute ${denseQuadrant ? 'right-2 top-2 h-6 w-6 text-[10px]' : 'right-4 top-4 h-9 w-9 text-[13px]'} grid place-items-center rounded-full font-extrabold tabular ${
+                    active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
+                  }`}
+                >
+                  {card.index}
+                </span>
+              )}
               <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
                 {brandIcon ? (
@@ -3207,7 +3217,13 @@ function PptMatrixScene({
               {!card.text && !denseQuadrant && card.bullets && card.bullets.length > 0 && (
                 <ul className={`mt-1.5 flex flex-col gap-1 pe-1 text-[14px] leading-snug font-bold ${active ? 'text-white/90' : 'text-ink'}`}>
                   {card.bullets.map((bullet, i) => (
-                    <li key={i} className="flex items-start justify-end gap-2">
+                    <li
+                      key={i}
+                      className={`flex items-start justify-end gap-2 transition-all duration-500 ease-out ${
+                        visible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+                      }`}
+                      style={{ transitionDelay: visible ? `${i * 260}ms` : '0ms' }}
+                    >
                       <span>{bullet}</span>
                       <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${active ? 'bg-white/70' : 'bg-green-700/50'}`} aria-hidden="true" />
                     </li>
@@ -3311,7 +3327,13 @@ function PptSpotlightScene({
             // Non-emergency (course/1) focus card has no brand-icon set, so it
             // always lands here -- and this card can run up to 620px wide, so
             // the old 48px badge left a lot of visible empty ring around it.
-            <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
+            // CourseGlyph itself only ever swaps static colors on `active` --
+            // it never animates -- so without this wrapper's motion class,
+            // course/1's most common shot (Spotlight) had a completely still
+            // icon at its visual center.
+            <span className={`grid h-full w-full place-items-center ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`}>
+              <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
+            </span>
           )}
           <svg className="pointer-events-none absolute -right-1.5 -top-1.5 h-3.5 w-3.5 animate-sparkle" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
@@ -3329,7 +3351,17 @@ function PptSpotlightScene({
         {!focusCard?.text && focusCard?.bullets && focusCard.bullets.length > 0 && (
           <ul className={`relative z-10 mx-auto mt-2 flex max-w-[480px] flex-col gap-1 text-right ${isEmergencySlide ? 'text-[13.5px]' : 'text-[15px]'} font-bold leading-snug text-white/90`}>
             {focusCard.bullets.map((bullet, i) => (
-              <li key={i} className="flex items-start gap-2">
+              // Staggered instead of all landing on screen the instant the
+              // card does -- a wall of pre-printed text next to Nasser reads
+              // as "here's everything, go read it" instead of him actually
+              // explaining each point as he says it.
+              <li
+                key={i}
+                className={`flex items-start gap-2 transition-all duration-500 ease-out ${
+                  focusVisible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+                }`}
+                style={{ transitionDelay: focusVisible ? `${i * 260}ms` : '0ms' }}
+              >
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-300" aria-hidden="true" />
                 <span>{bullet}</span>
               </li>
@@ -4133,15 +4165,24 @@ function PptStyleSlide({
 
   // Nasser only brings up the quick check once he finishes explaining the
   // slide — never a silent card sitting next to him from the start.
+  //
+  // `narrationFinished` alone isn't enough: it's derived from the
+  // alignment-interpolated `spoken` clock, which is an estimate. Requiring
+  // `narration.completedKey === slide.audioKey` too anchors the trigger to
+  // the real `ended` event on the actual audio element (see finishPlayback
+  // in useNarration.ts) -- the one signal that's never early -- so the
+  // check-ask clip can never start (and cut off) the main narration while
+  // Nasser is still genuinely mid-sentence.
+  const mainNarrationCompleted = narration.completedKey === slide.audioKey;
   useEffect(() => {
-    if (!check || checkPhase !== 'idle' || !narrationFinished) return;
+    if (!check || checkPhase !== 'idle' || !narrationFinished || !mainNarrationCompleted) return;
     const elapsed = performance.now() - slideEnteredAtRef.current;
     const remaining = minDwellMs - elapsed;
     if (remaining > 0) {
       const timer = window.setTimeout(() => {
         // Re-check on fire: the slide may have changed, or checkPhase may
         // have advanced through some other path, in the meantime.
-        if (checkPhase !== 'idle' || !narrationFinished) return;
+        if (checkPhase !== 'idle' || !narrationFinished || !mainNarrationCompleted) return;
         setCheckPhase('asking');
         const intro = CHECK_INTROS[slide.index % CHECK_INTROS.length];
         guidedSpeech.speak(`${slide.audioKey}-check-ask`, `${intro} ${check.title}`, () => setCheckPhase('ready'));
@@ -4152,7 +4193,7 @@ function PptStyleSlide({
     const intro = CHECK_INTROS[slide.index % CHECK_INTROS.length];
     guidedSpeech.speak(`${slide.audioKey}-check-ask`, `${intro} ${check.title}`, () => setCheckPhase('ready'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [check, narrationFinished, checkPhase, minDwellMs]);
+  }, [check, narrationFinished, checkPhase, minDwellMs, mainNarrationCompleted]);
 
   const revealCheck = useCallback(() => {
     if (!check || checkPhase !== 'ready') return;
