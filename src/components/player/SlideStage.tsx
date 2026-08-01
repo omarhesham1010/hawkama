@@ -2372,7 +2372,6 @@ function PptCardView({
           ? 'text-[23px] leading-tight'
           : 'text-[21px] leading-tight';
   const bulletClass = level === 'micro' ? 'text-[10.8px] leading-[1.12]' : level === 'compact' ? 'text-[14px] leading-[1.22]' : 'text-[17px] leading-snug';
-  const indexSize = level === 'micro' ? 'h-7 w-7 text-[12px]' : 'h-8 w-8 text-[14px]';
   const visualSize =
     emergencyHint
       ? level === 'micro'
@@ -2477,11 +2476,6 @@ function PptCardView({
               )
             )}
           </span>
-          {card.index && (
-            <span className={`absolute right-3 top-1 grid ${indexSize} shrink-0 place-items-center rounded-full font-extrabold tabular ${active ? 'bg-white/20 text-white ring-2 ring-white/25' : 'bg-green-700 text-white shadow-sm'}`}>
-              {card.index}
-            </span>
-          )}
           <h3 className={`${showAnswerDetail ? 'text-[18px] leading-tight' : titleClass} max-w-full font-extrabold ${titleTone}`}>
             {showAnswerDetail ? `الإجابة: ${card.answer}` : card.title}
           </h3>
@@ -3047,7 +3041,10 @@ function PptTimelineScene({
                   >
                   {brandIcon ? (
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-[68%] w-[68%] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
-                  ) : isCourse1Slide ? (
+                  ) : (
+                    // Never the raw step number here -- an icon reads as
+                    // content, a number in an otherwise unlabeled circle
+                    // just reads as "point N" with nothing backing it up.
                     <span className="h-[62%] w-[62%]">
                       <CourseGlyph
                         kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)}
@@ -3055,8 +3052,6 @@ function PptTimelineScene({
                         compact
                       />
                     </span>
-                  ) : (
-                    card.index ?? ''
                   )}
                   </span>
                 </span>
@@ -3175,22 +3170,9 @@ function PptMatrixScene({
             >
               {active && (
                 <span
-                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.28)_48%,rgb(255_255_255/0.28)_52%,transparent_70%)]"
+                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow opacity-60 bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.28)_48%,rgb(255_255_255/0.28)_52%,transparent_70%)]"
                   aria-hidden="true"
                 />
-              )}
-              {/* Only ever the card's own authored step number (e.g. RACI's
-                  01-04) -- never an auto `index + 1` fallback, which just
-                  showed this card's position within whichever act it landed
-                  in after splitting, not anything tied to the content. */}
-              {card.index && (
-                <span
-                  className={`absolute ${denseQuadrant ? 'right-2 top-2 h-6 w-6 text-[10px]' : 'right-4 top-4 h-9 w-9 text-[13px]'} grid place-items-center rounded-full font-extrabold tabular ${
-                    active ? 'bg-white/22 text-white ring-2 ring-white/25' : 'bg-green-700 text-white'
-                  }`}
-                >
-                  {card.index}
-                </span>
               )}
               <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
@@ -3301,7 +3283,7 @@ function PptSpotlightScene({
       >
         {focusVisible && (
           <span
-            className="pointer-events-none absolute inset-0 animate-shimmer-sweep bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.22)_48%,rgb(255_255_255/0.22)_52%,transparent_65%)]"
+            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow opacity-60 bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.22)_48%,rgb(255_255_255/0.22)_52%,transparent_65%)]"
             aria-hidden="true"
           />
         )}

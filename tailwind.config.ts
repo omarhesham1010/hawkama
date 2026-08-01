@@ -25,6 +25,7 @@ export default {
     'animate-ring-shockwave',
     'animate-glow-cycle',
     'animate-shimmer-sweep',
+    'animate-shimmer-sweep-slow',
     'animate-aura-spin',
     'animate-sparkle',
     'animate-shot-fade-out',
@@ -266,6 +267,11 @@ export default {
         'ring-shockwave': 'ring-shockwave 1.6s cubic-bezier(.22,1,.36,1) infinite',
         'glow-cycle': 'glow-cycle 3.4s ease-in-out infinite',
         'shimmer-sweep': 'shimmer-sweep 2.6s linear infinite',
+        // Same sweep, just far less often -- the 2.6s original re-swept
+        // constantly on any card that stayed "active" for more than a
+        // couple seconds, reading as flashy/overdone rather than a subtle
+        // highlight.
+        'shimmer-sweep-slow': 'shimmer-sweep 6s linear infinite',
         'crown-rise': 'crown-rise .9s cubic-bezier(.2,1.2,.3,1) both',
         'aura-spin': 'aura-spin 5s linear infinite',
         sparkle: 'sparkle 1.8s ease-in-out infinite',
