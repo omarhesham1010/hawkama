@@ -1345,7 +1345,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [{ title: 'أهداف الفصل الثاني', text: 'بنهايته، بإذن الله، بتكون قادر على التمييز بين مستويات الموقف، وتوزيع الأدوار، واتخاذ قرارات سريعة وصحيحة، والتواصل بثقة.', tone: 'gold' }],
     laterActs: [chapterTwoGoalActs.slice(0, 2).flat(), chapterTwoGoalActs.slice(2).flat()],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec2-crisis-terms',
@@ -1397,7 +1397,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityLabel: 'تصنيف المواقف',
     cards: [{ title: 'نشاط تفاعلي: صنّف مستوى الموقف', text: 'قبل أن ننتقل إلى مصفوفة الأدوار، نختبر التمييز بين الحدث والطوارئ، وبين الأزمة والكارثة.', tone: 'gold' }],
     laterActs: [[{ title: 'اقرأ كل بطاقة', text: 'واسحبها للتصنيف المناسب. ابحث عن نطاق الأثر، ومدى كفاية الموارد، وهل القرار يحتاج تصعيدًا قياديًا أم لا.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [undefined, { activity: chapterTwoTermClassification }],
   }),
   makeSlide({
@@ -1431,7 +1431,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityMode: 'identify',
     cards: [{ title: 'نشاط تفاعلي: طبّق RACI', text: 'نأخذ مصفوفة RACI ونطبقها على موقف سريع. الفكرة ليست حفظ الحروف، بل منع تداخل الصلاحيات وقت الأزمة.', tone: 'gold' }],
     laterActs: [[{ title: 'من المسؤول عن تنفيذ خطة الطوارئ؟', text: 'اختر الإجابة، وبعد اختيارك سنناقش السبب ونربطه بتوزيع الأدوار الصحيح.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [undefined, { mode: 'identify', activity: chapterTwoRaciDecision }],
   }),
   makeSlide({
@@ -1460,7 +1460,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'اتخاذ القرار تحت الضغط', text: 'ثاني محور: اتخاذ القرار تحت الضغط، والتغلب على شلل التحليل.', tone: 'gold' }],
     laterActs: [[{ title: 'شلل التحليل', text: 'الضغط الشديد يدفع القائد إما للتردد المفرط أو لقرارات متسرعة.', tone: 'gold' }], oodaPressureCards, oodaCards],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'ما أهم خطوة في نموذج OODA ولماذا؟',
@@ -1484,7 +1484,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       leadershipTraitsCards,
       [{ title: 'مثال واقعي', text: 'قيادة صاحب السمو الملكي الأمير محمد بن سلمان للاستجابة الوطنية لجائحة كورونا، اتسمت بالقرارات الحاسمة والرسائل الواضحة والدعم غير المحدود للقطاع الصحي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTitleCards', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec2-escalation',
@@ -1502,7 +1502,7 @@ export const emergencyChapterTwoSlides = indexSlides([
         { title: 'سؤال قرار: متى نُصعّد؟', text: 'سيناريو "تسرب مادة كيميائية في أحد مختبرات المستشفى" — ما العلامة التي تنقلنا من مستوى لآخر؟ ومتى نرفع التصعيد للمنطقة أو المركز الوطني؟', tone: 'gold', syncText: 'نختبرها داخل العرض بسؤال قرار' },
       ],
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec2-cerc-phases',
@@ -1550,7 +1550,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityLabel: 'بطاقات رسالة الأزمة',
     cards: [{ title: 'نشاط تفاعلي: رسالة CERC', text: 'قبل دراسة الحالة، نتوقف عند مهارة الرسالة وقت الخوف.', tone: 'gold' }],
     laterActs: [[{ title: 'مهارة الرسالة وقت الخوف', text: 'اقلب البطاقات واحدة واحدة، وفكر كيف تتحول كل قاعدة إلى جملة إعلامية يثق فيها الجمهور.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight'],
     actActivities: [undefined, { activity: chapterTwoCercCards }],
   }),
   makeSlide({
