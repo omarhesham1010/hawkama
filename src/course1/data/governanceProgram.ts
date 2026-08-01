@@ -1025,16 +1025,22 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '🏥',
     layout: 'pptSixCards',
-    // pptSixCards/pptTimeline only ever show a card's title, never its
-    // text -- fine for a flat list of self-explanatory labels, but these
-    // 6 cards each carry a real 90-110 character description worth
-    // surfacing. Rebuilt as 4 acts alternating spotlight (1 card, full
-    // detail) and matrix (2 cards, both still show their text) instead of
-    // 3 title-only acts, so every concept gets its actual explanation on
-    // screen, not just its name.
+    // Each of these 6 cards is its own distinct concept (vision, org
+    // levels, accreditation, oversight, interpretation, application) --
+    // pairing two unrelated ones into a single pptMatrix act (as this used
+    // to) just because there happened to be two left over reads as an
+    // arbitrary grouping, not a real pairing. One full Spotlight shot per
+    // card instead: every concept gets the screen to itself while Nasser
+    // is actually talking about it.
     cards: regulatoryCards.slice(0, 1),
-    laterActs: [regulatoryCards.slice(1, 3), regulatoryCards.slice(3, 4), regulatoryCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      regulatoryCards.slice(1, 2),
+      regulatoryCards.slice(2, 3),
+      regulatoryCards.slice(3, 4),
+      regulatoryCards.slice(4, 5),
+      regulatoryCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -1054,9 +1060,11 @@ export const governanceChapterOneSlides = indexSlides([
     // sibling cards show title only, losing their text), so the definition
     // opens solo, the process+review pair share a matrix act, and the
     // applied example closes solo.
+    // Four distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two into a matrix act just because they were adjacent.
     cards: policyCards.slice(0, 1),
-    laterActs: [policyCards.slice(1, 3), policyCards.slice(3, 4)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+    laterActs: [policyCards.slice(1, 2), policyCards.slice(2, 3), policyCards.slice(3, 4)],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
@@ -1097,9 +1105,18 @@ export const governanceChapterOneSlides = indexSlides([
     // in the "supporting" row as a bare title -- so this alternates
     // 1-card spotlight / 2-card matrix instead, the same proven pattern as
     // ch1-regulatory-framework.
+    // Six distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two unrelated ones into a matrix act just because they were
+    // adjacent in the array.
     cards: governanceModelCards.slice(0, 1),
-    laterActs: [governanceModelCards.slice(1, 3), governanceModelCards.slice(3, 4), governanceModelCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      governanceModelCards.slice(1, 2),
+      governanceModelCards.slice(2, 3),
+      governanceModelCards.slice(3, 4),
+      governanceModelCards.slice(4, 5),
+      governanceModelCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -1175,13 +1192,18 @@ export const governanceChapterOneSlides = indexSlides([
     ),
     visual: '⚖️',
     layout: 'pptSixCards',
-    // Conflict-of-interest is the core topic -- gets its own solo spotlight
-    // act instead of sharing one with a sibling card (which would leave
-    // that sibling's text unshown). Alternates 2-card matrix / 1-card
-    // spotlight throughout so every card's detail renders automatically.
-    cards: ethicsCards.slice(0, 2),
-    laterActs: [ethicsCards.slice(2, 3), ethicsCards.slice(3, 5), ethicsCards.slice(5, 6)],
-    actLayouts: ['pptMatrix', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+    // Six distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two unrelated ones into a matrix act just because they were
+    // adjacent in the array.
+    cards: ethicsCards.slice(0, 1),
+    laterActs: [
+      ethicsCards.slice(1, 2),
+      ethicsCards.slice(2, 3),
+      ethicsCards.slice(3, 4),
+      ethicsCards.slice(4, 5),
+      ethicsCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1469,9 +1491,11 @@ export const governanceChapterTwoSlides = indexSlides([
     // A spotlight act needs exactly one card -- the definition opens solo,
     // the two middle cards share a matrix act, and the risk card (the
     // highest-stakes point) closes solo.
+    // Four distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two into a matrix act just because they were adjacent.
     cards: complianceConceptCards.slice(0, 1),
-    laterActs: [complianceConceptCards.slice(1, 3), complianceConceptCards.slice(3, 4)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+    laterActs: [complianceConceptCards.slice(1, 2), complianceConceptCards.slice(2, 3), complianceConceptCards.slice(3, 4)],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1521,14 +1545,18 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🔍',
     layout: 'pptSixCards',
-    // pptTimeline never shows a card's text -- these 6 cards each carry a
-    // real description worth surfacing, so this alternates 1-card
-    // spotlight / 2-card matrix instead: philosophy opens solo, planning+
-    // methods pair up, the "does the control actually hold" check gets its
-    // own spotlight, then reporting+follow-up close as a pair.
+    // Six distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two unrelated ones into a matrix act just because they were
+    // adjacent in the array.
     cards: monitoringCards.slice(0, 1),
-    laterActs: [monitoringCards.slice(1, 3), monitoringCards.slice(3, 4), monitoringCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      monitoringCards.slice(1, 2),
+      monitoringCards.slice(2, 3),
+      monitoringCards.slice(3, 4),
+      monitoringCards.slice(4, 5),
+      monitoringCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1541,13 +1569,18 @@ export const governanceChapterTwoSlides = indexSlides([
     ),
     visual: '🎓',
     layout: 'pptSixCards',
-    // Culture itself opens solo (it's the framing idea everything else
-    // supports), leadership+design pair up, tools closes that beat solo,
-    // then measurement+sustainability pair -- 1-card spotlight / 2-card
-    // matrix throughout so every card's text renders automatically.
+    // Six distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two unrelated ones into a matrix act just because they were
+    // adjacent in the array.
     cards: cultureCards.slice(0, 1),
-    laterActs: [cultureCards.slice(1, 3), cultureCards.slice(3, 4), cultureCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      cultureCards.slice(1, 2),
+      cultureCards.slice(2, 3),
+      cultureCards.slice(3, 4),
+      cultureCards.slice(4, 5),
+      cultureCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -1824,11 +1857,12 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🛡️',
     layout: 'pptTitleCards',
-    // Definition opens solo, the two framework cards pair up, and the
-    // risk-based-governance card (the practical payoff) closes solo.
+    // Four distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two into a matrix act just because they were adjacent (the
+    // principles card alone already carries 8 bullets).
     cards: isoRiskCards.slice(0, 1),
-    laterActs: [isoRiskCards.slice(1, 3), isoRiskCards.slice(3, 4)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+    laterActs: [isoRiskCards.slice(1, 2), isoRiskCards.slice(2, 3), isoRiskCards.slice(3, 4)],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch3-risk-process',
@@ -1841,15 +1875,17 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '🔄',
     layout: 'pptSixCards',
-    // The title literally means "stages of the risk process" -- a real
-    // ordered sequence, but pptTimeline never shows a card's text, and
-    // each of these 6 steps carries a real description worth surfacing.
-    // Alternates 1-card spotlight / 2-card matrix instead, in the same
-    // process order: scope opens solo, identify+analyze pair up,
-    // evaluate closes that beat solo, then treat+monitor pair.
+    // Six ordered steps -- one full Spotlight shot per step instead of
+    // pairing two into a matrix act just because they were adjacent.
     cards: riskProcessCards.slice(0, 1),
-    laterActs: [riskProcessCards.slice(1, 3), riskProcessCards.slice(3, 4), riskProcessCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      riskProcessCards.slice(1, 2),
+      riskProcessCards.slice(2, 3),
+      riskProcessCards.slice(3, 4),
+      riskProcessCards.slice(4, 5),
+      riskProcessCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -1870,15 +1906,17 @@ export const governanceChapterThreeSlides = indexSlides([
     ),
     visual: '📊',
     layout: 'pptSixCards',
-    // الخطر الكامن/المتبقي (indices 1-2) is a natural before/after pair --
-    // grouped together instead of split across acts by position. The
-    // remaining 3-card group used the slide's own default layout, which
-    // shows title only -- split into a 1-card spotlight (KRIs, the
-    // measurable payoff) and a 2-card matrix (reporting+governance link)
-    // so every card's text renders automatically.
+    // Six distinct concepts -- one full Spotlight shot per card instead of
+    // pairing two into a matrix act just because they were adjacent.
     cards: riskRegisterCards.slice(0, 1),
-    laterActs: [riskRegisterCards.slice(1, 3), riskRegisterCards.slice(3, 4), riskRegisterCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      riskRegisterCards.slice(1, 2),
+      riskRegisterCards.slice(2, 3),
+      riskRegisterCards.slice(3, 4),
+      riskRegisterCards.slice(4, 5),
+      riskRegisterCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
