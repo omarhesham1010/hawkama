@@ -3237,6 +3237,7 @@ function PptSpotlightScene({
   revealAnimationFor,
   expandedKey,
   onToggle,
+  narrationPosition,
 }: {
   slide: Slide;
   cards: PptCard[];
@@ -3245,6 +3246,7 @@ function PptSpotlightScene({
   revealAnimationFor: (index: number) => string;
   expandedKey: string | null;
   onToggle: (index: number) => void;
+  narrationPosition: number;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
@@ -3263,6 +3265,27 @@ function PptSpotlightScene({
   // exist in bag 2) would wrap onto a second row at the normal chip size;
   // packed tighter they fit a single row instead, which matters below.
   const denseSupporting = supporting.length >= 5;
+  const hasBulletSubcards = !focusCard?.text && Boolean(focusCard?.bullets?.length);
+  // pptCardRevealOffsets always forces index 0's offset to 0 (correct for a
+  // slide's real opening card, wrong here -- these "cards" are just this one
+  // focus card's own bullets, and the first bullet is rarely spoken the
+  // instant the slide starts). Prepending the focus card's own title as a
+  // throwaway anchor absorbs that forced-zero, so every real bullet index
+  // keeps its own found-in-narration position instead of index 0 popping in
+  // immediately alongside the hero card.
+  const bulletOffsets = hasBulletSubcards
+    ? pptCardRevealOffsets(
+        [{ title: focusCard!.title }, ...focusCard!.bullets!.map((bullet) => ({ title: bullet }))],
+        slide.narration,
+      ).slice(1)
+    : [];
+  const bulletsNarrationFinished = narrationPosition >= slide.narration.length - 1;
+  const bulletVisible = (i: number) =>
+    bulletsNarrationFinished || (narrationPosition > 0 && narrationPosition >= (bulletOffsets[i] ?? 0));
+  const activeBulletIndex =
+    hasBulletSubcards && narrationPosition > 0 && !bulletsNarrationFinished
+      ? activePptCardForCue(bulletOffsets, narrationPosition)
+      : -1;
   // This column is centered across the full scene height with no regard
   // for Nasser's own (absolutely-positioned, so layout-invisible) layer,
   // so the supporting-chips row could end up sitting under him. Pushing it
@@ -3271,13 +3294,23 @@ function PptSpotlightScene({
   // tight enough now (see denseSupporting above) that it doesn't need the
   // same large padding; centering it like the normal case keeps the
   // vertical rhythm consistent instead of packing it against the title.
+  // Bullet sub-cards add real height below the hero card that centering
+  // doesn't account for -- centered, that extra height pushes the top of
+  // the stack up into the slide title above it. Top-anchoring only in this
+  // case lets the stack grow downward instead.
   return (
-    <div className={`flex min-h-0 flex-1 flex-col items-center justify-center gap-5 px-4 ${denseSupporting ? 'pb-[70px]' : 'pb-[65px]'}`}>
+    <div
+      className={`flex min-h-0 flex-1 flex-col items-center gap-4 px-4 ${
+        hasBulletSubcards ? 'justify-start pt-1' : 'justify-center gap-5'
+      } ${denseSupporting ? 'pb-[70px]' : 'pb-[65px]'}`}
+    >
       <button
         type="button"
         disabled={!focusVisible || narrationLocked}
         onClick={() => onToggle(focusIndex)}
-        className={`relative isolate w-full ${isEmergencySlide ? 'min-h-[150px] max-w-[720px] px-8 py-5' : 'max-w-[620px] p-7'} overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
+        className={`relative isolate w-full ${
+          isEmergencySlide ? 'min-h-[150px] max-w-[720px] px-8 py-5' : hasBulletSubcards ? 'max-w-[620px] px-7 py-4' : 'max-w-[620px] p-7'
+        } overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
           focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
         } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-green-700 text-white`}
       >
@@ -3300,7 +3333,7 @@ function PptSpotlightScene({
         )}
         <span
           className={`relative z-10 mx-auto mb-2 grid place-items-center rounded-full bg-white/16 ring-2 ring-white/25 ${
-            focusBrandIcon ? 'h-12 w-12 p-2.5' : 'h-20 w-20 p-3.5'
+            focusBrandIcon ? 'h-12 w-12 p-2.5' : hasBulletSubcards ? 'h-14 w-14 p-2.5' : 'h-20 w-20 p-3.5'
           }`}
         >
           {focusBrandIcon ? (
@@ -3324,7 +3357,13 @@ function PptSpotlightScene({
             <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#9b945f" />
           </svg>
         </span>
-        <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[28px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
+        <h3
+          className={`relative z-10 ${
+            isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : hasBulletSubcards ? 'text-[24px]' : 'text-[28px]'
+          } font-extrabold leading-tight`}
+        >
+          {focusCard?.title}
+        </h3>
         {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
@@ -3335,23 +3374,37 @@ function PptSpotlightScene({
       {/* A card authored with `bullets` instead of `text` now keeps the
           hero card to icon + title only, and each point gets its own small
           card underneath -- own icon included -- appearing one at a time as
-          Nasser reaches it, instead of a printed list inside the hero
-          reading as "here's everything, go read it" the instant it lands. */}
-      {!focusCard?.text && focusCard?.bullets && focusCard.bullets.length > 0 && (
-        <div className={`flex w-full ${focusCard.bullets.length >= 5 ? 'max-w-[820px] gap-2' : 'max-w-[720px] gap-3'} flex-wrap items-stretch justify-center`}>
-          {focusCard.bullets.map((bullet, i) => {
-            const dense = focusCard.bullets!.length >= 5;
+          Nasser actually reaches it (bulletVisible, not focusVisible -- the
+          hero can be visible in "poster" mode well before narration starts,
+          which used to pop every bullet in immediately) and glowing while
+          he's on it (activeBulletIndex), instead of a printed list inside
+          the hero reading as "here's everything, go read it" the instant it
+          lands. */}
+      {hasBulletSubcards && (
+        <div className={`flex w-full ${focusCard!.bullets!.length >= 5 ? 'max-w-[820px] gap-2' : 'max-w-[720px] gap-3'} flex-wrap items-stretch justify-center`}>
+          {focusCard!.bullets!.map((bullet, i) => {
+            const dense = focusCard!.bullets!.length >= 5;
             const bulletGlyphKind = courseGlyphKind(bullet);
             const bulletBrandIcon = isEmergencySlide ? sharedBrandIconFor(bullet, i, usedBrandIcons) : null;
+            const visible = bulletVisible(i);
+            const isActiveBullet = i === activeBulletIndex;
             return (
               <div
                 key={i}
-                className={`${dense ? 'min-w-[130px]' : 'min-w-[160px]'} flex-1 rounded-[22px] border border-green-700/14 bg-white/92 p-3 text-center shadow-[0_14px_28px_rgb(24_82_55_/_0.07)] transition-all duration-500 ease-out ${
-                  focusVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+                className={`${dense ? 'min-w-[130px]' : 'min-w-[160px]'} flex-1 rounded-[22px] border p-3 text-center shadow-[0_14px_28px_rgb(24_82_55_/_0.07)] transition-all duration-500 ease-out ${
+                  visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+                } ${
+                  isActiveBullet
+                    ? 'animate-glow-cycle scale-[1.04] border-gold-500 bg-white'
+                    : 'border-green-700/14 bg-white/92'
                 }`}
-                style={{ transitionDelay: focusVisible ? `${i * 260}ms` : '0ms' }}
               >
-                <span className={`mx-auto ${dense ? 'mb-1.5 h-11 w-11' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border border-green-700/10 bg-green-50/60 p-1.5 shadow-sm`} aria-hidden="true">
+                <span
+                  className={`mx-auto ${dense ? 'mb-1.5 h-11 w-11' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border p-1.5 shadow-sm ${
+                    isActiveBullet ? 'border-gold-500/40 bg-gold-500/12' : 'border-green-700/10 bg-green-50/60'
+                  }`}
+                  aria-hidden="true"
+                >
                   {bulletBrandIcon ? (
                     <BrandIcon src={bulletBrandIcon} tone="primary" className="h-full w-full" />
                   ) : (
@@ -4229,6 +4282,7 @@ function PptStyleSlide({
     sceneVisibleFor: (i: number) => boolean,
     sceneExpandedKey: string | null,
     sceneOnToggle: (i: number) => void,
+    sceneNarrationPosition: number,
   ) => {
     const revealAnimationFor = (i: number) => PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length];
     if (scenelLayout === 'pptTimeline') {
@@ -4267,6 +4321,7 @@ function PptStyleSlide({
           revealAnimationFor={revealAnimationFor}
           expandedKey={sceneExpandedKey}
           onToggle={sceneOnToggle}
+          narrationPosition={sceneNarrationPosition}
         />
       );
     }
@@ -4493,7 +4548,7 @@ function PptStyleSlide({
                 className="pointer-events-none absolute inset-0 flex min-h-0 flex-1 flex-col animate-shot-fade-out"
                 aria-hidden="true"
               >
-                {renderPptActScene(leavingAct.layout, leavingAct.cards, -1, () => true, null, () => undefined)}
+                {renderPptActScene(leavingAct.layout, leavingAct.cards, -1, () => true, null, () => undefined, Number.MAX_SAFE_INTEGER)}
               </div>
             )}
             <div
@@ -4504,7 +4559,7 @@ function PptStyleSlide({
                 ? renderCheckpointShot()
                 : isActivityShot
                   ? renderActivityShot()
-                  : renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle)}
+                  : renderPptActScene(activeLayout, displayCards, displayActiveCard, displayVisibleFor, displayExpandedKey, displayOnToggle, narrationPosition)}
             </div>
           </div>
         )}
