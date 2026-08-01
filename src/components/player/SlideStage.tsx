@@ -3172,7 +3172,7 @@ function PptMatrixScene({
             >
               {active && (
                 <span
-                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.28)_48%,rgb(255_255_255/0.28)_52%,transparent_70%)]"
+                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.2)_48%,rgb(255_255_255/0.2)_52%,transparent_70%)]"
                   aria-hidden="true"
                 />
               )}
@@ -3318,7 +3318,7 @@ function PptSpotlightScene({
       >
         {focusVisible && (
           <span
-            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.32)_48%,rgb(255_255_255/0.32)_52%,transparent_65%)]"
+            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.24)_48%,rgb(255_255_255/0.24)_52%,transparent_65%)]"
             aria-hidden="true"
           />
         )}

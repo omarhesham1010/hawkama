@@ -271,9 +271,10 @@ export default {
         // constantly on any card that stayed "active" for more than a
         // couple seconds, reading as flashy/overdone rather than a subtle
         // highlight. 6s (plus opacity-60 on the elements using it) ended up
-        // reading as no shimmer at all rather than a calmer one; 3.8s with
-        // full gradient opacity keeps it a noticeable accent.
-        'shimmer-sweep-slow': 'shimmer-sweep 3.8s linear infinite',
+        // reading as no shimmer at all; 3.8s at full gradient opacity swung
+        // too far the other way and read as too bright/fast. 5s is the
+        // middle ground -- still a visible accent, not a strobe.
+        'shimmer-sweep-slow': 'shimmer-sweep 5s linear infinite',
         'crown-rise': 'crown-rise .9s cubic-bezier(.2,1.2,.3,1) both',
         'aura-spin': 'aura-spin 5s linear infinite',
         sparkle: 'sparkle 1.8s ease-in-out infinite',
