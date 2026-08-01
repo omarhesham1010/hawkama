@@ -3170,7 +3170,7 @@ function PptMatrixScene({
             >
               {active && (
                 <span
-                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow opacity-60 bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.28)_48%,rgb(255_255_255/0.28)_52%,transparent_70%)]"
+                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.28)_48%,rgb(255_255_255/0.28)_52%,transparent_70%)]"
                   aria-hidden="true"
                 />
               )}
@@ -3316,7 +3316,7 @@ function PptSpotlightScene({
       >
         {focusVisible && (
           <span
-            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow opacity-60 bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.22)_48%,rgb(255_255_255/0.22)_52%,transparent_65%)]"
+            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.32)_48%,rgb(255_255_255/0.32)_52%,transparent_65%)]"
             aria-hidden="true"
           />
         )}
@@ -3365,6 +3365,9 @@ function PptSpotlightScene({
           {focusCard?.title}
         </h3>
         {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
+        {hasBulletSubcards && focusCard?.subtitle && (
+          <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[13.5px]' : 'text-[15px]'} mt-1 font-bold leading-snug text-white/85`}>{focusCard.subtitle}</p>
+        )}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
             <p className="text-[13px] font-bold leading-snug text-white/90">{focusDetail}</p>

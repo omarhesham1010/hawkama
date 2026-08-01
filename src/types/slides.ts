@@ -78,6 +78,11 @@ export interface PptCard {
   index?: string;
   title: string;
   text?: string;
+  /** Short one-line explainer shown under the title on the hero card when
+   *  the card renders as bullets-with-subcards (bullets suppress `text`,
+   *  which otherwise fills this role for plain cards) -- ignored outside
+   *  that mode. */
+  subtitle?: string;
   bullets?: string[];
   syncText?: string;
   answer?: string;
