@@ -1749,10 +1749,12 @@ function CourseGlyph({
   kind = 'default',
   active = false,
   compact = false,
+  className = '',
 }: {
   kind?: CourseGlyphKind;
   active?: boolean;
   compact?: boolean;
+  className?: string;
 }) {
   const stroke = active ? 'rgb(213 238 225)' : 'rgb(31 105 72)';
   const accent = active ? 'rgb(246 211 122)' : 'rgb(191 155 74)';
@@ -1943,7 +1945,7 @@ function CourseGlyph({
   };
 
   return (
-    <svg viewBox="0 0 104 104" className={`h-full w-full ${activeVisualClass(active, kind)}`} aria-hidden="true">
+    <svg viewBox="0 0 104 104" className={`h-full w-full ${className || activeVisualClass(active, kind)}`} aria-hidden="true">
       <circle cx="52" cy="52" r="47" fill={active ? 'rgb(213 238 225 / 0.12)' : 'rgb(226 242 234 / 0.72)'} />
       <circle cx="52" cy="52" r="43" fill="none" stroke={muted} strokeWidth="3" strokeDasharray="8 10" />
       <g className={active ? 'course-glyph-motion' : undefined}>{paths[kind]}</g>
@@ -3398,7 +3400,7 @@ function PptSpotlightScene({
                   visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
                 } ${
                   isActiveBullet
-                    ? 'animate-glow-cycle scale-[1.04] border-gold-500 bg-white'
+                    ? 'subcard-active-card border-gold-500 bg-white'
                     : 'border-green-700/14 bg-white/92'
                 }`}
               >
@@ -3409,9 +3411,9 @@ function PptSpotlightScene({
                   aria-hidden="true"
                 >
                   {bulletBrandIcon ? (
-                    <BrandIcon src={bulletBrandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(isActiveBullet, bullet, i)}`} />
+                    <BrandIcon src={bulletBrandIcon} tone="primary" className={`h-full w-full ${isActiveBullet ? 'subcard-active-icon' : ''}`} />
                   ) : (
-                    <CourseGlyph kind={bulletGlyphKind} active={isActiveBullet} compact />
+                    <CourseGlyph kind={bulletGlyphKind} active={isActiveBullet} compact className={isActiveBullet ? 'subcard-active-icon' : undefined} />
                   )}
                 </span>
                 <span className={`block ${dense ? 'text-[12px]' : 'text-[13.5px]'} font-extrabold leading-snug text-brand-strong`}>{bullet}</span>

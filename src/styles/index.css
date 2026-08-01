@@ -544,6 +544,30 @@
   100% { transform: rotate(360deg) scale(1); filter: drop-shadow(0 18px 22px rgb(24 82 55 / 0.16)) saturate(1.02); }
 }
 
+/* The subtle 2-4% icon wiggles above read as no motion at all on a small
+   44-56px sub-card icon -- this pair is deliberately much bigger (14-20%
+   scale, a real rotate/bounce) so the currently-narrated sub-card is
+   unmistakably alive, not just a color/border change. */
+.subcard-active-icon {
+  animation: subcard-active-icon 1.3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes subcard-active-icon {
+  0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 10px 14px rgb(191 155 74 / 0.2)); }
+  35% { transform: scale(1.22) rotate(-6deg); filter: drop-shadow(0 16px 20px rgb(191 155 74 / 0.4)); }
+  65% { transform: scale(1.1) rotate(4deg); }
+}
+
+.subcard-active-card {
+  animation: subcard-active-card 1.6s ease-in-out infinite;
+}
+
+@keyframes subcard-active-card {
+  0%, 100% { transform: scale(1.04) translateY(0); }
+  50% { transform: scale(1.07) translateY(-3px); }
+}
+
 /* Confetti pieces (completion / quiz pass) */
 .confetti-piece {
   position: absolute;
