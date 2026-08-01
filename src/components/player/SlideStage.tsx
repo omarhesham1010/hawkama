@@ -3326,36 +3326,44 @@ function PptSpotlightScene({
         </span>
         <h3 className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[560px] text-[21px]' : 'text-[28px]'} font-extrabold leading-tight`}>{focusCard?.title}</h3>
         {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
-        {/* Cards authored with `bullets` instead of `text` (e.g. the chapter
-            roadmap-preview cards) rendered nothing here before -- the focus
-            card is the one place in this scene meant to show real detail,
-            so it shouldn't silently drop a card's only content. */}
-        {!focusCard?.text && focusCard?.bullets && focusCard.bullets.length > 0 && (
-          <ul className={`relative z-10 mx-auto mt-2 flex max-w-[480px] flex-col gap-1 text-right ${isEmergencySlide ? 'text-[13.5px]' : 'text-[15px]'} font-bold leading-snug text-white/90`}>
-            {focusCard.bullets.map((bullet, i) => (
-              // Staggered instead of all landing on screen the instant the
-              // card does -- a wall of pre-printed text next to Nasser reads
-              // as "here's everything, go read it" instead of him actually
-              // explaining each point as he says it.
-              <li
-                key={i}
-                className={`flex items-start gap-2 transition-all duration-500 ease-out ${
-                  focusVisible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
-                }`}
-                style={{ transitionDelay: focusVisible ? `${i * 260}ms` : '0ms' }}
-              >
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-300" aria-hidden="true" />
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
-        )}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">
             <p className="text-[13px] font-bold leading-snug text-white/90">{focusDetail}</p>
           </div>
         )}
       </button>
+      {/* A card authored with `bullets` instead of `text` now keeps the
+          hero card to icon + title only, and each point gets its own small
+          card underneath -- own icon included -- appearing one at a time as
+          Nasser reaches it, instead of a printed list inside the hero
+          reading as "here's everything, go read it" the instant it lands. */}
+      {!focusCard?.text && focusCard?.bullets && focusCard.bullets.length > 0 && (
+        <div className={`flex w-full ${focusCard.bullets.length >= 5 ? 'max-w-[820px] gap-2' : 'max-w-[720px] gap-3'} flex-wrap items-stretch justify-center`}>
+          {focusCard.bullets.map((bullet, i) => {
+            const dense = focusCard.bullets!.length >= 5;
+            const bulletGlyphKind = courseGlyphKind(bullet);
+            const bulletBrandIcon = isEmergencySlide ? sharedBrandIconFor(bullet, i, usedBrandIcons) : null;
+            return (
+              <div
+                key={i}
+                className={`${dense ? 'min-w-[130px]' : 'min-w-[160px]'} flex-1 rounded-[22px] border border-green-700/14 bg-white/92 p-3 text-center shadow-[0_14px_28px_rgb(24_82_55_/_0.07)] transition-all duration-500 ease-out ${
+                  focusVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+                }`}
+                style={{ transitionDelay: focusVisible ? `${i * 260}ms` : '0ms' }}
+              >
+                <span className={`mx-auto ${dense ? 'mb-1.5 h-11 w-11' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border border-green-700/10 bg-green-50/60 p-1.5 shadow-sm`} aria-hidden="true">
+                  {bulletBrandIcon ? (
+                    <BrandIcon src={bulletBrandIcon} tone="primary" className="h-full w-full" />
+                  ) : (
+                    <CourseGlyph kind={bulletGlyphKind} compact />
+                  )}
+                </span>
+                <span className={`block ${dense ? 'text-[12px]' : 'text-[13.5px]'} font-extrabold leading-snug text-brand-strong`}>{bullet}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
       {supporting.length > 0 && (
         <div className={`flex w-full ${denseSupporting ? 'max-w-[760px] gap-2' : 'max-w-[820px] gap-3'} flex-wrap items-stretch justify-center`}>
           {supporting.map((card) => {
