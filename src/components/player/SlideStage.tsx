@@ -3409,9 +3409,9 @@ function PptSpotlightScene({
                   aria-hidden="true"
                 >
                   {bulletBrandIcon ? (
-                    <BrandIcon src={bulletBrandIcon} tone="primary" className="h-full w-full" />
+                    <BrandIcon src={bulletBrandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(isActiveBullet, bullet, i)}`} />
                   ) : (
-                    <CourseGlyph kind={bulletGlyphKind} compact />
+                    <CourseGlyph kind={bulletGlyphKind} active={isActiveBullet} compact />
                   )}
                 </span>
                 <span className={`block ${dense ? 'text-[12px]' : 'text-[13.5px]'} font-extrabold leading-snug text-brand-strong`}>{bullet}</span>
