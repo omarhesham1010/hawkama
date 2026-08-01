@@ -475,10 +475,10 @@ const unit2SupplyDemandCards: PptCard[] = [
 ];
 
 const unit2StakeholderCards: PptCard[] = [
-  { index: '01', title: 'المنشآت الصحية', bullets: ['مصالحهم: سرعة إصدار الترخيص', 'التوسع', 'جودة الخدمات'] },
-  { index: '02', title: 'القوى العاملة الصحية', bullets: ['مصالحهم: العدالة في الترخيص', 'فرص التطوير المهني'], tone: 'gold' },
+  { index: '01', title: 'المنشآت الصحية', bullets: ['سرعة إصدار الترخيص', 'التوسع', 'جودة الخدمات'] },
+  { index: '02', title: 'القوى العاملة الصحية', bullets: ['العدالة في الترخيص', 'فرص التطوير المهني'], tone: 'gold' },
   { index: '03', title: 'الجهات التنظيمية', bullets: ['وزارة الصحة', 'CBAHI', 'SCFHS', 'الرقابة والاعتماد والامتثال'] },
-  { index: '04', title: 'المجتمع والمستفيدون', bullets: ['مصالحهم: جودة وسلامة الرعاية', 'الوصول العادل للخدمة'], tone: 'gold' },
+  { index: '04', title: 'المجتمع والمستفيدون', bullets: ['جودة وسلامة الرعاية', 'الوصول العادل للخدمة'], tone: 'gold' },
 ];
 
 const unit2GlobalCards: PptCard[] = [
@@ -597,7 +597,7 @@ export const licensingUnitTwoSlides = indexSlides([
       [unit2StakeholderCards[1]],
       [unit2StakeholderCards[2]],
       [unit2StakeholderCards[3]],
-      [{ title: 'القطاع الخاص والمستثمرون', bullets: ['شركات التأمين والموردون والمستثمرون الصحيون', 'مصالحهم اقتصادية وتنظيمية، ويؤثرون في نمو السوق الصحي'] }],
+      [{ title: 'القطاع الخاص والمستثمرون', bullets: ['شركات التأمين والموردون', 'مصالح اقتصادية وتنظيمية', 'تأثير مباشر في نمو السوق الصحي'] }],
       [{ title: 'الجهات القانونية والإعلامية', text: 'مسؤولة عن ضمان الشفافية والمساءلة والمراقبة العامة لقطاع التراخيص الصحية.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
@@ -893,7 +893,7 @@ export const licensingUnitThreeSlides = indexSlides([
     laterActs: [
       [unit3ComplianceCards[1]],
       [unit3ComplianceCards[2]],
-      [{ title: 'مصادر التعارض التنظيمي', bullets: ['تعدد الجهات المرتبطة بالترخيص', 'اختلاف الاشتراطات الفنية', 'أو تحديث اللوائح', 'تعقيد تشريعي لا خطأ تنظيمي'] }],
+      [{ title: 'مصادر التعارض التنظيمي', bullets: ['تعدد الجهات المرتبطة بالترخيص', 'اختلاف الاشتراطات الفنية أو تحديث اللوائح', 'تعقيد تشريعي لا خطأ تنظيمي'] }],
       [{ title: 'آليات حسم الغموض', bullets: ['الرجوع إلى المرجعية النظامية الأعلى', 'التنسيق بين الجهات', 'لجان التظلمات عند استمرار الإشكال'], tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
