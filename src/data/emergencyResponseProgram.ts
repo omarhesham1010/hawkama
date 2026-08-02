@@ -1948,10 +1948,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ينظر إلى الخارج', text: 'يفهم كيف تؤثر تطورات القطاعات الأخرى على القطاع الصحي.', tone: 'gold' }],
     laterActs: [
-      horizontalScanningCards,
+      horizontalScanningCards.slice(0, 3),
+      horizontalScanningCards.slice(3),
       [{ title: 'مثال تطبيقي', text: 'رصد فريق المسح اتجاه عالمي نحو "التوائم الرقمية"، وطبّقه على القطاع الصحي بنماذج افتراضية للمرضى تحاكي استجابتهم للعلاجات — انتهى بتوصية مشروع تجريبي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-vertical-scanning',
@@ -2041,8 +2042,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🕸️',
     layout: 'pptTimeline',
     cards: [{ title: 'ما وراء الخطر الواحد', text: 'الكوارث نادرًا ما تحدث بمعزل عن بعضها البعض.', tone: 'gold' }],
-    laterActs: [multiHazardConceptsCards.map((card, index) => ({ ...card, syncText: ['حدث أو ظرف محتمل', 'وجود أشخاص أو أصول', 'الخصائص التي تخلي', 'خطر يؤدي لخطر ثاني', 'حدوث خطرين أو أكثر', 'خطر يزيد شدة خطر ثاني'][index] }))],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [
+      multiHazardConceptsCards.slice(0, 3).map((card, index) => ({ ...card, syncText: ['حدث أو ظرف محتمل', 'وجود أشخاص أو أصول', 'الخصائص التي تخلي'][index] })),
+      multiHazardConceptsCards.slice(3).map((card, index) => ({ ...card, syncText: ['خطر يؤدي لخطر ثاني', 'حدوث خطرين أو أكثر', 'خطر يزيد شدة خطر ثاني'][index] })),
+    ],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec3-multi-hazard-methodology',
@@ -2087,10 +2091,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'المستقبل ليس مسارًا واحدًا محددًا', text: 'بل مجموعة احتمالات — نفكر في "المستقبلات الممكنة" ونستعد لها.', tone: 'gold' }],
     laterActs: [
-      scenarioPlanningStepsCards.map((card) => ({ ...card, syncText: card.title })),
+      scenarioPlanningStepsCards.slice(0, 3).map((card) => ({ ...card, syncText: card.title })),
+      scenarioPlanningStepsCards.slice(3).map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'سؤال تطبيقي: جائحة X', text: 'كيف نستعد لجائحة X بعد خمس سنوات؟ اختر قوتين دافعتين، وحالة عدم يقين حرجة، وقرارًا يحافظ على الجاهزية عبر أكثر من سيناريو.', tone: 'gold', syncText: 'سؤال تطبيقي داخل العرض' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-surveillance-intro',
@@ -2122,11 +2127,12 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'حساسات دقيقة', text: 'متغيرات قابلة للقياس تشير لاحتمال وقوع خطر عند وصولها لعتبة معينة.', tone: 'gold' }],
     laterActs: [
-      smartErCriteriaCards.map((card) => ({ ...card, syncText: card.title })),
+      smartErCriteriaCards.slice(0, 4).map((card) => ({ ...card, syncText: card.title })),
+      smartErCriteriaCards.slice(4).map((card) => ({ ...card, syncText: card.title })),
       indicatorTypesCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'تمرين عملي (٢٠ دقيقة)', text: 'سيناريو موسم صيف بمكة المكرمة وقت المعتمرين مع خطر الإجهاد الحراري — صمم ثلاثة مؤشرات إنذار مبكر: استباقي، وكمي، ونوعي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptThreeColumns', 'pptTitleCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-surveillance-systems',
@@ -2874,8 +2880,13 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '✅',
     layout: 'pptTimeline',
-    cards: aarSuccessFactorsCards.map((card) => ({ ...card, syncText: card.title })),
-    actLayouts: ['pptTitleCards'],
+    cards: [{ title: 'خمسة عوامل تجعل الجلسة تعليمية ومفيدة', text: 'الغرض أن تتحول مراجعة ما بعد الحدث من نقاش عام إلى تعلم قابل للتنفيذ.', tone: 'gold' }],
+    laterActs: [
+      aarSuccessFactorsCards.slice(0, 3).map((card) => ({ ...card, syncText: card.title })),
+      aarSuccessFactorsCards.slice(3).map((card) => ({ ...card, syncText: card.title })),
+      [{ title: 'التوصيات لا تكفي وحدها', text: 'لا قيمة للمراجعة من دون تحويل توصياتها إلى إجراءات فعلية قابلة للمتابعة.', tone: 'gold' }],
+    ],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-improvement-plans',
@@ -2931,12 +2942,13 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '🧮',
     layout: 'pptTimeline',
-    cards: kpiDesignCardsPart1.map((card) => ({ ...card, syncText: card.title })),
+    cards: [{ title: 'ثمان خطوات تمنع المؤشر من أن يكون رقمًا جميلًا فقط', text: 'المؤشر الجيد قابل للإدارة، لا مجرد رقم يظهر في تقرير.', tone: 'gold' }],
     laterActs: [
+      kpiDesignCardsPart1.map((card) => ({ ...card, syncText: card.title })),
       kpiDesignCardsPart2.map((card) => ({ ...card, syncText: card.title })),
       dashboardTraitsCards.map((card) => ({ ...card, syncText: card.title })),
     ],
-    actLayouts: ['pptTimeline', 'pptTimeline', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-stakeholders',
@@ -2964,8 +2976,9 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '🎛️',
     layout: 'pptMatrix',
-    cards: powerInterestCards.map((card) => ({ ...card, syncText: 'أربع فئات' })),
-    actLayouts: ['pptMatrix'],
+    cards: [{ title: 'مصفوفة القوة والاهتمام', text: 'نصنف كل طرف حسب مستوى القوة ومستوى الاهتمام، ثم نختار أسلوب التعامل المناسب.', tone: 'gold' }],
+    laterActs: [powerInterestCards.map((card) => ({ ...card, syncText: card.title }))],
+    actLayouts: ['pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-activity-stakeholders',
@@ -3013,10 +3026,11 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ونعود لمحور التواصل الفعال', text: 'مكمّل لما أخذناه بالفصل الثاني، بستة مبادئ من مركز مكافحة الأمراض الأمريكي CDC.', tone: 'gold' }],
     laterActs: [
-      cdcPrinciplesCards.map((card) => ({ ...card, syncText: card.title })),
+      cdcPrinciplesCards.slice(0, 3).map((card) => ({ ...card, syncText: card.title })),
+      cdcPrinciplesCards.slice(3).map((card) => ({ ...card, syncText: card.title })),
       commChannelsCards.map((card) => ({ ...card, syncText: card.title })),
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptTimeline', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-trust-building',
