@@ -5,14 +5,24 @@ function cleanText(value: string) {
   return value.toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu, ' ').replace(/\s+/g, ' ').trim();
 }
 
-// Strips a leading Arabic definite article from each word ("العمليات" ->
-// "عمليات"). Used only as a *fallback* when the plain exact-title search
-// below finds nothing -- applying it unconditionally would make a short
-// title match its own word's very first (often generic/unrelated) mention
-// anywhere earlier in the narration instead of the specific enumerated
-// mention it's actually meant to sync to.
+// Strips a leading Arabic definite article, and/or a single-letter
+// preposition/conjunction glued in front of it, from each word
+// ("العمليات" -> "عمليات", "بالموضوعية" -> "موضوعية", "وشفافية" ->
+// "شفافية"). A card title given as a bare noun ("الشفافية") routinely
+// shows up in narration prefixed this way ("...بالموضوعية والعدالة
+// والشفافية والقابلية للمراجعة...") -- without stripping it, the plain
+// exact-title search below never matches that word at all, so the card
+// falls through to whole-cue word-overlap scoring and can lock onto a
+// later, unrelated sentence that happens to share more common words.
+// Used only as a *fallback* when the plain exact-title search finds
+// nothing -- applying it unconditionally would make a short title match
+// its own word's very first (often generic/unrelated) mention anywhere
+// earlier in the narration instead of the specific enumerated mention
+// it's actually meant to sync to.
 function stripDefiniteArticles(value: string) {
-  return value.replace(/(^|\s)ال(?=\S)/gu, '$1');
+  return value
+    .replace(/(^|\s)(?:[وفبلك])?ال(?=\S)/gu, '$1')
+    .replace(/(^|\s)[وفبلك](?=\S)/gu, '$1');
 }
 
 function wordsOf(value: string) {
