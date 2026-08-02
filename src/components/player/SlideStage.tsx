@@ -1584,18 +1584,28 @@ function IntroRoadmapMotionScene({
     return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
   };
   const orderedPillars = pillars;
+  const isCourse1Roadmap = slide.id === 'program-map' && (slide.audioKey?.endsWith('-course1') ?? false);
   // Built for bag/2's 4-chapter roadmap, but this scene is shared with
   // bag/1 and course/1 (both id="program-map"), which only ever have 3
   // chapters -- rendering a hardcoded 4th step/arrow left one dangling
   // arrow pointing at an empty spot below the last real pillar. Every step
   // array below is sliced to the real pillar count so a 3-chapter bag never
   // renders a 4th step, and a future 4-chapter one still gets all 4.
-  const stepDefs: { needles: string | string[]; fallback: number }[] = [
+  const legacyStepDefs: { needles: string | string[]; fallback: number }[] = [
     { needles: ['أول فكرة معنا', 'الفكرة الأولى هي الفصل الأول'], fallback: 0.18 },
     { needles: ['بعد ما تتضح البداية', 'وبعد أن تتضح البداية'], fallback: 0.42 },
     { needles: 'ثم نصل إلى الفصل الثالث', fallback: 0.64 },
     { needles: 'وأخيرًا الفصل الرابع', fallback: 0.82 },
-  ].slice(0, orderedPillars.length);
+  ];
+  const course1Fallbacks = [0.16, 0.4, 0.62, 0.82];
+  const stepDefs: { needles: string | string[]; fallback: number }[] = orderedPillars.map((pillar, index) =>
+    isCourse1Roadmap
+      ? {
+          needles: [pillar.label, pillar.detail].filter(Boolean),
+          fallback: course1Fallbacks[index] ?? 0.82,
+        }
+      : legacyStepDefs[index] ?? { needles: pillar.label, fallback: course1Fallbacks[index] ?? 0.82 },
+  );
   const stepShown = stepDefs.map(({ needles, fallback }) => spokenPast(needles, fallback));
   // Client call: nothing appears until Nasser actually talks about it.
   const current = stepShown.reduce((lastShown, shown, index) => (shown ? index : lastShown), 0);
@@ -2648,6 +2658,7 @@ function PptMotionVisualScene({
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isMotionLedScene = isEmergencySlide || isCourse1Slide;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
   // used only to know when to re-roll the highlight animation below.
@@ -2858,7 +2869,7 @@ function PptMotionVisualScene({
   // `<img src={cardVisual}>` with cardVisual undefined: a broken/blank
   // image instead of an icon. Falls back to the same vector CourseGlyph
   // system already used for course/1's title icon and spotlight focus card.
-  const showMotionGraphics = !isEmergencySlide || cards.some((_, index) => visibleFor(index));
+  const showMotionGraphics = !isMotionLedScene || cards.some((_, index) => visibleFor(index));
   // Shared across every card below so two cards in the same shot never end
   // up with the same big illustration or the same badge icon.
   const usedCardVisuals = new Set<string>();
@@ -4226,6 +4237,7 @@ function PptStyleSlide({
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isLicensingSlide = slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isMotionLedSlide = isEmergencySlide || isCourse1Slide;
   const narrationPosition = started ? spoken : 0;
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
   // Character-level reveal timing: several cards are routinely named in the
@@ -4295,11 +4307,10 @@ function PptStyleSlide({
     narrationPosition > 0 && !narrationFinished
       ? activePptCardForCue(revealOffsets, narrationPosition)
       : -1;
-  // Bag 1 can rest as a complete poster, but Bag 2 is authored as a
-  // Nasser-led motion scene: visuals stay hidden until the audio clock starts.
+  // Motion-led courses keep visuals hidden until Nasser reaches their cue.
   const idleAtSlideStart = narrationPosition <= 0;
   const cardIsVisible = (index: number) =>
-    isEmergencySlide
+    isMotionLedSlide
       ? narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0))
       : !started || idleAtSlideStart || narrationFinished || (narrationPosition > 0 && narrationPosition >= (revealOffsets[index] ?? 0));
   const revealedCount = cards.filter((_, i) => cardIsVisible(i)).length;
@@ -4686,7 +4697,7 @@ function PptStyleSlide({
       revealedCount={revealedCount}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        {!isIntroMotion && <PptTitle slide={slide} showVisual={!isEmergencySlide || started || narrationPosition > 0 || narrationFinished} />}
+        {!isIntroMotion && <PptTitle slide={slide} showVisual={!isMotionLedSlide || started || narrationPosition > 0 || narrationFinished} />}
 
         {showIntroFiller ? (
           <PptIntroVisualFiller pool={introVisualPool} progress={introProgress} introText={introText} />
