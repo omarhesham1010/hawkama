@@ -3386,7 +3386,15 @@ function PptSpotlightScene({
           the hero reading as "here's everything, go read it" the instant it
           lands. */}
       {hasBulletSubcards && (
-        <div className={`flex w-full ${focusCard!.bullets!.length >= 5 ? 'max-w-[820px] gap-2' : 'max-w-[720px] gap-3'} flex-wrap items-stretch justify-center`}>
+        <div
+          className={`flex w-full ${
+            focusCard!.bullets!.length >= 5
+              ? 'max-w-[820px] gap-2'
+              : focusCard!.bullets!.length <= 2
+                ? 'max-w-[420px] gap-4'
+                : 'max-w-[720px] gap-3'
+          } flex-wrap items-stretch justify-center`}
+        >
           {focusCard!.bullets!.map((bullet, i) => {
             const dense = focusCard!.bullets!.length >= 5;
             const bulletGlyphKind = courseGlyphKind(bullet);
