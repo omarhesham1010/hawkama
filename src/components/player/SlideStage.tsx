@@ -4,7 +4,6 @@ import type { Beat, BeatUnit, PptCard, PptLayout, Slide } from '../../types/slid
 import type { QuizQuestion } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { CompletionMedallion } from '../ui/Badge';
-import { Confetti } from '../ui/Confetti';
 import { LessonBlockView } from '../course/LessonBlocks';
 import { ClassificationActivity } from '../activities/ClassificationActivity';
 import { FlipCardActivity } from '../activities/FlipCardActivity';
@@ -5040,7 +5039,6 @@ export function SlideStage({
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-14 text-center">
-        <Confetti count={48} />
         <div className="flex justify-center animate-scale-in">
           <CompletionMedallion className="h-20 w-20 animate-float" />
         </div>

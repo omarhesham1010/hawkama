@@ -154,22 +154,15 @@ export function CourseTwoPlayer({
 
         <button
           type="button"
-          onClick={() => (index === slides.length - 1 ? exit() : goTo(index + 1))}
-          aria-label={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
-          title={index === slides.length - 1 ? 'إنهاء والعودة للمنصة' : 'الشريحة التالية'}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-opacity hover:opacity-85"
+          onClick={() => goTo(index + 1)}
+          disabled={index === slides.length - 1}
+          aria-label="الشريحة التالية"
+          title="الشريحة التالية"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-opacity hover:opacity-85 disabled:pointer-events-none disabled:opacity-30"
         >
-          {index === slides.length - 1 ? (
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 11l9-8 9 8" />
-              <path d="M5 10v10h14V10" />
-              <path d="M10 20v-6h4v6" />
-            </svg>
-          ) : (
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 6l-6 6 6 6" />
-            </svg>
-          )}
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 6l-6 6 6 6" />
+          </svg>
         </button>
       </div>
     </div>

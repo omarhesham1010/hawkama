@@ -11,25 +11,15 @@ export function SlideTemplateFrame({ variant = 'default' }: { variant?: 'default
         draggable={false}
       />
       {variant === 'intro' ? (
-        <>
-          <img
-            src="/template-assets/ministry-logo.svg"
-            alt=""
-            className="absolute left-6 top-6 h-[92px] w-[92px] object-contain"
-            loading="eager"
-            decoding="async"
-            draggable={false}
-          />
-          <img
-            src="/template-assets/intro-topright-swoosh.webp?v=5"
-            alt=""
-            className="absolute right-0 top-0 h-[135px] w-[440px] object-contain object-right-top"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            draggable={false}
-          />
-        </>
+        <img
+          src="/template-assets/intro-topright-swoosh.webp?v=5"
+          alt=""
+          className="absolute right-0 top-0 h-[135px] w-[440px] object-contain object-right-top"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          draggable={false}
+        />
       ) : (
         <img
           src="/template-assets/top-left-identity-mark-color.webp?v=3"
