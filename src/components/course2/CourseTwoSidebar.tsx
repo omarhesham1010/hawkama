@@ -17,10 +17,6 @@ function HamburgerIcon({ className = 'h-5 w-5' }: { className?: string }) {
   );
 }
 
-/** Cosmetic-only preview of the future sequential-unlock gating: shows which
- *  chapters/slides will require finishing everything before them, without
- *  actually restricting navigation yet -- the client still wants free
- *  jumping between slides while the bag is being built. */
 function LockIcon({ className = 'h-3.5 w-3.5' }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,12 +35,14 @@ export function CourseTwoSidebar({
   onJump,
   open,
   onToggle,
+  maxUnlockedIndex,
 }: {
   groups: CourseTwoGroup[];
   activeIndex: number;
   onJump: (index: number) => void;
   open: boolean;
   onToggle: () => void;
+  maxUnlockedIndex?: number;
 }) {
   const activeGroup = groups.findIndex(
     (g) => activeIndex >= g.startIndex && activeIndex < g.startIndex + g.slides.length,
@@ -92,6 +90,7 @@ export function CourseTwoSidebar({
         {groups.map((group, gi) => {
           const isOpen = openGroup === gi;
           const isActiveGroup = gi === activeGroup;
+          const groupLocked = maxUnlockedIndex != null && group.startIndex > maxUnlockedIndex;
           return (
             <div key={group.label} className="rounded-xl">
               <button
@@ -116,7 +115,7 @@ export function CourseTwoSidebar({
                 >
                   {group.label}
                 </span>
-                {gi !== 0 && <LockIcon className="h-3.5 w-3.5 shrink-0 text-white/60" />}
+                {groupLocked && <LockIcon className="h-3.5 w-3.5 shrink-0 text-white/60" />}
                 <svg
                   viewBox="0 0 24 24"
                   className={`h-4 w-4 shrink-0 text-white/70 transition-transform duration-200 ${isOpen ? '-rotate-90' : 'rotate-90'}`}
@@ -135,21 +134,28 @@ export function CourseTwoSidebar({
                   {group.slides.map((slide, si) => {
                     const globalIndex = group.startIndex + si;
                     const active = globalIndex === activeIndex;
+                    const locked = maxUnlockedIndex != null && globalIndex > maxUnlockedIndex;
                     return (
                       <button
                         key={slide.id}
                         type="button"
-                        onClick={() => onJump(globalIndex)}
-                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors hover:bg-gold-500/20 ${
+                        onClick={() => {
+                          if (!locked) onJump(globalIndex);
+                        }}
+                        disabled={locked}
+                        className={`flex w-full items-center gap-2 rounded-lg border-r-4 px-2.5 py-1.5 text-right text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                          locked ? '' : 'hover:bg-gold-500/20'
+                        } ${
                           active ? 'border-white/80 bg-gold-500/35 font-bold text-white' : 'border-transparent text-white/80'
                         }`}
                         aria-current={active ? 'step' : undefined}
+                        aria-disabled={locked}
                       >
                         <span className="w-4 shrink-0 tabular text-[10px] text-white/60">
                           {toArabicDigits(si + 1)}
                         </span>
                         <span className="min-w-0 flex-1 truncate">{slide.title}</span>
-                        {gi !== 0 && <LockIcon className="h-3 w-3 shrink-0 text-white/50" />}
+                        {locked && <LockIcon className="h-3 w-3 shrink-0 text-white/50" />}
                       </button>
                     );
                   })}

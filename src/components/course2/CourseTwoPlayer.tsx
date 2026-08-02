@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSlidePlayerEngine } from '../../hooks/useSlidePlayerEngine';
 import { SlideCanvas } from '../player/SlideCanvas';
 import { SlideStage } from '../player/SlideStage';
@@ -13,11 +14,19 @@ export function CourseTwoPlayer({
   initialSlide,
   onExit,
   onSlideChange,
+  strictSequential = false,
+  maxUnlockedIndex,
+  onUnlockSlide,
+  onResetSequentialLocks,
 }: {
   courseId: string;
   initialSlide: number;
   onExit: () => void;
   onSlideChange?: (index: number) => void;
+  strictSequential?: boolean;
+  maxUnlockedIndex?: number;
+  onUnlockSlide?: (slideId: string) => void;
+  onResetSequentialLocks?: () => void;
 }) {
   const {
     slides,
@@ -41,6 +50,24 @@ export function CourseTwoPlayer({
     exit,
   } = useSlidePlayerEngine({ courseId, initialSlide, onExit, syncUrl: false, onSlideChange });
 
+  const sequentialLocked = strictSequential && courseId === 'licensing-full';
+  const nextUnlocked = !sequentialLocked || index < (maxUnlockedIndex ?? 0);
+  const canGoNext = index < slides.length - 1 && nextUnlocked;
+  const unlockCurrentSlide = () => onUnlockSlide?.(slide.id);
+
+  useEffect(() => {
+    if (!sequentialLocked) return;
+    if (slide.kind === 'activity' || slide.kind === 'quiz') return;
+    if (narration.completedKey !== slide.audioKey) return;
+    unlockCurrentSlide();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sequentialLocked, narration.completedKey, slide.audioKey, slide.id, slide.kind]);
+
+  const restartWithLocks = () => {
+    onResetSequentialLocks?.();
+    restartCourse();
+  };
+
   return (
     <div className="flex h-full min-h-0 flex-col gap-3">
       <div className="min-h-0 flex-1">
@@ -54,10 +81,14 @@ export function CourseTwoPlayer({
               muted={muted}
               showDialogue={showDialogue}
               onStart={start}
-              onActivityDone={(id) => progress.markActivityDone(id)}
+              onActivityDone={(id) => {
+                progress.markActivityDone(id);
+                if (sequentialLocked) onUnlockSlide?.(id);
+              }}
               onQuizComplete={(score) => {
                 progress.setQuizScore(score);
                 progress.markComplete(slide.id);
+                if (sequentialLocked) unlockCurrentSlide();
               }}
               completion={{
                 percent: Math.round(((index + 1) / slides.length) * 100),
@@ -66,7 +97,7 @@ export function CourseTwoPlayer({
                   slides.some((s) => s.id === id && s.kind === 'activity'),
                 ).length,
                 totalActivities,
-                onRestart: restartCourse,
+                onRestart: restartWithLocks,
                 onExit: exit,
               }}
             />
@@ -154,10 +185,12 @@ export function CourseTwoPlayer({
 
         <button
           type="button"
-          onClick={() => goTo(index + 1)}
-          disabled={index === slides.length - 1}
+          onClick={() => {
+            if (canGoNext) goTo(index + 1);
+          }}
+          disabled={!canGoNext}
           aria-label="الشريحة التالية"
-          title="الشريحة التالية"
+          title={canGoNext ? 'الشريحة التالية' : 'أكمل الشريحة الحالية أولًا'}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-opacity hover:opacity-85 disabled:pointer-events-none disabled:opacity-30"
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
