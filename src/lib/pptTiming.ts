@@ -178,7 +178,7 @@ function findTitleOffset(cueText: string, cueStart: number, card: PptCard): numb
  *  title text inside its assigned cue and orders/staggers cards that share
  *  a cue accordingly, falling back to an even split across the cue when a
  *  card has no individual mention (e.g. a "shown in front of you" list). */
-export function pptCardRevealOffsets(cards: PptCard[], narration: string): number[] {
+export function pptCardRevealOffsets(cards: PptCard[], narration: string, revealFirstAtStart = true): number[] {
   const cues = storyCues(narration);
   if (!cues.length) return cards.map(() => 0);
 
@@ -255,7 +255,7 @@ export function pptCardRevealOffsets(cards: PptCard[], narration: string): numbe
   for (let i = 1; i < offsets.length; i += 1) {
     if (offsets[i] < offsets[i - 1]) offsets[i] = offsets[i - 1];
   }
-  if (offsets.length) offsets[0] = 0;
+  if (offsets.length && revealFirstAtStart) offsets[0] = 0;
 
   return offsets;
 }

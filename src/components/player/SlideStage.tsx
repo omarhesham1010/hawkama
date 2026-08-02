@@ -4141,7 +4141,7 @@ function PptStyleSlide({
   // each card's own word position instead, so a shared sentence still
   // reveals its cards one at a time, in step with Nasser actually saying
   // each one.
-  const revealOffsets = pptCardRevealOffsets(cards, slide.narration);
+  const revealOffsets = pptCardRevealOffsets(cards, slide.narration, !slide.id.startsWith('lic'));
   // The exact stretch of the slide's own narration where Nasser talked
   // about this card — used to replay that original recording instead of
   // synthesizing new text/audio when the learner reopens the card.
