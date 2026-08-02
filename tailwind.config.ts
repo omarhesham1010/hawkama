@@ -270,10 +270,10 @@ export default {
         // Same sweep, just less often -- the 2.6s original re-swept
         // constantly on any card that stayed "active" for more than a
         // couple seconds, reading as flashy/overdone rather than a subtle
-        // highlight. 6s (plus opacity-60 on the elements using it) ended up
-        // reading as no shimmer at all; 3.8s at full gradient opacity swung
-        // too far the other way and read as too bright/fast. 5s is the
-        // middle ground -- still a visible accent, not a strobe.
+        // highlight. 6s (plus opacity-60) read as no shimmer at all; 3.8s at
+        // full gradient opacity read as too bright/fast. 5s cycle + a low
+        // gradient alpha (~0.14-0.16, see call sites) is the current
+        // middle ground -- present enough to notice, gentle on the eyes.
         'shimmer-sweep-slow': 'shimmer-sweep 5s linear infinite',
         'crown-rise': 'crown-rise .9s cubic-bezier(.2,1.2,.3,1) both',
         'aura-spin': 'aura-spin 5s linear infinite',

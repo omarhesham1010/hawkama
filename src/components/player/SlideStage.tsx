@@ -3172,7 +3172,7 @@ function PptMatrixScene({
             >
               {active && (
                 <span
-                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.2)_48%,rgb(255_255_255/0.2)_52%,transparent_70%)]"
+                  className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.14)_48%,rgb(255_255_255/0.14)_52%,transparent_70%)]"
                   aria-hidden="true"
                 />
               )}
@@ -3276,10 +3276,25 @@ function PptSpotlightScene({
   // keeps its own found-in-narration position instead of index 0 popping in
   // immediately alongside the hero card.
   const bulletOffsets = hasBulletSubcards
-    ? pptCardRevealOffsets(
-        [{ title: focusCard!.title }, ...focusCard!.bullets!.map((bullet) => ({ title: bullet }))],
-        slide.narration,
-      ).slice(1)
+    ? (() => {
+        const raw = pptCardRevealOffsets(
+          [{ title: focusCard!.title }, ...focusCard!.bullets!.map((bullet) => ({ title: bullet }))],
+          slide.narration,
+        ).slice(1);
+        // Revealing exactly when Nasser finishes saying a bullet leaves no
+        // lead time to read it before the act moves on -- especially the
+        // last bullet in a set, which can land right as the act's own
+        // narration runs out. Pull every bullet ~60 characters (roughly
+        // half a second of speech) earlier than its literal match so it's
+        // already on screen as Nasser approaches it, not right after.
+        // Clamped to stay non-decreasing and never before its predecessor.
+        const LEAD = 60;
+        let previous = 0;
+        return raw.map((offset) => {
+          previous = Math.max(previous, offset - LEAD, 0);
+          return previous;
+        });
+      })()
     : [];
   const bulletsNarrationFinished = narrationPosition >= slide.narration.length - 1;
   const bulletVisible = (i: number) =>
@@ -3318,7 +3333,7 @@ function PptSpotlightScene({
       >
         {focusVisible && (
           <span
-            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.24)_48%,rgb(255_255_255/0.24)_52%,transparent_65%)]"
+            className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(255_255_255/0.16)_48%,rgb(255_255_255/0.16)_52%,transparent_65%)]"
             aria-hidden="true"
           />
         )}
