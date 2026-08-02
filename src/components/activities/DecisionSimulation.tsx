@@ -29,6 +29,7 @@ export function DecisionSimulation({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const [identify, setIdentify] = useState<string | null>(null);
+  const [stage, setStage] = useState<'identify' | 'path'>(mode === 'path' ? 'path' : 'identify');
   const [path, setPath] = useState<string[]>([]);
   const [pathChecked, setPathChecked] = useState(false);
   const [voicePlaying, setVoicePlaying] = useState(false);
@@ -39,14 +40,15 @@ export function DecisionSimulation({
   const pathFull = path.length === data.correctPath.length;
   const pathCorrect = pathFull && path.every((id, i) => id === correctIds[i]);
 
-  const showIdentify = mode !== 'path';
-  const showPath = mode !== 'identify';
+  const showIdentify = mode !== 'path' && stage === 'identify';
+  const showPath = mode !== 'identify' && stage === 'path';
+  const canContinueToPath = mode === 'both' && identify && !voicePlaying;
   const stepLabel = (id: string) => data.correctPath.find((s) => s.id === id)?.label ?? '';
   const correctPathSummary = data.correctPath.map((s) => s.label).join('، ثم ');
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-3">
-      <div className="shrink-0 rounded-2xl border border-line bg-surface-2 p-3 shadow-card">
+    <div className="flex h-full min-h-0 flex-col gap-2.5 overflow-visible">
+      <div className="shrink-0 rounded-2xl border border-line bg-surface-2 px-3 py-2.5 shadow-card">
         <p className="mb-1 flex items-center gap-2 text-base font-bold text-brand">
           <Icon name="gavel" className="h-5 w-5" />
           السيناريو
@@ -55,10 +57,12 @@ export function DecisionSimulation({
       </div>
 
       {showIdentify && (
-        <div className="min-h-0">
+        <div className="min-h-0 flex-1 rounded-[26px] border border-green-700/15 bg-white/90 px-4 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)]">
           <StageTitle n={toArabicDigits(1)} text="حدد القرار الصحيح" />
-          <p className="mb-2 text-base font-semibold text-ink-soft">{data.identify.question}</p>
-          <div className="flex flex-wrap gap-1.5">
+          <p className="mb-2 text-[17px] font-extrabold leading-snug text-brand-strong">
+            {data.identify.question}
+          </p>
+          <div className="grid grid-cols-2 gap-2">
             {data.identify.options.map((opt) => {
               const selected = identify === opt.id;
               const reveal = Boolean(identify);
@@ -81,13 +85,13 @@ export function DecisionSimulation({
                     void playVoiceClip(opt.correct ? data.identify.correctVoiceKey : data.identify.incorrectVoiceKey)
                       .then(() => {
                         setVoicePlaying(false);
-                        if (!showPath) onDone();
+                        if (mode === 'identify') onDone();
                       })
                       .catch(() => {
                         setVoicePlaying(false);
                       });
                   }}
-                  className={`rounded-xl border-2 px-3 py-2 text-base font-bold transition-colors disabled:cursor-not-allowed ${
+                  className={`min-h-[58px] rounded-xl border-2 px-3 py-2 text-[14px] font-bold leading-snug transition-colors disabled:cursor-not-allowed ${
                     !reveal && (narrationLocked || voicePlaying) ? '!bg-white !text-ink-muted' : ''
                   } ${cls}`}
                 >
@@ -114,14 +118,30 @@ export function DecisionSimulation({
                   </div>
                   <FeedbackBox
                     tone={ok ? 'success' : 'error'}
+                    className="p-3"
                     title={
                       ok
                         ? `إجابة صحيحة — ${correctOpt?.label}`
                         : `الإجابة الصحيحة هي: ${correctOpt?.label}`
                     }
                   >
-                    <p className="text-[15px] leading-snug">{chosen?.note ?? data.identify.suggestedNote}</p>
+                    <p className="text-[14px] leading-snug">{chosen?.note ?? data.identify.suggestedNote}</p>
                   </FeedbackBox>
+                  {canContinueToPath && (
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        disabled={narrationLocked}
+                        onClick={() => setStage('path')}
+                        className={`btn-primary px-5 py-2.5 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
+                          narrationLocked ? '' : 'animate-pulse-ring'
+                        }`}
+                      >
+                        <Icon name="flow" className="h-5 w-5" />
+                        الانتقال لترتيب المسار
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })()}
@@ -129,12 +149,12 @@ export function DecisionSimulation({
       )}
 
       {showPath && (
-        <div className="min-h-0">
+        <div className="min-h-0 flex-1 rounded-[26px] border border-green-700/15 bg-white/90 px-4 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)]">
           <StageTitle
-            n={showIdentify ? toArabicDigits(2) : toArabicDigits(1)}
+            n={mode === 'both' ? toArabicDigits(2) : toArabicDigits(1)}
             text="رتّب مسار الإجراء الصحيح"
           />
-          <p className="mb-2 text-base font-semibold text-ink-soft">
+          <p className="mb-2 text-[16px] font-bold leading-snug text-ink-soft">
             اضغط الخطوات بالترتيب الصحيح للاستجابة للحالة:
           </p>
 
@@ -146,7 +166,7 @@ export function DecisionSimulation({
               return (
                 <div
                   key={i}
-                  className={`flex min-h-[58px] items-center gap-2 rounded-xl border-2 p-2 ${
+                  className={`flex min-h-[52px] items-center gap-2 rounded-xl border-2 p-2 ${
                     isRight
                       ? 'border-green-500/50 bg-green-500/10'
                       : isWrong
@@ -161,7 +181,7 @@ export function DecisionSimulation({
                   </span>
                   {id ? (
                     <>
-                      <span className="flex-1 text-base font-bold leading-tight text-ink">{stepLabel(id)}</span>
+                      <span className="flex-1 text-[14px] font-bold leading-tight text-ink">{stepLabel(id)}</span>
                       {!pathChecked && (
                         <button
                           type="button"
@@ -207,7 +227,7 @@ export function DecisionSimulation({
                   type="button"
                   disabled={narrationLocked || voicePlaying}
                   onClick={() => setPath((p) => [...p, s.id])}
-                  className={`rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-sm font-bold text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
+                  className={`rounded-xl border-2 border-line bg-surface-2 px-3 py-2 text-[13px] font-bold leading-tight text-ink-soft transition-all hover:border-brand/50 hover:bg-brand/5 disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
                     narrationLocked || voicePlaying ? '' : 'animate-pulse-ring'
                   }`}
                 >
@@ -243,13 +263,13 @@ export function DecisionSimulation({
               </button>
             </div>
           ) : pathCorrect ? (
-            <FeedbackBox tone="success" title="مسار صحيح تماماً" className="mt-3">
-              <p className="text-[15px] leading-snug">{correctPathSummary}</p>
+            <FeedbackBox tone="success" title="مسار صحيح تماماً" className="mt-3 p-3">
+              <p className="text-[14px] leading-snug">{correctPathSummary}</p>
             </FeedbackBox>
           ) : (
             <div className="mt-3 space-y-2">
-              <FeedbackBox tone="error" title="المسار غير مرتّب بشكل صحيح.">
-                <p className="text-[15px] leading-snug">الترتيب الصحيح: {correctPathSummary}</p>
+              <FeedbackBox tone="error" title="المسار غير مرتّب بشكل صحيح." className="p-3">
+                <p className="text-[14px] leading-snug">الترتيب الصحيح: {correctPathSummary}</p>
               </FeedbackBox>
               <div className="flex justify-center">
                 <button
