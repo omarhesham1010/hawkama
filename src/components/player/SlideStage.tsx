@@ -1296,9 +1296,24 @@ function IntroMotionScene({
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
   const narrationComplete = started && progress >= 0.985;
+  const normalizeSpeechCue = (text: string) =>
+    text
+      .normalize('NFKD')
+      .replace(/[\u064B-\u065F\u0670]/g, '')
+      .replace(/[إأآا]/g, 'ا')
+      .replace(/ى/g, 'ي')
+      .replace(/ة/g, 'ه')
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .trim();
+  const normalizedNarration = normalizeSpeechCue(slide.narration);
+  const normalizedIndexRatio = slide.narration.length / Math.max(1, normalizedNarration.length);
   const spokenPast = (needle: string, fallback: number) => {
-    const index = slide.narration.indexOf(needle);
-    return started && (visualProgress >= fallback || (index >= 0 && effectiveSpoken >= index));
+    const directIndex = needle ? slide.narration.indexOf(needle) : -1;
+    if (directIndex >= 0) return started && effectiveSpoken >= directIndex;
+    const normalizedNeedle = normalizeSpeechCue(needle);
+    const normalizedIndex = normalizedNeedle ? normalizedNarration.indexOf(normalizedNeedle) : -1;
+    if (normalizedIndex >= 0) return started && effectiveSpoken >= Math.floor(normalizedIndex * normalizedIndexRatio);
+    return started && visualProgress >= fallback;
   };
   const isEmergencyWelcome = slide.id === 'emergency-welcome';
   // Every chapter has its own welcome/pptIntro slide (ec1-welcome,
@@ -1385,10 +1400,10 @@ function IntroMotionScene({
     'lic-u3-welcome': '/assets/visual-library/intro-licensing-compliance-shield-scene.webp',
     'lic-u4-welcome': '/assets/visual-library/intro-licensing-framework-scene.webp',
   };
-  const introHeroSrc = isEmergencyCourse
-    ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
-    : isLicensingCourse
-      ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
+  const introHeroSrc = isLicensingCourse
+    ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
+    : isEmergencyCourse
+      ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
       : isCourse1Course
         // Pulled straight from the client's own governance PPTX title
         // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
@@ -1407,7 +1422,7 @@ function IntroMotionScene({
   const heroRightPct = 6;
   const heroWidthPct = 26;
   const heroCenterFromRight = heroRightPct + heroWidthPct / 2;
-  const pillarRowWidthPct = pillars.length > 4 ? 44 : pillars.length > 3 ? 38 : 30;
+  const pillarRowWidthPct = isLicensingCourse && pillars.length === 3 ? 52 : pillars.length > 4 ? 44 : pillars.length > 3 ? 38 : 30;
   const pillarRowRightPct = heroCenterFromRight - pillarRowWidthPct / 2;
 
   return (
@@ -1440,12 +1455,14 @@ function IntroMotionScene({
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
-          const cardWidth = pillars.length > 3 ? 'w-[98px]' : 'w-[100px]';
+          const cardWidth = isLicensingCourse && pillars.length === 3 ? 'w-[154px] min-h-[162px]' : pillars.length > 3 ? 'w-[98px]' : 'w-[100px]';
+          const licensingLabelSize =
+            isLicensingCourse && pillars.length === 3 && pillar.label.length > 34 ? 'text-[13px] leading-[1.12]' : 'text-[14px] leading-[1.12]';
           const visualOrder = isEmergencyCourse ? index : index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`${cardWidth} shrink-0 rounded-2xl border px-3 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
+              className={`${cardWidth} flex shrink-0 flex-col items-center justify-center rounded-2xl border px-3 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
                 shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
               } ${
                 active
@@ -1460,8 +1477,8 @@ function IntroMotionScene({
               <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white p-1 shadow-sm">
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
-              <p className={`${pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} font-black leading-tight`}>{pillar.label}</p>
-              <p className={`mt-1 ${pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
+              <p className={`${isLicensingCourse && pillars.length === 3 ? licensingLabelSize : pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} w-full text-center font-black`}>{pillar.label}</p>
+              <p className={`mt-1 ${isLicensingCourse && pillars.length === 3 ? 'text-[12px]' : pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} w-full text-center font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
             </div>
           );
         })}
