@@ -4131,6 +4131,7 @@ function PptStyleSlide({
   }, []);
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isLicensingSlide = slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const narrationPosition = started ? spoken : 0;
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
@@ -4141,7 +4142,19 @@ function PptStyleSlide({
   // each card's own word position instead, so a shared sentence still
   // reveals its cards one at a time, in step with Nasser actually saying
   // each one.
-  const revealOffsets = pptCardRevealOffsets(cards, slide.narration, !slide.id.startsWith('lic'));
+  const naturalRevealOffsets = pptCardRevealOffsets(cards, slide.narration, !isLicensingSlide);
+  const naturalFirstOffset = naturalRevealOffsets[0] ?? 0;
+  const firstCardNeedsOpeningCue =
+    isLicensingSlide &&
+    cards.length > 0 &&
+    !cards[0]?.syncText &&
+    (naturalFirstOffset > 80 || naturalFirstOffset / Math.max(1, slide.narration.length) > 0.18);
+  const revealTimingCards = firstCardNeedsOpeningCue
+    ? [{ ...cards[0], syncText: slide.title }, ...cards.slice(1)]
+    : cards;
+  const revealOffsets = firstCardNeedsOpeningCue
+    ? pptCardRevealOffsets(revealTimingCards, slide.narration, false)
+    : naturalRevealOffsets;
   // The exact stretch of the slide's own narration where Nasser talked
   // about this card — used to replay that original recording instead of
   // synthesizing new text/audio when the learner reopens the card.
