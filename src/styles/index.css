@@ -599,6 +599,11 @@
 }
 
 @media (max-height: 560px), (max-width: 640px) {
+  .course-three-shell {
+    background: #fff;
+    padding: 0;
+  }
+
   .player-header-row {
     height: 42px;
     gap: 8px;

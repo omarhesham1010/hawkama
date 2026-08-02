@@ -51,7 +51,7 @@ export default function CourseThreeShell() {
   };
 
   return (
-    <div dir="rtl" className="flex h-[100dvh] gap-3 overflow-hidden bg-canvas p-3">
+    <div dir="rtl" className="course-three-shell flex h-[100dvh] gap-3 overflow-hidden bg-canvas p-3">
       <CourseTwoSidebar
         groups={groups}
         activeIndex={activeIndex}
