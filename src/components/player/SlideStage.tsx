@@ -1254,10 +1254,10 @@ function introPillars(slide: Slide) {
   const afterColon = introText.includes(':') ? introText.slice(introText.indexOf(':') + 1) : introText;
   const parts = afterColon.split(/\s*-\s*/).map((part) => part.trim()).filter(Boolean);
   return (parts.length ? parts : [slide.title, slide.ppt?.subtitle ?? 'مسار تدريبي', slide.ppt?.unitTitle ?? slide.title])
-    .slice(0, 4)
+    .slice(0, 5)
     .map((label, index) => ({
       label,
-      detail: ['مدخل بصري', 'تطبيق عملي', 'قرار أوضح', 'تحسين مستمر'][index],
+      detail: ['مدخل بصري', 'تطبيق عملي', 'قرار أوضح', 'تحسين مستمر', 'رقابة مستمرة'][index],
     }));
 }
 
@@ -1309,8 +1309,17 @@ function IntroMotionScene({
   // (hence its hand-picked needles below), but every chapter welcome's
   // pillar labels ARE lifted verbatim from that slide's own narration --
   // see introPillars()/ppt.intro -- so using the pillar's own label text
-  // as the needle works generically for the rest of them.
-  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  // as the needle works generically for the rest of them. course/3 (lic-)
+  // welcome slides follow the exact same pattern (verified: their intro
+  // pillar labels are literal prefixes of the matching "تتحدث الوحدة
+  // الأولى عن..." sentence) but were missing from this check entirely,
+  // so they fell through to the else branch below -- which only exists
+  // for course/1's own hand-picked narration phrases, none of which
+  // appear anywhere in course/3's narration. That sent every course/3
+  // welcome slide's pillar timing to the raw progress-percentage
+  // fallbacks (0.52/0.62/0.72), popping cards in at a fixed fraction of
+  // the whole narration regardless of when their unit was actually named.
+  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
@@ -1333,13 +1342,19 @@ function IntroMotionScene({
     : isEmergencyCourse && pillars[3]
       ? spokenPast(pillars[3].label, 0.65)
       : false;
+  // course/3's top-level welcome slide is the one place with a real 5th
+  // pillar (5 units) -- every other course caps at 4.
+  const fifthPillarShown =
+    isEmergencyCourse && pillars[4] ? spokenPast(pillars[4].label, 0.78) : false;
   // Client call: nothing appears until Nasser actually talks about it --
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)
   // the "currently talking about this" active highlight.
-  const activeIndex = fourthPillarShown ? 3 : thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
+  const activeIndex = fifthPillarShown ? 4 : fourthPillarShown ? 3 : thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
   const visiblePillars = started
-    ? fourthPillarShown
+    ? fifthPillarShown
+      ? 5
+      : fourthPillarShown
       ? 4
       : thirdPillarShown
         ? 3
@@ -1392,7 +1407,7 @@ function IntroMotionScene({
   const heroRightPct = 6;
   const heroWidthPct = 26;
   const heroCenterFromRight = heroRightPct + heroWidthPct / 2;
-  const pillarRowWidthPct = pillars.length > 3 ? 38 : 30;
+  const pillarRowWidthPct = pillars.length > 4 ? 44 : pillars.length > 3 ? 38 : 30;
   const pillarRowRightPct = heroCenterFromRight - pillarRowWidthPct / 2;
 
   return (
@@ -3289,11 +3304,17 @@ function PptSpotlightScene({
         // right after. 60 chars (~1.5-2s) read as too early; 10 chars is
         // a light nudge -- just enough to land a beat ahead of the exact
         // word instead of right on top of it.
-        // Clamped to stay non-decreasing and never before its predecessor.
+        // Clamped to stay non-decreasing and never before its predecessor,
+        // AND kept at least MIN_GAP apart -- otherwise a card revealed via
+        // the LEAD pull-forward could land close enough behind the one
+        // before it that both pop in together, burying the first before
+        // it's had even a second on screen. ~15 chars is roughly a second
+        // of Arabic speech at narration pace.
         const LEAD = 10;
-        let previous = 0;
+        const MIN_GAP = 15;
+        let previous = -MIN_GAP;
         return raw.map((offset) => {
-          previous = Math.max(previous, offset - LEAD, 0);
+          previous = Math.max(previous + MIN_GAP, offset - LEAD, 0);
           return previous;
         });
       })()
