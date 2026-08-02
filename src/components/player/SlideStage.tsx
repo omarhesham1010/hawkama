@@ -1264,6 +1264,7 @@ function roadmapPillars(slide: Slide) {
   const cards = slide.ppt?.cards ?? [];
   return cards.slice(0, 4).map((card, index) => ({
     label: card.title.includes(':') ? card.title.slice(card.title.indexOf(':') + 1).trim() : card.title,
+    syncText: card.syncText,
     detail: card.text ?? ['تأسيس القرار', 'تحقق وقياس', 'قرار واع بالمخاطر'][index],
     bullets: card.bullets ?? [],
   }));
@@ -1601,7 +1602,7 @@ function IntroRoadmapMotionScene({
   const stepDefs: { needles: string | string[]; fallback: number }[] = orderedPillars.map((pillar, index) =>
     isCourse1Roadmap
       ? {
-          needles: [pillar.label, pillar.detail].filter(Boolean),
+          needles: [pillar.syncText, pillar.label].filter((needle): needle is string => Boolean(needle)),
           fallback: course1Fallbacks[index] ?? 0.82,
         }
       : legacyStepDefs[index] ?? { needles: pillar.label, fallback: course1Fallbacks[index] ?? 0.82 },
