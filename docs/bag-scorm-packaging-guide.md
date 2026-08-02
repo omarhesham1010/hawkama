@@ -267,9 +267,9 @@ npm run package:course3   # ترخيص المنشآت الصحية والقوى 
 4. `imsmanifest.xml` بيتولّد خاص بالحقيبة دي بس (اسم + عنوان صحيح).
 5. الناتج بيتضغط كـ ZIP ويتحط في:
    ```
-   scorm-packages/governance-scorm2004.zip
-   scorm-packages/emergency-response-scorm2004.zip
-   scorm-packages/licensing-scorm2004.zip
+   scorm-packages/حقيبة 1 - الحوكمة والمخاطر والامتثال - SCORM2004.zip
+   scorm-packages/حقيبة 2 - إدارة الاستجابة للطوارئ - SCORM2004.zip
+   scorm-packages/حقيبة 3 - ترخيص المنشآت الصحية والقوى العاملة - SCORM2004.zip
    ```
    (المجلد `scorm-packages/` بيتعمل تلقائيًا لو مش موجود.)
 
@@ -290,8 +290,8 @@ npm run package:course3   # ترخيص المنشآت الصحية والقوى 
    `course4` مثلاً) ومربوطة بالـ Shell بتاعتها.
 4. في `package.json`: ضيف `build:course<N>` و`package:course<N>` بنفس نمط
    اللي موجود.
-5. في `scripts/package-course-scorm.ps1`: ضيف رقمها في `-ValidateSet` وslug
-   الملف في `$slugByCourse`.
+5. في `scripts/package-course-scorm.ps1`: ضيف رقمها في `-ValidateSet` وعنوانها
+   في `$titleByCourse`.
 
 ---
 
@@ -322,7 +322,7 @@ npm run package:course3   # ترخيص المنشآت الصحية والقوى 
    fallback على قراءة آلية Web Speech في النسخة النهائية).
 3. **`npm run package:course<N>`** يخلّص من غير أخطاء، ويطبع حجم الملف النهائي
    في الآخر.
-4. افتح `scorm-packages/<slug>-scorm2004.zip` وتأكد:
+4. افتح `scorm-packages/حقيبة <N> - <العنوان> - SCORM2004.zip` وتأكد:
    - `index.html` و`imsmanifest.xml` في **جذر** الملف مباشرة (مش جوه مجلد فرعي)
      — أهم سبب لفشل رفع حقائب SCORM على أي LMS هو وجود مجلد فرعي زيادة.
    - `<schemaversion>` في `imsmanifest.xml` مطابقة للإصدار المتفق عليه مع
