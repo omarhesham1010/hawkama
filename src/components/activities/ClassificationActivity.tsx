@@ -1,20 +1,13 @@
-import { useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { ClassificationActivityData } from '../../types/course';
 import { Icon } from '../ui/Icon';
-import { useCanvasScale } from '../../lib/canvasScale';
+import { FeedbackBox } from '../ui/FeedbackBox';
 import { toArabicDigits } from '../../lib/utils';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { playVoiceClip } from '../../lib/playVoiceClip';
 
 type Cat = string;
 
-const ZONE_STYLES = [
-  'border-green-500/50 bg-green-500/[0.06]',
-  'border-green-500/50 bg-green-500/[0.06]',
-] as const;
-const ZONE_EMOJI = ['🏛️', '✅'] as const;
-
-/** Real pointer-based drag & drop (mouse + touch), aware of the canvas scale. */
 export function ClassificationActivity({
   data,
   onDone,
@@ -22,181 +15,133 @@ export function ClassificationActivity({
   data: ClassificationActivityData;
   onDone: () => void;
 }) {
-  const scale = useCanvasScale();
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const [assignment, setAssignment] = useState<Record<string, Cat>>({});
-  const [dragId, setDragId] = useState<string | null>(null);
-  const [delta, setDelta] = useState({ x: 0, y: 0 });
-  const [over, setOver] = useState<Cat | null>(null);
-  const [lastId, setLastId] = useState<string | null>(null);
+  const [index, setIndex] = useState(0);
+  const [choice, setChoice] = useState<Cat | null>(null);
+  const [correctCount, setCorrectCount] = useState(0);
   const [voicePlaying, setVoicePlaying] = useState(false);
+  const [finished, setFinished] = useState(false);
 
-  const startRef = useRef({ x: 0, y: 0 });
-  const zoneRefs = useRef<Record<Cat, HTMLDivElement | null>>({});
-  const zoneIds = useMemo(() => data.categories.map((c) => c.id), [data.categories]);
+  const item = data.items[index];
+  const answered = choice !== null;
+  const isCorrect = answered && choice === item.answer;
+  const canInteract = !narrationLocked && !voicePlaying;
+  const progressPercent = Math.round((index / data.items.length) * 100);
 
-  const pool = data.items.filter((it) => !assignment[it.id]);
-  const correctCount = useMemo(
-    () => data.items.reduce((a, it) => a + (assignment[it.id] === it.answer ? 1 : 0), 0),
-    [assignment, data.items],
-  );
+  const categoryLabel = (id: Cat) => data.categories.find((category) => category.id === id)?.label ?? id;
 
-  const zoneAt = (x: number, y: number): Cat | null => {
-    for (const cat of zoneIds) {
-      const el = zoneRefs.current[cat];
-      if (!el) continue;
-      const r = el.getBoundingClientRect();
-      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return cat;
+  const answer = (cat: Cat) => {
+    if (answered || !canInteract) return;
+    const ok = cat === item.answer;
+    setChoice(cat);
+    if (ok) setCorrectCount((count) => count + 1);
+    setVoicePlaying(true);
+    void playVoiceClip(item.voiceKey)
+      .then(() => setVoicePlaying(false))
+      .catch(() => setVoicePlaying(false));
+  };
+
+  const next = () => {
+    if (index + 1 < data.items.length) {
+      setIndex((current) => current + 1);
+      setChoice(null);
+      return;
     }
-    return null;
+    setFinished(true);
+    onDone();
   };
 
-  const onPointerDown = (e: React.PointerEvent, id: string) => {
-    if (narrationLocked) return;
-    try {
-      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    } catch {
-      /* capture unsupported (or synthetic event) — drag still works */
-    }
-    startRef.current = { x: e.clientX, y: e.clientY };
-    setDragId(id);
-    setDelta({ x: 0, y: 0 });
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragId) return;
-    setDelta({ x: (e.clientX - startRef.current.x) / scale, y: (e.clientY - startRef.current.y) / scale });
-    setOver(zoneAt(e.clientX, e.clientY));
-  };
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!dragId) return;
-    const cat = zoneAt(e.clientX, e.clientY);
-    if (cat) {
-      const item = data.items.find((it) => it.id === dragId);
-      const willBeDone = Object.keys(assignment).length + 1 === data.items.length;
-      setAssignment((a) => ({ ...a, [dragId]: cat }));
-      setLastId(dragId);
-      setVoicePlaying(true);
-      void playVoiceClip(item?.voiceKey).then(() => {
-        setVoicePlaying(false);
-        if (willBeDone) onDone();
-      }).catch(() => {
-        setVoicePlaying(false);
-      });
-    }
-    setDragId(null);
-    setOver(null);
-    setDelta({ x: 0, y: 0 });
-  };
-
-  const catLabel = (c: Cat) => data.categories.find((x) => x.id === c)?.label ?? '';
-  const lastItem = data.items.find((it) => it.id === lastId);
-  const lastCorrect = lastItem ? assignment[lastItem.id] === lastItem.answer : false;
+  if (finished) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center rounded-[28px] border border-green-700/15 bg-white/90 px-6 py-5 text-center shadow-[0_18px_34px_rgb(24_82_55_/_0.08)]">
+        <div className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
+          <Icon name="target" className="h-8 w-8" />
+        </div>
+        <p className="mt-3 text-sm font-bold text-ink-muted">نتيجة النشاط</p>
+        <p className="text-4xl font-black text-brand tabular">
+          {toArabicDigits(correctCount)} / {toArabicDigits(data.items.length)}
+        </p>
+        <p className="mt-2 max-w-[620px] text-[16px] font-bold leading-relaxed text-ink-soft">
+          اكتملت عملية التصنيف. راجع التصنيفات التي ناقشها ناصر قبل الانتقال.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-full flex-col gap-3">
-      {/* scenario */}
-      <p className="rounded-xl border border-line bg-surface-2 px-4 py-2.5 text-base font-semibold leading-relaxed text-ink-soft">
-        <span className="font-bold text-brand">السيناريو: </span>
-        {data.scenario}
-      </p>
-
-      {/* drop zones */}
-      <div className="grid grid-cols-2 gap-4">
-        {data.categories.map((category, zoneIndex) => {
-          const cat = category.id;
-          return (
-          <div
-            key={cat}
-            ref={(el) => (zoneRefs.current[cat] = el)}
-            className={`min-h-[150px] rounded-2xl border-2 border-dashed p-3 transition-colors ${
-              over === cat ? 'ring-2 ring-brand ' : ''
-            }${ZONE_STYLES[zoneIndex % ZONE_STYLES.length]}`}
-          >
-            <p className="mb-2 flex items-center justify-center gap-2 text-lg font-extrabold text-ink">
-              {ZONE_EMOJI[zoneIndex % ZONE_EMOJI.length]} {catLabel(cat)}
-            </p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {data.items
-                .filter((it) => assignment[it.id] === cat)
-                .map((it) => {
-                  const ok = it.answer === cat;
-                  return (
-                    <span
-                      key={it.id}
-                      className={`inline-flex max-w-[240px] items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-sm font-semibold ${
-                        ok
-                          ? 'border-green-500/50 bg-green-500/10 text-green-700'
-                          : 'border-rose-400/50 bg-rose-500/10 text-rose-700'
-                      }`}
-                    >
-                      <Icon name={ok ? 'check' : 'alert'} className="w-3.5 h-3.5 shrink-0" />
-                      <span className="truncate">{it.text}</span>
-                    </span>
-                  );
-                })}
-            </div>
-          </div>
-          );
-        })}
+    <div className="flex h-full min-h-0 flex-col gap-2.5 overflow-visible">
+      <div className="shrink-0 rounded-2xl border border-line bg-surface-2 px-3 py-2.5 shadow-card">
+        <p className="mb-1 flex items-center gap-2 text-base font-bold text-brand">
+          <Icon name="gavel" className="h-5 w-5" />
+          السيناريو
+        </p>
+        <p className="text-[14px] font-semibold leading-snug text-ink-soft">{data.scenario}</p>
       </div>
 
-      {/* pool */}
-      {pool.length > 0 ? (
-        <div>
-          <p className="mb-1.5 text-center text-sm font-semibold text-ink-muted">
-            اسحب البطاقة إلى تصنيفها الصحيح 👇 ({toArabicDigits(pool.length)} متبقّية)
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {pool.map((it, i) => (
-              <div
-                key={it.id}
-                onPointerDown={(e) => onPointerDown(e, it.id)}
-                onPointerMove={onPointerMove}
-                onPointerUp={onPointerUp}
-                style={{
-                  touchAction: 'none',
-                  transform:
-                    dragId === it.id
-                      ? `translate(${delta.x}px, ${delta.y}px) scale(1.04)`
-                      : undefined,
-                  zIndex: dragId === it.id ? 30 : undefined,
-                }}
-                className={`relative flex max-w-[310px] cursor-grab select-none items-center gap-2 rounded-xl border-2 bg-surface px-3 py-2 text-base font-bold text-ink shadow-card active:cursor-grabbing ${
-                  dragId === it.id ? 'border-brand' : 'border-line'
-                  } ${narrationLocked || voicePlaying ? 'pointer-events-none cursor-not-allowed !bg-white !text-ink-muted' : 'animate-pulse-ring'}`}
-              >
-                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-surface-3 text-xs font-bold tabular">
-                  {toArabicDigits(i + 1)}
-                </span>
-                {it.text}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="rounded-xl border border-green-500/30 bg-green-500/[0.06] px-4 py-2.5 text-center text-base font-semibold text-ink-soft">
-          أحسنت! صنّفت جميع الإجراءات — إجاباتك الصحيحة{' '}
-          <b className="text-brand">
-            {toArabicDigits(correctCount)} من {toArabicDigits(data.items.length)}
-          </b>
-          .
-        </div>
-      )}
-
-      {/* last feedback */}
-      {lastItem && (
-        <div
-          className={`rounded-xl border px-4 py-2 text-base font-semibold leading-relaxed ${
-            lastCorrect ? 'border-green-500/40 bg-green-500/[0.06]' : 'border-rose-400/40 bg-rose-500/[0.06]'
-          }`}
-        >
-          <span className="font-bold">
-            {lastCorrect ? '✓ ' : '✗ '}
-            التصنيف المقترح: {catLabel(lastItem.answer)} —{' '}
+      <div className="min-h-0 flex-1 rounded-[26px] border border-green-700/15 bg-white/90 px-4 py-3 shadow-[0_18px_34px_rgb(24_82_55_/_0.08)]">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <span className="text-sm font-extrabold text-brand">
+            السؤال {toArabicDigits(index + 1)} من {toArabicDigits(data.items.length)}
           </span>
-          <span className="text-ink-soft">{lastItem.rationale}</span>
+          <span className="text-sm font-bold text-ink-muted">صحيح: {toArabicDigits(correctCount)}</span>
         </div>
-      )}
+        <div className="mb-3 h-2 overflow-hidden rounded-full bg-surface-3">
+          <div className="h-full rounded-full bg-brand transition-all duration-500" style={{ width: `${progressPercent}%` }} />
+        </div>
+
+        <div className="flex min-h-[108px] items-center justify-center rounded-2xl border border-gold-500/25 bg-gold-500/[0.06] px-5 py-4 text-center">
+          <p className="text-[21px] font-black leading-relaxed text-ink">{item.text}</p>
+        </div>
+
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          {data.categories.map((category) => {
+            const selected = choice === category.id;
+            const correct = item.answer === category.id;
+            let cls = 'border-line bg-surface-2 text-ink-soft hover:border-brand/50 hover:bg-brand/5';
+            if (answered) {
+              if (correct) cls = 'border-green-500/60 bg-green-500/10 text-green-800';
+              else if (selected) cls = 'border-rose-400/60 bg-rose-500/10 text-rose-800';
+              else cls = 'border-line bg-surface-2 text-ink-muted opacity-60';
+            } else if (canInteract) {
+              cls += ' animate-pulse-ring';
+            }
+            return (
+              <button
+                key={category.id}
+                type="button"
+                disabled={answered || !canInteract}
+                onClick={() => answer(category.id)}
+                className={`min-h-[58px] rounded-xl border-2 px-3 py-2 text-[15px] font-extrabold leading-snug transition-colors disabled:cursor-not-allowed ${cls}`}
+              >
+                {category.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {answered && (
+          <div className="mt-3 space-y-2">
+            <FeedbackBox tone={isCorrect ? 'success' : 'error'} title={isCorrect ? 'تصنيف صحيح' : `التصنيف الصحيح: ${categoryLabel(item.answer)}`} className="p-3">
+              <p className="text-[14px] font-semibold leading-snug">{item.rationale}</p>
+            </FeedbackBox>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                disabled={voicePlaying}
+                onClick={next}
+                className={`btn-primary px-5 py-2.5 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
+                  voicePlaying ? '' : 'animate-pulse-ring'
+                }`}
+              >
+                {index + 1 < data.items.length ? 'السؤال التالي' : 'إنهاء النشاط'}
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 6l-6 6 6 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

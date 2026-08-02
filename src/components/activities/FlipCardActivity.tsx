@@ -14,103 +14,119 @@ export function FlipCardActivity({
   onDone: () => void;
 }) {
   const narration = useNarrationContext();
-  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
-  const [seen, setSeen] = useState<Set<string>>(new Set());
+  const [index, setIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
   const [voicePlaying, setVoicePlaying] = useState(false);
+  const [finished, setFinished] = useState(false);
 
-  const toggle = (id: string) => {
-    if (narration.isPlaying || voicePlaying) return;
-    const card = data.cards.find((c) => c.id === id);
-    const nowFlipped = !flipped[id];
-    const nextSeen = new Set(seen).add(id);
-    const allSeenAfter = nextSeen.size === data.cards.length;
-    setFlipped((f) => ({ ...f, [id]: nowFlipped }));
-    setSeen(nextSeen);
-    // When revealing the back, have Nasser read it aloud with his own
-    // pre-recorded voice instead of the shared narration track -- that
-    // track is mid-pause on the slide's own narration while this
-    // checkpoint is open, and playing through it here would tear that down.
-    if (nowFlipped && card) {
-      setVoicePlaying(true);
-      void playVoiceClip(card.voiceKey).then(() => {
-        setVoicePlaying(false);
-        if (allSeenAfter) onDone();
-      }).catch(() => {
-        setVoicePlaying(false);
-      });
-    } else if (allSeenAfter) {
-      onDone();
-    }
+  const card = data.cards[index];
+  const canInteract = !narration.isPlaying && !voicePlaying;
+
+  const flip = () => {
+    if (!canInteract || flipped) return;
+    setFlipped(true);
+    setVoicePlaying(true);
+    void playVoiceClip(card.voiceKey)
+      .then(() => setVoicePlaying(false))
+      .catch(() => setVoicePlaying(false));
   };
 
-  const seenCount = seen.size;
-  const allSeen = seenCount === data.cards.length;
+  const next = () => {
+    if (voicePlaying) return;
+    if (index + 1 < data.cards.length) {
+      setIndex((current) => current + 1);
+      setFlipped(false);
+      return;
+    }
+    setFinished(true);
+    onDone();
+  };
+
+  if (finished) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center rounded-[28px] border border-green-700/15 bg-white/90 px-6 py-5 text-center shadow-[0_18px_34px_rgb(24_82_55_/_0.08)]">
+        <div className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
+          <Icon name="check" className="h-8 w-8" />
+        </div>
+        <p className="mt-3 text-3xl font-black text-brand">راجعت البطاقات جميعها</p>
+        <p className="mt-2 max-w-[620px] text-[16px] font-bold leading-relaxed text-ink-soft">
+          كل بطاقة ظهرت وحدها وتمت مناقشتها بدون تزاحم بصري.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-2">
-      <div className="grid min-h-0 flex-1 grid-cols-3 gap-2">
-        {data.cards.map((card) => {
-          const isFlipped = flipped[card.id];
-          return (
-            <button
-              key={card.id}
-              type="button"
-              disabled={narration.isPlaying || voicePlaying}
-              onClick={() => toggle(card.id)}
-              className={`group h-full w-full text-right [perspective:1200px] disabled:cursor-not-allowed disabled:opacity-70 ${
-                narration.isPlaying || voicePlaying ? '' : 'animate-pulse-ring'
-              }`}
-              aria-pressed={isFlipped}
-            >
-              <div
-                className="relative h-full w-full transition-transform duration-500 [transform:translateZ(0)]"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                }}
-              >
-                {/* Front */}
-                <div
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-line bg-surface p-3 text-center shadow-card"
-                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-                >
-                  <IconBadge icon={card.icon} tone="brand" size="md" />
-                  <p className="text-[19px] font-extrabold leading-tight text-ink">{card.front}</p>
-                  <span className="chip bg-surface-3 text-ink-muted text-xs">
-                    <Icon name="sound" className="w-4 h-4" />
-                    اقلب واستمع
-                  </span>
-                </div>
-                {/* Back */}
-                <div
-                  className="absolute inset-0 flex flex-col justify-center gap-1.5 rounded-2xl border-2 border-brand/30 bg-surface p-3 text-right shadow-card"
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                    transform: 'rotateY(180deg)',
-                  }}
-                >
-                  <p className="flex items-center gap-1.5 text-[16px] font-extrabold text-brand">
-                    <Icon name="sound" className="w-4 h-4 animate-pulse" />
-                    {card.front}
-                  </p>
-                  <p className="text-[15.5px] font-semibold leading-snug text-ink">{card.back}</p>
-                </div>
-              </div>
-            </button>
-          );
-        })}
+    <div className="flex h-full min-h-0 flex-col gap-2.5">
+      <div className="mb-1 flex items-center justify-between gap-3">
+        <span className="text-sm font-extrabold text-brand">
+          البطاقة {toArabicDigits(index + 1)} من {toArabicDigits(data.cards.length)}
+        </span>
+        <span className="text-sm font-bold text-ink-muted">{data.instruction}</span>
       </div>
 
-      <p
-        className={`shrink-0 rounded-xl px-3 py-1.5 text-center text-sm font-semibold ${
-          allSeen ? 'bg-green-500/10 font-semibold text-green-700' : 'text-ink-muted'
+      <button
+        type="button"
+        disabled={!canInteract || flipped}
+        onClick={flip}
+        className={`group min-h-0 flex-1 text-right [perspective:1200px] disabled:cursor-not-allowed ${
+          canInteract && !flipped ? 'animate-pulse-ring' : ''
         }`}
+        aria-pressed={flipped}
       >
-        {allSeen
-          ? 'راجعت البطاقات جميعها ✓ — أنت جاهز للمحاكاة.'
-          : `قلبت ${toArabicDigits(seenCount)} من ${toArabicDigits(data.cards.length)} — اقلب البقية لإكمال المراجعة.`}
-      </p>
+        <div
+          className="relative h-full w-full transition-transform duration-500 [transform:translateZ(0)]"
+          style={{
+            transformStyle: 'preserve-3d',
+            transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          }}
+        >
+          <div
+            className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-[28px] border border-line bg-white/92 p-6 text-center shadow-[0_20px_42px_rgb(24_82_55_/_0.1)]"
+            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+          >
+            <IconBadge icon={card.icon} tone="brand" size="lg" />
+            <p className="text-[30px] font-black leading-tight text-ink">{card.front}</p>
+            <span className="chip bg-gold-500/12 text-gold-700 text-sm font-extrabold">
+              <Icon name="sound" className="h-4 w-4" />
+              اقلب واستمع
+            </span>
+          </div>
+
+          <div
+            className="absolute inset-0 flex flex-col justify-center gap-4 rounded-[28px] border-2 border-brand/30 bg-white/95 p-6 text-right shadow-[0_20px_42px_rgb(24_82_55_/_0.1)]"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
+            }}
+          >
+            <p className="flex items-center gap-2 text-[22px] font-black text-brand">
+              <Icon name="sound" className="h-5 w-5 animate-pulse" />
+              {card.front}
+            </p>
+            <p className="text-[22px] font-bold leading-relaxed text-ink">{card.back}</p>
+          </div>
+        </div>
+      </button>
+
+      {flipped && (
+        <div className="flex justify-end">
+          <button
+            type="button"
+            disabled={voicePlaying}
+            onClick={next}
+            className={`btn-primary px-6 py-2.5 text-base disabled:cursor-not-allowed disabled:bg-white disabled:text-ink-muted ${
+              voicePlaying ? '' : 'animate-pulse-ring'
+            }`}
+          >
+            {index + 1 < data.cards.length ? 'البطاقة التالية' : 'إنهاء النشاط'}
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
