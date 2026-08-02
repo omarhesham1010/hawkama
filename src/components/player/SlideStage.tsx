@@ -3284,11 +3284,14 @@ function PptSpotlightScene({
         // Revealing exactly when Nasser finishes saying a bullet leaves no
         // lead time to read it before the act moves on -- especially the
         // last bullet in a set, which can land right as the act's own
-        // narration runs out. Pull every bullet ~60 characters (roughly
-        // half a second of speech) earlier than its literal match so it's
-        // already on screen as Nasser approaches it, not right after.
+        // narration runs out. Pull every bullet a little earlier than its
+        // literal match so it's arriving as Nasser approaches it, not
+        // right after. 60 chars (~1.5-2s) read as too early -- a card
+        // would pop in well before its own name was said. 20 chars
+        // (roughly a quarter-second) keeps it close behind the words
+        // while still landing before the exact instant they finish.
         // Clamped to stay non-decreasing and never before its predecessor.
-        const LEAD = 60;
+        const LEAD = 20;
         let previous = 0;
         return raw.map((offset) => {
           previous = Math.max(previous, offset - LEAD, 0);
