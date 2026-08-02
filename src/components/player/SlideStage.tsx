@@ -1315,6 +1315,34 @@ function IntroMotionScene({
     if (normalizedIndex >= 0) return started && effectiveSpoken >= Math.floor(normalizedIndex * normalizedIndexRatio);
     return started && visualProgress >= fallback;
   };
+  const licensingPillarCues: Record<string, string[]> = {
+    'lic-u1-welcome': [
+      'التحليل المنهجي للبيانات والأدلة التنظيمية',
+      'إدارة وقياس مؤشرات الأداء',
+      'اتخاذ القرارات التنظيمية والاستراتيجية',
+    ],
+    'lic-u2-welcome': [
+      'تحليل سوق العمل الصحي',
+      'إدارة أصحاب المصلحة',
+      'التعلم المستمر والمواءمة العالمية',
+    ],
+    'lic-u3-welcome': [
+      'الالتزام الكامل بالأنظمة والضوابط المعتمدة',
+      'حوكمة تراخيص القطاع الصحي',
+      'الأخلاقيات والنزاهة',
+    ],
+    'lic-u4-welcome': [
+      'تحليل المخاطر',
+      'تقييم المخاطر متعددة الأخطار والتخطيط بالسيناريوهات',
+      'صياغة وتطوير السياسات الصحية',
+    ],
+    'lic-u5-welcome': [
+      'كيف نتحقق ميدانيًا من الالتزام',
+      'كيف نوثّق ما نراه في تقارير دقيقة',
+      'كيف نتابع الأداء لضمان استمرار الامتثال',
+    ],
+  };
+  const pillarCue = (index: number) => licensingPillarCues[slide.id]?.[index] ?? pillars[index]?.label ?? '';
   const isEmergencyWelcome = slide.id === 'emergency-welcome';
   // Every chapter has its own welcome/pptIntro slide (ec1-welcome,
   // ec2-welcome, ...), not just the bag-2 top-level intro -- all of them
@@ -1338,29 +1366,29 @@ function IntroMotionScene({
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
-      ? spokenPast(pillars[0]?.label ?? '', 0.2)
+      ? spokenPast(pillarCue(0), 0.2)
       : spokenPast('بنمشي سوا من بناء الحوكمة', 0.52);
   const secondPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الثاني عن إدارة الأزمة نفسها', 0.41)
     : isEmergencyCourse
-      ? spokenPast(pillars[1]?.label ?? '', 0.41)
+      ? spokenPast(pillarCue(1), 0.41)
       : spokenPast('إلى الامتثال واختبار الضوابط', 0.62);
   const thirdPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الثالث عن استشراف المستقبل', 0.53)
     : isEmergencyCourse
-      ? spokenPast(pillars[2]?.label ?? '', 0.53)
+      ? spokenPast(pillarCue(2), 0.53)
       : spokenPast('ثم نختم بإدارة المخاطر', 0.72);
   // Only the bag-level welcome slide has a real 4th pillar (chapter 4) --
   // every chapter's own welcome slide covers just its own 3 sub-topics.
   const fourthPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الرابع عن التعافي والتحسين المستمر', 0.65)
     : isEmergencyCourse && pillars[3]
-      ? spokenPast(pillars[3].label, 0.65)
+      ? spokenPast(pillarCue(3), 0.65)
       : false;
   // course/3's top-level welcome slide is the one place with a real 5th
   // pillar (5 units) -- every other course caps at 4.
   const fifthPillarShown =
-    isEmergencyCourse && pillars[4] ? spokenPast(pillars[4].label, 0.78) : false;
+    isEmergencyCourse && pillars[4] ? spokenPast(pillarCue(4), 0.78) : false;
   // Client call: nothing appears until Nasser actually talks about it --
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)
