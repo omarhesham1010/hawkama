@@ -7,6 +7,10 @@ node_modules/
 governance-scorm2004.zip
 emergency-response-sample-slides-1-2-scorm2004.zip
 /dist-sample/
+/dist-course1/
+/dist-course2/
+/dist-course3/
+/scorm-packages/
 .elevenlabs-pending/
 
 .env

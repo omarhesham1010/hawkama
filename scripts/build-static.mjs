@@ -6,9 +6,21 @@ import { createHash } from 'node:crypto';
 import * as esbuild from 'esbuild';
 
 const SAMPLE = process.argv.includes('--sample');
+// --course=1|2|3 produces a standalone single-course package: the app is
+// locked to that course's shell (VITE_SINGLE_COURSE, mirrors the existing
+// VITE_SAMPLE_MODE lock in App.tsx) and only that course's own audio is
+// kept, since a delivered "حقيبة" should be its own SCORM package, not the
+// whole 3-course platform with two irrelevant courses' narration inside it.
+const courseArg = process.argv.find((arg) => arg.startsWith('--course='));
+const COURSE = courseArg ? courseArg.slice('--course='.length) : null;
+if (COURSE && !['1', '2', '3'].includes(COURSE)) {
+  throw new Error(`--course must be 1, 2, or 3 (got "${COURSE}")`);
+}
+const AUDIO_PREFIX_BY_COURSE = { 1: 'bag1-', 2: 'bag2-', 3: 'bag3-' };
+const SINGLE_COURSE_ROUTE = { 1: 'course1', 2: 'course2', 3: 'course3' };
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const dist = join(root, SAMPLE ? 'dist-sample' : 'dist');
+const dist = join(root, SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist');
 const assetsDir = join(dist, 'assets');
 const entry = join(root, 'src', 'main.tsx');
 const cssInput = join(root, 'src', 'styles', 'index.css');
@@ -90,6 +102,35 @@ if (SAMPLE) {
   console.log('Sample build: removed unused moh-library icons, bag-1 Nasser poses, and personalization-gate avatars.');
 }
 
+if (COURSE) {
+  // Audio is ~95% of the delivered zip's weight (each course's own
+  // narration alone runs 100-200MB) -- ship only this course's own files
+  // (bag<N>-*.mp3) instead of all three courses' recordings bundled
+  // together, which is both wasted size and would leak unrelated/
+  // unapproved course narration into a "حقيبة" the ministry didn't ask for.
+  const prefix = AUDIO_PREFIX_BY_COURSE[COURSE];
+  const audioDir = join(dist, 'audio');
+  let removed = 0;
+  let kept = 0;
+  for (const name of readdirSync(audioDir)) {
+    if (name.startsWith(prefix)) {
+      kept += 1;
+    } else {
+      rmSync(join(audioDir, name), { force: true, recursive: true });
+      removed += 1;
+    }
+  }
+  console.log(`Course ${COURSE} build: pruned ${removed} other-course audio file(s), kept ${kept} of this course's own.`);
+
+  // The personalization gate (avatar picker) and the multi-course platform
+  // home are both dead weight in a standalone single-course package -- the
+  // app boots straight into this course's shell (see VITE_SINGLE_COURSE
+  // below), so neither screen is ever reachable.
+  rmSync(join(dist, 'avatar-assets'), { force: true, recursive: true });
+  rmSync(join(dist, 'assets', 'manifest.json'), { force: true });
+  rmSync(join(dist, 'assets', 'preview.html'), { force: true });
+}
+
 const contentFiles = [
   join(root, 'index.html'),
   join(root, 'src', 'App.tsx'),
@@ -131,6 +172,7 @@ await esbuild.build({
     'import.meta.env.PROD': 'true',
     'import.meta.env.MODE': JSON.stringify('production'),
     'import.meta.env.VITE_SAMPLE_MODE': JSON.stringify(SAMPLE ? 'true' : 'false'),
+    'import.meta.env.VITE_SINGLE_COURSE': JSON.stringify(COURSE ? SINGLE_COURSE_ROUTE[COURSE] : ''),
   },
   plugins: [
     {
@@ -163,4 +205,4 @@ const htmlTemplate = readFileSync(join(root, 'index.html'), 'utf8')
 
 writeFileSync(join(dist, 'index.html'), htmlTemplate, 'utf8');
 
-console.log(`Static build written to ${SAMPLE ? 'dist-sample' : 'dist'}/`);
+console.log(`Static build written to ${SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist'}/`);

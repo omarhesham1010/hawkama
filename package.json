@@ -16,8 +16,14 @@
     "dev": "npm run sync-audio && vite",
     "build": "npm run sync-audio && tsc -b && node scripts/build-static.mjs && node scripts/write-scorm-manifest.mjs",
     "build:sample": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --sample && node scripts/write-scorm-manifest.mjs --sample",
+    "build:course1": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=1 && node scripts/write-scorm-manifest.mjs --course=1",
+    "build:course2": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=2 && node scripts/write-scorm-manifest.mjs --course=2",
+    "build:course3": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=3 && node scripts/write-scorm-manifest.mjs --course=3",
     "package:scorm": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm.ps1",
     "package:scorm:sample": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm-sample.ps1",
+    "package:course1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 1",
+    "package:course2": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 2",
+    "package:course3": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 3",
     "preview": "vite preview"
   },
   "dependencies": {

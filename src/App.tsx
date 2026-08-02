@@ -25,10 +25,21 @@ interface Route {
  *  #/course/2 link, regardless of URL/hash, so a reviewer can never
  *  navigate into the rest of the (in-progress) platform. */
 const SAMPLE_MODE = import.meta.env.VITE_SAMPLE_MODE === 'true';
+/** Set only by `npm run build:course1`/`:course2`/`:course3` -- same lock
+ *  pattern as SAMPLE_MODE above, but for a standalone single-course SCORM
+ *  delivery: the app always boots straight into that one course's shell,
+ *  regardless of URL/hash, so the ministry-delivered package for one
+ *  "حقيبة" can never navigate into the multi-course platform home or any
+ *  other course (which also isn't in the package -- see build-static.mjs's
+ *  --course audio pruning). */
+const SINGLE_COURSE = import.meta.env.VITE_SINGLE_COURSE || '';
 
 function parseHash(): Route {
   if (SAMPLE_MODE) {
     return { view: 'course2', courseId: 'course-2', slide: 1 };
+  }
+  if (SINGLE_COURSE) {
+    return { view: SINGLE_COURSE as Route['view'], courseId: `course-${SINGLE_COURSE.slice(-1)}`, slide: 1 };
   }
   const h = (window.location.hash || '').replace(/^#\/?/, '');
   const parts = h.split('/').filter(Boolean);

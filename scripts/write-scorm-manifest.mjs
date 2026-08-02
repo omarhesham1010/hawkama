@@ -2,8 +2,21 @@ import { readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 const SAMPLE = process.argv.includes('--sample');
+const courseArg = process.argv.find((arg) => arg.startsWith('--course='));
+const COURSE = courseArg ? courseArg.slice('--course='.length) : null;
 
-const distDir = join(process.cwd(), SAMPLE ? 'dist-sample' : 'dist');
+const COURSE_TITLES = {
+  1: 'الحوكمة والمخاطر والامتثال',
+  2: 'إدارة الاستجابة للطوارئ',
+  3: 'ترخيص المنشآت الصحية والقوى العاملة',
+};
+const COURSE_IDENTIFIERS = {
+  1: 'hawkama-governance-course',
+  2: 'hawkama-emergency-course',
+  3: 'hawkama-licensing-course',
+};
+
+const distDir = join(process.cwd(), SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist');
 const manifestPath = join(distDir, 'imsmanifest.xml');
 
 function walk(dir) {
@@ -39,7 +52,15 @@ const organizationItems = SAMPLE
           <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
         </imsss:sequencing>
       </item>`
-  : `      <item identifier="ITEM-GOVERNANCE" identifierref="RES-PLATFORM" isvisible="true">
+  : COURSE
+    ? `      <item identifier="ITEM-COURSE-${COURSE}" identifierref="RES-PLATFORM" isvisible="true">
+        <title>${xmlEscape(COURSE_TITLES[COURSE])}</title>
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" flow="true" />
+          <imsss:deliveryControls completionSetByContent="true" objectiveSetByContent="true" />
+        </imsss:sequencing>
+      </item>`
+    : `      <item identifier="ITEM-GOVERNANCE" identifierref="RES-PLATFORM" isvisible="true">
         <title>الحوكمة والمخاطر والامتثال</title>
         <imsss:sequencing>
           <imsss:controlMode choice="true" flow="true" />
@@ -55,7 +76,7 @@ const organizationItems = SAMPLE
       </item>`;
 
 const manifest = `<?xml version="1.0" encoding="UTF-8"?>
-<manifest identifier="${SAMPLE ? 'hawkama-emergency-sample-module' : 'hawkama-governance-module'}"
+<manifest identifier="${SAMPLE ? 'hawkama-emergency-sample-module' : COURSE ? COURSE_IDENTIFIERS[COURSE] : 'hawkama-governance-module'}"
   version="1.0"
   xmlns="http://www.imsglobal.org/xsd/imscp_v1p1"
   xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3"
@@ -75,7 +96,7 @@ const manifest = `<?xml version="1.0" encoding="UTF-8"?>
 
   <organizations default="ORG-PLATFORM">
     <organization identifier="ORG-PLATFORM" adlseq:objectivesGlobalToSystem="false">
-      <title>${SAMPLE ? 'نموذج أولي - إدارة الاستجابة للطوارئ' : 'منصة التدريب الرقمي'}</title>
+      <title>${SAMPLE ? 'نموذج أولي - إدارة الاستجابة للطوارئ' : COURSE ? xmlEscape(COURSE_TITLES[COURSE]) : 'منصة التدريب الرقمي'}</title>
 ${organizationItems}
     </organization>
   </organizations>
@@ -89,4 +110,4 @@ ${fileNodes}
 `;
 
 writeFileSync(manifestPath, manifest, 'utf8');
-console.log(`SCORM manifest written with ${files.length} file(s) to ${SAMPLE ? 'dist-sample' : 'dist'}/imsmanifest.xml.`);
+console.log(`SCORM manifest written with ${files.length} file(s) to ${SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist'}/imsmanifest.xml.`);
