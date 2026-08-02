@@ -3371,6 +3371,100 @@ function PptSpotlightScene({
     hasBulletSubcards && narrationPosition > 0 && !bulletsNarrationFinished
       ? activePptCardForCue(bulletOffsets, narrationPosition)
       : -1;
+  const isLicensingSlide = slide.id.startsWith('lic');
+  const editorialSpotlightSeed = stableIconIndex(`${slide.id}:${focusCard?.title ?? ''}`);
+  const useEditorialSpotlight =
+    isLicensingSlide &&
+    !hasBulletSubcards &&
+    supporting.length === 0 &&
+    editorialSpotlightSeed % 3 !== 0;
+  const editorialVisualOnLeft = editorialSpotlightSeed % 2 === 0;
+
+  if (useEditorialSpotlight) {
+    return (
+      <div className={`flex min-h-0 flex-1 items-center justify-center overflow-visible px-8 pb-[84px] pt-1 ${editorialVisualOnLeft ? 'flex-row' : 'flex-row-reverse'} gap-8`}>
+        <div
+          className={`pointer-events-none relative grid h-[250px] w-[330px] shrink-0 place-items-center transition-all duration-700 ease-out ${
+            focusVisible ? `${revealAnimationFor(focusIndex)} opacity-100` : 'translate-y-4 scale-95 opacity-0'
+          }`}
+          aria-hidden="true"
+        >
+          <span className="absolute inset-x-8 bottom-4 h-16 rounded-full bg-[radial-gradient(circle,rgb(24_82_55_/_0.18),rgb(255_255_255_/_0))] blur-xl" />
+          <span className="absolute inset-8 rounded-full border border-gold-500/30 bg-white/80 shadow-[0_28px_44px_rgb(24_82_55_/_0.12)]" />
+          <span className="absolute inset-1 rounded-full border border-green-700/10 bg-[radial-gradient(circle_at_35%_25%,rgb(255_255_255),rgb(233_246_239_/_0.72),rgb(255_255_255_/_0))]" />
+          <svg className="absolute inset-0 h-full w-full animate-aura-spin opacity-60" viewBox="0 0 260 260" aria-hidden="true">
+            <circle cx="130" cy="130" r="104" fill="none" stroke="rgb(191 155 74 / 0.36)" strokeWidth="3" strokeDasharray="8 14" strokeLinecap="round" />
+            <circle cx="130" cy="130" r="82" fill="none" stroke="rgb(31 105 72 / 0.18)" strokeWidth="2" strokeDasharray="3 12" strokeLinecap="round" />
+          </svg>
+          {showFocusVisual ? (
+            <img
+              src={primaryVisual}
+              alt=""
+              className={`relative z-10 h-[210px] w-[250px] object-contain drop-shadow-[0_24px_30px_rgb(24_82_55_/_0.18)] ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : focusBrandIcon ? (
+            <span className="relative z-10 grid h-[156px] w-[156px] place-items-center rounded-[40px] border border-gold-500/30 bg-white p-8 shadow-card-lg">
+              <BrandIcon src={focusBrandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} />
+            </span>
+          ) : (
+            <span className="relative z-10 grid h-[156px] w-[156px] place-items-center rounded-[40px] border border-gold-500/30 bg-white p-8 shadow-card-lg">
+              <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active={focusVisible} compact />
+            </span>
+          )}
+        </div>
+
+        <button
+          type="button"
+          disabled={!focusVisible || narrationLocked}
+          onClick={() => onToggle(focusIndex)}
+          className={`relative isolate min-h-[196px] w-[560px] overflow-visible rounded-[34px] border bg-white/94 px-8 py-6 text-right shadow-[0_24px_46px_rgb(24_82_55_/_0.10)] transition-all duration-700 ease-out ${
+            focusVisible ? 'animate-rise opacity-100' : 'pointer-events-none translate-y-5 opacity-0'
+          } ${
+            focusActive
+              ? 'scale-[1.02] border-gold-500/60 shadow-card-lg'
+              : 'border-green-700/14'
+          }`}
+        >
+          <span className={`absolute inset-y-6 ${editorialVisualOnLeft ? 'right-0' : 'left-0'} w-2 rounded-full bg-green-700 shadow-[0_0_22px_rgb(191_155_74_/_0.35)]`} aria-hidden="true" />
+          <span className="pointer-events-none absolute -top-3 right-8 h-6 w-28 rounded-full bg-gold-500/18" aria-hidden="true" />
+          {focusVisible && (
+            <span
+              className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow rounded-[34px] bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_35%,rgb(191_155_74/0.08)_48%,rgb(255_255_255/0.16)_52%,transparent_65%)]"
+              aria-hidden="true"
+            />
+          )}
+          <span className="relative z-10 mb-4 inline-grid h-14 w-14 place-items-center rounded-2xl border border-gold-500/28 bg-white p-2 shadow-sm" aria-hidden="true">
+            {focusBrandIcon ? (
+              <BrandIcon src={focusBrandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} />
+            ) : (
+              <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active={focusVisible} compact />
+            )}
+          </span>
+          <h3 className="relative z-10 text-[31px] font-black leading-tight text-brand-strong">
+            {focusCard?.title}
+          </h3>
+          {focusCard?.subtitle && (
+            <p className="relative z-10 mt-2 text-[17px] font-extrabold leading-snug text-green-800">
+              {focusCard.subtitle}
+            </p>
+          )}
+          {focusCard?.text && (
+            <p className="relative z-10 mt-2 text-[18px] font-bold leading-snug text-ink">
+              {focusCard.text}
+            </p>
+          )}
+          {showFocusDetail && focusDetail && (
+            <div className="relative z-10 mt-3 rounded-2xl border border-green-700/14 bg-green-50/20 p-2.5">
+              <p className="text-[13px] font-bold leading-snug text-ink">{focusDetail}</p>
+            </div>
+          )}
+        </button>
+      </div>
+    );
+  }
+
   // This column is centered across the full scene height with no regard
   // for Nasser's own (absolutely-positioned, so layout-invisible) layer,
   // so the supporting-chips row could end up sitting under him. Pushing it
