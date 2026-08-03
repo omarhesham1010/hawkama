@@ -284,24 +284,24 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag3-ch5-s3-activity-1-detail-1.mp3` - نشاط: فحص أم تدقيق؟ - مناقشة 1
 - `bag3-ch5-s5-activity-2-detail-1.mp3` - دراسة حالة: تفتيش مركز الشفاء التخصصي - مناقشة 1
 - `bag3-ch5-s7-activity-3-detail-1.mp3` - نشاط: اتساق وجودة القرار - مناقشة 1
-- `bag1-ch1-s9-activity-governance-or-compliance-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
-- `bag1-ch1-s9-activity-governance-or-compliance-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
-- `bag1-ch1-s9-activity-governance-or-compliance-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-1-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 1 صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-1-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 1 غير صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-2-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 2 صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-2-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 2 غير صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-3-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 3 صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-3-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-4-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 4 صحيحة
-- `bag1-ch1-s9-activity-governance-or-compliance-feedback-4-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة
-- `bag1-ch1-s11-conflict-scenario-question-1.mp3` - سيناريو تضارب المصالح - السؤال 1
-- `bag1-ch1-s11-conflict-scenario-question-2.mp3` - سيناريو تضارب المصالح - السؤال 2
-- `bag1-ch1-s11-conflict-scenario-question-3.mp3` - سيناريو تضارب المصالح - السؤال 3
-- `bag1-ch1-s11-conflict-scenario-discussion-1.mp3` - سيناريو تضارب المصالح - المناقشة 1
-- `bag1-ch1-s11-conflict-scenario-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
-- `bag1-ch1-s11-conflict-scenario-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
-- `bag1-ch1-s11-conflict-scenario-complete.mp3` - سيناريو تضارب المصالح - الختام
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-1-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 1 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-1-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 1 غير صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-2-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 2 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-2-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 2 غير صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-3-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 3 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-3-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 3 غير صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-4-correct.mp3` - نشاط الحوكمة والامتثال - إجابة 4 صحيحة
+- `bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-4-incorrect.mp3` - نشاط الحوكمة والامتثال - إجابة 4 غير صحيحة
+- `bag1-ch1-s11-conflict-scenario-course1-question-1.mp3` - سيناريو تضارب المصالح - السؤال 1
+- `bag1-ch1-s11-conflict-scenario-course1-question-2.mp3` - سيناريو تضارب المصالح - السؤال 2
+- `bag1-ch1-s11-conflict-scenario-course1-question-3.mp3` - سيناريو تضارب المصالح - السؤال 3
+- `bag1-ch1-s11-conflict-scenario-course1-discussion-1.mp3` - سيناريو تضارب المصالح - المناقشة 1
+- `bag1-ch1-s11-conflict-scenario-course1-discussion-2.mp3` - سيناريو تضارب المصالح - المناقشة 2
+- `bag1-ch1-s11-conflict-scenario-course1-discussion-3.mp3` - سيناريو تضارب المصالح - المناقشة 3
+- `bag1-ch1-s11-conflict-scenario-course1-complete.mp3` - سيناريو تضارب المصالح - الختام
 - `bag1-ch1-s12-quiz-feedback-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
 - `bag1-ch1-s12-quiz-feedback-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
 - `bag1-ch1-s12-quiz-feedback-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة

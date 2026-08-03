@@ -30,6 +30,13 @@ export const AUDIO_MANIFEST: string[] = [
   "bag1-ch1-s10-ethics-conflict-course1",
   "bag1-ch1-s10-ethics-conflict",
   "bag1-ch1-s11-conflict-scenario-complete",
+  "bag1-ch1-s11-conflict-scenario-course1-complete",
+  "bag1-ch1-s11-conflict-scenario-course1-discussion-1",
+  "bag1-ch1-s11-conflict-scenario-course1-discussion-2",
+  "bag1-ch1-s11-conflict-scenario-course1-discussion-3",
+  "bag1-ch1-s11-conflict-scenario-course1-question-1",
+  "bag1-ch1-s11-conflict-scenario-course1-question-2",
+  "bag1-ch1-s11-conflict-scenario-course1-question-3",
   "bag1-ch1-s11-conflict-scenario-course1",
   "bag1-ch1-s11-conflict-scenario-discussion-1",
   "bag1-ch1-s11-conflict-scenario-discussion-2",
@@ -98,6 +105,17 @@ export const AUDIO_MANIFEST: string[] = [
   "bag1-ch1-s7-framework",
   "bag1-ch1-s8-governance-compliance-course1",
   "bag1-ch1-s8-governance-compliance",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-1-correct",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-1-incorrect",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-2-correct",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-2-incorrect",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-3-correct",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-3-incorrect",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-4-correct",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-feedback-4-incorrect",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-question-2",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-question-3",
+  "bag1-ch1-s9-activity-governance-or-compliance-course1-question-4",
   "bag1-ch1-s9-activity-governance-or-compliance-course1",
   "bag1-ch1-s9-activity-governance-or-compliance-feedback-1-correct",
   "bag1-ch1-s9-activity-governance-or-compliance-feedback-1-incorrect",
@@ -667,7 +685,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag3-ch5-s8-quiz",
   "bag3-ch5-s9-closing"
 ];
-export const AUDIO_MANIFEST_VERSION = '14f55e02fa24';
+export const AUDIO_MANIFEST_VERSION = 'c8de09b1c3b6';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

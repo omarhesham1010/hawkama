@@ -89,6 +89,11 @@ const mainSlideItems = slides.map((slide) =>
   item(slide.audioKey, slide.title, slide.narration, 'slide', slide.id),
 );
 
+function findSlideForAudio(id: string) {
+  const matchingSlides = slides.filter((slide) => slide.id === id);
+  return matchingSlides.find((slide) => slide.audioKey.endsWith('-course1')) ?? matchingSlides[0];
+}
+
 const genericActivityDetailItems = slides
   .filter(
     (slide) =>
@@ -107,7 +112,7 @@ const genericActivityDetailItems = slides
     ),
   );
 
-const governanceSlide = slides.find((slide) => slide.id === 'ppt-activity-governance-or-compliance');
+const governanceSlide = findSlideForAudio('ppt-activity-governance-or-compliance');
 const governanceCards = governanceSlide?.ppt?.cards ?? [];
 const governanceQuestionItems = governanceCards.slice(1).map((card, offset) => {
   const index = offset + 1;
@@ -140,7 +145,7 @@ const governanceFeedbackItems = governanceCards.flatMap((card, index) => {
   return [correct, incorrect];
 });
 
-const scenarioSlide = slides.find((slide) => slide.id === 'ppt-conflict-scenario');
+const scenarioSlide = findSlideForAudio('ppt-conflict-scenario');
 const scenarioKey = scenarioSlide?.audioKey ?? 'ppt-conflict-scenario';
 const scenarioItems = [
   ...conflictScenarioQuestions.map((text, index) =>
