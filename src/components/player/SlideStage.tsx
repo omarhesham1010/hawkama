@@ -3390,11 +3390,16 @@ function PptSpotlightScene({
       : -1;
   const isLicensingSlide = slide.id.startsWith('lic');
   const editorialSpotlightSeed = stableIconIndex(`${slide.id}:${focusCard?.title ?? ''}`);
+  const useCourse1ActivityEditorial =
+    isCourse1Slide &&
+    slide.kind === 'activity' &&
+    !hasBulletSubcards &&
+    supporting.length === 0;
   const useEditorialSpotlight =
-    isLicensingSlide &&
+    (isLicensingSlide || useCourse1ActivityEditorial) &&
     !hasBulletSubcards &&
     supporting.length === 0 &&
-    editorialSpotlightSeed % 3 !== 0;
+    (useCourse1ActivityEditorial || editorialSpotlightSeed % 3 !== 0);
   const editorialVisualOnLeft = editorialSpotlightSeed % 2 === 0;
 
   if (useEditorialSpotlight) {
