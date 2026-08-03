@@ -125,7 +125,13 @@ export const emergencyIntroSlides = indexSlides([
       'محورنا في هذه الشريحة هو محتويات الحقيبة. قبل الدخول في التفاصيل، نستعرض خريطة الحقيبة، وكيف يبني كل فصل على الفصل الذي يسبقه. الفكرة الأولى هي الفصل الأول، الاستعداد للطوارئ الصحية، ويشمل الإطار الاستراتيجي وخطط الطوارئ وأنظمة القيادة ICS وEOC وتنسيق المعلومات والموارد. وبعد أن تتضح البداية، ننتقل إلى الفصل الثاني، إدارة الأزمات الصحية، ونركّز فيه على تحليل الأزمات ومصفوفة RACI واتخاذ القرار تحت الضغط والتواصل بنموذج CERC. ثم نصل إلى الفصل الثالث، المسح الاستباقي والترصد المبكر، ويشمل المسح الأفقي والرأسي وتقييم المخاطر متعددة الأخطار والترصد والإنذار المبكر. وأخيرًا الفصل الرابع، التعافي والتحسين المستمر، ويشمل اللوجستيات وسلسلة التوريد ومراجعات ما بعد الحدث ومؤشرات الأداء وإدارة أصحاب المصلحة. وبهذا الترتيب، نبدأ بالاستعداد قبل الأزمة، ثم ندير الأزمة وهي قائمة، ثم نستشرف ما يأتي بعدها، وأخيرًا نتعلم ونتحسّن. وإذا كانت الخريطة واضحة، نبدأ الفصل الأول بإذن الله.',
     visual: '🗺️',
     layout: 'pptTimeline',
-    cards: chapterMapCards,
+    cards: [chapterMapCards[0]],
+    laterActs: [
+      [chapterMapCards[1]],
+      [chapterMapCards[2]],
+      [chapterMapCards[3]],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeQuizSlide({
     id: 'emergency-pre-test',
@@ -1356,8 +1362,8 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '🔍',
     layout: 'pptMatrix',
     cards: [{ title: 'فهم ديناميكيات الأزمات', text: 'المحور الأول: تحليل الأزمات، وفهم ديناميكياتها. يجب أن نميّز بدقة بين أربعة مصطلحات.', tone: 'gold' }],
-    laterActs: [crisisTermsCards],
-    actLayouts: ['pptSpotlight', 'pptMatrix'],
+    laterActs: [crisisTermsCards.slice(0, 2), crisisTermsCards.slice(2)],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
     checks: [
       quickCheck({
         title: 'ما الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
@@ -1410,13 +1416,14 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'مصفوفة RACI', text: 'الفوضى هي العدو الأول في الأزمات، والحوكمة الفعالة تعني هيكل قيادة واضح وأدوار محددة.', tone: 'gold' }],
     laterActs: [
-      raciCards,
+      raciCards.slice(0, 2),
+      raciCards.slice(2),
       [
         { title: 'تفشي تسمم غذائي', text: 'مدير المستشفى مساءَل، رئيس الطوارئ مسؤول عن التنفيذ، فريق مكافحة العدوى يُستشار، ومدير التواصل يُعلَم.', tone: 'gold' },
         { title: 'إصدار البيان الإعلامي الأولي', text: 'مدير التواصل هو المسؤول عن التنفيذ، ورئيس الطوارئ يُعلَم فقط حسب نوع المهمة.', tone: 'gold' },
       ],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec2-activity-raci',
@@ -1497,12 +1504,13 @@ export const emergencyChapterTwoSlides = indexSlides([
     cards: [{ title: 'معايير التصعيد وتفعيل القيادة الطارئة', text: 'مؤشرات محددة مسبقًا تخبرنا متى ننتقل من مستوى استجابة لمستوى أعلى.', tone: 'gold' }],
     laterActs: [
       [{ title: 'لا يمكن إدارة كل الأحداث بنفس مستوى الاستجابة', text: 'معايير التصعيد مجموعة مؤشرات محددة مسبقًا تخبرنا متى ننتقل لمستوى استجابة أعلى.', tone: 'gold' }],
+      escalationLevelsCards.slice(0, 2),
+      escalationLevelsCards.slice(2),
       [
-        ...escalationLevelsCards,
         { title: 'سؤال قرار: متى نُصعّد؟', text: 'سيناريو "تسرب مادة كيميائية في أحد مختبرات المستشفى" — ما العلامة التي تنقلنا من مستوى لآخر؟ ومتى نرفع التصعيد للمنطقة أو المركز الوطني؟', tone: 'gold', syncText: 'نختبرها داخل العرض بسؤال قرار' },
       ],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-cerc-phases',
@@ -1514,11 +1522,13 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'التواصل والمشاركة المجتمعية', text: 'عن طريق نموذج CERC — هدف التواصل وقت الأزمة ليس نقل المعلومة فقط، بل إدارة الخوف وتقليل عدم اليقين وحماية الثقة.', tone: 'gold' }],
     laterActs: [
-      cercPhaseCards,
-      cercMistakesCards,
+      cercPhaseCards.slice(0, 2),
+      cercPhaseCards.slice(2),
+      cercMistakesCards.slice(0, 3),
+      cercMistakesCards.slice(3),
       [{ title: 'تطبيق مبادئ CERC', text: 'سيناريو "تأكيد أول حالة وفاة بسبب التفشي الفيروسي الغامض" — اكتب تغريدة وبيانًا صحفيًا قصيرًا بمبادئ CERC.', syncText: 'نطبقها على سيناريو', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTitleCards', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-media-trust',
@@ -1580,8 +1590,8 @@ export const emergencyChapterTwoSlides = indexSlides([
     visual: '💡',
     layout: 'pptSpotlight',
     cards: [{ title: 'الدروس المستفادة للمملكة', text: 'أربعة دروس مستفادة للمملكة من هذه المقارنة موضحة أمامك.', tone: 'gold' }],
-    laterActs: [lessonsForSaudiCards],
-    actLayouts: ['pptSpotlight', 'pptTimeline'],
+    laterActs: [lessonsForSaudiCards.slice(0, 2), lessonsForSaudiCards.slice(2)],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeQuizSlide({
     id: 'ec2-quiz',
@@ -1913,11 +1923,12 @@ export const emergencyChapterThreeSlides = indexSlides([
       ].join(' '),
     visual: '🎯',
     layout: 'pptThreeColumns',
-    cards: [
-      { index: '01', title: 'تطبيق المسح الأفقي والرأسي واستشراف المخاطر التنظيمية' },
-      { index: '02', title: 'تقييم المخاطر متعددة الأخطار والتخطيط بسيناريوهات متعددة', tone: 'gold' },
-      { index: '03', title: 'بناء نظام ترصد وإنذار مبكر يربط المعلومة بالقرار' },
+    cards: [{ index: '01', title: 'تطبيق المسح الأفقي والرأسي واستشراف المخاطر التنظيمية' }],
+    laterActs: [
+      [{ index: '02', title: 'تقييم المخاطر متعددة الأخطار والتخطيط بسيناريوهات متعددة', tone: 'gold' }],
+      [{ index: '03', title: 'بناء نظام ترصد وإنذار مبكر يربط المعلومة بالقرار' }],
     ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec3-scanning-intro',
@@ -1931,8 +1942,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '🧭',
     layout: 'pptTimeline',
     cards: [{ title: 'عملية منهجية ومنظمة لجمع وتحليل المعلومات', text: 'من البيئة الداخلية والخارجية للمنظمة، لتحديد الاتجاهات والتهديدات والفرص المستقبلية.', tone: 'gold' }],
-    laterActs: [scanningImportanceCards.map((card) => ({ ...card, syncText: card.title }))],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [
+      scanningImportanceCards.slice(0, 2).map((card) => ({ ...card, syncText: card.title })),
+      scanningImportanceCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptThreeColumns'],
   }),
   makeSlide({
     id: 'ec3-horizontal-scanning',
@@ -2008,8 +2022,8 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '📜',
     layout: 'pptMatrix',
     cards: [{ title: 'عملية استباقية تحدد وتحلل وتقيّم المخاطر المحتملة', text: 'من التغييرات في البيئة التنظيمية.', tone: 'gold' }],
-    laterActs: [regulatoryForesightCards],
-    actLayouts: ['pptSpotlight', 'pptMatrix'],
+    laterActs: [regulatoryForesightCards.slice(0, 2), regulatoryForesightCards.slice(2)],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec3-regulatory-tools',
@@ -2109,8 +2123,11 @@ export const emergencyChapterThreeSlides = indexSlides([
     visual: '📡',
     layout: 'pptMatrix',
     cards: [{ title: 'الترصد ودمج الإنذار المبكر', text: 'من التلسكوب إلى الرادار — من الرصد السلبي للترصد الاستباقي.', tone: 'gold' }],
-    laterActs: [surveillanceImportanceCards.map((card) => ({ ...card, syncText: card.title }))],
-    actLayouts: ['pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      surveillanceImportanceCards.slice(0, 2).map((card) => ({ ...card, syncText: card.title })),
+      surveillanceImportanceCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec3-indicators',
@@ -2731,8 +2748,8 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '📦',
     layout: 'pptTitleCards',
     cards: [{ title: 'العمود الفقري للاستجابة', text: 'أفضل الكوادر والتقنيات تعجز إذا نفدت الإمدادات الحيوية.', tone: 'gold' }],
-    laterActs: [supplyChainWeaknessCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [supplyChainWeaknessCards.slice(0, 2), supplyChainWeaknessCards.slice(2)],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec4-supply-chain-strategies',
@@ -2746,8 +2763,11 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '🚚',
     layout: 'pptSpotlight',
     cards: [{ title: 'بناء المرونة', text: 'أربع استراتيجيات، كل واحدة بمثال تطبيقي.', tone: 'gold' }],
-    laterActs: [supplyChainStrategiesCards.map((card) => ({ ...card, syncText: card.title }))],
-    actLayouts: ['pptSpotlight', 'pptTitleCards'],
+    laterActs: [
+      supplyChainStrategiesCards.slice(0, 2).map((card) => ({ ...card, syncText: card.title })),
+      supplyChainStrategiesCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
     checks: [
       quickCheck({
         title: 'لماذا فشل مخزون "في الوقت المناسب" وقت جائحة كورونا؟',
@@ -2805,11 +2825,12 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '🏭',
     layout: 'pptMatrix',
-    cards: inventoryGovernanceCards.map((card) => ({ ...card, syncText: card.title })),
+    cards: inventoryGovernanceCards.slice(0, 2).map((card) => ({ ...card, syncText: card.title })),
     laterActs: [
+      inventoryGovernanceCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'نوبكو', text: 'الشركة السعودية للشراء الموحد تلعب دورًا محوريًا بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات، وتوفر طبقة أمان إضافية للنظام الصحي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptMatrix', 'pptSpotlight'],
+    actLayouts: ['pptTwoPanels', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-aar-intro',
@@ -2900,8 +2921,8 @@ export const emergencyChapterFourSlides = indexSlides([
     visual: '📈',
     layout: 'pptTwoPanels',
     cards: [{ title: 'خطة التحسين المستمر', text: 'الجسر بين الدرس المستفاد (النظرية) والتطبيق الفعلي — وثيقة حية تحدد الإجراءات التصحيحية وتعيّن المسؤوليات وتضع أطر زمنية ومؤشرات نجاح.', tone: 'gold' }],
-    laterActs: [improvementPlanCards],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels'],
+    laterActs: improvementPlanCards.map((card) => [{ ...card, syncText: card.title }]),
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec4-kpi-categories',
@@ -3044,14 +3065,12 @@ export const emergencyChapterFourSlides = indexSlides([
       ].join(' '),
     visual: '🛡️',
     layout: 'pptTwoPanels',
-    cards: [
-      { ...trustBuildingCards[0], syncText: 'أربعة عناصر' },
-      { ...trustBuildingCards[1], syncText: 'ومكافحة المعلومات المضللة' },
-    ],
+    cards: [{ ...trustBuildingCards[0], syncText: 'أربعة عناصر' }],
     laterActs: [
+      [{ ...trustBuildingCards[1], syncText: 'ومكافحة المعلومات المضللة' }],
       [{ title: 'التطبيق بالسياق السعودي', text: 'نجح بالاستفادة من المنصات الرسمية الموحدة والمؤتمر الصحفي اليومي وقت كورونا، مع مراعاة الحساسية الثقافية دائمًا.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTwoPanels', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-closing-applications',

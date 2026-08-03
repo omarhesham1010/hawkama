@@ -3389,17 +3389,18 @@ function PptSpotlightScene({
       ? activePptCardForCue(bulletOffsets, narrationPosition)
       : -1;
   const isLicensingSlide = slide.id.startsWith('lic');
+  const isCourse2Slide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const editorialSpotlightSeed = stableIconIndex(`${slide.id}:${focusCard?.title ?? ''}`);
-  const useCourse1ActivityEditorial =
-    isCourse1Slide &&
+  const useMotionActivityEditorial =
+    (isCourse1Slide || isCourse2Slide) &&
     slide.kind === 'activity' &&
     !hasBulletSubcards &&
     supporting.length === 0;
   const useEditorialSpotlight =
-    (isLicensingSlide || useCourse1ActivityEditorial) &&
+    (isLicensingSlide || useMotionActivityEditorial) &&
     !hasBulletSubcards &&
     supporting.length === 0 &&
-    (useCourse1ActivityEditorial || editorialSpotlightSeed % 3 !== 0);
+    (useMotionActivityEditorial || editorialSpotlightSeed % 3 !== 0);
   const editorialVisualOnLeft = editorialSpotlightSeed % 2 === 0;
 
   if (useEditorialSpotlight) {
@@ -4248,6 +4249,7 @@ function PptStyleSlide({
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isLicensingSlide = slide.id.startsWith('lic');
+  const isCourse2Slide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const isMotionLedSlide = isEmergencySlide || isCourse1Slide;
   const narrationPosition = started ? spoken : 0;
@@ -4262,7 +4264,7 @@ function PptStyleSlide({
   const naturalRevealOffsets = pptCardRevealOffsets(cards, slide.narration, !isLicensingSlide);
   const naturalFirstOffset = naturalRevealOffsets[0] ?? 0;
   const firstCardNeedsOpeningCue =
-    isLicensingSlide &&
+    (isLicensingSlide || isCourse2Slide) &&
     cards.length > 0 &&
     !cards[0]?.syncText &&
     (naturalFirstOffset > 80 || naturalFirstOffset / Math.max(1, slide.narration.length) > 0.18);
