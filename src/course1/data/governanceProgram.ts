@@ -43,17 +43,6 @@ function cardWithBullets(card: PptCard, bullets: string[], syncText?: string): P
   };
 }
 
-function cardWithText(card: PptCard, text: string, syncText?: string, title?: string, tone?: PptCard['tone']): PptCard {
-  return {
-    ...card,
-    title: title ?? card.title,
-    text,
-    bullets: undefined,
-    syncText: syncText ?? card.syncText,
-    tone: tone ?? card.tone,
-  };
-}
-
 function makeSlide({
   id,
   title,
@@ -838,14 +827,11 @@ export const governanceChapterOneSlides = indexSlides([
     layout: 'pptThreeColumns',
     // One topic per beat instead of all three sitting on screen together
     // for the whole 122s narration -- matches course/2's per-concept pacing.
-    cards: [cardWithBullets(chapterOneOverview[0], chapterOneOverview[0].bullets!.slice(0, 1))],
+    cards: chapterOneOverview.slice(0, 1),
     laterActs: [
-      [cardWithBullets(chapterOneOverview[0], chapterOneOverview[0].bullets!.slice(1), 'تفسير اللوائح')],
-      [cardWithBullets(chapterOneOverview[1], chapterOneOverview[1].bullets!.slice(0, 1))],
-      [cardWithBullets(chapterOneOverview[1], chapterOneOverview[1].bullets!.slice(1), 'تطوير وتطبيق')],
+      chapterOneOverview.slice(1, 2),
       [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(0, 2))],
-      [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(2, 3), 'النزاهة المؤسسية')],
-      [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(3), 'حوكمة الأخلاقيات')],
+      [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(2), 'النزاهة المؤسسية')],
     ],
     // pptTimeline never shows a card's bullets, only its title, and these
     // cards carry only bullets (no text) -- spotlight surfaces them
@@ -853,7 +839,7 @@ export const governanceChapterOneSlides = indexSlides([
     // are Spotlight, not varied: pptMatrix/pptTimeline/pptSixCards are grid
     // shapes meant for several cells -- handed only one card each, they
     // rendered as a squashed full-width bar instead of a real grid.
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'قبل ما نبدأ: أي محور يحمي نزاهة القرار؟',
@@ -877,93 +863,16 @@ export const governanceChapterOneSlides = indexSlides([
     // arbitrary grouping, not a real pairing. One full Spotlight shot per
     // card instead: every concept gets the screen to itself while Nasser
     // is actually talking about it.
-    cards: [
-      {
-        title: 'مسار الإطار التنظيمي',
-        text: 'نحوّل الرؤية والأنظمة والمعايير إلى ممارسة قابلة للمتابعة داخل المنشأة.',
-        syncText: 'نبدأ بالإطار التنظيمي',
-        tone: 'blue',
-      },
-    ],
+    cards: regulatoryCards.slice(0, 1),
     laterActs: [
-      [
-      cardWithText(
-        regulatoryCards[0],
-        'الانتقال من نموذج العلاج إلى الوقاية وجودة الحياة.',
-      ),
-      ],
-      [
-        cardWithText(
-          regulatoryCards[0],
-          'مع التركيز على سهولة الوصول، الجودة، الكفاءة، والاستدامة المالية.',
-          'سهولة الوصول',
-          'أثر التحول الصحي',
-          'gold',
-        ),
-      ],
       [cardWithBullets(regulatoryCards[1], regulatoryCards[1].bullets!.slice(0, 1))],
       [cardWithBullets(regulatoryCards[1], regulatoryCards[1].bullets!.slice(1), 'المؤسسي')],
-      [
-        cardWithText(
-          regulatoryCards[2],
-          'CBAHI، JCI، آيزو 9001، آيزو 45001، آيزو 27001، آيزو 31000، HIMSS.',
-        ),
-      ],
-      [
-        cardWithText(
-          regulatoryCards[2],
-          'معايير تضمان الجودة وحماية المرضى والعاملين.',
-          'معايير تضمان',
-          'أثر الاعتماد',
-          'gold',
-        ),
-      ],
+      regulatoryCards.slice(2, 3),
       regulatoryCards.slice(3, 4),
-      [
-        cardWithText(
-          regulatoryCards[4],
-          'تحويل النص التنظيمي إلى سياسات داخلية واضحة.',
-        ),
-      ],
-      [
-        cardWithText(
-          regulatoryCards[4],
-          'تحدد المسؤوليات وآليات التطبيق والمتابعة المستمرة.',
-          'تحدد المسؤوليات',
-          'تفسير قابل للتطبيق',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          regulatoryCards[5],
-          'كل لائحة تُترجم إلى سياسة داخلية وإجراءات تشغيلية.',
-        ),
-      ],
-      [
-        cardWithText(
-          regulatoryCards[5],
-          'وتوزيع مسؤوليات ومتابعة الالتزام دورياً.',
-          'توزيع مسؤوليات',
-          'متابعة الالتزام',
-          'gold',
-        ),
-      ],
+      regulatoryCards.slice(4, 5),
+      regulatoryCards.slice(5, 6),
     ],
-    actLayouts: [
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTimeline',
-      'pptTwoPanels',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -981,29 +890,15 @@ export const governanceChapterOneSlides = indexSlides([
     // applied example closes solo.
     // Four distinct concepts -- one full Spotlight shot per card instead of
     // pairing two into a matrix act just because they were adjacent.
-    cards: [
-      cardWithText(
-        policyCards[0],
-        'وثيقة رسمية تحدد كيفية التعامل في موضوع معين داخل المنشأة.',
-      ),
-    ],
+    cards: policyCards.slice(0, 1),
     laterActs: [
-      [
-        cardWithText(
-          policyCards[0],
-          'تضمن الاتساق في الأداء والامتثال للأنظمة وتحقيق الجودة.',
-          'لضمان الاتساق',
-          'أثر السياسة الصحية',
-          'gold',
-        ),
-      ],
       [cardWithBullets(policyCards[1], policyCards[1].bullets!.slice(0, 2))],
       [cardWithBullets(policyCards[1], policyCards[1].bullets!.slice(2), 'صياغة السياسة')],
       policyCards.slice(2, 3),
       [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(0, 2))],
       [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'الإجراءات')],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
@@ -1037,16 +932,12 @@ export const governanceChapterOneSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      [cardWithText(policyActivityCards[1], 'حماية بيانات المرضى (خصوصية).')],
-      [cardWithText(policyActivityCards[1], 'صلاحيات الوصول، حماية السجلات، الإبلاغ عن الاختراقات.', 'صلاحيات الوصول', 'ضوابط حماية البيانات', 'gold')],
-      [cardWithText(policyActivityCards[2], 'التعامل مع الأوبئة وإجراءات الطوارئ.')],
-      [cardWithText(policyActivityCards[2], 'بروتوكولات الحجر، إدارة الحالات، التنسيق مع الجهات.', 'بروتوكولات الحجر', 'تفاصيل الطوارئ', 'gold')],
-      [cardWithText(policyActivityCards[3], 'إدارة مخاطر الجهات الخارجية.')],
-      [cardWithText(policyActivityCards[3], 'تقييم الموردين، معايير العقود، متابعة الامتثال.', 'تقييم الموردين', 'ضوابط الجهات الخارجية', 'gold')],
-      [cardWithText(policyActivityCards[4], 'حقوق المريض والإبلاغ عن الحوادث.')],
-      [cardWithText(policyActivityCards[4], 'الحق في المعلومة، آليات الشكاوى، التحقيق وإجراء التصحيح.', 'الحق في المعلومة', 'مسار الحقوق والبلاغات', 'gold')],
+      policyActivityCards.slice(1, 2),
+      policyActivityCards.slice(2, 3),
+      policyActivityCards.slice(3, 4),
+      policyActivityCards.slice(4, 5),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ppt-governance-models',
@@ -1126,21 +1017,7 @@ export const governanceChapterOneSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      [
-        cardWithText(
-          governanceModelCards[4],
-          'وثيقة تحدد من يملك القرار، بأي مستوى، وأي حدود مالية أو تنظيمية.',
-        ),
-      ],
-      [
-        cardWithText(
-          governanceModelCards[4],
-          'تضبط القرار وتوضح المساءلة.',
-          'تضبط القرار',
-          'أثر مصفوفة الصلاحيات',
-          'gold',
-        ),
-      ],
+      governanceModelCards.slice(4, 5),
       [cardWithBullets(governanceModelCards[5], governanceModelCards[5].bullets!.slice(0, 3), 'مجلس الإدارة يوجه')],
       [cardWithBullets(governanceModelCards[5], governanceModelCards[5].bullets!.slice(3), 'السياسات تحدد الالتزام')],
     ],
@@ -1154,7 +1031,6 @@ export const governanceChapterOneSlides = indexSlides([
       'pptTimeline',
       'pptSpotlight',
       'pptSpotlight',
-      'pptTimeline',
       'pptMatrix',
       'pptTimeline',
     ],
@@ -1170,25 +1046,15 @@ export const governanceChapterOneSlides = indexSlides([
     // others -- these two cards carry only bullets (no text), which never
     // showed on screen at all. Split into a spotlight/matrix pair so both
     // bullet lists render automatically.
-    cards: [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(0, 1))],
+    cards: [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(0, 3))],
     laterActs: [
-      [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(1, 2), 'اللجان المتخصصة')],
-      [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(2, 3), 'مصفوفة الصلاحيات')],
       [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(3), 'السياسات')],
       [cardWithBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(0, 3))],
       [cardWithBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(3), 'إدارة البيانات الصحية')],
-      [
-        {
-          title: 'إطار حي ومتطور',
-          text: 'الإطار الفعال يجمع بين التوجيه والضبط والتطبيق، ويتطور بالتدريب والتقييم الدوري.',
-          syncText: 'الإطار الفعال',
-          tone: 'gold',
-        },
-      ],
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptTimeline', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'سؤال ربط: ما أول شيء نبحث عنه في أي إطار حوكمة؟',
@@ -1208,32 +1074,18 @@ export const governanceChapterOneSlides = indexSlides([
     // Three dense, bullet-heavy cards read better as three individual
     // beats (governance defines -> compliance ensures -> integration
     // sustains) than as one crowded three-column shot for 201s straight.
-    cards: [cardWithText(governanceComplianceCards[0], 'من يقرر؟')],
+    cards: [
+      {
+        ...governanceComplianceCards[0],
+        text: 'من يقرر - ماذا يُقرر - كيف يُحاسَب',
+        bullets: [],
+      },
+    ],
     laterActs: [
-      [cardWithText(governanceComplianceCards[0], 'ماذا يُقرر؟ وكيف يُحاسَب؟', 'ماذا يقرر', 'أسئلة الحوكمة', 'gold')],
       [cardWithBullets(governanceComplianceCards[0], governanceComplianceCards[0].bullets!.slice(0, 2), 'توزع الأدوار')],
       [cardWithBullets(governanceComplianceCards[0], governanceComplianceCards[0].bullets!.slice(2, 3), 'السياسات')],
       [cardWithBullets(governanceComplianceCards[0], governanceComplianceCards[0].bullets!.slice(3), 'آليات المساءلة')],
-      [cardWithText(governanceComplianceCards[1], 'ماذا يُلزَم - كيف يُراقَب - أين الفجوات')],
-      [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(0, 1), 'يحول المتطلبات')],
-      [
-        cardWithText(
-          governanceComplianceCards[1],
-          'يراقب التطبيق الفعلي.',
-          'يراقب التطبيق',
-          'مراقبة التطبيق',
-          'blue',
-        ),
-      ],
-      [
-        cardWithText(
-          governanceComplianceCards[1],
-          'ويختبر فعالية الضوابط.',
-          'ويختبر فعالية',
-          'اختبار الضوابط',
-          'gold',
-        ),
-      ],
+      [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(0, 2))],
       [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(2, 3), 'يعالج أسباب')],
       [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(3), 'يرفع تقارير دورية')],
       [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(0, 2))],
@@ -1247,10 +1099,6 @@ export const governanceChapterOneSlides = indexSlides([
       'pptTimeline',
       'pptTimeline',
       'pptTwoPanels',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptSpotlight',
       'pptTimeline',
       'pptTwoPanels',
       'pptSpotlight',
@@ -1284,19 +1132,11 @@ export const governanceChapterOneSlides = indexSlides([
     // adjacent in the array.
     cards: [
       {
-        title: 'العنصر البشري في القرار',
-        text: 'بعد ضبط الهيكل وآليات الامتثال، ننتقل إلى أخلاقيات العمل وتضارب المصالح.',
-        syncText: 'العنصر البشري',
-        tone: 'blue',
+        ...ethicsCards[0],
+        text: 'منظومة القيم التي تحكم سلوك الموظف: النزاهة، العدالة، الحياد، الشفافية، تغليب المصلحة العامة.',
       },
     ],
     laterActs: [
-      [
-        {
-          ...ethicsCards[0],
-          text: 'منظومة القيم التي تحكم سلوك الموظف: النزاهة، العدالة، الحياد، الشفافية، تغليب المصلحة العامة.',
-        },
-      ],
       [
         {
           ...ethicsCards[0],
@@ -1307,29 +1147,13 @@ export const governanceChapterOneSlides = indexSlides([
         },
       ],
       ethicsCards.slice(1, 2),
-      [cardWithBullets(ethicsCards[2], ethicsCards[2].bullets!.slice(0, 1))],
-      [cardWithBullets(ethicsCards[2], ethicsCards[2].bullets!.slice(1), 'أنواعه')],
-      [cardWithBullets(ethicsCards[3], ethicsCards[3].bullets!.slice(0, 2))],
-      [cardWithBullets(ethicsCards[3], ethicsCards[3].bullets!.slice(2), 'المعالجة')],
-      [cardWithBullets(ethicsCards[4], ethicsCards[4].bullets!.slice(0, 1))],
-      [cardWithBullets(ethicsCards[4], ethicsCards[4].bullets!.slice(1), 'مكوناتها')],
+      ethicsCards.slice(2, 3),
+      ethicsCards.slice(3, 4),
+      ethicsCards.slice(4, 5),
       [cardWithBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(0, 1))],
       [cardWithBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(1), 'طبيب يحيل')],
     ],
-    actLayouts: [
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1585,14 +1409,12 @@ export const governanceChapterTwoSlides = indexSlides([
     cards: [cardWithBullets(chapterTwoOverview[0], chapterTwoOverview[0].bullets!.slice(0, 2))],
     laterActs: [
       [cardWithBullets(chapterTwoOverview[0], chapterTwoOverview[0].bullets!.slice(2), 'تكامل الامتثال')],
-      [cardWithBullets(chapterTwoOverview[1], chapterTwoOverview[1].bullets!.slice(0, 2))],
-      [cardWithBullets(chapterTwoOverview[1], chapterTwoOverview[1].bullets!.slice(2), 'أدوات المراقبة')],
-      [cardWithBullets(chapterTwoOverview[2], chapterTwoOverview[2].bullets!.slice(0, 2))],
-      [cardWithBullets(chapterTwoOverview[2], chapterTwoOverview[2].bullets!.slice(2), 'قياس أثر التدريب')],
+      chapterTwoOverview.slice(1, 2),
+      chapterTwoOverview.slice(2, 3),
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'قبل التفاصيل: ما سؤال الفصل الثاني الرئيسي؟',
@@ -1614,43 +1436,15 @@ export const governanceChapterTwoSlides = indexSlides([
     // highest-stakes point) closes solo.
     // Four distinct concepts -- one full Spotlight shot per card instead of
     // pairing two into a matrix act just because they were adjacent.
-    cards: [
-      cardWithText(
-        complianceConceptCards[0],
-        'تلبية المنشأة لجميع متطلبات إلزامية: أنظمة ولوائح.',
-      ),
-    ],
+    cards: complianceConceptCards.slice(0, 1),
     laterActs: [
-      [
-        cardWithText(
-          complianceConceptCards[0],
-          'ومتطلبات اختيارية: سياسات داخلية ومعايير مهنية، لتجنب مخاطر عدم الامتثال.',
-          'ومتطلبات اختيارية',
-          'لماذا نحتاج الامتثال؟',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          complianceConceptCards[1],
-          'المستوى الأول: المتطلبات الخارجية الإلزامية (أنظمة، قوانين، تصاريح، تراخيص).',
-        ),
-      ],
-      [
-        cardWithText(
-          complianceConceptCards[1],
-          'المستوى الثاني: المتطلبات الداخلية الاختيارية (عقود، سياسات داخلية).',
-          'المستوى الثاني',
-          'المتطلبات الداخلية',
-          'gold',
-        ),
-      ],
+      complianceConceptCards.slice(1, 2),
       [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(0, 3))],
       [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(3), 'الحل والمعالجة')],
       [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(0, 3))],
       [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(3), 'خسائر مالية')],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1661,69 +1455,9 @@ export const governanceChapterTwoSlides = indexSlides([
     // A real 4-step cycle (Plan/Do/Check/Act) reads far better as a
     // connected numbered sequence than as generic floating cards.
     layout: 'pptTimeline',
-    cards: [
-      cardWithText(
-        pdcaCards[0],
-        'تحديد المتطلبات التنظيمية والمخاطر، وتحديد الأدوار والمسؤوليات.',
-      ),
-    ],
-    laterActs: [
-      [
-        cardWithText(
-          pdcaCards[0],
-          'وضع سياسة الامتثال وتصميم نظام الامتثال الشامل.',
-          'وضع سياسة الامتثال',
-          'تصميم نظام الامتثال',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          pdcaCards[1],
-          'تطبيق السياسات الصحية المعتمدة، تدريب الكوادر ورفع الوعي.',
-        ),
-      ],
-      [
-        cardWithText(
-          pdcaCards[1],
-          'تصميم ضوابط تشغيلية تمنع المخالفات، وتوثيق كل ما يتعلق بالامتثال.',
-          'تصميم ضوابط تشغيلية',
-          'ضوابط وتوثيق',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          pdcaCards[2],
-          'مراقبة تطبيق السياسات والضوابط، واختبار فعاليتها تصميماً وتشغيلاً.',
-        ),
-      ],
-      [
-        cardWithText(
-          pdcaCards[2],
-          'تحليل نتائج المراقبة والتدقيق، والتعامل مع البلاغات المهنية.',
-          'تحليل نتائج',
-          'تحليل وبلاغات',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          pdcaCards[3],
-          'معالجة أسباب عدم الامتثال الجذرية لا الظاهرية، وتحديث الضوابط عند تغير المخاطر.',
-        ),
-      ],
-      [
-        cardWithText(
-          pdcaCards[3],
-          'منع التكرار ورفع مستوى نضج الامتثال.',
-          'منع التكرار',
-          'نضج الامتثال',
-          'gold',
-        ),
-      ],
-    ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
+    cards: pdcaCards.slice(0, 1),
+    laterActs: [pdcaCards.slice(1, 2), pdcaCards.slice(2, 3), pdcaCards.slice(3, 4)],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'أين يقع التعلم الحقيقي في دورة PDCA؟',
@@ -1741,30 +1475,15 @@ export const governanceChapterTwoSlides = indexSlides([
     visual: '🧠',
     layout: 'pptSixCards',
     kind: 'activity',
-    cards: [
-      cardWithText(
-        selfAssessmentCards[0],
-        'هل توجد وثيقة معتمدة؟ وهل تحدد النظام والمسؤوليات بوضوح؟',
-      ),
-    ],
+    cards: selfAssessmentCards.slice(0, 1),
     laterActs: [
-      [
-        cardWithText(
-          selfAssessmentCards[0],
-          'هل تم تحديثها مع تغير الأنظمة؟',
-          'هل تم تحديثها',
-          'تحديث دليل الامتثال',
-          'gold',
-        ),
-      ],
       selfAssessmentCards.slice(1, 2),
       selfAssessmentCards.slice(2, 3),
       selfAssessmentCards.slice(3, 4),
       [cardWithBullets(selfAssessmentCards[4], selfAssessmentCards[4].bullets!.slice(0, 2))],
-      [cardWithBullets(selfAssessmentCards[4], selfAssessmentCards[4].bullets!.slice(2, 3), '15، 20')],
-      [cardWithBullets(selfAssessmentCards[4], selfAssessmentCards[4].bullets!.slice(3), '21، 24')],
+      [cardWithBullets(selfAssessmentCards[4], selfAssessmentCards[4].bullets!.slice(2), '15، 20')],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-monitoring',
@@ -1776,54 +1495,16 @@ export const governanceChapterTwoSlides = indexSlides([
     // Six distinct concepts -- one full Spotlight shot per card instead of
     // pairing two unrelated ones into a matrix act just because they were
     // adjacent in the array.
-    cards: [
-      cardWithText(
-        monitoringCards[0],
-        'ليست روح التفتيش أو البحث عن الخطأ، بل حماية مبكرة.',
-      ),
-    ],
+    cards: monitoringCards.slice(0, 1),
     laterActs: [
-      [
-        cardWithText(
-          monitoringCards[0],
-          'الهدف: اكتشاف الانحراف قبل أن يتحول إلى حادثة وحماية سلامة المرضى وسمعة المنشأة.',
-          'الهدف',
-          'هدف المراقبة الناضجة',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          monitoringCards[1],
-          'التركيز على المتطلبات عالية الخطورة، المرتبطة بالترخيص والاعتماد.',
-        ),
-      ],
-      [
-        cardWithText(
-          monitoringCards[1],
-          'المتطلبات ذات الأثر المباشر على سلامة المرضى أو الضوابط الحرجة.',
-          'ذات الأثر المباشر',
-          'ما يستحق الأولوية؟',
-          'gold',
-        ),
-      ],
+      monitoringCards.slice(1, 2),
       [cardWithBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(0, 2))],
       [cardWithBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(2), 'ذاتية')],
       monitoringCards.slice(3, 4),
       monitoringCards.slice(4, 5),
       monitoringCards.slice(5, 6),
     ],
-    actLayouts: [
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1851,62 +1532,14 @@ export const governanceChapterTwoSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      [
-        cardWithText(
-          cultureCards[1],
-          'في القدوة، في الرسائل، في طريقة التعامل مع المخالفات.',
-        ),
-      ],
-      [
-        cardWithText(
-          cultureCards[1],
-          'وفي الفصل الواضح بين السلوك المتوقع والمقبول؛ Tone at the Top يصنع الثقافة.',
-          'Tone at the Top',
-          'القيادة تصنع الثقافة',
-          'gold',
-        ),
-      ],
+      cultureCards.slice(1, 2),
       [cardWithBullets(cultureCards[2], cultureCards[2].bullets!.slice(0, 2))],
       [cardWithBullets(cultureCards[2], cultureCards[2].bullets!.slice(2), 'تنفيذ التدريب')],
       cultureCards.slice(3, 4),
       cultureCards.slice(4, 5),
-      [
-        cardWithText(
-          cultureCards[5],
-          'لا يعتمد على أفراد بعينهم، ولا يتأثر بتغييرات مؤقتة.',
-        ),
-      ],
-      [
-        cardWithText(
-          cultureCards[5],
-          'يبقى جزءاً من هوية المنشأة الصحية لا عبئاً خارجياً.',
-          'ويبقى جزءا',
-          'امتثال مستدام',
-          'gold',
-        ),
-      ],
-      [
-        {
-          title: 'الخلاصة العملية',
-          text: 'الثقافة يصنعها سلوك القيادة، ويثبتها تدريب مناسب، وتقيسها مؤشرات تغير السلوك.',
-          syncText: 'الثقافة يصنعها',
-          tone: 'blue',
-        },
-      ],
+      cultureCards.slice(5, 6),
     ],
-    actLayouts: [
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTimeline',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTimeline',
-      'pptSpotlight',
-    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -1941,21 +1574,7 @@ export const governanceChapterTwoSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      [
-        cardWithText(
-          actionPlanCards[1],
-          'لكل فجوة: تحديد الإجراء المطلوب، والمسؤول عن التنفيذ.',
-        ),
-      ],
-      [
-        cardWithText(
-          actionPlanCards[1],
-          'تحديد المدة الزمنية المتوقعة ومؤشر النجاح القابل للقياس.',
-          'المدة الزمنية',
-          'متابعة قابلة للقياس',
-          'gold',
-        ),
-      ],
+      actionPlanCards.slice(1, 2),
       [
         {
           ...actionPlanCards[2],
@@ -1982,16 +1601,8 @@ export const governanceChapterTwoSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      [
-        cardWithText(
-          actionPlanCards[2],
-          'الخطة الجيدة توضح المسؤول والمدة والمؤشر حتى يمكن متابعتها ومساءلة أصحابها.',
-          'فالخطة الجيدة',
-          'خطة قابلة للمساءلة',
-        ),
-      ],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
   }),
   makeQuizSlide({
     id: 'ch2-quiz',
@@ -2218,26 +1829,16 @@ export const governanceChapterThreeSlides = indexSlides([
     narration: 'لنرتب الفصل الأخير؛ نبدأ بالإطار، ثم ندير دورة الخطر، ثم نحول النتائج إلى سجل وتقارير تدعم القرار. ولكي تتضح الفكرة من أساسها، نبدأ بـ إطار إدارة المخاطر المؤسسية (آيزو 31 ألف). وتتضح تفاصيلها من خلال عناصر مترابطة. وهذا يقودنا إلى نقطة أخرى مهمة، مبادئ آيزو 31 ألف. ونصل الآن إلى نقطة تستحق التركيز، الحوكمة القائمة على المخاطر. وعلى النهج ذاته، ربط المخاطر بالقرار. ولكي نطبقها في عملنا، قدر الاحتمالية والأثر أولا، ثم اختر الإجراء المناسب. وتأتي بعدها بطبيعة الحال إدارة المخاطر والضوابط. وتتضح تفاصيلها من خلال عناصر مترابطة. ونضيف هنا نقطة تكمل الصورة، تحديد المخاطر. وأخيرا، ولكي تكتمل الصورة، تصميم الضوابط. ولا ينبغي أن نغفل عن، فعالية الضوابط. وأقرب مثال عملي لها، حول المتطلب إلى ضابط يمكن قياسه فعليا، وتابع أي فجوة فيه أولا بأول. وننتقل الآن إلى جانب آخر، وهو تحليل وإدارة المخاطر المؤسسية. وتتضح تفاصيلها من خلال عناصر مترابطة. ونصل الآن إلى نقطة تستحق التركيز، سجل المخاطر. وهذا يقودنا إلى نقطة أخرى مهمة، تقييم الأثر والاحتمالية. وفي السياق ذاته، لاحظوا، مؤشرات المخاطر (KRIs). وأخيرا، ولكي تكتمل الصورة، إعداد التقارير التحليلية للمخاطر والامتثال (6/المخاطر). ولنتأمل ذلك على النحو التالي، قدر الاحتمالية والأثر أولا، ثم اختر الإجراء المناسب. وبهذا التسلسل، لا يصبح سجل المخاطر ملفا ساكنا؛ بل يصبح أداة حية مرتبطة بالحوكمة والامتثال.',
     visual: '🧭',
     layout: 'pptThreeColumns',
-    cards: [
-      {
-        title: 'مسار الفصل الأخير',
-        text: 'نبدأ بالإطار، ثم ندير دورة الخطر، ثم نحول النتائج إلى سجل وتقارير تدعم القرار.',
-        syncText: 'لنرتب الفصل الأخير',
-        tone: 'blue',
-      },
-    ],
+    cards: [cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(0, 1))],
     laterActs: [
-      [cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(0, 1))],
       [cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(1), 'الحوكمة القائمة')],
-      [cardWithBullets(chapterThreeOverview[1], chapterThreeOverview[1].bullets!.slice(0, 2))],
-      [cardWithBullets(chapterThreeOverview[1], chapterThreeOverview[1].bullets!.slice(2), 'فعالية الضوابط')],
+      chapterThreeOverview.slice(1, 2),
       [cardWithBullets(chapterThreeOverview[2], chapterThreeOverview[2].bullets!.slice(0, 2))],
-      [cardWithBullets(chapterThreeOverview[2], chapterThreeOverview[2].bullets!.slice(2, 3), 'مؤشرات المخاطر')],
-      [cardWithBullets(chapterThreeOverview[2], chapterThreeOverview[2].bullets!.slice(3), 'إعداد التقارير')],
+      [cardWithBullets(chapterThreeOverview[2], chapterThreeOverview[2].bullets!.slice(2), 'مؤشرات المخاطر')],
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'سؤال افتتاحي: لماذا نربط المخاطر بالقرار؟',
@@ -2290,84 +1891,16 @@ export const governanceChapterThreeSlides = indexSlides([
     layout: 'pptSixCards',
     // Six ordered steps -- one full Spotlight shot per step instead of
     // pairing two into a matrix act just because they were adjacent.
-    cards: [
-      cardWithText(
-        riskProcessCards[0],
-        'تحديد نطاق التطبيق، وفهم البيئة الداخلية والخارجية.',
-      ),
-    ],
+    cards: riskProcessCards.slice(0, 1),
     laterActs: [
-      [
-        cardWithText(
-          riskProcessCards[0],
-          'وضع معايير قبول المخاطر ومستويات التحمل (Risk Appetite).',
-          'معايير قبول المخاطر',
-          'معايير التحمل',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          riskProcessCards[1],
-          'مصادر البيانات: سجلات المخاطر السابقة، تقارير التدقيق، شكاوى العملاء.',
-        ),
-      ],
-      [
-        cardWithText(
-          riskProcessCards[1],
-          'وثائق الاعتماد، استطلاعات الموظفين، العصف الذهني، مخططات التدفق.',
-          'وثائق الاعتماد',
-          'مصادر إضافية للخطر',
-          'gold',
-        ),
-      ],
-      [
-        cardWithText(
-          riskProcessCards[2],
-          'دراسة طبيعة المخاطر وخصائصها.',
-        ),
-      ],
-      [
-        cardWithText(
-          riskProcessCards[2],
-          'يأخذ التحليل في الاعتبار احتمالات الأحداث، فعالية الضوابط، حجم التأثير، ومستويات الحساسية والثقة.',
-          'احتمالات الأحداث',
-          'عناصر التحليل',
-          'gold',
-        ),
-      ],
+      riskProcessCards.slice(1, 2),
+      riskProcessCards.slice(2, 3),
       riskProcessCards.slice(3, 4),
       [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(0, 3))],
       [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(3), 'تدريب مستهدف')],
-      [
-        cardWithText(
-          riskProcessCards[5],
-          'مراقبة مستمرة لدورة حياة الخطر، وتوثيق عملية التعامل مع المخاطر.',
-        ),
-      ],
-      [
-        cardWithText(
-          riskProcessCards[5],
-          'تقديم التقارير والمردودات للإدارة ولأصحاب المساءلة.',
-          'تقديم التقارير',
-          'تقارير ومساءلة',
-          'gold',
-        ),
-      ],
+      riskProcessCards.slice(5, 6),
     ],
-    actLayouts: [
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -2402,42 +1935,13 @@ export const governanceChapterThreeSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      [
-        cardWithText(
-          riskRegisterCards[1],
-          'يقاس ببعدين: حجم الأثر (ماذا لو حدث عدم الامتثال؟) واحتمالية الحدوث.',
-        ),
-      ],
-      [
-        cardWithText(
-          riskRegisterCards[1],
-          'نظر موضوعي لأسوأ السيناريوهات الممكنة.',
-          'نظر موضوعي',
-          'قبل الضوابط',
-          'gold',
-        ),
-      ],
+      riskRegisterCards.slice(1, 2),
       riskRegisterCards.slice(2, 3),
-      [cardWithText(riskRegisterCards[3], 'نسبة الحوادث الموثقة، ومعدل تنفيذ خطط التصحيح في الوقت المحدد.')],
-      [cardWithText(riskRegisterCards[3], 'نسبة الضوابط الجسيمة المجتازة بنجاح، ومعدل تكرار نفس المخالفة.', 'نسبة الضوابط', 'مؤشرات الإنذار', 'gold')],
-      [cardWithText(riskRegisterCards[4], 'تقارير تشغيلية للإدارات، وتقارير دورية للإدارة العليا.')],
-      [cardWithText(riskRegisterCards[4], 'تقارير مختصرة للجان ومجلس الإدارة مع أبرز 5 مخاطر، حالة الضوابط، والقرارات المطلوبة.', 'تقارير مختصرة', 'تقارير القيادة', 'gold')],
-      [cardWithText(riskRegisterCards[5], 'يُستخدم كأداة حية لمعلومات مجلس الإدارة وتوجيه لجان الجودة والامتثال.')],
-      [cardWithText(riskRegisterCards[5], 'تحديد أولويات المراجعة والتدقيق، وربط الامتثال بالأداء المؤسسي.', 'تحديد أولويات', 'ربط السجل بالحوكمة', 'gold')],
+      riskRegisterCards.slice(3, 4),
+      riskRegisterCards.slice(4, 5),
+      riskRegisterCards.slice(5, 6),
     ],
-    actLayouts: [
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptTwoPanels',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-      'pptSpotlight',
-      'pptTimeline',
-    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
@@ -2447,30 +1951,15 @@ export const governanceChapterThreeSlides = indexSlides([
     visual: '🧠',
     layout: 'pptThreeColumns',
     kind: 'activity',
-    cards: [
-      cardWithText(
-        riskActivityCards[0],
-        'منشأة صحية تواجه مخاطر في مجال خصوصية بيانات المرضى.',
-      ),
-    ],
+    cards: riskActivityCards.slice(0, 1),
     laterActs: [
-      [
-        cardWithText(
-          riskActivityCards[0],
-          'نربط الحالة بآيزو 27001 وسياسة الخصوصية قبل تقييم مستوى الخطر.',
-          'آيزو 27001',
-          'مرجعية الخصوصية',
-          'gold',
-        ),
-      ],
       [cardWithBullets(riskActivityCards[1], riskActivityCards[1].bullets!.slice(0, 3))],
       [cardWithBullets(riskActivityCards[1], riskActivityCards[1].bullets!.slice(3, 5), 'الاحتمالية')],
       [cardWithBullets(riskActivityCards[1], riskActivityCards[1].bullets!.slice(5), 'الخطر المتبقي')],
       [cardWithBullets(riskActivityCards[2], riskActivityCards[2].bullets!.slice(0, 3))],
-      [cardWithBullets(riskActivityCards[2], riskActivityCards[2].bullets!.slice(3, 4), 'القضايا غير المغلقة')],
-      [cardWithBullets(riskActivityCards[2], riskActivityCards[2].bullets!.slice(4), 'القرارات المطلوبة')],
+      [cardWithBullets(riskActivityCards[2], riskActivityCards[2].bullets!.slice(3), 'القضايا غير المغلقة')],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeQuizSlide({
     id: 'ch3-quiz',
