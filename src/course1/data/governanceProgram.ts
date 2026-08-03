@@ -860,8 +860,14 @@ export const governanceChapterOneSlides = indexSlides([
     // card instead: every concept gets the screen to itself while Nasser
     // is actually talking about it.
     cards: regulatoryCards.slice(0, 1),
-    laterActs: [regulatoryCards.slice(1, 4), regulatoryCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels'],
+    laterActs: [
+      regulatoryCards.slice(1, 2),
+      regulatoryCards.slice(2, 3),
+      regulatoryCards.slice(3, 4),
+      regulatoryCards.slice(4, 5),
+      regulatoryCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -880,8 +886,8 @@ export const governanceChapterOneSlides = indexSlides([
     // Four distinct concepts -- one full Spotlight shot per card instead of
     // pairing two into a matrix act just because they were adjacent.
     cards: policyCards.slice(0, 1),
-    laterActs: [policyCards.slice(1, 3), policyCards.slice(3, 4)],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
+    laterActs: [policyCards.slice(1, 2), policyCards.slice(2, 3), policyCards.slice(3, 4)],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
@@ -927,11 +933,13 @@ export const governanceChapterOneSlides = indexSlides([
     cards: governanceModelCards.slice(0, 1),
     laterActs: [
       governanceModelCards.slice(1, 2),
-      governanceModelCards.slice(2, 5),
+      governanceModelCards.slice(2, 3),
+      governanceModelCards.slice(3, 4),
+      governanceModelCards.slice(4, 5),
       [cardWithBullets(governanceModelCards[5], governanceModelCards[5].bullets!.slice(0, 3), 'مجلس الإدارة يوجه')],
       [cardWithBullets(governanceModelCards[5], governanceModelCards[5].bullets!.slice(3), 'السياسات تحدد الالتزام')],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -1008,8 +1016,14 @@ export const governanceChapterOneSlides = indexSlides([
     // pairing two unrelated ones into a matrix act just because they were
     // adjacent in the array.
     cards: ethicsCards.slice(0, 1),
-    laterActs: [ethicsCards.slice(1, 2), ethicsCards.slice(2, 4), ethicsCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
+    laterActs: [
+      ethicsCards.slice(1, 2),
+      ethicsCards.slice(2, 3),
+      ethicsCards.slice(3, 4),
+      ethicsCards.slice(4, 5),
+      ethicsCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1347,8 +1361,14 @@ export const governanceChapterTwoSlides = indexSlides([
     // pairing two unrelated ones into a matrix act just because they were
     // adjacent in the array.
     cards: monitoringCards.slice(0, 1),
-    laterActs: [monitoringCards.slice(1, 3), monitoringCards.slice(3, 4), monitoringCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight', 'pptMatrix'],
+    laterActs: [
+      monitoringCards.slice(1, 2),
+      monitoringCards.slice(2, 3),
+      monitoringCards.slice(3, 4),
+      monitoringCards.slice(4, 5),
+      monitoringCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-culture',
@@ -1360,9 +1380,15 @@ export const governanceChapterTwoSlides = indexSlides([
     // Six distinct concepts -- one full Spotlight shot per card instead of
     // pairing two unrelated ones into a matrix act just because they were
     // adjacent in the array.
-    cards: cultureCards.slice(0, 2),
-    laterActs: [cultureCards.slice(2, 4), cultureCards.slice(4, 6)],
-    actLayouts: ['pptTwoPanels', 'pptMatrix', 'pptTwoPanels'],
+    cards: cultureCards.slice(0, 1),
+    laterActs: [
+      cultureCards.slice(1, 2),
+      cultureCards.slice(2, 3),
+      cultureCards.slice(3, 4),
+      cultureCards.slice(4, 5),
+      cultureCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -1382,8 +1408,26 @@ export const governanceChapterTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     kind: 'activity',
     cards: actionPlanCards.slice(0, 1),
-    laterActs: [actionPlanCards.slice(1, 2), actionPlanCards.slice(2, 3)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    laterActs: [
+      actionPlanCards.slice(1, 2),
+      [
+        {
+          ...actionPlanCards[2],
+          text: 'الفجوة - الإجراء - المسؤول - المدة - المؤشر',
+          rationale: 'طبّق النموذج كما هو: فجوة، ثم إجراء، ثم مسؤول، ثم مدة، ثم مؤشر.',
+        },
+      ],
+      [
+        {
+          ...actionPlanCards[2],
+          title: 'مثال تطبيقي لخطة العمل',
+          text: 'غياب دليل الامتثال - إعداد واعتماد الدليل - مسؤول الامتثال- 3 أشهر - اعتماد الدليل وتوزيعه.',
+          rationale: 'المثال يحول غياب الدليل إلى مهمة قابلة للمتابعة.',
+          syncText: 'مثال، غياب دليل الامتثال',
+        },
+      ],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeQuizSlide({
     id: 'ch2-quiz',
@@ -1655,12 +1699,14 @@ export const governanceChapterThreeSlides = indexSlides([
     // pairing two into a matrix act just because they were adjacent.
     cards: riskProcessCards.slice(0, 1),
     laterActs: [
-      riskProcessCards.slice(1, 4),
+      riskProcessCards.slice(1, 2),
+      riskProcessCards.slice(2, 3),
+      riskProcessCards.slice(3, 4),
       [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(0, 3))],
       [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(3), 'تدريب مستهدف')],
       riskProcessCards.slice(5, 6),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -1680,8 +1726,14 @@ export const governanceChapterThreeSlides = indexSlides([
     // Six distinct concepts -- one full Spotlight shot per card instead of
     // pairing two into a matrix act just because they were adjacent.
     cards: riskRegisterCards.slice(0, 1),
-    laterActs: [riskRegisterCards.slice(1, 3), riskRegisterCards.slice(3, 5), riskRegisterCards.slice(5, 6)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
+    laterActs: [
+      riskRegisterCards.slice(1, 2),
+      riskRegisterCards.slice(2, 3),
+      riskRegisterCards.slice(3, 4),
+      riskRegisterCards.slice(4, 5),
+      riskRegisterCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
