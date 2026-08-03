@@ -1032,6 +1032,11 @@ function activeVisualClass(active: boolean, text: string, index = 0) {
   return active ? activeVisualAnimationFor(text, index) : '';
 }
 
+function course1StoryMotionClass(active: boolean, isCourse1: boolean, index = 0) {
+  if (!active || !isCourse1) return '';
+  return `course1-story-card-active course1-story-beat-${index % 4}`;
+}
+
 /** Brand icons are single-silhouette PNGs. Instead of baking one fixed
  *  color into the asset (or approximating a recolor with CSS filters, which
  *  only really gets you to white), render them as a CSS mask: the icon file
@@ -2499,7 +2504,7 @@ function PptCardView({
         activeShell
       } ${visible ? revealAnimation : 'pointer-events-none opacity-0'} ${
         clickable && visible ? 'cursor-pointer hover:-translate-y-1 hover:shadow-card-lg animate-pulse-ring' : 'cursor-default'
-      } ${locked && visible ? '!bg-white !border-line' : ''}`}
+      } ${locked && visible ? '!bg-white !border-line' : ''} ${course1StoryMotionClass(active && visible, isCourse1, Number(card.index ?? 0))}`}
     >
       <span
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgb(255_255_255_/_0.48),transparent_28%),radial-gradient(circle_at_18%_82%,rgb(197_162_80_/_0.16),transparent_34%)]"
@@ -2946,7 +2951,7 @@ function PptMotionVisualScene({
                 : 'z-10 text-brand-strong'
             } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'} ${
               visible && narrationLocked ? 'bg-white/90 text-ink-muted shadow-none' : ''
-            }`}
+            } ${course1StoryMotionClass(active && visible, isCourse1Slide, index)}`}
           >
             <span className={`flex items-center justify-between ${titleCardGrid ? 'flex-col gap-2 text-center' : emergencyOpenLabels ? 'gap-3' : usesOpenLabels ? 'gap-6' : 'gap-4'}`}>
               <span className={`relative z-10 min-w-0 flex-1 ${titleCardGrid ? 'order-2 w-full border-t-[4px] border-gold-500/70 pt-2' : emergencyOpenLabels ? 'border-r-[4px] border-gold-500/70 pr-3' : usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
@@ -3094,7 +3099,7 @@ function PptTimelineScene({
                 onClick={() => onToggle(index)}
                 className={`relative z-10 flex ${denseEmergencyTimeline ? 'w-[166px]' : isEmergencySlide ? 'w-[190px]' : isCourse1Slide ? 'w-[190px]' : 'w-[172px]'} flex-col items-center text-center transition-all duration-700 ease-out ${
                   visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
-                } ${active ? (denseEmergencyTimeline ? 'scale-[1.025]' : 'scale-[1.06]') : ''}`}
+                } ${active ? (denseEmergencyTimeline ? 'scale-[1.025]' : 'scale-[1.06]') : ''} ${course1StoryMotionClass(active && visible, isCourse1Slide, index)}`}
               >
                 {/* course/1 timelines rarely have more than 2-3 steps sharing
                     this scene, unlike course/2's denser ones -- a badge sized
@@ -3239,7 +3244,7 @@ function PptMatrixScene({
                 active
                   ? 'scale-[1.02] animate-glow-cycle border-gold-500/45 bg-green-700 text-white shadow-card-lg'
                   : toneShell
-              }`}
+              } ${course1StoryMotionClass(active && visible, isCourse1Slide, index)}`}
             >
               {active && (
                 <span
@@ -3323,6 +3328,7 @@ function PptSpotlightScene({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
   const supporting = cards.filter((_, i) => i !== focusIndex);
@@ -3502,7 +3508,7 @@ function PptSpotlightScene({
           isEmergencySlide ? 'min-h-[150px] max-w-[720px] px-8 py-5' : hasBulletSubcards ? 'max-w-[620px] px-7 py-4' : 'max-w-[620px] p-7'
         } overflow-visible rounded-[36px] border text-center shadow-[0_22px_44px_rgb(24_82_55_/_0.12)] transition-all duration-500 ${
           focusVisible ? 'animate-epic-pop' : 'pointer-events-none opacity-0'
-        } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-green-700 text-white`}
+        } ${focusVisible ? 'animate-glow-cycle' : ''} border-gold-500/35 bg-green-700 text-white ${course1StoryMotionClass(focusVisible, isCourse1Slide, focusIndex)}`}
       >
         {focusVisible && (
           <span
@@ -3598,7 +3604,7 @@ function PptSpotlightScene({
                   isActiveBullet
                     ? 'subcard-active-card border-gold-500 bg-white'
                     : 'border-green-700/14 bg-white/92'
-                }`}
+                } ${course1StoryMotionClass(isActiveBullet, isCourse1Slide, i)}`}
               >
                 <span
                   className={`mx-auto ${dense ? 'mb-1.5 h-11 w-11' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border p-1.5 shadow-sm ${
@@ -3641,7 +3647,7 @@ function PptSpotlightScene({
                     : isEmergencySlide
                       ? 'border-green-700/16 text-brand-strong'
                       : 'border-green-700/14 bg-white/75 text-brand-strong'
-                }`}
+                } ${course1StoryMotionClass(active && visible, isCourse1Slide, index)}`}
               >
                 {brandIcon && (
                   <span className={`mx-auto ${denseSupporting ? 'mb-1 h-10 w-10' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm`} aria-hidden="true">

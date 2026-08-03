@@ -568,6 +568,81 @@
   50% { transform: scale(1.07) translateY(-3px); }
 }
 
+.course1-story-card-active {
+  position: relative;
+  animation: course1-story-breathe 3.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.course1-story-card-active::before,
+.course1-story-card-active::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+}
+
+.course1-story-card-active::before {
+  z-index: 0;
+  border: 1px solid rgb(191 155 74 / 0.32);
+  box-shadow:
+    0 18px 34px rgb(24 82 55 / 0.16),
+    0 0 0 6px rgb(191 155 74 / 0.08);
+  opacity: 0.86;
+}
+
+.course1-story-card-active::after {
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--story-beat-x, 72%) var(--story-beat-y, 22%), rgb(255 255 255 / 0.26), transparent 30%),
+    linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.18) 47%, rgb(255 255 255 / 0.08) 53%, transparent 70%);
+  background-size: 100% 100%, 230% 100%;
+  mix-blend-mode: soft-light;
+  opacity: 0.56;
+  animation: course1-story-shine 3.15s ease-in-out infinite;
+}
+
+.course1-story-card-active > * {
+  position: relative;
+  z-index: 2;
+}
+
+.course1-story-beat-0 { --story-beat-x: 74%; --story-beat-y: 18%; }
+.course1-story-beat-1 { --story-beat-x: 24%; --story-beat-y: 24%; }
+.course1-story-beat-2 { --story-beat-x: 68%; --story-beat-y: 76%; }
+.course1-story-beat-3 { --story-beat-x: 32%; --story-beat-y: 70%; }
+
+@keyframes course1-story-breathe {
+  0%, 100% {
+    filter: drop-shadow(0 18px 28px rgb(24 82 55 / 0.12)) saturate(1.02);
+  }
+  42% {
+    filter: drop-shadow(0 28px 38px rgb(191 155 74 / 0.20)) saturate(1.08);
+  }
+  68% {
+    filter: drop-shadow(0 22px 32px rgb(24 82 55 / 0.16)) saturate(1.05);
+  }
+}
+
+@keyframes course1-story-shine {
+  0% {
+    background-position: center, 120% 0;
+    opacity: 0.28;
+  }
+  38% {
+    opacity: 0.58;
+  }
+  72% {
+    background-position: center, -80% 0;
+    opacity: 0.46;
+  }
+  100% {
+    background-position: center, -120% 0;
+    opacity: 0.28;
+  }
+}
+
 /* Confetti pieces (completion / quiz pass) */
 .confetti-piece {
   position: absolute;
