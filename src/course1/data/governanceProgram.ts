@@ -916,7 +916,7 @@ export const governanceChapterOneSlides = indexSlides([
       [
         {
           ...chapterOneOverview[2],
-          text: 'هنا ننتقل من معرفة اللوائح إلى تصميم طريقة القرار والمساءلة داخل المنشأة.',
+          text: 'تصميم طريقة القرار والمساءلة داخل المنشأة.',
           syncText: 'هياكل الحوكمة والسياسات',
         },
       ],
@@ -1147,7 +1147,11 @@ export const governanceChapterOneSlides = indexSlides([
     laterActs: [
       cardsFromBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(3), 'السياسات'),
       cardsFromBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(0, 3), 'تحديد القيم'),
-      cardsFromBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(3), 'إدارة البيانات الصحية'),
+      [
+        { index: '01', title: 'إدارة البيانات', text: 'إدارة البيانات الصحية بمسؤولية', syncText: 'إدارة البيانات الصحية', tone: 'gold' },
+        { index: '02', title: 'الموارد البشرية', text: 'إدارة الموارد البشرية بكفاءة', syncText: 'إدارة الموارد البشرية' },
+        { index: '03', title: 'التدريب والتقييم', text: 'تطبيق عبر تدريب مستمر وتقييم دوري', syncText: 'التطبيق عبر تدريب مستمر', tone: 'gold' },
+      ],
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
@@ -1600,7 +1604,12 @@ export const governanceChapterTwoSlides = indexSlides([
     // Six distinct concepts -- one full Spotlight shot per card instead of
     // pairing two unrelated ones into a matrix act just because they were
     // adjacent in the array.
-    cards: monitoringCards.slice(0, 1),
+    cards: [
+      {
+        ...monitoringCards[0],
+        text: 'حماية مبكرة لا تبحث عن الخطأ، بل تكتشف الانحراف قبل أن يتحول إلى حادثة.',
+      },
+    ],
     laterActs: [
       monitoringCards.slice(1, 2),
       cardsFromBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(0, 2), 'ميدانية'),
@@ -1934,9 +1943,21 @@ export const governanceChapterThreeSlides = indexSlides([
     narration: 'لنرتب الفصل الأخير؛ نبدأ بالإطار، ثم ندير دورة الخطر، ثم نحوّل النتائج إلى سجل وتقارير تدعم القرار. لنبدأ بتفكيك الموضوع معًا، وأول ما يستحق التوقف عنده هو إطار إدارة المخاطر المؤسسية (آيزو 31 ألف). وتتضح تفاصيلها من خلال عناصر مترابطة. ومن الأمور المهمة التي نذكرها: مبادئ آيزو 31 ألف. وأخيرًا، ولكي تكتمل الصورة: الحوكمة القائمة على المخاطر. ونضيف هنا نقطة تكمّل الصورة: ربط المخاطر بالقرار. ولكي نطبّقها في عملنا، قدّر الاحتمالية والأثر أولًا، ثم اختر الإجراء المناسب. ومن الطبيعي أن يكون السؤال التالي عن إدارة المخاطر والضوابط. وتتضح تفاصيلها من خلال عناصر مترابطة. وكما هو متوقع، تُكمّلها: تحديد المخاطر. وفي السياق ذاته، لاحظوا: تصميم الضوابط. ونصل الآن إلى نقطة تستحق التركيز: فعالية الضوابط. وأقرب مثال عملي لها: حوّل المتطلب إلى ضابط يمكن قياسه فعليًا، وتابع أي فجوة فيه أولًا بأول. وتأتي بعدها بطبيعة الحال تحليل وإدارة المخاطر المؤسسية. وتتضح تفاصيلها من خلال عناصر مترابطة. وفي السياق ذاته، لاحظوا: سجل المخاطر. وهذا يقودنا إلى نقطة أخرى مهمة: تقييم الأثر والاحتمالية. ومن الأمور المهمة التي نذكرها: مؤشرات المخاطر (KRIs). وكما هو متوقع، تُكمّلها: إعداد التقارير التحليلية للمخاطر والامتثال (6/المخاطر). ولنتأمل ذلك على النحو التالي: قدّر الاحتمالية والأثر أولًا، ثم اختر الإجراء المناسب. وبهذا التسلسل، لا يصبح سجل المخاطر ملفًا ساكنًا؛ بل يصبح أداة حية مرتبطة بالحوكمة والامتثال.',
     visual: '🧭',
     layout: 'pptThreeColumns',
-    cards: [cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(0, 1))],
+    cards: [
+      {
+        ...cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(0, 1)),
+        title: 'إطار آيزو 31000',
+        text: 'إدارة المخاطر المؤسسية تبدأ بمبادئ واضحة قبل دورة المعالجة والتقارير.',
+      },
+    ],
     laterActs: [
-      [cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(1), 'الحوكمة القائمة')],
+      [
+        {
+          ...cardWithBullets(chapterThreeOverview[0], chapterThreeOverview[0].bullets!.slice(1), 'الحوكمة القائمة'),
+          title: 'الحوكمة القائمة على المخاطر',
+          text: 'ربط المخاطر بالقرار حتى لا يبقى التحليل مجرد تقرير.',
+        },
+      ],
       chapterThreeOverview.slice(1, 2),
       [cardWithBullets(chapterThreeOverview[2], chapterThreeOverview[2].bullets!.slice(0, 2))],
       [cardWithBullets(chapterThreeOverview[2], chapterThreeOverview[2].bullets!.slice(2), 'مؤشرات المخاطر')],
@@ -1970,7 +1991,10 @@ export const governanceChapterThreeSlides = indexSlides([
       },
     ],
     laterActs: [
-      cardsFromBullets(isoRiskCards[0], isoRiskCards[0].bullets!.slice(1), 'قد يكون إيجابيا'),
+      [
+        { index: '01', title: 'فرصة أو تهديد', text: 'قد يكون إيجابياً أو سلبياً بحسب أثره على الهدف.', syncText: 'قد يكون إيجابيا', tone: 'gold' },
+        { index: '02', title: 'حالة عدم يقين', text: 'لا يتعلق بالأحداث فقط بل بحالة عدم اليقين.', syncText: 'لا يتعلق بالأحداث' },
+      ],
       cardsFromBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(0, 4), 'التكامل'),
       cardsFromBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(4), 'التفاعل والديناميكية'),
       cardsFromBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(0, 3), 'القيادة والالتزام'),
