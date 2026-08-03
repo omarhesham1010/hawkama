@@ -10,6 +10,7 @@
     "audio:generate": "node scripts/generate-elevenlabs-audio.js",
     "audio:generate:force": "node scripts/generate-elevenlabs-audio.js --force",
     "audio:generate:dry-run": "node scripts/generate-elevenlabs-audio.js --dry-run",
+    "audio:audit-sources": "node scripts/audit-narration-sources.js",
     "audio:check": "node scripts/check-audio-files.js",
     "audio:check:strict": "node scripts/check-audio-files.js --strict",
     "test:sync": "node scripts/validate-slide-sync.js",
