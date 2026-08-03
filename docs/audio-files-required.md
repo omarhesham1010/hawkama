@@ -266,21 +266,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15c-activity-stakeholders-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة - مناقشة 1
 - `bag2-ch4-s16-closing-applications-detail-1.mp3` - تطبيقات ختامية تفاعلية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-course1-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
-- `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
-- `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
-- `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - نشاط: تطوير سياسة صحية - مناقشة 4
-- `bag1-ch1-s5-policy-activity-course1-detail-5.mp3` - نشاط: تطوير سياسة صحية - مناقشة 5
 - `bag1-ch2-s5-self-assessment-course1-detail-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 1
-- `bag1-ch2-s5-self-assessment-course1-detail-2.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 2
-- `bag1-ch2-s5-self-assessment-course1-detail-3.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 3
-- `bag1-ch2-s5-self-assessment-course1-detail-4.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 4
-- `bag1-ch2-s5-self-assessment-course1-detail-5.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 5
 - `bag1-ch2-s8-action-plan-course1-detail-1.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 1
-- `bag1-ch2-s8-action-plan-course1-detail-2.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 2
-- `bag1-ch2-s8-action-plan-course1-detail-3.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 3
 - `bag1-ch3-s6-risk-activity-course1-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
-- `bag1-ch3-s6-risk-activity-course1-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
-- `bag1-ch3-s6-risk-activity-course1-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
 - `bag3-ch1-s3-activity-1-detail-1.mp3` - نشاط: البيانات بين الأنواع الثلاثة - مناقشة 1
 - `bag3-ch1-s5-activity-2-detail-1.mp3` - نشاط: كفاءة أم فاعلية؟ - مناقشة 1
 - `bag3-ch1-s7-activity-3-detail-1.mp3` - نشاط: قرار ترخيص منشأة جديدة - مناقشة 1
@@ -652,3 +640,15 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15b-activity-stakeholder-identify-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة غير صحيحة
 - `bag2-ch4-s15b-activity-stakeholder-path-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار صحيح
 - `bag2-ch4-s15b-activity-stakeholder-path-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - bag1-ch1-s5-policy-activity-course1-detail-2
+- `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - bag1-ch1-s5-policy-activity-course1-detail-3
+- `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - bag1-ch1-s5-policy-activity-course1-detail-4
+- `bag1-ch1-s5-policy-activity-course1-detail-5.mp3` - bag1-ch1-s5-policy-activity-course1-detail-5
+- `bag1-ch2-s5-self-assessment-course1-detail-2.mp3` - bag1-ch2-s5-self-assessment-course1-detail-2
+- `bag1-ch2-s5-self-assessment-course1-detail-3.mp3` - bag1-ch2-s5-self-assessment-course1-detail-3
+- `bag1-ch2-s5-self-assessment-course1-detail-4.mp3` - bag1-ch2-s5-self-assessment-course1-detail-4
+- `bag1-ch2-s5-self-assessment-course1-detail-5.mp3` - bag1-ch2-s5-self-assessment-course1-detail-5
+- `bag1-ch2-s8-action-plan-course1-detail-2.mp3` - bag1-ch2-s8-action-plan-course1-detail-2
+- `bag1-ch2-s8-action-plan-course1-detail-3.mp3` - bag1-ch2-s8-action-plan-course1-detail-3
+- `bag1-ch3-s6-risk-activity-course1-detail-2.mp3` - bag1-ch3-s6-risk-activity-course1-detail-2
+- `bag1-ch3-s6-risk-activity-course1-detail-3.mp3` - bag1-ch3-s6-risk-activity-course1-detail-3

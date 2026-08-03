@@ -93,7 +93,20 @@ async function writeAlignments(alignments) {
     `export type AudioAlignmentAnchor = readonly [sourceIndex: number, startSeconds: number, endSeconds: number];\n` +
     `export interface AudioAlignment { readonly anchors: readonly AudioAlignmentAnchor[]; }\n` +
     `export const audioAlignments: Readonly<Record<string, AudioAlignment>> = ${JSON.stringify(alignments)};\n`;
-  await writeFile(ALIGNMENTS_FILE, output, 'utf8');
+  const tempFile = `${ALIGNMENTS_FILE}.tmp-${process.pid}`;
+  let lastError;
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    try {
+      await writeFile(tempFile, output, 'utf8');
+      await rename(tempFile, ALIGNMENTS_FILE);
+      return;
+    } catch (error) {
+      lastError = error;
+      await rm(tempFile, { force: true }).catch(() => undefined);
+      await sleep(120 * attempt);
+    }
+  }
+  throw lastError;
 }
 
 function validateCatalog(items) {

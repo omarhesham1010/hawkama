@@ -2,6 +2,7 @@ import type { PptCard } from '../types/slides';
 import type { QuizQuestion } from '../types/course';
 import { allNarratedSlides as slides } from './slides';
 import { CHECK_INTROS } from './narrationPhrases';
+import { course1AudioScriptOverrides, course1AudioScriptText } from './course1AudioScriptOverrides';
 
 export type AudioCategory =
   | 'slide'
@@ -73,13 +74,14 @@ function item(
   category: AudioCategory,
   relatedSlide: string,
 ): AudioScriptItem {
+  const scriptText = course1AudioScriptText(key, text);
   return {
     key,
     title,
-    text,
+    text: scriptText,
     category,
     relatedSlide,
-    estimatedDuration: Math.max(2, Math.ceil(text.length / 11)),
+    estimatedDuration: Math.max(2, Math.ceil(scriptText.length / 11)),
   };
 }
 
@@ -312,7 +314,7 @@ function uniqueAudioScripts(items: AudioScriptItem[]) {
   return [...byKey.values()];
 }
 
-export const audioScripts: AudioScriptItem[] = uniqueAudioScripts([
+const generatedAudioScripts = [
   ...mainSlideItems,
   ...genericActivityDetailItems,
   ...governanceQuestionItems,
@@ -321,8 +323,23 @@ export const audioScripts: AudioScriptItem[] = uniqueAudioScripts([
   ...quizFeedbackItems,
   ...checkItems,
   ...checkpointVoiceItems,
+];
+
+const generatedKeys = new Set(generatedAudioScripts.map((entry) => entry.key));
+
+const course1OverrideOnlyItems = Object.entries(course1AudioScriptOverrides)
+  .filter(([key]) => !generatedKeys.has(key))
+  .map(([key, text]) => item(key, key, text, 'activity-feedback', key));
+
+export const audioScripts: AudioScriptItem[] = uniqueAudioScripts([
+  ...generatedAudioScripts,
+  ...course1OverrideOnlyItems,
 ]);
 
 export function audioScriptByKey(key: string) {
   return audioScripts.find((entry) => entry.key === key);
+}
+
+export function scriptTextForAudioKey(key: string, fallback: string) {
+  return audioScriptByKey(key)?.text ?? fallback;
 }

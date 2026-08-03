@@ -667,7 +667,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag3-ch5-s8-quiz",
   "bag3-ch5-s9-closing"
 ];
-export const AUDIO_MANIFEST_VERSION = '81ea43445c96';
+export const AUDIO_MANIFEST_VERSION = '14f55e02fa24';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

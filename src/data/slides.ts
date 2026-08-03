@@ -44,6 +44,26 @@ import {
   licensingUnitTwoSlides,
 } from './licensingProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
+import type { Slide } from '../types/slides';
+import { course1AudioScriptText } from './course1AudioScriptOverrides';
+
+function withCourse1AudioScriptOverrides(slides: Slide[]) {
+  return slides.map((slide) => {
+    const narration = course1AudioScriptText(slide.audioKey, slide.narration);
+    if (narration === slide.narration) return slide;
+    return {
+      ...slide,
+      narration,
+      duration: Math.max(10, Math.ceil(narration.length / 10.5)),
+    };
+  });
+}
+
+const governanceIntroSlidesCourse1Synced = withCourse1AudioScriptOverrides(governanceIntroSlidesCourse1);
+const governanceChapterOneSlidesCourse1Synced = withCourse1AudioScriptOverrides(governanceChapterOneSlidesCourse1);
+const governanceChapterTwoSlidesCourse1Synced = withCourse1AudioScriptOverrides(governanceChapterTwoSlidesCourse1);
+const governanceChapterThreeSlidesCourse1Synced = withCourse1AudioScriptOverrides(governanceChapterThreeSlidesCourse1);
+const governanceClosingSlidesCourse1Synced = withCourse1AudioScriptOverrides(governanceClosingSlidesCourse1);
 
 export const courseMeta = {
   title: 'الحوكمة والمخاطر والامتثال',
@@ -58,11 +78,11 @@ export const allNarratedSlides = [
   ...emergencyChapterTwoSlides,
   ...emergencyChapterThreeSlides,
   ...emergencyChapterFourSlides,
-  ...governanceIntroSlidesCourse1,
-  ...governanceChapterOneSlidesCourse1,
-  ...governanceChapterTwoSlidesCourse1,
-  ...governanceChapterThreeSlidesCourse1,
-  ...governanceClosingSlidesCourse1,
+  ...governanceIntroSlidesCourse1Synced,
+  ...governanceChapterOneSlidesCourse1Synced,
+  ...governanceChapterTwoSlidesCourse1Synced,
+  ...governanceChapterThreeSlidesCourse1Synced,
+  ...governanceClosingSlidesCourse1Synced,
   // licensing (course/3) was missing here entirely -- meaning it never
   // showed up in docs/audio-scripts.md or any audio-doc-generation pass.
   ...licensingIntroSlides,
@@ -186,11 +206,11 @@ export const courseCatalog = {
       chapter: 'الحقيبة كاملة',
     },
     slides: [
-      ...governanceIntroSlidesCourse1,
-      ...governanceChapterOneSlidesCourse1,
-      ...governanceChapterTwoSlidesCourse1,
-      ...governanceChapterThreeSlidesCourse1,
-      ...governanceClosingSlidesCourse1,
+      ...governanceIntroSlidesCourse1Synced,
+      ...governanceChapterOneSlidesCourse1Synced,
+      ...governanceChapterTwoSlidesCourse1Synced,
+      ...governanceChapterThreeSlidesCourse1Synced,
+      ...governanceClosingSlidesCourse1Synced,
     ],
   },
   // ترخيص المنشآت الصحية والقوى العاملة, single-link #/course/3 shell --

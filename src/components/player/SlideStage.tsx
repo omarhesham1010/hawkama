@@ -26,6 +26,7 @@ import {
   governanceFeedbackText,
   governanceQuestionText,
   quizFeedbackText,
+  scriptTextForAudioKey,
 } from '../../data/audioScripts';
 import { CHECK_INTROS } from '../../data/narrationPhrases';
 
@@ -62,7 +63,8 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
 
   const speak = useCallback(
     (audioKey: string, text: string, onComplete: () => void) => {
-      setLine(text);
+      const scriptText = scriptTextForAudioKey(audioKey, text);
+      setLine(scriptText);
       completionRef.current = onComplete;
       if (muted) {
         setStarted(true);
@@ -79,7 +81,7 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
 
       setStarted(false);
       setSpeechKey(audioKey);
-      narration.play(audioKey, text, slide.title);
+      narration.play(audioKey, scriptText, slide.title);
     },
     [muted, narration, slide.audioKey, slide.title],
   );
