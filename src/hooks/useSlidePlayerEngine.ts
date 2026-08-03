@@ -64,7 +64,7 @@ export function useSlidePlayerEngine({
     const nextSlide = slides[index + 1];
     if (!nextSlide) return;
     const timer = window.setTimeout(() => {
-      preloadNarrationAudio(nextSlide.audioKey);
+      preloadNarrationAudio(nextSlide.audioKey, 'metadata');
       keepOnlyPreloadedNarrationAudio([slide.audioKey, nextSlide.audioKey]);
     }, 2200);
     return () => window.clearTimeout(timer);

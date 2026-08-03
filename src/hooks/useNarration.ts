@@ -26,10 +26,10 @@ function narrationAudioUrl(key: string) {
   return `${base}audio/${key}.mp3?v=${AUDIO_MANIFEST_VERSION}`;
 }
 
-export function preloadNarrationAudio(key: string) {
+export function preloadNarrationAudio(key: string, preload: 'auto' | 'metadata' = 'auto') {
   if (typeof window === 'undefined' || !hasAudio(key) || preloadedAudio.has(key)) return;
   const audio = new Audio(narrationAudioUrl(key));
-  audio.preload = 'auto';
+  audio.preload = preload;
   audio.load();
   preloadedAudio.set(key, audio);
 }
