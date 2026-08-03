@@ -3504,7 +3504,7 @@ function PptSpotlightScene({
     <div
       className={`flex min-h-0 flex-1 flex-col items-center gap-4 px-4 ${
         hasBulletSubcards ? 'justify-start pt-1' : 'justify-center gap-5'
-      } ${denseSupporting ? 'pb-[70px]' : 'pb-[65px]'}`}
+      } ${denseSupporting ? 'pb-[70px]' : isCourse1Slide && !hasBulletSubcards ? 'pb-[35px]' : 'pb-[65px]'}`}
     >
       <button
         type="button"
