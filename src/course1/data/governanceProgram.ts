@@ -922,7 +922,7 @@ export const governanceChapterOneSlides = indexSlides([
       [cardWithBullets(policyCards[1], policyCards[1].bullets!.slice(2), 'صياغة السياسة')],
       policyCards.slice(2, 3),
       [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(0, 2))],
-      [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'الإجراءات')],
+      [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'بروتوكولات الوقاية')],
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
     checks: [
@@ -1016,6 +1016,7 @@ export const governanceChapterOneSlides = indexSlides([
         {
           ...governanceModelCards[2],
           text: 'اعتماد الاستراتيجية، الإشراف على الأداء، ضمان الامتثال، حماية حقوق أصحاب المصلحة.',
+          syncText: 'نضيف مجلس الإدارة',
         },
       ],
       [
@@ -1116,7 +1117,7 @@ export const governanceChapterOneSlides = indexSlides([
       [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(3), 'يرفع تقارير دورية')],
       [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(0, 2))],
       [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(2, 3), 'التكامل بينهما')],
-      [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(3), 'يُترجم الاستراتيجية')],
+      [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(3), 'يترجم الاستراتيجية إلى ممارسة يومية محمية')],
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
@@ -1173,7 +1174,12 @@ export const governanceChapterOneSlides = indexSlides([
         },
       ],
       ethicsCards.slice(1, 2),
-      ethicsCards.slice(2, 3),
+      [
+        {
+          ...ethicsCards[2],
+          syncText: 'وهي تضارب المصالح',
+        },
+      ],
       ethicsCards.slice(3, 4),
       ethicsCards.slice(4, 5),
       [cardWithBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(0, 1))],
@@ -1467,7 +1473,7 @@ export const governanceChapterTwoSlides = indexSlides([
       complianceConceptCards.slice(1, 2),
       [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(0, 3))],
       [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(3), 'الحل والمعالجة')],
-      [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(0, 3))],
+      [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(0, 3), 'نضيف مخاطر عدم الامتثال')],
       [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(3), 'خسائر مالية')],
     ],
     actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
