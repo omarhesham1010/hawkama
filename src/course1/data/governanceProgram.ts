@@ -43,6 +43,25 @@ function cardWithBullets(card: PptCard, bullets: string[], syncText?: string): P
   };
 }
 
+function cardsFromBullets(card: PptCard, bullets: string[], syncText?: string): PptCard[] {
+  return bullets.map((bullet, index) => {
+    const [label, ...detailParts] = bullet.split(':');
+    const title = label.trim();
+    const text = detailParts.join(':').trim();
+
+    return {
+      ...card,
+      index: String(index + 1).padStart(2, '0'),
+      title,
+      text: text || undefined,
+      bullets: undefined,
+      spokenDetail: undefined,
+      syncText: index === 0 ? syncText ?? title : title,
+      tone: index % 2 === 0 ? card.tone : 'gold',
+    };
+  });
+}
+
 function makeSlide({
   id,
   title,
@@ -574,6 +593,30 @@ const regulatoryCards: PptCard[] = [
   },
 ];
 
+const regulatoryLevelCards: PptCard[] = [
+  { index: '01', title: 'الإطار الأعلى', text: 'سياسات واستراتيجية', syncText: 'الإطار الأعلى', tone: 'gold' },
+  { index: '02', title: 'وزارة الصحة', text: 'التوجيه والسياسات الصحية العامة', syncText: 'وزارة الصحة' },
+  { index: '03', title: 'CCHI', text: 'تنظيم التأمين الصحي ومتابعة متطلباته', syncText: 'CCHI', tone: 'gold' },
+  { index: '04', title: 'SFDA', text: 'تنظيم الغذاء والدواء والأجهزة الطبية', syncText: 'SFDA' },
+  { index: '05', title: 'SCFHS ووقاية', text: 'التصنيف المهني والوقاية الصحية', syncText: 'SCFHS', tone: 'gold' },
+  { index: '06', title: 'المجمعات الصحية', text: 'المستوى التشغيلي داخل الخدمة', syncText: 'المجمعات الصحية' },
+];
+
+const accreditationStandardCards: PptCard[] = [
+  { index: '01', title: 'CBAHI', text: 'اعتماد المنشآت الصحية محلياً', syncText: 'CBAHI', tone: 'gold' },
+  { index: '02', title: 'JCI', text: 'اعتماد دولي للجودة وسلامة المرضى', syncText: 'JCI' },
+  { index: '03', title: 'آيزو 9001', text: 'نظام إدارة الجودة', syncText: 'آيزو 9001', tone: 'gold' },
+  { index: '04', title: 'آيزو 45001 / 27001', text: 'السلامة المهنية وأمن المعلومات', syncText: 'آيزو 45001' },
+  { index: '05', title: 'آيزو 31000 وHIMSS', text: 'إدارة المخاطر ونضج التقنية الصحية', syncText: 'آيزو 31 ألف', tone: 'gold' },
+];
+
+const governanceOversightCards: PptCard[] = [
+  { index: '01', title: 'مؤشرات الأداء KPIs', text: 'قياس الأداء وربطه بالقرار', syncText: 'مؤشرات الأداء', tone: 'gold' },
+  { index: '02', title: 'الشفافية والمساءلة', text: 'وضوح المسؤوليات وتتبع القرار', syncText: 'الشفافية والمساءلة' },
+  { index: '03', title: 'الرقابة الداخلية والخارجية', text: 'تحقق مستقل ومستمر من التطبيق', syncText: 'الرقابة الداخلية والخارجية', tone: 'gold' },
+  { index: '04', title: 'بلاغات الشكاوى', text: 'قنوات تكشف الفجوات قبل تضخمها', syncText: 'أنظمة بلاغات الشكاوى' },
+];
+
 const policyCards: PptCard[] = [
   {
     index: '01',
@@ -891,14 +934,14 @@ export const governanceChapterOneSlides = indexSlides([
     // is actually talking about it.
     cards: regulatoryCards.slice(0, 1),
     laterActs: [
-      [cardWithBullets(regulatoryCards[1], regulatoryCards[1].bullets!.slice(0, 1))],
-      [cardWithBullets(regulatoryCards[1], regulatoryCards[1].bullets!.slice(1), 'المؤسسي')],
-      regulatoryCards.slice(2, 3),
-      regulatoryCards.slice(3, 4),
+      regulatoryLevelCards.slice(0, 3),
+      regulatoryLevelCards.slice(3),
+      accreditationStandardCards,
+      governanceOversightCards,
       regulatoryCards.slice(4, 5),
       regulatoryCards.slice(5, 6),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptThreeColumns', 'pptMatrix', 'pptMatrix', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -918,11 +961,11 @@ export const governanceChapterOneSlides = indexSlides([
     // pairing two into a matrix act just because they were adjacent.
     cards: policyCards.slice(0, 1),
     laterActs: [
-      [cardWithBullets(policyCards[1], policyCards[1].bullets!.slice(0, 2))],
-      [cardWithBullets(policyCards[1], policyCards[1].bullets!.slice(2), 'صياغة السياسة')],
+      cardsFromBullets(policyCards[1], policyCards[1].bullets!.slice(0, 2), 'تحديد الحاجة'),
+      cardsFromBullets(policyCards[1], policyCards[1].bullets!.slice(2), 'صياغة السياسة'),
       policyCards.slice(2, 3),
-      [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(0, 2))],
-      [cardWithBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'بروتوكولات الوقاية')],
+      cardsFromBullets(policyCards[3], policyCards[3].bullets!.slice(0, 2), 'الهدف'),
+      cardsFromBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'الإجراءات'),
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
     checks: [
@@ -1073,11 +1116,11 @@ export const governanceChapterOneSlides = indexSlides([
     // others -- these two cards carry only bullets (no text), which never
     // showed on screen at all. Split into a spotlight/matrix pair so both
     // bullet lists render automatically.
-    cards: [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(0, 3))],
+    cards: cardsFromBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(0, 3), 'مجلس الإدارة'),
     laterActs: [
-      [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(3), 'السياسات')],
-      [cardWithBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(0, 3))],
-      [cardWithBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(3), 'إدارة البيانات الصحية')],
+      cardsFromBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(3), 'السياسات'),
+      cardsFromBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(0, 3), 'تحديد القيم'),
+      cardsFromBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(3), 'إدارة البيانات الصحية'),
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
@@ -1180,10 +1223,10 @@ export const governanceChapterOneSlides = indexSlides([
           syncText: 'وهي تضارب المصالح',
         },
       ],
-      ethicsCards.slice(3, 4),
+      cardsFromBullets(ethicsCards[3], ethicsCards[3].bullets!, 'الإفصاح'),
       ethicsCards.slice(4, 5),
-      [cardWithBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(0, 1))],
-      [cardWithBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(1), 'طبيب يحيل')],
+      cardsFromBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(0, 1), 'عضو لجنة الشراء'),
+      cardsFromBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(1), 'طبيب يحيل'),
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
@@ -1470,11 +1513,14 @@ export const governanceChapterTwoSlides = indexSlides([
     // pairing two into a matrix act just because they were adjacent.
     cards: complianceConceptCards.slice(0, 1),
     laterActs: [
-      complianceConceptCards.slice(1, 2),
-      [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(0, 3))],
-      [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(3), 'الحل والمعالجة')],
-      [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(0, 3), 'نضيف مخاطر عدم الامتثال')],
-      [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(3), 'خسائر مالية')],
+      [
+        { index: '01', title: 'متطلبات خارجية إلزامية', text: 'أنظمة، قوانين، تصاريح، تراخيص', syncText: 'المستوى الأول', tone: 'gold' },
+        { index: '02', title: 'متطلبات داخلية اختيارية', text: 'عقود، سياسات داخلية، ومعايير مهنية', syncText: 'المستوى الثاني' },
+      ],
+      cardsFromBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(0, 3), 'تحديد المخاطر'),
+      cardsFromBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(3), 'الحل والمعالجة'),
+      cardsFromBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(0, 3), 'عقوبات تشريعية'),
+      cardsFromBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(3), 'خسائر مالية'),
     ],
     actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
@@ -1530,8 +1576,8 @@ export const governanceChapterTwoSlides = indexSlides([
     cards: monitoringCards.slice(0, 1),
     laterActs: [
       monitoringCards.slice(1, 2),
-      [cardWithBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(0, 2))],
-      [cardWithBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(2), 'ذاتية')],
+      cardsFromBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(0, 2), 'ميدانية'),
+      cardsFromBullets(monitoringCards[2], monitoringCards[2].bullets!.slice(2), 'ذاتية'),
       monitoringCards.slice(3, 4),
       monitoringCards.slice(4, 5),
       monitoringCards.slice(5, 6),
@@ -1890,13 +1936,13 @@ export const governanceChapterThreeSlides = indexSlides([
     // Four distinct concepts -- one full Spotlight shot per card instead of
     // pairing two into a matrix act just because they were adjacent (the
     // principles card alone already carries 8 bullets).
-    cards: [cardWithBullets(isoRiskCards[0], isoRiskCards[0].bullets!.slice(0, 1))],
+    cards: cardsFromBullets(isoRiskCards[0], isoRiskCards[0].bullets!.slice(0, 1)),
     laterActs: [
-      [cardWithBullets(isoRiskCards[0], isoRiskCards[0].bullets!.slice(1), 'قد يكون إيجابيا')],
-      [cardWithBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(0, 4))],
-      [cardWithBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(4), 'التفاعل والديناميكية')],
-      [cardWithBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(0, 3))],
-      [cardWithBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(3), 'التنفيذ')],
+      cardsFromBullets(isoRiskCards[0], isoRiskCards[0].bullets!.slice(1), 'قد يكون إيجابيا'),
+      cardsFromBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(0, 4), 'التكامل'),
+      cardsFromBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(4), 'التفاعل والديناميكية'),
+      cardsFromBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(0, 3), 'القيادة والالتزام'),
+      cardsFromBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(3), 'التنفيذ'),
       [
         {
           ...isoRiskCards[3],
@@ -1928,8 +1974,8 @@ export const governanceChapterThreeSlides = indexSlides([
       riskProcessCards.slice(1, 2),
       riskProcessCards.slice(2, 3),
       riskProcessCards.slice(3, 4),
-      [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(0, 3))],
-      [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(3), 'تدريب مستهدف')],
+      cardsFromBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(0, 3), 'تعزيز ضوابط'),
+      cardsFromBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(3), 'تدريب مستهدف'),
       riskProcessCards.slice(5, 6),
     ],
     actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
