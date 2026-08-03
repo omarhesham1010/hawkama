@@ -1164,6 +1164,11 @@ function pptDetailFor(card: PptCard, forceEmergency = false) {
   return 'اربط النقطة بموقف عملي وحدد المسؤولية ودليل التحقق.';
 }
 
+function pptSummaryFor(card?: PptCard) {
+  if (!card) return undefined;
+  return card.summary ?? card.text ?? card.subtitle ?? card.spokenDetail ?? card.rationale;
+}
+
 type CheckPhase = 'idle' | 'asking' | 'ready' | 'revealed' | 'done';
 
 /** A question Nasser raises verbally only after he finishes explaining the
@@ -3345,6 +3350,9 @@ function PptSpotlightScene({
   // packed tighter they fit a single row instead, which matters below.
   const denseSupporting = supporting.length >= 5;
   const hasBulletSubcards = !focusCard?.text && Boolean(focusCard?.bullets?.length);
+  const isSingleSpotlightCard = supporting.length === 0 && !hasBulletSubcards;
+  const focusSummary = pptSummaryFor(focusCard);
+  const showFocusSummary = isCourse1Slide && isSingleSpotlightCard && Boolean(focusSummary);
   // pptCardRevealOffsets always forces index 0's offset to 0 (correct for a
   // slide's real opening card, wrong here -- these "cards" are just this one
   // focus card's own bullets, and the first bullet is rarely spoken the
@@ -3473,10 +3481,16 @@ function PptSpotlightScene({
               {focusCard.subtitle}
             </p>
           )}
-          {focusCard?.text && (
+          {focusCard?.text && !showFocusSummary && (
             <p className="relative z-10 mt-2 text-[18px] font-bold leading-snug text-ink">
               {focusCard.text}
             </p>
+          )}
+          {showFocusSummary && focusSummary && (
+            <div className="relative z-10 mt-4 rounded-[22px] border border-green-700/14 bg-green-50/35 px-4 py-3">
+              <span className="mb-1 block text-[12px] font-black text-gold-700">الخلاصة</span>
+              <p className="text-[15px] font-extrabold leading-snug text-ink">{focusSummary}</p>
+            </div>
           )}
           {showFocusDetail && focusDetail && (
             <div className="relative z-10 mt-3 rounded-2xl border border-green-700/14 bg-green-50/20 p-2.5">
@@ -3566,9 +3580,15 @@ function PptSpotlightScene({
         >
           {focusCard?.title}
         </h3>
-        {focusCard?.text && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
+        {focusCard?.text && !showFocusSummary && <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[14.5px]' : 'text-[17px]'} mt-1.5 font-bold leading-snug text-white/90`}>{focusCard.text}</p>}
         {hasBulletSubcards && focusCard?.subtitle && (
           <p className={`relative z-10 ${isEmergencySlide ? 'mx-auto max-w-[520px] text-[13.5px]' : 'text-[15px]'} mt-1 font-bold leading-snug text-white/85`}>{focusCard.subtitle}</p>
+        )}
+        {showFocusSummary && focusSummary && (
+          <div className="relative z-10 mx-auto mt-3 max-w-[540px] rounded-[22px] border border-white/24 bg-white/14 px-4 py-3 text-center shadow-[inset_0_1px_0_rgb(255_255_255_/_0.12)]">
+            <span className="mb-1 block text-[12px] font-black text-gold-200">الخلاصة</span>
+            <p className="text-[15px] font-extrabold leading-snug text-white/92">{focusSummary}</p>
+          </div>
         )}
         {showFocusDetail && focusDetail && (
           <div className="mx-auto mt-3 max-w-[520px] rounded-2xl border border-white/25 bg-white/15 p-2.5">

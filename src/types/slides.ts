@@ -83,6 +83,8 @@ export interface PptCard {
    *  which otherwise fills this role for plain cards) -- ignored outside
    *  that mode. */
   subtitle?: string;
+  /** Concise learner-facing takeaway shown inside a single-card shot. */
+  summary?: string;
   bullets?: string[];
   syncText?: string;
   answer?: string;
