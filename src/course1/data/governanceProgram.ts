@@ -500,6 +500,12 @@ export const governanceIntroSlides = indexSlides([
 
 const chapterOneOverview: PptCard[] = [
   {
+    title: 'مسار الفصل',
+    text: 'ثلاثة محاور مترابطة تبدأ بالمعرفة التنظيمية، ثم هياكل الحوكمة، ثم نزاهة القرار.',
+    syncText: 'ثلاثة محاور مترابطة',
+    tone: 'gold',
+  },
+  {
     title: 'المعرفة التنظيمية وتفسير اللوائح',
     bullets: ['الإطار التنظيمي للقطاع الصحي', 'تفسير اللوائح والسياسات', 'صياغة وتطوير السياسات الصحية'],
   },
@@ -517,6 +523,18 @@ const chapterOneOverview: PptCard[] = [
       'حوكمة الأخلاقيات والنزاهة وتضارب المصالح (الامتثال)',
     ],
     tone: 'blue',
+  },
+  {
+    title: 'العلاقة بين الحوكمة والامتثال',
+    text: 'حدد من صاحب القرار، ومن يراجعه، وما الدليل الموثق الذي يثبت التنفيذ الصحيح.',
+    syncText: 'العلاقة بين الحوكمة والامتثال',
+    tone: 'green',
+  },
+  {
+    title: 'خلاصة المسار',
+    text: 'نبدأ بالمعرفة التنظيمية، ثم نبني هياكل الحوكمة، وبعدها نختبر أثر الأخلاقيات وتضارب المصالح على نزاهة القرار.',
+    syncText: 'نبدأ بالمعرفة التنظيمية',
+    tone: 'gold',
   },
 ];
 
@@ -825,21 +843,29 @@ export const governanceChapterOneSlides = indexSlides([
     narration: 'لنرتب مسار الفصل قبل أن نبدأ؛ فأمامنا ثلاثة محاور مترابطة. وقبل الدخول في التفاصيل، أول سؤال نطرحه هو المعرفة التنظيمية وتفسير اللوائح. وتتضح تفاصيلها من خلال عناصر مترابطة. وعلى النهج ذاته، الإطار التنظيمي للقطاع الصحي. ومن الأمور المهمة التي نذكرها، تفسير اللوائح والسياسات. ولا ينبغي أن نغفل عن، صياغة وتطوير السياسات الصحية. وهذا يقودنا مباشرة إلى نقطة مهمة، وهي هياكل الحوكمة والسياسات. وتتضح تفاصيلها من خلال عناصر مترابطة. وكما هو متوقع، تكملها، نماذج الحوكمة الصحية. ونضيف هنا نقطة تكمل الصورة، تطوير وتطبيق أطر الحوكمة. ونصل الآن إلى نقطة تستحق التركيز، العلاقة بين الحوكمة والامتثال. وفي موقف حقيقي، يعني ذلك أن حدد من صاحب القرار، ومن يراجعه، وما الدليل الموثق الذي يثبت أنه نفذ بالشكل الصحيح. ومن الطبيعي أن يكون السؤال التالي عن إدارة الأخلاقيات وتضارب المصالح. وتتضح تفاصيلها من خلال عناصر مترابطة. وفي السياق ذاته، لاحظوا، أخلاقيات العمل العام. وهذا يقودنا إلى نقطة أخرى مهمة، إدارة تضارب المصالح. أول ما يستحق التوقف عنده، النزاهة المؤسسية وحوكمتها. وأخيرا، ولكي تكتمل الصورة، حوكمة الأخلاقيات والنزاهة وتضارب المصالح (الامتثال). وفي موقف حقيقي، يعني ذلك أن تأكد من الحياد والإفصاح المبكر، ووثق أي معالجة قبل أن تتحول إلى مشكلة. نبدأ بالمعرفة التنظيمية، ثم نبني هياكل الحوكمة، وبعدها نختبر أثر الأخلاقيات وتضارب المصالح على نزاهة القرار.',
     visual: '🧭',
     layout: 'pptThreeColumns',
-    // One topic per beat instead of all three sitting on screen together
-    // for the whole 122s narration -- matches course/2's per-concept pacing.
+    // Keep this overview moving with Nasser's long narration: a short
+    // route-setting beat, then each chapter axis gets its own visual
+    // treatment and the longer axes split into detail/application beats.
     cards: chapterOneOverview.slice(0, 1),
     laterActs: [
       chapterOneOverview.slice(1, 2),
-      [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(0, 2))],
-      [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(2), 'النزاهة المؤسسية')],
+      [
+        {
+          ...chapterOneOverview[2],
+          text: 'هنا ننتقل من معرفة اللوائح إلى تصميم طريقة القرار والمساءلة داخل المنشأة.',
+          syncText: 'هياكل الحوكمة والسياسات',
+        },
+      ],
+      [cardWithBullets(chapterOneOverview[2], chapterOneOverview[2].bullets!.slice(0, 2), 'نماذج الحوكمة الصحية')],
+      chapterOneOverview.slice(4, 5),
+      [cardWithBullets(chapterOneOverview[3], chapterOneOverview[3].bullets!.slice(0, 2))],
+      [cardWithBullets(chapterOneOverview[3], chapterOneOverview[3].bullets!.slice(2), 'النزاهة المؤسسية')],
+      chapterOneOverview.slice(5, 6),
     ],
-    // pptTimeline never shows a card's bullets, only its title, and these
-    // cards carry only bullets (no text) -- spotlight surfaces them
-    // automatically instead of hiding them behind a click. All three acts
-    // are Spotlight, not varied: pptMatrix/pptTimeline/pptSixCards are grid
-    // shapes meant for several cells -- handed only one card each, they
-    // rendered as a squashed full-width bar instead of a real grid.
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight', 'pptTimeline'],
+    // Single-card beats stay Spotlight so they do not render as stretched
+    // bars; grouped bullet beats use Timeline to give each point a visible
+    // icon and motion moment instead of one long static hero card.
+    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'قبل ما نبدأ: أي محور يحمي نزاهة القرار؟',
