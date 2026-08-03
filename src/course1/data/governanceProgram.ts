@@ -43,17 +43,38 @@ function cardWithBullets(card: PptCard, bullets: string[], syncText?: string): P
   };
 }
 
+function splitBulletCardText(bullet: string): { title: string; text?: string } {
+  const colonIndex = bullet.indexOf(':');
+  if (colonIndex > -1) {
+    const title = bullet.slice(0, colonIndex).trim();
+    const text = bullet.slice(colonIndex + 1).trim();
+    return { title, text: text || undefined };
+  }
+
+  const arrowIndex = bullet.indexOf('←');
+  if (arrowIndex > -1) {
+    const title = bullet.slice(0, arrowIndex).trim();
+    const text = bullet.slice(arrowIndex + 1).trim();
+    return { title, text: text || undefined };
+  }
+
+  const parenthetical = bullet.match(/^(.+?)\s*\((.+)\)\s*$/);
+  if (parenthetical) {
+    return { title: parenthetical[1].trim(), text: parenthetical[2].trim() };
+  }
+
+  return { title: bullet.trim() };
+}
+
 function cardsFromBullets(card: PptCard, bullets: string[], syncText?: string): PptCard[] {
   return bullets.map((bullet, index) => {
-    const [label, ...detailParts] = bullet.split(':');
-    const title = label.trim();
-    const text = detailParts.join(':').trim();
+    const { title, text } = splitBulletCardText(bullet);
 
     return {
       ...card,
       index: String(index + 1).padStart(2, '0'),
       title,
-      text: text || undefined,
+      text,
       bullets: undefined,
       spokenDetail: undefined,
       syncText: index === 0 ? syncText ?? title : title,
