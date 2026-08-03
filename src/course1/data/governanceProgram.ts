@@ -1070,24 +1070,22 @@ export const governanceChapterOneSlides = indexSlides([
       [
         {
           index: '01',
-          title: 'الخط الأول',
-          text: 'الإدارة التنفيذية (التنفيذ اليومي)',
+          title: 'الإدارة التنفيذية',
+          text: 'التنفيذ اليومي',
           syncText: 'الخط الأول',
           tone: governanceModelCards[1].tone,
         },
-      ],
-      [
         {
           index: '02',
-          title: 'الخط الثاني',
-          text: 'إدارة المخاطر والامتثال',
+          title: 'إدارة المخاطر والامتثال',
+          text: 'مساندة الخط الأول ومراقبة المخاطر والالتزام.',
           syncText: 'الخط الثاني',
           tone: 'gold',
         },
         {
           index: '03',
-          title: 'الخط الثالث',
-          text: 'التدقيق الداخلي المستقل',
+          title: 'التدقيق الداخلي المستقل',
+          text: 'تأكيد مستقل على فعالية الحوكمة والضوابط.',
           syncText: 'الخط الثالث',
         },
       ],
@@ -1151,7 +1149,6 @@ export const governanceChapterOneSlides = indexSlides([
     actLayouts: [
       'pptSpotlight',
       'pptTimeline',
-      'pptTwoPanels',
       'pptTimeline',
       'pptMatrix',
       'pptTwoPanels',
