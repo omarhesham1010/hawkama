@@ -983,12 +983,13 @@ export const governanceChapterOneSlides = indexSlides([
     cards: policyCards.slice(0, 1),
     laterActs: [
       cardsFromBullets(policyCards[1], policyCards[1].bullets!.slice(0, 2), 'تحديد الحاجة'),
-      cardsFromBullets(policyCards[1], policyCards[1].bullets!.slice(2), 'صياغة السياسة'),
+      cardsFromBullets(policyCards[1], policyCards[1].bullets!.slice(2, 3), 'صياغة السياسة'),
+      cardsFromBullets(policyCards[1], policyCards[1].bullets!.slice(3), 'الاعتماد والتطبيق'),
       policyCards.slice(2, 3),
       cardsFromBullets(policyCards[3], policyCards[3].bullets!.slice(0, 2), 'الهدف'),
       cardsFromBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'الإجراءات'),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
