@@ -1166,7 +1166,7 @@ function pptDetailFor(card: PptCard, forceEmergency = false) {
 
 function pptSummaryFor(card?: PptCard) {
   if (!card) return undefined;
-  return card.summary ?? card.text ?? card.subtitle ?? card.spokenDetail ?? card.rationale;
+  return card.summary ?? card.text ?? card.subtitle ?? card.spokenDetail ?? card.rationale ?? card.bullets?.slice(0, 3).join('، ');
 }
 
 type CheckPhase = 'idle' | 'asking' | 'ready' | 'revealed' | 'done';
@@ -2934,6 +2934,7 @@ function PptMotionVisualScene({
         const cardVisual = cardVisualCandidates.find((src) => !usedCardVisuals.has(src)) ?? cardVisualCandidates[0];
         usedCardVisuals.add(cardVisual);
         const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons, usedCardVisuals) : null;
+        const singleCardSummary = isCourse1Slide && cards.length === 1 ? pptSummaryFor(card) : undefined;
         return (
           <button
             key={index}
@@ -2974,6 +2975,19 @@ function PptMotionVisualScene({
                   }`}
                   aria-hidden="true"
                 />
+                {singleCardSummary && (
+                  <span
+                    className={`mt-3 block rounded-[20px] border px-3 py-2 text-center font-extrabold leading-snug ${
+                      titleCardGrid ? 'text-[13px]' : emergencyOpenLabels ? 'text-[12.5px]' : 'text-[14px]'
+                    } ${
+                      active
+                        ? 'border-gold-500/28 bg-white/72 text-ink'
+                        : 'border-green-700/12 bg-white/62 text-ink'
+                    }`}
+                  >
+                    {singleCardSummary}
+                  </span>
+                )}
               </span>
               <span className={`relative z-0 ${titleCardGrid ? 'order-1' : ''} ${openLabelImageClass} shrink-0 rounded-full bg-white/35 ring-1 ring-gold-500/16 transition-all duration-700 ${active ? 'shadow-[0_14px_28px_rgb(191_155_74_/_0.22)]' : ''}`}>
                 {isLicensingSlide ? (
@@ -3087,6 +3101,7 @@ function PptTimelineScene({
           const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
+          const singleTimelineSummary = isCourse1Slide && cards.length === 1 ? pptSummaryFor(card) : undefined;
           return (
             <div key={index} className="flex items-start">
               {index > 0 && (
@@ -3155,6 +3170,11 @@ function PptTimelineScene({
                     </span>
                   )}
                   <span className={`relative z-10 block font-extrabold leading-snug ${denseEmergencyTimeline ? 'text-[15.5px]' : isEmergencySlide ? 'text-[18px]' : isCourse1Slide ? 'text-[17px]' : 'text-[15.5px]'}`}>{card.title}</span>
+                  {singleTimelineSummary && (
+                    <span className={`mt-1.5 block font-bold leading-snug ${isEmergencySlide ? 'text-[12px]' : 'text-[12.5px]'} ${active ? 'text-ink' : 'text-ink-soft'}`}>
+                      {singleTimelineSummary}
+                    </span>
+                  )}
                   {showDetail && detail && (
                     <span className="mt-1.5 block text-[11.5px] font-bold leading-snug text-ink">{detail}</span>
                   )}
@@ -3234,6 +3254,7 @@ function PptMatrixScene({
           const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
+          const singleMatrixSummary = isCourse1Slide && cards.length === 1 ? pptSummaryFor(card) : undefined;
           const tone = card.tone ?? 'green';
           const toneShell =
             tone === 'gold' ? 'border-gold-500/25 bg-gold-50/12' : 'border-green-700/18 bg-green-50/10';
@@ -3276,8 +3297,15 @@ function PptMatrixScene({
                   )
                 )}
               </h3>
-              {card.text && (
+              {card.text && !singleMatrixSummary && (
                 <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-1.5 pe-1 text-[14.5px] leading-snug'} font-bold ${active ? 'text-white/90' : 'text-ink'}`}>{card.text}</p>
+              )}
+              {singleMatrixSummary && (
+                <div className={`mt-2 rounded-2xl border px-3 py-2 text-center ${
+                  active ? 'border-white/25 bg-white/14' : 'border-green-700/14 bg-white/62'
+                }`}>
+                  <p className={`${denseQuadrant ? 'text-[10.5px]' : 'text-[13.5px]'} font-extrabold leading-snug ${active ? 'text-white/92' : 'text-ink'}`}>{singleMatrixSummary}</p>
+                </div>
               )}
               {!card.text && !denseQuadrant && card.bullets && card.bullets.length > 0 && (
                 <ul className={`mt-1.5 flex flex-col gap-1 pe-1 text-[14px] leading-snug font-bold ${active ? 'text-white/90' : 'text-ink'}`}>
@@ -3488,7 +3516,6 @@ function PptSpotlightScene({
           )}
           {showFocusSummary && focusSummary && (
             <div className="relative z-10 mt-4 rounded-[22px] border border-green-700/14 bg-green-50/35 px-4 py-3">
-              <span className="mb-1 block text-[12px] font-black text-gold-700">الخلاصة</span>
               <p className="text-[15px] font-extrabold leading-snug text-ink">{focusSummary}</p>
             </div>
           )}
@@ -3586,7 +3613,6 @@ function PptSpotlightScene({
         )}
         {showFocusSummary && focusSummary && (
           <div className="relative z-10 mx-auto mt-3 max-w-[540px] rounded-[22px] border border-white/24 bg-white/14 px-4 py-3 text-center shadow-[inset_0_1px_0_rgb(255_255_255_/_0.12)]">
-            <span className="mb-1 block text-[12px] font-black text-gold-200">الخلاصة</span>
             <p className="text-[15px] font-extrabold leading-snug text-white/92">{focusSummary}</p>
           </div>
         )}

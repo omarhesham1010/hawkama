@@ -66,6 +66,24 @@ function splitBulletCardText(bullet: string): { title: string; text?: string } {
   return { title: bullet.trim() };
 }
 
+function singleBulletSummary(title: string, parentTitle: string): string {
+  const summaries: Record<string, string> = {
+    'الاعتماد والتطبيق': 'تنتقل السياسة من صياغة مكتوبة إلى اعتماد رسمي وتطبيق فعلي يمكن متابعته.',
+    'مجلس الإدارة يوجه': 'دور المجلس هو التوجيه والإشراف وربط القرار بالاستراتيجية دون الدخول في التشغيل.',
+    'اللجان تحلل وتوصي': 'اللجان تدرس التفاصيل وترفع توصيات تساعد المجلس على اتخاذ قرار واعٍ.',
+    'مصفوفة الصلاحيات تضبط': 'المصفوفة توضح من يملك القرار وحدوده حتى لا تتداخل المسؤوليات.',
+    'السياسات تحدد الالتزام': 'السياسات تحول التوجهات إلى قواعد واضحة يعرفها العاملون ويلتزمون بها.',
+    'الإجراءات تترجم الالتزام إلى ممارسة': 'الإجراءات تجعل الالتزام قابلاً للتنفيذ والمتابعة داخل العمل اليومي.',
+    'آليات المساءلة والشفافية تحمي القرار': 'المساءلة والشفافية تجعل القرار واضح المصدر وقابلاً للتتبع والمراجعة.',
+    'يبني ثقة المرضى والجهات التنظيمية والمجتمع': 'الثقة تظهر عندما يرى أصحاب المصلحة قراراً منضبطاً وتطبيقاً قابلاً للإثبات.',
+    'التطبيق عبر تدريب مستمر وتقييم دوري': 'التدريب والتقييم يحولان الإطار من وثيقة ثابتة إلى ممارسة تتحسن باستمرار.',
+    'عضو لجنة الشراء': 'الموقف يختبر الإفصاح المبكر عندما تتداخل المصلحة الشخصية مع قرار الشراء.',
+    'طبيب يحيل': 'الإحالة تصبح مخاطرة نزاهة عندما ترتبط بمصلحة شخصية غير معلنة.',
+  };
+
+  return summaries[title] ?? `${title} نقطة تطبيقية ضمن ${parentTitle} وتحتاج دليلاً واضحاً يثبت التنفيذ.`;
+}
+
 function cardsFromBullets(card: PptCard, bullets: string[], syncText?: string): PptCard[] {
   return bullets.map((bullet, index) => {
     const { title, text } = splitBulletCardText(bullet);
@@ -75,6 +93,7 @@ function cardsFromBullets(card: PptCard, bullets: string[], syncText?: string): 
       index: String(index + 1).padStart(2, '0'),
       title,
       text,
+      summary: text ?? singleBulletSummary(title, card.title),
       bullets: undefined,
       spokenDetail: undefined,
       syncText: index === 0 ? syncText ?? title : title,
