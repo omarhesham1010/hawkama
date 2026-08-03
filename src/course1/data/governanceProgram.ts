@@ -35,6 +35,14 @@ function quickCheck({
   };
 }
 
+function cardWithBullets(card: PptCard, bullets: string[], syncText?: string): PptCard {
+  return {
+    ...card,
+    bullets,
+    syncText: syncText ?? card.syncText,
+  };
+}
+
 function makeSlide({
   id,
   title,
@@ -898,7 +906,7 @@ export const governanceChapterOneSlides = indexSlides([
       policyActivityCards.slice(3, 4),
       policyActivityCards.slice(4, 5),
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ppt-governance-models',
@@ -917,8 +925,13 @@ export const governanceChapterOneSlides = indexSlides([
     // pairing two unrelated ones into a matrix act just because they were
     // adjacent in the array.
     cards: governanceModelCards.slice(0, 1),
-    laterActs: [governanceModelCards.slice(1, 2), governanceModelCards.slice(2, 5), governanceModelCards.slice(5, 6)],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight'],
+    laterActs: [
+      governanceModelCards.slice(1, 2),
+      governanceModelCards.slice(2, 5),
+      [cardWithBullets(governanceModelCards[5], governanceModelCards[5].bullets!.slice(0, 3), 'مجلس الإدارة يوجه')],
+      [cardWithBullets(governanceModelCards[5], governanceModelCards[5].bullets!.slice(3), 'السياسات تحدد الالتزام')],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ppt-framework',
@@ -931,11 +944,15 @@ export const governanceChapterOneSlides = indexSlides([
     // others -- these two cards carry only bullets (no text), which never
     // showed on screen at all. Split into a spotlight/matrix pair so both
     // bullet lists render automatically.
-    cards: frameworkCards.slice(0, 1),
-    laterActs: [frameworkCards.slice(1, 2)],
+    cards: [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(0, 3))],
+    laterActs: [
+      [cardWithBullets(frameworkCards[0], frameworkCards[0].bullets!.slice(3), 'السياسات')],
+      [cardWithBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(0, 3))],
+      [cardWithBullets(frameworkCards[1], frameworkCards[1].bullets!.slice(3), 'إدارة البيانات الصحية')],
+    ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'سؤال ربط: ما أول شيء نبحث عنه في أي إطار حوكمة؟',
@@ -955,11 +972,17 @@ export const governanceChapterOneSlides = indexSlides([
     // Three dense, bullet-heavy cards read better as three individual
     // beats (governance defines -> compliance ensures -> integration
     // sustains) than as one crowded three-column shot for 201s straight.
-    cards: governanceComplianceCards.slice(0, 1),
-    laterActs: [governanceComplianceCards.slice(1, 2), governanceComplianceCards.slice(2, 3)],
+    cards: [cardWithBullets(governanceComplianceCards[0], governanceComplianceCards[0].bullets!.slice(0, 3))],
+    laterActs: [
+      [cardWithBullets(governanceComplianceCards[0], governanceComplianceCards[0].bullets!.slice(3), 'آليات المساءلة')],
+      [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(0, 3))],
+      [cardWithBullets(governanceComplianceCards[1], governanceComplianceCards[1].bullets!.slice(3), 'يرفع تقارير دورية')],
+      [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(0, 3))],
+      [cardWithBullets(governanceComplianceCards[2], governanceComplianceCards[2].bullets!.slice(3), 'يُترجم الاستراتيجية')],
+    ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ppt-activity-governance-or-compliance',
@@ -1266,8 +1289,14 @@ export const governanceChapterTwoSlides = indexSlides([
     // Four distinct concepts -- one full Spotlight shot per card instead of
     // pairing two into a matrix act just because they were adjacent.
     cards: complianceConceptCards.slice(0, 1),
-    laterActs: [complianceConceptCards.slice(1, 2), complianceConceptCards.slice(2, 3), complianceConceptCards.slice(3, 4)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
+    laterActs: [
+      complianceConceptCards.slice(1, 2),
+      [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(0, 3))],
+      [cardWithBullets(complianceConceptCards[2], complianceConceptCards[2].bullets!.slice(3), 'الحل والمعالجة')],
+      [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(0, 3))],
+      [cardWithBullets(complianceConceptCards[3], complianceConceptCards[3].bullets!.slice(3), 'خسائر مالية')],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-pdca',
@@ -1585,7 +1614,7 @@ export const governanceChapterThreeSlides = indexSlides([
     laterActs: [chapterThreeOverview.slice(1, 2), chapterThreeOverview.slice(2, 3)],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'سؤال افتتاحي: لماذا نربط المخاطر بالقرار؟',
@@ -1606,8 +1635,14 @@ export const governanceChapterThreeSlides = indexSlides([
     // pairing two into a matrix act just because they were adjacent (the
     // principles card alone already carries 8 bullets).
     cards: isoRiskCards.slice(0, 1),
-    laterActs: [isoRiskCards.slice(1, 2), isoRiskCards.slice(2, 4)],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels'],
+    laterActs: [
+      [cardWithBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(0, 4))],
+      [cardWithBullets(isoRiskCards[1], isoRiskCards[1].bullets!.slice(4), 'التفاعل والديناميكية')],
+      [cardWithBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(0, 3))],
+      [cardWithBullets(isoRiskCards[2], isoRiskCards[2].bullets!.slice(3), 'التنفيذ')],
+      isoRiskCards.slice(3, 4),
+    ],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptTimeline', 'pptThreeColumns', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch3-risk-process',
@@ -1619,8 +1654,13 @@ export const governanceChapterThreeSlides = indexSlides([
     // Six ordered steps -- one full Spotlight shot per step instead of
     // pairing two into a matrix act just because they were adjacent.
     cards: riskProcessCards.slice(0, 1),
-    laterActs: [riskProcessCards.slice(1, 4), riskProcessCards.slice(4, 6)],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels'],
+    laterActs: [
+      riskProcessCards.slice(1, 4),
+      [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(0, 3))],
+      [cardWithBullets(riskProcessCards[4], riskProcessCards[4].bullets!.slice(3), 'تدريب مستهدف')],
+      riskProcessCards.slice(5, 6),
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'ترتيب منطقي: هل نعالج الخطر قبل تحليله؟',
@@ -1652,8 +1692,14 @@ export const governanceChapterThreeSlides = indexSlides([
     layout: 'pptThreeColumns',
     kind: 'activity',
     cards: riskActivityCards.slice(0, 1),
-    laterActs: [riskActivityCards.slice(1, 2), riskActivityCards.slice(2, 3)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    laterActs: [
+      [cardWithBullets(riskActivityCards[1], riskActivityCards[1].bullets!.slice(0, 3))],
+      [cardWithBullets(riskActivityCards[1], riskActivityCards[1].bullets!.slice(3, 5), 'الاحتمالية')],
+      [cardWithBullets(riskActivityCards[1], riskActivityCards[1].bullets!.slice(5), 'الخطر المتبقي')],
+      [cardWithBullets(riskActivityCards[2], riskActivityCards[2].bullets!.slice(0, 3))],
+      [cardWithBullets(riskActivityCards[2], riskActivityCards[2].bullets!.slice(3), 'القضايا غير المغلقة')],
+    ],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptSpotlight', 'pptMatrix', 'pptSpotlight'],
   }),
   makeQuizSlide({
     id: 'ch3-quiz',
