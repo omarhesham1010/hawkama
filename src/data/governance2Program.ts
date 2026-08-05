@@ -297,7 +297,7 @@ export const governance2UnitOneSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تأصيل المفاهيم الأخلاقية والشفافية والمساءلة' },
+      { index: '01', title: 'تأصيل المفاهيم الأخلاقية والشفافية' },
       { index: '02', title: 'تطبيق آليات المواءمة الاستراتيجية بمؤشرات أداء دقيقة', tone: 'gold' },
       { index: '03', title: 'تحليل التفاعلات بين الجهات التنظيمية والتشغيلية' },
     ],
@@ -643,7 +643,7 @@ export const governance2UnitTwoSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تصميم هيكل تنظيمي للحوكمة وتوضيح الأدوار القيادية' },
+      { index: '01', title: 'تصميم هيكل تنظيمي للحوكمة' },
       { index: '02', title: 'تحويل أطر الحوكمة إلى ممارسات يومية عبر السياسات', tone: 'gold' },
       { index: '03', title: 'تصميم نموذج تشغيل مستهدف وتوزيع المسؤوليات باستخدام مصفوفة رَاسِي' },
     ],
@@ -1026,7 +1026,7 @@ export const governance2UnitThreeSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تصميم لوحات مؤشرات حوكمة تربط الأداء بشهية المخاطر' },
+      { index: '01', title: 'تصميم لوحات مؤشرات حوكمة ذكية' },
       { index: '02', title: 'التفريق بين أدوار الجودة وأطر الحوكمة', tone: 'gold' },
       { index: '03', title: 'إدارة حوكمة الأنظمة الصحية الرقمية والبيانات القطاعية' },
     ],
@@ -1422,7 +1422,7 @@ export const governance2UnitFourSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'قيادة التغيير الثقافي والتنظيمي بنموذج أَدْكار' },
+      { index: '01', title: 'قيادة التغيير الثقافي بنموذج أَدْكار' },
       { index: '02', title: 'تقييم المخاطر المؤسسية وربطها بالقرارات الاستراتيجية', tone: 'gold' },
       { index: '03', title: 'ضبط منظومة الشراكات مع القطاعين الخاص والثالث' },
     ],
@@ -1798,7 +1798,7 @@ export const governance2UnitFiveSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'إدارة المحافظ والمبادرات الصحية عبر مكتب إدارة المشاريع' },
+      { index: '01', title: 'إدارة المحافظ والمبادرات الصحية' },
       { index: '02', title: 'صياغة سياسات صحية محكمة قابلة للتنفيذ والقياس', tone: 'gold' },
       { index: '03', title: 'اتخاذ قرارات استراتيجية مستندة إلى نماذج علمية' },
     ],

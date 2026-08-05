@@ -215,7 +215,7 @@ export const policyUnitOneSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'استيعاب فلسفة المنظمة المتعلمة والتعلم المستمر' },
+      { index: '01', title: 'استيعاب فلسفة المنظمة المتعلمة' },
       { index: '02', title: 'تحليل السياسات باستخدام أدوات التحليل المقارن', tone: 'gold' },
       { index: '03', title: 'تصميم إطارات مرجعية متكاملة وخريطة طريق للتنفيذ' },
     ],
@@ -540,7 +540,7 @@ export const policyUnitTwoSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تصنيف أصحاب المصلحة بنماذج البروز والقوة والاهتمام' },
+      { index: '01', title: 'تصنيف أصحاب المصلحة بنموذج البروز' },
       { index: '02', title: 'ربط السياسات بإطار تحقيق الفوائد عبر مؤشرات أداء دقيقة', tone: 'gold' },
       { index: '03', title: 'تطبيق منهجيات تقييم الأثر المسبق واللاحق' },
     ],
@@ -849,7 +849,7 @@ export const policyUnitThreeSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تحليل دورة حياة السياسة وفجوات الأداء التشغيلي' },
+      { index: '01', title: 'تحليل دورة حياة السياسة العامة' },
       { index: '02', title: 'صياغة وثائق السياسات الصحية بلغة فنية وقانونية دقيقة', tone: 'gold' },
       { index: '03', title: 'تطوير الإرشادات التنفيذية المساندة وأدوات الامتثال' },
     ],
@@ -1148,7 +1148,7 @@ export const policyUnitFourSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'التفريق بين مستويات الهرم التشريعي وحدود الصلاحيات' },
+      { index: '01', title: 'التفريق بين مستويات الهرم التشريعي' },
       { index: '02', title: 'تفسير المواد النظامية وتطبيق قواعد الصياغة ثنائية اللغة', tone: 'gold' },
       { index: '03', title: 'صياغة المواد القانونية بأسلوب معياري محكم' },
     ],
@@ -1478,7 +1478,7 @@ export const policyUnitFiveSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تحليل أنواع المخاطر المؤسسية بأدوات علمية' },
+      { index: '01', title: 'تحليل أنواع المخاطر المؤسسية' },
       { index: '02', title: 'تطبيق مبادئ الحوكمة الأربعة وتوزيع الأدوار', tone: 'gold' },
       { index: '03', title: 'اتخاذ قرار استراتيجي يوازن الأثر والمخاطر' },
     ],
