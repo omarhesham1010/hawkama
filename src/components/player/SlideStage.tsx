@@ -1463,7 +1463,15 @@ function IntroMotionScene({
   const heroWidthPct = 26;
   const heroCenterFromRight = heroRightPct + heroWidthPct / 2;
   const pillarRowWidthPct = isLicensingCourse && pillars.length === 3 ? 52 : pillars.length > 4 ? 44 : pillars.length > 3 ? 38 : 30;
-  const pillarRowRightPct = heroCenterFromRight - pillarRowWidthPct / 2;
+  // Centering a wide 5-pillar row (44%) on the hero image's narrow visual
+  // center (19% from the right edge) does the arithmetic into negative
+  // territory -- the row's right edge would sit past the canvas's own right
+  // edge, reading as "shifted too far right / off-canvas" instead of
+  // centered. Clamp to a small positive floor so a 5-pillar bag-welcome
+  // (course/4, course/5, and any future 5-unit bag) never overflows right;
+  // slides with <=4 pillars already compute a safe positive value here and
+  // are unaffected.
+  const pillarRowRightPct = Math.max(3, heroCenterFromRight - pillarRowWidthPct / 2);
 
   return (
     <div className="relative h-full min-h-0 overflow-visible">
@@ -1550,7 +1558,14 @@ function IntroMotionScene({
           </p>
         </div>
 
-        <div className="absolute bottom-[150px] left-[365px] flex items-center justify-end">
+        {/* Fixed-pixel position, independent of the paragraph's height above
+            it -- a longer `intro` string (5-unit bags like course/4 and
+            course/5 run a line longer than the 3-4 unit bags this was
+            originally tuned against) wraps to an extra line and reaches into
+            this button. Sitting further down the canvas gives every course's
+            intro paragraph, including the longest ones, headroom to grow
+            without touching it. */}
+        <div className="absolute bottom-[104px] left-[365px] flex items-center justify-end">
           <button
             type="button"
             disabled={narrationLocked}
