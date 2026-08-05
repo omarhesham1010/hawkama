@@ -43,6 +43,24 @@ import {
   licensingUnitThreeSlides,
   licensingUnitTwoSlides,
 } from './licensingProgram';
+import {
+  policyClosingSlides,
+  policyIntroSlides,
+  policyUnitFiveSlides,
+  policyUnitFourSlides,
+  policyUnitOneSlides,
+  policyUnitThreeSlides,
+  policyUnitTwoSlides,
+} from './policyProgram';
+import {
+  governance2ClosingSlides,
+  governance2IntroSlides,
+  governance2UnitFiveSlides,
+  governance2UnitFourSlides,
+  governance2UnitOneSlides,
+  governance2UnitThreeSlides,
+  governance2UnitTwoSlides,
+} from './governance2Program';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
 import type { Slide } from '../types/slides';
 import { course1AudioScriptText } from './course1AudioScriptOverrides';
@@ -92,6 +110,20 @@ export const allNarratedSlides = [
   ...licensingUnitFourSlides,
   ...licensingUnitFiveSlides,
   ...licensingClosingSlides,
+  ...policyIntroSlides,
+  ...policyUnitOneSlides,
+  ...policyUnitTwoSlides,
+  ...policyUnitThreeSlides,
+  ...policyUnitFourSlides,
+  ...policyUnitFiveSlides,
+  ...policyClosingSlides,
+  ...governance2IntroSlides,
+  ...governance2UnitOneSlides,
+  ...governance2UnitTwoSlides,
+  ...governance2UnitThreeSlides,
+  ...governance2UnitFourSlides,
+  ...governance2UnitFiveSlides,
+  ...governance2ClosingSlides,
 ];
 
 export const courseCatalog = {
@@ -228,6 +260,40 @@ export const courseCatalog = {
       ...licensingUnitFourSlides,
       ...licensingUnitFiveSlides,
       ...licensingClosingSlides,
+    ],
+  },
+  // إعداد السياسات والأنظمة واللوائح في القطاع الصحي, single-link #/course/4
+  // shell -- the whole bag (intro + 5 units + closing/post-test) as one sequence.
+  'policy-full': {
+    meta: {
+      title: 'إعداد السياسات والأنظمة واللوائح في القطاع الصحي',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...policyIntroSlides,
+      ...policyUnitOneSlides,
+      ...policyUnitTwoSlides,
+      ...policyUnitThreeSlides,
+      ...policyUnitFourSlides,
+      ...policyUnitFiveSlides,
+      ...policyClosingSlides,
+    ],
+  },
+  // حوكمة القطاع الصحي, single-link #/course/5 shell -- the whole bag
+  // (intro + 5 units + closing/post-test) as one sequence.
+  'governance2-full': {
+    meta: {
+      title: 'حوكمة القطاع الصحي',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...governance2IntroSlides,
+      ...governance2UnitOneSlides,
+      ...governance2UnitTwoSlides,
+      ...governance2UnitThreeSlides,
+      ...governance2UnitFourSlides,
+      ...governance2UnitFiveSlides,
+      ...governance2ClosingSlides,
     ],
   },
 };
