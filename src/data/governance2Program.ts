@@ -187,11 +187,11 @@ const unit1BalancedScorecardCards: PptCard[] = [
 ];
 
 const unit1WhoPillarCards: PptCard[] = [
-  { index: '01', title: 'تقديم الخدمات' },
-  { index: '02', title: 'القوى العاملة', tone: 'gold' },
-  { index: '03', title: 'المعلومات الصحية' },
-  { index: '04', title: 'المنتجات الطبية واللقاحات والتقنيات', tone: 'gold' },
-  { index: '05', title: 'التمويل الصحي' },
+  { index: '01', title: 'تقديم الخدمات', text: 'وصول المريض إلى رعاية آمنة وفعالة.' },
+  { index: '02', title: 'القوى العاملة', text: 'كفاية الكوادر الصحية وكفاءتها.', tone: 'gold' },
+  { index: '03', title: 'المعلومات الصحية', text: 'بيانات دقيقة تسند القرار التنظيمي.' },
+  { index: '04', title: 'المنتجات الطبية واللقاحات والتقنيات', text: 'توفرها وجودتها واستخدامها الآمن.', tone: 'gold' },
+  { index: '05', title: 'التمويل الصحي', text: 'استدامة الموارد المالية للقطاع.' },
   { index: '06', title: 'القيادة والحوكمة', subtitle: 'العقل المدبر الذي يضمن انسجام الركائز الخمس الأخرى', tone: 'gold' },
 ];
 
@@ -772,15 +772,15 @@ export const governance2UnitTwoSlides = indexSlides([
         { index: '05', title: 'الحوكمة', text: 'تراقب امتثال الركائز الأربع الأخرى.' },
       ],
       [
-        { index: '01', title: 'تحليل الوضع الراهن' },
-        { index: '02', title: 'تحديد الفجوات', tone: 'gold' },
+        { index: '01', title: 'تحليل الوضع الراهن', text: 'رصد كيفية سير العمل فعليًا اليوم.' },
+        { index: '02', title: 'تحديد الفجوات', text: 'الفارق بين الوضع الراهن والوضع المستهدف.', tone: 'gold' },
         { index: '03', title: 'بناء الوضع المستهدف', text: 'الأكثر كفاءة وتمركزًا حول المريض.' },
       ],
       [{ title: 'المسؤولية المشاعة مسؤولية ضائعة', subtitle: 'المبدأ الذي تُبنى عليه مصفوفة رَاسِي في توزيع المهام', tone: 'gold' }],
       unit2RaciCards,
       [
         { index: '01', title: 'تعدد المسؤولين عن المساءلة', text: 'لمهمة واحدة.' },
-        { index: '02', title: 'تجاهل استشارة الخبراء الفنيين', tone: 'gold' },
+        { index: '02', title: 'تجاهل استشارة الخبراء الفنيين', text: 'قبل توزيع الأدوار في المصفوفة.', tone: 'gold' },
         { index: '03', title: 'الإغراق في إبلاغ الجميع', text: 'يسبب ضجيجًا معلوماتيًا.' },
       ],
       [{ title: 'تطبيق عملي', subtitle: 'التحقيق في حادثة طبية جسيمة يُظهر كيف يمنع الفصل الدقيق بين الأدوار البيروقراطية السلبية ويعزز ثقافة النزاهة' }],
@@ -896,28 +896,28 @@ export const governance2UnitTwoSlides = indexSlides([
 // ============================================================
 
 const unit3RiskTypeCards: PptCard[] = [
-  { index: '01', title: 'مخاطر استراتيجية' },
-  { index: '02', title: 'مخاطر تشغيلية', tone: 'gold' },
-  { index: '03', title: 'مخاطر مالية' },
-  { index: '04', title: 'مخاطر امتثال', tone: 'gold' },
+  { index: '01', title: 'مخاطر استراتيجية', text: 'تهدد تحقيق الأهداف الكبرى للمنظمة.' },
+  { index: '02', title: 'مخاطر تشغيلية', text: 'خلل في سير العمليات اليومية.', tone: 'gold' },
+  { index: '03', title: 'مخاطر مالية', text: 'تهدد استدامة الموارد والإنفاق.' },
+  { index: '04', title: 'مخاطر امتثال', text: 'مخالفة الأنظمة واللوائح الناظمة.', tone: 'gold' },
 ];
 
 const unit3RiskCycleCards: PptCard[] = [
-  { index: '01', title: 'تحديد المخاطر' },
-  { index: '02', title: 'تحليلها', tone: 'gold' },
+  { index: '01', title: 'تحديد المخاطر', text: 'حصر المخاطر المحتملة قبل وقوعها.' },
+  { index: '02', title: 'تحليلها', text: 'فهم أسبابها ومصادرها الحقيقية.', tone: 'gold' },
   { index: '03', title: 'تقييمها', text: 'بمصفوفة تجمع الاحتمالية بالأثر.' },
   { index: '04', title: 'معالجتها', text: 'بالتجنب أو التخفيف أو النقل أو القبول.', tone: 'gold' },
 ];
 
 const unit3DashboardDimensionCards: PptCard[] = [
-  { index: '01', title: 'مؤشرات الامتثال' },
-  { index: '02', title: 'مؤشرات الأداء الاستراتيجي', tone: 'gold' },
-  { index: '03', title: 'مؤشرات الحوكمة السريرية' },
-  { index: '04', title: 'مؤشرات المخاطر والنزاهة', tone: 'gold' },
+  { index: '01', title: 'مؤشرات الامتثال', text: 'مدى الالتزام بالأنظمة واللوائح.' },
+  { index: '02', title: 'مؤشرات الأداء الاستراتيجي', text: 'تقدم المنظمة نحو أهدافها الكبرى.', tone: 'gold' },
+  { index: '03', title: 'مؤشرات الحوكمة السريرية', text: 'سلامة الممارسة الطبية وجودتها.' },
+  { index: '04', title: 'مؤشرات المخاطر والنزاهة', text: 'رصد التعرض للمخاطر ومستوى النزاهة.', tone: 'gold' },
 ];
 
 const unit3DataPyramidCards: PptCard[] = [
-  { index: '01', title: 'البيانات الخام' },
+  { index: '01', title: 'البيانات الخام', text: 'أرقام وسجلات مجمّعة بلا تفسير بعد.' },
   { index: '02', title: 'المعلومات', text: 'بعد معالجة البيانات.', tone: 'gold' },
   { index: '03', title: 'المعرفة', text: 'فهم الأنماط والأسباب.' },
   { index: '04', title: 'القرار', text: 'يُبنى على مصدر حقيقة موحد يعتمد عليه جميع صناع القرار.', tone: 'gold' },
@@ -1101,9 +1101,9 @@ export const governance2UnitThreeSlides = indexSlides([
         { title: 'الالتزام', text: 'الانضباط الداخلي المستمر حتى في غياب المفتشين — الطريق الذي نسلكه كل يوم.' },
       ],
       [
-        { index: '01', title: 'خطط' },
-        { index: '02', title: 'نفّذ', tone: 'gold' },
-        { index: '03', title: 'افحص' },
+        { index: '01', title: 'خطط', text: 'حدد الهدف وخطوات التحسين المطلوبة.' },
+        { index: '02', title: 'نفّذ', text: 'طبّق الخطة على نطاق محدود أولًا.', tone: 'gold' },
+        { index: '03', title: 'افحص', text: 'قِس النتائج وقارنها بالمستهدف.' },
         { index: '04', title: 'صحح', text: 'ثقافة تعلّم من الأخطاء تحوّل مخرجات لجان الجودة إلى خطط تدريبية.', tone: 'gold' },
       ],
       [{ title: 'سلامة المريض في القلب', subtitle: 'تضع حوكمة الجودة سلامة المريض وحقوقه في قلب كل تقييم للجودة', tone: 'gold' }],
@@ -1279,32 +1279,32 @@ const unit4AdkarCards: PptCard[] = [
 ];
 
 const unit4RiskTypeCards: PptCard[] = [
-  { index: '01', title: 'مخاطر استراتيجية' },
-  { index: '02', title: 'مخاطر تشغيلية', tone: 'gold' },
-  { index: '03', title: 'مخاطر مالية' },
-  { index: '04', title: 'مخاطر امتثال', tone: 'gold' },
+  { index: '01', title: 'مخاطر استراتيجية', text: 'تهدد تحقيق الأهداف الكبرى للمنظمة.' },
+  { index: '02', title: 'مخاطر تشغيلية', text: 'خلل في سير العمليات اليومية.', tone: 'gold' },
+  { index: '03', title: 'مخاطر مالية', text: 'تهدد استدامة الموارد والإنفاق.' },
+  { index: '04', title: 'مخاطر امتثال', text: 'مخالفة الأنظمة واللوائح الناظمة.', tone: 'gold' },
 ];
 
 const unit4RiskCycleCards: PptCard[] = [
   { index: '01', title: 'تحديد المخاطر', text: 'بالعصف الذهني.' },
-  { index: '02', title: 'تحليلها', tone: 'gold' },
+  { index: '02', title: 'تحليلها', text: 'فهم أسبابها ومصادرها الحقيقية.', tone: 'gold' },
   { index: '03', title: 'تقييمها', text: 'بمصفوفة الاحتمالية والأثر.' },
-  { index: '04', title: 'معالجتها', tone: 'gold' },
+  { index: '04', title: 'معالجتها', text: 'بالتجنب أو التخفيف أو النقل أو القبول.', tone: 'gold' },
 ];
 
 const unit4GovRiskCards: PptCard[] = [
-  { index: '01', title: 'تضارب المصالح' },
+  { index: '01', title: 'تضارب المصالح', text: 'مصلحة شخصية تتقاطع مع القرار المؤسسي.' },
   { index: '02', title: 'غياب الحوكمة السريرية', subtitle: 'تركيز المجلس على الأرقام المالية وتجاهل جودة الأداء الطبي', tone: 'gold' },
   { index: '03', title: 'تركّز السلطات', subtitle: 'في يد قلة من الأفراد' },
-  { index: '04', title: 'ضعف الشفافية', tone: 'gold' },
+  { index: '04', title: 'ضعف الشفافية', text: 'غياب الإفصاح عن القرارات والمعايير.', tone: 'gold' },
   { index: '05', title: 'الحوكمة الورقية', subtitle: 'سياسات على الورق دون تطبيق فعلي' },
 ];
 
 const unit4RiskStrategyCards: PptCard[] = [
-  { index: '01', title: 'القبول' },
-  { index: '02', title: 'المعالجة', tone: 'gold' },
+  { index: '01', title: 'القبول', text: 'تحمّل الخطر عندما يكون أثره محدودًا.' },
+  { index: '02', title: 'المعالجة', text: 'تقليل احتمالية الخطر أو أثره.', tone: 'gold' },
   { index: '03', title: 'النقل', text: 'كالتأمين.' },
-  { index: '04', title: 'الإنهاء', tone: 'gold' },
+  { index: '04', title: 'الإنهاء', text: 'وقف النشاط المسبب للخطر كليًا.', tone: 'gold' },
 ];
 
 const unit4PartnershipModelCards: PptCard[] = [
@@ -1661,21 +1661,21 @@ const unit5PortfolioLevelCards: PptCard[] = [
 ];
 
 const unit5PriorityScoreCards: PptCard[] = [
-  { index: '01', title: 'الأثر الصحي' },
-  { index: '02', title: 'المواءمة الاستراتيجية', tone: 'gold' },
-  { index: '03', title: 'الجدوى المالية' },
-  { index: '04', title: 'درجة المخاطر', tone: 'gold' },
+  { index: '01', title: 'الأثر الصحي', text: 'مدى تحسّن النتائج الصحية للمستفيدين.' },
+  { index: '02', title: 'المواءمة الاستراتيجية', text: 'ارتباط المبادرة بأهداف رؤية 2030.', tone: 'gold' },
+  { index: '03', title: 'الجدوى المالية', text: 'العائد مقابل التكلفة المطلوبة.' },
+  { index: '04', title: 'درجة المخاطر', text: 'مستوى التعرض للمخاطر المحتملة.', tone: 'gold' },
 ];
 
 const unit5ImpactEffortCards: PptCard[] = [
   { index: '01', title: 'مكاسب سريعة', subtitle: 'أثر عالٍ وجهد منخفض — أولوية فورية' },
   { index: '02', title: 'مشاريع استراتيجية', subtitle: 'تتطلب تخطيطًا دقيقًا', tone: 'gold' },
-  { index: '03', title: 'مهام روتينية' },
+  { index: '03', title: 'مهام روتينية', subtitle: 'أثر منخفض وجهد منخفض — تنفَّذ دون أولوية' },
   { index: '04', title: 'مشاريع استنزاف', subtitle: 'يجب إيقافها فورًا', tone: 'gold' },
 ];
 
 const unit5PolicyLifecycleCards: PptCard[] = [
-  { index: '01', title: 'تحديد المشكلة' },
+  { index: '01', title: 'تحديد المشكلة', text: 'تشخيص الحاجة الفعلية إلى سياسة جديدة.' },
   { index: '02', title: 'صياغة المسودة', text: 'بلغة قانونية وفنية واضحة، بإشراك أصحاب المصلحة.', tone: 'gold' },
   { index: '03', title: 'الاعتماد', text: 'الخاضع للحوكمة.' },
   { index: '04', title: 'التنفيذ', text: 'نشر السياسة وتدريب الكوادر عليها.', tone: 'gold' },
@@ -1690,10 +1690,10 @@ const unit5DecisionModelCards: PptCard[] = [
 ];
 
 const unit5OodaCards: PptCard[] = [
-  { index: '01', title: 'المراقبة' },
-  { index: '02', title: 'التوجيه', tone: 'gold' },
-  { index: '03', title: 'القرار' },
-  { index: '04', title: 'التنفيذ', tone: 'gold' },
+  { index: '01', title: 'المراقبة', text: 'رصد المستجدات والبيانات فور ظهورها.' },
+  { index: '02', title: 'التوجيه', text: 'تفسير المعطيات في سياقها الصحيح.', tone: 'gold' },
+  { index: '03', title: 'القرار', text: 'اختيار المسار الأنسب من بين البدائل.' },
+  { index: '04', title: 'التنفيذ', text: 'تحويل القرار إلى إجراء فعلي سريع.', tone: 'gold' },
 ];
 
 const unit5StakeholderStepCards: PptCard[] = [
@@ -1917,9 +1917,9 @@ export const governance2UnitFiveSlides = indexSlides([
         { title: 'القرار التشغيلي اليومي', text: 'لمديري الأقسام.', tone: 'gold' },
       ],
       [
-        { index: '01', title: 'منطقة النجاح' },
-        { index: '02', title: 'منطقة المقامرة الاستراتيجية', tone: 'gold' },
-        { index: '03', title: 'منطقة الاستنزاف' },
+        { index: '01', title: 'منطقة النجاح', text: 'أثر عالٍ ومخاطر مدارة بعناية.' },
+        { index: '02', title: 'منطقة المقامرة الاستراتيجية', text: 'أثر كبير محتمل مقابل مخاطر عالية.', tone: 'gold' },
+        { index: '03', title: 'منطقة الاستنزاف', text: 'موارد تُستهلك دون عائد يوازيها.' },
       ],
       unit5StakeholderStepCards,
       [{ title: 'الثقة عملة الامتثال', subtitle: 'الحوكمة التي لا تنتهي بقرار تصحيحي مجرد إهدار للوقت، والثقة هي العملة التي نشتري بها الامتثال الطوعي والالتزام الأخلاقي', tone: 'gold' }],
