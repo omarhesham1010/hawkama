@@ -1440,22 +1440,46 @@ function IntroMotionScene({
     'lic-u3-welcome': '/assets/visual-library/intro-licensing-compliance-shield-scene.webp',
     'lic-u4-welcome': '/assets/visual-library/intro-licensing-framework-scene.webp',
   };
+  const isPolicyCourse = slide.id.startsWith('policy');
+  const isGov2Course = slide.id.startsWith('gov2');
+  // Same approach as licensing above: course/4's own trainer guide (إعداد
+  // السياسات...) has real per-topic icon art scattered through it -- picked
+  // the best-fitting piece per unit (stakeholder network for unit 2, a
+  // legal shield for the legal/legislative unit 4, etc.), falling back to
+  // the compliance icon for the bag-level welcome and any unit without a
+  // clean match. Course/5's own guide (حوكمة القطاع الصحي) has no such
+  // per-topic icons at all -- every image in it besides the MOH "أبعاد"
+  // logo is a repeated cover-page background -- so it gets one shared
+  // abstract scene from that same cover art instead of an invented match.
+  const policyHeroByUnit: Record<string, string> = {
+    'policy-u1-welcome': '/assets/visual-library/intro-policy-research-analysis-scene.webp',
+    'policy-u2-welcome': '/assets/visual-library/intro-policy-stakeholder-network-scene.webp',
+    'policy-u3-welcome': '/assets/visual-library/intro-policy-drafting-scene.webp',
+    'policy-u4-welcome': '/assets/visual-library/intro-policy-legal-shield-scene.webp',
+  };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
-    : isEmergencyCourse
-      ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
-      : isCourse1Course
-        // Pulled straight from the client's own governance PPTX title
-        // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
-        // stock illustration bag/1 uses -- already on-brand since it's the
-        // client's own source material, so it needs no separate approval.
-        ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
-        : '/assets/visual-library/intro-governance-building-scene.webp';
+    : isPolicyCourse
+      ? (policyHeroByUnit[slide.id] ?? '/assets/visual-library/intro-policy-compliance-scene.webp')
+      : isGov2Course
+        ? '/assets/visual-library/intro-governance2-abstract-scene.webp'
+        : isEmergencyCourse
+          ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
+          : isCourse1Course
+            // Pulled straight from the client's own governance PPTX title
+            // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
+            // stock illustration bag/1 uses -- already on-brand since it's the
+            // client's own source material, so it needs no separate approval.
+            ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
+            : '/assets/visual-library/intro-governance-building-scene.webp';
   // The skyline is a real rectangular photo (no transparency), unlike the
   // illustration it replaces for course/1 -- frame it as a photo card
   // (rounded corners + a light border) instead of letting a hard-edged
-  // rectangle float directly over the scene.
-  const heroIsPhoto = isCourse1Course;
+  // rectangle float directly over the scene. The policy/gov2 source art is
+  // the same story -- opaque PNGs exported with a solid black plate behind
+  // the icon, not transparent clipart -- so they need the same photo-card
+  // frame or the black background reads as a rendering bug.
+  const heroIsPhoto = isCourse1Course || isPolicyCourse || isGov2Course;
   // Keep the pillar row's horizontal center locked to the hero image's own
   // center (both anchored from the right edge) so it never reads as
   // shifted off to one side, regardless of how many pillars are shown.
