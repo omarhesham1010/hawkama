@@ -1461,9 +1461,9 @@ function IntroMotionScene({
   const policyHeroByUnit: Record<string, string> = {
     'policy-welcome': '/assets/visual-library/icon-policy-education-shield.webp',
     'policy-u1-welcome': '/assets/visual-library/intro-policy-research-analysis-scene.webp',
-    'policy-u2-welcome': '/assets/visual-library/intro-policy-stakeholder-network-scene.webp',
+    'policy-u2-welcome': '/assets/visual-library/icon-policy-stakeholder-people.webp',
     'policy-u3-welcome': '/assets/visual-library/intro-policy-drafting-scene.webp',
-    'policy-u4-welcome': '/assets/visual-library/intro-policy-legal-shield-scene.webp',
+    'policy-u4-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
     'policy-u5-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
   };
   const governance2HeroByUnit: Record<string, string> = {
@@ -2126,11 +2126,6 @@ const POLICY_GOV2_ICON_POOL = [
   '/assets/visual-library/icon-policy-shield-check-gradient.webp',
   '/assets/visual-library/icon-policy-institution-shield.webp',
   '/assets/visual-library/icon-policy-analytics-search.webp',
-  '/assets/visual-library/intro-policy-research-analysis-scene.webp',
-  '/assets/visual-library/intro-policy-stakeholder-network-scene.webp',
-  '/assets/visual-library/intro-policy-drafting-scene.webp',
-  '/assets/visual-library/intro-policy-legal-shield-scene.webp',
-  '/assets/visual-library/intro-policy-compliance-scene.webp',
 ];
 
 function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
