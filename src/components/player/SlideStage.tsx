@@ -2152,6 +2152,34 @@ function policyGov2Marker(slideId: string): string {
   return ` __policygov2:${policyGov2StyleFor(slideId)}__`;
 }
 
+// Picking purely by hash gave every card a real (never-repeated) icon, but
+// not necessarily one that matched what the card was actually about --
+// client feedback: every image should read as relevant to its own card/
+// narration. These are ordered narrowest-phrase-first (checked in order,
+// first match wins) within EACH style bucket separately, so a match never
+// crosses into the other style and break a slide's single-style rule.
+const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; terms: string[] }> = [
+  // rich bucket
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['مقارن', 'معايرة', 'مرجعي', 'بدائل', 'خيارات', 'نماذج'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['بحث', 'تحليل', 'دراسة', 'استقصاء', 'فحص', 'استكشاف'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['اعتماد', 'مصادقة', 'إقرار', 'توقيع', 'صياغة', 'وثيقة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['قائمة', 'تدقيق', 'مراجعة', 'خطوات', 'إجراءات', 'امتثال', 'ضوابط'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['وقت', 'جدول زمني', 'مواعيد', 'مسؤول', 'دور', 'مسؤولية', 'أدوار'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['تعليم', 'تدريب', 'تأهيل', 'كفاءة', 'قدرات', 'تعلم'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-write.webp', terms: ['كتابة', 'تدوين', 'تسجيل', 'توثيق', 'تحرير'] },
+  // flat bucket
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['أصحاب المصلحة', 'فريق', 'تعاون', 'شراكة', 'شراكات', 'جهات', 'أطراف'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['بيانات', 'مؤشرات', 'أداء', 'تقييم', 'قياس', 'إحصاء'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['مؤسسة', 'مؤسسي', 'حوكمة', 'تنظيم', 'هيئة', 'تنظيمية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['أمان', 'حماية', 'ضمان', 'موثوقية', 'مخاطر', 'خطر', 'أمن'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['مستند', 'وثيقة', 'تحقق', 'مطابقة', 'مطابق', 'تحقق من'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['عرض', 'تقديم', 'تخطيط', 'استراتيجية', 'خطة', 'خطط'] },
+];
+function policyGov2KeywordPick(text: string, style: PolicyGov2Style): string | null {
+  const rule = POLICY_GOV2_KEYWORD_RULES.find((r) => r.style === style && hasAny(text, r.terms));
+  return rule?.icon ?? null;
+}
+
 function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   const layers: string[] = [];
   const add = (src: string) => {
@@ -2322,10 +2350,15 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   }
 
   if (layers.length === 0) {
-    if (fallback) {
+    if (isPolicyGov2Topic) {
+      // Keyword relevance wins over the cycling fallback here (unlike every
+      // other branch below) -- a card whose own text names a concept this
+      // pool has an icon for should always get THAT icon, not whichever
+      // pool slot the card happened to land on positionally.
+      const style = policyGov2StyleMatch![1] as PolicyGov2Style;
+      add(policyGov2KeywordPick(text, style) ?? fallback ?? variantOf(policyGov2PoolFor(style), text));
+    } else if (fallback) {
       add(fallback);
-    } else if (isPolicyGov2Topic) {
-      add(variantOf(policyGov2PoolFor(policyGov2StyleMatch![1] as PolicyGov2Style), text));
     } else if (isEmergencyTopic) {
       // Most card titles are short, specific phrases ("توزيع الأدوار",
       // "قنوات اتصال معتمدة"...) that never trip any of bag 2's keyword
@@ -2801,6 +2834,7 @@ function PptMotionVisualScene({
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2');
   const isMotionLedScene = isEmergencySlide || isCourse1Slide;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
@@ -2950,7 +2984,23 @@ function PptMotionVisualScene({
   // touching, at any position tuning. 2-card layouts (now opposite sides,
   // see splitTwo) don't have this problem and keep the larger visual.
   const denseFloatingCards = !titleCardGrid && !isSparseGroup && cards.length >= 3;
-  const openLabelTitleClass = titleGridSparse ? 'text-[22px]' : titleCardGrid ? 'text-[18px]' : emergencyOpenLabels ? 'text-[15.5px]' : isEmergencySlide ? 'text-[22px]' : 'text-[25px]';
+  // Policy/gov2's goal-card shots (isSparseGroup, plain open labels) packed
+  // long Arabic titles into a ~260px-wide pill at the same 25px used
+  // elsewhere for shorter labels -- wrapped 5-6 lines and read as cramped
+  // even once nothing technically overflowed (client feedback: "شوتات
+  // معينة الكلام محتاج يصغر"). Sized down one notch just for this course
+  // pair, matching emergencyOpenLabels' own precedent for the same problem.
+  const openLabelTitleClass = titleGridSparse
+    ? 'text-[22px]'
+    : titleCardGrid
+    ? 'text-[18px]'
+    : emergencyOpenLabels
+      ? 'text-[15.5px]'
+      : isEmergencySlide
+        ? 'text-[22px]'
+        : isPolicyGov2Slide && isSparseGroup
+          ? 'text-[18px]'
+          : 'text-[25px]';
   const openLabelImageClass = titleGridSparse
     ? 'h-36 w-40'
     : titleCardGrid
