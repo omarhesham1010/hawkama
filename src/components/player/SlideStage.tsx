@@ -1515,7 +1515,15 @@ function IntroMotionScene({
   const heroRightPct = 6;
   const heroWidthPct = 26;
   const heroCenterFromRight = heroRightPct + heroWidthPct / 2;
-  const pillarRowWidthPct = isLicensingCourse && pillars.length === 3 ? 52 : pillars.length > 4 ? 44 : pillars.length > 3 ? 38 : 30;
+  // A 5-pillar row (course/4 & course/5's bag-level welcome, the only
+  // slides with a real 5th unit) at the same 98px card width as the
+  // 4-pillar case ran wider than this box actually reserved, overflowing
+  // left into the title/button column instead of sitting under the hero
+  // image -- client screenshot showed the leftmost card half-cut-off.
+  // Card width, font size, and padding all shrink one more notch below
+  // (see cardWidth/title/detail sizing) so 5 cards actually fit the
+  // narrower percentage this reserves.
+  const pillarRowWidthPct = isLicensingCourse && pillars.length === 3 ? 52 : pillars.length > 4 ? 34 : pillars.length > 3 ? 38 : 30;
   // Centering a wide 5-pillar row (44%) on the hero image's narrow visual
   // center (19% from the right edge) does the arithmetic into negative
   // territory -- the row's right edge would sit past the canvas's own right
@@ -1545,7 +1553,7 @@ function IntroMotionScene({
           }}
         />
         <div
-          className="absolute flex items-end justify-center gap-2 transition-all duration-1000 ease-out"
+          className={`absolute flex items-end justify-center transition-all duration-1000 ease-out ${pillars.length > 4 ? 'gap-1.5' : 'gap-2'}`}
           style={{ right: `${pillarRowRightPct}%`, bottom: '10%', width: `${pillarRowWidthPct}%` }}
         >
         {/* Governance's 3-pillar slide reorders visually (governance-middle,
@@ -1556,14 +1564,17 @@ function IntroMotionScene({
         {pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
-          const cardWidth = isLicensingCourse && pillars.length === 3 ? 'w-[154px] min-h-[162px]' : pillars.length > 3 ? 'w-[98px]' : 'w-[100px]';
+          const isFivePillar = pillars.length > 4;
+          const cardWidth = isLicensingCourse && pillars.length === 3 ? 'w-[154px] min-h-[162px]' : isFivePillar ? 'w-[76px]' : pillars.length > 3 ? 'w-[98px]' : 'w-[100px]';
           const licensingLabelSize =
             isLicensingCourse && pillars.length === 3 && pillar.label.length > 34 ? 'text-[13px] leading-[1.12]' : 'text-[14px] leading-[1.12]';
           const visualOrder = isEmergencyCourse ? index : index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
               key={`intro-label-${pillar.label}`}
-              className={`${cardWidth} flex shrink-0 flex-col items-center justify-center rounded-2xl border px-3 py-3 text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
+              className={`${cardWidth} flex shrink-0 flex-col items-center justify-center rounded-2xl border text-center shadow-sm backdrop-blur-md transition-all duration-[900ms] ease-out ${
+                isFivePillar ? 'px-1.5 py-2' : 'px-3 py-3'
+              } ${
                 shown ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
               } ${
                 active
@@ -1575,11 +1586,11 @@ function IntroMotionScene({
                 transitionDelay: shown ? `${index * 80}ms` : '0ms',
               }}
             >
-              <span className="mx-auto mb-1.5 grid h-9 w-9 place-items-center rounded-xl bg-white p-1 shadow-sm">
+              <span className={`mx-auto mb-1.5 grid place-items-center rounded-xl bg-white p-1 shadow-sm ${isFivePillar ? 'h-7 w-7' : 'h-9 w-9'}`}>
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
-              <p className={`${isLicensingCourse && pillars.length === 3 ? licensingLabelSize : pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} w-full text-center font-black`}>{pillar.label}</p>
-              <p className={`mt-1 ${isLicensingCourse && pillars.length === 3 ? 'text-[12px]' : pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} w-full text-center font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
+              <p className={`${isLicensingCourse && pillars.length === 3 ? licensingLabelSize : isFivePillar ? 'text-[10.5px] leading-[1.1]' : pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} w-full text-center font-black`}>{pillar.label}</p>
+              <p className={`mt-1 ${isLicensingCourse && pillars.length === 3 ? 'text-[12px]' : isFivePillar ? 'text-[9px] leading-[1.1]' : pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} w-full text-center font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
             </div>
           );
         })}
