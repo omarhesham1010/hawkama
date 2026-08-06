@@ -131,7 +131,7 @@ export const emergencyIntroSlides = indexSlides([
       [chapterMapCards[2]],
       [chapterMapCards[3]],
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
   }),
   makeQuizSlide({
     id: 'emergency-pre-test',
@@ -465,7 +465,7 @@ export const emergencyChapterOneSlides = indexSlides([
       readinessCards,
       [{ title: 'مثال توضيحي', text: 'أجرى أحد المستشفيات تمرين طوارئ مفاجئًا، فكشف غموضًا في الصلاحيات وضعفًا في التواصل واعتمادًا مفرطًا على نظام واحد — قبل أن تكشفها أزمة حقيقية.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSixCards', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'لماذا نبني خطة الطوارئ على أكثر من سيناريو بدل سيناريو واحد متفائل؟',
@@ -528,7 +528,7 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'المطلوب هنا ليس كتابة خطة', text: 'بل اتخاذ قرار قيادي صحيح في الوقت المناسب. فما أول قرار تتخذه القيادة؟', tone: 'gold' }],
       [{ title: 'أصعب قرار في هذه المواقف ليس نقص المعلومات', text: 'بل التأخر في تفعيل القيادة الموحدة — كل دقيقة تأخير تضاعف الفوضى لاحقًا.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
     actActivities: [
       undefined,
       undefined,
@@ -576,7 +576,7 @@ export const emergencyChapterOneSlides = indexSlides([
     laterActs: [
       [{ title: 'المسار الصحيح يخدم القرار', text: 'كل خطوة تقلل الارتباك وتوحّد الرسائل داخل المنشأة وخارجها.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [
       undefined,
       {
@@ -619,7 +619,7 @@ export const emergencyChapterOneSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'أكبر خطأ أثناء الطوارئ', text: 'محاولة إدارتها بنفس الهيكل الإداري اليومي — التعقيد البيروقراطي لا يحتمله الوقت.', tone: 'gold' }],
     laterActs: [
-      icsCorePrincipleCards.map((card) => ({ ...card, syncText: 'مبدأ بسيط وحاسم' })),
+      icsCorePrincipleCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'دور يُفعّل عند الحاجة لا منصب دائم', text: 'الهياكل الإدارية تُعلّق مؤقتًا لصالح هيكل طوارئ يتوسع أو ينكمش حسب حجم الحدث.', tone: 'gold' }],
       icCommanderCards,
       icsFunctionalUnitsCards,
@@ -642,7 +642,7 @@ export const emergencyChapterOneSlides = indexSlides([
       eocRolesCards,
       [{ title: 'مثال توضيحي', text: 'يحلل EOC الطاقة الاستيعابية وينسّق التحويل بين المستشفيات، بدلًا من أن يُترك قائد الميدان غارقًا في التفاصيل.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTitleCards', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptSixCards', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec1-eoc-design',
@@ -658,7 +658,7 @@ export const emergencyChapterOneSlides = indexSlides([
       eocActivationQuestionsCards,
       [{ title: 'مثال واقعي', text: 'الاعتماد على الأفراد أنفسهم دون تناوب أسقط بعض المراكز، بينما نجحت مراكز صُممت بعقلية التحمّل الطويل.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptSixCards', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'ما الفرق العملي بين دور ICS ودور EOC؟',
@@ -719,7 +719,7 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'صنّف أول ثلاثة مواقف', text: 'هل يحتاج كل واحد منها تفعيل ICS الميداني، أو تفعيل EOC الاستراتيجي؟', tone: 'gold' }],
       [{ title: 'الفرق الحقيقي الذي صنعه ICS و EOC هنا وضح', text: 'الميدان يتحرك بسرعة، والمركز يقود الصورة الكبرى.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
     actActivities: [
       undefined,
       undefined,
@@ -775,7 +775,7 @@ export const emergencyChapterOneSlides = indexSlides([
     laterActs: [
       [{ title: 'كل واحد يعرف دوره بالضبط', text: 'ومتى يتحرك، ومتى يرفع القرار للمركز.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [
       undefined,
       {
@@ -832,7 +832,7 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'قناة واحدة معتمدة', text: 'تجميع وتحليل المعلومات من نقطة واحدة يمنع التضارب ويحمي القيادة من فخ القرارات المتناقضة.', tone: 'gold' }],
       [{ title: 'مثال واقعي', text: 'أدى غياب مركز موحد للمعلومات إلى قرارات خاطئة في تحويل المرضى، بينما حافظت نقطة تجميع واحدة داخل EOC على دقة القرار.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptSixCards', 'pptSpotlight', 'pptMatrix', 'pptSpotlight', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec1-hr-logistics',
@@ -897,7 +897,7 @@ export const emergencyChapterOneSlides = indexSlides([
       [{ title: 'اقلب أول ثلاث بطاقات واستمع لإجابة كل وحدة', tone: 'gold' }],
       [{ title: 'اربط بين السياسة والالتزام والمعلومة', text: 'متى تُفعَّل السياسة؟ وما الذي يمنع الالتزام؟ ومن أين تبدأ المعلومة الدقيقة؟', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight'],
     actActivities: [
       undefined,
       undefined,
@@ -928,7 +928,7 @@ export const emergencyChapterOneSlides = indexSlides([
     laterActs: [
       [{ title: 'لا ينقذك كثرة الموارد ولا كثرة التعليمات', text: 'بل قدرتك على تنسيق المعلومة، وتحريك المورد، وتفعيل السياسة في اللحظة الصحيحة.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [
       undefined,
       {
@@ -1351,7 +1351,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [{ title: 'أهداف الفصل الثاني', text: 'بنهايته، بإذن الله، بتكون قادر على التمييز بين مستويات الموقف، وتوزيع الأدوار، واتخاذ قرارات سريعة وصحيحة، والتواصل بثقة.', tone: 'gold' }],
     laterActs: [chapterTwoGoalActs.slice(0, 2).flat(), chapterTwoGoalActs.slice(2).flat()],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec2-crisis-terms',
@@ -1363,7 +1363,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'فهم ديناميكيات الأزمات', text: 'المحور الأول: تحليل الأزمات، وفهم ديناميكياتها. يجب أن نميّز بدقة بين أربعة مصطلحات.', tone: 'gold' }],
     laterActs: [crisisTermsCards.slice(0, 2), crisisTermsCards.slice(2)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'ما الفرق الجوهري بين "الطارئ" و"الأزمة"؟',
@@ -1403,7 +1403,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityLabel: 'تصنيف المواقف',
     cards: [{ title: 'نشاط تفاعلي: صنّف مستوى الموقف', text: 'قبل أن ننتقل إلى مصفوفة الأدوار، نختبر التمييز بين الحدث والطوارئ، وبين الأزمة والكارثة.', tone: 'gold' }],
     laterActs: [[{ title: 'اقرأ كل بطاقة', text: 'واسحبها للتصنيف المناسب. ابحث عن نطاق الأثر، ومدى كفاية الموارد، وهل القرار يحتاج تصعيدًا قياديًا أم لا.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { activity: chapterTwoTermClassification }],
   }),
   makeSlide({
@@ -1423,7 +1423,7 @@ export const emergencyChapterTwoSlides = indexSlides([
         { title: 'إصدار البيان الإعلامي الأولي', text: 'مدير التواصل هو المسؤول عن التنفيذ، ورئيس الطوارئ يُعلَم فقط حسب نوع المهمة.', tone: 'gold' },
       ],
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'ec2-activity-raci',
@@ -1438,7 +1438,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityMode: 'identify',
     cards: [{ title: 'نشاط تفاعلي: طبّق RACI', text: 'نأخذ مصفوفة RACI ونطبقها على موقف سريع. الفكرة ليست حفظ الحروف، بل منع تداخل الصلاحيات وقت الأزمة.', tone: 'gold' }],
     laterActs: [[{ title: 'من المسؤول عن تنفيذ خطة الطوارئ؟', text: 'اختر الإجابة، وبعد اختيارك سنناقش السبب ونربطه بتوزيع الأدوار الصحيح.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { mode: 'identify', activity: chapterTwoRaciDecision }],
   }),
   makeSlide({
@@ -1467,7 +1467,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: [{ title: 'اتخاذ القرار تحت الضغط', text: 'ثاني محور: اتخاذ القرار تحت الضغط، والتغلب على شلل التحليل.', tone: 'gold' }],
     laterActs: [[{ title: 'شلل التحليل', text: 'الضغط الشديد يدفع القائد إما للتردد المفرط أو لقرارات متسرعة.', tone: 'gold' }], oodaPressureCards, oodaCards],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'ما أهم خطوة في نموذج OODA ولماذا؟',
@@ -1491,7 +1491,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       leadershipTraitsCards,
       [{ title: 'مثال واقعي', text: 'قيادة صاحب السمو الملكي الأمير محمد بن سلمان للاستجابة الوطنية لجائحة كورونا، اتسمت بالقرارات الحاسمة والرسائل الواضحة والدعم غير المحدود للقطاع الصحي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTitleCards', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSixCards', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ec2-escalation',
@@ -1510,7 +1510,7 @@ export const emergencyChapterTwoSlides = indexSlides([
         { title: 'سؤال قرار: متى نُصعّد؟', text: 'سيناريو "تسرب مادة كيميائية في أحد مختبرات المستشفى" — ما العلامة التي تنقلنا من مستوى لآخر؟ ومتى نرفع التصعيد للمنطقة أو المركز الوطني؟', tone: 'gold', syncText: 'نختبرها داخل العرض بسؤال قرار' },
       ],
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptTwoPanels', 'pptTwoPanels', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec2-cerc-phases',
@@ -1560,7 +1560,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     activityLabel: 'بطاقات رسالة الأزمة',
     cards: [{ title: 'نشاط تفاعلي: رسالة CERC', text: 'قبل دراسة الحالة، نتوقف عند مهارة الرسالة وقت الخوف.', tone: 'gold' }],
     laterActs: [[{ title: 'مهارة الرسالة وقت الخوف', text: 'اقلب البطاقات واحدة واحدة، وفكر كيف تتحول كل قاعدة إلى جملة إعلامية يثق فيها الجمهور.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { activity: chapterTwoCercCards }],
   }),
   makeSlide({
@@ -1579,7 +1579,7 @@ export const emergencyChapterTwoSlides = indexSlides([
       },
     ],
     laterActs: [caseStudyIndicatorCards, caseStudyCards],
-    actLayouts: ['pptSpotlight', 'pptTitleCards', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptSixCards', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec2-lessons',
@@ -1591,7 +1591,7 @@ export const emergencyChapterTwoSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'الدروس المستفادة للمملكة', text: 'أربعة دروس مستفادة للمملكة من هذه المقارنة موضحة أمامك.', tone: 'gold' }],
     laterActs: [lessonsForSaudiCards.slice(0, 2), lessonsForSaudiCards.slice(2)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeQuizSlide({
     id: 'ec2-quiz',
@@ -2007,7 +2007,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     activityLabel: 'تصنيف إشارات المسح',
     cards: [{ title: 'اتجاه النظر', text: 'الخارج يعني مسح أفقي، والداخل يعني مسح رأسي.', tone: 'gold' }],
     laterActs: [[{ title: 'ابدأ التصنيف', text: 'اسحب كل إشارة للمسار المناسب، ثم راجع التعليق التعليمي.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { activity: chapterThreeScanClassification }],
   }),
   makeSlide({
@@ -2023,7 +2023,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: [{ title: 'عملية استباقية تحدد وتحلل وتقيّم المخاطر المحتملة', text: 'من التغييرات في البيئة التنظيمية.', tone: 'gold' }],
     laterActs: [regulatoryForesightCards.slice(0, 2), regulatoryForesightCards.slice(2)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec3-regulatory-tools',
@@ -2127,7 +2127,7 @@ export const emergencyChapterThreeSlides = indexSlides([
       surveillanceImportanceCards.slice(0, 2).map((card) => ({ ...card, syncText: card.title })),
       surveillanceImportanceCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec3-indicators',
@@ -2181,7 +2181,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     activityLabel: 'بطاقات مؤشرات الإنذار',
     cards: [{ title: 'هل المؤشر يقود لقرار؟', text: 'المؤشر الجيد يعطي الفريق وقتًا للتصرف قبل تحوّل الإشارة إلى أزمة.', tone: 'gold' }],
     laterActs: [[{ title: 'راجع البطاقات', text: 'اقلب كل بطاقة واستمع لتفسير ناصر.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { activity: chapterThreeIndicatorCards }],
   }),
   makeSlide({
@@ -2198,7 +2198,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     layout: 'pptSpotlight',
     cards: [{ title: 'ربط الترصد بالقرار', text: 'جمع البيانات وتحليلها ما له قيمة إن ما أدى لإجراء — الهدف تحويل البيانات لمعلومات، والمعلومات لرؤى، والرؤى لقرارات فعالة بالوقت المناسب.', tone: 'gold' }],
     laterActs: [
-      thresholdLevelsCards.map((card) => ({ ...card, syncText: 'مستويات عتبة متعددة' })),
+      thresholdLevelsCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'مثال تطبيقي بمؤشر الإجهاد الحراري', text: 'الأخضر: أقل من ٤٠°. الأصفر: توقعات ٤٢°. البرتقالي: ٤٥° فعليًا مع ٥ حالات بالساعة. الأحمر: أكثر من ٢٠ حالة بالساعة مع وفيات.', tone: 'gold' }],
     ],
     actLayouts: ['pptSpotlight', 'pptMatrix', 'pptSpotlight'],
@@ -2216,7 +2216,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     activityMode: 'identify',
     cards: [{ title: 'العتبة ليست لونًا فقط', text: 'كل مستوى عتبة له قرار واضح، وإلا صار الترصد معلومة بلا أثر.', tone: 'gold' }],
     laterActs: [[{ title: 'اختر القرار', text: 'حدد القرار الأنسب عند وصول المؤشر إلى العتبة البرتقالية.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { mode: 'identify', activity: chapterThreeThresholdDecision }],
   }),
   makeSlide({
@@ -2232,7 +2232,7 @@ export const emergencyChapterThreeSlides = indexSlides([
     activityMode: 'path',
     cards: [{ title: 'من الإشارة إلى الإجراء', text: 'الترصد الناجح يربط العتبة بخطوات تشغيلية محددة.', tone: 'gold' }],
     laterActs: [[{ title: 'رتّب الخطوات', text: 'اضغط خطوات التعامل مع العتبة بالترتيب الصحيح.', tone: 'gold', syncText: 'بعد اختيار القرار' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { mode: 'path', activity: chapterThreeThresholdDecision }],
   }),
   makeSlide({
@@ -2749,7 +2749,7 @@ export const emergencyChapterFourSlides = indexSlides([
     layout: 'pptTitleCards',
     cards: [{ title: 'العمود الفقري للاستجابة', text: 'أفضل الكوادر والتقنيات تعجز إذا نفدت الإمدادات الحيوية.', tone: 'gold' }],
     laterActs: [supplyChainWeaknessCards.slice(0, 2), supplyChainWeaknessCards.slice(2)],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-supply-chain-strategies',
@@ -2767,7 +2767,7 @@ export const emergencyChapterFourSlides = indexSlides([
       supplyChainStrategiesCards.slice(0, 2).map((card) => ({ ...card, syncText: card.title })),
       supplyChainStrategiesCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
     ],
-    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptTwoPanels'],
+    actLayouts: ['pptSpotlight', 'pptTwoPanels', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'لماذا فشل مخزون "في الوقت المناسب" وقت جائحة كورونا؟',
@@ -2792,11 +2792,11 @@ export const emergencyChapterFourSlides = indexSlides([
     cards: [{ title: 'إدارة المخزون بالأوقات العادية تهدف لتقليل التكاليف', text: 'لكن بالطوارئ الأولوية تتحول لضمان التوافر.', tone: 'gold' }],
     laterActs: [
       [{ title: 'المخزون الطبي نوعين رئيسيين', text: 'مخزون الأمان للاحتياج اليومي، والمخزون الاستراتيجي للأحداث الكبرى.', tone: 'gold' }],
-      inventoryManagementCards.map((card) => ({ ...card, syncText: 'تحليل ABC' })),
+      inventoryManagementCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'إعادة التصنيف بناءً على الأهمية السريرية', text: 'في الطوارئ يجب أن يُعاد تصنيف المخزون بناءً على "الأهمية السريرية" لا التكلفة فقط.', tone: 'gold', syncText: 'وفي الطوارئ' }],
       [{ title: 'نموذج EOQ لا يناسب وقت الأزمات', text: 'لأن تكلفة النفاذ تصبح أعلى بكثير من أي تكلفة أخرى وقت الطوارئ.', tone: 'gold', syncText: 'ونموذج كمية الطلب' }],
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptSpotlight', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-activity-inventory',
@@ -2810,7 +2810,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityLabel: 'تصنيف قرارات المخزون',
     cards: [{ title: 'التوفر قبل التوفير', text: 'وقت الأزمة، تكلفة نفاد المنتج الحيوي أعلى من تكلفة تخزينه.', tone: 'gold' }],
     laterActs: [[{ title: 'ابدأ التصنيف', text: 'اسحب كل قرار إلى المنطق المناسب، ثم راجع سبب الاختيار.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { activity: chapterFourInventoryClassification }],
   }),
   makeSlide({
@@ -2830,7 +2830,7 @@ export const emergencyChapterFourSlides = indexSlides([
       inventoryGovernanceCards.slice(2).map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'نوبكو', text: 'الشركة السعودية للشراء الموحد تلعب دورًا محوريًا بإدارة المخزون الاستراتيجي الوطني للأدوية والمستلزمات، وتوفر طبقة أمان إضافية للنظام الصحي.', tone: 'gold' }],
     ],
-    actLayouts: ['pptTwoPanels', 'pptTwoPanels', 'pptSpotlight'],
+    actLayouts: ['pptTwoPanels', 'pptMatrix', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ec4-aar-intro',
@@ -2886,7 +2886,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityLabel: 'بطاقات مراجعة ما بعد الحدث',
     cards: [{ title: 'تعلم بلا لوم', text: 'AAR ليست محاكمة؛ هي طريقة منظمة لتحويل التجربة إلى تحسين قابل للتنفيذ.', tone: 'gold' }],
     laterActs: [[{ title: 'اقلب البطاقات', text: 'راجع السؤال ومعناه التشغيلي، واستمع لتعليق ناصر.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { activity: chapterFourAarCards }],
   }),
   makeSlide({
@@ -2969,7 +2969,7 @@ export const emergencyChapterFourSlides = indexSlides([
       kpiDesignCardsPart2.map((card) => ({ ...card, syncText: card.title })),
       dashboardTraitsCards.map((card) => ({ ...card, syncText: card.title })),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptMatrix'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptMatrix'],
   }),
   makeSlide({
     id: 'ec4-stakeholders',
@@ -3014,7 +3014,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityMode: 'identify',
     cards: [{ title: 'من نُديره عن قرب؟', text: 'القوة العالية مع الاهتمام العالي تعني شراكة لصيقة ومتابعة مستمرة.', tone: 'gold' }],
     laterActs: [[{ title: 'اختر الفئة', text: 'حدد صاحب المصلحة الذي يحتاج إدارة لصيقة حسب مصفوفة القوة والاهتمام.', tone: 'gold', syncText: 'يجب أن نحدد من يحتاج إدارة عن قرب' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { mode: 'identify', activity: chapterFourStakeholderDecision }],
   }),
   makeSlide({
@@ -3030,7 +3030,7 @@ export const emergencyChapterFourSlides = indexSlides([
     activityMode: 'path',
     cards: [{ title: 'من العلاقة إلى خطة عمل', text: 'إدارة أصحاب المصلحة تبدأ بالتصنيف وتنتهي بمتابعة مرتبطة بالتحسين.', tone: 'gold' }],
     laterActs: [[{ title: 'رتّب المسار', text: 'اضغط الخطوات بالترتيب الصحيح، ثم راجع تعليق ناصر.', tone: 'gold' }]],
-    actLayouts: ['pptSpotlight', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline'],
     actActivities: [undefined, { mode: 'path', activity: chapterFourStakeholderDecision }],
   }),
   makeSlide({
@@ -3091,6 +3091,7 @@ export const emergencyChapterFourSlides = indexSlides([
       closingApplicationCards.map((card) => ({ ...card, syncText: card.title })),
       [{ title: 'جاوب بعقلية قائد طوارئ', text: 'راجع أهم أفكار الفصل الرابع بلعبة صواب أو خطأ سريعة.', tone: 'gold' }],
     ],
+    actLayouts: ['pptSpotlight', 'pptSixCards', 'pptTimeline'],
     activity: {
       kind: 'trueFalse',
       statements: [

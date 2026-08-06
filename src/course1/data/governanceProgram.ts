@@ -948,7 +948,7 @@ export const governanceChapterOneSlides = indexSlides([
     // Single-card beats stay Spotlight so they do not render as stretched
     // bars; grouped bullet beats use Timeline to give each point a visible
     // icon and motion moment instead of one long static hero card.
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptMatrix', 'pptSpotlight'],
     checks: [
       quickCheck({
         title: 'قبل ما نبدأ: أي محور يحمي نزاهة القرار؟',
@@ -976,12 +976,22 @@ export const governanceChapterOneSlides = indexSlides([
     laterActs: [
       regulatoryLevelCards.slice(0, 3),
       regulatoryLevelCards.slice(3),
-      accreditationStandardCards,
+      accreditationStandardCards.slice(0, 3),
+      accreditationStandardCards.slice(3),
       governanceOversightCards,
       regulatoryCards.slice(4, 5),
       regulatoryCards.slice(5, 6),
     ],
-    actLayouts: ['pptSpotlight', 'pptThreeColumns', 'pptThreeColumns', 'pptMatrix', 'pptMatrix', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: [
+      'pptSpotlight',
+      'pptThreeColumns',
+      'pptMatrix',
+      'pptThreeColumns',
+      'pptMatrix',
+      'pptSixCards',
+      'pptTimeline',
+      'pptSpotlight',
+    ],
   }),
   makeSlide({
     id: 'ch1-health-policies',
@@ -1013,7 +1023,7 @@ export const governanceChapterOneSlides = indexSlides([
       cardsFromBullets(policyCards[3], policyCards[3].bullets!.slice(0, 2), 'الهدف'),
       cardsFromBullets(policyCards[3], policyCards[3].bullets!.slice(2), 'الإجراءات'),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptTimeline', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'اختبر فهمك: ما علامة السياسة الجيدة؟',
@@ -1052,7 +1062,7 @@ export const governanceChapterOneSlides = indexSlides([
       policyActivityCards.slice(3, 4),
       policyActivityCards.slice(4, 5),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
   }),
   makeSlide({
     id: 'ppt-governance-models',
@@ -1168,12 +1178,12 @@ export const governanceChapterOneSlides = indexSlides([
     actLayouts: [
       'pptSpotlight',
       'pptTimeline',
-      'pptTimeline',
+      'pptThreeColumns',
       'pptMatrix',
       'pptTwoPanels',
       'pptTimeline',
       'pptSpotlight',
-      'pptSpotlight',
+      'pptTimeline',
       'pptMatrix',
       'pptTimeline',
     ],
@@ -1244,7 +1254,7 @@ export const governanceChapterOneSlides = indexSlides([
     actLayouts: [
       'pptSpotlight',
       'pptTimeline',
-      'pptTimeline',
+      'pptMatrix',
       'pptTwoPanels',
       'pptTimeline',
       'pptTwoPanels',
@@ -1306,6 +1316,8 @@ export const governanceChapterOneSlides = indexSlides([
         { index: '02', title: 'Tone at the Top', text: 'نبرة القيادة تحدد معيار النزاهة اليومي.', syncText: 'Tone at the Top' },
         { index: '03', title: 'القيادة النموذجية', text: 'قدوة عملية تعطي النزاهة وزنها.', syncText: 'القيادة النموذجية' },
         { index: '04', title: 'السياسات', text: 'قواعد واضحة تزيل الاجتهاد الخاطئ.', syncText: 'السياسات', tone: 'gold' },
+      ],
+      [
         { index: '05', title: 'قنوات الإبلاغ الآمنة', text: 'مسار يحمي المُبلِّغ ويكشف الخلل مبكراً.', syncText: 'قنوات الإبلاغ' },
         { index: '06', title: 'التوعية', text: 'فهم مستمر للسلوك المتوقع.', syncText: 'التوعية', tone: 'gold' },
         { index: '07', title: 'الرقابة الداخلية', text: 'تحقق يحافظ على النزاهة وقت التطبيق.', syncText: 'الرقابة الداخلية' },
@@ -1313,7 +1325,17 @@ export const governanceChapterOneSlides = indexSlides([
       cardsFromBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(0, 1), 'عضو لجنة الشراء'),
       cardsFromBullets(ethicsCards[5], ethicsCards[5].bullets!.slice(1), 'طبيب يحيل'),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: [
+      'pptSpotlight',
+      'pptTimeline',
+      'pptSpotlight',
+      'pptTimeline',
+      'pptSixCards',
+      'pptMatrix',
+      'pptThreeColumns',
+      'pptTimeline',
+      'pptSpotlight',
+    ],
     checks: [
       quickCheck({
         title: 'موقف سريع: متى يصبح تضارب المصالح خطرًا؟',
@@ -1587,7 +1609,7 @@ export const governanceChapterTwoSlides = indexSlides([
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptTimeline', 'pptSpotlight', 'pptThreeColumns', 'pptThreeColumns'],
+    actLayouts: ['pptTimeline', 'pptSpotlight', 'pptThreeColumns', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'قبل التفاصيل: ما سؤال الفصل الثاني الرئيسي؟',
@@ -1633,7 +1655,7 @@ export const governanceChapterTwoSlides = indexSlides([
     layout: 'pptTimeline',
     cards: pdcaCards.slice(0, 1),
     laterActs: [pdcaCards.slice(1, 2), pdcaCards.slice(2, 3), pdcaCards.slice(3, 4)],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'أين يقع التعلم الحقيقي في دورة PDCA؟',
@@ -1659,7 +1681,7 @@ export const governanceChapterTwoSlides = indexSlides([
       cardsFromBullets(selfAssessmentCards[4], selfAssessmentCards[4].bullets!.slice(0, 2)),
       cardsFromBullets(selfAssessmentCards[4], selfAssessmentCards[4].bullets!.slice(2), '15، 20'),
     ],
-    actLayouts: ['pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptSpotlight', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSpotlight', 'pptMatrix', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch2-monitoring',
@@ -1730,7 +1752,7 @@ export const governanceChapterTwoSlides = indexSlides([
       cultureCards.slice(4, 5),
       cultureCards.slice(5, 6),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptSixCards', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight', 'pptTimeline'],
     checks: [
       quickCheck({
         title: 'كيف نعرف أن ثقافة الامتثال تحسنت؟',
@@ -2046,7 +2068,7 @@ export const governanceChapterThreeSlides = indexSlides([
     ],
     // pptMatrix with a single card rendered as a squashed full-width bar,
     // not a grid -- Spotlight is the one shape built for exactly one card.
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTimeline', 'pptTimeline'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptThreeColumns', 'pptTimeline', 'pptMatrix'],
     checks: [
       quickCheck({
         title: 'سؤال افتتاحي: لماذا نربط المخاطر بالقرار؟',
@@ -2156,13 +2178,12 @@ export const governanceChapterThreeSlides = indexSlides([
           tone: 'gold',
         },
       ],
-      riskRegisterCards.slice(1, 2),
-      riskRegisterCards.slice(2, 3),
+      riskRegisterCards.slice(1, 3),
       riskRegisterCards.slice(3, 4),
       riskRegisterCards.slice(4, 5),
       riskRegisterCards.slice(5, 6),
     ],
-    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptTimeline', 'pptSpotlight', 'pptTwoPanels', 'pptTimeline', 'pptSpotlight'],
+    actLayouts: ['pptSpotlight', 'pptTimeline', 'pptMatrix', 'pptTimeline', 'pptSpotlight'],
   }),
   makeSlide({
     id: 'ch3-risk-activity',
