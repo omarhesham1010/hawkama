@@ -216,8 +216,8 @@ export const policyUnitOneSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'استيعاب فلسفة المنظمة المتعلمة' },
-      { index: '02', title: 'تحليل السياسات باستخدام أدوات التحليل المقارن', tone: 'gold' },
-      { index: '03', title: 'تصميم إطارات مرجعية متكاملة وخريطة طريق للتنفيذ' },
+      { index: '02', title: 'تحليل السياسات بأدوات المقارنة', tone: 'gold' },
+      { index: '03', title: 'تصميم إطارات مرجعية وخريطة تنفيذ' },
     ],
   }),
   makeSlide({
@@ -541,8 +541,8 @@ export const policyUnitTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'تصنيف أصحاب المصلحة بنموذج البروز' },
-      { index: '02', title: 'ربط السياسات بإطار تحقيق الفوائد عبر مؤشرات أداء دقيقة', tone: 'gold' },
-      { index: '03', title: 'تطبيق منهجيات تقييم الأثر المسبق واللاحق' },
+      { index: '02', title: 'ربط السياسات بمؤشرات أداء دقيقة', tone: 'gold' },
+      { index: '03', title: 'تقييم الأثر المسبق واللاحق' },
     ],
   }),
   makeSlide({
@@ -861,8 +861,8 @@ export const policyUnitThreeSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'تحليل دورة حياة السياسة العامة' },
-      { index: '02', title: 'صياغة وثائق السياسات الصحية بلغة فنية وقانونية دقيقة', tone: 'gold' },
-      { index: '03', title: 'تطوير الإرشادات التنفيذية المساندة وأدوات الامتثال' },
+      { index: '02', title: 'صياغة وثائق السياسات بلغة دقيقة', tone: 'gold' },
+      { index: '03', title: 'تطوير إرشادات وأدوات الامتثال' },
     ],
   }),
   makeSlide({
@@ -1176,9 +1176,9 @@ export const policyUnitFourSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'التفريق بين مستويات الهرم التشريعي' },
-      { index: '02', title: 'تفسير المواد النظامية وتطبيق قواعد الصياغة ثنائية اللغة', tone: 'gold' },
-      { index: '03', title: 'صياغة المواد القانونية بأسلوب معياري محكم' },
+      { index: '01', title: 'التفريق بين مستويات الهرم' },
+      { index: '02', title: 'تفسير المواد النظامية', tone: 'gold' },
+      { index: '03', title: 'صياغة مواد قانونية محكمة' },
     ],
   }),
   makeSlide({
@@ -1515,8 +1515,8 @@ export const policyUnitFiveSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'تحليل أنواع المخاطر المؤسسية' },
-      { index: '02', title: 'تطبيق مبادئ الحوكمة الأربعة وتوزيع الأدوار', tone: 'gold' },
-      { index: '03', title: 'اتخاذ قرار استراتيجي يوازن الأثر والمخاطر' },
+      { index: '02', title: 'تطبيق مبادئ الحوكمة الأربعة', tone: 'gold' },
+      { index: '03', title: 'قرار يوازن الأثر والمخاطر' },
     ],
   }),
   makeSlide({

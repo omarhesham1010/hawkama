@@ -297,9 +297,9 @@ export const governance2UnitOneSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'تأصيل المفاهيم الأخلاقية والشفافية' },
-      { index: '02', title: 'تطبيق آليات المواءمة الاستراتيجية بمؤشرات أداء دقيقة', tone: 'gold' },
-      { index: '03', title: 'تحليل التفاعلات بين الجهات التنظيمية والتشغيلية' },
+      { index: '01', title: 'تأصيل الأخلاقيات والشفافية' },
+      { index: '02', title: 'تطبيق آليات المواءمة الاستراتيجية', tone: 'gold' },
+      { index: '03', title: 'تحليل التفاعلات التنظيمية' },
     ],
   }),
   makeSlide({
@@ -652,8 +652,8 @@ export const governance2UnitTwoSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'تصميم هيكل تنظيمي للحوكمة' },
-      { index: '02', title: 'تحويل أطر الحوكمة إلى ممارسات يومية عبر السياسات', tone: 'gold' },
-      { index: '03', title: 'تصميم نموذج تشغيل مستهدف وتوزيع المسؤوليات باستخدام مصفوفة رَاسِي' },
+      { index: '02', title: 'تحويل أطر الحوكمة إلى ممارسات يومية', tone: 'gold' },
+      { index: '03', title: 'تصميم نموذج تشغيل وتوزيع المسؤوليات' },
     ],
   }),
   makeSlide({
@@ -1039,8 +1039,8 @@ export const governance2UnitThreeSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'تصميم لوحات مؤشرات حوكمة ذكية' },
-      { index: '02', title: 'التفريق بين أدوار الجودة وأطر الحوكمة', tone: 'gold' },
-      { index: '03', title: 'إدارة حوكمة الأنظمة الصحية الرقمية والبيانات القطاعية' },
+      { index: '02', title: 'التفريق بين الجودة والحوكمة', tone: 'gold' },
+      { index: '03', title: 'إدارة حوكمة الأنظمة الصحية الرقمية' },
     ],
   }),
   makeSlide({
@@ -1438,9 +1438,9 @@ export const governance2UnitFourSlides = indexSlides([
     visual: '🎯',
     layout: 'pptThreeColumns',
     cards: [
-      { index: '01', title: 'قيادة التغيير الثقافي بنموذج أَدْكار' },
-      { index: '02', title: 'تقييم المخاطر المؤسسية وربطها بالقرارات الاستراتيجية', tone: 'gold' },
-      { index: '03', title: 'ضبط منظومة الشراكات مع القطاعين الخاص والثالث' },
+      { index: '01', title: 'قيادة التغيير بنموذج أَدْكار' },
+      { index: '02', title: 'تقييم المخاطر المؤسسية', tone: 'gold' },
+      { index: '03', title: 'ضبط شراكات القطاعين الخاص والثالث' },
     ],
   }),
   makeSlide({
@@ -1815,8 +1815,8 @@ export const governance2UnitFiveSlides = indexSlides([
     layout: 'pptThreeColumns',
     cards: [
       { index: '01', title: 'إدارة المحافظ والمبادرات الصحية' },
-      { index: '02', title: 'صياغة سياسات صحية محكمة قابلة للتنفيذ والقياس', tone: 'gold' },
-      { index: '03', title: 'اتخاذ قرارات استراتيجية مستندة إلى نماذج علمية' },
+      { index: '02', title: 'صياغة سياسات قابلة للتنفيذ والقياس', tone: 'gold' },
+      { index: '03', title: 'قرارات استراتيجية بنماذج علمية' },
     ],
   }),
   makeSlide({

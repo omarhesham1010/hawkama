@@ -2112,7 +2112,15 @@ function uniqueVisualCandidates(paths: Array<string | null | undefined>) {
 // guide has no separate icon set of its own -- see the extraction note by
 // policyHeroByUnit/governance2HeroByUnit above) plus the matching PDF-cover
 // scene images, so every fallback here is real client-brand art.
-const POLICY_GOV2_ICON_POOL = [
+// The 13 extracted icons come in two visibly different art styles -- 7 are
+// rich glossy 3D icons with gold trim (pulled straight from the trainer
+// guide's own standalone icon art), 6 are flat thin-line icons on pastel
+// circles (cropped out of one composite diagram). Mixing the two styles in
+// one shot (e.g. a 3-card goals row with one glossy icon and two flat ones)
+// reads as inconsistent -- flagged directly by the client. Each slide now
+// commits to ONE style for every image it shows, chosen deterministically
+// from its own id via policyGov2StyleFor() below.
+const POLICY_GOV2_ICON_POOL_RICH = [
   '/assets/visual-library/icon-policy-book-write.webp',
   '/assets/visual-library/icon-policy-education-shield.webp',
   '/assets/visual-library/icon-policy-time-person-ribbon.webp',
@@ -2120,6 +2128,8 @@ const POLICY_GOV2_ICON_POOL = [
   '/assets/visual-library/icon-policy-book-magnifier-research.webp',
   '/assets/visual-library/icon-policy-scroll-pen-check.webp',
   '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
+];
+const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-policy-presentation-plan.webp',
   '/assets/visual-library/icon-policy-document-check-light.webp',
   '/assets/visual-library/icon-policy-stakeholder-people.webp',
@@ -2127,13 +2137,28 @@ const POLICY_GOV2_ICON_POOL = [
   '/assets/visual-library/icon-policy-institution-shield.webp',
   '/assets/visual-library/icon-policy-analytics-search.webp',
 ];
+type PolicyGov2Style = 'rich' | 'flat';
+function policyGov2StyleFor(slideId: string): PolicyGov2Style {
+  return stableIconIndex(slideId) % 2 === 0 ? 'rich' : 'flat';
+}
+function policyGov2PoolFor(style: PolicyGov2Style) {
+  return style === 'flat' ? POLICY_GOV2_ICON_POOL_FLAT : POLICY_GOV2_ICON_POOL_RICH;
+}
+/** Every policy/gov2 call site threads this through instead of a plain
+ *  boolean marker, so the whole slide -- hero, cards, matrix rows -- draws
+ *  from the same one style bucket. Empty string for every other course. */
+function policyGov2Marker(slideId: string): string {
+  if (!(slideId.startsWith('policy') || slideId.startsWith('gov2'))) return '';
+  return ` __policygov2:${policyGov2StyleFor(slideId)}__`;
+}
 
 function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   const layers: string[] = [];
   const add = (src: string) => {
     if (!layers.includes(src)) layers.push(src);
   };
-  const isPolicyGov2Topic = text.includes('__policygov2__');
+  const policyGov2StyleMatch = /__policygov2:(rich|flat)__/.exec(text);
+  const isPolicyGov2Topic = Boolean(policyGov2StyleMatch);
   let isEmergencyTopic = false;
   // course/4 & course/5 never fall through to bag/1's old AI-generated
   // scene keyword rules below (governance-scene, policy-scene, etc.) --
@@ -2300,7 +2325,7 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
     if (fallback) {
       add(fallback);
     } else if (isPolicyGov2Topic) {
-      add(variantOf(POLICY_GOV2_ICON_POOL, text));
+      add(variantOf(policyGov2PoolFor(policyGov2StyleMatch![1] as PolicyGov2Style), text));
     } else if (isEmergencyTopic) {
       // Most card titles are short, specific phrases ("توزيع الأدوار",
       // "قنوات اتصال معتمدة"...) that never trip any of bag 2's keyword
@@ -2504,7 +2529,7 @@ function PptCardView({
   locked = false,
   emergencyHint = false,
   isCourse1 = false,
-  policyGov2Hint = false,
+  policyGov2CardMarker = '',
 }: {
   card: PptCard;
   dense?: boolean;
@@ -2523,10 +2548,11 @@ function PptCardView({
   /** course/1 uses the icon system everywhere, never the photo-scene
    *  visuals -- see slideVisualPool's course1 opt-out for the same rule. */
   isCourse1?: boolean;
-  /** True for course/4 & course/5 cards, so a card whose own text has no
-   *  strong keyword still falls back to their real-brand icon pool instead
-   *  of bag 1's old AI-generated scene images -- see POLICY_GOV2_ICON_POOL. */
-  policyGov2Hint?: boolean;
+  /** From policyGov2Marker(slide.id) -- empty for every other course. A
+   *  card whose own text has no strong keyword falls back to the one
+   *  style bucket (rich or flat) this string names, instead of bag 1's
+   *  old AI-generated scene images -- see POLICY_GOV2_ICON_POOL_RICH/FLAT. */
+  policyGov2CardMarker?: string;
 }) {
   void emoji;
   const tone = card.tone ?? 'green';
@@ -2594,7 +2620,7 @@ function PptCardView({
   const accentTone = active ? 'bg-gold-300' : tone === 'gold' ? 'bg-gold-500' : 'bg-green-700';
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
-  const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${emergencyHint ? ' __bag2__' : policyGov2Hint ? ' __policygov2__' : ''}`);
+  const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${emergencyHint ? ' __bag2__' : policyGov2CardMarker}`);
   const brandIcon = emergencyHint ? sharedBrandIconFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`, Number(card.index ?? 0)) : null;
 
   return (
@@ -2718,11 +2744,11 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   // only reliable signal here to opt out without touching bag/1.
   if (slide.audioKey?.endsWith('-course1')) return [];
   // course/4 (policy) & course/5 (gov2) get their own real-brand pool --
-  // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL).
+  // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL_RICH/FLAT).
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2');
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const fallbackVisualPool = isPolicyGov2Slide
-    ? POLICY_GOV2_ICON_POOL
+    ? policyGov2PoolFor(policyGov2StyleFor(slide.id))
     : isEmergencySlide
     ? ['/assets/visual-library/emergency-command-center.webp', '/assets/visual-library/emergency-strategic-framework.webp', '/assets/visual-library/emergency-stakeholder-network.webp', '/assets/visual-library/emergency-kpi-dashboard.webp']
     : slide.id.startsWith('ch3')
@@ -2735,7 +2761,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   // instead of drifting to bag 1's governance imagery once its per-card
   // matching bottoms out. Same idea for policy/gov2, pointing at their own
   // pool instead.
-  const courseMarker = isPolicyGov2Slide ? ' __policygov2__' : isEmergencySlide ? ' __bag2__' : '';
+  const courseMarker = isPolicyGov2Slide ? policyGov2Marker(slide.id) : isEmergencySlide ? ' __bag2__' : '';
   // Slide-title match goes first: it's usually the more specific signal
   // (e.g. a title like "فهم ديناميكيات الأزمات" naming the exact concept),
   // while per-card text is often a bare one-word label that only reaches
@@ -3030,9 +3056,7 @@ function PptMotionVisualScene({
       {cards.map((card, index) => {
         const visible = visibleFor(index);
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
-        const cardMarker = slide.id.startsWith('policy') || slide.id.startsWith('gov2')
-          ? ' __policygov2__'
-          : slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '';
+        const cardMarker = policyGov2Marker(slide.id) || (slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '');
         const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`, visualPool[index % visualPool.length]);
         const cardVisualCandidates = uniqueVisualCandidates([
           ...(denseMotion ? [visualPool[index % visualPool.length]] : cardVisuals),
@@ -3375,7 +3399,7 @@ function PptMatrixScene({
           const toneShell =
             tone === 'gold' ? 'border-gold-500/25 bg-gold-50/12' : 'border-green-700/18 bg-green-50/10';
           const matrixCardVisuals = isPolicyGov2Slide
-            ? pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''}${card.bullets?.join(' ') ?? ''} __policygov2__`, matrixVisualPool[index % matrixVisualPool.length])
+            ? pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''}${card.bullets?.join(' ') ?? ''}${policyGov2Marker(slide.id)}`, matrixVisualPool[index % matrixVisualPool.length])
             : [];
           const matrixVisualCandidates = uniqueVisualCandidates([...matrixCardVisuals, ...matrixVisualPool]);
           const matrixVisual = isPolicyGov2Slide
@@ -3861,7 +3885,7 @@ function PptActivitySlide({
 }) {
   const cards = slide.ppt?.cards ?? [];
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const policyGov2Marker = slide.id.startsWith('policy') || slide.id.startsWith('gov2') ? ' __policygov2__' : '';
+  const policyGov2MarkerStr = policyGov2Marker(slide.id);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [phase, setPhase] = useState<'intro' | 'awaiting-answer' | 'feedback' | 'awaiting-next' | 'asking-next'>('intro');
@@ -3941,7 +3965,7 @@ function PptActivitySlide({
                   </span>
                 ) : (
                   <img
-                    src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}${policyGov2Marker}`)[0]}
+                    src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}${policyGov2MarkerStr}`)[0]}
                     alt=""
                     className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${activeVisualClass(currentCardVisible, `${currentCard.title} ${currentCard.text ?? ''}`, currentStep) || 'animate-float'}`}
                     loading="lazy"
@@ -4019,8 +4043,10 @@ function PptGuidedScenarioSlide({
 }) {
   const cards = slide.ppt?.cards ?? [];
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const policyGov2Marker = slide.id.startsWith('policy') || slide.id.startsWith('gov2') ? ' __policygov2__' : '';
-  const policyGov2Fallback = '/assets/visual-library/icon-policy-shield-check-gradient.webp';
+  const policyGov2MarkerStr = policyGov2Marker(slide.id);
+  const policyGov2Fallback = policyGov2MarkerStr.includes(':flat')
+    ? '/assets/visual-library/icon-policy-shield-check-gradient.webp'
+    : '/assets/visual-library/icon-policy-scroll-pen-check.webp';
   const scenarioCard = cards[0];
   const analysisCards = cards.slice(1);
   const [selectedStep, setSelectedStep] = useState<number | null>(null);
@@ -4094,7 +4120,7 @@ function PptGuidedScenarioSlide({
                     </span>
                   ) : (
                     <img
-                      src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}${policyGov2Marker}`)[0] ?? (policyGov2Marker ? policyGov2Fallback : '/assets/visual-library/audit-controls.webp')}
+                      src={pptGeneratedVisualLayersFor(`${scenarioCard.title} ${scenarioCard.text}${policyGov2MarkerStr}`)[0] ?? (policyGov2MarkerStr ? policyGov2Fallback : '/assets/visual-library/audit-controls.webp')}
                       alt=""
                       className="pointer-events-none absolute left-3 top-2 h-[118px] w-[132px] object-contain opacity-20 drop-shadow-[0_18px_28px_rgb(0_0_0_/_0.14)]"
                       loading="lazy"
@@ -4225,7 +4251,7 @@ function PptGuidedScenarioSlide({
                   </span>
                 ) : (
                 <img
-                  src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}${policyGov2Marker}`)[0] ?? (policyGov2Marker ? policyGov2Fallback : '/assets/visual-library/audit-controls.webp')}
+                  src={pptGeneratedVisualLayersFor(`${currentCard.title} ${currentCard.text ?? ''}${policyGov2MarkerStr}`)[0] ?? (policyGov2MarkerStr ? policyGov2Fallback : '/assets/visual-library/audit-controls.webp')}
                   alt=""
                   className={`relative z-10 mb-5 h-[140px] w-[190px] object-contain drop-shadow-[0_26px_34px_rgb(0_0_0_/_0.22)] ${activeVisualClass(guidedSpeech.speaking || discussionVisible, `${currentCard.title} ${currentCard.text ?? ''}`, selectedStep)}`}
                   loading="lazy"
@@ -4908,7 +4934,7 @@ function PptStyleSlide({
                   emoji={pptEmojiFor(card, slide.visual, i)}
                   emergencyHint={slide.id.startsWith('ec') || slide.id.startsWith('emergency')}
                   isCourse1={isCourse1Slide}
-                  policyGov2Hint={slide.id.startsWith('policy') || slide.id.startsWith('gov2')}
+                  policyGov2CardMarker={policyGov2Marker(slide.id)}
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
                   visible={cardIsVisible(i)}
                   revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
