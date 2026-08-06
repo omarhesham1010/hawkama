@@ -3158,7 +3158,7 @@ function PptMotionVisualScene({
               active
                 ? usesOpenLabels
                   ? 'z-20 scale-[1.04] text-brand-strong'
-                  : 'scale-[1.04] border-gold-500/50 bg-white/75 text-brand-strong shadow-[0_22px_36px_rgb(24_82_55_/_0.14)]'
+                  : 'scale-[1.04] border-gold-500 bg-white/75 text-brand-strong shadow-[0_22px_36px_rgb(24_82_55_/_0.14)]'
                 : 'z-10 text-brand-strong'
             } ${visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'} ${
               visible && narrationLocked ? 'bg-white/90 text-ink-muted shadow-none' : ''
@@ -3186,7 +3186,7 @@ function PptMotionVisualScene({
                       titleCardGrid ? 'text-[13px]' : emergencyOpenLabels ? 'text-[12.5px]' : 'text-[14px]'
                     } ${
                       active
-                        ? 'border-gold-500/28 bg-white/72 text-ink'
+                        ? 'border-gold-500 bg-white/72 text-ink'
                         : 'border-green-700/12 bg-white/62 text-ink'
                     }`}
                   >
@@ -3365,7 +3365,7 @@ function PptTimelineScene({
                         ? 'border-b-4 border-gold-500 text-brand-strong'
                         : 'border-b-4 border-green-700/18 text-brand-strong'
                       : active
-                        ? 'rounded-[22px] border border-gold-500/40 bg-white text-brand-strong shadow-card'
+                        ? 'rounded-[22px] border border-gold-500 bg-white text-brand-strong shadow-card'
                         : 'rounded-[22px] border border-green-700/12 bg-white/72 text-brand-strong shadow-[0_14px_30px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
                   }`}
                 >
@@ -3922,7 +3922,7 @@ function PptSpotlightScene({
                   active
                     ? isEmergencySlide
                       ? 'animate-glow-cycle scale-[1.03] border-gold-500 text-brand-strong'
-                      : 'animate-glow-cycle scale-[1.03] border-gold-500/40 bg-white text-brand-strong shadow-card'
+                      : 'animate-glow-cycle scale-[1.03] border-gold-500 bg-white text-brand-strong shadow-card'
                     : isEmergencySlide
                       ? 'border-green-700/16 text-brand-strong'
                       : 'border-green-700/14 bg-white/75 text-brand-strong'
