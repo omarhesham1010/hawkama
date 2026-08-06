@@ -1460,9 +1460,9 @@ function IntroMotionScene({
   // of reusing one abstract scene on every unit.
   const policyHeroByUnit: Record<string, string> = {
     'policy-welcome': '/assets/visual-library/icon-policy-education-shield.webp',
-    'policy-u1-welcome': '/assets/visual-library/intro-policy-research-analysis-scene.webp',
+    'policy-u1-welcome': '/assets/visual-library/intro-policy-research-analysis-scene.webp?v=2',
     'policy-u2-welcome': '/assets/visual-library/icon-policy-stakeholder-people.webp',
-    'policy-u3-welcome': '/assets/visual-library/intro-policy-drafting-scene.webp',
+    'policy-u3-welcome': '/assets/visual-library/intro-policy-drafting-scene.webp?v=2',
     'policy-u4-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
     'policy-u5-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
   };
@@ -1477,7 +1477,7 @@ function IntroMotionScene({
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
     : isPolicyCourse
-      ? (policyHeroByUnit[slide.id] ?? '/assets/visual-library/intro-policy-compliance-scene.webp')
+      ? (policyHeroByUnit[slide.id] ?? '/assets/visual-library/intro-policy-compliance-scene.webp?v=2')
       : isGov2Course
         ? (governance2HeroByUnit[slide.id] ?? '/assets/visual-library/icon-policy-checklist-clipboard.webp')
         : isEmergencyCourse
