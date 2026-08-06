@@ -1451,18 +1451,35 @@ function IntroMotionScene({
   // per-topic icons at all -- every image in it besides the MOH "أبعاد"
   // logo is a repeated cover-page background -- so it gets one shared
   // abstract scene from that same cover art instead of an invented match.
+  // Every id below is explicit (no shared fallback) so each of the 6
+  // policy-course intro slides and 6 gov2-course intro slides gets its own
+  // distinct image -- gov2's own trainer-guide PDF has no per-topic icon art
+  // (surveyed every embedded image across all 171 pages: only the repeated
+  // MOH "أبعاد" cover/divider background, identical to policy's own copy),
+  // so its units borrow from the icon set pulled out of policy's PDF instead
+  // of reusing one abstract scene on every unit.
   const policyHeroByUnit: Record<string, string> = {
+    'policy-welcome': '/assets/visual-library/icon-policy-education-shield.webp',
     'policy-u1-welcome': '/assets/visual-library/intro-policy-research-analysis-scene.webp',
     'policy-u2-welcome': '/assets/visual-library/intro-policy-stakeholder-network-scene.webp',
     'policy-u3-welcome': '/assets/visual-library/intro-policy-drafting-scene.webp',
     'policy-u4-welcome': '/assets/visual-library/intro-policy-legal-shield-scene.webp',
+    'policy-u5-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
+  };
+  const governance2HeroByUnit: Record<string, string> = {
+    'gov2-welcome': '/assets/visual-library/intro-governance2-abstract-scene.webp',
+    'gov2-u1-welcome': '/assets/visual-library/icon-policy-presentation-plan.webp',
+    'gov2-u2-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
+    'gov2-u3-welcome': '/assets/visual-library/icon-policy-analytics-search.webp',
+    'gov2-u4-welcome': '/assets/visual-library/icon-policy-stakeholder-people.webp',
+    'gov2-u5-welcome': '/assets/visual-library/icon-policy-shield-check-gradient.webp',
   };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
     : isPolicyCourse
       ? (policyHeroByUnit[slide.id] ?? '/assets/visual-library/intro-policy-compliance-scene.webp')
       : isGov2Course
-        ? '/assets/visual-library/intro-governance2-abstract-scene.webp'
+        ? (governance2HeroByUnit[slide.id] ?? '/assets/visual-library/intro-governance2-abstract-scene.webp')
         : isEmergencyCourse
           ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
           : isCourse1Course
