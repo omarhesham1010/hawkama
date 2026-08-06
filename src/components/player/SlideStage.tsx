@@ -1467,7 +1467,7 @@ function IntroMotionScene({
     'policy-u5-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
   };
   const governance2HeroByUnit: Record<string, string> = {
-    'gov2-welcome': '/assets/visual-library/intro-governance2-abstract-scene.webp',
+    'gov2-welcome': '/assets/visual-library/icon-policy-checklist-clipboard.webp',
     'gov2-u1-welcome': '/assets/visual-library/icon-policy-presentation-plan.webp',
     'gov2-u2-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
     'gov2-u3-welcome': '/assets/visual-library/icon-policy-analytics-search.webp',
@@ -1479,7 +1479,7 @@ function IntroMotionScene({
     : isPolicyCourse
       ? (policyHeroByUnit[slide.id] ?? '/assets/visual-library/intro-policy-compliance-scene.webp')
       : isGov2Course
-        ? (governance2HeroByUnit[slide.id] ?? '/assets/visual-library/intro-governance2-abstract-scene.webp')
+        ? (governance2HeroByUnit[slide.id] ?? '/assets/visual-library/icon-policy-checklist-clipboard.webp')
         : isEmergencyCourse
           ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
           : isCourse1Course
@@ -2131,7 +2131,6 @@ const POLICY_GOV2_ICON_POOL = [
   '/assets/visual-library/intro-policy-drafting-scene.webp',
   '/assets/visual-library/intro-policy-legal-shield-scene.webp',
   '/assets/visual-library/intro-policy-compliance-scene.webp',
-  '/assets/visual-library/intro-governance2-abstract-scene.webp',
 ];
 
 function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
@@ -3345,6 +3344,14 @@ function PptMatrixScene({
   const denseQuadrant = isEmergencySlide && cards.length >= 4 && cols === 'grid-cols-2';
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
+  // course/4 & course/5 matrix rows had no icon at all (brandIcon is
+  // emergency/licensing-only, the CourseGlyph fallback is course/1-only) --
+  // give them a real left-side image instead, picked from their own
+  // real-brand pool with the same no-repeat-per-slide guarantee every other
+  // ppt layout already has.
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2');
+  const matrixVisualPool = isPolicyGov2Slide ? slideVisualPool(slide, cards) : [];
+  const usedMatrixVisuals = new Set<string>();
   return (
     <div className={`flex min-h-0 flex-1 flex-col items-center justify-start px-3 ${denseQuadrant ? 'pt-[60px] pb-[120px]' : 'pt-1 pb-[190px]'}`}>
       {/* Two stacked cards (grid-cols-1, the common course/1 case): this
@@ -3372,13 +3379,21 @@ function PptMatrixScene({
           const tone = card.tone ?? 'green';
           const toneShell =
             tone === 'gold' ? 'border-gold-500/25 bg-gold-50/12' : 'border-green-700/18 bg-green-50/10';
+          const matrixCardVisuals = isPolicyGov2Slide
+            ? pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''}${card.bullets?.join(' ') ?? ''} __policygov2__`, matrixVisualPool[index % matrixVisualPool.length])
+            : [];
+          const matrixVisualCandidates = uniqueVisualCandidates([...matrixCardVisuals, ...matrixVisualPool]);
+          const matrixVisual = isPolicyGov2Slide
+            ? matrixVisualCandidates.find((src) => !usedMatrixVisuals.has(src)) ?? matrixVisualCandidates[0]
+            : null;
+          if (matrixVisual) usedMatrixVisuals.add(matrixVisual);
           return (
             <button
               key={index}
               type="button"
               disabled={!visible || narrationLocked}
               onClick={() => onToggle(index)}
-              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[108px] overflow-visible p-3.5 text-right'} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
+              className={`relative ${denseQuadrant ? 'h-[104px] overflow-hidden p-2 text-center' : 'min-h-[108px] overflow-visible p-3.5 text-right'} ${matrixVisual ? 'ps-[84px]' : ''} ${isEmergencySlide ? '[border-radius:44px_20px_44px_20px]' : 'rounded-[26px]'} border shadow-[0_16px_34px_rgb(24_82_55_/_0.08)] transition-all duration-700 ease-out ${
                 visible ? revealAnimationFor(index) : 'pointer-events-none opacity-0'
               } ${
                 active
@@ -3391,6 +3406,11 @@ function PptMatrixScene({
                   className="pointer-events-none absolute inset-0 animate-shimmer-sweep-slow bg-[length:250%_100%] bg-[linear-gradient(115deg,transparent_30%,rgb(255_255_255/0.14)_48%,rgb(255_255_255/0.14)_52%,transparent_70%)]"
                   aria-hidden="true"
                 />
+              )}
+              {matrixVisual && (
+                <span className={`absolute inset-y-3 start-3 grid w-14 shrink-0 place-items-center rounded-2xl border p-1.5 shadow-sm ${active ? 'border-white/25 bg-white/16' : 'border-green-700/12 bg-white/85'}`} aria-hidden="true">
+                  <img src={matrixVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                </span>
               )}
               <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
@@ -3485,6 +3505,7 @@ function PptSpotlightScene({
   const showFocusDetail = focusActive && Boolean(focusDetail);
   const primaryVisual = slideVisualPool(slide, cards)[0];
   const usedBrandIcons = new Set<string>();
+  const usedGlyphKinds = new Set<CourseGlyphKind>();
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex, usedBrandIcons) : null;
   const showFocusVisual = Boolean(primaryVisual) && (!isEmergencySlide || focusVisible);
   // Enough supporting chips (5+, i.e. a 6-card slide -- only two of these
@@ -3704,7 +3725,7 @@ function PptSpotlightScene({
             // course/1's most common shot (Spotlight) had a completely still
             // icon at its visual center.
             <span className={`grid h-full w-full place-items-center ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`}>
-              <CourseGlyph kind={courseGlyphKind(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`)} active compact />
+              <CourseGlyph kind={courseGlyphKindDeduped(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, usedGlyphKinds)} active compact />
             </span>
           )}
           <svg className="pointer-events-none absolute -right-1.5 -top-1.5 h-3.5 w-3.5 animate-sparkle" viewBox="0 0 24 24" aria-hidden="true">
@@ -3757,7 +3778,7 @@ function PptSpotlightScene({
         >
           {focusCard!.bullets!.map((bullet, i) => {
             const dense = focusCard!.bullets!.length >= 5;
-            const bulletGlyphKind = courseGlyphKind(bullet);
+            const bulletGlyphKind = courseGlyphKindDeduped(bullet, usedGlyphKinds);
             const bulletBrandIcon = isEmergencySlide ? sharedBrandIconFor(bullet, i, usedBrandIcons) : null;
             const visible = bulletVisible(i);
             const isActiveBullet = i === activeBulletIndex;
