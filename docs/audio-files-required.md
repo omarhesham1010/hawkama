@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **938**.
+Generated from `src/data/audioScripts.ts`. Total required: **1060**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -932,6 +932,128 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15b-activity-stakeholder-identify-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة غير صحيحة
 - `bag2-ch4-s15b-activity-stakeholder-path-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار صحيح
 - `bag2-ch4-s15b-activity-stakeholder-path-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag4-ch1-s3-activity-1-item-u1-c1.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c1
+- `bag4-ch1-s3-activity-1-item-u1-c2.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c2
+- `bag4-ch1-s3-activity-1-item-u1-c3.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c3
+- `bag4-ch1-s3-activity-1-item-u1-c4.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c4
+- `bag4-ch1-s5-activity-2-item-u1-f1.mp3` - نشاط: أدوات التحليل المقارن - u1-f1
+- `bag4-ch1-s5-activity-2-item-u1-f2.mp3` - نشاط: أدوات التحليل المقارن - u1-f2
+- `bag4-ch1-s5-activity-2-item-u1-f3.mp3` - نشاط: أدوات التحليل المقارن - u1-f3
+- `bag4-ch1-s5-activity-2-item-u1-f4.mp3` - نشاط: أدوات التحليل المقارن - u1-f4
+- `bag4-ch1-s7-activity-3-correct.mp3` - نشاط: بناء الإطار المرجعي - إجابة صحيحة
+- `bag4-ch1-s7-activity-3-incorrect.mp3` - نشاط: بناء الإطار المرجعي - إجابة غير صحيحة
+- `bag4-ch1-s7-activity-3-path-correct.mp3` - نشاط: بناء الإطار المرجعي - مسار صحيح
+- `bag4-ch1-s7-activity-3-path-incorrect.mp3` - نشاط: بناء الإطار المرجعي - مسار غير صحيح
+- `bag4-ch2-s3-activity-1-item-u2-c1.mp3` - نشاط: نموذج البروز وأبعاد أصحاب المصلحة - u2-c1
+- `bag4-ch2-s3-activity-1-item-u2-c2.mp3` - نشاط: نموذج البروز وأبعاد أصحاب المصلحة - u2-c2
+- `bag4-ch2-s3-activity-1-item-u2-c3.mp3` - نشاط: نموذج البروز وأبعاد أصحاب المصلحة - u2-c3
+- `bag4-ch2-s3-activity-1-item-u2-c4.mp3` - نشاط: نموذج البروز وأبعاد أصحاب المصلحة - u2-c4
+- `bag4-ch2-s5-activity-2-item-u2-f1.mp3` - نشاط: نظرية التغيير ومؤشرات الأداء - u2-f1
+- `bag4-ch2-s5-activity-2-item-u2-f2.mp3` - نشاط: نظرية التغيير ومؤشرات الأداء - u2-f2
+- `bag4-ch2-s5-activity-2-item-u2-f3.mp3` - نشاط: نظرية التغيير ومؤشرات الأداء - u2-f3
+- `bag4-ch2-s5-activity-2-item-u2-f4.mp3` - نشاط: نظرية التغيير ومؤشرات الأداء - u2-f4
+- `bag4-ch2-s7-activity-3-correct.mp3` - نشاط: التقييم المسبق مقابل اللاحق - إجابة صحيحة
+- `bag4-ch2-s7-activity-3-incorrect.mp3` - نشاط: التقييم المسبق مقابل اللاحق - إجابة غير صحيحة
+- `bag4-ch2-s7-activity-3-path-correct.mp3` - نشاط: التقييم المسبق مقابل اللاحق - مسار صحيح
+- `bag4-ch2-s7-activity-3-path-incorrect.mp3` - نشاط: التقييم المسبق مقابل اللاحق - مسار غير صحيح
+- `bag4-ch3-s3-activity-1-item-u3-c1.mp3` - نشاط: دورة حياة السياسة العامة - u3-c1
+- `bag4-ch3-s3-activity-1-item-u3-c2.mp3` - نشاط: دورة حياة السياسة العامة - u3-c2
+- `bag4-ch3-s3-activity-1-item-u3-c3.mp3` - نشاط: دورة حياة السياسة العامة - u3-c3
+- `bag4-ch3-s3-activity-1-item-u3-c4.mp3` - نشاط: دورة حياة السياسة العامة - u3-c4
+- `bag4-ch3-s5-activity-2-item-u3-f1.mp3` - نشاط: المبادئ الأخلاقية الأربعة والحوكمة المزدوجة - u3-f1
+- `bag4-ch3-s5-activity-2-item-u3-f2.mp3` - نشاط: المبادئ الأخلاقية الأربعة والحوكمة المزدوجة - u3-f2
+- `bag4-ch3-s5-activity-2-item-u3-f3.mp3` - نشاط: المبادئ الأخلاقية الأربعة والحوكمة المزدوجة - u3-f3
+- `bag4-ch3-s5-activity-2-item-u3-f4.mp3` - نشاط: المبادئ الأخلاقية الأربعة والحوكمة المزدوجة - u3-f4
+- `bag4-ch3-s7-activity-3-correct.mp3` - نشاط: هيكل وثيقة السياسة ونموذج راسي - إجابة صحيحة
+- `bag4-ch3-s7-activity-3-incorrect.mp3` - نشاط: هيكل وثيقة السياسة ونموذج راسي - إجابة غير صحيحة
+- `bag4-ch3-s7-activity-3-path-correct.mp3` - نشاط: هيكل وثيقة السياسة ونموذج راسي - مسار صحيح
+- `bag4-ch3-s7-activity-3-path-incorrect.mp3` - نشاط: هيكل وثيقة السياسة ونموذج راسي - مسار غير صحيح
+- `bag4-ch4-s3-activity-1-item-u4-c1.mp3` - نشاط: النظام واللائحة والسياسة - u4-c1
+- `bag4-ch4-s3-activity-1-item-u4-c2.mp3` - نشاط: النظام واللائحة والسياسة - u4-c2
+- `bag4-ch4-s3-activity-1-item-u4-c3.mp3` - نشاط: النظام واللائحة والسياسة - u4-c3
+- `bag4-ch4-s3-activity-1-item-u4-c4.mp3` - نشاط: النظام واللائحة والسياسة - u4-c4
+- `bag4-ch4-s5-activity-2-item-u4-f1.mp3` - نشاط: مادة اللغة الحاكمة - u4-f1
+- `bag4-ch4-s5-activity-2-item-u4-f2.mp3` - نشاط: مادة اللغة الحاكمة - u4-f2
+- `bag4-ch4-s5-activity-2-item-u4-f3.mp3` - نشاط: مادة اللغة الحاكمة - u4-f3
+- `bag4-ch4-s5-activity-2-item-u4-f4.mp3` - نشاط: مادة اللغة الحاكمة - u4-f4
+- `bag4-ch4-s7-activity-3-correct.mp3` - نشاط: أركان المادة القانونية - إجابة صحيحة
+- `bag4-ch4-s7-activity-3-incorrect.mp3` - نشاط: أركان المادة القانونية - إجابة غير صحيحة
+- `bag4-ch4-s7-activity-3-path-correct.mp3` - نشاط: أركان المادة القانونية - مسار صحيح
+- `bag4-ch4-s7-activity-3-path-incorrect.mp3` - نشاط: أركان المادة القانونية - مسار غير صحيح
+- `bag4-ch5-s3-activity-1-item-u5-c1.mp3` - نشاط: أنواع المخاطر واستراتيجيات الاستجابة - u5-c1
+- `bag4-ch5-s3-activity-1-item-u5-c2.mp3` - نشاط: أنواع المخاطر واستراتيجيات الاستجابة - u5-c2
+- `bag4-ch5-s3-activity-1-item-u5-c3.mp3` - نشاط: أنواع المخاطر واستراتيجيات الاستجابة - u5-c3
+- `bag4-ch5-s3-activity-1-item-u5-c4.mp3` - نشاط: أنواع المخاطر واستراتيجيات الاستجابة - u5-c4
+- `bag4-ch5-s5-activity-2-item-u5-f1.mp3` - نشاط: مبادئ الحوكمة الأربعة - u5-f1
+- `bag4-ch5-s5-activity-2-item-u5-f2.mp3` - نشاط: مبادئ الحوكمة الأربعة - u5-f2
+- `bag4-ch5-s5-activity-2-item-u5-f3.mp3` - نشاط: مبادئ الحوكمة الأربعة - u5-f3
+- `bag4-ch5-s5-activity-2-item-u5-f4.mp3` - نشاط: مبادئ الحوكمة الأربعة - u5-f4
+- `bag4-ch5-s7-activity-3-correct.mp3` - نشاط: نماذج اتخاذ القرار - إجابة صحيحة
+- `bag4-ch5-s7-activity-3-incorrect.mp3` - نشاط: نماذج اتخاذ القرار - إجابة غير صحيحة
+- `bag4-ch5-s7-activity-3-path-correct.mp3` - نشاط: نماذج اتخاذ القرار - مسار صحيح
+- `bag4-ch5-s7-activity-3-path-incorrect.mp3` - نشاط: نماذج اتخاذ القرار - مسار غير صحيح
+- `bag5-ch1-s3-activity-1-item-u1-c1.mp3` - نشاط: الإدارة والحوكمة والأخلاقيات - u1-c1
+- `bag5-ch1-s3-activity-1-item-u1-c2.mp3` - نشاط: الإدارة والحوكمة والأخلاقيات - u1-c2
+- `bag5-ch1-s3-activity-1-item-u1-c3.mp3` - نشاط: الإدارة والحوكمة والأخلاقيات - u1-c3
+- `bag5-ch1-s3-activity-1-item-u1-c4.mp3` - نشاط: الإدارة والحوكمة والأخلاقيات - u1-c4
+- `bag5-ch1-s5-activity-2-item-u1-f1.mp3` - نشاط: المواءمة والمؤشرات - u1-f1
+- `bag5-ch1-s5-activity-2-item-u1-f2.mp3` - نشاط: المواءمة والمؤشرات - u1-f2
+- `bag5-ch1-s5-activity-2-item-u1-f3.mp3` - نشاط: المواءمة والمؤشرات - u1-f3
+- `bag5-ch1-s5-activity-2-item-u1-f4.mp3` - نشاط: المواءمة والمؤشرات - u1-f4
+- `bag5-ch1-s7-activity-3-correct.mp3` - نشاط: النظام الصحي المترابط - إجابة صحيحة
+- `bag5-ch1-s7-activity-3-incorrect.mp3` - نشاط: النظام الصحي المترابط - إجابة غير صحيحة
+- `bag5-ch1-s7-activity-3-path-correct.mp3` - نشاط: النظام الصحي المترابط - مسار صحيح
+- `bag5-ch1-s7-activity-3-path-incorrect.mp3` - نشاط: النظام الصحي المترابط - مسار غير صحيح
+- `bag5-ch2-s3-activity-1-item-u2-c1.mp3` - نشاط: مستويات الحوكمة وإطارها - u2-c1
+- `bag5-ch2-s3-activity-1-item-u2-c2.mp3` - نشاط: مستويات الحوكمة وإطارها - u2-c2
+- `bag5-ch2-s3-activity-1-item-u2-c3.mp3` - نشاط: مستويات الحوكمة وإطارها - u2-c3
+- `bag5-ch2-s3-activity-1-item-u2-c4.mp3` - نشاط: مستويات الحوكمة وإطارها - u2-c4
+- `bag5-ch2-s5-activity-2-item-u2-f1.mp3` - نشاط: من النص إلى الممارسة - u2-f1
+- `bag5-ch2-s5-activity-2-item-u2-f2.mp3` - نشاط: من النص إلى الممارسة - u2-f2
+- `bag5-ch2-s5-activity-2-item-u2-f3.mp3` - نشاط: من النص إلى الممارسة - u2-f3
+- `bag5-ch2-s5-activity-2-item-u2-f4.mp3` - نشاط: من النص إلى الممارسة - u2-f4
+- `bag5-ch2-s7-activity-3-correct.mp3` - نشاط: تطبيق مصفوفة راسي - إجابة صحيحة
+- `bag5-ch2-s7-activity-3-incorrect.mp3` - نشاط: تطبيق مصفوفة راسي - إجابة غير صحيحة
+- `bag5-ch2-s7-activity-3-path-correct.mp3` - نشاط: تطبيق مصفوفة راسي - مسار صحيح
+- `bag5-ch2-s7-activity-3-path-incorrect.mp3` - نشاط: تطبيق مصفوفة راسي - مسار غير صحيح
+- `bag5-ch3-s3-activity-1-item-u3-c1.mp3` - نشاط: الأداء والمخاطر وجهان لعملة - u3-c1
+- `bag5-ch3-s3-activity-1-item-u3-c2.mp3` - نشاط: الأداء والمخاطر وجهان لعملة - u3-c2
+- `bag5-ch3-s3-activity-1-item-u3-c3.mp3` - نشاط: الأداء والمخاطر وجهان لعملة - u3-c3
+- `bag5-ch3-s3-activity-1-item-u3-c4.mp3` - نشاط: الأداء والمخاطر وجهان لعملة - u3-c4
+- `bag5-ch3-s5-activity-2-item-u3-f1.mp3` - نشاط: الحوكمة أم الجودة؟ - u3-f1
+- `bag5-ch3-s5-activity-2-item-u3-f2.mp3` - نشاط: الحوكمة أم الجودة؟ - u3-f2
+- `bag5-ch3-s5-activity-2-item-u3-f3.mp3` - نشاط: الحوكمة أم الجودة؟ - u3-f3
+- `bag5-ch3-s5-activity-2-item-u3-f4.mp3` - نشاط: الحوكمة أم الجودة؟ - u3-f4
+- `bag5-ch3-s7-activity-3-correct.mp3` - نشاط: حوكمة البيانات والأنظمة الرقمية - إجابة صحيحة
+- `bag5-ch3-s7-activity-3-incorrect.mp3` - نشاط: حوكمة البيانات والأنظمة الرقمية - إجابة غير صحيحة
+- `bag5-ch3-s7-activity-3-path-correct.mp3` - نشاط: حوكمة البيانات والأنظمة الرقمية - مسار صحيح
+- `bag5-ch3-s7-activity-3-path-incorrect.mp3` - نشاط: حوكمة البيانات والأنظمة الرقمية - مسار غير صحيح
+- `bag5-ch4-s3-activity-1-item-u4-f1.mp3` - نشاط: أين تكمن فجوة التغيير؟ - u4-f1
+- `bag5-ch4-s3-activity-1-item-u4-f2.mp3` - نشاط: أين تكمن فجوة التغيير؟ - u4-f2
+- `bag5-ch4-s3-activity-1-item-u4-f3.mp3` - نشاط: أين تكمن فجوة التغيير؟ - u4-f3
+- `bag5-ch4-s3-activity-1-item-u4-f4.mp3` - نشاط: أين تكمن فجوة التغيير؟ - u4-f4
+- `bag5-ch4-s3-activity-1-item-u4-f5.mp3` - نشاط: أين تكمن فجوة التغيير؟ - u4-f5
+- `bag5-ch4-s5-activity-2-correct.mp3` - نشاط: استراتيجيات التعامل مع الخطر - إجابة صحيحة
+- `bag5-ch4-s5-activity-2-incorrect.mp3` - نشاط: استراتيجيات التعامل مع الخطر - إجابة غير صحيحة
+- `bag5-ch4-s5-activity-2-path-correct.mp3` - نشاط: استراتيجيات التعامل مع الخطر - مسار صحيح
+- `bag5-ch4-s5-activity-2-path-incorrect.mp3` - نشاط: استراتيجيات التعامل مع الخطر - مسار غير صحيح
+- `bag5-ch4-s7-activity-3-item-u4-c1.mp3` - نشاط: من المشغّل إلى المنظّم - u4-c1
+- `bag5-ch4-s7-activity-3-item-u4-c2.mp3` - نشاط: من المشغّل إلى المنظّم - u4-c2
+- `bag5-ch4-s7-activity-3-item-u4-c3.mp3` - نشاط: من المشغّل إلى المنظّم - u4-c3
+- `bag5-ch4-s7-activity-3-item-u4-c4.mp3` - نشاط: من المشغّل إلى المنظّم - u4-c4
+- `bag5-ch5-s3-activity-1-item-u5-c1.mp3` - نشاط: من متابعة المهام إلى إدارة القيمة - u5-c1
+- `bag5-ch5-s3-activity-1-item-u5-c2.mp3` - نشاط: من متابعة المهام إلى إدارة القيمة - u5-c2
+- `bag5-ch5-s3-activity-1-item-u5-c3.mp3` - نشاط: من متابعة المهام إلى إدارة القيمة - u5-c3
+- `bag5-ch5-s3-activity-1-item-u5-c4.mp3` - نشاط: من متابعة المهام إلى إدارة القيمة - u5-c4
+- `bag5-ch5-s5-activity-2-item-u5-f1.mp3` - نشاط: السياسة والإجراء وقابلية التنفيذ - u5-f1
+- `bag5-ch5-s5-activity-2-item-u5-f2.mp3` - نشاط: السياسة والإجراء وقابلية التنفيذ - u5-f2
+- `bag5-ch5-s5-activity-2-item-u5-f3.mp3` - نشاط: السياسة والإجراء وقابلية التنفيذ - u5-f3
+- `bag5-ch5-s5-activity-2-item-u5-f4.mp3` - نشاط: السياسة والإجراء وقابلية التنفيذ - u5-f4
+- `bag5-ch5-s5-activity-2-item-u5-f5.mp3` - نشاط: السياسة والإجراء وقابلية التنفيذ - u5-f5
+- `bag5-ch5-s7-activity-3-correct.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - إجابة صحيحة
+- `bag5-ch5-s7-activity-3-incorrect.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - إجابة غير صحيحة
+- `bag5-ch5-s7-activity-3-path-correct.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - مسار صحيح
+- `bag5-ch5-s7-activity-3-path-incorrect.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - مسار غير صحيح
 - `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - bag1-ch1-s5-policy-activity-course1-detail-2
 - `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - bag1-ch1-s5-policy-activity-course1-detail-3
 - `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - bag1-ch1-s5-policy-activity-course1-detail-4

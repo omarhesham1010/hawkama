@@ -1,5 +1,5 @@
 import type { PptCard } from '../types/slides';
-import type { QuizQuestion } from '../types/course';
+import type { ActivityData, QuizQuestion } from '../types/course';
 import { allNarratedSlides as slides } from './slides';
 import { CHECK_INTROS } from './narrationPhrases';
 import { course1AudioScriptOverrides, course1AudioScriptText } from './course1AudioScriptOverrides';
@@ -220,19 +220,29 @@ const checkItems = slides.flatMap((slide) => {
 });
 
 // Nasser's spoken reaction to each interactive checkpoint (PptContent.
-// actActivities): correct/incorrect feedback for a decision, the rationale
-// once an item is classified, or a flip card's own front+back. Text is
-// derived straight from the same activity data the components render, so
-// the recording can never drift from what's on screen. See
-// src/lib/playVoiceClip.ts for how these play independently of the slide's
-// own (possibly mid-pause) narration track.
-const checkpointVoiceItems = slides.flatMap((slide) => {
-  const acts = slide.ppt?.actActivities ?? [];
-  return acts.flatMap((checkpoint, actIndex) => {
-    if (!checkpoint) return [];
-    const a = checkpoint.activity;
-    const label = `${slide.title} - نشاط تفاعلي ${actIndex + 1}`;
+// actActivities) AND to each dedicated end-of-slide activity (kind:
+// 'activity', the plain top-level `slide.activity` field course/4 &
+// course/5's classification/flipCards/scenarioDecision activities use --
+// unlike checkpoints, this single field was never scanned here before):
+// correct/incorrect feedback for a decision, the rationale once an item is
+// classified, or a flip card's own front+back. Text is derived straight
+// from the same activity data the components render, so the recording can
+// never drift from what's on screen. See src/lib/playVoiceClip.ts for how
+// these play independently of the slide's own (possibly mid-pause)
+// narration track.
+const activityVoiceSources = slides.flatMap((slide) => {
+  const checkpointSources = (slide.ppt?.actActivities ?? [])
+    .map((checkpoint, actIndex) =>
+      checkpoint ? { activity: checkpoint.activity, label: `${slide.title} - نشاط تفاعلي ${actIndex + 1}`, slideId: slide.id } : null,
+    )
+    .filter((entry): entry is { activity: ActivityData; label: string; slideId: string } => Boolean(entry));
+  const topLevelSource = slide.activity
+    ? [{ activity: slide.activity, label: slide.title, slideId: slide.id }]
+    : [];
+  return [...checkpointSources, ...topLevelSource];
+});
 
+const checkpointVoiceItems = activityVoiceSources.flatMap(({ activity: a, label, slideId }) => {
     if (a.kind === 'scenarioDecision') {
       const correctOpt = a.identify.options.find((o) => o.correct);
       const correctPathSummary = a.correctPath.map((s) => s.label).join('، ثم ');
@@ -243,7 +253,7 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
           `${label} - إجابة صحيحة`,
           `إجابة صحيحة، ${correctOpt?.label}. ${a.identify.suggestedNote}`,
           'activity-feedback',
-          slide.id,
+          slideId,
         ));
       }
       if (a.identify.incorrectVoiceKey) {
@@ -252,7 +262,7 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
           `${label} - إجابة غير صحيحة`,
           `الإجابة الصحيحة هي، ${correctOpt?.label}. ${a.identify.suggestedNote}`,
           'activity-feedback',
-          slide.id,
+          slideId,
         ));
       }
       if (a.pathCorrectVoiceKey) {
@@ -261,7 +271,7 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
           `${label} - مسار صحيح`,
           `مسار صحيح تمامًا! ${correctPathSummary}`,
           'activity-feedback',
-          slide.id,
+          slideId,
         ));
       }
       if (a.pathIncorrectVoiceKey) {
@@ -270,7 +280,7 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
           `${label} - مسار غير صحيح`,
           `المسار غير مرتّب بشكل صحيح. الترتيب الصحيح، ${correctPathSummary}`,
           'activity-feedback',
-          slide.id,
+          slideId,
         ));
       }
       return out;
@@ -284,7 +294,7 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
           `${label} - ${it.id}`,
           `التصنيف المقترح، ${a.categories.find((c) => c.id === it.answer)?.label ?? ''}. ${it.rationale}`,
           'activity-feedback',
-          slide.id,
+          slideId,
         ));
     }
 
@@ -296,12 +306,11 @@ const checkpointVoiceItems = slides.flatMap((slide) => {
           `${label} - ${c.id}`,
           `${c.front}. ${c.back}`,
           'activity-feedback',
-          slide.id,
+          slideId,
         ));
     }
 
     return [];
-  });
 });
 
 function uniqueAudioScripts(items: AudioScriptItem[]) {
