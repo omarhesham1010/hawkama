@@ -1374,7 +1374,19 @@ function IntroMotionScene({
   // welcome slide's pillar timing to the raw progress-percentage
   // fallbacks (0.52/0.62/0.72), popping cards in at a fixed fraction of
   // the whole narration regardless of when their unit was actually named.
-  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  // Despite the name (kept for min diff against the emergency-specific
+  // branches below), this flag now means "use the real narration-cue
+  // pillar sync" -- policy/gov2 welcome slides have the exact same
+  // property the comment above describes for licensing: every intro
+  // pillar's label is lifted verbatim from that slide's own narration
+  // (e.g. "تتناول الوحدة الأولى الأسس الاستراتيجية..." literally contains
+  // the pillar-1 label as a substring right after the unit-ordinal words),
+  // so pillarCue()'s pillars[index].label fallback finds it directly. They
+  // were missing from this check the same way course/3 originally was,
+  // so their pillar cards popped in at the fixed 0.52/0.62/0.72 fraction
+  // fallbacks below regardless of when Nasser actually named each unit.
+  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
+    || slide.id.startsWith('policy') || slide.id.startsWith('gov2');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
