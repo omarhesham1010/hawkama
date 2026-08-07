@@ -3777,7 +3777,7 @@ function PptSpotlightScene({
         >
           <span className="absolute inset-0 rounded-full border-[3px] border-dashed border-green-500/35" />
           <span className="absolute inset-7 rounded-full bg-green-50/70" />
-          <span className="relative z-10 grid h-[76px] w-[76px] place-items-center rounded-3xl bg-white p-3 shadow-card-lg">
+          <span className="relative z-10 grid h-[76px] w-[76px] animate-pulse-soft place-items-center rounded-3xl bg-white p-3 shadow-card-lg">
             {focusBrandIcon ? (
               <BrandIcon src={focusBrandIcon} tone="primary" className="h-full w-full" />
             ) : (
@@ -3794,7 +3794,10 @@ function PptSpotlightScene({
             {focusCard?.title}
           </h3>
           {focusCard?.text && (
-            <div className="mt-3 rounded-2xl bg-green-700 px-4 py-3.5">
+            <div
+              className="mt-3 rounded-2xl px-4 py-3.5"
+              style={{ background: 'linear-gradient(135deg, #1FAE85 0%, #0E8E68 100%)' }}
+            >
               <p className="text-[15.5px] font-bold leading-relaxed text-white">{focusCard.text}</p>
             </div>
           )}
