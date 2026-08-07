@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CourseTwoSidebar, type CourseTwoGroup } from './components/course2/CourseTwoSidebar';
 import { CourseTwoPlayer } from './components/course2/CourseTwoPlayer';
 import {
@@ -14,6 +14,7 @@ import {
 // sample package. See src/App.tsx for the matching routing lock.
 const SAMPLE_MODE = import.meta.env.VITE_SAMPLE_MODE === 'true';
 const COURSE_ID = SAMPLE_MODE ? 'emergency-sample' : 'emergency-full';
+const LOCK_STORAGE_KEY = `course-lock-v1:${COURSE_ID}`;
 
 // Chapter 4's own content -- including its own "ec4-quiz" -- stays in the
 // chapter group; only the bag-wide post-test and final closing screen
@@ -55,8 +56,40 @@ export default function CourseTwoShell() {
   const [jumpTarget, setJumpTarget] = useState(1);
   const [jumpNonce, setJumpNonce] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [unlockedSlideIds, setUnlockedSlideIds] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const raw = window.localStorage.getItem(LOCK_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const slides = useMemo(() => groups.flatMap((group) => group.slides), [groups]);
+
+  const maxUnlockedIndex = useMemo(() => {
+    const unlocked = new Set(unlockedSlideIds);
+    let nextLocked = 0;
+    while (nextLocked < slides.length && unlocked.has(slides[nextLocked].id)) nextLocked += 1;
+    return Math.min(nextLocked, Math.max(0, slides.length - 1));
+  }, [slides, unlockedSlideIds]);
+
+  useEffect(() => {
+    window.localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(unlockedSlideIds));
+  }, [unlockedSlideIds]);
+
+  const unlockSlide = useCallback((id: string) => {
+    setUnlockedSlideIds((ids) => (ids.includes(id) ? ids : [...ids, id]));
+  }, []);
+
+  const resetUnlocks = useCallback(() => {
+    setUnlockedSlideIds([]);
+    window.localStorage.removeItem(LOCK_STORAGE_KEY);
+  }, []);
 
   const jumpTo = (index: number) => {
+    if (index > maxUnlockedIndex) return;
     setJumpTarget(index + 1);
     setJumpNonce((n) => n + 1);
     setActiveIndex(index);
@@ -74,6 +107,7 @@ export default function CourseTwoShell() {
         onJump={jumpTo}
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
+        maxUnlockedIndex={maxUnlockedIndex}
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
@@ -82,6 +116,10 @@ export default function CourseTwoShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
+          strictSequential
+          maxUnlockedIndex={maxUnlockedIndex}
+          onUnlockSlide={unlockSlide}
+          onResetSequentialLocks={resetUnlocks}
         />
       </div>
     </div>

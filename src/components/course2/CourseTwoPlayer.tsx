@@ -50,7 +50,7 @@ export function CourseTwoPlayer({
     exit,
   } = useSlidePlayerEngine({ courseId, initialSlide, onExit, syncUrl: false, onSlideChange });
 
-  const sequentialLocked = strictSequential && courseId === 'licensing-full';
+  const sequentialLocked = strictSequential;
   const nextUnlocked = !sequentialLocked || index < (maxUnlockedIndex ?? 0);
   const canGoNext = index < slides.length - 1 && nextUnlocked;
   const unlockCurrentSlide = () => onUnlockSlide?.(slide.id);
