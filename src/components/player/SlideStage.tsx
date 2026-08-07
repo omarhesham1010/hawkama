@@ -3273,7 +3273,13 @@ function PptTimelineScene({
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const primaryVisual = slideVisualPool(slide, cards)[0];
-  const showPrimaryVisual = Boolean(primaryVisual) && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
+  // A single-card act's one step already carries its own icon badge below
+  // -- the floating illustration above it just duplicates that, and for
+  // course/2 in particular reads as a mismatched stock photo rather than
+  // the icon-badge identity the rest of the shot uses. Only show the
+  // floating visual when it's actually setting the scene for multiple
+  // steps, not duplicating the one step already on screen.
+  const showPrimaryVisual = Boolean(primaryVisual) && cards.length !== 1 && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
@@ -3306,7 +3312,7 @@ function PptTimelineScene({
           const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
-          const singleTimelineSummary = isCourse1Slide && cards.length === 1 ? pptSummaryFor(card) : undefined;
+          const singleTimelineSummary = cards.length === 1 ? pptSummaryFor(card) : undefined;
           return (
             <div key={index} className="flex items-start">
               {index > 0 && (
@@ -3607,7 +3613,7 @@ function PptSpotlightScene({
   const hasBulletSubcards = !focusCard?.text && Boolean(focusCard?.bullets?.length);
   const isSingleSpotlightCard = supporting.length === 0 && !hasBulletSubcards;
   const focusSummary = pptSummaryFor(focusCard);
-  const showFocusSummary = isCourse1Slide && isSingleSpotlightCard && Boolean(focusSummary);
+  const showFocusSummary = isSingleSpotlightCard && Boolean(focusSummary);
   // pptCardRevealOffsets always forces index 0's offset to 0 (correct for a
   // slide's real opening card, wrong here -- these "cards" are just this one
   // focus card's own bullets, and the first bullet is rarely spoken the
@@ -5039,7 +5045,16 @@ function PptStyleSlide({
       revealedCount={revealedCount}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        {!isIntroMotion && <PptTitle slide={slide} showVisual={!isMotionLedSlide || started || narrationPosition > 0 || narrationFinished} />}
+        {!isIntroMotion && (
+          <PptTitle
+            slide={slide}
+            // A single-card act already shows a large icon on the card
+            // itself (Spotlight/Timeline's focus badge) -- the small title
+            // icon next to it just duplicates the same glyph for no reason,
+            // reported directly against course/2's single-card shots.
+            showVisual={(!isMotionLedSlide || started || narrationPosition > 0 || narrationFinished) && displayCards.length !== 1}
+          />
+        )}
 
         {showIntroFiller ? (
           <PptIntroVisualFiller pool={introVisualPool} progress={introProgress} introText={introText} />
