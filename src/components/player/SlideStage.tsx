@@ -3756,6 +3756,46 @@ function PptSpotlightScene({
     );
   }
 
+  // Course/4 & course/5's activity slides hand their single setup card to
+  // this default Spotlight rendering (course/1, course/2, and course/3
+  // never reach here -- they're diverted to useEditorialSpotlight above),
+  // where it used to render as the same solid-green "poster" card as any
+  // other content shot. That heavy fill reads fine for a narrated fact but
+  // not for the card that's introducing an activity -- client asked for a
+  // lighter, template-style card here instead: icon in its own circle,
+  // title against an accent rule, and the setup text in a soft highlight
+  // box beneath it.
+  const isActivitySetupCard = slide.kind === 'activity' && isSingleSpotlightCard;
+  if (isActivitySetupCard) {
+    return (
+      <div className="flex min-h-0 flex-1 items-center justify-center px-8 pb-[65px]">
+        <div
+          className={`relative isolate flex w-full max-w-[620px] items-start gap-5 overflow-visible rounded-[32px] border border-green-700/15 bg-white/95 p-7 text-right shadow-[0_22px_44px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
+            focusVisible ? 'animate-epic-pop opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+          }`}
+        >
+          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-green-700/20 bg-green-50">
+            {focusBrandIcon ? (
+              <BrandIcon src={focusBrandIcon} tone="primary" className="h-9 w-9" />
+            ) : (
+              <CourseGlyph kind={courseGlyphKindDeduped(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, usedGlyphKinds)} active compact />
+            )}
+          </span>
+          <div className="min-w-0 flex-1">
+            <h3 className="border-r-4 border-green-700 pr-3 text-[24px] font-black leading-tight text-brand-strong">
+              {focusCard?.title}
+            </h3>
+            {focusCard?.text && (
+              <div className="mt-3 rounded-2xl border border-green-700/15 bg-green-50/60 px-4 py-3">
+                <p className="text-[16px] font-bold leading-relaxed text-ink">{focusCard.text}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // This column is centered across the full scene height with no regard
   // for Nasser's own (absolutely-positioned, so layout-invisible) layer,
   // so the supporting-chips row could end up sitting under him. Pushing it
