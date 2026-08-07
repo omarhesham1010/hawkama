@@ -3781,7 +3781,7 @@ function PptSpotlightScene({
             {focusBrandIcon ? (
               <BrandIcon src={focusBrandIcon} tone="primary" className="h-full w-full" />
             ) : (
-              <CourseGlyph kind={courseGlyphKindDeduped(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, usedGlyphKinds)} active compact />
+              <CourseGlyph kind={courseGlyphKindDeduped(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, usedGlyphKinds)} compact />
             )}
           </span>
         </div>
