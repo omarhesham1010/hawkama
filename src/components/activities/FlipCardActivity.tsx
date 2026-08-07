@@ -50,7 +50,7 @@ export function FlipCardActivity({
         </div>
         <p className="mt-3 text-3xl font-black text-brand">راجعت البطاقات جميعها</p>
         <p className="mt-2 max-w-[620px] text-[16px] font-bold leading-relaxed text-ink-soft">
-          كل بطاقة ظهرت وحدها وتمت مناقشتها بدون تزاحم بصري.
+          راجعتَ كل السيناريوهات ونقاطها الرئيسية واحدًا تلو الآخر.
         </p>
       </div>
     );
