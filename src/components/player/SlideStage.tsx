@@ -3768,29 +3768,36 @@ function PptSpotlightScene({
   const isActivitySetupCard = slide.kind === 'activity' && isSingleSpotlightCard;
   if (isActivitySetupCard) {
     return (
-      <div className="flex min-h-0 flex-1 items-center justify-center px-8 pb-[65px]">
+      <div className="flex min-h-0 flex-1 flex-row-reverse items-center justify-center gap-7 px-8 pb-[65px]">
         <div
-          className={`relative isolate flex w-full max-w-[620px] items-start gap-5 overflow-visible rounded-[32px] border border-green-700/15 bg-white/95 p-7 text-right shadow-[0_22px_44px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
-            focusVisible ? 'animate-epic-pop opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+          className={`relative grid h-[190px] w-[190px] shrink-0 place-items-center transition-all duration-700 ease-out ${
+            focusVisible ? 'opacity-100' : 'translate-y-4 scale-95 opacity-0'
           }`}
+          aria-hidden="true"
         >
-          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-green-700/20 bg-green-50">
+          <span className="absolute inset-0 rounded-full border-[3px] border-dashed border-green-500/35" />
+          <span className="absolute inset-7 rounded-full bg-green-50/70" />
+          <span className="relative z-10 grid h-[76px] w-[76px] place-items-center rounded-3xl bg-white p-3 shadow-card-lg">
             {focusBrandIcon ? (
-              <BrandIcon src={focusBrandIcon} tone="primary" className="h-9 w-9" />
+              <BrandIcon src={focusBrandIcon} tone="primary" className="h-full w-full" />
             ) : (
               <CourseGlyph kind={courseGlyphKindDeduped(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, usedGlyphKinds)} active compact />
             )}
           </span>
-          <div className="min-w-0 flex-1">
-            <h3 className="border-r-4 border-green-700 pr-3 text-[24px] font-black leading-tight text-brand-strong">
-              {focusCard?.title}
-            </h3>
-            {focusCard?.text && (
-              <div className="mt-3 rounded-2xl border border-green-700/15 bg-green-50/60 px-4 py-3">
-                <p className="text-[16px] font-bold leading-relaxed text-ink">{focusCard.text}</p>
-              </div>
-            )}
-          </div>
+        </div>
+        <div
+          className={`min-w-0 max-w-[420px] flex-1 overflow-visible rounded-[28px] border border-green-700/15 bg-white/95 p-6 text-right shadow-[0_22px_44px_rgb(24_82_55_/_0.10)] transition-all duration-500 ${
+            focusVisible ? 'animate-epic-pop opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+          }`}
+        >
+          <h3 className="border-r-4 border-green-700 pr-3 text-[23px] font-black leading-tight text-brand-strong">
+            {focusCard?.title}
+          </h3>
+          {focusCard?.text && (
+            <div className="mt-3 rounded-2xl bg-green-700 px-4 py-3.5">
+              <p className="text-[15.5px] font-bold leading-relaxed text-white">{focusCard.text}</p>
+            </div>
+          )}
         </div>
       </div>
     );
