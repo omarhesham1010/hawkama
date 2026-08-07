@@ -116,10 +116,7 @@ export default function CourseTwoShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
-          // TEMP: sequential lock disabled while course/2 is under active
-          // review (client asked to move freely) -- re-add `strictSequential`
-          // once review is done. Unlock plumbing below stays wired so this
-          // is a one-line flip, not a rebuild.
+          strictSequential
           maxUnlockedIndex={maxUnlockedIndex}
           onUnlockSlide={unlockSlide}
           onResetSequentialLocks={resetUnlocks}
