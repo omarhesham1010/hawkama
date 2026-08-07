@@ -3,7 +3,7 @@ import type { QuizData, QuizQuestion } from '../../types/course';
 import { Icon } from '../ui/Icon';
 import { Confetti } from '../ui/Confetti';
 import { ProgressBar } from '../layout/ProgressTracker';
-import { toArabicDigits } from '../../lib/utils';
+import { shuffle, toArabicDigits } from '../../lib/utils';
 import { useNarrationContext } from '../audio/NarrationContext';
 
 export function KnowledgeCheck({
@@ -25,17 +25,37 @@ export function KnowledgeCheck({
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [finished, setFinished] = useState(false);
+  // Authored options always put the correct answer first (index 0) --
+  // shuffle each question's option order (and remap correctIndex to match)
+  // once per quiz attempt so the correct answer's position varies instead
+  // of the first button always being right. Re-rolled on every retry, not
+  // just once ever, so a learner who retries doesn't just re-learn the
+  // same button positions.
+  const [shuffleNonce, setShuffleNonce] = useState(0);
+  const questions = useMemo(
+    () =>
+      quiz.questions.map((question) => {
+        const order = shuffle(question.options.map((_, i) => i));
+        return {
+          ...question,
+          options: order.map((i) => question.options[i]),
+          correctIndex: order.indexOf(question.correctIndex),
+        };
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [quiz, shuffleNonce],
+  );
 
-  const q = quiz.questions[current];
+  const q = questions[current];
   const answered = selected !== null;
 
   const score = useMemo(() => {
-    const correct = quiz.questions.reduce(
+    const correct = questions.reduce(
       (acc, question) => acc + (answers[question.id] === question.correctIndex ? 1 : 0),
       0,
     );
     return { correct, percent: Math.round((correct / total) * 100) };
-  }, [answers, quiz.questions, total]);
+  }, [answers, questions, total]);
 
   const choose = (i: number) => {
     if (answered) return;
@@ -61,6 +81,7 @@ export function KnowledgeCheck({
     setSelected(null);
     setAnswers({});
     setFinished(false);
+    setShuffleNonce((n) => n + 1);
   };
 
   // ---- Results ----
