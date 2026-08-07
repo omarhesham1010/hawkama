@@ -1386,7 +1386,7 @@ function IntroMotionScene({
   // so their pillar cards popped in at the fixed 0.52/0.62/0.72 fraction
   // fallbacks below regardless of when Nasser actually named each unit.
   const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
-    || slide.id.startsWith('policy') || slide.id.startsWith('gov2');
+    || slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
@@ -1486,21 +1486,52 @@ function IntroMotionScene({
     'gov2-u4-welcome': '/assets/visual-library/icon-policy-stakeholder-people.webp',
     'gov2-u5-welcome': '/assets/visual-library/icon-policy-shield-check-gradient.webp',
   };
+  const isCourse6Course = slide.id.startsWith('perf');
+  const isCourse7Course = slide.id.startsWith('qual');
+  // course/6 (مراقبة أداء النظام - إدارة حالات الإخفاق - حقوق المرضى) and
+  // course/7 (معايير - فحص - مراقبة وتحسين الجودة) share one trainer-guide
+  // template family with course/4 & course/5 (same "أبعاد" cover art, same
+  // gold/green icon set) -- extracted 7 new icons unique to their own two
+  // PDFs (patient-safety heart-check, patient-safety team circle, failure
+  // investigation gear, quality checklist+clock, quality target+clipboard,
+  // team presentation, continuous-improvement cycle badge) and reuse the
+  // general on-brand pool for the rest so every unit gets a distinct,
+  // real, on-topic hero instead of one repeated fallback.
+  const course6HeroByUnit: Record<string, string> = {
+    'perf-welcome': '/assets/visual-library/icon-patient-safety-heart-check.webp',
+    'perf-u1-welcome': '/assets/visual-library/icon-shield-check.webp',
+    'perf-u2-welcome': '/assets/visual-library/icon-failure-investigation-gear.webp',
+    'perf-u3-welcome': '/assets/visual-library/icon-quality-checklist-clock.webp',
+    'perf-u4-welcome': '/assets/visual-library/icon-alert-bell.webp',
+    'perf-u5-welcome': '/assets/visual-library/icon-patient-safety-team-circle.webp',
+  };
+  const course7HeroByUnit: Record<string, string> = {
+    'qual-welcome': '/assets/visual-library/icon-quality-target-clipboard.webp',
+    'qual-u1-welcome': '/assets/visual-library/icon-performance-chart.webp',
+    'qual-u2-welcome': '/assets/visual-library/icon-kpi-dashboard.webp',
+    'qual-u3-welcome': '/assets/visual-library/icon-quality-cycle-badge.webp',
+    'qual-u4-welcome': '/assets/visual-library/icon-search-plus.webp',
+    'qual-u5-welcome': '/assets/visual-library/icon-quality-team-presentation.webp',
+  };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
     : isPolicyCourse
       ? (policyHeroByUnit[slide.id] ?? '/assets/visual-library/intro-policy-compliance-scene.webp?v=2')
       : isGov2Course
         ? (governance2HeroByUnit[slide.id] ?? '/assets/visual-library/icon-policy-checklist-clipboard.webp')
-        : isEmergencyCourse
-          ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
-          : isCourse1Course
-            // Pulled straight from the client's own governance PPTX title
-            // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
-            // stock illustration bag/1 uses -- already on-brand since it's the
-            // client's own source material, so it needs no separate approval.
-            ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
-            : '/assets/visual-library/intro-governance-building-scene.webp';
+        : isCourse6Course
+          ? (course6HeroByUnit[slide.id] ?? '/assets/visual-library/icon-patient-safety-heart-check.webp')
+          : isCourse7Course
+            ? (course7HeroByUnit[slide.id] ?? '/assets/visual-library/icon-quality-target-clipboard.webp')
+            : isEmergencyCourse
+              ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
+              : isCourse1Course
+                // Pulled straight from the client's own governance PPTX title
+                // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
+                // stock illustration bag/1 uses -- already on-brand since it's the
+                // client's own source material, so it needs no separate approval.
+                ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
+                : '/assets/visual-library/intro-governance-building-scene.webp';
   // The skyline is a real rectangular photo (no transparency), unlike the
   // illustration it replaces for course/1 -- frame it as a photo card
   // (rounded corners + a light border) instead of letting a hard-edged
@@ -1508,7 +1539,7 @@ function IntroMotionScene({
   // the same story -- opaque PNGs exported with a solid black plate behind
   // the icon, not transparent clipart -- so they need the same photo-card
   // frame or the black background reads as a rendering bug.
-  const heroIsPhoto = isCourse1Course || isPolicyCourse || isGov2Course;
+  const heroIsPhoto = isCourse1Course || isPolicyCourse || isGov2Course || isCourse6Course || isCourse7Course;
   // Keep the pillar row's horizontal center locked to the hero image's own
   // center (both anchored from the right edge) so it never reads as
   // shifted off to one side, regardless of how many pillars are shown.
@@ -1855,6 +1886,11 @@ function courseGlyphKind(text: string): CourseGlyphKind {
   if (/لوجستيات|مخزون|توريد|نوبكو|الموردين|مرونة سلسلة/.test(text)) return 'supplyChain';
   if (/مراجعة ما بعد الحدث|AAR|الدروس المستفادة|خطة التحسين|PDCA/.test(text)) return 'afterAction';
   if (/مؤشرات الأداء|KPI|لوحة معلومات|Dashboard/.test(text)) return 'kpiDashboard';
+  if (/حقوق المرضى|سلامة المرضى|كرامة المريض|تجربة المرضى|PROMs|PREMs|المريض/.test(text)) return 'ethics';
+  if (/إخفاق|الإخفاقات|سبب جذري|الأسباب الجذرية|تحقيق في الحوادث|RCA/.test(text)) return 'risk';
+  if (/التفتيش|بروتوكولات التفتيش|فرق التفتيش/.test(text)) return 'audit';
+  if (/المقارنة المعيارية|Benchmarking|تقييم البرامج|القيمة مقابل التكلفة/.test(text)) return 'target';
+  if (/تحسين مستمر|Lean|Six Sigma|DMAIC/.test(text)) return 'audit';
   if (/طوارئ|أزمة|أزمات|كارثة|حادث/.test(text)) return 'risk';
   if (/مخاطر|خطر|Risk|KRI|الأثر|الاحتمالية/.test(text)) return 'risk';
   if (/امتثال|ضوابط|تدقيق|اختبار|PDCA|تحقق/.test(text)) return 'compliance';
@@ -2143,6 +2179,14 @@ function uniqueVisualCandidates(paths: Array<string | null | undefined>) {
 // reads as inconsistent -- flagged directly by the client. Each slide now
 // commits to ONE style for every image it shows, chosen deterministically
 // from its own id via policyGov2StyleFor() below.
+// course/6 (perf-) and course/7 (qual-) share this exact pipeline -- see
+// the comment by course6HeroByUnit/course7HeroByUnit above for why: same
+// "أبعاد" trainer-guide template family as policy/gov2, same rich-glossy
+// vs flat-line icon split, just with their own 7 newly-extracted icons
+// (patient safety, failure investigation, quality checklist/target/cycle,
+// team presentation) blended into the two style buckets below instead of
+// a parallel pool -- reusing the well-tested pipeline instead of
+// duplicating six call sites across this file.
 const POLICY_GOV2_ICON_POOL_RICH = [
   '/assets/visual-library/icon-policy-book-write.webp',
   '/assets/visual-library/icon-policy-education-shield.webp',
@@ -2151,6 +2195,10 @@ const POLICY_GOV2_ICON_POOL_RICH = [
   '/assets/visual-library/icon-policy-book-magnifier-research.webp',
   '/assets/visual-library/icon-policy-scroll-pen-check.webp',
   '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
+  '/assets/visual-library/icon-patient-safety-heart-check.webp',
+  '/assets/visual-library/icon-patient-safety-team-circle.webp',
+  '/assets/visual-library/icon-quality-team-presentation.webp',
+  '/assets/visual-library/icon-quality-cycle-badge.webp',
 ];
 const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-policy-presentation-plan.webp',
@@ -2159,6 +2207,12 @@ const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-policy-shield-check-gradient.webp',
   '/assets/visual-library/icon-policy-institution-shield.webp',
   '/assets/visual-library/icon-policy-analytics-search.webp',
+  '/assets/visual-library/icon-quality-checklist-clock.webp',
+  '/assets/visual-library/icon-quality-target-clipboard.webp',
+  '/assets/visual-library/icon-failure-investigation-gear.webp',
+  '/assets/visual-library/icon-kpi-dashboard.webp',
+  '/assets/visual-library/icon-performance-chart.webp',
+  '/assets/visual-library/icon-file-report.webp',
 ];
 type PolicyGov2Style = 'rich' | 'flat';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
@@ -2167,11 +2221,12 @@ function policyGov2StyleFor(slideId: string): PolicyGov2Style {
 function policyGov2PoolFor(style: PolicyGov2Style) {
   return style === 'flat' ? POLICY_GOV2_ICON_POOL_FLAT : POLICY_GOV2_ICON_POOL_RICH;
 }
-/** Every policy/gov2 call site threads this through instead of a plain
- *  boolean marker, so the whole slide -- hero, cards, matrix rows -- draws
- *  from the same one style bucket. Empty string for every other course. */
+/** Every policy/gov2/perf/qual call site threads this through instead of a
+ *  plain boolean marker, so the whole slide -- hero, cards, matrix rows --
+ *  draws from the same one style bucket. Empty string for every other
+ *  course. */
 function policyGov2Marker(slideId: string): string {
-  if (!(slideId.startsWith('policy') || slideId.startsWith('gov2'))) return '';
+  if (!(slideId.startsWith('policy') || slideId.startsWith('gov2') || slideId.startsWith('perf') || slideId.startsWith('qual'))) return '';
   return ` __policygov2:${policyGov2StyleFor(slideId)}__`;
 }
 
@@ -2182,6 +2237,20 @@ function policyGov2Marker(slideId: string): string {
 // first match wins) within EACH style bucket separately, so a match never
 // crosses into the other style and break a slide's single-style rule.
 const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; terms: string[] }> = [
+  // course/6 & course/7 -specific terms, checked first (see the comment by
+  // POLICY_GOV2_ICON_POOL_RICH above for why they share this pipeline).
+  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['حقوق المرضى', 'سلامة المرضى', 'كرامة المريض', 'المريض', 'المرضى'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-team-circle.webp', terms: ['الكادر الطبي', 'فريق طبي', 'فريق الرعاية', 'أصحاب المصلحة الصحيين'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-quality-team-presentation.webp', terms: ['ورشة عمل', 'محاكاة', 'عرض تقديمي', 'تعارف'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['تحسين مستمر', 'دورة PDCA', 'خطّط-نفّذ-تحقّق-حسّن', 'Lean', 'Six Sigma', 'DMAIC'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-failure-investigation-gear.webp', terms: ['إخفاق', 'الإخفاقات', 'سبب جذري', 'الأسباب الجذرية', 'تحقيق في الحوادث', 'RCA', 'حادث', 'الحوادث'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['مراقبة أداء النظام', 'متابعة دورية', 'مستويات المتابعة', 'التصعيد'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['المقارنة المعيارية', 'Benchmarking', 'أهداف البرنامج', 'تقييم البرامج'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['لوحة معلومات', 'لوحات المعلومات', 'Dashboard', 'تصوير البيانات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-performance-chart.webp', terms: ['مؤشرات النتائج', 'مؤشرات العمليات', 'اتجاهات الأداء', 'تحليل الاتجاهات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-file-report.webp', terms: ['تقرير الجودة', 'تقارير الجودة', 'كتابة التقارير', 'CAPA', 'ملخص تنفيذي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-search-plus.webp', terms: ['التفتيش', 'بروتوكولات التفتيش', 'فرق التفتيش', 'التدقيق القائم على المخاطر'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-alert-bell.webp', terms: ['إنذار', 'تنبيه', 'مستويات التصعيد', 'انحراف عن المعايير'] },
   // rich bucket
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['مقارن', 'معايرة', 'مرجعي', 'بدائل', 'خيارات', 'نماذج'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['بحث', 'تحليل', 'دراسة', 'استقصاء', 'فحص', 'استكشاف'] },
@@ -2801,7 +2870,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   if (slide.audioKey?.endsWith('-course1')) return [];
   // course/4 (policy) & course/5 (gov2) get their own real-brand pool --
   // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL_RICH/FLAT).
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const fallbackVisualPool = isPolicyGov2Slide
     ? policyGov2PoolFor(policyGov2StyleFor(slide.id))
@@ -2857,7 +2926,7 @@ function PptMotionVisualScene({
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
   const isMotionLedScene = isEmergencySlide || isCourse1Slide;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
@@ -3447,7 +3516,7 @@ function PptMatrixScene({
   // give them a real left-side image instead, picked from their own
   // real-brand pool with the same no-repeat-per-slide guarantee every other
   // ppt layout already has.
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
   const matrixVisualPool = isPolicyGov2Slide ? slideVisualPool(slide, cards) : [];
   const usedMatrixVisuals = new Set<string>();
   return (

@@ -61,6 +61,24 @@ import {
   governance2UnitThreeSlides,
   governance2UnitTwoSlides,
 } from './governance2Program';
+import {
+  perfClosingSlides,
+  perfIntroSlides,
+  perfUnitFiveSlides,
+  perfUnitFourSlides,
+  perfUnitOneSlides,
+  perfUnitThreeSlides,
+  perfUnitTwoSlides,
+} from './systemPerformanceProgram';
+import {
+  qualClosingSlides,
+  qualIntroSlides,
+  qualUnitFiveSlides,
+  qualUnitFourSlides,
+  qualUnitOneSlides,
+  qualUnitThreeSlides,
+  qualUnitTwoSlides,
+} from './qualityMonitoringProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
 import type { Slide } from '../types/slides';
 import { course1AudioScriptText } from './course1AudioScriptOverrides';
@@ -124,6 +142,20 @@ export const allNarratedSlides = [
   ...governance2UnitFourSlides,
   ...governance2UnitFiveSlides,
   ...governance2ClosingSlides,
+  ...perfIntroSlides,
+  ...perfUnitOneSlides,
+  ...perfUnitTwoSlides,
+  ...perfUnitThreeSlides,
+  ...perfUnitFourSlides,
+  ...perfUnitFiveSlides,
+  ...perfClosingSlides,
+  ...qualIntroSlides,
+  ...qualUnitOneSlides,
+  ...qualUnitTwoSlides,
+  ...qualUnitThreeSlides,
+  ...qualUnitFourSlides,
+  ...qualUnitFiveSlides,
+  ...qualClosingSlides,
 ];
 
 export const courseCatalog = {
@@ -294,6 +326,41 @@ export const courseCatalog = {
       ...governance2UnitFourSlides,
       ...governance2UnitFiveSlides,
       ...governance2ClosingSlides,
+    ],
+  },
+  // الجودة (مراقبة أداء النظام - إدارة حالات الإخفاق - والإشراف على حقوق
+  // المرضى والدفاع عنهم), single-link #/course/6 shell -- the whole bag
+  // (intro + 5 units + closing/post-test) as one sequence.
+  'perf-full': {
+    meta: {
+      title: 'الجودة: مراقبة أداء النظام وإدارة حالات الإخفاق وحقوق المرضى',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...perfIntroSlides,
+      ...perfUnitOneSlides,
+      ...perfUnitTwoSlides,
+      ...perfUnitThreeSlides,
+      ...perfUnitFourSlides,
+      ...perfUnitFiveSlides,
+      ...perfClosingSlides,
+    ],
+  },
+  // الجودة (معايير - فحص - مراقبة وتحسين الجودة), single-link #/course/7
+  // shell -- the whole bag (intro + 5 units + closing/post-test) as one sequence.
+  'qual-full': {
+    meta: {
+      title: 'الجودة: معايير وفحص ومراقبة وتحسين الجودة',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...qualIntroSlides,
+      ...qualUnitOneSlides,
+      ...qualUnitTwoSlides,
+      ...qualUnitThreeSlides,
+      ...qualUnitFourSlides,
+      ...qualUnitFiveSlides,
+      ...qualClosingSlides,
     ],
   },
 };
