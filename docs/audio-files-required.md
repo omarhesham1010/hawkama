@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **1060**.
+Generated from `src/data/audioScripts.ts`. Total required: **1069**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -932,6 +932,15 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s15b-activity-stakeholder-identify-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة غير صحيحة
 - `bag2-ch4-s15b-activity-stakeholder-path-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار صحيح
 - `bag2-ch4-s15b-activity-stakeholder-path-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag1-ch1-s5-policy-activity-course1-item-1.mp3` - نشاط: تطوير سياسة صحية - u1-pa-1
+- `bag1-ch1-s5-policy-activity-course1-item-2.mp3` - نشاط: تطوير سياسة صحية - u1-pa-2
+- `bag1-ch1-s5-policy-activity-course1-item-3.mp3` - نشاط: تطوير سياسة صحية - u1-pa-3
+- `bag1-ch1-s5-policy-activity-course1-item-4.mp3` - نشاط: تطوير سياسة صحية - u1-pa-4
+- `bag1-ch1-s5-policy-activity-course1-item-5.mp3` - نشاط: تطوير سياسة صحية - u1-pa-5
+- `bag1-ch2-s5-self-assessment-course1-item-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - u1-sa-1
+- `bag1-ch2-s5-self-assessment-course1-item-2.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - u1-sa-2
+- `bag1-ch2-s5-self-assessment-course1-item-3.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - u1-sa-3
+- `bag1-ch2-s5-self-assessment-course1-item-4.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - u1-sa-4
 - `bag4-ch1-s3-activity-1-item-u1-c1.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c1
 - `bag4-ch1-s3-activity-1-item-u1-c2.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c2
 - `bag4-ch1-s3-activity-1-item-u1-c3.mp3` - نشاط: التعلم المزدوج الحلقة - u1-c3
