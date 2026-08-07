@@ -9,11 +9,15 @@ const COURSE_TITLES = {
   1: 'الحوكمة والمخاطر والامتثال',
   2: 'إدارة الاستجابة للطوارئ',
   3: 'ترخيص المنشآت الصحية والقوى العاملة',
+  4: 'إعداد السياسات والأنظمة واللوائح في القطاع الصحي',
+  5: 'حوكمة القطاع الصحي',
 };
 const COURSE_IDENTIFIERS = {
   1: 'hawkama-governance-course',
   2: 'hawkama-emergency-course',
   3: 'hawkama-licensing-course',
+  4: 'hawkama-policy-course',
+  5: 'hawkama-governance2-course',
 };
 
 const distDir = join(process.cwd(), SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist');

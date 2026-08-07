@@ -6,18 +6,18 @@ import { createHash } from 'node:crypto';
 import * as esbuild from 'esbuild';
 
 const SAMPLE = process.argv.includes('--sample');
-// --course=1|2|3 produces a standalone single-course package: the app is
+// --course=1|2|3|4|5 produces a standalone single-course package: the app is
 // locked to that course's shell (VITE_SINGLE_COURSE, mirrors the existing
 // VITE_SAMPLE_MODE lock in App.tsx) and only that course's own audio is
 // kept, since a delivered "حقيبة" should be its own SCORM package, not the
-// whole 3-course platform with two irrelevant courses' narration inside it.
+// whole multi-course platform with the other courses' narration inside it.
 const courseArg = process.argv.find((arg) => arg.startsWith('--course='));
 const COURSE = courseArg ? courseArg.slice('--course='.length) : null;
-if (COURSE && !['1', '2', '3'].includes(COURSE)) {
-  throw new Error(`--course must be 1, 2, or 3 (got "${COURSE}")`);
+if (COURSE && !['1', '2', '3', '4', '5'].includes(COURSE)) {
+  throw new Error(`--course must be 1, 2, 3, 4, or 5 (got "${COURSE}")`);
 }
-const AUDIO_PREFIX_BY_COURSE = { 1: 'bag1-', 2: 'bag2-', 3: 'bag3-' };
-const SINGLE_COURSE_ROUTE = { 1: 'course1', 2: 'course2', 3: 'course3' };
+const AUDIO_PREFIX_BY_COURSE = { 1: 'bag1-', 2: 'bag2-', 3: 'bag3-', 4: 'bag4-', 5: 'bag5-' };
+const SINGLE_COURSE_ROUTE = { 1: 'course1', 2: 'course2', 3: 'course3', 4: 'course4', 5: 'course5' };
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist');

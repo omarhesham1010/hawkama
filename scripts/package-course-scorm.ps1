@@ -1,6 +1,6 @@
 ﻿param(
   [Parameter(Mandatory = $true)]
-  [ValidateSet("1", "2", "3")]
+  [ValidateSet("1", "2", "3", "4", "5")]
   [string]$Course
 )
 
@@ -20,6 +20,8 @@ $titleByCourse = @{
   "1" = "الحوكمة والمخاطر والامتثال"
   "2" = "إدارة الاستجابة للطوارئ"
   "3" = "ترخيص المنشآت الصحية والقوى العاملة"
+  "4" = "إعداد السياسات والأنظمة واللوائح في القطاع الصحي"
+  "5" = "حوكمة القطاع الصحي"
 }
 $title = $titleByCourse[$Course]
 $finalName = "حقيبة $Course - $title - SCORM2004.zip"
