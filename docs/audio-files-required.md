@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **1069**.
+Generated from `src/data/audioScripts.ts`. Total required: **1478**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -340,6 +340,116 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag5-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
 - `bag5-ch5-s10-post-test.mp3` - الاختبار الختامي الشامل
 - `bag5-ch5-s11-closing.mp3` - ختام حقيبة حوكمة القطاع الصحي
+- `bag6-ch0-s1-welcome.mp3` - الجودة: مراقبة أداء النظام وإدارة حالات الإخفاق وحقوق المرضى
+- `bag6-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag6-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag6-ch1-s1-welcome.mp3` - سلامة المرضى وثقافة الجودة
+- `bag6-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
+- `bag6-ch1-s2-safety-culture.mp3` - ثقافة السلامة والدعوة لها
+- `bag6-ch1-s3-activity-1.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ
+- `bag6-ch1-s4-culture-measurement.mp3` - قياس ثقافة السلامة والثقافة العادلة
+- `bag6-ch1-s5-activity-2.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك
+- `bag6-ch1-s6-safety-data.mp3` - أنظمة بيانات السلامة
+- `bag6-ch1-s7-activity-3.mp3` - نشاط: تحليل حالة دراسية لأنظمة بيانات السلامة
+- `bag6-ch1-s8-quiz.mp3` - اختبار الوحدة الأولى
+- `bag6-ch1-s9-closing.mp3` - ختام الوحدة الأولى
+- `bag6-ch2-s1-welcome.mp3` - إدارة حالات الإخفاق
+- `bag6-ch2-s1b-goals.mp3` - أهداف الوحدة الثانية
+- `bag6-ch2-s2-failure-management.mp3` - إدارة حالات الإخفاق للنظام
+- `bag6-ch2-s4-activity-1.mp3` - نشاط: تصنيف حالات الإخفاق النظامي
+- `bag6-ch2-s5-evidence-cases.mp3` - التعامل مع الأدلة وأنظمة إدارة القضايا
+- `bag6-ch2-s7-activity-2.mp3` - نشاط: تحديد الأدلة اللازمة لقضية تنظيمية
+- `bag6-ch2-s8-personality.mp3` - فهم الشخصيات وتحليل السلوك
+- `bag6-ch2-s8b-activity-3.mp3` - نشاط: استراتيجيات التعامل مع أنماط الشخصيات
+- `bag6-ch2-s9-quiz.mp3` - اختبار الوحدة الثانية
+- `bag6-ch2-s10-closing.mp3` - ختام الوحدة الثانية
+- `bag6-ch3-s1-welcome.mp3` - التفتيش والامتثال وضمان الجودة
+- `bag6-ch3-s1b-goals.mp3` - أهداف الوحدة الثالثة
+- `bag6-ch3-s2-inspection-protocols.mp3` - بروتوكولات التفتيش ومنهجيات التصنيف
+- `bag6-ch3-s4-activity-1.mp3` - نشاط: بناء فريق التفتيش وتصنيف المنشأة
+- `bag6-ch3-s5-organizational-audit.mp3` - الفحص والتدقيق التنظيمي
+- `bag6-ch3-s7-activity-2.mp3` - نشاط: تحديد مبادئ التدقيق المنتهكة
+- `bag6-ch3-s8-technical-compliance.mp3` - الكفاءة التقنية في التدقيق والامتثال التنظيمي
+- `bag6-ch3-s9-activity-3.mp3` - نشاط: مجالات المعايير التنظيمية
+- `bag6-ch3-s10-quiz.mp3` - اختبار الوحدة الثالثة
+- `bag6-ch3-s11-closing.mp3` - ختام الوحدة الثالثة
+- `bag6-ch4-s1-welcome.mp3` - المخاطر والأزمات
+- `bag6-ch4-s1b-goals.mp3` - أهداف الوحدة الرابعة
+- `bag6-ch4-s2-clinical-risk.mp3` - إدارة المخاطر السريرية وعلوم السلامة
+- `bag6-ch4-s4-activity-1.mp3` - نشاط: خريطة المخاطر السريرية
+- `bag6-ch4-s5-scenario-planning.mp3` - تقييم المخاطر متعددة الأخطار والتخطيط بالسيناريوهات
+- `bag6-ch4-s7-activity-2.mp3` - نشاط: تحليل سيناريو تعطل النظام الصحي
+- `bag6-ch4-s8-crisis-management.mp3` - إدارة الأزمات واتخاذ القرار
+- `bag6-ch4-s9-activity-3.mp3` - نشاط: مراحل إطار إدارة الأزمات
+- `bag6-ch4-s10-quiz.mp3` - اختبار الوحدة الرابعة
+- `bag6-ch4-s11-closing.mp3` - ختام الوحدة الرابعة
+- `bag6-ch5-s1-welcome.mp3` - حقوق المرضى والتحول المؤسسي
+- `bag6-ch5-s1b-goals.mp3` - أهداف الوحدة الخامسة
+- `bag6-ch5-s2-engagement.mp3` - مشاركة المرضى وتجربتهم
+- `bag6-ch5-s3-activity-1.mp3` - نشاط: أدوات قياس تجربة المرضى
+- `bag6-ch5-s5-patient-rights.mp3` - الإشراف على حقوق المرضى والدفاع عنهم
+- `bag6-ch5-s7-activity-2.mp3` - نشاط: تحديد الحقوق المنتهكة في موقف
+- `bag6-ch5-s8-stakeholders.mp3` - إدارة أصحاب المصلحة
+- `bag6-ch5-s9-activity-3.mp3` - نشاط: تصنيف أصحاب المصلحة
+- `bag6-ch5-s10-quiz.mp3` - اختبار الوحدة الخامسة
+- `bag6-ch5-s11-closing.mp3` - ختام الوحدة الخامسة
+- `bag6-ch6-s1-post-test.mp3` - الاختبار الختامي الشامل
+- `bag6-ch6-s2-closing.mp3` - ختام حقيبة الجودة: مراقبة أداء النظام وإدارة حالات الإخفاق وحقوق المرضى
+- `bag7-ch0-s1-welcome.mp3` - الجودة: معايير وفحص ومراقبة وتحسين الجودة
+- `bag7-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag7-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag7-ch1-s1-welcome.mp3` - أداء النظام وقياس الجودة
+- `bag7-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
+- `bag7-ch1-s2-system-performance.mp3` - أداء النظام والتحسين
+- `bag7-ch1-s3-activity-1.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ
+- `bag7-ch1-s5-performance-risk.mp3` - قياس الأداء والإشراف على المخاطر
+- `bag7-ch1-s7-activity-2.mp3` - نشاط: الانحراف كإشارة مخاطر
+- `bag7-ch1-s8-balanced-framework.mp3` - أطر مؤشرات النتائج والعمليات
+- `bag7-ch1-s9-activity-3.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج
+- `bag7-ch1-s10-quiz.mp3` - اختبار الوحدة الأولى
+- `bag7-ch1-s11-closing.mp3` - ختام الوحدة الأولى
+- `bag7-ch2-s1-welcome.mp3` - البيانات والتحليل واتخاذ القرار
+- `bag7-ch2-s1b-goals.mp3` - أهداف الوحدة الثانية
+- `bag7-ch2-s2-dashboards.mp3` - لوحات المعلومات وتصوير البيانات
+- `bag7-ch2-s4-activity-1.mp3` - نشاط: اختيار المؤشرات الحرجة
+- `bag7-ch2-s5-data-evidence.mp3` - تحليل البيانات واستخلاص الأدلة
+- `bag7-ch2-s7-activity-2.mp3` - نشاط: من البيانات إلى الأدلة
+- `bag7-ch2-s8-decision-making.mp3` - اتخاذ القرار
+- `bag7-ch2-s9-activity-3.mp3` - نشاط: نماذج اتخاذ القرار في الجودة
+- `bag7-ch2-s10-quiz.mp3` - اختبار الوحدة الثانية
+- `bag7-ch2-s11-closing.mp3` - ختام الوحدة الثانية
+- `bag7-ch3-s1-welcome.mp3` - التحسين المستمر والتحقيق
+- `bag7-ch3-s1b-goals.mp3` - أهداف الوحدة الثالثة
+- `bag7-ch3-s2-continuous-improvement.mp3` - التحسين المستمر
+- `bag7-ch3-s4-activity-1.mp3` - نشاط: اختيار نموذج التحسين الأنسب
+- `bag7-ch3-s5-rca-investigation.mp3` - تحليل السبب الجذري والتحقيق في الحوادث
+- `bag7-ch3-s7-activity-2.mp3` - نشاط: تحليل سبب جذري لحادث دوائي
+- `bag7-ch3-s8-human-factors.mp3` - العوامل البشرية وتحسين الجودة
+- `bag7-ch3-s9-activity-3.mp3` - نشاط: تقليل الأخطاء البشرية
+- `bag7-ch3-s10-quiz.mp3` - اختبار الوحدة الثالثة
+- `bag7-ch3-s11-closing.mp3` - ختام الوحدة الثالثة
+- `bag7-ch4-s1-welcome.mp3` - التقييم والمقارنة والتجربة
+- `bag7-ch4-s1b-goals.mp3` - أهداف الوحدة الرابعة
+- `bag7-ch4-s2-benchmarking.mp3` - مفهوم المقارنة المعيارية
+- `bag7-ch4-s4-activity-1.mp3` - نشاط: تحليل فجوات مستشفى الشفاء
+- `bag7-ch4-s5-program-value.mp3` - تقييم البرامج وأطر القيمة
+- `bag7-ch4-s7-activity-2.mp3` - نشاط: خطوات قياس القيمة مقابل التكلفة
+- `bag7-ch4-s8-proms-prems.mp3` - تصميم وجمع مؤشرات تجربة المرضى (PROMs / PREMs)
+- `bag7-ch4-s9-activity-3.mp3` - نشاط: تصنيف PROMs وPREMs
+- `bag7-ch4-s10-quiz.mp3` - اختبار الوحدة الرابعة
+- `bag7-ch4-s11-closing.mp3` - ختام الوحدة الرابعة
+- `bag7-ch5-s1-welcome.mp3` - التقارير والمتابعة
+- `bag7-ch5-s1b-goals.mp3` - أهداف الوحدة الخامسة
+- `bag7-ch5-s2-reports-capa.mp3` - كتابة التقارير ومراقبة الإجراءات التصحيحية
+- `bag7-ch5-s3-activity-1.mp3` - نشاط: خطوات CAPA
+- `bag7-ch5-s5-post-event-review.mp3` - التمارين ومراجعات ما بعد الحدث وخطط التحسين
+- `bag7-ch5-s7-activity-2.mp3` - نشاط: مراجعة ما بعد حدث ارتفاع العدوى
+- `bag7-ch5-s8-continuous-learning.mp3` - التعلم المستمر والتحقق من الكفاءة
+- `bag7-ch5-s9-activity-3.mp3` - نشاط: طرق التحقق من الكفاءة
+- `bag7-ch5-s10-quiz.mp3` - اختبار الوحدة الخامسة
+- `bag7-ch5-s11-closing.mp3` - ختام الوحدة الخامسة
+- `bag7-ch6-s1-post-test.mp3` - الاختبار الختامي الشامل
+- `bag7-ch6-s2-closing.mp3` - ختام حقيبة الجودة: معايير وفحص ومراقبة وتحسين الجودة
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
 - `bag1-ch1-s5-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
@@ -424,6 +534,36 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag5-ch5-s3-activity-1-detail-1.mp3` - نشاط: من متابعة المهام إلى إدارة القيمة - مناقشة 1
 - `bag5-ch5-s5-activity-2-detail-1.mp3` - نشاط: السياسة والإجراء وقابلية التنفيذ - مناقشة 1
 - `bag5-ch5-s7-activity-3-detail-1.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - مناقشة 1
+- `bag6-ch1-s3-activity-1-detail-1.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - مناقشة 1
+- `bag6-ch1-s5-activity-2-detail-1.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - مناقشة 1
+- `bag6-ch1-s7-activity-3-detail-1.mp3` - نشاط: تحليل حالة دراسية لأنظمة بيانات السلامة - مناقشة 1
+- `bag6-ch2-s4-activity-1-detail-1.mp3` - نشاط: تصنيف حالات الإخفاق النظامي - مناقشة 1
+- `bag6-ch2-s7-activity-2-detail-1.mp3` - نشاط: تحديد الأدلة اللازمة لقضية تنظيمية - مناقشة 1
+- `bag6-ch2-s8b-activity-3-detail-1.mp3` - نشاط: استراتيجيات التعامل مع أنماط الشخصيات - مناقشة 1
+- `bag6-ch3-s4-activity-1-detail-1.mp3` - نشاط: بناء فريق التفتيش وتصنيف المنشأة - مناقشة 1
+- `bag6-ch3-s7-activity-2-detail-1.mp3` - نشاط: تحديد مبادئ التدقيق المنتهكة - مناقشة 1
+- `bag6-ch3-s9-activity-3-detail-1.mp3` - نشاط: مجالات المعايير التنظيمية - مناقشة 1
+- `bag6-ch4-s4-activity-1-detail-1.mp3` - نشاط: خريطة المخاطر السريرية - مناقشة 1
+- `bag6-ch4-s7-activity-2-detail-1.mp3` - نشاط: تحليل سيناريو تعطل النظام الصحي - مناقشة 1
+- `bag6-ch4-s9-activity-3-detail-1.mp3` - نشاط: مراحل إطار إدارة الأزمات - مناقشة 1
+- `bag6-ch5-s3-activity-1-detail-1.mp3` - نشاط: أدوات قياس تجربة المرضى - مناقشة 1
+- `bag6-ch5-s7-activity-2-detail-1.mp3` - نشاط: تحديد الحقوق المنتهكة في موقف - مناقشة 1
+- `bag6-ch5-s9-activity-3-detail-1.mp3` - نشاط: تصنيف أصحاب المصلحة - مناقشة 1
+- `bag7-ch1-s3-activity-1-detail-1.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - مناقشة 1
+- `bag7-ch1-s7-activity-2-detail-1.mp3` - نشاط: الانحراف كإشارة مخاطر - مناقشة 1
+- `bag7-ch1-s9-activity-3-detail-1.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - مناقشة 1
+- `bag7-ch2-s4-activity-1-detail-1.mp3` - نشاط: اختيار المؤشرات الحرجة - مناقشة 1
+- `bag7-ch2-s7-activity-2-detail-1.mp3` - نشاط: من البيانات إلى الأدلة - مناقشة 1
+- `bag7-ch2-s9-activity-3-detail-1.mp3` - نشاط: نماذج اتخاذ القرار في الجودة - مناقشة 1
+- `bag7-ch3-s4-activity-1-detail-1.mp3` - نشاط: اختيار نموذج التحسين الأنسب - مناقشة 1
+- `bag7-ch3-s7-activity-2-detail-1.mp3` - نشاط: تحليل سبب جذري لحادث دوائي - مناقشة 1
+- `bag7-ch3-s9-activity-3-detail-1.mp3` - نشاط: تقليل الأخطاء البشرية - مناقشة 1
+- `bag7-ch4-s4-activity-1-detail-1.mp3` - نشاط: تحليل فجوات مستشفى الشفاء - مناقشة 1
+- `bag7-ch4-s7-activity-2-detail-1.mp3` - نشاط: خطوات قياس القيمة مقابل التكلفة - مناقشة 1
+- `bag7-ch4-s9-activity-3-detail-1.mp3` - نشاط: تصنيف PROMs وPREMs - مناقشة 1
+- `bag7-ch5-s3-activity-1-detail-1.mp3` - نشاط: خطوات CAPA - مناقشة 1
+- `bag7-ch5-s7-activity-2-detail-1.mp3` - نشاط: مراجعة ما بعد حدث ارتفاع العدوى - مناقشة 1
+- `bag7-ch5-s9-activity-3-detail-1.mp3` - نشاط: طرق التحقق من الكفاءة - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
@@ -822,6 +962,158 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag5-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
 - `bag5-ch5-s10-post-test-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
 - `bag5-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q2-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q3-correct.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q3-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q4-correct.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q4-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q5-correct.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة صحيحة
+- `bag6-ch1-s8-quiz-feedback-perf-u1-q5-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q1-correct.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q1-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q2-correct.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q2-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q3-correct.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q3-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q4-correct.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q4-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q5-correct.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة صحيحة
+- `bag6-ch2-s9-quiz-feedback-perf-u2-q5-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q1-correct.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q1-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q2-correct.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q2-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q3-correct.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q3-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q4-correct.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q4-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q5-correct.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة صحيحة
+- `bag6-ch3-s10-quiz-feedback-perf-u3-q5-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q1-correct.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q1-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q2-correct.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q2-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q3-correct.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q3-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q4-correct.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q4-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q5-correct.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة صحيحة
+- `bag6-ch4-s10-quiz-feedback-perf-u4-q5-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q1-correct.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q1-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q2-correct.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q2-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q3-correct.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q3-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q4-correct.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
+- `bag6-ch5-s10-quiz-feedback-perf-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q2-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q3-correct.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q3-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q4-correct.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q4-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q5-correct.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة صحيحة
+- `bag7-ch1-s10-quiz-feedback-qual-u1-q5-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q1-correct.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q1-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q2-correct.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q2-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q3-correct.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q3-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q4-correct.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q4-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q5-correct.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة صحيحة
+- `bag7-ch2-s10-quiz-feedback-qual-u2-q5-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q1-correct.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q1-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q2-correct.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q2-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q3-correct.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q3-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q4-correct.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q4-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q5-correct.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة صحيحة
+- `bag7-ch3-s10-quiz-feedback-qual-u3-q5-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q1-correct.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q1-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q2-correct.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q2-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q3-correct.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q3-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q4-correct.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q4-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q5-correct.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة صحيحة
+- `bag7-ch4-s10-quiz-feedback-qual-u4-q5-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q1-correct.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q1-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q2-correct.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q2-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q3-correct.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q3-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q4-correct.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
+- `bag7-ch5-s10-quiz-feedback-qual-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -1063,6 +1355,123 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag5-ch5-s7-activity-3-incorrect.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - إجابة غير صحيحة
 - `bag5-ch5-s7-activity-3-path-correct.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - مسار صحيح
 - `bag5-ch5-s7-activity-3-path-incorrect.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة - مسار غير صحيح
+- `bag6-ch1-s3-activity-1-item-u1-open-1.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - u1-open-1
+- `bag6-ch1-s3-activity-1-item-u1-open-2.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - u1-open-2
+- `bag6-ch1-s3-activity-1-item-u1-open-3.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - u1-open-3
+- `bag6-ch1-s4-activity-2-item-u1-cl1.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - u1-cl1
+- `bag6-ch1-s4-activity-2-item-u1-cl2.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - u1-cl2
+- `bag6-ch1-s4-activity-2-item-u1-cl3.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - u1-cl3
+- `bag6-ch1-s4-activity-2-item-u1-cl4.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - u1-cl4
+- `bag6-ch1-s4-activity-2-item-u1-cl5.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - u1-cl5
+- `bag6-ch1-s4-activity-2-item-u1-cl6.mp3` - نشاط: تصنيف أدوات القياس ونماذج السلوك - u1-cl6
+- `bag6-ch1-s7-activity-3-correct.mp3` - نشاط: تحليل حالة دراسية لأنظمة بيانات السلامة - إجابة صحيحة
+- `bag6-ch1-s7-activity-3-incorrect.mp3` - نشاط: تحليل حالة دراسية لأنظمة بيانات السلامة - إجابة غير صحيحة
+- `bag6-ch1-s7-activity-3-path-correct.mp3` - نشاط: تحليل حالة دراسية لأنظمة بيانات السلامة - مسار صحيح
+- `bag6-ch1-s7-activity-3-path-incorrect.mp3` - نشاط: تحليل حالة دراسية لأنظمة بيانات السلامة - مسار غير صحيح
+- `bag6-ch2-s4-activity-1-item-u2-cl1.mp3` - نشاط: تصنيف حالات الإخفاق النظامي - u2-cl1
+- `bag6-ch2-s4-activity-1-item-u2-cl2.mp3` - نشاط: تصنيف حالات الإخفاق النظامي - u2-cl2
+- `bag6-ch2-s4-activity-1-item-u2-cl3.mp3` - نشاط: تصنيف حالات الإخفاق النظامي - u2-cl3
+- `bag6-ch2-s4-activity-1-item-u2-cl4.mp3` - نشاط: تصنيف حالات الإخفاق النظامي - u2-cl4
+- `bag6-ch2-s7-activity-2-correct.mp3` - نشاط: تحديد الأدلة اللازمة لقضية تنظيمية - إجابة صحيحة
+- `bag6-ch2-s7-activity-2-incorrect.mp3` - نشاط: تحديد الأدلة اللازمة لقضية تنظيمية - إجابة غير صحيحة
+- `bag6-ch2-s7-activity-2-path-correct.mp3` - نشاط: تحديد الأدلة اللازمة لقضية تنظيمية - مسار صحيح
+- `bag6-ch2-s7-activity-2-path-incorrect.mp3` - نشاط: تحديد الأدلة اللازمة لقضية تنظيمية - مسار غير صحيح
+- `bag6-ch2-s8-activity-3-item-u2-f1.mp3` - نشاط: استراتيجيات التعامل مع أنماط الشخصيات - u2-f1
+- `bag6-ch2-s8-activity-3-item-u2-f2.mp3` - نشاط: استراتيجيات التعامل مع أنماط الشخصيات - u2-f2
+- `bag6-ch2-s8-activity-3-item-u2-f3.mp3` - نشاط: استراتيجيات التعامل مع أنماط الشخصيات - u2-f3
+- `bag6-ch2-s8-activity-3-item-u2-f4.mp3` - نشاط: استراتيجيات التعامل مع أنماط الشخصيات - u2-f4
+- `bag6-ch3-s4-activity-1-correct.mp3` - نشاط: بناء فريق التفتيش وتصنيف المنشأة - إجابة صحيحة
+- `bag6-ch3-s4-activity-1-incorrect.mp3` - نشاط: بناء فريق التفتيش وتصنيف المنشأة - إجابة غير صحيحة
+- `bag6-ch3-s4-activity-1-path-correct.mp3` - نشاط: بناء فريق التفتيش وتصنيف المنشأة - مسار صحيح
+- `bag6-ch3-s4-activity-1-path-incorrect.mp3` - نشاط: بناء فريق التفتيش وتصنيف المنشأة - مسار غير صحيح
+- `bag6-ch3-s7-activity-2-item-u3-cl1.mp3` - نشاط: تحديد مبادئ التدقيق المنتهكة - u3-cl1
+- `bag6-ch3-s7-activity-2-item-u3-cl2.mp3` - نشاط: تحديد مبادئ التدقيق المنتهكة - u3-cl2
+- `bag6-ch3-s7-activity-2-item-u3-cl3.mp3` - نشاط: تحديد مبادئ التدقيق المنتهكة - u3-cl3
+- `bag6-ch3-s9-activity-3-item-u3-f1.mp3` - نشاط: مجالات المعايير التنظيمية - u3-f1
+- `bag6-ch3-s9-activity-3-item-u3-f2.mp3` - نشاط: مجالات المعايير التنظيمية - u3-f2
+- `bag6-ch3-s9-activity-3-item-u3-f3.mp3` - نشاط: مجالات المعايير التنظيمية - u3-f3
+- `bag6-ch3-s9-activity-3-item-u3-f4.mp3` - نشاط: مجالات المعايير التنظيمية - u3-f4
+- `bag6-ch4-s4-activity-1-item-u4-cl1.mp3` - نشاط: خريطة المخاطر السريرية - u4-cl1
+- `bag6-ch4-s4-activity-1-item-u4-cl2.mp3` - نشاط: خريطة المخاطر السريرية - u4-cl2
+- `bag6-ch4-s4-activity-1-item-u4-cl3.mp3` - نشاط: خريطة المخاطر السريرية - u4-cl3
+- `bag6-ch4-s4-activity-1-item-u4-cl4.mp3` - نشاط: خريطة المخاطر السريرية - u4-cl4
+- `bag6-ch4-s7-activity-2-correct.mp3` - نشاط: تحليل سيناريو تعطل النظام الصحي - إجابة صحيحة
+- `bag6-ch4-s7-activity-2-incorrect.mp3` - نشاط: تحليل سيناريو تعطل النظام الصحي - إجابة غير صحيحة
+- `bag6-ch4-s7-activity-2-path-correct.mp3` - نشاط: تحليل سيناريو تعطل النظام الصحي - مسار صحيح
+- `bag6-ch4-s7-activity-2-path-incorrect.mp3` - نشاط: تحليل سيناريو تعطل النظام الصحي - مسار غير صحيح
+- `bag6-ch4-s9-activity-3-item-u4-f1.mp3` - نشاط: مراحل إطار إدارة الأزمات - u4-f1
+- `bag6-ch4-s9-activity-3-item-u4-f2.mp3` - نشاط: مراحل إطار إدارة الأزمات - u4-f2
+- `bag6-ch4-s9-activity-3-item-u4-f3.mp3` - نشاط: مراحل إطار إدارة الأزمات - u4-f3
+- `bag6-ch4-s9-activity-3-item-u4-f4.mp3` - نشاط: مراحل إطار إدارة الأزمات - u4-f4
+- `bag6-ch5-s3-activity-1-item-u5-f1.mp3` - نشاط: أدوات قياس تجربة المرضى - u5-f1
+- `bag6-ch5-s3-activity-1-item-u5-f2.mp3` - نشاط: أدوات قياس تجربة المرضى - u5-f2
+- `bag6-ch5-s3-activity-1-item-u5-f3.mp3` - نشاط: أدوات قياس تجربة المرضى - u5-f3
+- `bag6-ch5-s3-activity-1-item-u5-f4.mp3` - نشاط: أدوات قياس تجربة المرضى - u5-f4
+- `bag6-ch5-s7-activity-2-correct.mp3` - نشاط: تحديد الحقوق المنتهكة في موقف - إجابة صحيحة
+- `bag6-ch5-s7-activity-2-incorrect.mp3` - نشاط: تحديد الحقوق المنتهكة في موقف - إجابة غير صحيحة
+- `bag6-ch5-s7-activity-2-path-correct.mp3` - نشاط: تحديد الحقوق المنتهكة في موقف - مسار صحيح
+- `bag6-ch5-s7-activity-2-path-incorrect.mp3` - نشاط: تحديد الحقوق المنتهكة في موقف - مسار غير صحيح
+- `bag6-ch5-s9-activity-3-item-u5-cl1.mp3` - نشاط: تصنيف أصحاب المصلحة - u5-cl1
+- `bag6-ch5-s9-activity-3-item-u5-cl2.mp3` - نشاط: تصنيف أصحاب المصلحة - u5-cl2
+- `bag6-ch5-s9-activity-3-item-u5-cl3.mp3` - نشاط: تصنيف أصحاب المصلحة - u5-cl3
+- `bag6-ch5-s9-activity-3-item-u5-cl4.mp3` - نشاط: تصنيف أصحاب المصلحة - u5-cl4
+- `bag7-ch1-s3-activity-1-item-u1-open-1.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - u1-open-1
+- `bag7-ch1-s3-activity-1-item-u1-open-2.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - u1-open-2
+- `bag7-ch1-s3-activity-1-item-u1-open-3.mp3` - نشاط: مفاهيم افتتاحية قبل أن نبدأ - u1-open-3
+- `bag7-ch1-s7-activity-2-correct.mp3` - نشاط: الانحراف كإشارة مخاطر - إجابة صحيحة
+- `bag7-ch1-s7-activity-2-incorrect.mp3` - نشاط: الانحراف كإشارة مخاطر - إجابة غير صحيحة
+- `bag7-ch1-s7-activity-2-path-correct.mp3` - نشاط: الانحراف كإشارة مخاطر - مسار صحيح
+- `bag7-ch1-s7-activity-2-path-incorrect.mp3` - نشاط: الانحراف كإشارة مخاطر - مسار غير صحيح
+- `bag7-ch1-s9-activity-3-item-u1-cl1.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - u1-cl1
+- `bag7-ch1-s9-activity-3-item-u1-cl2.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - u1-cl2
+- `bag7-ch1-s9-activity-3-item-u1-cl3.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - u1-cl3
+- `bag7-ch1-s9-activity-3-item-u1-cl4.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - u1-cl4
+- `bag7-ch1-s9-activity-3-item-u1-cl5.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - u1-cl5
+- `bag7-ch1-s9-activity-3-item-u1-cl6.mp3` - نشاط: تصنيف المؤشرات بين عمليات ونتائج - u1-cl6
+- `bag7-ch2-s4-activity-1-item-u2-cl1.mp3` - نشاط: اختيار المؤشرات الحرجة - u2-cl1
+- `bag7-ch2-s4-activity-1-item-u2-cl2.mp3` - نشاط: اختيار المؤشرات الحرجة - u2-cl2
+- `bag7-ch2-s4-activity-1-item-u2-cl3.mp3` - نشاط: اختيار المؤشرات الحرجة - u2-cl3
+- `bag7-ch2-s4-activity-1-item-u2-cl4.mp3` - نشاط: اختيار المؤشرات الحرجة - u2-cl4
+- `bag7-ch2-s7-activity-2-correct.mp3` - نشاط: من البيانات إلى الأدلة - إجابة صحيحة
+- `bag7-ch2-s7-activity-2-incorrect.mp3` - نشاط: من البيانات إلى الأدلة - إجابة غير صحيحة
+- `bag7-ch2-s7-activity-2-path-correct.mp3` - نشاط: من البيانات إلى الأدلة - مسار صحيح
+- `bag7-ch2-s7-activity-2-path-incorrect.mp3` - نشاط: من البيانات إلى الأدلة - مسار غير صحيح
+- `bag7-ch2-s9-activity-3-item-u2-f1.mp3` - نشاط: نماذج اتخاذ القرار في الجودة - u2-f1
+- `bag7-ch2-s9-activity-3-item-u2-f2.mp3` - نشاط: نماذج اتخاذ القرار في الجودة - u2-f2
+- `bag7-ch2-s9-activity-3-item-u2-f3.mp3` - نشاط: نماذج اتخاذ القرار في الجودة - u2-f3
+- `bag7-ch3-s4-activity-1-item-u3-cl1.mp3` - نشاط: اختيار نموذج التحسين الأنسب - u3-cl1
+- `bag7-ch3-s4-activity-1-item-u3-cl2.mp3` - نشاط: اختيار نموذج التحسين الأنسب - u3-cl2
+- `bag7-ch3-s4-activity-1-item-u3-cl3.mp3` - نشاط: اختيار نموذج التحسين الأنسب - u3-cl3
+- `bag7-ch3-s7-activity-2-correct.mp3` - نشاط: تحليل سبب جذري لحادث دوائي - إجابة صحيحة
+- `bag7-ch3-s7-activity-2-incorrect.mp3` - نشاط: تحليل سبب جذري لحادث دوائي - إجابة غير صحيحة
+- `bag7-ch3-s7-activity-2-path-correct.mp3` - نشاط: تحليل سبب جذري لحادث دوائي - مسار صحيح
+- `bag7-ch3-s7-activity-2-path-incorrect.mp3` - نشاط: تحليل سبب جذري لحادث دوائي - مسار غير صحيح
+- `bag7-ch3-s9-activity-3-item-u3-f1.mp3` - نشاط: تقليل الأخطاء البشرية - u3-f1
+- `bag7-ch3-s9-activity-3-item-u3-f2.mp3` - نشاط: تقليل الأخطاء البشرية - u3-f2
+- `bag7-ch3-s9-activity-3-item-u3-f3.mp3` - نشاط: تقليل الأخطاء البشرية - u3-f3
+- `bag7-ch3-s9-activity-3-item-u3-f4.mp3` - نشاط: تقليل الأخطاء البشرية - u3-f4
+- `bag7-ch4-s4-activity-1-correct.mp3` - نشاط: تحليل فجوات مستشفى الشفاء - إجابة صحيحة
+- `bag7-ch4-s4-activity-1-incorrect.mp3` - نشاط: تحليل فجوات مستشفى الشفاء - إجابة غير صحيحة
+- `bag7-ch4-s4-activity-1-path-correct.mp3` - نشاط: تحليل فجوات مستشفى الشفاء - مسار صحيح
+- `bag7-ch4-s4-activity-1-path-incorrect.mp3` - نشاط: تحليل فجوات مستشفى الشفاء - مسار غير صحيح
+- `bag7-ch4-s7-activity-2-item-u4-f1.mp3` - نشاط: خطوات قياس القيمة مقابل التكلفة - u4-f1
+- `bag7-ch4-s7-activity-2-item-u4-f2.mp3` - نشاط: خطوات قياس القيمة مقابل التكلفة - u4-f2
+- `bag7-ch4-s7-activity-2-item-u4-f3.mp3` - نشاط: خطوات قياس القيمة مقابل التكلفة - u4-f3
+- `bag7-ch4-s9-activity-3-item-u4-cl1.mp3` - نشاط: تصنيف PROMs وPREMs - u4-cl1
+- `bag7-ch4-s9-activity-3-item-u4-cl2.mp3` - نشاط: تصنيف PROMs وPREMs - u4-cl2
+- `bag7-ch4-s9-activity-3-item-u4-cl3.mp3` - نشاط: تصنيف PROMs وPREMs - u4-cl3
+- `bag7-ch4-s9-activity-3-item-u4-cl4.mp3` - نشاط: تصنيف PROMs وPREMs - u4-cl4
+- `bag7-ch5-s3-activity-1-item-u5-f1.mp3` - نشاط: خطوات CAPA - u5-f1
+- `bag7-ch5-s3-activity-1-item-u5-f2.mp3` - نشاط: خطوات CAPA - u5-f2
+- `bag7-ch5-s3-activity-1-item-u5-f3.mp3` - نشاط: خطوات CAPA - u5-f3
+- `bag7-ch5-s3-activity-1-item-u5-f4.mp3` - نشاط: خطوات CAPA - u5-f4
+- `bag7-ch5-s7-activity-2-correct.mp3` - نشاط: مراجعة ما بعد حدث ارتفاع العدوى - إجابة صحيحة
+- `bag7-ch5-s7-activity-2-incorrect.mp3` - نشاط: مراجعة ما بعد حدث ارتفاع العدوى - إجابة غير صحيحة
+- `bag7-ch5-s7-activity-2-path-correct.mp3` - نشاط: مراجعة ما بعد حدث ارتفاع العدوى - مسار صحيح
+- `bag7-ch5-s7-activity-2-path-incorrect.mp3` - نشاط: مراجعة ما بعد حدث ارتفاع العدوى - مسار غير صحيح
+- `bag7-ch5-s9-activity-3-item-u5-cl1.mp3` - نشاط: طرق التحقق من الكفاءة - u5-cl1
+- `bag7-ch5-s9-activity-3-item-u5-cl2.mp3` - نشاط: طرق التحقق من الكفاءة - u5-cl2
+- `bag7-ch5-s9-activity-3-item-u5-cl3.mp3` - نشاط: طرق التحقق من الكفاءة - u5-cl3
 - `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - bag1-ch1-s5-policy-activity-course1-detail-2
 - `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - bag1-ch1-s5-policy-activity-course1-detail-3
 - `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - bag1-ch1-s5-policy-activity-course1-detail-4
