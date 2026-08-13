@@ -2327,6 +2327,32 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-investment-assets-growth.webp', terms: ['الاستثمار', 'تنويع الأصول', 'العائد على الاستثمار', 'تحليل الأثر الاقتصادي'] },
   { style: 'flat', icon: '/assets/visual-library/icon-handshake-negotiation-growth.webp', terms: ['التفاوض', 'الشراكة', 'التفاوض القائم على القيمة', 'موازين القوى'] },
   { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['خفض التكلفة', 'كفاءة التسعير', 'تقليل الهدر', 'الكفاءة التقنية'] },
+  // course/8 & course/9 short card-title phrases (the recurring nouns inside
+  // their own hero card sets) -- checked before the broad paragraph-level
+  // rules above so a bare card label like "الممول" or "قائمة الدخل" gets a
+  // real thematic match instead of falling to the generic flat/rich pool.
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['صانع السياسة الصحية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['الجهة التنظيمية والرقابية', 'مخاطر تنظيمية', 'مركز التأمين الصحي الوطني', 'الجهة التنظيمية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-gold-coins-stack.webp', terms: ['المشغّل الاستراتيجي', 'الدفعات المقطوعة', 'قائمة التدفقات النقدية', 'الممول'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-team-circle.webp', terms: ['مقدّمو الخدمات', 'المقدّم', 'تحسين صحة المجتمع'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-compass-arrows.webp', terms: ['الاستقلالية في اتخاذ القرار', 'الاستقلالية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['الانفتاح والشفافية', 'هيئة الغذاء والدواء'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['قابلية القرار للمراجعة', 'العدالة', 'تسعير الربط'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['العدالة بين الأطراف', 'مخاطر سيبرانية', 'عدم الإيذاء', 'تمييز سعري غير مبرر'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-performance-chart.webp', terms: ['قائمة الدخل', 'الدفع مقابل الأداء', 'مؤشرات تشغيلية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['قائمة المركز المالي', 'مؤشرات مالية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['تكلفة متغيرة', 'تسعير الإفراط'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['تكلفة شبه متغيرة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-contract-signing.webp', terms: ['تعرفة الخدمات', 'الضمان الصحي التعاوني'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-documents-stack-reports.webp', terms: ['المدفوعات المجمّعة', 'منصة اعتماد'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['مخاطر إكلينيكية', 'الإحسان', 'تجربة المريض'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-gears-analytics-scene.webp', terms: ['مخاطر تشغيلية', 'عقود التشغيل والصيانة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['مخاطر سمعة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['وزارة الصحة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-handshake-negotiation-growth.webp', terms: ['مجلس الضمان الصحي', 'تنسيق الأسعار'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-team-strategy-globe.webp', terms: ['عقود الشركات', 'مؤشرات استراتيجية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['وضوح المسؤولية والصلاحيات'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-quality-team-presentation.webp', terms: ['رفاه ممارس الرعاية الصحية'] },
   // rich bucket
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['مقارن', 'معايرة', 'مرجعي', 'بدائل', 'خيارات', 'نماذج'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['بحث', 'تحليل', 'دراسة', 'استقصاء', 'فحص', 'استكشاف'] },
@@ -2946,7 +2972,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   if (slide.audioKey?.endsWith('-course1')) return [];
   // course/4 (policy) & course/5 (gov2) get their own real-brand pool --
   // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL_RICH/FLAT).
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
   const fallbackVisualPool = isPolicyGov2Slide
     ? policyGov2PoolFor(policyGov2StyleFor(slide.id))
@@ -3002,7 +3028,7 @@ function PptMotionVisualScene({
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const isMotionLedScene = isEmergencySlide || isCourse1Slide;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
@@ -3417,14 +3443,22 @@ function PptTimelineScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const primaryVisual = slideVisualPool(slide, cards)[0];
   // A single-card act's one step already carries its own icon badge below
   // -- the floating illustration above it just duplicates that, and for
   // course/2 in particular reads as a mismatched stock photo rather than
   // the icon-badge identity the rest of the shot uses. Only show the
   // floating visual when it's actually setting the scene for multiple
-  // steps, not duplicating the one step already on screen.
-  const showPrimaryVisual = Boolean(primaryVisual) && cards.length !== 1 && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
+  // steps, not duplicating the one step already on screen. The same
+  // duplication happens on EVERY policy/gov2/perf/qual/econ8/econ9 timeline
+  // (their per-card badge is always a CourseGlyph icon, never a photo, since
+  // `brandIcon` below only fires for isEmergencySlide) -- one shot showing
+  // both a floating stock photo and per-card vector icons reads as two
+  // different visual identities mixed together, so this whole course family
+  // skips the floating visual and commits to icon badges only.
+  const showPrimaryVisual =
+    Boolean(primaryVisual) && cards.length !== 1 && !isPolicyGov2Slide && (!isEmergencySlide || cards.some((_, index) => visibleFor(index)));
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
@@ -3592,7 +3626,7 @@ function PptMatrixScene({
   // give them a real left-side image instead, picked from their own
   // real-brand pool with the same no-repeat-per-slide guarantee every other
   // ppt layout already has.
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const matrixVisualPool = isPolicyGov2Slide ? slideVisualPool(slide, cards) : [];
   const usedMatrixVisuals = new Set<string>();
   return (
@@ -3739,6 +3773,7 @@ function PptSpotlightScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
   const supporting = cards.filter((_, i) => i !== focusIndex);
@@ -3750,7 +3785,12 @@ function PptSpotlightScene({
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex, usedBrandIcons) : null;
-  const showFocusVisual = Boolean(primaryVisual) && (!isEmergencySlide || focusVisible);
+  // policy/gov2/perf/qual/econ8/econ9 have no brand-icon set (focusBrandIcon
+  // is always null for them), so their focus card's own center badge always
+  // falls to the CourseGlyph vector icon a few lines below -- showing this
+  // floating stock-photo corner badge too would mix two different visual
+  // identities (real photo + generic icon) into the same shot.
+  const showFocusVisual = Boolean(primaryVisual) && !isPolicyGov2Slide && (!isEmergencySlide || focusVisible);
   // Enough supporting chips (5+, i.e. a 6-card slide -- only two of these
   // exist in bag 2) would wrap onto a second row at the normal chip size;
   // packed tighter they fit a single row instead, which matters below.
