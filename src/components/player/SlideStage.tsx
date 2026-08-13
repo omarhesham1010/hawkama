@@ -1513,6 +1513,29 @@ function IntroMotionScene({
     'qual-u4-welcome': '/assets/visual-library/icon-search-plus.webp',
     'qual-u5-welcome': '/assets/visual-library/icon-quality-team-presentation.webp',
   };
+  const isCourse8Course = slide.id.startsWith('econ8');
+  const isCourse9Course = slide.id.startsWith('econ9');
+  // course/8 (التحليل الاقتصادي والرعاية الصحية المبنية على القيمة) and
+  // course/9 (التنظيم الاقتصادي: التنافسية والشفافية وآليات التسعير والدفع)
+  // -- same "أبعاد" template family, each unit welcome gets one of the 14
+  // icons extracted from their own 273- and 128-page trainer guides (see
+  // the comment by POLICY_GOV2_ICON_POOL_RICH above).
+  const course8HeroByUnit: Record<string, string> = {
+    'econ8-welcome': '/assets/visual-library/icon-financial-dashboard-analytics.webp',
+    'econ8-u1-welcome': '/assets/visual-library/icon-gears-analytics-scene.webp',
+    'econ8-u2-welcome': '/assets/visual-library/icon-documents-stack-reports.webp',
+    'econ8-u3-welcome': '/assets/visual-library/icon-handshake-negotiation-growth.webp',
+    'econ8-u4-welcome': '/assets/visual-library/icon-investment-assets-growth.webp',
+    'econ8-u5-welcome': '/assets/visual-library/icon-team-strategy-globe.webp',
+  };
+  const course9HeroByUnit: Record<string, string> = {
+    'econ9-welcome': '/assets/visual-library/icon-gold-coins-stack.webp',
+    'econ9-u1-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
+    'econ9-u2-welcome': '/assets/visual-library/icon-reports-tablet-dashboard.webp',
+    'econ9-u3-welcome': '/assets/visual-library/icon-cost-reduction-dollar.webp',
+    'econ9-u4-welcome': '/assets/visual-library/icon-bank-vault-safe.webp',
+    'econ9-u5-welcome': '/assets/visual-library/icon-contract-signing.webp',
+  };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
     : isPolicyCourse
@@ -1523,15 +1546,19 @@ function IntroMotionScene({
           ? (course6HeroByUnit[slide.id] ?? '/assets/visual-library/icon-patient-safety-heart-check.webp')
           : isCourse7Course
             ? (course7HeroByUnit[slide.id] ?? '/assets/visual-library/icon-quality-target-clipboard.webp')
-            : isEmergencyCourse
-              ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
-              : isCourse1Course
-                // Pulled straight from the client's own governance PPTX title
-                // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
-                // stock illustration bag/1 uses -- already on-brand since it's the
-                // client's own source material, so it needs no separate approval.
-                ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
-                : '/assets/visual-library/intro-governance-building-scene.webp';
+            : isCourse8Course
+              ? (course8HeroByUnit[slide.id] ?? '/assets/visual-library/icon-financial-dashboard-analytics.webp')
+              : isCourse9Course
+                ? (course9HeroByUnit[slide.id] ?? '/assets/visual-library/icon-gold-coins-stack.webp')
+                : isEmergencyCourse
+                  ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
+                  : isCourse1Course
+                    // Pulled straight from the client's own governance PPTX title
+                    // slide (Riyadh skyline, Vision 2030 theme) instead of the generic
+                    // stock illustration bag/1 uses -- already on-brand since it's the
+                    // client's own source material, so it needs no separate approval.
+                    ? '/assets/visual-library/intro-governance-vision2030-skyline.webp'
+                    : '/assets/visual-library/intro-governance-building-scene.webp';
   // The skyline is a real rectangular photo (no transparency), unlike the
   // illustration it replaces for course/1 -- frame it as a photo card
   // (rounded corners + a light border) instead of letting a hard-edged
@@ -2187,6 +2214,15 @@ function uniqueVisualCandidates(paths: Array<string | null | undefined>) {
 // team presentation) blended into the two style buckets below instead of
 // a parallel pool -- reusing the well-tested pipeline instead of
 // duplicating six call sites across this file.
+// course/8 (econ8-, التحليل الاقتصادي والرعاية الصحية المبنية على القيمة)
+// and course/9 (econ9-, التنظيم الاقتصادي: التنافسية والشفافية وآليات
+// التسعير والدفع) join this same pipeline too -- their two trainer-guide
+// PDFs (273 and 128 pages) carry real embedded isometric business-illustration
+// art (gears+analytics, handshake+growth, contract signing, bank vault,
+// financial dashboard...), unlike course/5's guide. Extracted 14 icons
+// unique to these two PDFs and folded them into the rich/flat buckets below
+// (roughly by how much depth/shading each piece carries) instead of a
+// parallel pool, same reasoning as course/6 & course/7 above.
 const POLICY_GOV2_ICON_POOL_RICH = [
   '/assets/visual-library/icon-policy-book-write.webp',
   '/assets/visual-library/icon-policy-education-shield.webp',
@@ -2199,6 +2235,12 @@ const POLICY_GOV2_ICON_POOL_RICH = [
   '/assets/visual-library/icon-patient-safety-team-circle.webp',
   '/assets/visual-library/icon-quality-team-presentation.webp',
   '/assets/visual-library/icon-quality-cycle-badge.webp',
+  '/assets/visual-library/icon-gears-analytics-scene.webp',
+  '/assets/visual-library/icon-gold-coins-stack.webp',
+  '/assets/visual-library/icon-financial-dashboard-analytics.webp',
+  '/assets/visual-library/icon-documents-stack-reports.webp',
+  '/assets/visual-library/icon-contract-signing.webp',
+  '/assets/visual-library/icon-bank-vault-safe.webp',
 ];
 const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-policy-presentation-plan.webp',
@@ -2213,6 +2255,14 @@ const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-kpi-dashboard.webp',
   '/assets/visual-library/icon-performance-chart.webp',
   '/assets/visual-library/icon-file-report.webp',
+  '/assets/visual-library/icon-team-strategy-globe.webp',
+  '/assets/visual-library/icon-question-mark-mascot.webp',
+  '/assets/visual-library/icon-reports-tablet-dashboard.webp',
+  '/assets/visual-library/icon-decision-compass-arrows.webp',
+  '/assets/visual-library/icon-decision-question-arrows.webp',
+  '/assets/visual-library/icon-investment-assets-growth.webp',
+  '/assets/visual-library/icon-handshake-negotiation-growth.webp',
+  '/assets/visual-library/icon-cost-reduction-dollar.webp',
 ];
 type PolicyGov2Style = 'rich' | 'flat';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
@@ -2226,7 +2276,17 @@ function policyGov2PoolFor(style: PolicyGov2Style) {
  *  draws from the same one style bucket. Empty string for every other
  *  course. */
 function policyGov2Marker(slideId: string): string {
-  if (!(slideId.startsWith('policy') || slideId.startsWith('gov2') || slideId.startsWith('perf') || slideId.startsWith('qual'))) return '';
+  if (
+    !(
+      slideId.startsWith('policy') ||
+      slideId.startsWith('gov2') ||
+      slideId.startsWith('perf') ||
+      slideId.startsWith('qual') ||
+      slideId.startsWith('econ8') ||
+      slideId.startsWith('econ9')
+    )
+  )
+    return '';
   return ` __policygov2:${policyGov2StyleFor(slideId)}__`;
 }
 
@@ -2251,6 +2311,22 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-file-report.webp', terms: ['تقرير الجودة', 'تقارير الجودة', 'كتابة التقارير', 'CAPA', 'ملخص تنفيذي'] },
   { style: 'flat', icon: '/assets/visual-library/icon-search-plus.webp', terms: ['التفتيش', 'بروتوكولات التفتيش', 'فرق التفتيش', 'التدقيق القائم على المخاطر'] },
   { style: 'flat', icon: '/assets/visual-library/icon-alert-bell.webp', terms: ['إنذار', 'تنبيه', 'مستويات التصعيد', 'انحراف عن المعايير'] },
+  // course/8 & course/9 -specific terms, checked next (see the comment by
+  // POLICY_GOV2_ICON_POOL_RICH above for their own 14 newly-extracted icons).
+  { style: 'rich', icon: '/assets/visual-library/icon-gears-analytics-scene.webp', terms: ['التنبؤ الاكتواري', 'تعديل المخاطر', 'النمذجة الاكتوارية', 'التحليل الاكتواري'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-gold-coins-stack.webp', terms: ['التكلفة الدقيقة', 'هامش الربح', 'تسعير الخدمة', 'تحديد التعرفة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['التحليل المالي', 'القوائم المالية', 'المؤشرات المالية', 'التنبؤ المالي', 'الأداء المالي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-documents-stack-reports.webp', terms: ['التقارير الدورية', 'إعداد التقارير', 'التقارير التنظيمية', 'تقرير التدقيق'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-contract-signing.webp', terms: ['التعاقد', 'العقود', 'مراجعة العقود', 'أنواع العقود', 'نماذج التعاقد'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-bank-vault-safe.webp', terms: ['الاستدامة المالية', 'الاحتياطيات', 'استقرار السوق', 'استدامة التمويل'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-team-strategy-globe.webp', terms: ['الأداء والتقارير', 'دعم القرار الاستراتيجي', 'التقارير الاستراتيجية', 'رفع التقارير للقيادة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-question-mark-mascot.webp', terms: ['سيناريو قرار', 'نشاط تحليلي', 'سؤال استراتيجي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-reports-tablet-dashboard.webp', terms: ['لوحة القيادة المالية', 'التقارير الاقتصادية', 'تصوير البيانات', 'لوحات المعلومات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-compass-arrows.webp', terms: ['دعم القرار', 'دعم صنع القرار', 'القرار التنظيمي', 'دعم القرارات الاستراتيجية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['خيارات', 'سيناريوهات', 'مسارات القرار', 'تحليل الحساسية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-investment-assets-growth.webp', terms: ['الاستثمار', 'تنويع الأصول', 'العائد على الاستثمار', 'تحليل الأثر الاقتصادي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-handshake-negotiation-growth.webp', terms: ['التفاوض', 'الشراكة', 'التفاوض القائم على القيمة', 'موازين القوى'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['خفض التكلفة', 'كفاءة التسعير', 'تقليل الهدر', 'الكفاءة التقنية'] },
   // rich bucket
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['مقارن', 'معايرة', 'مرجعي', 'بدائل', 'خيارات', 'نماذج'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['بحث', 'تحليل', 'دراسة', 'استقصاء', 'فحص', 'استكشاف'] },

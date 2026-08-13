@@ -79,6 +79,24 @@ import {
   qualUnitThreeSlides,
   qualUnitTwoSlides,
 } from './qualityMonitoringProgram';
+import {
+  eavClosingSlides,
+  eavIntroSlides,
+  eavUnitFiveSlides,
+  eavUnitFourSlides,
+  eavUnitOneSlides,
+  eavUnitThreeSlides,
+  eavUnitTwoSlides,
+} from './economicAnalysisValueProgram';
+import {
+  erpClosingSlides,
+  erpIntroSlides,
+  erpUnitFiveSlides,
+  erpUnitFourSlides,
+  erpUnitOneSlides,
+  erpUnitThreeSlides,
+  erpUnitTwoSlides,
+} from './economicRegulationPricingProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
 import type { Slide } from '../types/slides';
 import { course1AudioScriptText } from './course1AudioScriptOverrides';
@@ -156,6 +174,20 @@ export const allNarratedSlides = [
   ...qualUnitFourSlides,
   ...qualUnitFiveSlides,
   ...qualClosingSlides,
+  ...eavIntroSlides,
+  ...eavUnitOneSlides,
+  ...eavUnitTwoSlides,
+  ...eavUnitThreeSlides,
+  ...eavUnitFourSlides,
+  ...eavUnitFiveSlides,
+  ...eavClosingSlides,
+  ...erpIntroSlides,
+  ...erpUnitOneSlides,
+  ...erpUnitTwoSlides,
+  ...erpUnitThreeSlides,
+  ...erpUnitFourSlides,
+  ...erpUnitFiveSlides,
+  ...erpClosingSlides,
 ];
 
 export const courseCatalog = {
@@ -361,6 +393,42 @@ export const courseCatalog = {
       ...qualUnitFourSlides,
       ...qualUnitFiveSlides,
       ...qualClosingSlides,
+    ],
+  },
+  // التحليل الاقتصادي والرعاية الصحية المبنية على القيمة, single-link
+  // #/course/8 shell -- the whole bag (intro + 5 units + closing/post-test)
+  // as one sequence.
+  'econ8-full': {
+    meta: {
+      title: 'التحليل الاقتصادي والرعاية الصحية المبنية على القيمة',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...eavIntroSlides,
+      ...eavUnitOneSlides,
+      ...eavUnitTwoSlides,
+      ...eavUnitThreeSlides,
+      ...eavUnitFourSlides,
+      ...eavUnitFiveSlides,
+      ...eavClosingSlides,
+    ],
+  },
+  // التنظيم الاقتصادي: التنافسية والشفافية وآليات التسعير والدفع,
+  // single-link #/course/9 shell -- the whole bag (intro + 5 units +
+  // closing/post-test) as one sequence.
+  'econ9-full': {
+    meta: {
+      title: 'التنظيم الاقتصادي: التنافسية والشفافية وآليات التسعير والدفع',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...erpIntroSlides,
+      ...erpUnitOneSlides,
+      ...erpUnitTwoSlides,
+      ...erpUnitThreeSlides,
+      ...erpUnitFourSlides,
+      ...erpUnitFiveSlides,
+      ...erpClosingSlides,
     ],
   },
 };
