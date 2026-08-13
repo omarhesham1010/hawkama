@@ -2297,6 +2297,34 @@ function policyGov2Marker(slideId: string): string {
 // first match wins) within EACH style bucket separately, so a match never
 // crosses into the other style and break a slide's single-style rule.
 const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; terms: string[] }> = [
+  // Exact card-title overrides found by a full automated sweep of every
+  // card in every act of course/6-9 (client asked to review "كل الشوتات"):
+  // each of these titles was landing on the SAME image as a sibling card in
+  // its own shot (either because no rule matched it at all, or the rule
+  // that did match required the other style bucket than the slide actually
+  // uses). Checked first, before every broader rule below, so these exact
+  // phrases always win their own distinct icon.
+  { style: 'rich', icon: '/assets/visual-library/icon-gears-analytics-scene.webp', terms: ['المخاطر والأزمات'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['حقوق المرضى والتحول المؤسسي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-quality-team-presentation.webp', terms: ['المقابلات ومجموعات النقاش', 'رفاه الممارس الصحي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['الموضوعية والحياد'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['التركيز على التحسين', 'مخاطر سيبرانية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['تحليل الأداء', 'الاستناد إلى الأدلة والأنظمة', 'دعم المنافسة العادلة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['التركيز على التحسين لا العقاب فقط', 'إدارة حالات الإخفاق'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-gears-analytics-scene.webp', terms: ['الإخفاقات التشغيلية', 'الأثر التنظيمي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['التفتيش والامتثال وضمان الجودة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-documents-stack-reports.webp', terms: ['جمع الأدلة', 'الأداء والتقارير واتخاذ القرار'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-gold-coins-stack.webp', terms: ['خفض التكاليف'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['نماذج الموافقة المستنيرة', 'عقود التشغيل والصيانة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['الأهداف', 'المقابلات أو المجموعات المركّزة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['المتابعة', 'مخاطر تشغيلية', 'وقت الجراح'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['الخدمات المساندة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['منصة اعتماد', 'الاستبيانات المخصصة للمؤسسة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-reports-tablet-dashboard.webp', terms: ['التحليل الاقتصادي والمالي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-compass-arrows.webp', terms: ['آليات التسعير الاسترشادي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['التكلفة والتسعير الصحي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-investment-assets-growth.webp', terms: ['أنظمة الدفع والتعويض'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['التوازن بين الكفاءة والإتاحة'] },
   // course/6 & course/7 -specific terms, checked first (see the comment by
   // POLICY_GOV2_ICON_POOL_RICH above for why they share this pipeline).
   { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['حقوق المرضى', 'سلامة المرضى', 'كرامة المريض', 'المريض', 'المرضى'] },
