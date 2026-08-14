@@ -401,7 +401,10 @@ function NasserStoryLayer({
   const bubbleTail = guide.side === 'right' ? 'left' : 'right';
   const speakingPose = semanticPose(line, guide.side, guide.pose);
   const displayPose = isPpt && !showDialogue ? 'welcome' : speakingPose;
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  // `startsWith('ec')` alone also matches 'econ8-'/'econ9-' (course/8 & 9's
+  // id prefixes) -- the real bag-2 (emergency response) ids are always
+  // 'ec1-'..'ec4-', so anchor to a digit right after "ec" to tell them apart.
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const poseSrc = isEmergencySlide ? POSE_SRC_BAG2 : POSE_SRC;
   const stripDiacritics = (value: string) =>
     value.replace(/[\u0610-\u061A\u064B-\u0652\u0670\u06D6-\u06ED]/gu, '');
@@ -1385,7 +1388,7 @@ function IntroMotionScene({
   // were missing from this check the same way course/3 originally was,
   // so their pillar cards popped in at the fixed 0.52/0.62/0.72 fraction
   // fallbacks below regardless of when Nasser actually named each unit.
-  const isEmergencyCourse = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
+  const isEmergencyCourse = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
     || slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
@@ -1499,10 +1502,13 @@ function IntroMotionScene({
   // real, on-topic hero instead of one repeated fallback.
   const course6HeroByUnit: Record<string, string> = {
     'perf-welcome': '/assets/visual-library/icon-patient-safety-heart-check.webp',
-    'perf-u1-welcome': '/assets/visual-library/icon-shield-check.webp',
+    // icon-shield-check.webp/icon-alert-bell.webp were the OLD generic
+    // bag/1-era SHARED_BRAND_ICON_POOL icons, not real client-brand art --
+    // swapped for real extracted icons from this course's own pool.
+    'perf-u1-welcome': '/assets/visual-library/icon-quality-team-presentation.webp',
     'perf-u2-welcome': '/assets/visual-library/icon-failure-investigation-gear.webp',
     'perf-u3-welcome': '/assets/visual-library/icon-quality-checklist-clock.webp',
-    'perf-u4-welcome': '/assets/visual-library/icon-alert-bell.webp',
+    'perf-u4-welcome': '/assets/visual-library/icon-gears-analytics-scene.webp',
     'perf-u5-welcome': '/assets/visual-library/icon-patient-safety-team-circle.webp',
   };
   const course7HeroByUnit: Record<string, string> = {
@@ -1510,7 +1516,10 @@ function IntroMotionScene({
     'qual-u1-welcome': '/assets/visual-library/icon-performance-chart.webp',
     'qual-u2-welcome': '/assets/visual-library/icon-kpi-dashboard.webp',
     'qual-u3-welcome': '/assets/visual-library/icon-quality-cycle-badge.webp',
-    'qual-u4-welcome': '/assets/visual-library/icon-search-plus.webp',
+    // icon-search-plus.webp was the OLD generic bag/1-era icon, not real
+    // client-brand art -- swapped for a real extracted icon from this
+    // course's own pool.
+    'qual-u4-welcome': '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
     'qual-u5-welcome': '/assets/visual-library/icon-quality-team-presentation.webp',
   };
   const isCourse8Course = slide.id.startsWith('econ8');
@@ -2337,8 +2346,11 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['لوحة معلومات', 'لوحات المعلومات', 'Dashboard', 'تصوير البيانات'] },
   { style: 'flat', icon: '/assets/visual-library/icon-performance-chart.webp', terms: ['مؤشرات النتائج', 'مؤشرات العمليات', 'اتجاهات الأداء', 'تحليل الاتجاهات'] },
   { style: 'flat', icon: '/assets/visual-library/icon-file-report.webp', terms: ['تقرير الجودة', 'تقارير الجودة', 'كتابة التقارير', 'CAPA', 'ملخص تنفيذي'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-search-plus.webp', terms: ['التفتيش', 'بروتوكولات التفتيش', 'فرق التفتيش', 'التدقيق القائم على المخاطر'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-alert-bell.webp', terms: ['إنذار', 'تنبيه', 'مستويات التصعيد', 'انحراف عن المعايير'] },
+  // icon-search-plus.webp/icon-alert-bell.webp below were the OLD generic
+  // bag/1-era SHARED_BRAND_ICON_POOL icons, not real client-brand art --
+  // swapped for real extracted icons from this course's own pool.
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['التفتيش', 'بروتوكولات التفتيش', 'فرق التفتيش', 'التدقيق القائم على المخاطر'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['إنذار', 'تنبيه', 'مستويات التصعيد', 'انحراف عن المعايير'] },
   // course/8 & course/9 -specific terms, checked next (see the comment by
   // POLICY_GOV2_ICON_POOL_RICH above for their own 14 newly-extracted icons).
   { style: 'rich', icon: '/assets/visual-library/icon-gears-analytics-scene.webp', terms: ['التنبؤ الاكتواري', 'تعديل المخاطر', 'النمذجة الاكتوارية', 'التحليل الاكتواري'] },
@@ -2734,7 +2746,7 @@ function sharedBrandIconFor(text: string, index = 0, usedIcons?: Set<string>, av
 function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boolean }) {
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const brandIcon = showVisual && isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
   return (
     <div className="mb-4 text-center">
@@ -3001,7 +3013,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   // course/4 (policy) & course/5 (gov2) get their own real-brand pool --
   // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL_RICH/FLAT).
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const fallbackVisualPool = isPolicyGov2Slide
     ? policyGov2PoolFor(policyGov2StyleFor(slide.id))
     : isEmergencySlide
@@ -3054,7 +3066,7 @@ function PptMotionVisualScene({
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
   const effectiveLayout = layout ?? slide.layout;
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const isMotionLedScene = isEmergencySlide || isCourse1Slide;
@@ -3328,7 +3340,7 @@ function PptMotionVisualScene({
       {cards.map((card, index) => {
         const visible = visibleFor(index);
         const active = activeCard === index || expandedKey === `${slide.id}:${index}`;
-        const cardMarker = policyGov2Marker(slide.id) || (slide.id.startsWith('ec') || slide.id.startsWith('emergency') ? ' __bag2__' : '');
+        const cardMarker = policyGov2Marker(slide.id) || (/^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') ? ' __bag2__' : '');
         const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`, visualPool[index % visualPool.length]);
         const cardVisualCandidates = uniqueVisualCandidates([
           ...(denseMotion ? [visualPool[index % visualPool.length]] : cardVisuals),
@@ -3469,7 +3481,7 @@ function PptTimelineScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const primaryVisual = slideVisualPool(slide, cards)[0];
@@ -3627,7 +3639,7 @@ function PptMatrixScene({
   onToggle: (index: number) => void;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const cols = cards.length >= 3 ? 'grid-cols-2' : 'grid-cols-1';
   // A full 2x2 grid (4 cards) is simply taller than the window this scene
@@ -3799,7 +3811,7 @@ function PptSpotlightScene({
   narrationPosition: number;
 }) {
   const { isPlaying: narrationLocked } = useNarrationContext();
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
@@ -3871,7 +3883,7 @@ function PptSpotlightScene({
       ? activePptCardForCue(bulletOffsets, narrationPosition)
       : -1;
   const isLicensingSlide = slide.id.startsWith('lic');
-  const isCourse2Slide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isCourse2Slide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const editorialSpotlightSeed = stableIconIndex(`${slide.id}:${focusCard?.title ?? ''}`);
   const useMotionActivityEditorial =
     (isCourse1Slide || isCourse2Slide) &&
@@ -4280,7 +4292,7 @@ function PptActivitySlide({
   return (
     <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue || Boolean(interactionLine)} dialogueOverride={interactionLine}>
       <div className="flex h-full min-h-0 flex-col px-7 py-3">
-        <PptTitle slide={slide} showVisual={!slide.id.startsWith('ec') || spoken > 0} />
+        <PptTitle slide={slide} showVisual={!/^ec[1-4]-/.test(slide.id) || spoken > 0} />
         <div className="mb-3 rounded-lg border-r-8 border-gold-500 bg-white/95 px-3.5 py-2.5 text-right shadow-sm">
           <p className="text-[18px] font-extrabold leading-snug text-brand-strong">{slide.ppt?.intro}</p>
           <p className="mt-0.5 text-[16px] font-bold leading-snug text-ink-soft">{slide.ppt?.prompt}</p>
@@ -4448,7 +4460,7 @@ function PptGuidedScenarioSlide({
       dialogueOverride={interactionLine}
     >
       <div className="flex h-full min-h-0 flex-col px-8 py-3">
-        <PptTitle slide={slide} showVisual={!slide.id.startsWith('ec') || spoken > 0} />
+        <PptTitle slide={slide} showVisual={!/^ec[1-4]-/.test(slide.id) || spoken > 0} />
         <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_0.95fr] gap-5">
           {scenarioCard && (
             <div className="relative flex min-h-0 flex-col justify-center overflow-visible rounded-[34px] border border-green-700/12 bg-white/96 p-4 text-right shadow-[0_22px_55px_rgb(24_82_55_/_0.12)]">
@@ -4669,7 +4681,7 @@ function PptGuidedScenarioSlide({
 const TOPIC_IMAGE_COOLDOWN = 5;
 
 function introVisualPoolFor(slide: Slide, introText: string): string[] {
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const marker = isEmergencySlide ? ' __bag2__' : '';
   // Chapter 1's own vocabulary (ICS/EOC/قيادة/تنسيق) is broad enough that
   // pptGeneratedVisualLayersFor's keyword rules match almost every slide's
@@ -4794,9 +4806,9 @@ function PptStyleSlide({
     return acc;
   }, []);
   const checks = slide.ppt?.checks ?? [];
-  const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+  const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isLicensingSlide = slide.id.startsWith('lic');
-  const isCourse2Slide = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isCourse2Slide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const isMotionLedSlide = isEmergencySlide || isCourse1Slide;
   const narrationPosition = started ? spoken : 0;
@@ -5283,7 +5295,7 @@ function PptStyleSlide({
                   key={i}
                   card={card}
                   emoji={pptEmojiFor(card, slide.visual, i)}
-                  emergencyHint={slide.id.startsWith('ec') || slide.id.startsWith('emergency')}
+                  emergencyHint={/^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency')}
                   isCourse1={isCourse1Slide}
                   policyGov2CardMarker={policyGov2Marker(slide.id)}
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
@@ -5412,7 +5424,7 @@ function QuizStorySlide({
     );
   };
 
-  const isEmergencyQuiz = slide.id.startsWith('ec') || slide.id.startsWith('emergency');
+  const isEmergencyQuiz = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const showQuizVisuals = !isEmergencyQuiz || started;
   const quizVisual = isEmergencyQuiz && started ? slideVisualPool(slide, [])[0] : undefined;
   return (
@@ -5617,7 +5629,7 @@ export function SlideStage({
 
   // Completion
   if (slide.kind === 'completion') {
-    const isEmergencySlide = slide.id.startsWith('ec') || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+    const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-14 text-center">

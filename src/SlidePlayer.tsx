@@ -331,7 +331,7 @@ export default function SlidePlayer({
           a real, always-tappable size — mobile only, canvas design untouched.
           Kept above the footer overlay so it's reachable even while chrome
           is tucked away. */}
-      {((slide.kind === 'completion' && (isLegacyEmergency || (!slide.id.startsWith('ec') && !slide.id.startsWith('emergency')))) ||
+      {((slide.kind === 'completion' && (isLegacyEmergency || (!/^ec[1-4]-/.test(slide.id) && !slide.id.startsWith('emergency')))) ||
         slide.layout === 'pptConclusion') && (
         <div className="absolute inset-x-0 bottom-2 z-[45] flex items-center justify-center gap-3 px-4 sm:hidden">
           <button type="button" onClick={exit} className="btn-gold min-h-[48px] flex-1 max-w-[220px] justify-center text-[15px]">
