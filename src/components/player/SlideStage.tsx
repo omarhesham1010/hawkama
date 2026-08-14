@@ -1487,7 +1487,7 @@ function IntroMotionScene({
     'gov2-u2-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
     'gov2-u3-welcome': '/assets/visual-library/icon-policy-analytics-search.webp',
     'gov2-u4-welcome': '/assets/visual-library/icon-policy-stakeholder-people.webp',
-    'gov2-u5-welcome': '/assets/visual-library/icon-policy-shield-check-gradient.webp',
+    'gov2-u5-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
   };
   const isCourse6Course = slide.id.startsWith('perf');
   const isCourse7Course = slide.id.startsWith('qual');
@@ -2240,22 +2240,22 @@ const POLICY_GOV2_ICON_POOL_RICH = [
   '/assets/visual-library/icon-policy-book-magnifier-research.webp',
   '/assets/visual-library/icon-policy-scroll-pen-check.webp',
   '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
-  '/assets/visual-library/icon-patient-safety-heart-check.webp',
-  '/assets/visual-library/icon-patient-safety-team-circle.webp',
-  '/assets/visual-library/icon-quality-team-presentation.webp',
-  '/assets/visual-library/icon-quality-cycle-badge.webp',
-  '/assets/visual-library/icon-policy-book-magnifier-research.webp',
-  '/assets/visual-library/icon-financial-dashboard-analytics.webp',
-  '/assets/visual-library/icon-financial-dashboard-analytics.webp',
+  '/assets/visual-library/icon-policy-education-shield.webp',
+  '/assets/visual-library/icon-policy-time-person-ribbon.webp',
+  '/assets/visual-library/icon-policy-book-write.webp',
   '/assets/visual-library/icon-policy-checklist-clipboard.webp',
-  '/assets/visual-library/icon-contract-signing.webp',
-  '/assets/visual-library/icon-bank-vault-safe.webp',
+  '/assets/visual-library/icon-policy-book-magnifier-research.webp',
+  '/assets/visual-library/icon-policy-book-magnifier-research.webp',
+  '/assets/visual-library/icon-policy-book-magnifier-research.webp',
+  '/assets/visual-library/icon-policy-checklist-clipboard.webp',
+  '/assets/visual-library/icon-policy-scroll-pen-check.webp',
+  '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
 ];
 const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-policy-presentation-plan.webp',
   '/assets/visual-library/icon-policy-document-check-light.webp',
   '/assets/visual-library/icon-policy-stakeholder-people.webp',
-  '/assets/visual-library/icon-policy-shield-check-gradient.webp',
+  '/assets/visual-library/icon-policy-institution-shield.webp',
   '/assets/visual-library/icon-policy-institution-shield.webp',
   '/assets/visual-library/icon-policy-analytics-search.webp',
   '/assets/visual-library/icon-quality-checklist-clock.webp',
@@ -2270,7 +2270,7 @@ const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-decision-question-arrows.webp',
   '/assets/visual-library/icon-decision-question-arrows.webp',
   '/assets/visual-library/icon-cost-reduction-dollar.webp',
-  '/assets/visual-library/icon-handshake-negotiation-growth.webp',
+  '/assets/visual-library/icon-policy-stakeholder-people.webp',
   '/assets/visual-library/icon-cost-reduction-dollar.webp',
 ];
 type PolicyGov2Style = 'rich' | 'flat';
@@ -2306,6 +2306,45 @@ function policyGov2Marker(slideId: string): string {
 // first match wins) within EACH style bucket separately, so a match never
 // crosses into the other style and break a slide's single-style rule.
 const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; terms: string[] }> = [
+  // Round-2 exact-title overrides: the scene-icon -> flat-icon pool swap
+  // (removing the 8 isometric "scene" images from per-card rotation, so a
+  // shot never mixes flat icons with photo-style illustrations) shrank the
+  // per-style pool enough that 18 new within-shot repeats surfaced. Each of
+  // these titles was landing on the same image as a sibling card in its own
+  // shot; checked first (array order) so they always win their own icon.
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['تحليل الشكاوى والملاحظات'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['تمكين المرضى من تقديم الشكاوى'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['المستفيدون'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-write.webp', terms: ['وضع جدول زمني واضح'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['الأثر التنظيمي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['دعم المنافسة العادلة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['التمييز بين مقدّمي الخدمة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['مراجعة الوثائق والسجلات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['أدوات تحليل الأداء'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['الإخفاقات التنظيمية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['الإخفاقات التقنية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['قابلية التتبع'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['تسجيل الانحرافات والتعديلات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['الموارد'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-file-report.webp', terms: ['الجدول الزمني'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['أكثر من 40%'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['المتابعة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['التركيز على الهدف'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['التركيز على اتخاذ القرار'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['الكفاءة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['القبول'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['عدم الإيذاء'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['الفعالية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['العدالة في الوصول'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['تعزيز الوقاية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['تنويع مصادر التمويل'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['الشراكة مع القطاع الخاص'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['توثيق إجراءات الصرف'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['ضمان العدالة والاتساق'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['غرفة العمليات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['استدامة مقدّم الخدمة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['أثر السياسات على الأداء المالي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['العدالة'] },
   // Exact card-title overrides found by a full automated sweep of every
   // card in every act of course/6-9 (client asked to review "كل الشوتات"):
   // each of these titles was landing on the SAME image as a sibling card in
@@ -2315,22 +2354,26 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // phrases always win their own distinct icon.
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['المخاطر والأزمات'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['حقوق المرضى والتحول المؤسسي'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-team-presentation.webp', terms: ['المقابلات ومجموعات النقاش', 'رفاه الممارس الصحي'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['الموضوعية والحياد'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-write.webp', terms: ['المقابلات ومجموعات النقاش', 'رفاه الممارس الصحي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['الموضوعية والحياد'] },
   { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['التركيز على التحسين', 'مخاطر سيبرانية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['السرية والأمانة', 'مخاطر تنظيمية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['المقابلات والملاحظة الميدانية', 'قياس المخرجات بسؤال المريض مباشرة'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['البحث المستمر عن فرص التحسين'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['استخدام البيانات في اتخاذ القرار'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['تحليل الأداء', 'الاستناد إلى الأدلة والأنظمة', 'دعم المنافسة العادلة'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['التركيز على التحسين لا العقاب فقط', 'إدارة حالات الإخفاق'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['التركيز على التحسين لا العقاب فقط', 'إدارة حالات الإخفاق'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['الإخفاقات التشغيلية', 'الأثر التنظيمي', 'جمع الأدلة'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['تسجيل الملاحظات', 'النتائج والتوصيات'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['معرفة الأنظمة والسياسات الوطنية', 'عدم الإيذاء'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['معرفة الأنظمة والسياسات الوطنية'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['وصف المشكلة أو الحالة'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['تحليل البيانات'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['تحليل بيانات الحوادث'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['البساطة والوضوح'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['قياس الأثر على مؤشرات الأداء'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['قياس الأثر على مؤشرات الأداء'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['التفتيش والامتثال وضمان الجودة'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['جمع الأدلة', 'الأداء والتقارير واتخاذ القرار'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['خفض التكاليف'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['خفض التكاليف'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['نماذج الموافقة المستنيرة', 'عقود التشغيل والصيانة'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['الأهداف', 'المقابلات أو المجموعات المركّزة'] },
   { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['المتابعة', 'مخاطر تشغيلية', 'وقت الجراح'] },
@@ -2343,10 +2386,10 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['التوازن بين الكفاءة والإتاحة'] },
   // course/6 & course/7 -specific terms, checked first (see the comment by
   // POLICY_GOV2_ICON_POOL_RICH above for why they share this pipeline).
-  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['حقوق المرضى', 'سلامة المرضى', 'كرامة المريض', 'المريض', 'المرضى'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-team-circle.webp', terms: ['الكادر الطبي', 'فريق طبي', 'فريق الرعاية', 'أصحاب المصلحة الصحيين'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-team-presentation.webp', terms: ['ورشة عمل', 'محاكاة', 'عرض تقديمي', 'تعارف'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['تحسين مستمر', 'دورة PDCA', 'خطّط-نفّذ-تحقّق-حسّن', 'Lean', 'Six Sigma', 'DMAIC'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['حقوق المرضى', 'سلامة المرضى', 'كرامة المريض', 'المريض', 'المرضى'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['الكادر الطبي', 'فريق طبي', 'فريق الرعاية', 'أصحاب المصلحة الصحيين'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-write.webp', terms: ['ورشة عمل', 'محاكاة', 'عرض تقديمي', 'تعارف'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['تحسين مستمر', 'دورة PDCA', 'خطّط-نفّذ-تحقّق-حسّن', 'Lean', 'Six Sigma', 'DMAIC'] },
   { style: 'flat', icon: '/assets/visual-library/icon-failure-investigation-gear.webp', terms: ['إخفاق', 'الإخفاقات', 'سبب جذري', 'الأسباب الجذرية', 'تحقيق في الحوادث', 'RCA', 'حادث', 'الحوادث'] },
   { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['مراقبة أداء النظام', 'متابعة دورية', 'مستويات المتابعة', 'التصعيد'] },
   { style: 'flat', icon: '/assets/visual-library/icon-quality-target-clipboard.webp', terms: ['المقارنة المعيارية', 'Benchmarking', 'أهداف البرنامج', 'تقييم البرامج'] },
@@ -2357,22 +2400,22 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // bag/1-era SHARED_BRAND_ICON_POOL icons, not real client-brand art --
   // swapped for real extracted icons from this course's own pool.
   { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['التفتيش', 'بروتوكولات التفتيش', 'فرق التفتيش', 'التدقيق القائم على المخاطر'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['إنذار', 'تنبيه', 'مستويات التصعيد', 'انحراف عن المعايير'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['إنذار', 'تنبيه', 'مستويات التصعيد', 'انحراف عن المعايير'] },
   // course/8 & course/9 -specific terms, checked next (see the comment by
   // POLICY_GOV2_ICON_POOL_RICH above for their own 14 newly-extracted icons).
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['التنبؤ الاكتواري', 'تعديل المخاطر', 'النمذجة الاكتوارية', 'التحليل الاكتواري'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['التكلفة الدقيقة', 'هامش الربح', 'تسعير الخدمة', 'تحديد التعرفة'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['التحليل المالي', 'القوائم المالية', 'المؤشرات المالية', 'التنبؤ المالي', 'الأداء المالي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['التكلفة الدقيقة', 'هامش الربح', 'تسعير الخدمة', 'تحديد التعرفة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['التحليل المالي', 'القوائم المالية', 'المؤشرات المالية', 'التنبؤ المالي', 'الأداء المالي'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['التقارير الدورية', 'إعداد التقارير', 'التقارير التنظيمية', 'تقرير التدقيق'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-contract-signing.webp', terms: ['التعاقد', 'العقود', 'مراجعة العقود', 'أنواع العقود', 'نماذج التعاقد'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-bank-vault-safe.webp', terms: ['الاستدامة المالية', 'الاحتياطيات', 'استقرار السوق', 'استدامة التمويل'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['التعاقد', 'العقود', 'مراجعة العقود', 'أنواع العقود', 'نماذج التعاقد'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['الاستدامة المالية', 'الاحتياطيات', 'استقرار السوق', 'استدامة التمويل'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['الأداء والتقارير', 'دعم القرار الاستراتيجي', 'التقارير الاستراتيجية', 'رفع التقارير للقيادة'] },
   { style: 'flat', icon: '/assets/visual-library/icon-question-mark-mascot.webp', terms: ['سيناريو قرار', 'نشاط تحليلي', 'سؤال استراتيجي'] },
   { style: 'flat', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['لوحة القيادة المالية', 'التقارير الاقتصادية', 'تصوير البيانات', 'لوحات المعلومات'] },
   { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['دعم القرار', 'دعم صنع القرار', 'القرار التنظيمي', 'دعم القرارات الاستراتيجية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['خيارات', 'سيناريوهات', 'مسارات القرار', 'تحليل الحساسية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['الاستثمار', 'تنويع الأصول', 'العائد على الاستثمار', 'تحليل الأثر الاقتصادي'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-handshake-negotiation-growth.webp', terms: ['التفاوض', 'الشراكة', 'التفاوض القائم على القيمة', 'موازين القوى'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['التفاوض', 'الشراكة', 'التفاوض القائم على القيمة', 'موازين القوى'] },
   { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['خفض التكلفة', 'كفاءة التسعير', 'تقليل الهدر', 'الكفاءة التقنية'] },
   // course/8 & course/9 short card-title phrases (the recurring nouns inside
   // their own hero card sets) -- checked before the broad paragraph-level
@@ -2380,26 +2423,26 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // real thematic match instead of falling to the generic flat/rich pool.
   { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['صانع السياسة الصحية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['الجهة التنظيمية والرقابية', 'مخاطر تنظيمية', 'مركز التأمين الصحي الوطني', 'الجهة التنظيمية'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['المشغّل الاستراتيجي', 'الدفعات المقطوعة', 'قائمة التدفقات النقدية', 'الممول'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-team-circle.webp', terms: ['مقدّمو الخدمات', 'المقدّم', 'تحسين صحة المجتمع'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['المشغّل الاستراتيجي', 'الدفعات المقطوعة', 'قائمة التدفقات النقدية', 'الممول'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['مقدّمو الخدمات', 'المقدّم', 'تحسين صحة المجتمع'] },
   { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['الاستقلالية في اتخاذ القرار', 'الاستقلالية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['الانفتاح والشفافية', 'هيئة الغذاء والدواء'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['قابلية القرار للمراجعة', 'العدالة', 'تسعير الربط'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['العدالة بين الأطراف', 'مخاطر سيبرانية', 'عدم الإيذاء', 'تمييز سعري غير مبرر'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['قابلية القرار للمراجعة', 'تسعير الربط'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['العدالة بين الأطراف', 'مخاطر سيبرانية', 'عدم الإيذاء', 'تمييز سعري غير مبرر'] },
   { style: 'flat', icon: '/assets/visual-library/icon-performance-chart.webp', terms: ['قائمة الدخل', 'الدفع مقابل الأداء', 'مؤشرات تشغيلية'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-financial-dashboard-analytics.webp', terms: ['قائمة المركز المالي', 'مؤشرات مالية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['قائمة المركز المالي', 'مؤشرات مالية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['تكلفة متغيرة', 'تسعير الإفراط'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['تكلفة شبه متغيرة'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-contract-signing.webp', terms: ['تعرفة الخدمات', 'الضمان الصحي التعاوني'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['تكلفة شبه متغيرة'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['تعرفة الخدمات', 'الضمان الصحي التعاوني'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['المدفوعات المجمّعة', 'منصة اعتماد'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['مخاطر إكلينيكية', 'الإحسان', 'تجربة المريض'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['مخاطر إكلينيكية', 'الإحسان', 'تجربة المريض'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['مخاطر تشغيلية', 'عقود التشغيل والصيانة'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['مخاطر سمعة'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['وزارة الصحة'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-handshake-negotiation-growth.webp', terms: ['مجلس الضمان الصحي', 'تنسيق الأسعار'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['مجلس الضمان الصحي', 'تنسيق الأسعار'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['عقود الشركات', 'مؤشرات استراتيجية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['وضوح المسؤولية والصلاحيات'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-quality-team-presentation.webp', terms: ['رفاه ممارس الرعاية الصحية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-write.webp', terms: ['رفاه ممارس الرعاية الصحية'] },
   // rich bucket
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['مقارن', 'معايرة', 'مرجعي', 'بدائل', 'خيارات', 'نماذج'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['بحث', 'تحليل', 'دراسة', 'استقصاء', 'فحص', 'استكشاف'] },
@@ -2412,7 +2455,7 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['أصحاب المصلحة', 'فريق', 'تعاون', 'شراكة', 'شراكات', 'جهات', 'أطراف'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['بيانات', 'مؤشرات', 'أداء', 'تقييم', 'قياس', 'إحصاء'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['مؤسسة', 'مؤسسي', 'حوكمة', 'تنظيم', 'هيئة', 'تنظيمية'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-shield-check-gradient.webp', terms: ['أمان', 'حماية', 'ضمان', 'موثوقية', 'مخاطر', 'خطر', 'أمن'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['أمان', 'حماية', 'ضمان', 'موثوقية', 'مخاطر', 'خطر', 'أمن'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['مستند', 'وثيقة', 'تحقق', 'مطابقة', 'مطابق', 'تحقق من'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['عرض', 'تقديم', 'تخطيط', 'استراتيجية', 'خطة', 'خطط'] },
 ];
@@ -4412,7 +4455,7 @@ function PptGuidedScenarioSlide({
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
   const policyGov2MarkerStr = policyGov2Marker(slide.id);
   const policyGov2Fallback = policyGov2MarkerStr.includes(':flat')
-    ? '/assets/visual-library/icon-policy-shield-check-gradient.webp'
+    ? '/assets/visual-library/icon-policy-institution-shield.webp'
     : '/assets/visual-library/icon-policy-scroll-pen-check.webp';
   const scenarioCard = cards[0];
   const analysisCards = cards.slice(1);
