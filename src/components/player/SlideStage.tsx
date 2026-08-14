@@ -3216,8 +3216,14 @@ function PptMotionVisualScene({
   // sparse cards, and with 4 cards sharing this scene's ~305px band, a
   // same-side top/bottom pair's boxes grow tall enough (multi-line Arabic
   // titles) to touch or overlap. Course/1's cards need the same compact
-  // sizing course/2 already got for its own dense slides.
-  const emergencyOpenLabels = (isEmergencySlide || isCourse1Slide) && usesOpenLabels && !titleCardGrid;
+  // sizing course/2 already got for its own dense slides. course/6-9
+  // (isPolicyGov2Slide) hit the exact same 4-card crowding -- their own
+  // dedicated compact branch below only covers the <=3-card (isSparseGroup)
+  // case, so a 4-card act like perf-u4-clinical-risk's mitigation-strategies
+  // shot fell through to the full 25px size and two same-side long titles
+  // (e.g. "تحسين الإجراءات والبروتوكولات" / "استخدام التكنولوجيا والأنظمة
+  // الذكية") wrapped tall enough to visually overlap.
+  const emergencyOpenLabels = (isEmergencySlide || isCourse1Slide || isPolicyGov2Slide) && usesOpenLabels && !titleCardGrid;
   // orbit/path/split (non-grid) floating layouts with 3+ cards always end
   // up with at least one same-side top+bottom pair (see positionsByVariant
   // above) sharing this scene's ~305px-tall band -- there simply isn't
