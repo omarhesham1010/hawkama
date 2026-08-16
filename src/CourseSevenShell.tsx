@@ -61,12 +61,6 @@ export default function CourseSevenShell() {
     return Math.min(nextLocked, Math.max(0, slides.length - 1));
   }, [slides, unlockedSlideIds]);
 
-  // Temporarily unlocked for client review (2026-08-13) -- set back to
-  // `false` (or delete this override and use `maxUnlockedIndex` directly
-  // below) when the review pass is done to restore the sequential lock.
-  const TEMP_UNLOCK_ALL = true;
-  const effectiveMaxUnlockedIndex = TEMP_UNLOCK_ALL ? Math.max(0, slides.length - 1) : maxUnlockedIndex;
-
   useEffect(() => {
     window.localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(unlockedSlideIds));
   }, [unlockedSlideIds]);
@@ -81,7 +75,7 @@ export default function CourseSevenShell() {
   }, []);
 
   const jumpTo = (index: number) => {
-    if (index > effectiveMaxUnlockedIndex) return;
+    if (index > maxUnlockedIndex) return;
     setJumpTarget(index + 1);
     setJumpNonce((n) => n + 1);
     setActiveIndex(index);
@@ -99,7 +93,7 @@ export default function CourseSevenShell() {
         onJump={jumpTo}
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
-        maxUnlockedIndex={effectiveMaxUnlockedIndex}
+        maxUnlockedIndex={maxUnlockedIndex}
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
@@ -108,10 +102,8 @@ export default function CourseSevenShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
-          // Temporarily unlocked for client review (2026-08-13) -- restore
-          // `strictSequential` (no ={false}) when the review pass is done.
-          strictSequential={false}
-          maxUnlockedIndex={effectiveMaxUnlockedIndex}
+          strictSequential
+          maxUnlockedIndex={maxUnlockedIndex}
           onUnlockSlide={unlockSlide}
           onResetSequentialLocks={resetUnlocks}
         />
