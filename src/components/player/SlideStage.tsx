@@ -1561,14 +1561,14 @@ function IntroMotionScene({
     'econ8-u1-welcome': '/assets/visual-library/icon-policy-book-magnifier-research.webp',
     'econ8-u2-welcome': '/assets/visual-library/icon-policy-checklist-clipboard.webp',
     'econ8-u3-welcome': '/assets/visual-library/icon-handshake-negotiation-growth.webp',
-    'econ8-u4-welcome': '/assets/visual-library/icon-cost-reduction-dollar.webp',
+    'econ8-u4-welcome': '/assets/visual-library/icon-cost-reduction-value.svg',
     'econ8-u5-welcome': '/assets/visual-library/icon-policy-presentation-plan.webp',
   };
   const course9HeroByUnit: Record<string, string> = {
     'econ9-welcome': '/assets/visual-library/icon-financial-dashboard-analytics.webp',
     'econ9-u1-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
     'econ9-u2-welcome': '/assets/visual-library/icon-kpi-dashboard.webp',
-    'econ9-u3-welcome': '/assets/visual-library/icon-cost-reduction-dollar.webp',
+    'econ9-u3-welcome': '/assets/visual-library/icon-cost-reduction-value.svg',
     'econ9-u4-welcome': '/assets/visual-library/icon-bank-vault-safe.webp',
     'econ9-u5-welcome': '/assets/visual-library/icon-contract-signing.webp',
   };
@@ -2296,9 +2296,9 @@ const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-kpi-dashboard.webp',
   '/assets/visual-library/icon-decision-question-arrows.webp',
   '/assets/visual-library/icon-decision-question-arrows.webp',
-  '/assets/visual-library/icon-cost-reduction-dollar.webp',
+  '/assets/visual-library/icon-cost-reduction-value.svg',
   '/assets/visual-library/icon-policy-stakeholder-people.webp',
-  '/assets/visual-library/icon-cost-reduction-dollar.webp',
+  '/assets/visual-library/icon-cost-reduction-value.svg',
 ];
 type PolicyGov2Style = 'rich' | 'flat';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
@@ -2408,8 +2408,8 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['منصة اعتماد', 'الاستبيانات المخصصة للمؤسسة'] },
   { style: 'flat', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['التحليل الاقتصادي والمالي'] },
   { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['آليات التسعير الاسترشادي'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['التكلفة والتسعير الصحي'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['أنظمة الدفع والتعويض'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-value.svg', terms: ['التكلفة والتسعير الصحي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-value.svg', terms: ['أنظمة الدفع والتعويض'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['التوازن بين الكفاءة والإتاحة'] },
   // course/6 & course/7 -specific terms, checked first (see the comment by
   // POLICY_GOV2_ICON_POOL_RICH above for why they share this pipeline).
@@ -2441,9 +2441,9 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['لوحة القيادة المالية', 'التقارير الاقتصادية', 'تصوير البيانات', 'لوحات المعلومات'] },
   { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['دعم القرار', 'دعم صنع القرار', 'القرار التنظيمي', 'دعم القرارات الاستراتيجية'] },
   { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['خيارات', 'سيناريوهات', 'مسارات القرار', 'تحليل الحساسية'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['الاستثمار', 'تنويع الأصول', 'العائد على الاستثمار', 'تحليل الأثر الاقتصادي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-value.svg', terms: ['الاستثمار', 'تنويع الأصول', 'العائد على الاستثمار', 'تحليل الأثر الاقتصادي'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['التفاوض', 'الشراكة', 'التفاوض القائم على القيمة', 'موازين القوى'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['خفض التكلفة', 'كفاءة التسعير', 'تقليل الهدر', 'الكفاءة التقنية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-value.svg', terms: ['خفض التكلفة', 'كفاءة التسعير', 'تقليل الهدر', 'الكفاءة التقنية'] },
   // course/8 & course/9 short card-title phrases (the recurring nouns inside
   // their own hero card sets) -- checked before the broad paragraph-level
   // rules above so a bare card label like "الممول" or "قائمة الدخل" gets a
@@ -2458,7 +2458,7 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['العدالة بين الأطراف', 'مخاطر سيبرانية', 'عدم الإيذاء', 'تمييز سعري غير مبرر'] },
   { style: 'flat', icon: '/assets/visual-library/icon-performance-chart.webp', terms: ['قائمة الدخل', 'الدفع مقابل الأداء', 'مؤشرات تشغيلية'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['قائمة المركز المالي', 'مؤشرات مالية'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-dollar.webp', terms: ['تكلفة متغيرة', 'تسعير الإفراط'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-cost-reduction-value.svg', terms: ['تكلفة متغيرة', 'تسعير الإفراط'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['تكلفة شبه متغيرة'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['تعرفة الخدمات', 'الضمان الصحي التعاوني'] },
   { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['المدفوعات المجمّعة', 'منصة اعتماد'] },

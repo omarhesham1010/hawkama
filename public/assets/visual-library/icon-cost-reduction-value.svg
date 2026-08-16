@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Cost efficiency and value">
+  <defs>
+    <linearGradient id="green" x1="96" y1="72" x2="424" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#008755"/>
+      <stop offset="1" stop-color="#0B5139"/>
+    </linearGradient>
+    <linearGradient id="greenSoft" x1="82" y1="92" x2="386" y2="370" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF7F2"/>
+      <stop offset="1" stop-color="#D7EFE6"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="144" y1="96" x2="438" y2="386" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8CB85"/>
+      <stop offset="1" stop-color="#9B945F"/>
+    </linearGradient>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="144%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B5139" flood-opacity=".18"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect x="62" y="76" width="328" height="320" rx="58" fill="#F8FCFA"/>
+    <rect x="86" y="100" width="280" height="272" rx="46" fill="url(#greenSoft)"/>
+
+    <circle cx="214" cy="226" r="98" fill="url(#green)"/>
+    <circle cx="214" cy="226" r="78" fill="none" stroke="#F8FCFA" stroke-width="13"/>
+    <path d="M214 162v128" fill="none" stroke="#F8FCFA" stroke-width="17" stroke-linecap="round"/>
+    <path d="M250 188c-18-21-74-19-74 18 0 40 86 23 86 64 0 38-61 41-92 12" fill="none" stroke="#F8FCFA" stroke-width="17" stroke-linecap="round"/>
+
+    <path d="M318 162h94v156" fill="none" stroke="url(#gold)" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M412 318l-52-52m52 52 52-52" fill="none" stroke="url(#gold)" stroke-width="29" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="308" y="348" width="32" height="66" rx="10" fill="#0B5139"/>
+    <rect x="354" y="320" width="32" height="94" rx="10" fill="#008755"/>
+    <rect x="400" y="284" width="32" height="130" rx="10" fill="url(#gold)"/>
+    <path d="M104 424h352" stroke="#9B945F" stroke-width="15" stroke-linecap="round"/>
+
+    <circle cx="340" cy="114" r="34" fill="#008755"/>
+    <path d="M340 96v36M322 114h36" stroke="#F8FCFA" stroke-width="12" stroke-linecap="round"/>
+  </g>
+</svg>
