@@ -1324,7 +1324,7 @@ const unit4RiskTypeCards: PptCard[] = [
   { index: '01', title: 'المخاطر الطبية', subtitle: 'أخطاء في التشخيص أو العلاج' },
   { index: '02', title: 'المخاطر التشغيلية', subtitle: 'أعطال المعدات ونقص الموارد الأساسية', tone: 'gold' },
   { index: '03', title: 'المخاطر البيئية والصحية', subtitle: 'العدوى المكتسبة داخل المستشفيات' },
-  { index: '04', title: 'مخاطر الكوادر البشرية', subtitle: 'نقص التدريب أو الإرهاق', tone: 'gold' },
+  { index: '04', title: 'مخاطر الكوادر البشرية', subtitle: 'نقص التدريب أو الإرهاق', tone: 'gold', syncText: 'المخاطر المرتبطة بالكوادر البشرية' },
 ];
 
 const unit4RiskToolsCards: PptCard[] = [
@@ -1706,7 +1706,7 @@ const unit5EngagementCards: PptCard[] = [
   { title: 'إشراك المرضى في لجان الجودة', tone: 'gold' },
   { title: 'تضمين صوت المريض في تصميم السياسات' },
   { title: 'مجموعات تركيز واستبيانات دورية', tone: 'gold' },
-  { title: 'الاستفادة من قصص المرضى في التحسين' },
+  { title: 'الاستفادة من قصص المرضى في التحسين', syncText: 'والاستفادة من قصصهم' },
 ];
 
 const unit5MeasurementToolCards: PptCard[] = [

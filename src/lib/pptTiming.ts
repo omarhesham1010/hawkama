@@ -38,9 +38,11 @@ export function scorePptCardCue(card: PptCard, cueText: string) {
   if (!cueWords.length) return 0;
   const cleanCue = cleanText(cueText);
   const title = cleanText(card.title);
+  const syncText = cleanText(card.syncText ?? '');
   const body = cleanText(cardText(card));
   let score = 0;
   if (title && cleanCue.includes(title)) score += 14;
+  if (syncText && cleanCue.includes(syncText)) score += 14;
   if (body && cleanCue.includes(body.slice(0, 42))) score += 6;
   for (const word of cueWords) {
     if (title.includes(word)) score += 2.2;

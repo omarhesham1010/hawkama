@@ -1322,12 +1322,18 @@ function IntroMotionScene({
       .trim();
   const normalizedNarration = normalizeSpeechCue(slide.narration);
   const normalizedIndexRatio = slide.narration.length / Math.max(1, normalizedNarration.length);
-  const spokenPast = (needle: string, fallback: number) => {
-    const directIndex = needle ? slide.narration.indexOf(needle) : -1;
-    if (directIndex >= 0) return started && effectiveSpoken >= directIndex;
+  const speechCuePosition = (needle: string, after = 0) => {
+    const directIndex = needle ? slide.narration.indexOf(needle, Math.max(0, after)) : -1;
+    if (directIndex >= 0) return directIndex;
     const normalizedNeedle = normalizeSpeechCue(needle);
-    const normalizedIndex = normalizedNeedle ? normalizedNarration.indexOf(normalizedNeedle) : -1;
-    if (normalizedIndex >= 0) return started && effectiveSpoken >= Math.floor(normalizedIndex * normalizedIndexRatio);
+    const normalizedStart = Math.max(0, Math.floor(after / Math.max(0.001, normalizedIndexRatio)));
+    const normalizedIndex = normalizedNeedle ? normalizedNarration.indexOf(normalizedNeedle, normalizedStart) : -1;
+    if (normalizedIndex >= 0) return Math.floor(normalizedIndex * normalizedIndexRatio);
+    return -1;
+  };
+  const spokenPast = (needle: string, fallback: number) => {
+    const position = speechCuePosition(needle);
+    if (position >= 0) return started && effectiveSpoken >= position;
     return started && visualProgress >= fallback;
   };
   const licensingPillarCues: Record<string, string[]> = {
@@ -1389,7 +1395,8 @@ function IntroMotionScene({
   // so their pillar cards popped in at the fixed 0.52/0.62/0.72 fraction
   // fallbacks below regardless of when Nasser actually named each unit.
   const isEmergencyCourse = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
-    || slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual');
+    || slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual')
+    || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
@@ -1416,21 +1423,41 @@ function IntroMotionScene({
   // pillar (5 units) -- every other course caps at 4.
   const fifthPillarShown =
     isEmergencyCourse && pillars[4] ? spokenPast(pillarCue(4), 0.78) : false;
+  const orderedIntroSync = slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const orderedPillarShown = orderedIntroSync
+    ? (() => {
+        const fallbacks = [0.2, 0.41, 0.53, 0.65, 0.78];
+        let searchAfter = 0;
+        return pillars.map((_, index) => {
+          const fallback = fallbacks[index] ?? 0.78;
+          const position = speechCuePosition(pillarCue(index), searchAfter);
+          const threshold = position >= 0 ? position : Math.floor(slide.narration.length * fallback);
+          searchAfter = threshold + 1;
+          return started && (position >= 0 ? effectiveSpoken >= position : visualProgress >= fallback);
+        });
+      })()
+    : null;
+  const shownPillar = (index: number, fallback: boolean) => orderedPillarShown?.[index] ?? fallback;
+  const displayFirstPillarShown = shownPillar(0, firstPillarShown);
+  const displaySecondPillarShown = shownPillar(1, secondPillarShown);
+  const displayThirdPillarShown = shownPillar(2, thirdPillarShown);
+  const displayFourthPillarShown = shownPillar(3, fourthPillarShown);
+  const displayFifthPillarShown = shownPillar(4, fifthPillarShown);
   // Client call: nothing appears until Nasser actually talks about it --
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)
   // the "currently talking about this" active highlight.
-  const activeIndex = fifthPillarShown ? 4 : fourthPillarShown ? 3 : thirdPillarShown ? 2 : secondPillarShown ? 1 : 0;
+  const activeIndex = displayFifthPillarShown ? 4 : displayFourthPillarShown ? 3 : displayThirdPillarShown ? 2 : displaySecondPillarShown ? 1 : 0;
   const visiblePillars = started
-    ? fifthPillarShown
+    ? displayFifthPillarShown
       ? 5
-      : fourthPillarShown
+      : displayFourthPillarShown
       ? 4
-      : thirdPillarShown
+      : displayThirdPillarShown
         ? 3
-        : secondPillarShown
+        : displaySecondPillarShown
           ? 2
-          : firstPillarShown
+          : displayFirstPillarShown
             ? 1
             : 0
     : 0;

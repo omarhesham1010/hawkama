@@ -910,10 +910,10 @@ export const qualUnitTwoSlides = indexSlides([
 // ============================================================
 
 const unit3PDCAStageCards: PptCard[] = [
-  { index: '01', title: 'التخطيط (Plan)' },
-  { index: '02', title: 'التنفيذ (Do)', tone: 'gold' },
-  { index: '03', title: 'التحقق (Check)' },
-  { index: '04', title: 'التحسين أو الإجراء التصحيحي (Act)', tone: 'gold' },
+  { index: '01', title: 'التخطيط (Plan)', syncText: 'أربع مراحل: التخطيط' },
+  { index: '02', title: 'التنفيذ (Do)', tone: 'gold', syncText: 'ثم التنفيذ' },
+  { index: '03', title: 'التحقق (Check)', syncText: 'ثم التحقق' },
+  { index: '04', title: 'التحسين أو الإجراء التصحيحي (Act)', tone: 'gold', syncText: 'ثم التحسين أو الإجراء التصحيحي' },
 ];
 
 const unit3LeanWasteCards: PptCard[] = [
@@ -1711,7 +1711,7 @@ const unit5ActionPlanComponentCards: PptCard[] = [
 const unit5LearningModelCards: PptCard[] = [
   { title: 'التعلم الدوري', tone: 'gold' },
   { title: 'التعلم القائم على البيانات' },
-  { title: 'التعلم التفاعلي', tone: 'gold' },
+  { title: 'التعلم التفاعلي', tone: 'gold', syncText: 'والتعلّم التفاعلي' },
 ];
 
 const unit5CompetencyVerificationCards: PptCard[] = [

@@ -169,11 +169,11 @@ const unit1ActuarialAssumptionsCards: PptCard[] = [
 ];
 
 const unit1RiskCategoryCards: PptCard[] = [
-  { index: '01', title: 'مخاطر إكلينيكية', subtitle: 'أخطاء دوائية وتشخيص خاطئ وعدوى مكتسبة' },
-  { index: '02', title: 'مخاطر تشغيلية', subtitle: 'تعطل الأجهزة أو انقطاع الكهرباء عن غرف العمليات', tone: 'gold' },
-  { index: '03', title: 'مخاطر سيبرانية', subtitle: 'اختراق سجلات المرضى الإلكترونية' },
-  { index: '04', title: 'مخاطر تنظيمية', subtitle: 'رفض شركات التأمين للمطالبات أو مخالفة معايير الاعتماد' },
-  { index: '05', title: 'مخاطر سمعة', subtitle: 'شكاوى المرضى وتأثيرها على ثقة المجتمع', tone: 'gold' },
+  { index: '01', title: 'مخاطر إكلينيكية', subtitle: 'أخطاء دوائية وتشخيص خاطئ وعدوى مكتسبة', syncText: 'المخاطر السريرية' },
+  { index: '02', title: 'مخاطر تشغيلية', subtitle: 'تعطل الأجهزة أو انقطاع الكهرباء عن غرف العمليات', tone: 'gold', syncText: 'المخاطر التشغيلية' },
+  { index: '03', title: 'مخاطر سيبرانية', subtitle: 'اختراق سجلات المرضى الإلكترونية', syncText: 'المخاطر السيبرانية' },
+  { index: '04', title: 'مخاطر تنظيمية', subtitle: 'رفض شركات التأمين للمطالبات أو مخالفة معايير الاعتماد', syncText: 'المخاطر التنظيمية' },
+  { index: '05', title: 'مخاطر سمعة', subtitle: 'شكاوى المرضى وتأثيرها على ثقة المجتمع', tone: 'gold', syncText: 'مخاطر السمعة' },
 ];
 
 const unit1RiskToolsCards: PptCard[] = [
@@ -190,7 +190,7 @@ const unit1RiskExampleCards: PptCard[] = [
 
 const unit1ERMCycleCards: PptCard[] = [
   { index: '01', title: 'تحديد المخاطر', subtitle: 'سجلات الحوادث وبلاغات الموظفين والجولات التفتيشية' },
-  { index: '02', title: 'التحليل والتقييم', subtitle: 'مصفوفة تُرتّب الأولويات وفق الاحتمالية × الأثر', tone: 'gold' },
+  { index: '02', title: 'التحليل والتقييم', subtitle: 'مصفوفة تُرتّب الأولويات وفق الاحتمالية × الأثر', tone: 'gold', syncText: 'ثم تحليلها وتقييمها' },
 ];
 
 const unit1FourTsCards: PptCard[] = [
@@ -564,7 +564,7 @@ const unit2AuditBodiesCards: PptCard[] = [
   { index: '01', title: 'المركز السعودي لاعتماد المنشآت الصحية', subtitle: 'اعتماد المنشآت وجودة الرعاية' },
   { index: '02', title: 'وزارة الصحة', subtitle: 'السياسات الوطنية والرقابة العامة', tone: 'gold' },
   { index: '03', title: 'مجلس الضمان الصحي', subtitle: 'الرقابة على وثائق التأمين الصحي' },
-  { index: '04', title: 'هيئة الغذاء والدواء', subtitle: 'تسعير الأدوية والمستحضرات الصيدلانية', tone: 'gold' },
+  { index: '04', title: 'هيئة الغذاء والدواء', subtitle: 'تسعير الأدوية والمستحضرات الصيدلانية', tone: 'gold', syncText: 'الهيئة العامة للغذاء والدواء' },
 ];
 
 const unit2PaymentAuditCards: PptCard[] = [
@@ -961,7 +961,7 @@ const unit3ContractModelsCards: PptCard[] = [
 
 const unit3RiskManagementCards: PptCard[] = [
   { index: '01', title: 'تحديد المخاطر', subtitle: 'قبل التوقيع — بنود التعويضات والقوة القاهرة' },
-  { index: '02', title: 'تقييم وترتيب', subtitle: 'الاحتمالية والتأثير', tone: 'gold' },
+  { index: '02', title: 'تقييم وترتيب', subtitle: 'الاحتمالية والتأثير', tone: 'gold', syncText: 'وتقييم المخاطر وترتيبها' },
 ];
 
 const unit3FourStrategiesCards: PptCard[] = [
@@ -1310,7 +1310,7 @@ const unit4QuadrupleAimCards: PptCard[] = [
   { index: '01', title: 'تحسين صحة المجتمع', subtitle: 'التركيز على الوقاية والكشف المبكر' },
   { index: '02', title: 'خفض التكاليف', subtitle: 'تقليل الهدر والعمليات غير الضرورية', tone: 'gold' },
   { index: '03', title: 'تجربة المريض', subtitle: 'جعله محور الرعاية' },
-  { index: '04', title: 'رفاه الممارس الصحي', subtitle: 'تقليل الاحتراق الوظيفي', tone: 'gold' },
+  { index: '04', title: 'رفاه الممارس الصحي', subtitle: 'تقليل الاحتراق الوظيفي', tone: 'gold', syncText: 'ورفاه ممارس الرعاية الصحية' },
 ];
 
 const unit4ValueElementsCards: PptCard[] = [
@@ -1336,8 +1336,8 @@ const unit4EvaluationCriteriaCards: PptCard[] = [
 ];
 
 const unit4PROMsPREMsCards: PptCard[] = [
-  { title: 'PROMs', subtitle: 'النتائج الصحية وجودة الحياة كما يبلّغ عنها المريض', text: 'مثال: مقياس EQ-5D-5L بخمسة أبعاد', tone: 'gold' },
-  { title: 'PREMs', subtitle: 'تجربة المريض مع الخدمة نفسها', text: 'من التواصل مع الطاقم إلى إمكانية الوصول للرعاية' },
+  { title: 'PROMs', subtitle: 'النتائج الصحية وجودة الحياة كما يبلّغ عنها المريض', text: 'مثال: مقياس EQ-5D-5L بخمسة أبعاد', tone: 'gold', syncText: 'مؤشرات بروومز' },
+  { title: 'PREMs', subtitle: 'تجربة المريض مع الخدمة نفسها', text: 'من التواصل مع الطاقم إلى إمكانية الوصول للرعاية', syncText: 'مؤشرات بريمز' },
 ];
 
 const unit4CostOutcomeCards: PptCard[] = [
@@ -2208,7 +2208,7 @@ export const eavClosingSlides = indexSlides([
     kind: 'completion',
     cards: [
       { title: 'من المخاطر إلى القيمة', text: 'رحلة متكاملة عبر خمس وحدات في اقتصاديات الصحة' },
-      { title: 'النزاهة أولًا', text: 'التدقيق والأخلاقيات حماية مباشرة لثقة النظام الصحي' },
+      { title: 'النزاهة أولًا', text: 'التدقيق والأخلاقيات حماية مباشرة لثقة النظام الصحي', syncText: 'حماية النزاهة الأخلاقية' },
       { title: 'القيمة محور كل قرار', text: 'لا أرقام باردة، بل قيمة صحية حقيقية للمريض' },
     ],
   }),
