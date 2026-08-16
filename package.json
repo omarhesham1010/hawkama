@@ -22,6 +22,10 @@
     "build:course3": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=3 && node scripts/write-scorm-manifest.mjs --course=3",
     "build:course4": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=4 && node scripts/write-scorm-manifest.mjs --course=4",
     "build:course5": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=5 && node scripts/write-scorm-manifest.mjs --course=5",
+    "build:course6": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=6 && node scripts/write-scorm-manifest.mjs --course=6",
+    "build:course7": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=7 && node scripts/write-scorm-manifest.mjs --course=7",
+    "build:course8": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=8 && node scripts/write-scorm-manifest.mjs --course=8",
+    "build:course9": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --course=9 && node scripts/write-scorm-manifest.mjs --course=9",
     "package:scorm": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm.ps1",
     "package:scorm:sample": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-scorm-sample.ps1",
     "package:course1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 1",
@@ -29,6 +33,10 @@
     "package:course3": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 3",
     "package:course4": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 4",
     "package:course5": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 5",
+    "package:course6": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 6",
+    "package:course7": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 7",
+    "package:course8": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 8",
+    "package:course9": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-course-scorm.ps1 -Course 9",
     "preview": "vite preview"
   },
   "dependencies": {

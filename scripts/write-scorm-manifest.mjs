@@ -11,6 +11,10 @@ const COURSE_TITLES = {
   3: 'ترخيص المنشآت الصحية والقوى العاملة',
   4: 'إعداد السياسات والأنظمة واللوائح في القطاع الصحي',
   5: 'حوكمة القطاع الصحي',
+  6: 'الجودة - مراقبة أداء النظام وإدارة حالات الإخفاق وحقوق المرضى',
+  7: 'الجودة - معايير وفحص ومراقبة وتحسين الجودة',
+  8: 'التحليل الاقتصادي والرعاية الصحية المبنية على القيمة',
+  9: 'التنظيم الاقتصادي - التنافسية والشفافية وآليات التسعير والدفع',
 };
 const COURSE_IDENTIFIERS = {
   1: 'hawkama-governance-course',
@@ -18,6 +22,10 @@ const COURSE_IDENTIFIERS = {
   3: 'hawkama-licensing-course',
   4: 'hawkama-policy-course',
   5: 'hawkama-governance2-course',
+  6: 'hawkama-system-performance-course',
+  7: 'hawkama-quality-monitoring-course',
+  8: 'hawkama-economic-analysis-value-course',
+  9: 'hawkama-economic-regulation-pricing-course',
 };
 
 const distDir = join(process.cwd(), SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist');
