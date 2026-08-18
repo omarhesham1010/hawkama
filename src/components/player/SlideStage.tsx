@@ -1396,7 +1396,7 @@ function IntroMotionScene({
   // fallbacks below regardless of when Nasser actually named each unit.
   const isEmergencyCourse = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
     || slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual')
-    || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+    || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
@@ -1574,15 +1574,16 @@ function IntroMotionScene({
   };
   const isCourse10Course = slide.id.startsWith('hta10');
   // course/10 (التنظيم الاقتصادي: تقييم التقنيات الصحية) -- pending client
-  // approval of the narration script, built on the shared "أبعاد" icon
-  // pool rather than a fresh extraction pass (no new source-PDF icons yet).
+  // approval of the narration script. Every unit welcome gets a real icon
+  // extracted from the course's own source PPTX (see POLICY_GOV2_ICON_POOL_HTA10
+  // above), not a generic reuse from another course's pool.
   const course10HeroByUnit: Record<string, string> = {
-    'hta10-welcome': '/assets/visual-library/icon-kpi-dashboard.webp',
-    'hta10-u1-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
-    'hta10-u2-welcome': '/assets/visual-library/icon-policy-analytics-search.webp',
-    'hta10-u3-welcome': '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
-    'hta10-u4-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
-    'hta10-u5-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
+    'hta10-welcome': '/assets/visual-library/icon-hta10-analytics-magnifier.svg',
+    'hta10-u1-welcome': '/assets/visual-library/icon-hta10-magnifier-gears.svg',
+    'hta10-u2-welcome': '/assets/visual-library/icon-hta10-document-pencil.svg',
+    'hta10-u3-welcome': '/assets/visual-library/icon-hta10-gear-monitor.svg',
+    'hta10-u4-welcome': '/assets/visual-library/icon-hta10-computer-shield-check.svg',
+    'hta10-u5-welcome': '/assets/visual-library/icon-hta10-id-card-people.svg',
   };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
@@ -2314,11 +2315,42 @@ const POLICY_GOV2_ICON_POOL_FLAT = [
   '/assets/visual-library/icon-policy-stakeholder-people.webp',
   '/assets/visual-library/icon-cost-reduction-value.svg',
 ];
-type PolicyGov2Style = 'rich' | 'flat';
+// course/10's own real line-icon set, extracted straight from its source
+// PPTX (تقييم التقنيات الصحية_العرض التقديمي) -- a single self-contained
+// visual family (transparent-background outline icons in gold/orange/green
+// accents), never mixed into the rich/flat webp pools above so course/10
+// never repeats the "photo mixed with icon" problem those two were built
+// to fix. Kept as one pool (not rich/flat split) since these icons are
+// already visually consistent with each other regardless of accent color.
+const POLICY_GOV2_ICON_POOL_HTA10 = [
+  '/assets/visual-library/icon-hta10-committee-people-gear.svg',
+  '/assets/visual-library/icon-hta10-document-warning.svg',
+  '/assets/visual-library/icon-hta10-analytics-magnifier.svg',
+  '/assets/visual-library/icon-hta10-id-card-people.svg',
+  '/assets/visual-library/icon-hta10-handshake-gold.svg',
+  '/assets/visual-library/icon-hta10-handshake-green.svg',
+  '/assets/visual-library/icon-hta10-person-heart-hand.svg',
+  '/assets/visual-library/icon-hta10-person-virus-risk.svg',
+  '/assets/visual-library/icon-hta10-computer-shield-check.svg',
+  '/assets/visual-library/icon-hta10-people-lightning-threat.svg',
+  '/assets/visual-library/icon-hta10-prohibited-banned.svg',
+  '/assets/visual-library/icon-hta10-warning-triangle-lightning.svg',
+  '/assets/visual-library/icon-hta10-health-shield-hand.svg',
+  '/assets/visual-library/icon-hta10-clipboard-heart.svg',
+  '/assets/visual-library/icon-hta10-hands-heart.svg',
+  '/assets/visual-library/icon-hta10-gear-person.svg',
+  '/assets/visual-library/icon-hta10-document-pencil.svg',
+  '/assets/visual-library/icon-hta10-magnifier-gears.svg',
+  '/assets/visual-library/icon-hta10-gear-monitor.svg',
+  '/assets/visual-library/icon-hta10-eye-magnifier.svg',
+];
+type PolicyGov2Style = 'rich' | 'flat' | 'hta10';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
+  if (slideId.startsWith('hta10')) return 'hta10';
   return stableIconIndex(slideId) % 2 === 0 ? 'rich' : 'flat';
 }
 function policyGov2PoolFor(style: PolicyGov2Style) {
+  if (style === 'hta10') return POLICY_GOV2_ICON_POOL_HTA10;
   return style === 'flat' ? POLICY_GOV2_ICON_POOL_FLAT : POLICY_GOV2_ICON_POOL_RICH;
 }
 /** Every policy/gov2/perf/qual call site threads this through instead of a
@@ -2348,25 +2380,30 @@ function policyGov2Marker(slideId: string): string {
 // first match wins) within EACH style bucket separately, so a match never
 // crosses into the other style and break a slide's single-style rule.
 const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; terms: string[] }> = [
-  // course/10 (تقييم التقنيات الصحية) -- reuses the shared "أبعاد" pool
-  // rather than a fresh extraction pass (build is pending client approval
-  // of the narration script), so these route its own topic vocabulary
-  // (HTA, data governance, interoperability, cybersecurity, legal/ethics)
-  // to the closest already-vetted on-brand icon instead of a generic hash pick.
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['التقنيات الطبية', 'الأجهزة الطبية', 'الصحة الرقمية', 'تقنية المعلومات الصحية', 'التقنيات العلاجية', 'التقنيات المساعدة', 'الذكاء الاصطناعي', 'الطب عن بُعد', 'الأجهزة الذكية'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['التقنيات الطبية', 'الأجهزة الطبية', 'الصحة الرقمية', 'تقنية المعلومات الصحية', 'التقنيات العلاجية', 'التقنيات المساعدة', 'الذكاء الاصطناعي', 'الطب عن بُعد', 'الأجهزة الذكية'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['حوكمة البيانات', 'دورة حياة البيانات', 'جودة البيانات', 'مبادئ إدارة البيانات', 'مصادر البيانات', 'البيانات الوصفية', 'مشرف البيانات', 'مالكو البيانات'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['حوكمة البيانات', 'دورة حياة البيانات', 'جودة البيانات', 'مبادئ إدارة البيانات', 'مصادر البيانات', 'البيانات الوصفية', 'مشرف البيانات', 'مالكو البيانات'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['التشغيل البيني', 'تكامل البيانات', 'معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'قابلية التشغيل البيني'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['التشغيل البيني', 'تكامل البيانات', 'معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'قابلية التشغيل البيني'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-bank-vault-safe.webp', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'التصيد الاحتيالي', 'اختراق البيانات', 'المرونة السيبرانية', 'إدارة حوادث الأمن'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-failure-investigation-gear.webp', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'التصيد الاحتيالي', 'اختراق البيانات', 'المرونة السيبرانية', 'إدارة حوادث الأمن'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['الخصوصية بالتصميم', 'حماية البيانات الشخصية', 'الأطر القانونية', 'التشريعات الصحية', 'قانون حماية البيانات', 'الامتثال التنظيمي'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['الخصوصية بالتصميم', 'حماية البيانات الشخصية', 'الأطر القانونية', 'التشريعات الصحية', 'قانون حماية البيانات', 'الامتثال التنظيمي'] },
-  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['أخلاقيات', 'الاستقلالية', 'عدم الإضرار', 'الإحسان', 'العدالة', 'مبادئ أخلاقية', 'التعاون والتحالفات'] },
-  { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['أخلاقيات', 'الاستقلالية', 'عدم الإضرار', 'الإحسان', 'العدالة', 'مبادئ أخلاقية', 'التعاون والتحالفات'] },
+  // course/10 (تقييم التقنيات الصحية) -- real line-icons extracted from the
+  // course's own source PPTX (POLICY_GOV2_ICON_POOL_HTA10 above), one style
+  // bucket ('hta10') so a shot never mixes them with another course's
+  // rich/flat webp icons. Ordered narrowest-phrase-first like the rules below.
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-magnifier-gears.svg', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية', 'تحديد النطاق'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-gear-monitor.svg', terms: ['التقنيات الطبية', 'الأجهزة الطبية', 'الصحة الرقمية', 'تقنية المعلومات الصحية', 'التقنيات العلاجية', 'التقنيات المساعدة', 'الأجهزة الذكية'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-computer-shield-check.svg', terms: ['الذكاء الاصطناعي', 'الطب عن بُعد', 'أنظمة دعم القرار', 'أدوات التشخيص'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-clipboard-heart.svg', terms: ['حوكمة البيانات', 'جودة البيانات', 'مبادئ إدارة البيانات', 'معايير جودة البيانات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-pencil.svg', terms: ['دورة حياة البيانات', 'مصادر البيانات', 'البيانات الوصفية', 'سياسات البيانات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-committee-people-gear.svg', terms: ['مشرف البيانات', 'مالكو البيانات', 'كبير مسؤولي البيانات', 'مجلس حوكمة البيانات', 'مكتب حوكمة البيانات', 'النموذج المركزي', 'النموذج المتكرر', 'النموذج الاتحادي'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-analytics-magnifier.svg', terms: ['التشغيل البيني', 'تكامل البيانات', 'مستويات التشغيل البيني', 'قابلية التشغيل البيني'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-id-card-people.svg', terms: ['معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'الموارد'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-eye-magnifier.svg', terms: ['القيمة الاقتصادية', 'التصميم المتمحور حول الإنسان', 'تصميم الحلول الرقمية'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-warning-triangle-lightning.svg', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'اختراقات البيانات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-people-lightning-threat.svg', terms: ['التصيد الاحتيالي', 'الهندسة الاجتماعية', 'التهديدات الداخلية'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-prohibited-banned.svg', terms: ['عدم الإضرار', 'الأنظمة القديمة', 'اختراق إنترنت الأشياء'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-gear-person.svg', terms: ['إدارة حوادث الأمن السيبراني', 'المرونة السيبرانية', 'الاستئصال والتعافي'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-warning.svg', terms: ['إطار NIST', 'المعيار ISO 27001', 'أطر الأمن السيبراني'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-handshake-gold.svg', terms: ['الامتثال والحوكمة والمخاطر', 'GRC', 'برنامج الامتثال المؤسسي'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-health-shield-hand.svg', terms: ['التشريعات الصحية', 'دور الجهات التنظيمية', 'وضع المعايير والرقابة', 'التراخيص والاعتماد'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-handshake-green.svg', terms: ['الخصوصية بالتصميم', 'حماية البيانات الشخصية', 'GDPR', 'HIPAA'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-heart-hand.svg', terms: ['نظام حماية البيانات الشخصية', 'PDPL', 'سدايا', 'حقوق أصحاب البيانات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-virus-risk.svg', terms: ['أخلاقيات', 'الاستقلالية', 'الإحسان', 'العدالة', 'مبادئ أخلاقية'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-hands-heart.svg', terms: ['التعاون والتحالفات', 'الشراكات مع القطاع الخاص', 'التعاون البحثي والتقني'] },
   // Round-3 course/6-9 audit: exact short-card phrases before broad terms, so
   // one-word cards no longer drift into unrelated fallback icons.
   { style: 'rich', icon: '/assets/visual-library/icon-question-mark-mascot.webp', terms: ['اختبر فهمك', 'صنّف الحالات', 'صنّف المواقف', 'صنّف العبارات', 'صنّف المؤشرات', 'صنّف الجهات', 'صنّف الحوادث', 'صنّف الملاحظة', 'اقلب البطاقات', 'فسّر النقطة', 'حلّل الفارق', 'قرار الاستثمار', 'صمّم الحافز', 'صمّم التسعير التفاضلي', 'اختر النموذج', 'رتّب الأولوية'] },
@@ -2606,7 +2643,7 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   const add = (src: string) => {
     if (!layers.includes(src)) layers.push(src);
   };
-  const policyGov2StyleMatch = /__policygov2:(rich|flat)__/.exec(text);
+  const policyGov2StyleMatch = /__policygov2:(rich|flat|hta10)__/.exec(text);
   const isPolicyGov2Topic = Boolean(policyGov2StyleMatch);
   let isEmergencyTopic = false;
   // course/4 & course/5 never fall through to bag/1's old AI-generated
@@ -3199,7 +3236,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   if (slide.audioKey?.endsWith('-course1')) return [];
   // course/4 (policy) & course/5 (gov2) get their own real-brand pool --
   // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL_RICH/FLAT).
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const fallbackVisualPool = isPolicyGov2Slide
     ? policyGov2PoolFor(policyGov2StyleFor(slide.id))
@@ -3255,7 +3292,7 @@ function PptMotionVisualScene({
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
   const isMotionLedScene = isEmergencySlide || isCourse1Slide;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
@@ -3676,7 +3713,7 @@ function PptTimelineScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
   const primaryVisual = slideVisualPool(slide, cards)[0];
   // A single-card act's one step already carries its own icon badge below
   // -- the floating illustration above it just duplicates that, and for
@@ -3859,7 +3896,7 @@ function PptMatrixScene({
   // give them a real left-side image instead, picked from their own
   // real-brand pool with the same no-repeat-per-slide guarantee every other
   // ppt layout already has.
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
   const matrixVisualPool = isPolicyGov2Slide ? slideVisualPool(slide, cards) : [];
   const usedMatrixVisuals = new Set<string>();
   return (
@@ -4006,7 +4043,7 @@ function PptSpotlightScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
   const supporting = cards.filter((_, i) => i !== focusIndex);
