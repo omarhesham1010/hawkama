@@ -1572,6 +1572,18 @@ function IntroMotionScene({
     'econ9-u4-welcome': '/assets/visual-library/icon-bank-vault-safe.webp',
     'econ9-u5-welcome': '/assets/visual-library/icon-contract-signing.webp',
   };
+  const isCourse10Course = slide.id.startsWith('hta10');
+  // course/10 (التنظيم الاقتصادي: تقييم التقنيات الصحية) -- pending client
+  // approval of the narration script, built on the shared "أبعاد" icon
+  // pool rather than a fresh extraction pass (no new source-PDF icons yet).
+  const course10HeroByUnit: Record<string, string> = {
+    'hta10-welcome': '/assets/visual-library/icon-kpi-dashboard.webp',
+    'hta10-u1-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
+    'hta10-u2-welcome': '/assets/visual-library/icon-policy-analytics-search.webp',
+    'hta10-u3-welcome': '/assets/visual-library/icon-policy-books-magnifier-compare.webp',
+    'hta10-u4-welcome': '/assets/visual-library/icon-policy-institution-shield.webp',
+    'hta10-u5-welcome': '/assets/visual-library/icon-policy-document-check-light.webp',
+  };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
     : isPolicyCourse
@@ -1586,7 +1598,9 @@ function IntroMotionScene({
               ? (course8HeroByUnit[slide.id] ?? '/assets/visual-library/icon-financial-dashboard-analytics.webp')
               : isCourse9Course
                 ? (course9HeroByUnit[slide.id] ?? '/assets/visual-library/icon-financial-dashboard-analytics.webp')
-                : isEmergencyCourse
+                : isCourse10Course
+                  ? (course10HeroByUnit[slide.id] ?? '/assets/visual-library/icon-kpi-dashboard.webp')
+                  : isEmergencyCourse
                   ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
                   : isCourse1Course
                     // Pulled straight from the client's own governance PPTX title
@@ -2319,7 +2333,8 @@ function policyGov2Marker(slideId: string): string {
       slideId.startsWith('perf') ||
       slideId.startsWith('qual') ||
       slideId.startsWith('econ8') ||
-      slideId.startsWith('econ9')
+      slideId.startsWith('econ9') ||
+      slideId.startsWith('hta10')
     )
   )
     return '';
@@ -2333,6 +2348,25 @@ function policyGov2Marker(slideId: string): string {
 // first match wins) within EACH style bucket separately, so a match never
 // crosses into the other style and break a slide's single-style rule.
 const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; terms: string[] }> = [
+  // course/10 (تقييم التقنيات الصحية) -- reuses the shared "أبعاد" pool
+  // rather than a fresh extraction pass (build is pending client approval
+  // of the narration script), so these route its own topic vocabulary
+  // (HTA, data governance, interoperability, cybersecurity, legal/ethics)
+  // to the closest already-vetted on-brand icon instead of a generic hash pick.
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-book-magnifier-research.webp', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['التقنيات الطبية', 'الأجهزة الطبية', 'الصحة الرقمية', 'تقنية المعلومات الصحية', 'التقنيات العلاجية', 'التقنيات المساعدة', 'الذكاء الاصطناعي', 'الطب عن بُعد', 'الأجهزة الذكية'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['التقنيات الطبية', 'الأجهزة الطبية', 'الصحة الرقمية', 'تقنية المعلومات الصحية', 'التقنيات العلاجية', 'التقنيات المساعدة', 'الذكاء الاصطناعي', 'الطب عن بُعد', 'الأجهزة الذكية'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-checklist-clipboard.webp', terms: ['حوكمة البيانات', 'دورة حياة البيانات', 'جودة البيانات', 'مبادئ إدارة البيانات', 'مصادر البيانات', 'البيانات الوصفية', 'مشرف البيانات', 'مالكو البيانات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-quality-checklist-clock.webp', terms: ['حوكمة البيانات', 'دورة حياة البيانات', 'جودة البيانات', 'مبادئ إدارة البيانات', 'مصادر البيانات', 'البيانات الوصفية', 'مشرف البيانات', 'مالكو البيانات'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['التشغيل البيني', 'تكامل البيانات', 'معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'قابلية التشغيل البيني'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-decision-question-arrows.webp', terms: ['التشغيل البيني', 'تكامل البيانات', 'معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'قابلية التشغيل البيني'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-bank-vault-safe.webp', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'التصيد الاحتيالي', 'اختراق البيانات', 'المرونة السيبرانية', 'إدارة حوادث الأمن'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-failure-investigation-gear.webp', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'التصيد الاحتيالي', 'اختراق البيانات', 'المرونة السيبرانية', 'إدارة حوادث الأمن'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-scroll-pen-check.webp', terms: ['الخصوصية بالتصميم', 'حماية البيانات الشخصية', 'الأطر القانونية', 'التشريعات الصحية', 'قانون حماية البيانات', 'الامتثال التنظيمي'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['الخصوصية بالتصميم', 'حماية البيانات الشخصية', 'الأطر القانونية', 'التشريعات الصحية', 'قانون حماية البيانات', 'الامتثال التنظيمي'] },
+  { style: 'rich', icon: '/assets/visual-library/icon-policy-time-person-ribbon.webp', terms: ['أخلاقيات', 'الاستقلالية', 'عدم الإضرار', 'الإحسان', 'العدالة', 'مبادئ أخلاقية', 'التعاون والتحالفات'] },
+  { style: 'flat', icon: '/assets/visual-library/icon-policy-stakeholder-people.webp', terms: ['أخلاقيات', 'الاستقلالية', 'عدم الإضرار', 'الإحسان', 'العدالة', 'مبادئ أخلاقية', 'التعاون والتحالفات'] },
   // Round-3 course/6-9 audit: exact short-card phrases before broad terms, so
   // one-word cards no longer drift into unrelated fallback icons.
   { style: 'rich', icon: '/assets/visual-library/icon-question-mark-mascot.webp', terms: ['اختبر فهمك', 'صنّف الحالات', 'صنّف المواقف', 'صنّف العبارات', 'صنّف المؤشرات', 'صنّف الجهات', 'صنّف الحوادث', 'صنّف الملاحظة', 'اقلب البطاقات', 'فسّر النقطة', 'حلّل الفارق', 'قرار الاستثمار', 'صمّم الحافز', 'صمّم التسعير التفاضلي', 'اختر النموذج', 'رتّب الأولوية'] },

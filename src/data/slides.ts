@@ -97,6 +97,15 @@ import {
   erpUnitThreeSlides,
   erpUnitTwoSlides,
 } from './economicRegulationPricingProgram';
+import {
+  htaClosingSlides,
+  htaIntroSlides,
+  htaUnitFiveSlides,
+  htaUnitFourSlides,
+  htaUnitOneSlides,
+  htaUnitThreeSlides,
+  htaUnitTwoSlides,
+} from './healthTechAssessmentProgram';
 import { courseMeta as legacyCourseMeta, slides as legacySlides } from './legacySlides';
 import type { Slide } from '../types/slides';
 import { course1AudioScriptText } from './course1AudioScriptOverrides';
@@ -188,6 +197,13 @@ export const allNarratedSlides = [
   ...erpUnitFourSlides,
   ...erpUnitFiveSlides,
   ...erpClosingSlides,
+  ...htaIntroSlides,
+  ...htaUnitOneSlides,
+  ...htaUnitTwoSlides,
+  ...htaUnitThreeSlides,
+  ...htaUnitFourSlides,
+  ...htaUnitFiveSlides,
+  ...htaClosingSlides,
 ];
 
 export const courseCatalog = {
@@ -429,6 +445,25 @@ export const courseCatalog = {
       ...erpUnitFourSlides,
       ...erpUnitFiveSlides,
       ...erpClosingSlides,
+    ],
+  },
+  // التنظيم الاقتصادي: تقييم التقنيات الصحية, single-link #/course/10
+  // shell -- the whole bag (intro + 5 units + closing/post-test) as one
+  // sequence. Narration script pending client approval; every slide uses
+  // Web Speech API fallback until real ElevenLabs audio is generated.
+  'hta10-full': {
+    meta: {
+      title: 'التنظيم الاقتصادي: تقييم التقنيات الصحية',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...htaIntroSlides,
+      ...htaUnitOneSlides,
+      ...htaUnitTwoSlides,
+      ...htaUnitThreeSlides,
+      ...htaUnitFourSlides,
+      ...htaUnitFiveSlides,
+      ...htaClosingSlides,
     ],
   },
 };
