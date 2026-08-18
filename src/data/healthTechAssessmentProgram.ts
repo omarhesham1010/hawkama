@@ -227,7 +227,7 @@ const unit1CategoriesActivity: ActivityData = {
     {
       id: 'hta-u1-class-1',
       text: 'أجهزة التصوير بالرنين المغناطيسي والروبوتات الجراحية',
-      answer: 'الأجهزة الطبية',
+      answer: 'medtech',
       rationale: 'معدات مادية متخصصة يستخدمها المتخصصون أساسًا للتشخيص والعلاج.',
       needsReview: false,
       voiceKey: 'bag10-ch1-s4-activity-1-item-hta-u1-class-1',
@@ -235,7 +235,7 @@ const unit1CategoriesActivity: ActivityData = {
     {
       id: 'hta-u1-class-2',
       text: 'تطبيقات الصحة عبر الهاتف المحمول وأجهزة الاستشعار القابلة للارتداء',
-      answer: 'الصحة الرقمية',
+      answer: 'healthtech',
       rationale: 'حلول برمجية ومنصات رقمية موجهة للمستهلك مباشرة.',
       needsReview: false,
       voiceKey: 'bag10-ch1-s4-activity-1-item-hta-u1-class-2',
@@ -243,7 +243,7 @@ const unit1CategoriesActivity: ActivityData = {
     {
       id: 'hta-u1-class-3',
       text: 'السجلات الصحية الإلكترونية وبوابات المرضى',
-      answer: 'تقنية المعلومات الصحية',
+      answer: 'hit',
       rationale: 'أنظمة مصممة لإدارة بيانات المرضى وتبادلها بشكل آمن.',
       needsReview: false,
       voiceKey: 'bag10-ch1-s4-activity-1-item-hta-u1-class-3',
@@ -251,7 +251,7 @@ const unit1CategoriesActivity: ActivityData = {
     {
       id: 'hta-u1-class-4',
       text: 'اللقاحات ومشتقات الدم والتدخلات البيولوجية المتقدمة',
-      answer: 'التقنيات العلاجية',
+      answer: 'therapeutic',
       rationale: 'تشمل الأدوية واللقاحات والعلاج الجيني وما شابهها من تدخلات علاجية.',
       needsReview: false,
       voiceKey: 'bag10-ch1-s4-activity-1-item-hta-u1-class-4',
@@ -582,7 +582,7 @@ const unit2SourcesActivity: ActivityData = {
     {
       id: 'hta-u2-class-1',
       text: 'تفاصيل دقيقة حول تاريخ المريض الطبي والتشخيصات والعلاجات',
-      answer: 'السجلات الصحية الإلكترونية',
+      answer: 'ehr',
       rationale: 'توفر تفاصيل دقيقة حول تاريخ المريض الطبي ونتائج الفحوصات.',
       needsReview: false,
       voiceKey: 'bag10-ch2-s4-activity-1-item-hta-u2-class-1',
@@ -590,7 +590,7 @@ const unit2SourcesActivity: ActivityData = {
     {
       id: 'hta-u2-class-2',
       text: 'الساعات الذكية وأجهزة قياس الضغط التي تجمع بيانات حيوية في الوقت الفعلي',
-      answer: 'الأجهزة الذكية القابلة للارتداء',
+      answer: 'wearable',
       rationale: 'أجهزة تجمع بيانات حيوية مستمرة في الوقت الفعلي.',
       needsReview: false,
       voiceKey: 'bag10-ch2-s4-activity-1-item-hta-u2-class-2',
@@ -598,7 +598,7 @@ const unit2SourcesActivity: ActivityData = {
     {
       id: 'hta-u2-class-3',
       text: 'بيانات وطنية توفر مؤشرات حول صحة السكان ومعدلات الأمراض المزمنة',
-      answer: 'السجلات الحيوية والمسوح الصحية',
+      answer: 'registry',
       rationale: 'بيانات وطنية أو إقليمية توفر مؤشرات عن صحة السكان.',
       needsReview: false,
       voiceKey: 'bag10-ch2-s4-activity-1-item-hta-u2-class-3',
@@ -606,7 +606,7 @@ const unit2SourcesActivity: ActivityData = {
     {
       id: 'hta-u2-class-4',
       text: 'معلومات حول تكاليف العلاج وتكرار استخدام الخدمات الصحية',
-      answer: 'بيانات مطالبات التأمين الصحي',
+      answer: 'claims',
       rationale: 'تقدم معلومات حول تكاليف العلاج وتكرار استخدام الخدمات وأنماط العلاج.',
       needsReview: false,
       voiceKey: 'bag10-ch2-s4-activity-1-item-hta-u2-class-4',
@@ -938,7 +938,7 @@ const unit3StandardsClassification: ActivityData = {
     {
       id: 'hta-u3-class-1',
       text: 'أشمل معيار عالمي للمصطلحات الطبية السريرية لتوحيد تسجيل البيانات',
-      answer: 'SNOMED CT',
+      answer: 'snomed',
       rationale: 'يوحّد تسجيل البيانات الصحية داخل الأنظمة الإلكترونية بمعرّف رقمي فريد لكل مفهوم.',
       needsReview: false,
       voiceKey: 'bag10-ch3-s6-activity-2-item-hta-u3-class-1',
@@ -946,7 +946,7 @@ const unit3StandardsClassification: ActivityData = {
     {
       id: 'hta-u3-class-2',
       text: 'معيار قائم على واجهة برمجة تطبيقات لتبادل المعلومات الصحية عبر "موارد" صغيرة',
-      answer: 'HL7 FHIR',
+      answer: 'fhir',
       rationale: 'يقسّم البيانات الطبية المعقدة إلى موارد صغيرة باستخدام تقنيات الويب الحديثة.',
       needsReview: false,
       voiceKey: 'bag10-ch3-s6-activity-2-item-hta-u3-class-2',
@@ -954,7 +954,7 @@ const unit3StandardsClassification: ActivityData = {
     {
       id: 'hta-u3-class-3',
       text: 'المعيار العالمي لمعلومات التشخيص الصحي وأسباب الوفاة الذي تطوره منظمة الصحة العالمية',
-      answer: 'ICD-10/11',
+      answer: 'icd',
       rationale: 'المعيار العالمي لتسجيل الأمراض والحالات الصحية وأسباب الوفاة.',
       needsReview: false,
       voiceKey: 'bag10-ch3-s6-activity-2-item-hta-u3-class-3',
@@ -1205,7 +1205,7 @@ const unit4ThreatsActivity: ActivityData = {
     {
       id: 'hta-u4-class-1',
       text: 'رسالة بريد إلكتروني احتيالية تطلب من موظف تحديث بيانات حسابه فورًا',
-      answer: 'التصيّد الاحتيالي',
+      answer: 'phishing',
       rationale: 'رسائل احتيالية تستهدف الموظفين لسرقة بيانات اعتمادهم أو تثبيت برامج ضارة.',
       needsReview: false,
       voiceKey: 'bag10-ch4-s4-activity-1-item-hta-u4-class-1',
@@ -1213,7 +1213,7 @@ const unit4ThreatsActivity: ActivityData = {
     {
       id: 'hta-u4-class-2',
       text: 'برنامج خبيث يشفّر السجلات الصحية الإلكترونية ويطالب بفدية مالية لفك التشفير',
-      answer: 'برامج الفدية',
+      answer: 'ransomware',
       rationale: 'برامج تُشفّر البيانات وتُعطّل الأنظمة السريرية للمطالبة بفدية.',
       needsReview: false,
       voiceKey: 'bag10-ch4-s4-activity-1-item-hta-u4-class-2',
@@ -1221,7 +1221,7 @@ const unit4ThreatsActivity: ActivityData = {
     {
       id: 'hta-u4-class-3',
       text: 'موظف يعرّض بيانات مرضى للخطر عن طريق الخطأ نتيجة صلاحية وصول غير مقيدة',
-      answer: 'التهديدات الداخلية',
+      answer: 'insider',
       rationale: 'مخاطر من الموظفين أو الشركاء، عمدًا أو عن طريق الخطأ نتيجة للوصول إلى النظام.',
       needsReview: false,
       voiceKey: 'bag10-ch4-s4-activity-1-item-hta-u4-class-3',
@@ -1229,7 +1229,7 @@ const unit4ThreatsActivity: ActivityData = {
     {
       id: 'hta-u4-class-4',
       text: 'وصول غير مصرح به إلى قاعدة بيانات المرضى وسرقة معلوماتهم الصحية المحمية',
-      answer: 'اختراقات البيانات',
+      answer: 'breach',
       rationale: 'الوصول غير المصرح به وسرقة بيانات المرضى الحساسة لبيعها أو استغلالها.',
       needsReview: false,
       voiceKey: 'bag10-ch4-s4-activity-1-item-hta-u4-class-4',
@@ -1551,7 +1551,7 @@ const unit5EthicsClassification: ActivityData = {
     {
       id: 'hta-u5-class-1',
       text: 'استخدام نظام ذكاء اصطناعي لدعم التشخيص دون إبلاغ المريض بذلك',
-      answer: 'الاستقلالية',
+      answer: 'autonomy',
       rationale: 'ينتهك حق المريض في معرفة كيفية استخدام بياناته والموافقة على استخدام التقنية.',
       needsReview: false,
       voiceKey: 'bag10-ch5-s4-activity-1-item-hta-u5-class-1',
@@ -1559,7 +1559,7 @@ const unit5EthicsClassification: ActivityData = {
     {
       id: 'hta-u5-class-2',
       text: 'الاعتماد الكامل على نظام تشخيص آلي دون مراجعة الطبيب لنتائجه',
-      answer: 'عدم الإضرار',
+      answer: 'nonmaleficence',
       rationale: 'استخدام التقنية بطريقة قد تسبب ضررًا للمريض بغياب الإشراف البشري.',
       needsReview: false,
       voiceKey: 'bag10-ch5-s4-activity-1-item-hta-u5-class-2',
@@ -1567,7 +1567,7 @@ const unit5EthicsClassification: ActivityData = {
     {
       id: 'hta-u5-class-3',
       text: 'استخدام أنظمة متابعة الأمراض المزمنة لتحسين جودة حياة المريض فعليًا',
-      answer: 'الإحسان',
+      answer: 'beneficence',
       rationale: 'تحقق التقنية فائدة حقيقية للمريض، وهذا هو جوهر مبدأ الإحسان.',
       needsReview: false,
       voiceKey: 'bag10-ch5-s4-activity-1-item-hta-u5-class-3',
@@ -1575,7 +1575,7 @@ const unit5EthicsClassification: ActivityData = {
     {
       id: 'hta-u5-class-4',
       text: 'قصر خدمات الطبيب عن بُعد على مناطق معينة دون غيرها',
-      answer: 'العدالة',
+      answer: 'justice',
       rationale: 'يخالف ضمان الإنصاف في الوصول إلى الخدمات الصحية الرقمية لجميع الفئات.',
       needsReview: false,
       voiceKey: 'bag10-ch5-s4-activity-1-item-hta-u5-class-4',

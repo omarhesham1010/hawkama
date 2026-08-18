@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **1884**.
+Generated from `src/data/audioScripts.ts`. Total required: **2056**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -560,6 +560,60 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-ch5-s10-closing.mp3` - ختام الوحدة الخامسة
 - `bag9-final-s1-test.mp3` - الاختبار الختامي الشامل
 - `bag9-final-s2-closing.mp3` - رسالة الختام
+- `bag10-ch0-s1-welcome.mp3` - التنظيم الاقتصادي: تقييم التقنيات الصحية
+- `bag10-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag10-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag10-ch1-s1-welcome.mp3` - الإطار العام لتقييم التقنيات الصحية والتحول الرقمي
+- `bag10-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
+- `bag10-ch1-s2-categories.mp3` - فئات التقنيات الصحية وتقييمها الاقتصادي
+- `bag10-ch1-s4-activity-1.mp3` - نشاط: تصنيف فئات التقنيات الصحية
+- `bag10-ch1-s5-hta-sequence.mp3` - تقييم التقنيات الصحية HTA: النطاق والتسلسل
+- `bag10-ch1-s6-activity-2.mp3` - نشاط: ترتيب مراحل تقييم التقنيات الصحية
+- `bag10-ch1-s7-icer-example.mp3` - مثال تطبيقي: قرار اعتماد دواء جديد
+- `bag10-ch1-s8-activity-3.mp3` - نشاط: قرار اعتماد التقنية
+- `bag10-ch1-s9-policy-governance.mp3` - السياسات الصحية والحوكمة الرقمية
+- `bag10-ch1-s10-test.mp3` - اختبار الوحدة الأولى
+- `bag10-ch1-s11-closing.mp3` - ختام الوحدة الأولى
+- `bag10-ch2-s1-welcome.mp3` - المعلوماتية الصحية وإدارة البيانات
+- `bag10-ch2-s1b-goals.mp3` - أهداف الوحدة الثانية
+- `bag10-ch2-s2-data-basics.mp3` - ما هي البيانات ومصادرها
+- `bag10-ch2-s4-activity-1.mp3` - نشاط: تصنيف مصادر البيانات الصحية
+- `bag10-ch2-s5-lifecycle.mp3` - مبادئ إدارة البيانات ودورة حياتها
+- `bag10-ch2-s6-activity-2.mp3` - نشاط: ترتيب دورة حياة البيانات
+- `bag10-ch2-s7-governance.mp3` - حوكمة البيانات الصحية
+- `bag10-ch2-s8-activity-3.mp3` - نشاط: بطاقات أدوار حوكمة البيانات
+- `bag10-ch2-s9-test.mp3` - اختبار الوحدة الثانية
+- `bag10-ch2-s10-closing.mp3` - ختام الوحدة الثانية
+- `bag10-ch3-s1-welcome.mp3` - التشغيل البيني والمعايير الصحية
+- `bag10-ch3-s1b-goals.mp3` - أهداف الوحدة الثالثة
+- `bag10-ch3-s2-integration.mp3` - تكامل البيانات والتشغيل البيني ومستوياته
+- `bag10-ch3-s4-activity-1.mp3` - نشاط: صواب أم خطأ حول التشغيل البيني
+- `bag10-ch3-s5-standards.mp3` - أشهر معايير الرعاية الصحية
+- `bag10-ch3-s6-activity-2.mp3` - نشاط: تصنيف معايير الرعاية الصحية
+- `bag10-ch3-s7-value-design.mp3` - القيمة الاقتصادية للتقنيات وتصميم الحلول الرقمية
+- `bag10-ch3-s8-test.mp3` - اختبار الوحدة الثالثة
+- `bag10-ch3-s9-closing.mp3` - ختام الوحدة الثالثة
+- `bag10-ch4-s1-welcome.mp3` - الأمن السيبراني والخصوصية والثقة
+- `bag10-ch4-s1b-goals.mp3` - أهداف الوحدة الرابعة
+- `bag10-ch4-s2-threats.mp3` - الأمن السيبراني في الرعاية الصحية وإدارة الحوادث
+- `bag10-ch4-s4-activity-1.mp3` - نشاط: تصنيف التهديدات السيبرانية
+- `bag10-ch4-s5-resilience.mp3` - المرونة السيبرانية وأطر الأمن السيبراني
+- `bag10-ch4-s6-activity-2.mp3` - نشاط: ترتيب مراحل إدارة الحوادث
+- `bag10-ch4-s7-compliance.mp3` - الامتثال والحوكمة والمخاطر
+- `bag10-ch4-s8-activity-3.mp3` - نشاط: التعامل مع حادثة تصيّد احتيالي
+- `bag10-ch4-s9-test.mp3` - اختبار الوحدة الرابعة
+- `bag10-ch4-s10-closing.mp3` - ختام الوحدة الرابعة
+- `bag10-ch5-s1-welcome.mp3` - الأطر القانونية، الأخلاقيات، والتعاون
+- `bag10-ch5-s1b-goals.mp3` - أهداف الوحدة الخامسة
+- `bag10-ch5-s2-legislation.mp3` - أهمية التشريعات الصحية ودور الجهات التنظيمية
+- `bag10-ch5-s4-activity-1.mp3` - نشاط: صواب أم خطأ حول التشريعات
+- `bag10-ch5-s5-privacy-laws.mp3` - الخصوصية بالتصميم والتشريعات الدولية ونظام حماية البيانات السعودي
+- `bag10-ch5-s6-activity-2.mp3` - نشاط: تصنيف المبادئ الأخلاقية
+- `bag10-ch5-s7-ethics-cooperation.mp3` - أخلاقيات استخدام التقنيات الصحية والتعاون
+- `bag10-ch5-s8-test.mp3` - اختبار الوحدة الخامسة
+- `bag10-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
+- `bag10-final-s1-test.mp3` - الاختبار الختامي الشامل
+- `bag10-final-s2-closing.mp3` - رسالة الختام
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
 - `bag1-ch1-s5-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
@@ -694,6 +748,17 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-ch4-s8-activity-3-detail-1.mp3` - نشاط: بطاقات هامش الربح حسب مستوى الخدمة - مناقشة 1
 - `bag9-ch5-s6-activity-2-detail-1.mp3` - نشاط: تصنيف أنظمة تقاسم المخاطر - مناقشة 1
 - `bag9-ch5-s8-activity-3-detail-1.mp3` - نشاط: بطاقات مواءمة السياسات بالدفع - مناقشة 1
+- `bag10-ch1-s4-activity-1-detail-1.mp3` - نشاط: تصنيف فئات التقنيات الصحية - مناقشة 1
+- `bag10-ch1-s6-activity-2-detail-1.mp3` - نشاط: ترتيب مراحل تقييم التقنيات الصحية - مناقشة 1
+- `bag10-ch2-s4-activity-1-detail-1.mp3` - نشاط: تصنيف مصادر البيانات الصحية - مناقشة 1
+- `bag10-ch2-s6-activity-2-detail-1.mp3` - نشاط: ترتيب دورة حياة البيانات - مناقشة 1
+- `bag10-ch2-s8-activity-3-detail-1.mp3` - نشاط: بطاقات أدوار حوكمة البيانات - مناقشة 1
+- `bag10-ch3-s4-activity-1-detail-1.mp3` - نشاط: صواب أم خطأ حول التشغيل البيني - مناقشة 1
+- `bag10-ch3-s6-activity-2-detail-1.mp3` - نشاط: تصنيف معايير الرعاية الصحية - مناقشة 1
+- `bag10-ch4-s4-activity-1-detail-1.mp3` - نشاط: تصنيف التهديدات السيبرانية - مناقشة 1
+- `bag10-ch4-s6-activity-2-detail-1.mp3` - نشاط: ترتيب مراحل إدارة الحوادث - مناقشة 1
+- `bag10-ch5-s4-activity-1-detail-1.mp3` - نشاط: صواب أم خطأ حول التشريعات - مناقشة 1
+- `bag10-ch5-s6-activity-2-detail-1.mp3` - نشاط: تصنيف المبادئ الأخلاقية - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
@@ -1396,6 +1461,82 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-final-s1-test-feedback-bag9-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
 - `bag9-final-s1-test-feedback-bag9-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
 - `bag9-final-s1-test-feedback-bag9-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q2-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q3-correct.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q3-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q4-correct.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q4-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q5-correct.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة صحيحة
+- `bag10-ch1-s10-test-feedback-bag10-u1-q5-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة غير صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q1-correct.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q1-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q2-correct.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q2-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q3-correct.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q3-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q4-correct.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q4-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q5-correct.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة صحيحة
+- `bag10-ch2-s9-test-feedback-bag10-u2-q5-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة غير صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q1-correct.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q1-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q2-correct.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q2-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q3-correct.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q3-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q4-correct.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q4-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q5-correct.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة صحيحة
+- `bag10-ch3-s8-test-feedback-bag10-u3-q5-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة غير صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q1-correct.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q1-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q2-correct.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q2-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q3-correct.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q3-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q4-correct.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q4-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q5-correct.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة صحيحة
+- `bag10-ch4-s9-test-feedback-bag10-u4-q5-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة غير صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q1-correct.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q1-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q2-correct.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q2-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q3-correct.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q3-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q4-correct.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
+- `bag10-ch5-s8-test-feedback-bag10-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -1878,6 +2019,37 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-ch5-s8-activity-3-item-erp-u5-flip-3.mp3` - نشاط: بطاقات مواءمة السياسات بالدفع - erp-u5-flip-3
 - `bag9-ch5-s8-activity-3-item-erp-u5-flip-4.mp3` - نشاط: بطاقات مواءمة السياسات بالدفع - erp-u5-flip-4
 - `bag9-ch5-s8-activity-3-item-erp-u5-flip-5.mp3` - نشاط: بطاقات مواءمة السياسات بالدفع - erp-u5-flip-5
+- `bag10-ch1-s4-activity-1-item-hta-u1-class-1.mp3` - نشاط: تصنيف فئات التقنيات الصحية - hta-u1-class-1
+- `bag10-ch1-s4-activity-1-item-hta-u1-class-2.mp3` - نشاط: تصنيف فئات التقنيات الصحية - hta-u1-class-2
+- `bag10-ch1-s4-activity-1-item-hta-u1-class-3.mp3` - نشاط: تصنيف فئات التقنيات الصحية - hta-u1-class-3
+- `bag10-ch1-s4-activity-1-item-hta-u1-class-4.mp3` - نشاط: تصنيف فئات التقنيات الصحية - hta-u1-class-4
+- `bag10-ch1-s8-activity-3-correct.mp3` - نشاط: قرار اعتماد التقنية - إجابة صحيحة
+- `bag10-ch1-s8-activity-3-incorrect.mp3` - نشاط: قرار اعتماد التقنية - إجابة غير صحيحة
+- `bag10-ch1-s8-activity-3-path-correct.mp3` - نشاط: قرار اعتماد التقنية - مسار صحيح
+- `bag10-ch1-s8-activity-3-path-incorrect.mp3` - نشاط: قرار اعتماد التقنية - مسار غير صحيح
+- `bag10-ch2-s4-activity-1-item-hta-u2-class-1.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-1
+- `bag10-ch2-s4-activity-1-item-hta-u2-class-2.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-2
+- `bag10-ch2-s4-activity-1-item-hta-u2-class-3.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-3
+- `bag10-ch2-s4-activity-1-item-hta-u2-class-4.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-4
+- `bag10-ch2-s8-activity-3-item-hta-u2-flip-1.mp3` - نشاط: بطاقات أدوار حوكمة البيانات - hta-u2-flip-1
+- `bag10-ch2-s8-activity-3-item-hta-u2-flip-2.mp3` - نشاط: بطاقات أدوار حوكمة البيانات - hta-u2-flip-2
+- `bag10-ch2-s8-activity-3-item-hta-u2-flip-3.mp3` - نشاط: بطاقات أدوار حوكمة البيانات - hta-u2-flip-3
+- `bag10-ch2-s8-activity-3-item-hta-u2-flip-4.mp3` - نشاط: بطاقات أدوار حوكمة البيانات - hta-u2-flip-4
+- `bag10-ch3-s6-activity-2-item-hta-u3-class-1.mp3` - نشاط: تصنيف معايير الرعاية الصحية - hta-u3-class-1
+- `bag10-ch3-s6-activity-2-item-hta-u3-class-2.mp3` - نشاط: تصنيف معايير الرعاية الصحية - hta-u3-class-2
+- `bag10-ch3-s6-activity-2-item-hta-u3-class-3.mp3` - نشاط: تصنيف معايير الرعاية الصحية - hta-u3-class-3
+- `bag10-ch4-s4-activity-1-item-hta-u4-class-1.mp3` - نشاط: تصنيف التهديدات السيبرانية - hta-u4-class-1
+- `bag10-ch4-s4-activity-1-item-hta-u4-class-2.mp3` - نشاط: تصنيف التهديدات السيبرانية - hta-u4-class-2
+- `bag10-ch4-s4-activity-1-item-hta-u4-class-3.mp3` - نشاط: تصنيف التهديدات السيبرانية - hta-u4-class-3
+- `bag10-ch4-s4-activity-1-item-hta-u4-class-4.mp3` - نشاط: تصنيف التهديدات السيبرانية - hta-u4-class-4
+- `bag10-ch4-s8-activity-3-correct.mp3` - نشاط: التعامل مع حادثة تصيّد احتيالي - إجابة صحيحة
+- `bag10-ch4-s8-activity-3-incorrect.mp3` - نشاط: التعامل مع حادثة تصيّد احتيالي - إجابة غير صحيحة
+- `bag10-ch4-s8-activity-3-path-correct.mp3` - نشاط: التعامل مع حادثة تصيّد احتيالي - مسار صحيح
+- `bag10-ch4-s8-activity-3-path-incorrect.mp3` - نشاط: التعامل مع حادثة تصيّد احتيالي - مسار غير صحيح
+- `bag10-ch5-s4-activity-1-item-hta-u5-class-1.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-1
+- `bag10-ch5-s4-activity-1-item-hta-u5-class-2.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-2
+- `bag10-ch5-s4-activity-1-item-hta-u5-class-3.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-3
+- `bag10-ch5-s4-activity-1-item-hta-u5-class-4.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-4
 - `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - bag1-ch1-s5-policy-activity-course1-detail-2
 - `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - bag1-ch1-s5-policy-activity-course1-detail-3
 - `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - bag1-ch1-s5-policy-activity-course1-detail-4
