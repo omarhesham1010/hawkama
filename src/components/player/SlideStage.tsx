@@ -2384,24 +2384,39 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // course's own source PPTX (POLICY_GOV2_ICON_POOL_HTA10 above), one style
   // bucket ('hta10') so a shot never mixes them with another course's
   // rich/flat webp icons. Ordered narrowest-phrase-first like the rules below.
-  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-magnifier-gears.svg', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية', 'تحديد النطاق'] },
+  //
+  // Gap-fill pass: every card added while closing the trainer-guide content
+  // gaps (and a handful of pre-existing cards that were silently falling
+  // through to positional pool-cycling) gets its own precise term here, so
+  // no card renders an icon unrelated to what it actually says.
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-heart-hand.svg', terms: ['منظمات الرعاية المسؤولة', 'الدفع المجمّع', 'المراكز الطبية المتمحورة حول المريض', 'هيكل الدفع', 'التركيز على الوقاية'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-committee-people-gear.svg', terms: ['ISO 80001', 'ISO 27001 وCOBIT وITIL', 'التمويل والخصخصة', 'الاستباقية والوقاية', 'تحديد الرؤية والأولويات', 'دعم التنمية الاقتصادية والاجتماعية'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-warning.svg', terms: ['التصعيد', 'التجنب', 'التحويل', 'التخفيف', 'القبول', 'إهدار الطاقة الاستيعابية للأجهزة', 'التكلفة الزائدة الناتجة', 'التصيّد الاحتيالي', 'الخطأ البشري', 'حوادث موثقة في القطاع'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-pencil.svg', terms: ['الاستراتيجية', 'السياسات', 'المعايير', 'الإشراف'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-handshake-gold.svg', terms: ['الامتثال', 'التزام القيادة', 'سياسات وإجراءات واضحة', 'تحديد الأدوار والمسؤوليات', 'تقييم مخاطر الامتثال', 'برامج تدريب وتوعية', 'آليات إبلاغ وتحقيق آمنة', 'رصد ومراجعة مستمرة', 'تحسين مستمر مبني على الدروس المستفادة', 'أمن المعلومات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-gear-monitor.svg', terms: ['الاستخراج والتحويل والتحميل', 'خرائط المطابقة', 'زمن الاستجابة', 'المعالجة بالحزم', 'تقنية النانو', 'الطباعة الحيوية', 'التوائم الرقمية', 'مقترح تقنية جديدة', 'الشراء والتنفيذ'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-handshake-green.svg', terms: ['الوظائف الكاملة', 'الأمان الشامل', 'الشفافية والوضوح', 'احترام خصوصية المستخدم', 'الاستباقية لا رد الفعل', 'الخصوصية كإعداد افتراضي', 'دمج الخصوصية في التصميم', 'العدالة والشفافية والمشروعية', 'تحديد الغرض من جمع البيانات', 'تقليل البيانات للحد الضروري', 'تحديد مدة التخزين', 'النزاهة والسرية والمساءلة', 'قاعدة الخصوصية', 'قاعدة الأمن', 'قاعدة الإبلاغ عن الاختراقات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-virus-risk.svg', terms: ['مشاركة البيانات للبحث العلمي'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-health-shield-hand.svg', terms: ['تحسين النتائج الصحية العامة', 'الإنصاف في الوصول للرعاية', 'رفع كفاءة النظم الصحية', 'الاستجابة للأزمات', 'برنامج تحول القطاع الصحي', 'نموذج الرعاية الحديث', 'ضمان سلامة المرضى'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-magnifier-gears.svg', terms: ['تقييم التقنيات الصحية', 'النطاق السريري', 'النطاق الرقمي', 'توليد الأدلة', 'الفعالية النسبية', 'مراجعة الأدلة', 'المنهجية', 'تحديد النطاق', 'النطاق', 'الهدف', 'المنظمات الرئيسية', 'النموذج الاقتصادي', 'تحليل الميزانية', 'تحليل التأثير على النظام', 'مراجعة الأثر الأخلاقي', 'التوصية', 'تقييم شامل', 'تقييم سريع', 'تقييم مصغّر', 'التقييم السريري', 'تقييم الأمن والخصوصية', 'تقييم التكنولوجيا الصحية'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-gear-monitor.svg', terms: ['التقنيات الطبية', 'الأجهزة الطبية', 'الصحة الرقمية', 'تقنية المعلومات الصحية', 'التقنيات العلاجية', 'التقنيات المساعدة', 'الأجهزة الذكية'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-computer-shield-check.svg', terms: ['الذكاء الاصطناعي', 'الطب عن بُعد', 'أنظمة دعم القرار', 'أدوات التشخيص'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-clipboard-heart.svg', terms: ['حوكمة البيانات', 'جودة البيانات', 'مبادئ إدارة البيانات', 'معايير جودة البيانات'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-pencil.svg', terms: ['دورة حياة البيانات', 'مصادر البيانات', 'البيانات الوصفية', 'سياسات البيانات'] },
-  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-committee-people-gear.svg', terms: ['مشرف البيانات', 'مالكو البيانات', 'كبير مسؤولي البيانات', 'مجلس حوكمة البيانات', 'مكتب حوكمة البيانات', 'النموذج المركزي', 'النموذج المتكرر', 'النموذج الاتحادي'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-committee-people-gear.svg', terms: ['مشرف البيانات', 'مالكو البيانات', 'كبير مسؤولي البيانات', 'مجلس حوكمة البيانات', 'مكتب حوكمة البيانات', 'لجنة توجيه حوكمة البيانات', 'النموذج المركزي', 'النموذج المتكرر', 'النموذج الاتحادي'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-pencil.svg', terms: ['إدارة البيانات الصحية', 'خصوصية البيانات', 'أمن البيانات', 'إدارة الوصول', 'مشاركة البيانات'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-analytics-magnifier.svg', terms: ['التشغيل البيني', 'تكامل البيانات', 'مستويات التشغيل البيني', 'قابلية التشغيل البيني'] },
-  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-id-card-people.svg', terms: ['معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'الموارد'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-id-card-people.svg', terms: ['معايير الرعاية الصحية', 'SNOMED', 'FHIR', 'التصنيف الدولي للأمراض', 'الموارد', 'DICOM وEDI', 'ISO 13485 وIEC 62304', 'إطار NICE للمعايير السريرية', 'علامة CE ولائحة EU MDR'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-eye-magnifier.svg', terms: ['القيمة الاقتصادية', 'التصميم المتمحور حول الإنسان', 'تصميم الحلول الرقمية'] },
-  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-warning-triangle-lightning.svg', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'اختراقات البيانات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-warning-triangle-lightning.svg', terms: ['الأمن السيبراني', 'التهديدات السيبرانية', 'برامج الفدية', 'اختراقات البيانات', 'هجمات الحرمان من الخدمة الموزعة', 'مخاطر الأطراف الثالثة وسلسلة التوريد'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-people-lightning-threat.svg', terms: ['التصيد الاحتيالي', 'الهندسة الاجتماعية', 'التهديدات الداخلية'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-prohibited-banned.svg', terms: ['عدم الإضرار', 'الأنظمة القديمة', 'اختراق إنترنت الأشياء'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-gear-person.svg', terms: ['إدارة حوادث الأمن السيبراني', 'المرونة السيبرانية', 'الاستئصال والتعافي'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-document-warning.svg', terms: ['إطار NIST', 'المعيار ISO 27001', 'أطر الأمن السيبراني'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-handshake-gold.svg', terms: ['الامتثال والحوكمة والمخاطر', 'GRC', 'برنامج الامتثال المؤسسي'] },
-  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-health-shield-hand.svg', terms: ['التشريعات الصحية', 'دور الجهات التنظيمية', 'وضع المعايير والرقابة', 'التراخيص والاعتماد'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-health-shield-hand.svg', terms: ['التشريعات الصحية', 'دور الجهات التنظيمية', 'وضع المعايير والرقابة', 'التراخيص والاعتماد', 'التخطيط والهيكلة الصحية', 'تنظيم العمل الفني'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-handshake-green.svg', terms: ['الخصوصية بالتصميم', 'حماية البيانات الشخصية', 'GDPR', 'HIPAA'] },
-  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-heart-hand.svg', terms: ['نظام حماية البيانات الشخصية', 'PDPL', 'سدايا', 'حقوق أصحاب البيانات'] },
+  { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-heart-hand.svg', terms: ['نظام حماية البيانات الشخصية', 'PDPL', 'سدايا', 'حقوق أصحاب البيانات', 'الأساس القانوني للمعالجة', 'شروط الموافقة', 'النقل عبر الحدود', 'الإبلاغ عن الاختراقات'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-person-virus-risk.svg', terms: ['أخلاقيات', 'الاستقلالية', 'الإحسان', 'العدالة', 'مبادئ أخلاقية'] },
   { style: 'hta10', icon: '/assets/visual-library/icon-hta10-hands-heart.svg', terms: ['التعاون والتحالفات', 'الشراكات مع القطاع الخاص', 'التعاون البحثي والتقني'] },
   // Round-3 course/6-9 audit: exact short-card phrases before broad terms, so
