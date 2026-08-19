@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CourseTwoSidebar, type CourseTwoGroup } from './components/course2/CourseTwoSidebar';
 import { CourseTwoPlayer } from './components/course2/CourseTwoPlayer';
 import {
@@ -21,13 +21,15 @@ const RAW_GROUPS: { label: string; slides: typeof perfIntroSlides }[] = [
   { label: 'خاتمة الحقيبة والاختبار الختامي', slides: perfClosingSlides },
 ];
 
-const LOCK_STORAGE_KEY = 'course-lock-v1:perf-full';
-
 /** Single-link (#/course/6) shell for الجودة (مراقبة أداء النظام - إدارة
  *  حالات الإخفاق - والإشراف على حقوق المرضى والدفاع عنهم), built on
  *  exactly the same shared course-2 components (sidebar + bare slide
  *  canvas + control strip) as #/course/4 & #/course/5 -- see
- *  CourseThreeShell.tsx for the fuller comment on this shell's intent. */
+ *  CourseThreeShell.tsx for the fuller comment on this shell's intent.
+ *
+ *  ⚠️ Sequential lock intentionally disabled: navigation is left fully
+ *  open for review (no strictSequential/maxUnlockedIndex gating) instead
+ *  of the per-slide unlock-as-you-go flow the locked courses use. */
 export default function CourseSixShell() {
   const groups = useMemo<CourseTwoGroup[]>(() => {
     let offset = 0;
@@ -42,40 +44,8 @@ export default function CourseSixShell() {
   const [jumpTarget, setJumpTarget] = useState(1);
   const [jumpNonce, setJumpNonce] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [unlockedSlideIds, setUnlockedSlideIds] = useState<string[]>(() => {
-    if (typeof window === 'undefined') return [];
-    try {
-      const raw = window.localStorage.getItem(LOCK_STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
-  });
-
-  const slides = useMemo(() => groups.flatMap((group) => group.slides), [groups]);
-
-  const maxUnlockedIndex = useMemo(() => {
-    const unlocked = new Set(unlockedSlideIds);
-    let nextLocked = 0;
-    while (nextLocked < slides.length && unlocked.has(slides[nextLocked].id)) nextLocked += 1;
-    return Math.min(nextLocked, Math.max(0, slides.length - 1));
-  }, [slides, unlockedSlideIds]);
-
-  useEffect(() => {
-    window.localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(unlockedSlideIds));
-  }, [unlockedSlideIds]);
-
-  const unlockSlide = useCallback((id: string) => {
-    setUnlockedSlideIds((ids) => (ids.includes(id) ? ids : [...ids, id]));
-  }, []);
-
-  const resetUnlocks = useCallback(() => {
-    setUnlockedSlideIds([]);
-    window.localStorage.removeItem(LOCK_STORAGE_KEY);
-  }, []);
 
   const jumpTo = (index: number) => {
-    if (index > maxUnlockedIndex) return;
     setJumpTarget(index + 1);
     setJumpNonce((n) => n + 1);
     setActiveIndex(index);
@@ -93,7 +63,6 @@ export default function CourseSixShell() {
         onJump={jumpTo}
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
-        maxUnlockedIndex={maxUnlockedIndex}
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
@@ -102,10 +71,6 @@ export default function CourseSixShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
-          strictSequential
-          maxUnlockedIndex={maxUnlockedIndex}
-          onUnlockSlide={unlockSlide}
-          onResetSequentialLocks={resetUnlocks}
         />
       </div>
     </div>
