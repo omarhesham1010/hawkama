@@ -222,7 +222,7 @@ const unit1RolesActivity: ActivityData = {
     {
       id: 'erp-u1-class-1',
       text: 'وزارة الصحة — تحديد الأولويات الصحية الوطنية',
-      answer: 'صانع السياسة',
+      answer: 'policy',
       rationale: 'وزارة الصحة تضع السياسات الوطنية وتقود الاستراتيجيات الصحية.',
       needsReview: false,
       voiceKey: 'bag9-ch1-s4-activity-1-item-erp-u1-class-1',
@@ -230,7 +230,7 @@ const unit1RolesActivity: ActivityData = {
     {
       id: 'erp-u1-class-2',
       text: 'المركز السعودي لاعتماد المنشآت الصحية — ترخيص الممارسين الصحيين',
-      answer: 'الجهة التنظيمية والرقابية',
+      answer: 'regulator',
       rationale: 'يتولى وضع المعايير التنظيمية واعتماد المنشآت وترخيص الممارسين.',
       needsReview: false,
       voiceKey: 'bag9-ch1-s4-activity-1-item-erp-u1-class-2',
@@ -238,7 +238,7 @@ const unit1RolesActivity: ActivityData = {
     {
       id: 'erp-u1-class-3',
       text: 'مركز التأمين الصحي الوطني — شراء الخدمات الصحية وتحديد نظام الدفع',
-      answer: 'المشغّل الاستراتيجي',
+      answer: 'operator',
       rationale: 'يتولى شراء الخدمات وتحديد نظام الدفع وتوجيه الحوافز الاقتصادية.',
       needsReview: false,
       voiceKey: 'bag9-ch1-s4-activity-1-item-erp-u1-class-3',
@@ -246,7 +246,7 @@ const unit1RolesActivity: ActivityData = {
     {
       id: 'erp-u1-class-4',
       text: 'المستشفى الحكومي — تقديم الرعاية والمنافسة على جودتها',
-      answer: 'مقدّم الخدمة',
+      answer: 'provider',
       rationale: 'يتولى تقديم الرعاية والمنافسة في منظومة الخدمات الصحية.',
       needsReview: false,
       voiceKey: 'bag9-ch1-s4-activity-1-item-erp-u1-class-4',
@@ -632,7 +632,7 @@ const unit2StatementsActivity: ActivityData = {
     {
       id: 'erp-u2-class-1',
       text: 'تكشف مستوى السيولة وحجم الالتزامات',
-      answer: 'قائمة المركز المالي',
+      answer: 'position',
       rationale: 'تجيب عن سؤال: هل المنشأة قادرة على الوفاء بالتزاماتها الآن؟',
       needsReview: false,
       voiceKey: 'bag9-ch2-s8-activity-3-item-erp-u2-class-1',
@@ -640,7 +640,7 @@ const unit2StatementsActivity: ActivityData = {
     {
       id: 'erp-u2-class-2',
       text: 'توضح الفائض التشغيلي وهيكل التكلفة',
-      answer: 'قائمة الدخل',
+      answer: 'income',
       rationale: 'تجيب عن سؤال: هل الأداء التشغيلي متوازن؟',
       needsReview: false,
       voiceKey: 'bag9-ch2-s8-activity-3-item-erp-u2-class-2',
@@ -648,7 +648,7 @@ const unit2StatementsActivity: ActivityData = {
     {
       id: 'erp-u2-class-3',
       text: 'قد تُخفي ضعف التحصيل رغم ربح ظاهري مرتفع',
-      answer: 'قائمة التدفقات النقدية',
+      answer: 'cashflow',
       rationale: 'تكشف الفارق بين الربح المحاسبي والنقد الفعلي المتاح.',
       needsReview: false,
       voiceKey: 'bag9-ch2-s8-activity-3-item-erp-u2-class-3',
@@ -656,7 +656,7 @@ const unit2StatementsActivity: ActivityData = {
     {
       id: 'erp-u2-class-4',
       text: 'تقيس نسبة الأصول المتداولة إلى الالتزامات المتداولة',
-      answer: 'قائمة المركز المالي',
+      answer: 'position',
       rationale: 'نسبة السيولة تُستخرج من قائمة المركز المالي.',
       needsReview: false,
       voiceKey: 'bag9-ch2-s8-activity-3-item-erp-u2-class-4',
@@ -664,7 +664,7 @@ const unit2StatementsActivity: ActivityData = {
     {
       id: 'erp-u2-class-5',
       text: 'تقارن الإيرادات بالتكاليف التشغيلية والإدارية',
-      answer: 'قائمة الدخل',
+      answer: 'income',
       rationale: 'صلب قائمة الدخل هو مقارنة الإيرادات بالتكاليف.',
       needsReview: false,
       voiceKey: 'bag9-ch2-s8-activity-3-item-erp-u2-class-5',
@@ -672,7 +672,7 @@ const unit2StatementsActivity: ActivityData = {
     {
       id: 'erp-u2-class-6',
       text: 'تكشف الفارق بين الربح المحاسبي والنقد الفعلي المتاح',
-      answer: 'قائمة التدفقات النقدية',
+      answer: 'cashflow',
       rationale: 'هذا هو الغرض المحوري من قائمة التدفقات النقدية.',
       needsReview: false,
       voiceKey: 'bag9-ch2-s8-activity-3-item-erp-u2-class-6',
@@ -1000,7 +1000,7 @@ const unit3RatioActivity: ActivityData = {
     {
       id: 'erp-u3-class-1',
       text: 'منشأة بنسبة تكاليف غير مباشرة 18%',
-      answer: 'كفاءة إدارية عالية',
+      answer: 'high-eff',
       rationale: 'أقل من 20% يعني كفاءة إدارية عالية.',
       needsReview: false,
       voiceKey: 'bag9-ch3-s8-activity-3-item-erp-u3-class-1',
@@ -1008,7 +1008,7 @@ const unit3RatioActivity: ActivityData = {
     {
       id: 'erp-u3-class-2',
       text: 'منشأة بنسبة تكاليف غير مباشرة 25%',
-      answer: 'متوازن طبيعي',
+      answer: 'balanced',
       rationale: 'بين 20% و30% يُعد متوازنًا طبيعيًا.',
       needsReview: false,
       voiceKey: 'bag9-ch3-s8-activity-3-item-erp-u3-class-2',
@@ -1016,7 +1016,7 @@ const unit3RatioActivity: ActivityData = {
     {
       id: 'erp-u3-class-3',
       text: 'منشأة بنسبة تكاليف غير مباشرة 35%',
-      answer: 'عبء إداري متزايد',
+      answer: 'burden',
       rationale: 'بين 30% و40% يستدعي مراجعة عبء إداري متزايد.',
       needsReview: false,
       voiceKey: 'bag9-ch3-s8-activity-3-item-erp-u3-class-3',
@@ -1024,7 +1024,7 @@ const unit3RatioActivity: ActivityData = {
     {
       id: 'erp-u3-class-4',
       text: 'منشأة بنسبة تكاليف غير مباشرة 45%',
-      answer: 'تضخّم هيكلي وهشاشة مالية',
+      answer: 'fragile',
       rationale: 'أكثر من 40% يستدعي تدخلًا عاجلًا لتضخّم هيكلي.',
       needsReview: false,
       voiceKey: 'bag9-ch3-s8-activity-3-item-erp-u3-class-4',
@@ -1296,7 +1296,7 @@ const unit4ForbiddenActivity: ActivityData = {
     {
       id: 'erp-u4-class-1',
       text: 'مستشفى كبير يخفض أسعاره بشدة حتى يخرج منافسوه الصغار ثم يرفعها',
-      answer: 'تسعير الإفراط',
+      answer: 'predatory',
       rationale: 'تخفيض السعر لإقصاء المنافسين ثم رفعه لاحقًا هو تسعير الإفراط.',
       needsReview: false,
       voiceKey: 'bag9-ch4-s4-activity-1-item-erp-u4-class-1',
@@ -1304,7 +1304,7 @@ const unit4ForbiddenActivity: ActivityData = {
     {
       id: 'erp-u4-class-2',
       text: 'ممول يُلزم المشترك بشراء باقة فحوصات إضافية للحصول على الفحص الأساسي',
-      answer: 'تسعير الربط',
+      answer: 'tying',
       rationale: 'إجبار شراء خدمة إضافية للحصول على الخدمة الأساسية هو تسعير الربط.',
       needsReview: false,
       voiceKey: 'bag9-ch4-s4-activity-1-item-erp-u4-class-2',
@@ -1312,7 +1312,7 @@ const unit4ForbiddenActivity: ActivityData = {
     {
       id: 'erp-u4-class-3',
       text: 'مجموعة مستشفيات تتفق سرًا على سعر موحّد مرتفع لخدمة معينة',
-      answer: 'تنسيق الأسعار',
+      answer: 'collusion',
       rationale: 'الاتفاق السري بين المنشآت على تثبيت الأسعار هو تنسيق الأسعار.',
       needsReview: false,
       voiceKey: 'bag9-ch4-s4-activity-1-item-erp-u4-class-3',
@@ -1320,7 +1320,7 @@ const unit4ForbiddenActivity: ActivityData = {
     {
       id: 'erp-u4-class-4',
       text: 'منشأة تُقدّم لمريضين متماثلين تمامًا سعرين مختلفين دون أي سبب موضوعي',
-      answer: 'تمييز سعري غير مبرر',
+      answer: 'discrimination',
       rationale: 'سعران مختلفان لحالتين متماثلتين دون مسوّغ موضوعي هو التمييز السعري غير المبرر.',
       needsReview: false,
       voiceKey: 'bag9-ch4-s4-activity-1-item-erp-u4-class-4',
@@ -1675,7 +1675,7 @@ const unit5RiskSharingActivity: ActivityData = {
     {
       id: 'erp-u5-class-1',
       text: 'شراكة جديدة تمنح مكافأة عند تحقيق الأهداف دون أي خصم عند التقصير',
-      answer: 'المخاطرة الأحادية',
+      answer: 'upside',
       rationale: 'نقطة انطلاق مناسبة للشراكات الجديدة، بلا خصم عند التقصير.',
       needsReview: false,
       voiceKey: 'bag9-ch5-s6-activity-2-item-erp-u5-class-1',
@@ -1683,7 +1683,7 @@ const unit5RiskSharingActivity: ActivityData = {
     {
       id: 'erp-u5-class-2',
       text: 'شراكة ناضجة تُوزَّع فيها المكافأة أو الخصم على الطرفين بناءً على الأداء الفعلي',
-      answer: 'المخاطرة المزدوجة',
+      answer: 'twosided',
       rationale: 'تتطلب نضجًا ماليًا وبيانات موثوقة أعلى.',
       needsReview: false,
       voiceKey: 'bag9-ch5-s6-activity-2-item-erp-u5-class-2',
@@ -1691,7 +1691,7 @@ const unit5RiskSharingActivity: ActivityData = {
     {
       id: 'erp-u5-class-3',
       text: 'شبكة رعاية متكاملة يتحمّل فيها المقدّم مخاطرة أعلى مقابل مشاركة في الوفورات',
-      answer: 'نموذج ACO',
+      answer: 'aco',
       rationale: 'يتحمّل المقدّم نسبة أعلى من المخاطرة ضمن شبكة خدمات متكاملة.',
       needsReview: false,
       voiceKey: 'bag9-ch5-s6-activity-2-item-erp-u5-class-3',
@@ -1699,7 +1699,7 @@ const unit5RiskSharingActivity: ActivityData = {
     {
       id: 'erp-u5-class-4',
       text: 'برنامج يمنح مكافأة اثني عشر بالمئة عند تجاوز عتبة التزام محددة',
-      answer: 'دفع مقابل أداء بسيط',
+      answer: 'p4p',
       rationale: 'مكافأة مباشرة عند تجاوز عتبة أداء محددة دون تقاسم مخاطرة معقّد.',
       needsReview: false,
       voiceKey: 'bag9-ch5-s6-activity-2-item-erp-u5-class-4',

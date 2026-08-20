@@ -251,7 +251,7 @@ const unit1ClassificationActivity: ActivityData = {
     {
       id: 'eav-u1-class-1',
       text: 'سقوط مريض داخل المستشفى',
-      answer: 'مخاطر إكلينيكية',
+      answer: 'clinical',
       rationale: 'يمس سلامة المريض مباشرة، فهو خطر إكلينيكي رغم أنه يبدو تشغيليًا في ظاهره.',
       needsReview: false,
       voiceKey: 'bag8-ch1-s6-activity-2-item-eav-u1-class-1',
@@ -259,7 +259,7 @@ const unit1ClassificationActivity: ActivityData = {
     {
       id: 'eav-u1-class-2',
       text: 'انتشار عدوى بسبب ضعف الالتزام بتعقيم الأيدي',
-      answer: 'مخاطر إكلينيكية',
+      answer: 'clinical',
       rationale: 'عدوى مكتسبة نتيجة ممارسة سريرية، فهي مخاطرة إكلينيكية بامتياز.',
       needsReview: false,
       voiceKey: 'bag8-ch1-s6-activity-2-item-eav-u1-class-2',
@@ -267,7 +267,7 @@ const unit1ClassificationActivity: ActivityData = {
     {
       id: 'eav-u1-class-3',
       text: 'اختراق أمني لسجلات المرضى الإلكترونية',
-      answer: 'مخاطر سيبرانية',
+      answer: 'cyber',
       rationale: 'استهداف مباشر للأنظمة الرقمية وبيانات المرضى.',
       needsReview: false,
       voiceKey: 'bag8-ch1-s6-activity-2-item-eav-u1-class-3',
@@ -275,7 +275,7 @@ const unit1ClassificationActivity: ActivityData = {
     {
       id: 'eav-u1-class-4',
       text: 'خطة إخلاء غير مكتملة عند انقطاع الكهرباء',
-      answer: 'مخاطر تشغيلية',
+      answer: 'operational',
       rationale: 'تتعلق بجاهزية البنية التحتية والاستمرارية التشغيلية.',
       needsReview: false,
       voiceKey: 'bag8-ch1-s6-activity-2-item-eav-u1-class-4',
@@ -626,7 +626,7 @@ const unit2CorrectiveActivity: ActivityData = {
     {
       id: 'eav-u2-class-1',
       text: 'خطأ دوائي أثّر مباشرة على مريض',
-      answer: 'تصحيح فوري ثم إجراء جذري معًا',
+      answer: 'immediate',
       rationale: 'يعالج الأثر المباشر على المريض فورًا، ثم يراجع سبب الخطأ الجذري لمنع تكراره.',
       needsReview: false,
       voiceKey: 'bag8-ch2-s4-activity-1-item-eav-u2-class-1',
@@ -634,7 +634,7 @@ const unit2CorrectiveActivity: ActivityData = {
     {
       id: 'eav-u2-class-2',
       text: 'رفض مطالبة تأمينية من قِبل الممول',
-      answer: 'مراجعة سبب الرفض قبل إعادة التقديم',
+      answer: 'root',
       rationale: 'يستدعي مراجعة سبب الرفض تحديدًا قبل أي إجراء تصعيدي.',
       needsReview: false,
       voiceKey: 'bag8-ch2-s4-activity-1-item-eav-u2-class-2',
@@ -642,7 +642,7 @@ const unit2CorrectiveActivity: ActivityData = {
     {
       id: 'eav-u2-class-3',
       text: 'سقوط مريض داخل قسم التنويم',
-      answer: 'تحقيق في بيئة الرعاية ذاتها',
+      answer: 'root',
       rationale: 'يستوجب تحقيقًا في ظروف بيئة الرعاية التي أدت للسقوط.',
       needsReview: false,
       voiceKey: 'bag8-ch2-s4-activity-1-item-eav-u2-class-3',
@@ -650,7 +650,7 @@ const unit2CorrectiveActivity: ActivityData = {
     {
       id: 'eav-u2-class-4',
       text: 'اختراق أمني لبيانات المرضى',
-      answer: 'تصحيح تقني فوري وتحقيق أمني شامل',
+      answer: 'immediate',
       rationale: 'يجمع بين التصحيح التقني الفوري والتحقيق الأمني الشامل معًا.',
       needsReview: false,
       voiceKey: 'bag8-ch2-s4-activity-1-item-eav-u2-class-4',
@@ -1002,7 +1002,7 @@ const unit3ConflictActivity: ActivityData = {
     {
       id: 'eav-u3-class-1',
       text: 'خلاف استراتيجي كبير بين مستشفى وممول حول نموذج دفع جديد',
-      answer: 'التعاون',
+      answer: 'collab',
       rationale: 'خلاف استراتيجي كبير يحتاج حلًا إبداعيًا يرضي الطرفين معًا.',
       needsReview: false,
       voiceKey: 'bag8-ch3-s4-activity-1-item-eav-u3-class-1',
@@ -1010,7 +1010,7 @@ const unit3ConflictActivity: ActivityData = {
     {
       id: 'eav-u3-class-2',
       text: 'نزاع بسيط لا يستحق التصعيد ويحتاج وقتًا لتهدئة الأطراف',
-      answer: 'التجنّب',
+      answer: 'avoid',
       rationale: 'خلاف تافه يُفضَّل تأجيله بدل تصعيده فورًا.',
       needsReview: false,
       voiceKey: 'bag8-ch3-s4-activity-1-item-eav-u3-class-2',
@@ -1018,7 +1018,7 @@ const unit3ConflictActivity: ActivityData = {
     {
       id: 'eav-u3-class-3',
       text: 'حالة إسعافية تستوجب قرارًا فوريًا يضمن سلامة المريض',
-      answer: 'المنافسة',
+      answer: 'compete',
       rationale: 'الحالات الإسعافية تستوجب فرض قرار فوري يضمن الأمان.',
       needsReview: false,
       voiceKey: 'bag8-ch3-s4-activity-1-item-eav-u3-class-3',
@@ -1026,7 +1026,7 @@ const unit3ConflictActivity: ActivityData = {
     {
       id: 'eav-u3-class-4',
       text: 'موقف يتضح فيه أن الطرف الآخر محق والقضية أقل أولوية',
-      answer: 'التكيّف',
+      answer: 'accommodate',
       rationale: 'حين يكون الطرف الآخر محقًا، التكيّف يحافظ على العلاقة المهنية.',
       needsReview: false,
       voiceKey: 'bag8-ch3-s4-activity-1-item-eav-u3-class-4',
@@ -1385,7 +1385,7 @@ const unit4EvaluationActivity: ActivityData = {
     {
       id: 'eav-u4-class-1',
       text: 'توفّرت الأجهزة والميزانية والكوادر اللازمة',
-      answer: 'المدخلات',
+      answer: 'input',
       rationale: 'يقيس توفّر الموارد قبل بدء التنفيذ.',
       needsReview: false,
       voiceKey: 'bag8-ch4-s4-activity-1-item-eav-u4-class-1',
@@ -1393,7 +1393,7 @@ const unit4EvaluationActivity: ActivityData = {
     {
       id: 'eav-u4-class-2',
       text: 'يُنفَّذ الفحص وفق البروتوكول المعتمد في جميع المراكز',
-      answer: 'العمليات',
+      answer: 'process',
       rationale: 'يقيس الالتزام بالتنفيذ وفق البروتوكولات.',
       needsReview: false,
       voiceKey: 'bag8-ch4-s4-activity-1-item-eav-u4-class-2',
@@ -1401,7 +1401,7 @@ const unit4EvaluationActivity: ActivityData = {
     {
       id: 'eav-u4-class-3',
       text: 'تم فحص عشرة آلاف مواطن خلال الربع الأول',
-      answer: 'المخرجات',
+      answer: 'output',
       rationale: 'يقيس النتيجة المباشرة كعدد المستفيدين.',
       needsReview: false,
       voiceKey: 'bag8-ch4-s4-activity-1-item-eav-u4-class-3',
@@ -1409,7 +1409,7 @@ const unit4EvaluationActivity: ActivityData = {
     {
       id: 'eav-u4-class-4',
       text: 'انخفضت نسبة المضاعفات المزمنة للسكري بعد عامين',
-      answer: 'الأثر',
+      answer: 'impact',
       rationale: 'يقيس التحسّن الفعلي في صحة المجتمع، وهو الاختبار الحقيقي لنجاح البرنامج.',
       needsReview: false,
       voiceKey: 'bag8-ch4-s4-activity-1-item-eav-u4-class-4',
@@ -1763,7 +1763,7 @@ const unit5KPIActivity: ActivityData = {
     {
       id: 'eav-u5-class-1',
       text: 'سنوات الحياة الصحية المكتسبة على مستوى المجتمع',
-      answer: 'استراتيجي',
+      answer: 'strategic',
       rationale: 'يقيس الأثر النهائي بعيد المدى على صحة المجتمع.',
       needsReview: false,
       voiceKey: 'bag8-ch5-s4-activity-1-item-eav-u5-class-1',
@@ -1771,7 +1771,7 @@ const unit5KPIActivity: ActivityData = {
     {
       id: 'eav-u5-class-2',
       text: 'وقت الانتظار في العيادات',
-      answer: 'تشغيلي',
+      answer: 'operational',
       rationale: 'يقيس كفاءة العمليات اليومية.',
       needsReview: false,
       voiceKey: 'bag8-ch5-s4-activity-1-item-eav-u5-class-2',
@@ -1779,7 +1779,7 @@ const unit5KPIActivity: ActivityData = {
     {
       id: 'eav-u5-class-3',
       text: 'نسبة إشغال الأسرّة',
-      answer: 'تشغيلي',
+      answer: 'operational',
       rationale: 'يقيس كفاءة استخدام الموارد التشغيلية اليومية.',
       needsReview: false,
       voiceKey: 'bag8-ch5-s4-activity-1-item-eav-u5-class-3',
@@ -1787,7 +1787,7 @@ const unit5KPIActivity: ActivityData = {
     {
       id: 'eav-u5-class-4',
       text: 'التكلفة لكل مريض',
-      answer: 'مالي',
+      answer: 'financial',
       rationale: 'يقيس كفاءة الإنفاق مباشرة.',
       needsReview: false,
       voiceKey: 'bag8-ch5-s4-activity-1-item-eav-u5-class-4',
@@ -1795,7 +1795,7 @@ const unit5KPIActivity: ActivityData = {
     {
       id: 'eav-u5-class-5',
       text: 'معدل المرفوضات من التأمين',
-      answer: 'مالي',
+      answer: 'financial',
       rationale: 'يقيس كفاءة الإنفاق والفوترة المالية.',
       needsReview: false,
       voiceKey: 'bag8-ch5-s4-activity-1-item-eav-u5-class-5',
@@ -1803,7 +1803,7 @@ const unit5KPIActivity: ActivityData = {
     {
       id: 'eav-u5-class-6',
       text: 'رضا المجتمع العام عن النظام الصحي',
-      answer: 'استراتيجي',
+      answer: 'strategic',
       rationale: 'يقيس الأثر النهائي الاستراتيجي بعيد المدى.',
       needsReview: false,
       voiceKey: 'bag8-ch5-s4-activity-1-item-eav-u5-class-6',
