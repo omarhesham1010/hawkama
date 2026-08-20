@@ -402,8 +402,15 @@ export function useNarration() {
       audio.addEventListener('error', fallback);
       audio.play().catch(() => {
         if (token !== playTokenRef.current) return;
-        // If the browser blocks autoplay for an existing MP3, do not fall back
-        // to device TTS; that would change Shakir's fixed voice on mobile.
+        // If the browser blocks autoplay for an existing MP3 (or play() is
+        // rejected for any other reason, e.g. "interrupted by a new load
+        // request" when two speak() calls land close together), do not fall
+        // back to device TTS -- that would change Shakir's fixed voice on
+        // mobile. But we MUST still signal completion here: guided activities
+        // (PptActivitySlide, PptGuidedScenarioSlide, ...) block their "next"
+        // button on narration.completedKey, so leaving it unset strands the
+        // learner on the current step with no way to continue -- this was
+        // the cause of the course/1 slide-12 activity getting stuck.
         setStatus('idle');
         setSource(null);
         sourceRef.current = null;
@@ -411,6 +418,7 @@ export function useNarration() {
         setAudioElapsed(0);
         setAudioDuration(null);
         setAudioUpdatedAt(null);
+        setCompletedKey(key);
       });
     },
     [speakTts, stopInternal],
