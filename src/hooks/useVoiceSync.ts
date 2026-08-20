@@ -48,6 +48,7 @@ export function useVoiceSync(
     audioDuration,
     rate,
     getAudioClock,
+    completedKey,
   } = useNarrationContext();
   const total = Math.max(1, narrationText.length);
 
@@ -58,6 +59,13 @@ export function useVoiceSync(
   const spokenRef = useRef(0);
   const enterRef = useRef(performance.now());
   const speakStartRef = useRef<number | null>(null);
+  // Tracks whether THIS visit (since the last resetKey change) has actually
+  // seen a play() attempt begin for this exact audioKey (status left 'idle'
+  // for 'loading'/'playing' at least once). Guards the completedKey-based
+  // snap below against a stale global completedKey/nowKey left over from a
+  // previous visit to this same slide (e.g. after a replay) firing before
+  // this visit's own narration has even started.
+  const attemptedRef = useRef(false);
 
   // Reset on slide change / replay, done SYNCHRONOUSLY during render (not in
   // a useEffect) -- an effect-based reset lands one commit late, so on the
@@ -73,6 +81,7 @@ export function useVoiceSync(
     spokenRef.current = 0;
     enterRef.current = performance.now();
     speakStartRef.current = null;
+    attemptedRef.current = false;
     if (spoken !== 0) setSpoken(0);
     if (done) setDone(false);
   }
@@ -116,17 +125,37 @@ export function useVoiceSync(
     };
   }, [armed, audioKey]);
 
-  // Real voice finished (boundaries advanced) → snap to complete.
+  // Real voice finished (boundaries advanced) → snap to complete. Also snap
+  // when narration.completedKey names THIS exact key AND a play() attempt
+  // for it actually started (attemptedRef): completedKey is the
+  // authoritative "this play() attempt concluded" signal, set both on a
+  // normal finish and when audio.play() was rejected (autoplay blocked, or
+  // interrupted by a fast second speak() call). Without it, a rejected
+  // play() left status='idle' indistinguishable from "never started yet"
+  // (both charRef and spokenRef sit at 0), so this effect never fired and
+  // `spoken` was stuck relying on the ~10s no-voice fallback clock before
+  // any narration-gated UI (e.g. an activity's answer buttons) could ever
+  // reveal itself. This was the second half of the course/1 slide-12
+  // "activity glitch": the first fix (setCompletedKey in useNarration) let
+  // guidedSpeech's own completion callbacks fire, but this hook's separate
+  // `spoken` gate had no way to hear about it. The attemptedRef guard keeps
+  // this from firing on a stale completedKey/nowKey left over from a
+  // previous visit to this same slide, before the current visit's own
+  // narration has even started.
   useEffect(() => {
+    if (isThisSlide && status !== 'idle') attemptedRef.current = true;
     if (speaking) {
       if (speakStartRef.current == null) speakStartRef.current = performance.now();
     }
-    if (isThisSlide && status === 'idle' && (charRef.current > 0 || spokenRef.current > 0)) {
+    const finished =
+      isThisSlide &&
+      ((attemptedRef.current && completedKey === audioKey) || (status === 'idle' && (charRef.current > 0 || spokenRef.current > 0)));
+    if (finished) {
       spokenRef.current = total;
       setSpoken(total);
       setDone(true);
     }
-  }, [speaking, status, isThisSlide, total]);
+  }, [speaking, status, isThisSlide, total, completedKey, audioKey]);
 
   // Reveal clock.
   useEffect(() => {
