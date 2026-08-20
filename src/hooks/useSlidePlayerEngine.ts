@@ -74,6 +74,22 @@ export function useSlidePlayerEngine({
     setIndex(Math.max(0, Math.min(initialSlide - 1, slides.length - 1)));
   }, [initialSlide, slides.length]);
 
+  // Sidebar "jump to any slide" navigation (every course shell) remounts
+  // this whole engine instance via a React `key` bump instead of calling
+  // `goTo` -- so the explicit `narration.stop()` inside `goTo` never runs
+  // for that path, and Nasser's old narration kept playing over the newly
+  // mounted slide. `narration`/NarrationContext lives above this component
+  // in the tree and outlives the remount, so only an unmount cleanup here
+  // can reliably catch every way this engine instance goes away (sidebar
+  // jump, exit, course switch), not just the in-place navigation handlers.
+  useEffect(() => {
+    return () => {
+      narration.stop();
+      stopVoiceClip();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const playNarration = useCallback(() => {
     if (!muted) {
       narration.warmup();
