@@ -52,7 +52,41 @@ export function CourseTwoPlayer({
 
   const sequentialLocked = strictSequential;
   const nextUnlocked = !sequentialLocked || index < (maxUnlockedIndex ?? 0);
-  const canGoNext = index < slides.length - 1 && nextUnlocked;
+
+  // General rule, independent of strictSequential (applies whether or not a
+  // course also locks the sidebar): the "next slide" arrow never enables
+  // until Nasser's narration for the CURRENT slide has actually finished,
+  // and -- if this slide ends in a question/activity -- until that
+  // activity/quiz has been completed too. This must NOT be a single
+  // "narration.completedKey === slide.audioKey" check for every slide kind:
+  // dedicated activity/quiz slides (PptActivitySlide, PptGuidedScenarioSlide,
+  // QuizStorySlide/KnowledgeCheck) drive their own per-question narration
+  // through useGuidedSpeech with sub-keys like `${audioKey}-feedback-1-...`,
+  // which permanently moves narration.completedKey away from the plain
+  // slide.audioKey the first time any question plays -- so completedKey can
+  // never equal slide.audioKey again for the rest of that slide's life, and
+  // gating on it here would make "next" impossible to enable after the
+  // first question. For those slide kinds, the activity/quiz component's own
+  // onDone/onComplete signal (which itself only fires once the relevant
+  // narration has been heard -- see useGuidedSpeech) is the correct and
+  // sufficient signal instead. A plain content slide -- including one with
+  // an *embedded* final-shot activity (renderActivityShot/isActivityShot) or
+  // mid-slide checkpoints (actActivities) -- never touches completedKey via
+  // guidedSpeech sub-keys (those route per-item feedback through the
+  // separate playVoiceClip channel instead, or pause/resume the SAME main
+  // track), so requiring completedKey === slide.audioKey for those is both
+  // safe and necessary (it's the only signal proving any trailing narration
+  // after a checkpoint/activity was also heard).
+  const isDedicatedActivityOrQuiz = slide.kind === 'activity' || slide.kind === 'quiz';
+  // A quiz slide has no `slide.activity` (its data lives in `slide.quiz`
+  // instead), so the activitiesDone check must be required explicitly for
+  // `kind === 'quiz'` too -- onQuizComplete (below) registers it there
+  // specifically so this has something reliable to check.
+  const activityRequirementMet = isDedicatedActivityOrQuiz || slide.activity ? progress.isActivityDone(slide.id) : true;
+  const narrationRequirementMet = isDedicatedActivityOrQuiz ? true : narration.completedKey === slide.audioKey;
+  const slideReady = activityRequirementMet && narrationRequirementMet;
+
+  const canGoNext = index < slides.length - 1 && nextUnlocked && slideReady;
   const unlockCurrentSlide = () => onUnlockSlide?.(slide.id);
 
   useEffect(() => {
@@ -88,6 +122,14 @@ export function CourseTwoPlayer({
               onQuizComplete={(score) => {
                 progress.setQuizScore(score);
                 progress.markComplete(slide.id);
+                // Also register in activitiesDone (keyed by this slide's own
+                // id, same field 'kind: activity' slides use) so the
+                // narration/activity-completion gate above has a reliable,
+                // per-slide "this exact quiz was actually finished" signal --
+                // quizScore alone is a single course-wide field that gets
+                // overwritten by every quiz in the course, so it can't tell
+                // "this slide's quiz is done" from "some other quiz is done".
+                progress.markActivityDone(slide.id);
                 if (sequentialLocked) unlockCurrentSlide();
               }}
               completion={{

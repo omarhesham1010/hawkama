@@ -46,32 +46,70 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
   const [started, setStarted] = useState(false);
   const completionRef = useRef<(() => void) | null>(null);
   const lingerTimerRef = useRef<number | null>(null);
+  const safetyTimerRef = useRef<number | null>(null);
+  // Bumped on every speak()/clear() call. Every pending timer captures the
+  // id it was scheduled under and is a no-op once a newer call has started
+  // -- this is the fix for a real intermittent bug (course/1 slide 12's
+  // activity, reported as "sometimes works, sometimes doesn't"): the old
+  // 1.5s "linger" timer scheduled after one answer's feedback finished was
+  // never cancelled, so a learner who clicked the next question fast enough
+  // (well within 1.5s -- easy to do on a short feedback line) would have
+  // that STALE timer fire mid-way through the NEW question's narration and
+  // reset speechKey to null. Once null, the completion effect below's
+  // `!speechKey` guard made it permanently ignore that new call's real
+  // completion signal when it later arrived -- the "next" button never
+  // appeared, with no error, no console warning, nothing to point at. It
+  // only reproduced when the timing lined up, hence "sometimes".
+  const callIdRef = useRef(0);
+  const firedRef = useRef(false);
   const sync = useVoiceSync(line ?? '', speechKey ?? '', Boolean(speechKey), speechKey ?? 'guided-idle');
 
-  useEffect(() => () => {
-    if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
+  const clearTimers = useCallback(() => {
+    if (lingerTimerRef.current != null) {
+      window.clearTimeout(lingerTimerRef.current);
+      lingerTimerRef.current = null;
+    }
+    if (safetyTimerRef.current != null) {
+      window.clearTimeout(safetyTimerRef.current);
+      safetyTimerRef.current = null;
+    }
   }, []);
 
+  useEffect(() => () => clearTimers(), [clearTimers]);
+
   const clear = useCallback(() => {
-    if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
-    lingerTimerRef.current = null;
+    clearTimers();
+    callIdRef.current += 1;
     completionRef.current = null;
     setSpeechKey(null);
     setLine(undefined);
     setStarted(false);
-  }, []);
+  }, [clearTimers]);
 
   const speak = useCallback(
     (audioKey: string, text: string, onComplete: () => void) => {
+      // Invalidate anything left over from the previous call FIRST, so a
+      // stale linger/safety timer can never touch this call's state.
+      clearTimers();
+      const callId = (callIdRef.current += 1);
+      firedRef.current = false;
       const scriptText = scriptTextForAudioKey(audioKey, text);
       setLine(scriptText);
       completionRef.current = onComplete;
+
+      const fireOnce = () => {
+        if (firedRef.current || callIdRef.current !== callId) return;
+        firedRef.current = true;
+        const complete = completionRef.current;
+        completionRef.current = null;
+        complete?.();
+      };
+
       if (muted) {
         setStarted(true);
-        completionRef.current = null;
-        onComplete();
-        if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
+        fireOnce();
         lingerTimerRef.current = window.setTimeout(() => {
+          if (callIdRef.current !== callId) return;
           setLine(undefined);
           setStarted(false);
           lingerTimerRef.current = null;
@@ -82,19 +120,36 @@ function useGuidedSpeech(slide: Slide, muted: boolean) {
       setStarted(false);
       setSpeechKey(audioKey);
       narration.play(audioKey, scriptText, slide.title);
+
+      // Defensive safety net, independent of the root-cause fix above: if
+      // the natural completion signal (narration.completedKey === audioKey)
+      // is ever missed for some other reason we haven't hit yet, force
+      // completion anyway after a generous timeout instead of leaving the
+      // learner permanently stuck with no way to continue. Scaled to the
+      // text length so long narration lines get enough room; never fires
+      // during normal playback.
+      const safetyMs = Math.max(12000, Math.min(45000, scriptText.length * 120));
+      safetyTimerRef.current = window.setTimeout(() => {
+        if (callIdRef.current !== callId) return;
+        fireOnce();
+      }, safetyMs);
     },
-    [muted, narration, slide.audioKey, slide.title],
+    [muted, narration, slide.audioKey, slide.title, clearTimers],
   );
 
   useEffect(() => {
     if (!speechKey || narration.nowKey !== speechKey) return;
     if (narration.isPlaying) setStarted(true);
     if (narration.completedKey === speechKey) {
+      const callId = callIdRef.current;
+      if (firedRef.current) return;
+      firedRef.current = true;
       const complete = completionRef.current;
       completionRef.current = null;
       complete?.();
       if (lingerTimerRef.current != null) window.clearTimeout(lingerTimerRef.current);
       lingerTimerRef.current = window.setTimeout(() => {
+        if (callIdRef.current !== callId) return;
         setSpeechKey(null);
         setLine(undefined);
         setStarted(false);
@@ -5033,7 +5088,24 @@ function PptStyleSlide({
   if (slide.layout === 'pptActivitySort') {
     return <PptActivitySlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
-  if (slide.layout === 'pptScenario') {
+  // PptGuidedScenarioSlide hardcodes course/1's own conflict-of-interest
+  // questions/discussions (conflictScenarioQuestions/Discussions) -- it is
+  // NOT generic. course/1's own ppt-conflict-scenario slide is the only one
+  // that relies on it, and it has no `activity` field (its scenario/steps
+  // live only in `ppt.cards`). Every later course that reused the
+  // `pptScenario` layout for a real scenarioDecision activity (course/8,
+  // course/9, course/10 -- 12 slides total, each with its own
+  // `activity: {...}` and a distinct activityLabel) was silently getting
+  // this hardcoded course/1 content instead of its own, because this check
+  // ran before the slide ever reached the generic `slide.activity` handling
+  // further down. Gate this branch on the absence of `slide.activity` so
+  // only course/1's real special case still uses it; every other
+  // `pptScenario` + `activity: scenarioDecision` slide falls through to the
+  // normal act-based flow below, which already exists precisely for
+  // "single setup card + slide.activity" slides like these (see
+  // `isActivityShot`'s comment) and renders them via DecisionSimulation
+  // with their own real scenario data.
+  if (slide.layout === 'pptScenario' && !slide.activity) {
     return <PptGuidedScenarioSlide slide={slide} spoken={spoken} muted={muted} showDialogue={showDialogue} onActivityDone={onActivityDone} />;
   }
 
