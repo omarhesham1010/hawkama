@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CourseTwoSidebar, type CourseTwoGroup } from './components/course2/CourseTwoSidebar';
 import { CourseTwoPlayer } from './components/course2/CourseTwoPlayer';
 import {
@@ -21,13 +21,17 @@ const RAW_GROUPS: { label: string; slides: typeof eavIntroSlides }[] = [
   { label: 'خاتمة الحقيبة والاختبار الختامي', slides: eavClosingSlides },
 ];
 
-const LOCK_STORAGE_KEY = 'course-lock-v1:econ8-full';
-
 /** Single-link (#/course/8) shell for التحليل الاقتصادي والرعاية الصحية
  *  المبنية على القيمة, built on exactly the same shared course-2 components
  *  (sidebar + bare slide canvas + control strip) as #/course/4 through
  *  #/course/7 -- see CourseThreeShell.tsx for the fuller comment on this
- *  shell's intent. */
+ *  shell's intent.
+ *
+ *  ⚠️ Sequential lock intentionally disabled: navigation is left fully
+ *  open for review (no strictSequential/maxUnlockedIndex gating). The
+ *  "next slide" button still waits for narration/activity completion --
+ *  see CourseTwoPlayer.tsx's canGoNext -- so this only affects free
+ *  jump-to-any-slide sidebar navigation. */
 export default function CourseEightShell() {
   const groups = useMemo<CourseTwoGroup[]>(() => {
     let offset = 0;
@@ -42,40 +46,7 @@ export default function CourseEightShell() {
   const [jumpTarget, setJumpTarget] = useState(1);
   const [jumpNonce, setJumpNonce] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [unlockedSlideIds, setUnlockedSlideIds] = useState<string[]>(() => {
-    if (typeof window === 'undefined') return [];
-    try {
-      const raw = window.localStorage.getItem(LOCK_STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
-  });
-
-  const slides = useMemo(() => groups.flatMap((group) => group.slides), [groups]);
-
-  const maxUnlockedIndex = useMemo(() => {
-    const unlocked = new Set(unlockedSlideIds);
-    let nextLocked = 0;
-    while (nextLocked < slides.length && unlocked.has(slides[nextLocked].id)) nextLocked += 1;
-    return Math.min(nextLocked, Math.max(0, slides.length - 1));
-  }, [slides, unlockedSlideIds]);
-
-  useEffect(() => {
-    window.localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(unlockedSlideIds));
-  }, [unlockedSlideIds]);
-
-  const unlockSlide = useCallback((id: string) => {
-    setUnlockedSlideIds((ids) => (ids.includes(id) ? ids : [...ids, id]));
-  }, []);
-
-  const resetUnlocks = useCallback(() => {
-    setUnlockedSlideIds([]);
-    window.localStorage.removeItem(LOCK_STORAGE_KEY);
-  }, []);
-
   const jumpTo = (index: number) => {
-    if (index > maxUnlockedIndex) return;
     setJumpTarget(index + 1);
     setJumpNonce((n) => n + 1);
     setActiveIndex(index);
@@ -93,7 +64,6 @@ export default function CourseEightShell() {
         onJump={jumpTo}
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
-        maxUnlockedIndex={maxUnlockedIndex}
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
@@ -102,10 +72,6 @@ export default function CourseEightShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
-          strictSequential
-          maxUnlockedIndex={maxUnlockedIndex}
-          onUnlockSlide={unlockSlide}
-          onResetSequentialLocks={resetUnlocks}
         />
       </div>
     </div>
