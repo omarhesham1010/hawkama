@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
 import type { AudioAlignment } from '../data/audioAlignments';
-import { spokenFromAudioAlignment, spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
+import { activeStoryCue, spokenFromAudioAlignment, spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 10000; // ms: only simulate progress after a genuine start failure
@@ -236,6 +236,24 @@ export function useVoiceSync(
         val = ((performance.now() - enterRef.current - NO_VOICE_FALLBACK) / 1000) * CPS * rateRef.current;
       } else {
         val = 0; // waiting for the voice to begin (title only)
+      }
+      // Never let a single tick jump `spoken` straight past the end of the
+      // sentence (story cue) it's currently inside -- the dialogue bubble
+      // (NasserStoryLayer) re-derives its active cue fresh from `spoken` on
+      // every render, so a jump that overshoots a cue's end lands `spoken`
+      // inside the NEXT cue before this one was ever rendered at its own
+      // full length. The bubble then swaps straight to the next sentence,
+      // and the tail of the previous one (often just its last word/letter)
+      // was never actually shown -- this was the "last letter of Nasser's
+      // box is missing" defect reported across most courses. Clamping to
+      // the current cue's end for this tick guarantees at least one render
+      // shows it fully revealed; the very next tick (~16ms later) carries
+      // on into the following cue as normal, so pacing is unaffected.
+      if (val > spokenRef.current) {
+        const { cue: inFlightCue } = activeStoryCue(textRef.current, spokenRef.current);
+        if (inFlightCue && spokenRef.current < inFlightCue.end && val > inFlightCue.end) {
+          val = inFlightCue.end;
+        }
       }
       const next = Math.min(total, Math.max(spokenRef.current, val));
       if (next !== spokenRef.current) {
