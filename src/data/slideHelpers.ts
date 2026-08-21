@@ -18,6 +18,15 @@ export function humanizeNumbers(text: string): string {
   return text.replace(/\b(\d{1,3})000\b/g, (_match, n: string) => `${n} ألف`);
 }
 
+// Narration sometimes spells an acronym out letter-by-letter for correct TTS
+// pronunciation (e.g. "R-A-C-I" instead of "RACI"). Collapse those hyphenated
+// single-letter runs back into one word before tokenizing, so a hyphenated
+// acronym in the narration still counts as covering the plain acronym token
+// in the title.
+function collapseHyphenatedLetterRuns(text: string): string {
+  return text.replace(/\b(?:\p{L}-){1,}\p{L}\b/gu, (match) => match.replace(/-/g, ''));
+}
+
 export function narrationCoversTitle(title: string, narration: string) {
   const words = title
     .normalize('NFKC')
@@ -27,7 +36,7 @@ export function narrationCoversTitle(title: string, narration: string) {
     .split(/\s+/)
     .filter((word) => word.length > 1);
   const spoken = new Set(
-    narration
+    collapseHyphenatedLetterRuns(narration)
       .normalize('NFKC')
       .toLowerCase()
       .replace(/\p{M}/gu, '')
