@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof htaIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التشغيل البيني والمعايير الصحية', slides: htaUnitThreeSlides },
   { label: 'الوحدة الرابعة · الأمن السيبراني والخصوصية والثقة', slides: htaUnitFourSlides },
   { label: 'الوحدة الخامسة · الأطر القانونية، الأخلاقيات، والتعاون', slides: htaUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: htaClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: htaClosingSlides },
 ];
 
 /** Single-link (#/course/10) shell for التنظيم الاقتصادي: تقييم التقنيات

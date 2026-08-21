@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof erpIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التكلفة والتسعير الصحي', slides: erpUnitThreeSlides },
   { label: 'الوحدة الرابعة · آليات التسعير الاسترشادي', slides: erpUnitFourSlides },
   { label: 'الوحدة الخامسة · أنظمة الدفع والتعويض', slides: erpUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: erpClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: erpClosingSlides },
 ];
 
 /** Single-link (#/course/9) shell for التنظيم الاقتصادي: التنافسية

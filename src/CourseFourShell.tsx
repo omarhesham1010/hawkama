@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof policyIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التحليل المتقدم وصياغة السياسات', slides: policyUnitThreeSlides },
   { label: 'الوحدة الرابعة · الجوانب القانونية والتشريعية', slides: policyUnitFourSlides },
   { label: 'الوحدة الخامسة · الحوكمة والمخاطر واتخاذ القرار', slides: policyUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: policyClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: policyClosingSlides },
 ];
 
 /** Single-link (#/course/4) shell for إعداد السياسات والأنظمة واللوائح في

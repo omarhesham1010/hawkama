@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof qualIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التحسين المستمر والتحقيق', slides: qualUnitThreeSlides },
   { label: 'الوحدة الرابعة · التقييم والمقارنة والتجربة', slides: qualUnitFourSlides },
   { label: 'الوحدة الخامسة · التقارير والمتابعة', slides: qualUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: qualClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: qualClosingSlides },
 ];
 
 /** Single-link (#/course/7) shell for الجودة (معايير - فحص - مراقبة

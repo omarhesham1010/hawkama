@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof eavIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التفاوض والتعاقد في القطاع الصحي', slides: eavUnitThreeSlides },
   { label: 'الوحدة الرابعة · الرعاية الصحية المبنية على القيمة', slides: eavUnitFourSlides },
   { label: 'الوحدة الخامسة · الأداء والتقارير واتخاذ القرار', slides: eavUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: eavClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: eavClosingSlides },
 ];
 
 /** Single-link (#/course/8) shell for التحليل الاقتصادي والرعاية الصحية

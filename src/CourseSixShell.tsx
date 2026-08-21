@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof perfIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التفتيش والامتثال وضمان الجودة', slides: perfUnitThreeSlides },
   { label: 'الوحدة الرابعة · المخاطر والأزمات', slides: perfUnitFourSlides },
   { label: 'الوحدة الخامسة · حقوق المرضى والتحول المؤسسي', slides: perfUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: perfClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: perfClosingSlides },
 ];
 
 /** Single-link (#/course/6) shell for الجودة (مراقبة أداء النظام - إدارة

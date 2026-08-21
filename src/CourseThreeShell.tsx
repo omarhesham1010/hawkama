@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof licensingIntroSlides }[] = [
   { label: 'الوحدة الثالثة · الإطار التنظيمي وحوكمة التراخيص', slides: licensingUnitThreeSlides },
   { label: 'الوحدة الرابعة · المخاطر والسياسات الداعمة للتراخيص', slides: licensingUnitFourSlides },
   { label: 'الوحدة الخامسة · التفتيش والتقارير والرقابة', slides: licensingUnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: licensingClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: licensingClosingSlides },
 ];
 
 /** Single-link (#/course/3) shell for ترخيص المنشآت الصحية والقوى العاملة,

@@ -32,7 +32,7 @@ const RAW_GROUPS: { label: string; slides: typeof emergencyIntroSlides }[] = SAM
       { label: 'الفصل الثاني', slides: emergencyChapterTwoSlides },
       { label: 'الفصل الثالث', slides: emergencyChapterThreeSlides },
       { label: 'الفصل الرابع', slides: chapterFourContent },
-      { label: 'خاتمة الحقيبة والاختبار البعدي', slides: chapterFourClosing },
+      { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: chapterFourClosing },
     ];
 
 /** Single-link (#/course/2) shell. Exactly three things on screen: the

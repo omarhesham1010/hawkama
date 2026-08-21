@@ -18,7 +18,7 @@ const RAW_GROUPS: { label: string; slides: typeof governance2IntroSlides }[] = [
   { label: 'الوحدة الثالثة · الحوكمة التشغيلية وإدارة الأداء والجودة', slides: governance2UnitThreeSlides },
   { label: 'الوحدة الرابعة · إدارة التغيير والمخاطر والشراكات', slides: governance2UnitFourSlides },
   { label: 'الوحدة الخامسة · الحوكمة المتقدمة واتخاذ القرار', slides: governance2UnitFiveSlides },
-  { label: 'خاتمة الحقيبة والاختبار الختامي', slides: governance2ClosingSlides },
+  { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: governance2ClosingSlides },
 ];
 
 /** Single-link (#/course/5) shell for حوكمة القطاع الصحي, built on exactly
