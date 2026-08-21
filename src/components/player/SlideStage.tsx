@@ -1732,6 +1732,21 @@ function IntroMotionScene({
           const cardWidth = isLicensingCourse && pillars.length === 3 ? 'w-[154px] min-h-[162px]' : isFivePillar ? 'w-[76px]' : pillars.length > 3 ? 'w-[98px]' : 'w-[100px]';
           const licensingLabelSize =
             isLicensingCourse && pillars.length === 3 && pillar.label.length > 34 ? 'text-[13px] leading-[1.12]' : 'text-[14px] leading-[1.12]';
+          // The non-licensing 3-pillar card is a fixed 100px wide (vs.
+          // licensing's 154px), so its label text needs its own
+          // length-based downshift -- without this, longer unit sub-topic
+          // titles (pulled verbatim from ppt.intro, e.g. gov2/perf course
+          // unit-welcome slides) overflow the card's ~74px text column
+          // since the fixed 14px size was only ever tuned against
+          // course/1's shorter titles.
+          const genericThreePillarLabelSize =
+            pillar.label.length > 45
+              ? 'text-[9.5px] leading-[1.12]'
+              : pillar.label.length > 30
+                ? 'text-[10.5px] leading-[1.12]'
+                : pillar.label.length > 22
+                  ? 'text-[12px] leading-[1.12]'
+                  : 'text-[14px] leading-[1.12]';
           const visualOrder = isEmergencyCourse ? index : index < 3 ? [1, 2, 0][index] : index;
           return (
             <div
@@ -1753,7 +1768,7 @@ function IntroMotionScene({
               <span className={`mx-auto mb-1.5 grid place-items-center rounded-xl bg-white p-1 shadow-sm ${isFivePillar ? 'h-7 w-7' : 'h-9 w-9'}`}>
                 <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
               </span>
-              <p className={`${isLicensingCourse && pillars.length === 3 ? licensingLabelSize : isFivePillar ? 'text-[10.5px] leading-[1.1]' : pillars.length > 3 ? 'text-[12px]' : 'text-[14px]'} w-full text-center font-black`}>{pillar.label}</p>
+              <p className={`${isLicensingCourse && pillars.length === 3 ? licensingLabelSize : isFivePillar ? 'text-[10.5px] leading-[1.1]' : pillars.length > 3 ? 'text-[12px]' : pillars.length === 3 ? genericThreePillarLabelSize : 'text-[14px]'} w-full text-center font-black`}>{pillar.label}</p>
               <p className={`mt-1 ${isLicensingCourse && pillars.length === 3 ? 'text-[12px]' : isFivePillar ? 'text-[9px] leading-[1.1]' : pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} w-full text-center font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
             </div>
           );
