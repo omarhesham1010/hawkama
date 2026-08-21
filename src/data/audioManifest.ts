@@ -1923,7 +1923,7 @@ export const AUDIO_MANIFEST: string[] = [
   "bag9-final-s1-test",
   "bag9-final-s2-closing"
 ];
-export const AUDIO_MANIFEST_VERSION = '8d927e7d17f5';
+export const AUDIO_MANIFEST_VERSION = '45caa8405650';
 
 export function hasAudio(key: string): boolean {
   return AUDIO_MANIFEST.includes(key);

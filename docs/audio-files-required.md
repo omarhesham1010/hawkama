@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **2056**.
+Generated from `src/data/audioScripts.ts`. Total required: **1982**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -42,9 +42,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s9-leadership-questions.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
 - `bag1-ch3-s10-quiz.mp3` - اختبار الفصل الثالث
 - `bag1-ch3-s11-closing.mp3` - ختام الفصل الثالث والحقيبة
-- `bag2-ch0-s1-welcome.mp3` - إدارة الاستجابة للطوارئ
-- `bag2-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag2-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag2-ch0-s1-welcome-v2.mp3` - إدارة الاستجابة للطوارئ
+- `bag2-ch0-s2-map-v2.mp3` - محتويات الحقيبة
+- `bag2-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag2-ch1-s1-welcome.mp3` - الاستعداد للطوارئ الصحية
 - `bag2-ch1-s1b-goals.mp3` - أهداف الفصل الأول
 - `bag2-ch1-s2-strategic-framework.mp3` - تصميم الإطار الاستراتيجي الشامل للاستجابة
@@ -53,88 +53,58 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s5-readiness.mp3` - الجاهزية المؤسسية: الاختبار الحقيقي قبل أن تبدأ الأزمة
 - `bag2-ch1-s6-inter-agency-integration.mp3` - التكامل بين الجهات
 - `bag2-ch1-s7-business-continuity.mp3` - بناء وتكامل خطط استمرارية الأعمال
-- `bag2-ch1-s8-activity-5.mp3` - نشاط: أول قرار قيادي
-- `bag2-ch1-s8b-activity-5-path.mp3` - نشاط: ترتيب مسار الاستجابة
-- `bag2-ch1-s9-ics.mp3` - هيكل وتنظيم مركز القيادة أثناء الحوادث
-- `bag2-ch1-s10-eoc.mp3` - أدوار ومسؤوليات مركز عمليات الطوارئ
-- `bag2-ch1-s11-eoc-design.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية
-- `bag2-ch1-s12-coordination.mp3` - التنسيق أثناء الطوارئ
-- `bag2-ch1-s13-impact-modeling.mp3` - نمذجة تحليل الأثر واستمرارية الأعمال
-- `bag2-ch1-s14-activity-6.mp3` - نشاط: ICS أو EOC
-- `bag2-ch1-s14b-activity-6-followup.mp3` - نشاط: تطبيق إضافي على ICS و EOC
+- `bag2-ch1-s9-ics-v2.mp3` - هيكل وتنظيم مركز القيادة أثناء الحوادث
+- `bag2-ch1-s10-eoc-v2.mp3` - أدوار ومسؤوليات مركز عمليات الطوارئ
+- `bag2-ch1-s11-eoc-continuity.mp3` - تصميم EOC للاستمرارية
+- `bag2-ch1-s12-coordination-v2.mp3` - التنسيق أثناء الطوارئ
 - `bag2-ch1-s15-info-flow.mp3` - إدارة تدفق المعلومات
 - `bag2-ch1-s16-hr-logistics.mp3` - تنسيق الموارد البشرية واللوجستية
 - `bag2-ch1-s17-operational-policies.mp3` - تفعيل السياسات التشغيلية للطوارئ والسلامة
-- `bag2-ch1-s18-activity-7.mp3` - نشاط: المعلومات والموارد والسياسات
-- `bag2-ch1-s18b-activity-7-followup.mp3` - نشاط: تكامل المعلومة والمورد والسياسة
+- `bag2-ch1-s18-activity-audit.mp3` - نشاط تطبيقي: اختبر جاهزية مؤسستك
 - `bag2-ch1-s19-quiz.mp3` - اختبار الفصل الأول
 - `bag2-ch1-s20-closing.mp3` - ختام الفصل الأول
 - `bag2-ch2-s1-welcome.mp3` - إدارة الأزمات الصحية
 - `bag2-ch2-s1b-goals.mp3` - أهداف الفصل الثاني
-- `bag2-ch2-s2-crisis-terms.mp3` - فهم ديناميكيات الأزمات
-- `bag2-ch2-s3-scenario-analysis.mp3` - تحليل السيناريوهات
-- `bag2-ch2-s3b-activity-terms.mp3` - نشاط تفاعلي: صنّف مستوى الموقف
+- `bag2-ch2-s2-crisis-terms-v2.mp3` - فهم ديناميكيات الأزمات
+- `bag2-ch2-s3-scenario-analysis-v2.mp3` - تحليل السيناريوهات وحوكمة الاستجابة
 - `bag2-ch2-s4-raci.mp3` - حوكمة الاستجابة ومصفوفة RACI
-- `bag2-ch2-s5b-activity-raci.mp3` - نشاط تفاعلي: طبّق RACI
-- `bag2-ch2-s5c-activity-raci-path.mp3` - نشاط تفاعلي: رتّب مسار RACI
 - `bag2-ch2-s5-ooda.mp3` - اتخاذ القرار تحت الضغط
-- `bag2-ch2-s6-leadership.mp3` - القيادة أثناء الأزمات
-- `bag2-ch2-s7-escalation.mp3` - معايير التصعيد وتفعيل القيادة الطارئة
-- `bag2-ch2-s8-cerc-phases.mp3` - التواصل والمشاركة المجتمعية — نموذج CERC
-- `bag2-ch2-s9-media-trust.mp3` - إدارة الرسائل الإعلامية وبناء الثقة
-- `bag2-ch2-s9b-activity-cerc.mp3` - نشاط تفاعلي: رسالة CERC
-- `bag2-ch2-s10-case-study.mp3` - دراسة حالة: الثقة المجتمعية خلال جائحة كورونا
-- `bag2-ch2-s11-lessons.mp3` - الدروس المستفادة للمملكة العربية السعودية
+- `bag2-ch2-s6-leadership-v2.mp3` - القيادة أثناء الأزمات
+- `bag2-ch2-s7-escalation-v2.mp3` - معايير التصعيد والقيادة الطارئة
+- `bag2-ch2-s3b-activity-pressure.mp3` - تمرين محاكاة: قيادة تحت الضغط
+- `bag2-ch2-s8-cerc-phases-v2.mp3` - التواصل والمشاركة المجتمعية — نموذج CERC
+- `bag2-ch2-s10-case-study-v2.mp3` - دراسة حالة: بناء الثقة المجتمعية خلال جائحة كوفيد-19
+- `bag2-ch2-s10b-activity-statement.mp3` - نشاط: صياغة بيان أزمة في 10 دقائق
 - `bag2-ch2-s12-quiz.mp3` - اختبار الفصل الثاني
-- `bag2-ch2-s13-closing.mp3` - ختام الفصل الثاني
-- `bag2-ch3-s1-welcome.mp3` - المسح الاستباقي والترصد المبكر
-- `bag2-ch3-s1b-goals.mp3` - أهداف الفصل الثالث
-- `bag2-ch3-s2-scanning-intro.mp3` - أهمية المسح الاستباقي
-- `bag2-ch3-s3-horizontal-scanning.mp3` - المسح الأفقي
-- `bag2-ch3-s4-vertical-scanning.mp3` - المسح الرأسي
-- `bag2-ch3-s4b-activity-scan.mp3` - نشاط تفاعلي: أفقي أم رأسي؟
-- `bag2-ch3-s5-regulatory-foresight.mp3` - استشراف المخاطر التنظيمية
-- `bag2-ch3-s6-regulatory-tools.mp3` - أدوات وتقنيات استشراف المخاطر التنظيمية
-- `bag2-ch3-s7-multi-hazard-concepts.mp3` - تقييم المخاطر متعددة الأخطار — المفاهيم الأساسية
-- `bag2-ch3-s8-multi-hazard-methodology.mp3` - منهجية التقييم الشامل للمخاطر متعددة الأخطار
-- `bag2-ch3-s9-scenario-planning.mp3` - التخطيط بالسيناريوهات
-- `bag2-ch3-s10-surveillance-intro.mp3` - الترصد ودمج الإنذار المبكر
-- `bag2-ch3-s11-indicators.mp3` - تصميم مؤشرات الإنذار المبكر
-- `bag2-ch3-s12-surveillance-systems.mp3` - أنظمة الترصد المبكر للأخطار
-- `bag2-ch3-s11b-activity-indicators.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار
-- `bag2-ch3-s13-thresholds.mp3` - ربط الترصد بالقرار
-- `bag2-ch3-s14b-activity-thresholds.mp3` - نشاط تفاعلي: من العتبة إلى القرار
-- `bag2-ch3-s14c-activity-thresholds-path.mp3` - نشاط تفاعلي: رتّب مسار العتبة
-- `bag2-ch3-s14-integration.mp3` - دمج الترصد والإنذار بخطط الاستجابة
-- `bag2-ch3-s15-quiz.mp3` - اختبار الفصل الثالث
-- `bag2-ch3-s16-closing.mp3` - ختام الفصل الثالث
+- `bag2-ch2-s13-closing-v2.mp3` - ختام الفصل الثاني
+- `bag2-ch3-s1-welcome-v2.mp3` - التنبؤ والتخفيف والاستدامة
+- `bag2-ch3-s1b-goals-v2.mp3` - أهداف الفصل الثالث
+- `bag2-ch3-s2-scanning.mp3` - المسح الاستباقي للتنظيمات المستقبلية
+- `bag2-ch3-s3-multi-hazard.mp3` - تقييم المخاطر متعددة الأخطار
+- `bag2-ch3-s4-scenario-planning.mp3` - التخطيط بالسيناريوهات
+- `bag2-ch3-s5-surveillance-intro.mp3` - الترصد ودمج الإنذار المبكر
+- `bag2-ch3-s6-indicators.mp3` - تصميم مؤشرات الإنذار المبكر
+- `bag2-ch3-s7-thresholds.mp3` - ربط الترصد بالقرار والاستجابة
+- `bag2-ch3-s8-activity.mp3` - نشاط: صمّم نظام إنذار مبكر لمخاطر متعددة
+- `bag2-ch3-s9-quiz.mp3` - اختبار الفصل الثالث
+- `bag2-ch3-s10-closing.mp3` - ختام الفصل الثالث
 - `bag2-ch4-s1-welcome.mp3` - التعافي والتحسين المستمر
 - `bag2-ch4-s1b-goals.mp3` - أهداف الفصل الرابع
-- `bag2-ch4-s2-supply-chain-intro.mp3` - اللوجستيات ومرونة سلسلة التوريد
-- `bag2-ch4-s3-supply-chain-strategies.mp3` - استراتيجيات بناء المرونة
-- `bag2-ch4-s4-inventory-management.mp3` - إدارة المخزون أثناء الطوارئ
-- `bag2-ch4-s4b-activity-inventory.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ
-- `bag2-ch4-s5-inventory-governance.mp3` - حوكمة المخزون الاحتياطي
-- `bag2-ch4-s6-aar-intro.mp3` - مراجعات ما بعد الحدث
-- `bag2-ch4-s7-aar-phases.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث
-- `bag2-ch4-s7b-activity-aar.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة
-- `bag2-ch4-s8-aar-success-factors.mp3` - عوامل نجاح مراجعة ما بعد الحدث
-- `bag2-ch4-s9-improvement-plans.mp3` - خطط التحسين المستمر
-- `bag2-ch4-s10-kpi-categories.mp3` - إدارة وقياس مؤشرات الأداء
-- `bag2-ch4-s11-kpi-design.mp3` - خطوات تصميم وقياس مؤشر الأداء
-- `bag2-ch4-s12-stakeholders.mp3` - تحديد أصحاب المصلحة
-- `bag2-ch4-s13-power-interest.mp3` - مصفوفة القوة والاهتمام
-- `bag2-ch4-s15b-activity-stakeholders.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة
-- `bag2-ch4-s15c-activity-stakeholders-path.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة
-- `bag2-ch4-s14-crisis-comm.mp3` - استراتيجيات التواصل الفعال
-- `bag2-ch4-s15-trust-building.mp3` - بناء الثقة والتأثير
-- `bag2-ch4-s16-closing-applications.mp3` - تطبيقات ختامية تفاعلية
+- `bag2-ch4-s2-supply-continuity.mp3` - اللوجستيات والمخزون ومرونة سلسلة التوريد
+- `bag2-ch4-s3-supply-governance.mp3` - الحوكمة والتمويل ودروس الأزمة
+- `bag2-ch4-s4-aar.mp3` - مراجعة ما بعد الحدث
+- `bag2-ch4-s5-improvement-pdca.mp3` - خطط التحسين المستمر
+- `bag2-ch4-s6-kpi.mp3` - إدارة وقياس مؤشرات الأداء
+- `bag2-ch4-s7-stakeholders.mp3` - إدارة أصحاب المصلحة
+- `bag2-ch4-s8-comm-strategies.mp3` - استراتيجيات التواصل الفعّال
+- `bag2-ch4-s9-trust-building.mp3` - بناء الثقة والتأثير
+- `bag2-ch4-s10-activity-workshop.mp3` - ورشة ختامية: نمذجة استجابة متكاملة
 - `bag2-ch4-s17-quiz.mp3` - اختبار الفصل الرابع
-- `bag2-ch4-s17b-post-test.mp3` - الاختبار الختامي الشامل
-- `bag2-ch4-s18-closing.mp3` - ختام الفصل الرابع والحقيبة
+- `bag2-ch4-s17b-post-test.mp3` - نشاط ما بعد الدورة
+- `bag2-ch4-s18-closing-v2.mp3` - ختام الفصل الرابع والحقيبة
 - `bag1-ch0-s1-welcome-course1.mp3` - الحوكمة والمخاطر والامتثال
 - `bag1-ch0-s2-map-course1.mp3` - محتويات البرنامج التدريبي
-- `bag1-ch0-s3-pre-test-course1.mp3` - الاختبار القبلي
+- `bag1-ch0-s3-pre-test-course1.mp3` - نشاط ما قبل الدورة
 - `bag1-ch1-s1-welcome-course1.mp3` - الحوكمة التنظيمية والامتثال
 - `bag1-ch1-s2-overview-course1.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال
 - `bag1-ch1-s3-regulatory-framework-course1.mp3` - الإطار التنظيمي للقطاع الصحي
@@ -169,11 +139,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch4-s1-summary-course1.mp3` - الخلاصة – أبرز ما تعلمناه
 - `bag1-ch4-s2-final-message-course1.mp3` - الامتثال بلا حوكمة.. شكلٌ بلا روح
 - `bag1-ch4-s3-leadership-questions-course1.mp3` - ما بعد التدريب – ثلاثة أسئلة قيادية
-- `bag1-ch4-s4-post-test-course1.mp3` - الاختبار الختامي الشامل
+- `bag1-ch4-s4-post-test-course1.mp3` - نشاط ما بعد الدورة
 - `bag1-ch4-s5-closing-course1.mp3` - ختام حقيبة الحوكمة والمخاطر والامتثال
 - `bag3-ch0-s1-welcome.mp3` - ترخيص المنشآت الصحية والقوى العاملة
 - `bag3-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag3-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag3-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag3-ch1-s1-welcome.mp3` - البيانات والأداء واتخاذ القرار في التراخيص الصحية
 - `bag3-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag3-ch1-s2-data-sources.mp3` - تحليل البيانات واستخلاص الأدلة
@@ -228,11 +198,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag3-ch5-s7-activity-3.mp3` - نشاط: اتساق وجودة القرار
 - `bag3-ch5-s8-quiz.mp3` - اختبار الوحدة الخامسة
 - `bag3-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
-- `bag3-ch5-s10-post-test.mp3` - الاختبار الختامي الشامل
+- `bag3-ch5-s10-post-test.mp3` - نشاط ما بعد الدورة
 - `bag3-ch5-s11-closing.mp3` - ختام حقيبة ترخيص المنشآت الصحية والقوى العاملة
 - `bag4-ch0-s1-welcome.mp3` - إعداد السياسات والأنظمة واللوائح في القطاع الصحي
 - `bag4-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag4-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag4-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag4-ch1-s1-welcome.mp3` - الإطار العام وصناعة السياسات في السياق التنظيمي
 - `bag4-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag4-ch1-s2-continuous-learning.mp3` - التعلم المستمر والمواءمة العالمية
@@ -283,11 +253,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag4-ch5-s7-activity-3.mp3` - نشاط: نماذج اتخاذ القرار
 - `bag4-ch5-s8-quiz.mp3` - اختبار الوحدة الخامسة
 - `bag4-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
-- `bag4-ch5-s10-post-test.mp3` - الاختبار الختامي الشامل
+- `bag4-ch5-s10-post-test.mp3` - نشاط ما بعد الدورة
 - `bag4-ch5-s11-closing.mp3` - ختام حقيبة إعداد السياسات والأنظمة واللوائح في القطاع الصحي
 - `bag5-ch0-s1-welcome.mp3` - حوكمة القطاع الصحي
 - `bag5-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag5-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag5-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag5-ch1-s1-welcome.mp3` - الأسس الاستراتيجية لحوكمة القطاع الصحي
 - `bag5-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag5-ch1-s2-strategic-ethics.mp3` - الحوكمة الاستراتيجية والأخلاقيات
@@ -338,11 +308,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag5-ch5-s7-activity-3.mp3` - نشاط: هندسة القرار وخريطة أصحاب المصلحة
 - `bag5-ch5-s8-quiz.mp3` - اختبار الوحدة الخامسة
 - `bag5-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
-- `bag5-ch5-s10-post-test.mp3` - الاختبار الختامي الشامل
+- `bag5-ch5-s10-post-test.mp3` - نشاط ما بعد الدورة
 - `bag5-ch5-s11-closing.mp3` - ختام حقيبة حوكمة القطاع الصحي
 - `bag6-ch0-s1-welcome.mp3` - الجودة: مراقبة أداء النظام وإدارة حالات الإخفاق وحقوق المرضى
 - `bag6-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag6-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag6-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag6-ch1-s1-welcome.mp3` - سلامة المرضى وثقافة الجودة
 - `bag6-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag6-ch1-s2-safety-culture.mp3` - ثقافة السلامة والدعوة لها
@@ -393,11 +363,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag6-ch5-s9-activity-3.mp3` - نشاط: تصنيف أصحاب المصلحة
 - `bag6-ch5-s10-quiz.mp3` - اختبار الوحدة الخامسة
 - `bag6-ch5-s11-closing.mp3` - ختام الوحدة الخامسة
-- `bag6-ch6-s1-post-test.mp3` - الاختبار الختامي الشامل
+- `bag6-ch6-s1-post-test.mp3` - نشاط ما بعد الدورة
 - `bag6-ch6-s2-closing.mp3` - ختام حقيبة الجودة: مراقبة أداء النظام وإدارة حالات الإخفاق وحقوق المرضى
 - `bag7-ch0-s1-welcome.mp3` - الجودة: معايير وفحص ومراقبة وتحسين الجودة
 - `bag7-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag7-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag7-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag7-ch1-s1-welcome.mp3` - أداء النظام وقياس الجودة
 - `bag7-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag7-ch1-s2-system-performance.mp3` - أداء النظام والتحسين
@@ -448,11 +418,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag7-ch5-s9-activity-3.mp3` - نشاط: طرق التحقق من الكفاءة
 - `bag7-ch5-s10-quiz.mp3` - اختبار الوحدة الخامسة
 - `bag7-ch5-s11-closing.mp3` - ختام الوحدة الخامسة
-- `bag7-ch6-s1-post-test.mp3` - الاختبار الختامي الشامل
+- `bag7-ch6-s1-post-test.mp3` - نشاط ما بعد الدورة
 - `bag7-ch6-s2-closing.mp3` - ختام حقيبة الجودة: معايير وفحص ومراقبة وتحسين الجودة
 - `bag8-ch0-s1-welcome.mp3` - التحليل الاقتصادي والرعاية الصحية المبنية على القيمة
 - `bag8-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag8-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag8-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag8-ch1-s1-welcome.mp3` - التنبؤ الاكتواري وإدارة المخاطر المؤسسية
 - `bag8-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag8-ch1-s2-actuarial.mp3` - التنبؤ الاكتواري وتعديل المخاطر
@@ -503,11 +473,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag8-ch5-s8-activity-3.mp3` - نشاط: بطاقات الأثر المالي مقابل الاقتصادي
 - `bag8-ch5-s9-test.mp3` - اختبار الوحدة الخامسة
 - `bag8-ch5-s10-closing.mp3` - ختام الوحدة الخامسة
-- `bag8-final-s1-test.mp3` - الاختبار الختامي الشامل
+- `bag8-final-s1-test.mp3` - نشاط ما بعد الدورة
 - `bag8-final-s2-closing.mp3` - رسالة الختام
 - `bag9-ch0-s1-welcome.mp3` - التنظيم الاقتصادي: التنافسية والشفافية وآليات التسعير والدفع
 - `bag9-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag9-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag9-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag9-ch1-s1-welcome.mp3` - الإطار التنظيمي والحوكمة
 - `bag9-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag9-ch1-s2-roles.mp3` - الأدوار التنظيمية الأربعة والإطار النظامي
@@ -558,11 +528,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-ch5-s8-activity-3.mp3` - نشاط: بطاقات مواءمة السياسات بالدفع
 - `bag9-ch5-s9-test.mp3` - اختبار الوحدة الخامسة
 - `bag9-ch5-s10-closing.mp3` - ختام الوحدة الخامسة
-- `bag9-final-s1-test.mp3` - الاختبار الختامي الشامل
+- `bag9-final-s1-test.mp3` - نشاط ما بعد الدورة
 - `bag9-final-s2-closing.mp3` - رسالة الختام
 - `bag10-ch0-s1-welcome.mp3` - التنظيم الاقتصادي: تقييم التقنيات الصحية
 - `bag10-ch0-s2-map.mp3` - محتويات الحقيبة
-- `bag10-ch0-s3-pre-test.mp3` - الاختبار القبلي
+- `bag10-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
 - `bag10-ch1-s1-welcome.mp3` - الإطار العام لتقييم التقنيات الصحية والتحول الرقمي
 - `bag10-ch1-s1b-goals.mp3` - أهداف الوحدة الأولى
 - `bag10-ch1-s2-categories.mp3` - فئات التقنيات الصحية وتقييمها الاقتصادي
@@ -612,7 +582,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s7-ethics-cooperation.mp3` - أخلاقيات استخدام التقنيات الصحية والتعاون
 - `bag10-ch5-s8-test.mp3` - اختبار الوحدة الخامسة
 - `bag10-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
-- `bag10-final-s1-test.mp3` - الاختبار الختامي الشامل
+- `bag10-final-s1-test.mp3` - نشاط ما بعد الدورة
 - `bag10-final-s2-closing.mp3` - رسالة الختام
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
@@ -630,25 +600,11 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s6-risk-activity-detail-1.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 1
 - `bag1-ch3-s6-risk-activity-detail-2.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 2
 - `bag1-ch3-s6-risk-activity-detail-3.mp3` - نشاط: إعداد سجل المخاطر وتقارير المخاطر - مناقشة 3
-- `bag2-ch1-s8-activity-5-detail-1.mp3` - نشاط: أول قرار قيادي - مناقشة 1
-- `bag2-ch1-s8b-activity-5-path-detail-1.mp3` - نشاط: ترتيب مسار الاستجابة - مناقشة 1
-- `bag2-ch1-s14-activity-6-detail-1.mp3` - نشاط: ICS أو EOC - مناقشة 1
-- `bag2-ch1-s14b-activity-6-followup-detail-1.mp3` - نشاط: تطبيق إضافي على ICS و EOC - مناقشة 1
-- `bag2-ch1-s18-activity-7-detail-1.mp3` - نشاط: المعلومات والموارد والسياسات - مناقشة 1
-- `bag2-ch1-s18b-activity-7-followup-detail-1.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - مناقشة 1
-- `bag2-ch2-s3b-activity-terms-detail-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - مناقشة 1
-- `bag2-ch2-s5b-activity-raci-detail-1.mp3` - نشاط تفاعلي: طبّق RACI - مناقشة 1
-- `bag2-ch2-s5c-activity-raci-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار RACI - مناقشة 1
-- `bag2-ch2-s9b-activity-cerc-detail-1.mp3` - نشاط تفاعلي: رسالة CERC - مناقشة 1
-- `bag2-ch3-s4b-activity-scan-detail-1.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - مناقشة 1
-- `bag2-ch3-s11b-activity-indicators-detail-1.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - مناقشة 1
-- `bag2-ch3-s14b-activity-thresholds-detail-1.mp3` - نشاط تفاعلي: من العتبة إلى القرار - مناقشة 1
-- `bag2-ch3-s14c-activity-thresholds-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار العتبة - مناقشة 1
-- `bag2-ch4-s4b-activity-inventory-detail-1.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - مناقشة 1
-- `bag2-ch4-s7b-activity-aar-detail-1.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - مناقشة 1
-- `bag2-ch4-s15b-activity-stakeholders-detail-1.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - مناقشة 1
-- `bag2-ch4-s15c-activity-stakeholders-path-detail-1.mp3` - نشاط تفاعلي: رتّب مسار أصحاب المصلحة - مناقشة 1
-- `bag2-ch4-s16-closing-applications-detail-1.mp3` - تطبيقات ختامية تفاعلية - مناقشة 1
+- `bag2-ch1-s18-activity-audit-detail-1.mp3` - نشاط تطبيقي: اختبر جاهزية مؤسستك - مناقشة 1
+- `bag2-ch2-s3b-activity-pressure-detail-1.mp3` - تمرين محاكاة: قيادة تحت الضغط - مناقشة 1
+- `bag2-ch2-s10b-activity-statement-detail-1.mp3` - نشاط: صياغة بيان أزمة في 10 دقائق - مناقشة 1
+- `bag2-ch3-s8-activity-detail-1.mp3` - نشاط: صمّم نظام إنذار مبكر لمخاطر متعددة - مناقشة 1
+- `bag2-ch4-s10-activity-workshop-detail-1.mp3` - ورشة ختامية: نمذجة استجابة متكاملة - مناقشة 1
 - `bag1-ch1-s5-policy-activity-course1-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch2-s5-self-assessment-course1-detail-1.mp3` - نشاط: التقييم الذاتي لجاهزية الامتثال - مناقشة 1
 - `bag1-ch2-s8-action-plan-course1-detail-1.mp3` - نشاط: بناء خطة العمل القيادي - مناقشة 1
@@ -807,16 +763,16 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s10-quiz-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
 - `bag1-ch3-s10-quiz-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
 - `bag1-ch3-s10-quiz-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag2-ch0-s3-pre-test-feedback-bag2-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
 - `bag2-ch1-s19-quiz-feedback-bag2-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
 - `bag2-ch1-s19-quiz-feedback-bag2-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
@@ -837,16 +793,16 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch2-s12-quiz-feedback-bag2-ch2-q4-incorrect.mp3` - اختبار الفصل الثاني - السؤال 4 - إجابة غير صحيحة
 - `bag2-ch2-s12-quiz-feedback-bag2-ch2-q5-correct.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة صحيحة
 - `bag2-ch2-s12-quiz-feedback-bag2-ch2-q5-incorrect.mp3` - اختبار الفصل الثاني - السؤال 5 - إجابة غير صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
-- `bag2-ch3-s15-quiz-feedback-bag2-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q1-correct.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q1-incorrect.mp3` - اختبار الفصل الثالث - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q2-correct.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q2-incorrect.mp3` - اختبار الفصل الثالث - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q3-correct.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q3-incorrect.mp3` - اختبار الفصل الثالث - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q4-correct.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
+- `bag2-ch3-s9-quiz-feedback-bag2-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-correct.mp3` - اختبار الفصل الرابع - السؤال 1 - إجابة صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q1-incorrect.mp3` - اختبار الفصل الرابع - السؤال 1 - إجابة غير صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q2-correct.mp3` - اختبار الفصل الرابع - السؤال 2 - إجابة صحيحة
@@ -857,32 +813,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q4-incorrect.mp3` - اختبار الفصل الرابع - السؤال 4 - إجابة غير صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-correct.mp3` - اختبار الفصل الرابع - السؤال 5 - إجابة صحيحة
 - `bag2-ch4-s17-quiz-feedback-bag2-ch4-q5-incorrect.mp3` - اختبار الفصل الرابع - السؤال 5 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag2-ch4-s17b-post-test-feedback-bag2-post-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag1-ch0-s3-pre-test-course1-feedback-bag1-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag1-ch1-s12-quiz-course1-feedback-ch1-q1-correct.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة صحيحة
 - `bag1-ch1-s12-quiz-course1-feedback-ch1-q1-incorrect.mp3` - اختبار الفصل الأول - السؤال 1 - إجابة غير صحيحة
 - `bag1-ch1-s12-quiz-course1-feedback-ch1-q2-correct.mp3` - اختبار الفصل الأول - السؤال 2 - إجابة صحيحة
@@ -913,32 +869,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s7-quiz-course1-feedback-ch3-q4-incorrect.mp3` - اختبار الفصل الثالث - السؤال 4 - إجابة غير صحيحة
 - `bag1-ch3-s7-quiz-course1-feedback-ch3-q5-correct.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة صحيحة
 - `bag1-ch3-s7-quiz-course1-feedback-ch3-q5-incorrect.mp3` - اختبار الفصل الثالث - السؤال 5 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag1-ch4-s4-post-test-course1-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag1-ch4-s4-post-test-course1-feedback-post-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag3-ch0-s3-pre-test-feedback-bag3-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag3-ch1-s8-quiz-feedback-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag3-ch1-s8-quiz-feedback-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag3-ch1-s8-quiz-feedback-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -989,32 +945,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag3-ch5-s8-quiz-feedback-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag3-ch5-s8-quiz-feedback-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag3-ch5-s8-quiz-feedback-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag3-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag3-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag4-ch0-s3-pre-test-feedback-bag4-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag4-ch1-s8-quiz-feedback-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag4-ch1-s8-quiz-feedback-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag4-ch1-s8-quiz-feedback-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1065,32 +1021,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag4-ch5-s8-quiz-feedback-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag4-ch5-s8-quiz-feedback-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag4-ch5-s8-quiz-feedback-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag4-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag4-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag5-ch0-s3-pre-test-feedback-bag5-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag5-ch1-s8-quiz-feedback-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag5-ch1-s8-quiz-feedback-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag5-ch1-s8-quiz-feedback-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1141,32 +1097,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag5-ch5-s8-quiz-feedback-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag5-ch5-s8-quiz-feedback-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag5-ch5-s8-quiz-feedback-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag5-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag5-ch5-s10-post-test-feedback-post-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag6-ch0-s3-pre-test-feedback-bag6-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag6-ch1-s8-quiz-feedback-perf-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag6-ch1-s8-quiz-feedback-perf-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag6-ch1-s8-quiz-feedback-perf-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1217,32 +1173,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag6-ch5-s10-quiz-feedback-perf-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag6-ch5-s10-quiz-feedback-perf-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag6-ch5-s10-quiz-feedback-perf-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag6-ch6-s1-post-test-feedback-perf-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag6-ch6-s1-post-test-feedback-perf-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag7-ch0-s3-pre-test-feedback-bag7-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag7-ch1-s10-quiz-feedback-qual-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag7-ch1-s10-quiz-feedback-qual-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag7-ch1-s10-quiz-feedback-qual-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1293,32 +1249,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag7-ch5-s10-quiz-feedback-qual-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag7-ch5-s10-quiz-feedback-qual-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag7-ch5-s10-quiz-feedback-qual-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag7-ch6-s1-post-test-feedback-qual-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag7-ch6-s1-post-test-feedback-qual-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag8-ch0-s3-pre-test-feedback-bag8-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag8-ch1-s9-test-feedback-bag8-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag8-ch1-s9-test-feedback-bag8-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag8-ch1-s9-test-feedback-bag8-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1369,32 +1325,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag8-ch5-s9-test-feedback-bag8-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag8-ch5-s9-test-feedback-bag8-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag8-ch5-s9-test-feedback-bag8-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag8-final-s1-test-feedback-bag8-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag8-final-s1-test-feedback-bag8-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag9-ch0-s3-pre-test-feedback-bag9-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag9-ch1-s9-test-feedback-bag9-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag9-ch1-s9-test-feedback-bag9-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag9-ch1-s9-test-feedback-bag9-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1445,32 +1401,32 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-ch5-s9-test-feedback-bag9-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag9-ch5-s9-test-feedback-bag9-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag9-ch5-s9-test-feedback-bag9-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag9-final-s1-test-feedback-bag9-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q1-correct.mp3` - الاختبار القبلي - السؤال 1 - إجابة صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q1-incorrect.mp3` - الاختبار القبلي - السؤال 1 - إجابة غير صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q2-correct.mp3` - الاختبار القبلي - السؤال 2 - إجابة صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q2-incorrect.mp3` - الاختبار القبلي - السؤال 2 - إجابة غير صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q3-correct.mp3` - الاختبار القبلي - السؤال 3 - إجابة صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q3-incorrect.mp3` - الاختبار القبلي - السؤال 3 - إجابة غير صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q4-correct.mp3` - الاختبار القبلي - السؤال 4 - إجابة صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q4-incorrect.mp3` - الاختبار القبلي - السؤال 4 - إجابة غير صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q5-correct.mp3` - الاختبار القبلي - السؤال 5 - إجابة صحيحة
-- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q5-incorrect.mp3` - الاختبار القبلي - السؤال 5 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag9-final-s1-test-feedback-bag9-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag10-ch0-s3-pre-test-feedback-bag10-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
 - `bag10-ch1-s10-test-feedback-bag10-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
 - `bag10-ch1-s10-test-feedback-bag10-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
 - `bag10-ch1-s10-test-feedback-bag10-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
@@ -1521,22 +1477,22 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s8-test-feedback-bag10-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag10-ch5-s8-test-feedback-bag10-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag10-ch5-s8-test-feedback-bag10-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q1-correct.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q1-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 1 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q2-correct.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q2-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 2 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q3-correct.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q3-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 3 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q4-correct.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q4-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 4 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q5-correct.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q5-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 5 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q6-correct.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q6-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 6 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q7-correct.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q7-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 7 - إجابة غير صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q8-correct.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة صحيحة
-- `bag10-final-s1-test-feedback-bag10-final-q8-incorrect.mp3` - الاختبار الختامي الشامل - السؤال 8 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -1561,22 +1517,22 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch1-s5-readiness-check-answer.mp3` - الجاهزية المؤسسية: الاختبار الحقيقي قبل أن تبدأ الأزمة - إجابة السؤال التفاعلي
 - `bag2-ch1-s7-business-continuity-check-ask.mp3` - بناء وتكامل خطط استمرارية الأعمال - سؤال تفاعلي
 - `bag2-ch1-s7-business-continuity-check-answer.mp3` - بناء وتكامل خطط استمرارية الأعمال - إجابة السؤال التفاعلي
-- `bag2-ch1-s11-eoc-design-check-ask.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية - سؤال تفاعلي
-- `bag2-ch1-s11-eoc-design-check-answer.mp3` - تصميم وتشغيل EOC لتحقيق الاستمرارية - إجابة السؤال التفاعلي
-- `bag2-ch2-s2-crisis-terms-check-ask.mp3` - فهم ديناميكيات الأزمات - سؤال تفاعلي
-- `bag2-ch2-s2-crisis-terms-check-answer.mp3` - فهم ديناميكيات الأزمات - إجابة السؤال التفاعلي
+- `bag2-ch1-s11-eoc-continuity-check-ask.mp3` - تصميم EOC للاستمرارية - سؤال تفاعلي
+- `bag2-ch1-s11-eoc-continuity-check-answer.mp3` - تصميم EOC للاستمرارية - إجابة السؤال التفاعلي
+- `bag2-ch2-s2-crisis-terms-v2-check-ask.mp3` - فهم ديناميكيات الأزمات - سؤال تفاعلي
+- `bag2-ch2-s2-crisis-terms-v2-check-answer.mp3` - فهم ديناميكيات الأزمات - إجابة السؤال التفاعلي
 - `bag2-ch2-s5-ooda-check-ask.mp3` - اتخاذ القرار تحت الضغط - سؤال تفاعلي
 - `bag2-ch2-s5-ooda-check-answer.mp3` - اتخاذ القرار تحت الضغط - إجابة السؤال التفاعلي
-- `bag2-ch3-s4-vertical-scanning-check-ask.mp3` - المسح الرأسي - سؤال تفاعلي
-- `bag2-ch3-s4-vertical-scanning-check-answer.mp3` - المسح الرأسي - إجابة السؤال التفاعلي
-- `bag2-ch3-s8-multi-hazard-methodology-check-ask.mp3` - منهجية التقييم الشامل للمخاطر متعددة الأخطار - سؤال تفاعلي
-- `bag2-ch3-s8-multi-hazard-methodology-check-answer.mp3` - منهجية التقييم الشامل للمخاطر متعددة الأخطار - إجابة السؤال التفاعلي
-- `bag2-ch4-s3-supply-chain-strategies-check-ask.mp3` - استراتيجيات بناء المرونة - سؤال تفاعلي
-- `bag2-ch4-s3-supply-chain-strategies-check-answer.mp3` - استراتيجيات بناء المرونة - إجابة السؤال التفاعلي
-- `bag2-ch4-s7-aar-phases-check-ask.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - سؤال تفاعلي
-- `bag2-ch4-s7-aar-phases-check-answer.mp3` - مراحل تنفيذ مراجعة ما بعد الحدث - إجابة السؤال التفاعلي
-- `bag2-ch4-s10-kpi-categories-check-ask.mp3` - إدارة وقياس مؤشرات الأداء - سؤال تفاعلي
-- `bag2-ch4-s10-kpi-categories-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي
+- `bag2-ch3-s2-scanning-check-ask.mp3` - المسح الاستباقي للتنظيمات المستقبلية - سؤال تفاعلي
+- `bag2-ch3-s2-scanning-check-answer.mp3` - المسح الاستباقي للتنظيمات المستقبلية - إجابة السؤال التفاعلي
+- `bag2-ch3-s4-scenario-planning-check-ask.mp3` - التخطيط بالسيناريوهات - سؤال تفاعلي
+- `bag2-ch3-s4-scenario-planning-check-answer.mp3` - التخطيط بالسيناريوهات - إجابة السؤال التفاعلي
+- `bag2-ch4-s3-supply-governance-check-ask.mp3` - الحوكمة والتمويل ودروس الأزمة - سؤال تفاعلي
+- `bag2-ch4-s3-supply-governance-check-answer.mp3` - الحوكمة والتمويل ودروس الأزمة - إجابة السؤال التفاعلي
+- `bag2-ch4-s4-aar-check-ask.mp3` - مراجعة ما بعد الحدث - سؤال تفاعلي
+- `bag2-ch4-s4-aar-check-answer.mp3` - مراجعة ما بعد الحدث - إجابة السؤال التفاعلي
+- `bag2-ch4-s6-kpi-check-ask.mp3` - إدارة وقياس مؤشرات الأداء - سؤال تفاعلي
+- `bag2-ch4-s6-kpi-check-answer.mp3` - إدارة وقياس مؤشرات الأداء - إجابة السؤال التفاعلي
 - `bag1-ch1-s2-overview-course1-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-course1-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-course1-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -1597,56 +1553,26 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag1-ch3-s4-risk-process-course1-check-answer.mp3` - مراحل عملية إدارة المخاطر - إجابة السؤال التفاعلي
 - `bag1-ch4-s1-summary-course1-check-ask.mp3` - الخلاصة – أبرز ما تعلمناه - سؤال تفاعلي
 - `bag1-ch4-s1-summary-course1-check-answer.mp3` - الخلاصة – أبرز ما تعلمناه - إجابة السؤال التفاعلي
-- `bag2-ch1-s8-activity-5-identify-correct.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - إجابة صحيحة
-- `bag2-ch1-s8-activity-5-identify-incorrect.mp3` - نشاط: أول قرار قيادي - نشاط تفاعلي 3 - إجابة غير صحيحة
-- `bag2-ch1-s8-activity-5-path-correct.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 2 - مسار صحيح
-- `bag2-ch1-s8-activity-5-path-incorrect.mp3` - نشاط: ترتيب مسار الاستجابة - نشاط تفاعلي 2 - مسار غير صحيح
-- `bag2-ch1-s14-activity-6-item-i1.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i1
-- `bag2-ch1-s14-activity-6-item-i2.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i2
-- `bag2-ch1-s14-activity-6-item-i3.mp3` - نشاط: ICS أو EOC - نشاط تفاعلي 3 - i3
-- `bag2-ch1-s14-activity-6-item-i4.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 2 - i4
-- `bag2-ch1-s14-activity-6-item-i5.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 2 - i5
-- `bag2-ch1-s14-activity-6-item-i6.mp3` - نشاط: تطبيق إضافي على ICS و EOC - نشاط تفاعلي 2 - i6
-- `bag2-ch1-s18-activity-7-card-c1.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c1
-- `bag2-ch1-s18-activity-7-card-c2.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c2
-- `bag2-ch1-s18-activity-7-card-c3.mp3` - نشاط: المعلومات والموارد والسياسات - نشاط تفاعلي 3 - c3
-- `bag2-ch1-s18-activity-7-card-c4.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c4
-- `bag2-ch1-s18-activity-7-card-c5.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c5
-- `bag2-ch1-s18-activity-7-card-c6.mp3` - نشاط: تكامل المعلومة والمورد والسياسة - نشاط تفاعلي 2 - c6
-- `bag2-ch2-s3b-activity-terms-card-1.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-1
-- `bag2-ch2-s3b-activity-terms-card-2.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-2
-- `bag2-ch2-s3b-activity-terms-card-3.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-3
-- `bag2-ch2-s3b-activity-terms-card-4.mp3` - نشاط تفاعلي: صنّف مستوى الموقف - نشاط تفاعلي 2 - term-4
-- `bag2-ch2-s5b-activity-raci-identify-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - إجابة صحيحة
-- `bag2-ch2-s5b-activity-raci-identify-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - إجابة غير صحيحة
-- `bag2-ch2-s5b-activity-raci-path-correct.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - مسار صحيح
-- `bag2-ch2-s5b-activity-raci-path-incorrect.mp3` - نشاط تفاعلي: طبّق RACI - نشاط تفاعلي 2 - مسار غير صحيح
-- `bag2-ch2-s9b-activity-cerc-card-1.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-1
-- `bag2-ch2-s9b-activity-cerc-card-2.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-2
-- `bag2-ch2-s9b-activity-cerc-card-3.mp3` - نشاط تفاعلي: رسالة CERC - نشاط تفاعلي 2 - cerc-3
-- `bag2-ch3-s4b-activity-scan-card-1.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-1
-- `bag2-ch3-s4b-activity-scan-card-2.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-2
-- `bag2-ch3-s4b-activity-scan-card-3.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-3
-- `bag2-ch3-s4b-activity-scan-card-4.mp3` - نشاط تفاعلي: أفقي أم رأسي؟ - نشاط تفاعلي 2 - scan-4
-- `bag2-ch3-s11b-activity-indicator-card-1.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - نشاط تفاعلي 2 - indicator-1
-- `bag2-ch3-s11b-activity-indicator-card-2.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - نشاط تفاعلي 2 - indicator-2
-- `bag2-ch3-s11b-activity-indicator-card-3.mp3` - نشاط تفاعلي: جودة مؤشر الإنذار - نشاط تفاعلي 2 - indicator-3
-- `bag2-ch3-s14b-activity-threshold-identify-correct.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - إجابة صحيحة
-- `bag2-ch3-s14b-activity-threshold-identify-incorrect.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - إجابة غير صحيحة
-- `bag2-ch3-s14b-activity-threshold-path-correct.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - مسار صحيح
-- `bag2-ch3-s14b-activity-threshold-path-incorrect.mp3` - نشاط تفاعلي: من العتبة إلى القرار - نشاط تفاعلي 2 - مسار غير صحيح
-- `bag2-ch4-s4b-activity-inventory-card-1.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-1
-- `bag2-ch4-s4b-activity-inventory-card-2.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-2
-- `bag2-ch4-s4b-activity-inventory-card-3.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-3
-- `bag2-ch4-s4b-activity-inventory-card-4.mp3` - نشاط تفاعلي: قرار المخزون وقت الطوارئ - نشاط تفاعلي 2 - inv-4
-- `bag2-ch4-s7b-activity-aar-card-1.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-1
-- `bag2-ch4-s7b-activity-aar-card-2.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-2
-- `bag2-ch4-s7b-activity-aar-card-3.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-3
-- `bag2-ch4-s7b-activity-aar-card-4.mp3` - نشاط تفاعلي: أسئلة AAR الأربعة - نشاط تفاعلي 2 - aar-4
-- `bag2-ch4-s15b-activity-stakeholder-identify-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة صحيحة
-- `bag2-ch4-s15b-activity-stakeholder-identify-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - إجابة غير صحيحة
-- `bag2-ch4-s15b-activity-stakeholder-path-correct.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار صحيح
-- `bag2-ch4-s15b-activity-stakeholder-path-incorrect.mp3` - نشاط تفاعلي: إدارة أصحاب المصلحة - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch1-s8-activity-audit-card-1.mp3` - نشاط تطبيقي: اختبر جاهزية مؤسستك - نشاط تفاعلي 2 - audit-1
+- `bag2-ch1-s8-activity-audit-card-2.mp3` - نشاط تطبيقي: اختبر جاهزية مؤسستك - نشاط تفاعلي 2 - audit-2
+- `bag2-ch1-s8-activity-audit-card-3.mp3` - نشاط تطبيقي: اختبر جاهزية مؤسستك - نشاط تفاعلي 2 - audit-3
+- `bag2-ch1-s8-activity-audit-card-4.mp3` - نشاط تطبيقي: اختبر جاهزية مؤسستك - نشاط تفاعلي 2 - audit-4
+- `bag2-ch2-s3b-activity-pressure-identify-correct.mp3` - تمرين محاكاة: قيادة تحت الضغط - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch2-s3b-activity-pressure-identify-incorrect.mp3` - تمرين محاكاة: قيادة تحت الضغط - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch2-s3b-activity-pressure-path-correct.mp3` - تمرين محاكاة: قيادة تحت الضغط - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch2-s3b-activity-pressure-path-incorrect.mp3` - تمرين محاكاة: قيادة تحت الضغط - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch2-s10b-activity-statement-card-1.mp3` - نشاط: صياغة بيان أزمة في 10 دقائق - نشاط تفاعلي 2 - stmt-1
+- `bag2-ch2-s10b-activity-statement-card-2.mp3` - نشاط: صياغة بيان أزمة في 10 دقائق - نشاط تفاعلي 2 - stmt-2
+- `bag2-ch2-s10b-activity-statement-card-3.mp3` - نشاط: صياغة بيان أزمة في 10 دقائق - نشاط تفاعلي 2 - stmt-3
+- `bag2-ch2-s10b-activity-statement-card-4.mp3` - نشاط: صياغة بيان أزمة في 10 دقائق - نشاط تفاعلي 2 - stmt-4
+- `bag2-ch3-s8-activity-identify-correct.mp3` - نشاط: صمّم نظام إنذار مبكر لمخاطر متعددة - نشاط تفاعلي 2 - إجابة صحيحة
+- `bag2-ch3-s8-activity-identify-incorrect.mp3` - نشاط: صمّم نظام إنذار مبكر لمخاطر متعددة - نشاط تفاعلي 2 - إجابة غير صحيحة
+- `bag2-ch3-s8-activity-path-correct.mp3` - نشاط: صمّم نظام إنذار مبكر لمخاطر متعددة - نشاط تفاعلي 2 - مسار صحيح
+- `bag2-ch3-s8-activity-path-incorrect.mp3` - نشاط: صمّم نظام إنذار مبكر لمخاطر متعددة - نشاط تفاعلي 2 - مسار غير صحيح
+- `bag2-ch4-s11-activity-item-1.mp3` - ورشة ختامية: نمذجة استجابة متكاملة - نشاط تفاعلي 5 - w-1
+- `bag2-ch4-s11-activity-item-2.mp3` - ورشة ختامية: نمذجة استجابة متكاملة - نشاط تفاعلي 5 - w-2
+- `bag2-ch4-s11-activity-item-3.mp3` - ورشة ختامية: نمذجة استجابة متكاملة - نشاط تفاعلي 5 - w-3
+- `bag2-ch4-s11-activity-item-4.mp3` - ورشة ختامية: نمذجة استجابة متكاملة - نشاط تفاعلي 5 - w-4
 - `bag1-ch1-s5-policy-activity-course1-item-1.mp3` - نشاط: تطوير سياسة صحية - u1-pa-1
 - `bag1-ch1-s5-policy-activity-course1-item-2.mp3` - نشاط: تطوير سياسة صحية - u1-pa-2
 - `bag1-ch1-s5-policy-activity-course1-item-3.mp3` - نشاط: تطوير سياسة صحية - u1-pa-3
