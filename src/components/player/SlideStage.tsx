@@ -3238,12 +3238,13 @@ function PptCardView({
         <div className={`${level === 'micro' ? 'mb-1 gap-1' : 'mb-2.5 gap-2'} relative flex w-full flex-col items-center`}>
           <span className={`relative grid ${visualSize} shrink-0 place-items-center border ${tileTone} shadow-[0_18px_34px_rgb(24_82_55_/_0.14)] [border-radius:30px_18px_28px_18px]`}>
             <span className="pointer-events-none absolute -left-1.5 -top-1.5 h-6 w-6 rounded-full border border-white/80 bg-gold-400/85 shadow-sm" aria-hidden="true" />
-            {brandIcon && (
-              <span className="pointer-events-none absolute right-2 top-2 z-10 grid h-10 w-10 place-items-center rounded-2xl border border-white/75 bg-white/88 p-1.5 shadow-sm" aria-hidden="true">
-                <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} />
-              </span>
-            )}
-            {isCourse1 && !brandIcon ? (
+            {brandIcon ? (
+              <BrandIcon
+                src={brandIcon}
+                tone="primary"
+                className={`absolute inset-0 h-full w-full drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${active ? activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, Number(card.index ?? 0)) : 'animate-float'}`}
+              />
+            ) : isCourse1 ? (
               <span className="h-[62%] w-[62%]">
                 <CourseGlyph kind={glyphKind} active={active} compact />
               </span>
@@ -3694,11 +3695,6 @@ function PptMotionVisualScene({
               <span className={`relative z-10 min-w-0 flex-1 ${titleCardGrid ? 'order-2 w-full border-t-[4px] border-gold-500/70 pt-2' : emergencyOpenLabels ? 'border-r-[4px] border-gold-500/70 pr-3' : usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
                 <span className={`flex items-center font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)] ${titleCardGrid ? 'justify-center gap-2' : 'justify-end gap-3'} ${openLabelTitleClass}`}>
                   <span>{card.title}</span>
-                  {brandIcon && !titleCardGrid && !emergencyOpenLabels && (
-                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1.5 shadow-sm" aria-hidden="true">
-                      <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
-                    </span>
-                  )}
                 </span>
                 <span
                   className={`mt-3 block h-[5px] rounded-full transition-all duration-500 ${
@@ -3746,25 +3742,21 @@ function PptMotionVisualScene({
                         carry the "this card is active" motion. */}
                     <CourseGlyph kind={courseGlyphKindDeduped(`${card.title} ${card.text ?? ''}`, usedGlyphKinds)} />
                   </span>
+                ) : brandIcon ? (
+                  <BrandIcon
+                    src={brandIcon}
+                    tone="primary"
+                    className={`absolute inset-0 z-0 h-full w-full object-contain drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
+                  />
                 ) : (
-                  <>
-                    {brandIcon && (
-                      <span
-                        className="absolute -right-3 -top-3 z-10 grid h-16 w-16 place-items-center rounded-2xl bg-white/88 p-1.5 shadow-[0_10px_20px_rgb(24_82_55_/_0.12)]"
-                        aria-hidden="true"
-                      >
-                        <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
-                      </span>
-                    )}
-                    <img
-                      src={cardVisual}
-                      alt=""
-                      className={`absolute inset-0 z-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
-                      loading="lazy"
-                      decoding="async"
-                      aria-hidden="true"
-                    />
-                  </>
+                  <img
+                    src={cardVisual}
+                    alt=""
+                    className={`absolute inset-0 z-0 h-full w-full object-contain opacity-100 drop-shadow-[0_18px_24px_rgb(24_82_55_/_0.12)] ${active ? `${focusAnim} ${activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, index)}` : ''}`}
+                    loading="lazy"
+                    decoding="async"
+                    aria-hidden="true"
+                  />
                 )}
               </span>
             </span>
@@ -3909,11 +3901,6 @@ function PptTimelineScene({
                         : 'rounded-[22px] border border-green-700/12 bg-white/72 text-brand-strong shadow-[0_14px_30px_rgb(24_82_55_/_0.08)] backdrop-blur-sm'
                   }`}
                 >
-                  {brandIcon && !isEmergencySlide && (
-                    <span className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-2xl border border-green-700/10 bg-white/80 p-1.5 shadow-sm" aria-hidden="true">
-                      <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
-                    </span>
-                  )}
                   <span className={`relative z-10 block font-extrabold leading-snug ${denseEmergencyTimeline ? 'text-[15.5px]' : isEmergencySlide ? 'text-[18px]' : isCourse1Slide ? 'text-[17px]' : 'text-[15.5px]'}`}>{card.title}</span>
                   {singleTimelineSummary && (
                     <span className={`mt-1.5 block font-bold leading-snug ${isEmergencySlide ? 'text-[12px]' : 'text-[12.5px]'} ${active ? 'text-ink' : 'text-ink-soft'}`}>
