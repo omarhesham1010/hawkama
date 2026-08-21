@@ -94,6 +94,15 @@ export function useSlidePlayerEngine({
     if (!muted) {
       narration.warmup();
       narration.play(slide.audioKey, slide.narration, slide.title);
+    } else {
+      // Muted means nothing will ever play for this slide, so there is no
+      // narration left to "finish" -- without this, narration.completedKey
+      // never gets set to this slide's audioKey, and the Next-button gate
+      // (narration.completedKey === slide.audioKey in CourseTwoPlayer.tsx)
+      // stays permanently unsatisfied. This was reachable by simply muting
+      // before or during any narrated slide, since `muted` persists across
+      // slide changes rather than resetting per slide.
+      narration.markCompleted(slide.audioKey);
     }
   }, [muted, narration, slide]);
 
@@ -165,15 +174,24 @@ export function useSlidePlayerEngine({
     setReplayNonce((n) => n + 1);
     stopVoiceClip();
     if (!muted) playNarration();
-    else narration.stop();
-  }, [muted, narration, playNarration]);
+    else {
+      narration.stop();
+      narration.markCompleted(slide.audioKey);
+    }
+  }, [muted, narration, playNarration, slide]);
 
   const toggleMute = useCallback(() => {
     const next = !muted;
     setMuted(next);
     stopVoiceClip();
-    if (next) narration.stop();
-    else {
+    if (next) {
+      narration.stop();
+      // See playNarration's comment: muting mid-playback abandons this
+      // slide's narration for good, so mark it complete now rather than
+      // leaving the Next-button gate stuck waiting on a play() that will
+      // never happen.
+      narration.markCompleted(slide.audioKey);
+    } else {
       setReplayNonce((n) => n + 1);
       narration.play(slide.audioKey, slide.narration, slide.title);
     }
