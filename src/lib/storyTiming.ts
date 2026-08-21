@@ -71,7 +71,21 @@ export function storyCues(text: string): StoryCue[] {
     } else if (cue.text.length > MAX_CUE_CHARS) {
       const words = cue.text.split(/\s+/);
       let part = '';
-      let partStart = cue.start;
+      // `cue.text` is `text.slice(cue.start, cue.end).trim()` -- if that raw
+      // slice had leading whitespace (e.g. right after a comma-joined
+      // previous cue), trim() strips it from `cue.text` but `cue.start`
+      // still points at the UNTRIMMED position. Reconstructing `part` by
+      // joining `words` with single spaces (below) measures lengths against
+      // the TRIMMED text, so seeding `partStart` from the untrimmed
+      // `cue.start` put every computed `partEnd` that many characters short
+      // of its real position -- silently dropping that many trailing
+      // characters (typically the last letter of the last word before the
+      // split) at every long-cue split point. This was the deterministic
+      // "last letter of a word missing in Nasser's box" defect: e.g.
+      // "الصناعات" rendering as "الصناعا" (dropping its final ت) whenever a
+      // >MAX_CUE_CHARS cue happened to split right after it, independent of
+      // any reveal-clock timing.
+      let partStart = cue.start + (text.slice(cue.start, cue.end).length - text.slice(cue.start, cue.end).trimStart().length);
       for (const word of words) {
         const next = part ? `${part} ${word}` : word;
         if (next.length > MAX_CUE_CHARS && part) {
