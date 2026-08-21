@@ -3693,7 +3693,7 @@ function PptMotionVisualScene({
           >
             <span className={`flex items-center justify-between ${titleCardGrid ? 'flex-col gap-2 text-center' : emergencyOpenLabels ? 'gap-3' : usesOpenLabels ? 'gap-6' : 'gap-4'}`}>
               <span className={`relative z-10 min-w-0 flex-1 ${titleCardGrid ? 'order-2 w-full border-t-[4px] border-gold-500/70 pt-2' : emergencyOpenLabels ? 'border-r-[4px] border-gold-500/70 pr-3' : usesOpenLabels ? 'border-r-[5px] border-gold-500/70 pr-4' : ''}`}>
-                <span className={`flex items-center font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)] ${titleCardGrid ? 'justify-center gap-2' : 'justify-end gap-3'} ${openLabelTitleClass}`}>
+                <span className={`flex items-center font-black leading-tight text-brand-strong drop-shadow-[0_2px_3px_rgb(255_255_255_/_0.95)] ${titleCardGrid ? 'justify-center gap-2' : 'justify-start gap-3'} ${openLabelTitleClass}`}>
                   <span>{card.title}</span>
                 </span>
                 <span
@@ -4031,7 +4031,7 @@ function PptMatrixScene({
                   <img src={matrixVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
                 </span>
               )}
-              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-end pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
+              <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-start pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
                 <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
                 {brandIcon ? (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-8 w-8 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
@@ -4065,7 +4065,7 @@ function PptMatrixScene({
                   {card.bullets.map((bullet, i) => (
                     <li
                       key={i}
-                      className={`flex items-start justify-end gap-2 transition-all duration-500 ease-out ${
+                      className={`flex items-start justify-start gap-2 transition-all duration-500 ease-out ${
                         visible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
                       }`}
                       style={{ transitionDelay: visible ? `${i * 260}ms` : '0ms' }}
