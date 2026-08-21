@@ -5682,7 +5682,19 @@ function PptStyleSlide({
           check={check}
           phase={checkPhase}
           onReveal={revealCheck}
-          onDismiss={() => setCheckPhase('done')}
+          onDismiss={() => {
+            setCheckPhase('done');
+            // The check's own "-check-ask"/"-check-answer" clips just played
+            // through this same shared narration, which overwrote
+            // narration.completedKey away from the slide's own audioKey (see
+            // markCompleted's doc comment in useNarration.ts). The slide's
+            // main narration genuinely finished earlier -- mainNarrationCompleted
+            // was required before the check could even start -- so restore it
+            // now that the check is dismissed, otherwise the Next-button gate
+            // (narration.completedKey === slide.audioKey) never becomes true
+            // again and Next stays stuck disabled for the rest of this slide.
+            narration.markCompleted(slide.audioKey);
+          }}
         />
       )}
     </StorySlideShell>

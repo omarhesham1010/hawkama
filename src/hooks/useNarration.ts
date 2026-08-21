@@ -468,6 +468,20 @@ export function useNarration() {
     if (lastRef.current) play(lastRef.current.key, lastRef.current.script);
   }, [play]);
 
+  // Re-mark a key as completed without playing anything. `play()` always
+  // resets `completedKey` to null the instant a NEW key starts (see above),
+  // so a slide's own audioKey completion gets overwritten the moment a
+  // guided sub-interaction (e.g. a mid-slide "quick check" popup) plays its
+  // own follow-up key through this same shared narration -- once that
+  // sub-interaction finishes, completedKey names ITS key, not the slide's,
+  // so `narration.completedKey === slide.audioKey` (the Next-button gate)
+  // never becomes true again and Next stays stuck disabled even though the
+  // slide's real narration genuinely finished earlier. Call this after such
+  // a sub-interaction concludes to restore the slide's own completion.
+  const markCompleted = useCallback((key: string) => {
+    setCompletedKey(key);
+  }, []);
+
   const getAudioClock = useCallback(() => {
     const audio = audioRef.current;
     if (!audio || sourceRef.current !== 'audio') return null;
@@ -508,5 +522,6 @@ export function useNarration() {
     stop,
     replay,
     warmup,
+    markCompleted,
   };
 }

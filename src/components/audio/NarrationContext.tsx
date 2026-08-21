@@ -32,6 +32,7 @@ interface NarrationContextValue {
   stop: () => void;
   replay: () => void;
   warmup: () => void;
+  markCompleted: (key: string) => void;
 }
 
 const Ctx = createContext<NarrationContextValue | null>(null);
@@ -86,6 +87,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       stop,
       replay: n.replay,
       warmup: n.warmup,
+      markCompleted: n.markCompleted,
     }),
     [
       n.status,
@@ -113,6 +115,7 @@ export function NarrationProvider({ children }: { children: React.ReactNode }) {
       n.resume,
       n.replay,
       n.warmup,
+      n.markCompleted,
       nowLabel,
       nowKey,
       play,
