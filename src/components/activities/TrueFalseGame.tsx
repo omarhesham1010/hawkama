@@ -91,7 +91,7 @@ export function TrueFalseGame({
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-2">
       {/* header: progress + streak */}
       <div className="flex items-center gap-3">
         <div className="flex-1">
@@ -113,12 +113,15 @@ export function TrueFalseGame({
       </div>
 
       {/* statement card */}
-      <div className="card flex min-h-[140px] items-center justify-center p-6 text-center">
-        <p className="text-xl font-bold leading-relaxed text-ink">{stmt.text}</p>
+      <div className="card flex min-h-[40px] items-center justify-center p-2 text-center">
+        <p className="text-lg font-bold leading-snug text-ink">{stmt.text}</p>
       </div>
 
-      {/* true / false buttons */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* true / false buttons -- kept clear of Nasser's absolutely-positioned
+          avatar band, which sits in the bottom ~164px on whichever side he's
+          guiding from (alternates per slide), by trimming the spacing above
+          rather than the button size itself. */}
+      <div className="relative z-40 grid grid-cols-2 gap-3">
         {[true, false].map((val) => {
           const label = val ? 'صواب' : 'خطأ';
           const isThis = choice === val;
@@ -137,7 +140,7 @@ export function TrueFalseGame({
               type="button"
               disabled={answered}
               onClick={() => answer(val)}
-              className={`flex items-center justify-center gap-2 rounded-2xl border-2 py-5 text-lg font-extrabold transition-all disabled:cursor-default ${cls}`}
+              className={`flex items-center justify-center gap-2 rounded-2xl border-2 py-3.5 text-lg font-extrabold transition-all disabled:cursor-default ${cls}`}
             >
               <Icon name={val ? 'check' : 'alert'} className="w-6 h-6" />
               {label}
@@ -147,19 +150,21 @@ export function TrueFalseGame({
       </div>
 
       {answered && (
-        <>
-          <FeedbackBox tone={isCorrect ? 'success' : 'error'} title={isCorrect ? 'إجابة صحيحة ✓' : 'إجابة غير صحيحة'}>
+        <div className="flex items-center justify-between gap-3">
+          <FeedbackBox
+            tone={isCorrect ? 'success' : 'error'}
+            title={isCorrect ? 'إجابة صحيحة ✓' : 'إجابة غير صحيحة'}
+            className="flex-1 p-3"
+          >
             <p>{stmt.explanation}</p>
           </FeedbackBox>
-          <div className="flex justify-end">
-            <button type="button" onClick={next} className="btn-primary px-6">
-              {index + 1 < total ? 'العبارة التالية' : 'إنهاء اللعبة'}
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 6l-6 6 6 6" />
-              </svg>
-            </button>
-          </div>
-        </>
+          <button type="button" onClick={next} className="btn-primary shrink-0 self-start px-6">
+            {index + 1 < total ? 'العبارة التالية' : 'إنهاء اللعبة'}
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+        </div>
       )}
     </div>
   );
