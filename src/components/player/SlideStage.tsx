@@ -4032,7 +4032,6 @@ function PptMatrixScene({
                 </span>
               )}
               <h3 className={`flex items-center gap-1.5 ${denseQuadrant ? 'mx-auto max-w-[92%] justify-center pe-0 text-center text-[13px] leading-tight' : 'max-w-[88%] justify-start pe-10 text-[18px] leading-tight'} font-extrabold ${active ? 'text-white' : 'text-brand-strong'}`}>
-                <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
                 {brandIcon ? (
                   <span className={`inline-grid shrink-0 place-items-center rounded-2xl shadow-sm ${denseQuadrant ? 'h-8 w-8 p-1' : 'h-14 w-14 p-1.5'} ${active ? 'bg-white/18' : 'bg-white/78'}`} aria-hidden="true">
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
@@ -4049,6 +4048,7 @@ function PptMatrixScene({
                     </span>
                   )
                 )}
+                <span className={denseQuadrant ? 'line-clamp-1 overflow-hidden' : ''}>{card.title}</span>
               </h3>
               {card.text && !singleMatrixSummary && (
                 <p className={`${denseQuadrant ? 'mt-0.5 line-clamp-2 overflow-hidden px-2 text-center text-[9.5px] leading-snug' : 'mt-1.5 pe-1 text-[14.5px] leading-snug'} font-bold ${active ? 'text-white/90' : 'text-ink'}`}>{card.text}</p>
@@ -4070,8 +4070,8 @@ function PptMatrixScene({
                       }`}
                       style={{ transitionDelay: visible ? `${i * 260}ms` : '0ms' }}
                     >
-                      <span>{bullet}</span>
                       <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${active ? 'bg-white/70' : 'bg-green-700/50'}`} aria-hidden="true" />
+                      <span>{bullet}</span>
                     </li>
                   ))}
                 </ul>
