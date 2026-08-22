@@ -38,6 +38,14 @@ const CHUNK_DELAY_MS = 350;
 const MAX_CHUNK_CHARS = 1500;
 const ARABIC_DIACRITICS = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g;
 const ARABIC_DIACRITIC = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
+// Diacritics (tashkeel) are stripped by default -- this is the behavior every
+// existing audioKey was generated under, so changing the default would risk
+// silently altering pronunciation/prosody for hundreds of already-approved
+// slides on their next regeneration. Set this env var to opt a single
+// targeted `--force --keys=...` run into sending diacritics through to
+// ElevenLabs verbatim, for testing whether they actually change pronunciation
+// on a specific word without touching anything else.
+const PRESERVE_DIACRITICS = process.env.ELEVENLABS_PRESERVE_DIACRITICS?.trim().toLowerCase() === 'true';
 const runFile = promisify(execFile);
 const DEFAULT_VOICE_SETTINGS = {
   stability: 0.62,
@@ -141,7 +149,7 @@ function markdownCell(value) {
 
 function speechReadyText(text) {
   return text
-    .replace(ARABIC_DIACRITICS, '')
+    .replace(PRESERVE_DIACRITICS ? /(?!)/ : ARABIC_DIACRITICS, '')
     .replace(/[:：]/g, '،')
     .replace(/[—–]/g, '،')
     .replace(/\s*؛\s*/g, '؛ ')
@@ -157,6 +165,7 @@ function speechReadyTextWithMap(source) {
 
   for (const character of text) {
     while (
+      !PRESERVE_DIACRITICS &&
       sourceCursor < source.length &&
       ARABIC_DIACRITIC.test(source[sourceCursor])
     ) {
