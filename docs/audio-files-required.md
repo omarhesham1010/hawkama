@@ -101,7 +101,7 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag2-ch4-s10-activity-workshop.mp3` - ورشة ختامية: نمذجة استجابة متكاملة
 - `bag2-ch4-s17-quiz.mp3` - اختبار الفصل الرابع
 - `bag2-ch4-s17b-post-test.mp3` - نشاط ما بعد الدورة
-- `bag2-ch4-s18-closing-v2.mp3` - ختام الفصل الرابع والحقيبة
+- `bag2-ch4-s18-closing-v2.mp3` - ختام الحقيبة
 - `bag1-ch0-s1-welcome-course1.mp3` - الحوكمة والمخاطر والامتثال
 - `bag1-ch0-s2-map-course1.mp3` - محتويات البرنامج التدريبي
 - `bag1-ch0-s3-pre-test-course1.mp3` - نشاط ما قبل الدورة
