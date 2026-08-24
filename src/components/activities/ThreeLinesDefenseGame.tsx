@@ -147,13 +147,13 @@ export function ThreeLinesDefenseGame({
           </button>
         </div>
       ) : allCorrect ? (
-        <FeedbackBox tone="success" title="ممتاز! رتّبت خطوط الدفاع الثلاثة بشكل صحيح.">
-          <p>الخط الأول للتنفيذ، والثاني للمخاطر والامتثال، والثالث للتدقيق الداخلي المستقل.</p>
+        <FeedbackBox tone="success" title="ممتاز! رتّبت كل الخطوات بالترتيب الصحيح.">
+          <p>{data.slots.map((s) => s.role).join(' ← ')}</p>
         </FeedbackBox>
       ) : (
         <div className="space-y-3">
           <FeedbackBox tone="error" title="ليس تماماً — راجع مواضع الأدوار وحاول مجدداً.">
-            <p>تذكّر: التنفيذ اليومي أولاً، ثم إدارة المخاطر والامتثال، ثم التدقيق المستقل.</p>
+            <p>راجع كل خطوة ودورها، ثم رتّبها من جديد بالتسلسل الصحيح.</p>
           </FeedbackBox>
           <div className="flex justify-center">
             <button type="button" onClick={reset} className="btn-ghost px-6">

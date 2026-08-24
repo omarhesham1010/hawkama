@@ -9,6 +9,7 @@ import { ClassificationActivity } from '../activities/ClassificationActivity';
 import { FlipCardActivity } from '../activities/FlipCardActivity';
 import { DecisionSimulation } from '../activities/DecisionSimulation';
 import { TrueFalseGame } from '../activities/TrueFalseGame';
+import { ThreeLinesDefenseGame } from '../activities/ThreeLinesDefenseGame';
 import { KnowledgeCheck } from '../activities/KnowledgeCheck';
 import { POSE_SRC, POSE_SRC_BAG2, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
@@ -5465,6 +5466,7 @@ function PptStyleSlide({
           <DecisionSimulation data={a} mode={slide.activityMode ?? 'both'} onDone={() => onActivityDone(slide.id)} />
         )}
         {a.kind === 'trueFalse' && <TrueFalseGame data={a} onDone={() => onActivityDone(slide.id)} />}
+        {a.kind === 'threeLines' && <ThreeLinesDefenseGame data={a} onDone={() => onActivityDone(slide.id)} />}
       </div>
     );
   };
@@ -5911,6 +5913,9 @@ export function SlideStage({
             )}
             {a.kind === 'trueFalse' && (
               <TrueFalseGame data={a} onDone={() => onActivityDone(slide.id)} />
+            )}
+            {a.kind === 'threeLines' && (
+              <ThreeLinesDefenseGame data={a} onDone={() => onActivityDone(slide.id)} />
             )}
           </div>
         </div>
