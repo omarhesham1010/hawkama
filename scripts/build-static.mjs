@@ -195,6 +195,11 @@ await esbuild.build({
     'import.meta.env.MODE': JSON.stringify('production'),
     'import.meta.env.VITE_SAMPLE_MODE': JSON.stringify(SAMPLE ? 'true' : 'false'),
     'import.meta.env.VITE_SINGLE_COURSE': JSON.stringify(COURSE ? SINGLE_COURSE_ROUTE[COURSE] : ''),
+    // Standalone per-course SCORM packages (this --course=N build) ship with
+    // the sequential lock ON -- the learner must finish each slide before
+    // the next unlocks. The default multi-course build (hawkama.vercel.app)
+    // and local dev stay open for review, unaffected by this flag.
+    'import.meta.env.VITE_SEQUENTIAL_LOCK': JSON.stringify(COURSE ? 'true' : 'false'),
   },
   plugins: [
     {

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { CourseTwoSidebar, type CourseTwoGroup } from './components/course2/CourseTwoSidebar';
 import { CourseTwoPlayer } from './components/course2/CourseTwoPlayer';
+import { useSequentialLock } from './hooks/useSequentialLock';
 import {
   qualClosingSlides,
   qualIntroSlides,
@@ -27,9 +28,10 @@ const RAW_GROUPS: { label: string; slides: typeof qualIntroSlides }[] = [
  *  & #/course/6 -- see CourseThreeShell.tsx for the fuller comment on this
  *  shell's intent.
  *
- *  ⚠️ Sequential lock intentionally disabled: navigation is left fully
- *  open for review (no strictSequential/maxUnlockedIndex gating) instead
- *  of the per-slide unlock-as-you-go flow the locked courses use. */
+ *  Sequential lock: open for free review in this multi-course build (what
+ *  hawkama.vercel.app deploys) and in local dev; ON (must finish each slide
+ *  before the next unlocks) only in the standalone per-course SCORM package
+ *  build -- see useSequentialLock and build-static.mjs's VITE_SEQUENTIAL_LOCK. */
 export default function CourseSevenShell() {
   const groups = useMemo<CourseTwoGroup[]>(() => {
     let offset = 0;
@@ -39,6 +41,7 @@ export default function CourseSevenShell() {
       return group;
     });
   }, []);
+  const lock = useSequentialLock(groups);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [jumpTarget, setJumpTarget] = useState(1);
@@ -63,6 +66,7 @@ export default function CourseSevenShell() {
         onJump={jumpTo}
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
+        maxUnlockedIndex={lock.maxUnlockedIndex}
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
@@ -71,6 +75,10 @@ export default function CourseSevenShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
+          strictSequential={lock.enabled}
+          maxUnlockedIndex={lock.maxUnlockedIndex}
+          onUnlockSlide={lock.onUnlockSlide}
+          onResetSequentialLocks={lock.onResetSequentialLocks}
         />
       </div>
     </div>

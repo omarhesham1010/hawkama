@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { CourseTwoSidebar, type CourseTwoGroup } from './components/course2/CourseTwoSidebar';
 import { CourseTwoPlayer } from './components/course2/CourseTwoPlayer';
+import { useSequentialLock } from './hooks/useSequentialLock';
 import {
   eavClosingSlides,
   eavIntroSlides,
@@ -27,11 +28,10 @@ const RAW_GROUPS: { label: string; slides: typeof eavIntroSlides }[] = [
  *  #/course/7 -- see CourseThreeShell.tsx for the fuller comment on this
  *  shell's intent.
  *
- *  ⚠️ Sequential lock intentionally disabled: navigation is left fully
- *  open for review (no strictSequential/maxUnlockedIndex gating). The
- *  "next slide" button still waits for narration/activity completion --
- *  see CourseTwoPlayer.tsx's canGoNext -- so this only affects free
- *  jump-to-any-slide sidebar navigation. */
+ *  Sequential lock: open for free review in this multi-course build (what
+ *  hawkama.vercel.app deploys) and in local dev; ON (must finish each slide
+ *  before the next unlocks) only in the standalone per-course SCORM package
+ *  build -- see useSequentialLock and build-static.mjs's VITE_SEQUENTIAL_LOCK. */
 export default function CourseEightShell() {
   const groups = useMemo<CourseTwoGroup[]>(() => {
     let offset = 0;
@@ -41,6 +41,7 @@ export default function CourseEightShell() {
       return group;
     });
   }, []);
+  const lock = useSequentialLock(groups);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [jumpTarget, setJumpTarget] = useState(1);
@@ -64,6 +65,7 @@ export default function CourseEightShell() {
         onJump={jumpTo}
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
+        maxUnlockedIndex={lock.maxUnlockedIndex}
       />
       <div className="min-w-0 flex-1">
         <CourseTwoPlayer
@@ -72,6 +74,10 @@ export default function CourseEightShell() {
           initialSlide={jumpTarget}
           onExit={exitToHome}
           onSlideChange={setActiveIndex}
+          strictSequential={lock.enabled}
+          maxUnlockedIndex={lock.maxUnlockedIndex}
+          onUnlockSlide={lock.onUnlockSlide}
+          onResetSequentialLocks={lock.onResetSequentialLocks}
         />
       </div>
     </div>
