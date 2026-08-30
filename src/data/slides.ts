@@ -98,6 +98,15 @@ import {
   erpUnitTwoSlides,
 } from './economicRegulationPricingProgram';
 import {
+  ceClosingSlides,
+  ceIntroSlides,
+  ceUnitFiveSlides,
+  ceUnitFourSlides,
+  ceUnitOneSlides,
+  ceUnitThreeSlides,
+  ceUnitTwoSlides,
+} from './complianceEnforcementProgram';
+import {
   htaClosingSlides,
   htaIntroSlides,
   htaUnitFiveSlides,
@@ -464,6 +473,25 @@ export const courseCatalog = {
       ...htaUnitFourSlides,
       ...htaUnitFiveSlides,
       ...htaClosingSlides,
+    ],
+  },
+  // الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة, single-link #/course/11
+  // shell -- the whole bag (intro + 5 units + closing/post-test) as one
+  // sequence. Narration script pending client approval; every slide uses
+  // Web Speech API fallback until real ElevenLabs audio is generated.
+  'ce11-full': {
+    meta: {
+      title: 'الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة',
+      chapter: 'الحقيبة كاملة',
+    },
+    slides: [
+      ...ceIntroSlides,
+      ...ceUnitOneSlides,
+      ...ceUnitTwoSlides,
+      ...ceUnitThreeSlides,
+      ...ceUnitFourSlides,
+      ...ceUnitFiveSlides,
+      ...ceClosingSlides,
     ],
   },
 };

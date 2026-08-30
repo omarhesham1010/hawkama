@@ -16,6 +16,7 @@ const COURSE_TITLES = {
   8: 'التحليل الاقتصادي والرعاية الصحية المبنية على القيمة',
   9: 'التنظيم الاقتصادي - التنافسية والشفافية وآليات التسعير والدفع',
   10: 'التنظيم الاقتصادي - تقييم التقنيات الصحية',
+  11: 'الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة',
 };
 const COURSE_IDENTIFIERS = {
   1: 'hawkama-governance-course',
@@ -28,6 +29,7 @@ const COURSE_IDENTIFIERS = {
   8: 'hawkama-economic-analysis-value-course',
   9: 'hawkama-economic-regulation-pricing-course',
   10: 'hawkama-health-tech-assessment-course',
+  11: 'hawkama-compliance-enforcement-course',
 };
 
 const distDir = join(process.cwd(), SAMPLE ? 'dist-sample' : COURSE ? `dist-course${COURSE}` : 'dist');

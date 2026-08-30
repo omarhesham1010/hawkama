@@ -13,8 +13,8 @@ const SAMPLE = process.argv.includes('--sample');
 // whole multi-course platform with the other courses' narration inside it.
 const courseArg = process.argv.find((arg) => arg.startsWith('--course='));
 const COURSE = courseArg ? courseArg.slice('--course='.length) : null;
-if (COURSE && !['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].includes(COURSE)) {
-  throw new Error(`--course must be 1, 2, 3, 4, 5, 6, 7, 8, 9, or 10 (got "${COURSE}")`);
+if (COURSE && !['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'].includes(COURSE)) {
+  throw new Error(`--course must be 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, or 11 (got "${COURSE}")`);
 }
 const AUDIO_PREFIX_BY_COURSE = {
   1: 'bag1-',
@@ -27,6 +27,7 @@ const AUDIO_PREFIX_BY_COURSE = {
   8: 'bag8-',
   9: 'bag9-',
   10: 'bag10-',
+  11: 'bag11-',
 };
 const SINGLE_COURSE_ROUTE = {
   1: 'course1',
@@ -39,6 +40,7 @@ const SINGLE_COURSE_ROUTE = {
   8: 'course8',
   9: 'course9',
   10: 'course10',
+  11: 'course11',
 };
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));

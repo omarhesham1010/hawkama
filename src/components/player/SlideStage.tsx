@@ -1452,7 +1452,7 @@ function IntroMotionScene({
   // fallbacks below regardless of when Nasser actually named each unit.
   const isEmergencyCourse = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic')
     || slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual')
-    || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
+    || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const firstPillarShown = isEmergencyWelcome
     ? spokenPast('الفصل الأول عن الاستعداد للطوارئ', 0.2)
     : isEmergencyCourse
@@ -1641,6 +1641,20 @@ function IntroMotionScene({
     'hta10-u4-welcome': '/assets/visual-library/icon-hta10-computer-shield-check.svg',
     'hta10-u5-welcome': '/assets/visual-library/icon-hta10-id-card-people.svg',
   };
+  const isCourse11Course = slide.id.startsWith('ce11');
+  // course/11 (الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة) -- pending
+  // client approval of the narration script. Each unit welcome gets a real
+  // icon extracted from the client's own two source PDFs (guide-images /
+  // deck-images under course11-assets/), not a generic reuse from another
+  // course's pool.
+  const course11HeroByUnit: Record<string, string> = {
+    'ce11-welcome': '/assets/visual-library/ce-welcome-inspection-shield.webp',
+    'ce11-u1-welcome': '/assets/visual-library/ce-u1-ethics-scale.webp',
+    'ce11-u2-welcome': '/assets/visual-library/ce-u2-risk-magnifier.webp',
+    'ce11-u3-welcome': '/assets/visual-library/ce-u3-audit-checklist.webp',
+    'ce11-u4-welcome': '/assets/visual-library/ce-u4-enforcement-target.webp',
+    'ce11-u5-welcome': '/assets/visual-library/ce-u5-policy-document.webp',
+  };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
     : isPolicyCourse
@@ -1657,7 +1671,9 @@ function IntroMotionScene({
                 ? (course9HeroByUnit[slide.id] ?? '/assets/visual-library/icon-financial-dashboard-analytics.webp')
                 : isCourse10Course
                   ? (course10HeroByUnit[slide.id] ?? '/assets/visual-library/icon-kpi-dashboard.webp')
-                  : isEmergencyCourse
+                  : isCourse11Course
+                    ? (course11HeroByUnit[slide.id] ?? '/assets/visual-library/ce-welcome-inspection-shield.webp')
+                    : isEmergencyCourse
                   ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
                   : isCourse1Course
                     // Pulled straight from the client's own governance PPTX title

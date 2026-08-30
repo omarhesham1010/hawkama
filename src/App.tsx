@@ -18,10 +18,11 @@ const CourseSevenShell = lazy(() => import('./CourseSevenShell'));
 const CourseEightShell = lazy(() => import('./CourseEightShell'));
 const CourseNineShell = lazy(() => import('./CourseNineShell'));
 const CourseTenShell = lazy(() => import('./CourseTenShell'));
+const CourseElevenShell = lazy(() => import('./CourseElevenShell'));
 const AdvCourseTwoShell = lazy(() => import('./AdvCourseTwoShell'));
 
 interface Route {
-  view: 'home' | 'course' | 'course1' | 'course2' | 'course3' | 'course4' | 'course5' | 'course6' | 'course7' | 'course8' | 'course9' | 'course10' | 'advcourse2';
+  view: 'home' | 'course' | 'course1' | 'course2' | 'course3' | 'course4' | 'course5' | 'course6' | 'course7' | 'course8' | 'course9' | 'course10' | 'course11' | 'advcourse2';
   courseId: string;
   slide: number; // 1-based
 }
@@ -87,6 +88,9 @@ function parseHash(): Route {
   }
   if (parts[0] === 'course' && parts[1] === '10') {
     return { view: 'course10', courseId: 'course-10', slide: 1 };
+  }
+  if (parts[0] === 'course' && parts[1] === '11') {
+    return { view: 'course11', courseId: 'course-11', slide: 1 };
   }
   if (parts[0] === 'bag' && parts[2] === 'chapter') {
     const bag = Number.parseInt(parts[1] || '', 10);
@@ -237,6 +241,14 @@ export default function App() {
     return (
       <Suspense fallback={null}>
         <CourseTenShell />
+      </Suspense>
+    );
+  }
+
+  if (route.view === 'course11') {
+    return (
+      <Suspense fallback={null}>
+        <CourseElevenShell />
       </Suspense>
     );
   }
