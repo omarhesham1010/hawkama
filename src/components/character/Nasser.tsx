@@ -56,6 +56,34 @@ export const POSE_SRC_BAG2: Record<NasserPose, string> = {
   completion: `${BAG2_DIR}/nasser-completion.webp`,
 };
 
+/** Course/11's own uniformed "compliance officer" Nasser (وزارة الصحة cap +
+ *  tan field vest + "فريق الالتزام" badge), built from renders the client
+ *  sent Aug 31 -- background-removed, cropped to a consistent waist-up
+ *  frame (same treatment as the bag-2 photographic set above), and paired
+ *  left/right for every gesture that holds or points at something so he can
+ *  stand on either side of the slide. The magnifying glass fills in for
+ *  "question" (investigating a case) and the vital-signs scanner fills in
+ *  for "point" (presenting something to the learner) since this persona
+ *  has no literal index-finger point pose. Same file-swap rule as above:
+ *  the render whose prop reaches toward a given side is assigned to the
+ *  *opposite* pose key. */
+const CE11_DIR = '/nasser-assets/Compliance%20Team';
+
+export const POSE_SRC_CE11: Record<NasserPose, string> = {
+  welcome: `${CE11_DIR}/nasser-welcome.webp`,
+  pointLeft: `${CE11_DIR}/nasser-point-left.webp`,
+  pointRight: `${CE11_DIR}/nasser-point-right.webp`,
+  question: `${CE11_DIR}/nasser-question-left.webp`,
+  questionLeft: `${CE11_DIR}/nasser-question-left.webp`,
+  questionRight: `${CE11_DIR}/nasser-question-right.webp`,
+  success: `${CE11_DIR}/nasser-success.webp`,
+  tabletLeft: `${CE11_DIR}/nasser-tablet-left.webp`,
+  tabletRight: `${CE11_DIR}/nasser-tablet-right.webp`,
+  thinking: `${CE11_DIR}/nasser-thinking.webp`,
+  warning: `${CE11_DIR}/nasser-warning.webp`,
+  completion: `${CE11_DIR}/nasser-completion.webp`,
+};
+
 export function Nasser({
   pose,
   line,

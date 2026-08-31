@@ -11,7 +11,7 @@ import { DecisionSimulation } from '../activities/DecisionSimulation';
 import { TrueFalseGame } from '../activities/TrueFalseGame';
 import { ThreeLinesDefenseGame } from '../activities/ThreeLinesDefenseGame';
 import { KnowledgeCheck } from '../activities/KnowledgeCheck';
-import { POSE_SRC, POSE_SRC_BAG2, type NasserPose } from '../character/Nasser';
+import { POSE_SRC, POSE_SRC_BAG2, POSE_SRC_CE11, type NasserPose } from '../character/Nasser';
 import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
@@ -461,7 +461,8 @@ function NasserStoryLayer({
   // id prefixes) -- the real bag-2 (emergency response) ids are always
   // 'ec1-'..'ec4-', so anchor to a digit right after "ec" to tell them apart.
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
-  const poseSrc = isEmergencySlide ? POSE_SRC_BAG2 : POSE_SRC;
+  const isComplianceSlide = slide.id.startsWith('ce11');
+  const poseSrc = isComplianceSlide ? POSE_SRC_CE11 : isEmergencySlide ? POSE_SRC_BAG2 : POSE_SRC;
   const stripDiacritics = (value: string) =>
     value.replace(/[\u0610-\u061A\u064B-\u0652\u0670\u06D6-\u06ED]/gu, '');
   const displayLine = stripDiacritics(line);
