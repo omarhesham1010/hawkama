@@ -26,6 +26,22 @@ export function SlideCanvas({ children }: { children: React.ReactNode }) {
     return () => ro.disconnect();
   }, []);
 
+  // See src/components/player/SlideCanvas.tsx for the full explanation --
+  // this wrapper's `overflow: hidden` blocks user scrolling but not a
+  // browser's focus-driven scrollIntoView, which can permanently knock the
+  // scaled slide stage off-center the first time a learner clicks a button
+  // near the stage's real (unscaled) edge. This wrapper must never scroll.
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const resetScroll = () => {
+      if (el.scrollLeft !== 0) el.scrollLeft = 0;
+      if (el.scrollTop !== 0) el.scrollTop = 0;
+    };
+    el.addEventListener('scroll', resetScroll, { passive: true });
+    return () => el.removeEventListener('scroll', resetScroll);
+  }, []);
+
   // Recompute on font load (Arabic webfont can shift metrics).
   useEffect(() => {
     (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts?.ready?.then(() => {

@@ -32,6 +32,31 @@ export function SlideCanvas({
     return () => ro.disconnect();
   }, []);
 
+  // The stage is authored at a fixed 1280x720 and only ever shrunk visually
+  // via `transform: scale()` -- its real (pre-scale) layout box is far wider
+  // than this wrapper, which relies on flex centering + overflow-hidden to
+  // show only the scaled-down middle slice. `overflow: hidden` blocks
+  // user-driven scrolling (wheel/scrollbar) but NOT a browser's automatic
+  // scrollIntoView when an inner button receives focus after a click --
+  // clicking any activity/quiz button near the stage's real (unscaled) edge
+  // (e.g. the bottom-left "next question" control) makes the browser think
+  // it needs to scroll this wrapper to bring the button into view, which
+  // permanently knocks the whole slide off-center for the rest of the
+  // session (confirmed live: clicking through course/11's pre-course
+  // activity left scrollLeft stuck at -141, shifting the entire slide card
+  // ~140px off-screen to the right). This wrapper must never actually
+  // scroll, so immediately undo any scroll offset the browser applies.
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const resetScroll = () => {
+      if (el.scrollLeft !== 0) el.scrollLeft = 0;
+      if (el.scrollTop !== 0) el.scrollTop = 0;
+    };
+    el.addEventListener('scroll', resetScroll, { passive: true });
+    return () => el.removeEventListener('scroll', resetScroll);
+  }, []);
+
   // Recompute on font load (Arabic webfont can shift metrics).
   useEffect(() => {
     (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts?.ready?.then(() => {
