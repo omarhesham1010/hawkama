@@ -2432,13 +2432,33 @@ const POLICY_GOV2_ICON_POOL_HTA10 = [
   '/assets/visual-library/icon-hta10-gear-monitor.svg',
   '/assets/visual-library/icon-hta10-eye-magnifier.svg',
 ];
-type PolicyGov2Style = 'rich' | 'flat' | 'hta10';
+// course/11's own set -- real infographics from the client's Aug/Sep 2026
+// revised trainer guide (compliance/enforcement uniform theme), covering
+// units 2-5's process diagrams and KPI charts. Kept as one pool (like
+// hta10 above) since these are already one consistent illustration family
+// (soft-green client-brand palette) rather than needing a rich/flat split.
+const POLICY_GOV2_ICON_POOL_CE11 = [
+  '/assets/visual-library/ce11-erm-context-cycle.webp',
+  '/assets/visual-library/ce11-risk-analysis-quadrant.webp',
+  '/assets/visual-library/ce11-sampling-methods-grid.webp',
+  '/assets/visual-library/ce11-auditor-skills-flower.webp',
+  '/assets/visual-library/ce11-early-warning-grid.webp',
+  '/assets/visual-library/ce11-kpi-donuts.webp',
+  '/assets/visual-library/ce11-escalation-stages.webp',
+  '/assets/visual-library/ce11-report-elements.webp',
+  '/assets/visual-library/ce11-policy-cycle-wheel.webp',
+  '/assets/visual-library/ce11-integrity-commitments.webp',
+  '/assets/visual-library/ce11-error-case-study.webp',
+];
+type PolicyGov2Style = 'rich' | 'flat' | 'hta10' | 'ce11';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
   if (slideId.startsWith('hta10')) return 'hta10';
+  if (slideId.startsWith('ce11')) return 'ce11';
   return stableIconIndex(slideId) % 2 === 0 ? 'rich' : 'flat';
 }
 function policyGov2PoolFor(style: PolicyGov2Style) {
   if (style === 'hta10') return POLICY_GOV2_ICON_POOL_HTA10;
+  if (style === 'ce11') return POLICY_GOV2_ICON_POOL_CE11;
   return style === 'flat' ? POLICY_GOV2_ICON_POOL_FLAT : POLICY_GOV2_ICON_POOL_RICH;
 }
 /** Every policy/gov2/perf/qual call site threads this through instead of a
@@ -2454,7 +2474,8 @@ function policyGov2Marker(slideId: string): string {
       slideId.startsWith('qual') ||
       slideId.startsWith('econ8') ||
       slideId.startsWith('econ9') ||
-      slideId.startsWith('hta10')
+      slideId.startsWith('hta10') ||
+      slideId.startsWith('ce11')
     )
   )
     return '';
@@ -2735,6 +2756,35 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['أمان', 'حماية', 'ضمان', 'موثوقية', 'مخاطر', 'خطر', 'أمن'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['مستند', 'وثيقة', 'تحقق', 'مطابقة', 'مطابق', 'تحقق من'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['عرض', 'تقديم', 'تخطيط', 'استراتيجية', 'خطة', 'خطط'] },
+  // course/11 (الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة) -- real
+  // infographics pulled from the client's own Aug/Sep 2026 revised trainer
+  // guide (the same source that already grounds this course's narration),
+  // one per concept they're diagrams of. Matched on each target slide's own
+  // TITLE rather than a narration excerpt: titles are short, always passed
+  // through in full (unlike narration, which the caller truncates to its
+  // first 200 characters), and specific enough here that none of them also
+  // appears as a passing topic name-drop inside another slide's narration.
+  // 'التحليل وتقييم المخاطر' (ce11-u2-analysis) and 'الفحص والتدقيق
+  // التنظيمي' (ce11-u3-inspection-audit), 'متى ننتقل من الرقابة إلى
+  // الإنفاذ؟' (ce11-u4-transition), and 'صياغة وتطوير السياسات الصحية'
+  // (ce11-u5-policy) all use the pptTimeline layout, which -- unlike
+  // pptSixCards/pptThreeColumns/pptTwoPanels -- has no image slot at all on
+  // this platform (true for every course, not just this one), so a rule
+  // keyed to only that title would never actually render anywhere. Each
+  // rule below carries a second term pulled from that same slide's own
+  // *goals-card* text instead (a pptSixCards slide, which does render
+  // images), so the image still surfaces right next to the matching idea.
+  { style: 'ce11', icon: '/assets/visual-library/ce11-risk-analysis-quadrant.webp', terms: ['التحليل وتقييم المخاطر', 'تطبيق خطوات تحليل المخاطر الأربع'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-erm-context-cycle.webp', terms: ['تصنيف المنشآت وإدارة المخاطر المؤسسية', 'ترتيب مراحل إدارة المخاطر المؤسسية'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-sampling-methods-grid.webp', terms: ['أساليب جمع العينات ومعايير التدقيق'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-auditor-skills-flower.webp', terms: ['الفحص والتدقيق التنظيمي', 'التفريق بين التفتيش الميداني والتدقيق المكتبي'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-early-warning-grid.webp', terms: ['مؤشرات الإنذار المبكر'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-kpi-donuts.webp', terms: ['مؤشرات الأداء للرقابة والتفتيش'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-escalation-stages.webp', terms: ['متى ننتقل من الرقابة إلى الإنفاذ', 'تحديد اللحظة المناسبة للانتقال من الرقابة إلى الإنفاذ'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-report-elements.webp', terms: ['عناصر التقرير الرقابي الفعال'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-policy-cycle-wheel.webp', terms: ['صياغة وتطوير السياسات الصحية', 'تحويل نتائج التفتيش الميداني إلى توصية سياسية'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-integrity-commitments.webp', terms: ['إدارة أصحاب المصلحة'] },
+  { style: 'ce11', icon: '/assets/visual-library/ce11-error-case-study.webp', terms: ['تصنيف خطأ طبي أم إهمال أم مضاعفة', 'استقبال الشكاوى وتصنيف الأخطاء الطبية'] },
 ];
 function policyGov2KeywordPick(text: string, style: PolicyGov2Style): string | null {
   const rule = POLICY_GOV2_KEYWORD_RULES.find((r) => r.style === style && hasAny(text, r.terms));
@@ -2746,7 +2796,7 @@ function pptGeneratedVisualLayersFor(text: string, fallback?: string) {
   const add = (src: string) => {
     if (!layers.includes(src)) layers.push(src);
   };
-  const policyGov2StyleMatch = /__policygov2:(rich|flat|hta10)__/.exec(text);
+  const policyGov2StyleMatch = /__policygov2:(rich|flat|hta10|ce11)__/.exec(text);
   const isPolicyGov2Topic = Boolean(policyGov2StyleMatch);
   let isEmergencyTopic = false;
   // course/4 & course/5 never fall through to bag/1's old AI-generated
@@ -3340,7 +3390,7 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   if (slide.audioKey?.endsWith('-course1')) return [];
   // course/4 (policy) & course/5 (gov2) get their own real-brand pool --
   // never bag/1's old AI-generated scene images (see POLICY_GOV2_ICON_POOL_RICH/FLAT).
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const fallbackVisualPool = isPolicyGov2Slide
     ? policyGov2PoolFor(policyGov2StyleFor(slide.id))
@@ -3396,7 +3446,7 @@ function PptMotionVisualScene({
   const effectiveLayout = layout ?? slide.layout;
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const isMotionLedScene = isEmergencySlide || isCourse1Slide;
   // Whichever card is highlighted right now, whether narration drove it
   // there (activeCard) or the learner clicked it open (expandedKey) --
@@ -3808,7 +3858,7 @@ function PptTimelineScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const primaryVisual = slideVisualPool(slide, cards)[0];
   // A single-card act's one step already carries its own icon badge below
   // -- the floating illustration above it just duplicates that, and for
@@ -3986,7 +4036,7 @@ function PptMatrixScene({
   // give them a real left-side image instead, picked from their own
   // real-brand pool with the same no-repeat-per-slide guarantee every other
   // ppt layout already has.
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const matrixVisualPool = isPolicyGov2Slide ? slideVisualPool(slide, cards) : [];
   const usedMatrixVisuals = new Set<string>();
   return (
@@ -4133,7 +4183,7 @@ function PptSpotlightScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10');
+  const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
   const supporting = cards.filter((_, i) => i !== focusIndex);
