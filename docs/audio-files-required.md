@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **1982**.
+Generated from `src/data/audioScripts.ts`. Total required: **2127**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -584,6 +584,56 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
 - `bag10-final-s1-test.mp3` - نشاط ما بعد الدورة
 - `bag10-final-s2-closing.mp3` - رسالة الختام
+- `bag11-ch0-s1-welcome.mp3` - الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة
+- `bag11-ch0-s2-map.mp3` - محتويات الحقيبة
+- `bag11-ch0-s3-pre-test.mp3` - نشاط ما قبل الدورة
+- `bag11-ch1-s1-welcome.mp3` - الأساس التنظيمي والأخلاقي للالتزام
+- `bag11-ch1-s2-goals.mp3` - أهداف الوحدة الأولى
+- `bag11-ch1-s3-role.mp3` - دور الالتزام في النظام الصحي
+- `bag11-ch1-s4-ethics.mp3` - أخلاقيات الرقابة والإنفاذ
+- `bag11-ch1-s5-behaviors.mp3` - سلوكيات الخاضعين للرقابة
+- `bag11-ch1-s6-complaints.mp3` - استقبال الشكاوى وتصنيف الأخطاء الطبية
+- `bag11-ch1-s7-activity.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة
+- `bag11-ch1-s8-test.mp3` - اختبار الوحدة الأولى
+- `bag11-ch1-s9-closing.mp3` - ختام الوحدة الأولى
+- `bag11-ch2-s1-welcome.mp3` - التفتيش القائم على المخاطر
+- `bag11-ch2-s2-goals.mp3` - أهداف الوحدة الثانية
+- `bag11-ch2-s3-analysis.mp3` - التحليل وتقييم المخاطر
+- `bag11-ch2-s4-classification.mp3` - تصنيف المنشآت وإدارة المخاطر المؤسسية
+- `bag11-ch2-s5-protocols.mp3` - تصميم بروتوكولات التفتيش
+- `bag11-ch2-s6-sampling.mp3` - أساليب جمع العينات ومعايير التدقيق
+- `bag11-ch2-s7-activity.mp3` - نشاط: ترتيب مراحل إدارة المخاطر المؤسسية
+- `bag11-ch2-s8-test.mp3` - اختبار الوحدة الثانية
+- `bag11-ch2-s9-closing.mp3` - ختام الوحدة الثانية
+- `bag11-ch3-s1-welcome.mp3` - الفحص والتدقيق ومراقبة الامتثال
+- `bag11-ch3-s2-goals.mp3` - أهداف الوحدة الثالثة
+- `bag11-ch3-s3-inspection-audit.mp3` - الفحص والتدقيق التنظيمي
+- `bag11-ch3-s4-controls.mp3` - اختبارات الضوابط الداخلية
+- `bag11-ch3-s5-early-warning.mp3` - مؤشرات الإنذار المبكر
+- `bag11-ch3-s6-kpis.mp3` - مؤشرات الأداء للرقابة والتفتيش
+- `bag11-ch3-s7-activity.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي
+- `bag11-ch3-s8-test.mp3` - اختبار الوحدة الثالثة
+- `bag11-ch3-s9-closing.mp3` - ختام الوحدة الثالثة
+- `bag11-ch4-s1-welcome.mp3` - الإنفاذ والتعامل مع القضايا
+- `bag11-ch4-s2-goals.mp3` - أهداف الوحدة الرابعة
+- `bag11-ch4-s3-transition.mp3` - متى ننتقل من الرقابة إلى الإنفاذ؟
+- `bag11-ch4-s4-evidence.mp3` - جمع الأدلة وتوثيقها
+- `bag11-ch4-s5-secretariat.mp3` - أعمال أمانة السر وتوثيق محاضر اللجان
+- `bag11-ch4-s6-decision.mp3` - اتخاذ القرار المبني على الأدلة
+- `bag11-ch4-s7-activity.mp3` - نشاط: اختيار العقوبة المناسبة
+- `bag11-ch4-s8-test.mp3` - اختبار الوحدة الرابعة
+- `bag11-ch4-s9-closing.mp3` - ختام الوحدة الرابعة
+- `bag11-ch5-s1-welcome.mp3` - التقارير الرقابية والسياسات الصحية
+- `bag11-ch5-s2-goals.mp3` - أهداف الوحدة الخامسة
+- `bag11-ch5-s3-report-elements.mp3` - عناصر التقرير الرقابي الفعال
+- `bag11-ch5-s4-org-reports.mp3` - إعداد وإدارة التقارير التنظيمية
+- `bag11-ch5-s5-policy.mp3` - صياغة وتطوير السياسات الصحية
+- `bag11-ch5-s6-stakeholders.mp3` - إدارة أصحاب المصلحة
+- `bag11-ch5-s7-activity.mp3` - نشاط: بطاقات أصحاب المصلحة واهتماماتهم
+- `bag11-ch5-s8-test.mp3` - اختبار الوحدة الخامسة
+- `bag11-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
+- `bag11-ch6-s1-post-test.mp3` - نشاط ما بعد الدورة
+- `bag11-ch6-s2-closing.mp3` - رسالة الختام
 - `bag1-ch1-s5-policy-activity-detail-1.mp3` - نشاط: تطوير سياسة صحية - مناقشة 1
 - `bag1-ch1-s5-policy-activity-detail-2.mp3` - نشاط: تطوير سياسة صحية - مناقشة 2
 - `bag1-ch1-s5-policy-activity-detail-3.mp3` - نشاط: تطوير سياسة صحية - مناقشة 3
@@ -715,6 +765,10 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch4-s6-activity-2-detail-1.mp3` - نشاط: ترتيب مراحل إدارة الحوادث - مناقشة 1
 - `bag10-ch5-s4-activity-1-detail-1.mp3` - نشاط: صواب أم خطأ حول التشريعات - مناقشة 1
 - `bag10-ch5-s6-activity-2-detail-1.mp3` - نشاط: تصنيف المبادئ الأخلاقية - مناقشة 1
+- `bag11-ch1-s7-activity-detail-1.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - مناقشة 1
+- `bag11-ch2-s7-activity-detail-1.mp3` - نشاط: ترتيب مراحل إدارة المخاطر المؤسسية - مناقشة 1
+- `bag11-ch3-s7-activity-detail-1.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي - مناقشة 1
+- `bag11-ch5-s7-activity-detail-1.mp3` - نشاط: بطاقات أصحاب المصلحة واهتماماتهم - مناقشة 1
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-2.mp3` - نشاط الحوكمة والامتثال - السؤال 2
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-3.mp3` - نشاط الحوكمة والامتثال - السؤال 3
 - `bag1-ch1-s9-activity-governance-or-compliance-course1-question-4.mp3` - نشاط الحوكمة والامتثال - السؤال 4
@@ -1493,6 +1547,82 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-final-s1-test-feedback-bag10-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q2-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q3-correct.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q3-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q4-correct.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q4-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q5-correct.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة صحيحة
+- `bag11-ch0-s3-pre-test-feedback-bag11-pre-q5-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q1-correct.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q1-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q2-correct.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q2-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q3-correct.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q3-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q4-correct.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q4-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q5-correct.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة صحيحة
+- `bag11-ch1-s8-test-feedback-bag11-u1-q5-incorrect.mp3` - اختبار الوحدة الأولى - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q1-correct.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q1-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q2-correct.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q2-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q3-correct.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q3-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q4-correct.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q4-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q5-correct.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة صحيحة
+- `bag11-ch2-s8-test-feedback-bag11-u2-q5-incorrect.mp3` - اختبار الوحدة الثانية - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q1-correct.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q1-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q2-correct.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q2-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q3-correct.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q3-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q4-correct.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q4-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q5-correct.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة صحيحة
+- `bag11-ch3-s8-test-feedback-bag11-u3-q5-incorrect.mp3` - اختبار الوحدة الثالثة - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q1-correct.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q1-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q2-correct.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q2-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q3-correct.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q3-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q4-correct.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q4-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q5-correct.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة صحيحة
+- `bag11-ch4-s8-test-feedback-bag11-u4-q5-incorrect.mp3` - اختبار الوحدة الرابعة - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q1-correct.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q1-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q2-correct.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q2-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q3-correct.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q3-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q4-correct.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
+- `bag11-ch5-s8-test-feedback-bag11-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q2-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q3-correct.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q3-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 3 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q4-correct.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q4-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 4 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q5-correct.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q5-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 5 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q6-correct.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q6-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 6 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q7-correct.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
+- `bag11-ch6-s1-post-test-feedback-bag11-post-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
 - `bag1-ch1-s2-overview-check-ask.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - سؤال تفاعلي
 - `bag1-ch1-s2-overview-check-answer.mp3` - الفصل الأول: الحوكمة التنظيمية والامتثال - إجابة السؤال التفاعلي
 - `bag1-ch1-s4-health-policies-check-ask.mp3` - صياغة وتطوير السياسات الصحية - سؤال تفاعلي
@@ -1976,6 +2106,21 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s4-activity-1-item-hta-u5-class-2.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-2
 - `bag10-ch5-s4-activity-1-item-hta-u5-class-3.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-3
 - `bag10-ch5-s4-activity-1-item-hta-u5-class-4.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-4
+- `bag11-ch1-s7-activity-item-ce11-u1-class-1.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - ce11-u1-class-1
+- `bag11-ch1-s7-activity-item-ce11-u1-class-2.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - ce11-u1-class-2
+- `bag11-ch1-s7-activity-item-ce11-u1-class-3.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - ce11-u1-class-3
+- `bag11-ch3-s7-activity-item-ce11-u3-class-1.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي - ce11-u3-class-1
+- `bag11-ch3-s7-activity-item-ce11-u3-class-2.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي - ce11-u3-class-2
+- `bag11-ch3-s7-activity-item-ce11-u3-class-3.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي - ce11-u3-class-3
+- `bag11-ch3-s7-activity-item-ce11-u3-class-4.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي - ce11-u3-class-4
+- `bag11-ch4-s7-activity-correct.mp3` - نشاط: اختيار العقوبة المناسبة - إجابة صحيحة
+- `bag11-ch4-s7-activity-incorrect.mp3` - نشاط: اختيار العقوبة المناسبة - إجابة غير صحيحة
+- `bag11-ch4-s7-activity-path-correct.mp3` - نشاط: اختيار العقوبة المناسبة - مسار صحيح
+- `bag11-ch4-s7-activity-path-incorrect.mp3` - نشاط: اختيار العقوبة المناسبة - مسار غير صحيح
+- `bag11-ch5-s7-activity-flip-1.mp3` - نشاط: بطاقات أصحاب المصلحة واهتماماتهم - ce11-u5-flip-1
+- `bag11-ch5-s7-activity-flip-2.mp3` - نشاط: بطاقات أصحاب المصلحة واهتماماتهم - ce11-u5-flip-2
+- `bag11-ch5-s7-activity-flip-3.mp3` - نشاط: بطاقات أصحاب المصلحة واهتماماتهم - ce11-u5-flip-3
+- `bag11-ch5-s7-activity-flip-4.mp3` - نشاط: بطاقات أصحاب المصلحة واهتماماتهم - ce11-u5-flip-4
 - `bag1-ch1-s5-policy-activity-course1-detail-2.mp3` - bag1-ch1-s5-policy-activity-course1-detail-2
 - `bag1-ch1-s5-policy-activity-course1-detail-3.mp3` - bag1-ch1-s5-policy-activity-course1-detail-3
 - `bag1-ch1-s5-policy-activity-course1-detail-4.mp3` - bag1-ch1-s5-policy-activity-course1-detail-4

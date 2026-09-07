@@ -213,6 +213,18 @@ export const allNarratedSlides = [
   ...htaUnitFourSlides,
   ...htaUnitFiveSlides,
   ...htaClosingSlides,
+  // course/11 -- added once the client approved the revised script (see
+  // docs/nasser-video-script-course11.docx and the Aug/Sep 2026 revision
+  // pass); until then this was deliberately left out so check-audio-files.js
+  // and the audio-generation pipeline wouldn't try to produce bag11- audio
+  // ahead of approval.
+  ...ceIntroSlides,
+  ...ceUnitOneSlides,
+  ...ceUnitTwoSlides,
+  ...ceUnitThreeSlides,
+  ...ceUnitFourSlides,
+  ...ceUnitFiveSlides,
+  ...ceClosingSlides,
 ];
 
 export const courseCatalog = {

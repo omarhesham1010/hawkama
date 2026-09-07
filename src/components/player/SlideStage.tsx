@@ -2432,23 +2432,26 @@ const POLICY_GOV2_ICON_POOL_HTA10 = [
   '/assets/visual-library/icon-hta10-gear-monitor.svg',
   '/assets/visual-library/icon-hta10-eye-magnifier.svg',
 ];
-// course/11's own set -- real infographics from the client's Aug/Sep 2026
-// revised trainer guide (compliance/enforcement uniform theme), covering
-// units 2-5's process diagrams and KPI charts. Kept as one pool (like
-// hta10 above) since these are already one consistent illustration family
-// (soft-green client-brand palette) rather than needing a rich/flat split.
+// course/11's own FALLBACK pool -- used only when a card's own text trips
+// none of the ce11 POLICY_GOV2_KEYWORD_RULES below (variantOf() cycles
+// through this for the "needs *some* icon" case). Deliberately reuses
+// existing simple single-symbol icons from the rich/flat pools rather than
+// course/11's own real infographics: those are dense, multi-panel diagrams
+// with baked-in Arabic labels that read as a genuine explanatory graphic at
+// full hero size but turn into illegible noise once cycled into a small
+// per-card icon slot (confirmed live -- the u2 risk-level cards each showed
+// a different, unrelated full diagram crammed into a tiny circle). The
+// diagrams themselves are still reachable, just only via an exact keyword
+// match in POLICY_GOV2_KEYWORD_RULES below, which is what "one real icon
+// per matching concept" actually calls for here.
 const POLICY_GOV2_ICON_POOL_CE11 = [
-  '/assets/visual-library/ce11-erm-context-cycle.webp',
-  '/assets/visual-library/ce11-risk-analysis-quadrant.webp',
-  '/assets/visual-library/ce11-sampling-methods-grid.webp',
-  '/assets/visual-library/ce11-auditor-skills-flower.webp',
-  '/assets/visual-library/ce11-early-warning-grid.webp',
-  '/assets/visual-library/ce11-kpi-donuts.webp',
-  '/assets/visual-library/ce11-escalation-stages.webp',
-  '/assets/visual-library/ce11-report-elements.webp',
-  '/assets/visual-library/ce11-policy-cycle-wheel.webp',
-  '/assets/visual-library/ce11-integrity-commitments.webp',
-  '/assets/visual-library/ce11-error-case-study.webp',
+  '/assets/visual-library/icon-quality-target-clipboard.webp',
+  '/assets/visual-library/icon-policy-checklist-clipboard.webp',
+  '/assets/visual-library/icon-quality-cycle-badge.webp',
+  '/assets/visual-library/icon-failure-investigation-gear.webp',
+  '/assets/visual-library/icon-kpi-dashboard.webp',
+  '/assets/visual-library/icon-policy-document-check-light.webp',
+  '/assets/visual-library/icon-policy-scroll-pen-check.webp',
 ];
 type PolicyGov2Style = 'rich' | 'flat' | 'hta10' | 'ce11';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
@@ -2774,17 +2777,30 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // rule below carries a second term pulled from that same slide's own
   // *goals-card* text instead (a pptSixCards slide, which does render
   // images), so the image still surfaces right next to the matching idea.
-  { style: 'ce11', icon: '/assets/visual-library/ce11-risk-analysis-quadrant.webp', terms: ['التحليل وتقييم المخاطر', 'تطبيق خطوات تحليل المخاطر الأربع'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-erm-context-cycle.webp', terms: ['تصنيف المنشآت وإدارة المخاطر المؤسسية', 'ترتيب مراحل إدارة المخاطر المؤسسية'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-sampling-methods-grid.webp', terms: ['أساليب جمع العينات ومعايير التدقيق'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-auditor-skills-flower.webp', terms: ['الفحص والتدقيق التنظيمي', 'التفريق بين التفتيش الميداني والتدقيق المكتبي'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-early-warning-grid.webp', terms: ['مؤشرات الإنذار المبكر'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-kpi-donuts.webp', terms: ['مؤشرات الأداء للرقابة والتفتيش'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-escalation-stages.webp', terms: ['متى ننتقل من الرقابة إلى الإنفاذ', 'تحديد اللحظة المناسبة للانتقال من الرقابة إلى الإنفاذ'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-report-elements.webp', terms: ['عناصر التقرير الرقابي الفعال'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-policy-cycle-wheel.webp', terms: ['صياغة وتطوير السياسات الصحية', 'تحويل نتائج التفتيش الميداني إلى توصية سياسية'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-integrity-commitments.webp', terms: ['إدارة أصحاب المصلحة'] },
-  { style: 'ce11', icon: '/assets/visual-library/ce11-error-case-study.webp', terms: ['تصنيف خطأ طبي أم إهمال أم مضاعفة', 'استقبال الشكاوى وتصنيف الأخطاء الطبية'] },
+  //
+  // These rules deliberately do NOT point at the 11 real ce11-*.webp
+  // infographics extracted from the guide (see POLICY_GOV2_ICON_POOL_CE11's
+  // own comment) -- every content-slide layout on this platform (pptSixCards
+  // circles, pptThreeColumns squares, pptTwoPanels icons) renders per-card
+  // images at the same small icon size as everywhere else, with no "large
+  // hero" surface outside the welcome/pptIntro slides. Checked live: a wide,
+  // multi-panel diagram with baked-in Arabic labels squeezed into one of
+  // those slots renders as an illegible sliver, not a readable graphic. So
+  // each rule below points at an existing simple single-symbol icon instead
+  // (reused from the rich/flat/hta10 pools), picked for topical fit -- the
+  // real infographics stay saved in visual-library unused for now, ready for
+  // whenever a large-hero surface exists for content slides.
+  { style: 'ce11', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['التحليل وتقييم المخاطر', 'تطبيق خطوات تحليل المخاطر الأربع'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['تصنيف المنشآت وإدارة المخاطر المؤسسية', 'ترتيب مراحل إدارة المخاطر المؤسسية'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['أساليب جمع العينات ومعايير التدقيق'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['الفحص والتدقيق التنظيمي', 'التفريق بين التفتيش الميداني والتدقيق المكتبي'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-hta10-warning-triangle-lightning.svg', terms: ['مؤشرات الإنذار المبكر'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['مؤشرات الأداء للرقابة والتفتيش'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-failure-investigation-gear.webp', terms: ['متى ننتقل من الرقابة إلى الإنفاذ', 'تحديد اللحظة المناسبة للانتقال من الرقابة إلى الإنفاذ'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-file-report.webp', terms: ['عناصر التقرير الرقابي الفعال'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['صياغة وتطوير السياسات الصحية', 'تحويل نتائج التفتيش الميداني إلى توصية سياسية'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['إدارة أصحاب المصلحة'] },
+  { style: 'ce11', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['تصنيف خطأ طبي أم إهمال أم مضاعفة', 'استقبال الشكاوى وتصنيف الأخطاء الطبية'] },
 ];
 function policyGov2KeywordPick(text: string, style: PolicyGov2Style): string | null {
   const rule = POLICY_GOV2_KEYWORD_RULES.find((r) => r.style === style && hasAny(text, r.terms));

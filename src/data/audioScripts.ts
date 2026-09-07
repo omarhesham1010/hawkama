@@ -251,7 +251,14 @@ const checkpointVoiceItems = activityVoiceSources.flatMap(({ activity: a, label,
         out.push(item(
           a.identify.correctVoiceKey,
           `${label} - إجابة صحيحة`,
-          `إجابة صحيحة، ${correctOpt?.label}. ${a.identify.suggestedNote}`,
+          // The on-screen feedback for a correct pick shows the chosen
+          // option's own `.note` (see DecisionSimulation.tsx: `chosen?.note`),
+          // not `suggestedNote` -- that field is reserved for the incorrect
+          // branch below, where no single option's note applies regardless
+          // of which wrong choice was made. Using suggestedNote here too
+          // made the correct-answer audio read a different explanation than
+          // what's on screen.
+          `إجابة صحيحة، ${correctOpt?.label}. ${correctOpt?.note ?? a.identify.suggestedNote}`,
           'activity-feedback',
           slideId,
         ));
