@@ -30,7 +30,13 @@ $titleByCourse = @{
   "11" = "الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة"
 }
 $title = $titleByCourse[$Course]
-$finalName = "حقيبة $Course - $title - SCORM2004.zip"
+# Windows forbids : < > " / \ | ? * in filenames -- course 11's title
+# carries a colon ("...والإنفاذ: الالتزام...") which made Move-Item below
+# fail with "The given path's format is not supported." Swap it (and any
+# other reserved character a future course's title might contain) for a
+# safe dash instead of just handling course 11 as a one-off.
+$safeTitle = $title -replace '[:<>"/\\|?*]', ' -'
+$finalName = "حقيبة $Course - $safeTitle - SCORM2004.zip"
 $zip = Join-Path $packagesDir $finalName
 # tar.exe on Windows doesn't reliably accept a non-ASCII destination path
 # as a CLI argument (garbles to literal "?" characters and fails to open
