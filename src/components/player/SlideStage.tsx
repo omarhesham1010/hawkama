@@ -2432,26 +2432,22 @@ const POLICY_GOV2_ICON_POOL_HTA10 = [
   '/assets/visual-library/icon-hta10-gear-monitor.svg',
   '/assets/visual-library/icon-hta10-eye-magnifier.svg',
 ];
-// course/11's own FALLBACK pool -- used only when a card's own text trips
-// none of the ce11 POLICY_GOV2_KEYWORD_RULES below (variantOf() cycles
-// through this for the "needs *some* icon" case). Deliberately reuses
-// existing simple single-symbol icons from the rich/flat pools rather than
-// course/11's own real infographics: those are dense, multi-panel diagrams
-// with baked-in Arabic labels that read as a genuine explanatory graphic at
-// full hero size but turn into illegible noise once cycled into a small
-// per-card icon slot (confirmed live -- the u2 risk-level cards each showed
-// a different, unrelated full diagram crammed into a tiny circle). The
-// diagrams themselves are still reachable, just only via an exact keyword
-// match in POLICY_GOV2_KEYWORD_RULES below, which is what "one real icon
-// per matching concept" actually calls for here.
+// course/11's own icon family -- one hand-drawn set (icon-ce11-*.svg: green
+// line art, pale-mint disc, one stroke weight) so a shot never mixes styles.
+// The earlier pass reused a grab-bag from the rich/flat/hta10 pools, which
+// put a flat webp, a detailed 3D illustration and a lone SVG side by side in
+// the same slide, and -- with only 7 entries -- forced 6-card slides to
+// repeat an icon (u2-protocols, u4-secretariat, u4-decision each showed one
+// icon twice). 22 distinct icons now: more than any ce11 slide has cards, so
+// the dedupe in slideVisualPool's consumers never has to fall back to a
+// repeat. Used both as the "no keyword match" cycling pool and (via the
+// keyword rules below) as the exact-concept match set.
+const CE11 = (name: string) => `/assets/visual-library/icon-ce11-${name}.svg`;
 const POLICY_GOV2_ICON_POOL_CE11 = [
-  '/assets/visual-library/icon-quality-target-clipboard.webp',
-  '/assets/visual-library/icon-policy-checklist-clipboard.webp',
-  '/assets/visual-library/icon-quality-cycle-badge.webp',
-  '/assets/visual-library/icon-failure-investigation-gear.webp',
-  '/assets/visual-library/icon-kpi-dashboard.webp',
-  '/assets/visual-library/icon-policy-document-check-light.webp',
-  '/assets/visual-library/icon-policy-scroll-pen-check.webp',
+  CE11('balance'), CE11('shield-check'), CE11('clipboard-check'), CE11('gears'),
+  CE11('people'), CE11('target'), CE11('bulb'), CE11('folder-lock'),
+  CE11('flag'), CE11('building'), CE11('book'), CE11('doc-search'),
+  CE11('report'), CE11('bar-chart'), CE11('cycle'), CE11('grid'),
 ];
 type PolicyGov2Style = 'rich' | 'flat' | 'hta10' | 'ce11';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
@@ -2783,24 +2779,34 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // own comment) -- every content-slide layout on this platform (pptSixCards
   // circles, pptThreeColumns squares, pptTwoPanels icons) renders per-card
   // images at the same small icon size as everywhere else, with no "large
-  // hero" surface outside the welcome/pptIntro slides. Checked live: a wide,
-  // multi-panel diagram with baked-in Arabic labels squeezed into one of
-  // those slots renders as an illegible sliver, not a readable graphic. So
-  // each rule below points at an existing simple single-symbol icon instead
-  // (reused from the rich/flat/hta10 pools), picked for topical fit -- the
-  // real infographics stay saved in visual-library unused for now, ready for
-  // whenever a large-hero surface exists for content slides.
-  { style: 'ce11', icon: '/assets/visual-library/icon-policy-analytics-search.webp', terms: ['التحليل وتقييم المخاطر', 'تطبيق خطوات تحليل المخاطر الأربع'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-quality-cycle-badge.webp', terms: ['تصنيف المنشآت وإدارة المخاطر المؤسسية', 'ترتيب مراحل إدارة المخاطر المؤسسية'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-policy-books-magnifier-compare.webp', terms: ['أساليب جمع العينات ومعايير التدقيق'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-policy-education-shield.webp', terms: ['الفحص والتدقيق التنظيمي', 'التفريق بين التفتيش الميداني والتدقيق المكتبي'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-hta10-warning-triangle-lightning.svg', terms: ['مؤشرات الإنذار المبكر'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-kpi-dashboard.webp', terms: ['مؤشرات الأداء للرقابة والتفتيش'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-failure-investigation-gear.webp', terms: ['متى ننتقل من الرقابة إلى الإنفاذ', 'تحديد اللحظة المناسبة للانتقال من الرقابة إلى الإنفاذ'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-file-report.webp', terms: ['عناصر التقرير الرقابي الفعال'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['صياغة وتطوير السياسات الصحية', 'تحويل نتائج التفتيش الميداني إلى توصية سياسية'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['إدارة أصحاب المصلحة'] },
-  { style: 'ce11', icon: '/assets/visual-library/icon-patient-safety-heart-check.webp', terms: ['تصنيف خطأ طبي أم إهمال أم مضاعفة', 'استقبال الشكاوى وتصنيف الأخطاء الطبية'] },
+  // hero" surface outside the welcome/pptIntro slides. Every icon below is
+  // from course/11's own icon-ce11-*.svg family (see POLICY_GOV2_ICON_POOL_CE11)
+  // so a keyword-matched card and its pool-matched neighbours read as one set.
+  // Slide-title terms first, then the per-card phrases for the slides whose
+  // card labels would otherwise all fall through to positional cycling.
+  { style: 'ce11', icon: CE11('analysis'), terms: ['التحليل وتقييم المخاطر', 'تطبيق خطوات تحليل المخاطر الأربع'] },
+  { style: 'ce11', icon: CE11('cycle'), terms: ['تصنيف المنشآت وإدارة المخاطر المؤسسية', 'ترتيب مراحل إدارة المخاطر المؤسسية'] },
+  { style: 'ce11', icon: CE11('grid'), terms: ['أساليب جمع العينات ومعايير التدقيق'] },
+  { style: 'ce11', icon: CE11('doc-search'), terms: ['الفحص والتدقيق التنظيمي', 'التفريق بين التفتيش الميداني والتدقيق المكتبي'] },
+  { style: 'ce11', icon: CE11('warning'), terms: ['مؤشرات الإنذار المبكر'] },
+  { style: 'ce11', icon: CE11('bar-chart'), terms: ['مؤشرات الأداء للرقابة والتفتيش'] },
+  { style: 'ce11', icon: CE11('transition'), terms: ['متى ننتقل من الرقابة إلى الإنفاذ', 'تحديد اللحظة المناسبة للانتقال من الرقابة إلى الإنفاذ'] },
+  { style: 'ce11', icon: CE11('report'), terms: ['عناصر التقرير الرقابي الفعال'] },
+  { style: 'ce11', icon: CE11('book'), terms: ['صياغة وتطوير السياسات الصحية', 'تحويل نتائج التفتيش الميداني إلى توصية سياسية'] },
+  { style: 'ce11', icon: CE11('handshake'), terms: ['إدارة أصحاب المصلحة'] },
+  { style: 'ce11', icon: CE11('chat'), terms: ['تصنيف خطأ طبي أم إهمال أم مضاعفة', 'استقبال الشكاوى وتصنيف الأخطاء الطبية'] },
+  // Per-card phrases (verified against the actual card titles) -- the
+  // multi-card slides whose short labels were repeating a pool icon before.
+  // ce11-u2-protocols (6 cards) and ce11-u4-decision (5 cards) get one
+  // distinct family icon per card here; every other multi-card slide's
+  // labels fall through to positional pool cycling, which -- with 16 icons
+  // vs a 6-card maximum -- is already collision-free.
+  { style: 'ce11', icon: CE11('target'), terms: ['أهداف واضحة ومحددة للتفتيش'] },
+  { style: 'ce11', icon: CE11('balance'), terms: ['معايير تقييم موضوعية', 'تحليل موضوعي'] },
+  { style: 'ce11', icon: CE11('clipboard-check'), terms: ['قوائم مراجعة شاملة', 'معايير واضحة'] },
+  { style: 'ce11', icon: CE11('folder-lock'), terms: ['إرشادات لجمع الأدلة وتوثيقها', 'أدلة موثوقة'] },
+  { style: 'ce11', icon: CE11('gavel'), terms: ['معايير لاتخاذ القرارات والتوصيات', 'الرجوع إلى سوابق'] },
+  { style: 'ce11', icon: CE11('cycle'), terms: ['آليات لضمان الجودة والاتساق', 'الاستفادة من الخبرة'] },
 ];
 function policyGov2KeywordPick(text: string, style: PolicyGov2Style): string | null {
   const rule = POLICY_GOV2_KEYWORD_RULES.find((r) => r.style === style && hasAny(text, r.terms));
@@ -3432,8 +3438,22 @@ function slideVisualPool(slide: Slide, cards: PptCard[]) {
   const allVisuals = slideLevelVisuals
     .concat(cards.flatMap((card) => pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${courseMarker}`)))
     .filter((src, index, all) => all.indexOf(src) === index)
-    .slice(0, 6);
-  return allVisuals.length >= Math.min(cards.length, 3) ? allVisuals : fallbackVisualPool;
+    .slice(0, Math.max(6, cards.length));
+  if (allVisuals.length < Math.min(cards.length, 3)) return fallbackVisualPool;
+  // Keyword matching can dedupe down to fewer distinct icons than the slide
+  // has cards (several cards naming the same concept, or their hash-cycled
+  // fallbacks colliding). The per-card consumers then wrap
+  // `visualPool[index % visualPool.length]` and, once every entry is taken,
+  // hand a later card a repeat of an earlier one. Pad with distinct entries
+  // from the course's own fallback pool so there is always at least one
+  // unused icon per card -- keeps the on-topic matches, kills the repeats.
+  if (allVisuals.length < cards.length) {
+    for (const src of fallbackVisualPool) {
+      if (allVisuals.length >= cards.length) break;
+      if (!allVisuals.includes(src)) allVisuals.push(src);
+    }
+  }
+  return allVisuals;
 }
 
 function PptMotionVisualScene({
