@@ -1643,18 +1643,18 @@ function IntroMotionScene({
     'hta10-u5-welcome': '/assets/visual-library/icon-hta10-id-card-people.svg',
   };
   const isCourse11Course = slide.id.startsWith('ce11');
-  // course/11 (الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة) -- pending
-  // client approval of the narration script. Each unit welcome gets a real
-  // icon extracted from the client's own two source PDFs (guide-images /
-  // deck-images under course11-assets/), not a generic reuse from another
-  // course's pool.
+  // course/11 (الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة) uses one
+  // purpose-built generated icon family. The previous extracted source
+  // images mixed faint line art, low-resolution clipart, and several visual
+  // styles; the new transparent emerald/gold emblems keep every welcome
+  // screen crisp and readable on the light program canvas.
   const course11HeroByUnit: Record<string, string> = {
-    'ce11-welcome': '/assets/visual-library/ce-welcome-inspection-shield.webp',
-    'ce11-u1-welcome': '/assets/visual-library/ce-u1-ethics-scale.webp',
-    'ce11-u2-welcome': '/assets/visual-library/ce-u2-risk-magnifier.webp',
-    'ce11-u3-welcome': '/assets/visual-library/ce-u3-audit-checklist.webp',
-    'ce11-u4-welcome': '/assets/visual-library/ce-u4-enforcement-target.webp',
-    'ce11-u5-welcome': '/assets/visual-library/ce-u5-policy-document.webp',
+    'ce11-welcome': CE11('shield-check'),
+    'ce11-u1-welcome': CE11('balance'),
+    'ce11-u2-welcome': CE11('analysis'),
+    'ce11-u3-welcome': CE11('doc-search'),
+    'ce11-u4-welcome': CE11('transition'),
+    'ce11-u5-welcome': CE11('book'),
   };
   const introHeroSrc = isLicensingCourse
     ? (licensingHeroByUnit[slide.id] ?? '/assets/visual-library/intro-licensing-training-scene.webp')
@@ -1673,7 +1673,7 @@ function IntroMotionScene({
                 : isCourse10Course
                   ? (course10HeroByUnit[slide.id] ?? '/assets/visual-library/icon-kpi-dashboard.webp')
                   : isCourse11Course
-                    ? (course11HeroByUnit[slide.id] ?? '/assets/visual-library/ce-welcome-inspection-shield.webp')
+                    ? (course11HeroByUnit[slide.id] ?? CE11('shield-check'))
                     : isEmergencyCourse
                   ? '/assets/visual-library/intro-emergency-preparedness-shield.webp?v=4'
                   : isCourse1Course
@@ -1743,7 +1743,9 @@ function IntroMotionScene({
             touching the reveal-order array. Emergency slides instead need
             strict chapter-1-to-4 left-to-right order, so they skip that
             reorder entirely. */}
-        {pillars.map((pillar, index) => {
+        {(() => {
+          const usedCourse11PillarVisuals = new Set<string>(isCourse11Course ? [introHeroSrc] : []);
+          return pillars.map((pillar, index) => {
           const shown = index < visiblePillars;
           const active = started && !narrationComplete && index === activeIndex;
           const isFivePillar = pillars.length > 4;
@@ -1766,6 +1768,16 @@ function IntroMotionScene({
                   ? 'text-[12px] leading-[1.12]'
                   : 'text-[14px] leading-[1.12]';
           const visualOrder = isEmergencyCourse ? index : index < 3 ? [1, 2, 0][index] : index;
+          const course11PillarCandidates = isCourse11Course
+            ? uniqueVisualCandidates([
+                ...pptGeneratedVisualLayersFor(`${pillar.label} ${pillar.detail}${policyGov2Marker(slide.id)}`),
+                ...POLICY_GOV2_ICON_POOL_CE11,
+              ])
+            : [];
+          const course11PillarVisual = isCourse11Course
+            ? course11PillarCandidates.find((src) => !usedCourse11PillarVisuals.has(src)) ?? course11PillarCandidates[0]
+            : null;
+          if (course11PillarVisual) usedCourse11PillarVisuals.add(course11PillarVisual);
           return (
             <div
               key={`intro-label-${pillar.label}`}
@@ -1783,14 +1795,23 @@ function IntroMotionScene({
                 transitionDelay: shown ? `${index * 80}ms` : '0ms',
               }}
             >
-              <span className={`mx-auto mb-1.5 grid place-items-center rounded-xl bg-white p-1 shadow-sm ${isFivePillar ? 'h-7 w-7' : 'h-9 w-9'}`}>
-                <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
+              <span className={`mx-auto mb-1.5 grid place-items-center rounded-xl bg-white shadow-sm ${
+                isCourse11Course
+                  ? isFivePillar ? 'h-12 w-12 p-0.5' : 'h-14 w-14 p-1'
+                  : isFivePillar ? 'h-7 w-7 p-1' : 'h-9 w-9 p-1'
+              }`}>
+                {course11PillarVisual ? (
+                  <img src={course11PillarVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                ) : (
+                  <CourseGlyph kind={courseGlyphKind(`${pillar.label} ${pillar.detail}`)} compact />
+                )}
               </span>
               <p className={`${isLicensingCourse && pillars.length === 3 ? licensingLabelSize : isFivePillar ? 'text-[10.5px] leading-[1.1]' : pillars.length > 3 ? 'text-[12px]' : pillars.length === 3 ? genericThreePillarLabelSize : 'text-[14px]'} w-full text-center font-black`}>{pillar.label}</p>
               <p className={`mt-1 ${isLicensingCourse && pillars.length === 3 ? 'text-[12px]' : isFivePillar ? 'text-[9px] leading-[1.1]' : pillars.length > 3 ? 'text-[10px]' : 'text-[11px]'} w-full text-center font-extrabold leading-snug text-ink`}>{pillar.detail}</p>
             </div>
           );
-        })}
+        });
+        })()}
         </div>
       </div>
 
@@ -2432,22 +2453,44 @@ const POLICY_GOV2_ICON_POOL_HTA10 = [
   '/assets/visual-library/icon-hta10-gear-monitor.svg',
   '/assets/visual-library/icon-hta10-eye-magnifier.svg',
 ];
-// course/11's own icon family -- one hand-drawn set (icon-ce11-*.svg: green
-// line art, pale-mint disc, one stroke weight) so a shot never mixes styles.
-// The earlier pass reused a grab-bag from the rich/flat/hta10 pools, which
-// put a flat webp, a detailed 3D illustration and a lone SVG side by side in
-// the same slide, and -- with only 7 entries -- forced 6-card slides to
-// repeat an icon (u2-protocols, u4-secretariat, u4-decision each showed one
-// icon twice). 22 distinct icons now: more than any ce11 slide has cards, so
-// the dedupe in slideVisualPool's consumers never has to fall back to a
-// repeat. Used both as the "no keyword match" cycling pool and (via the
-// keyword rules below) as the exact-concept match set.
-const CE11 = (name: string) => `/assets/visual-library/icon-ce11-${name}.svg`;
+// course/11's own generated icon family: 22 transparent, bold flat pictograms in
+// one emerald/gold/ivory visual language. The pool is larger than the densest
+// course/11 shot, so consumers can reserve one distinct asset per visible
+// concept and never repeat the same icon in a single frame.
+const CE11_GENERATED_ICON_BASE = '/assets/visual-library/course11-icons';
+const CE11_GENERATED_ICON_BY_NAME: Record<string, string> = {
+  analysis: 'ce11-risk-analysis-flat-v3.webp',
+  balance: 'ce11-balance-flat-v3.webp',
+  'bar-chart': 'ce11-performance-chart-flat-v3.webp',
+  book: 'ce11-policy-book-flat-v3.webp',
+  building: 'ce11-regulatory-building-flat-v3.webp',
+  bulb: 'ce11-insight-bulb-flat-v3.webp',
+  chat: 'ce11-complaint-classification-flat-v3.webp',
+  'clipboard-check': 'ce11-clipboard-check-flat-v3.webp',
+  cycle: 'ce11-risk-cycle-flat-v3.webp',
+  'doc-search': 'ce11-document-audit-flat-v3.webp',
+  flag: 'ce11-compliance-flag-flat-v3.webp',
+  'folder-lock': 'ce11-secure-evidence-folder-flat-v3.webp',
+  gavel: 'ce11-evidence-gavel-flat-v3.webp',
+  gears: 'ce11-process-gear-flat-v3.webp',
+  grid: 'ce11-sampling-grid-flat-v3.webp',
+  handshake: 'ce11-stakeholder-handshake-flat-v3.webp',
+  people: 'ce11-stakeholder-network-flat-v3.webp',
+  report: 'ce11-regulatory-report-flat-v3.webp',
+  'shield-check': 'ce11-inspection-clipboard-flat-v3.webp',
+  target: 'ce11-target-flat-v3.webp',
+  transition: 'ce11-enforcement-transition-flat-v3.webp',
+  warning: 'ce11-early-warning-flat-v3.webp',
+};
+const CE11 = (name: string) =>
+  `${CE11_GENERATED_ICON_BASE}/${CE11_GENERATED_ICON_BY_NAME[name] ?? CE11_GENERATED_ICON_BY_NAME['shield-check']}`;
 const POLICY_GOV2_ICON_POOL_CE11 = [
   CE11('balance'), CE11('shield-check'), CE11('clipboard-check'), CE11('gears'),
   CE11('people'), CE11('target'), CE11('bulb'), CE11('folder-lock'),
   CE11('flag'), CE11('building'), CE11('book'), CE11('doc-search'),
   CE11('report'), CE11('bar-chart'), CE11('cycle'), CE11('grid'),
+  CE11('analysis'), CE11('chat'), CE11('gavel'), CE11('handshake'),
+  CE11('transition'), CE11('warning'),
 ];
 type PolicyGov2Style = 'rich' | 'flat' | 'hta10' | 'ce11';
 function policyGov2StyleFor(slideId: string): PolicyGov2Style {
@@ -2755,33 +2798,11 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'flat', icon: '/assets/visual-library/icon-policy-institution-shield.webp', terms: ['أمان', 'حماية', 'ضمان', 'موثوقية', 'مخاطر', 'خطر', 'أمن'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-document-check-light.webp', terms: ['مستند', 'وثيقة', 'تحقق', 'مطابقة', 'مطابق', 'تحقق من'] },
   { style: 'flat', icon: '/assets/visual-library/icon-policy-presentation-plan.webp', terms: ['عرض', 'تقديم', 'تخطيط', 'استراتيجية', 'خطة', 'خطط'] },
-  // course/11 (الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة) -- real
-  // infographics pulled from the client's own Aug/Sep 2026 revised trainer
-  // guide (the same source that already grounds this course's narration),
-  // one per concept they're diagrams of. Matched on each target slide's own
-  // TITLE rather than a narration excerpt: titles are short, always passed
-  // through in full (unlike narration, which the caller truncates to its
-  // first 200 characters), and specific enough here that none of them also
-  // appears as a passing topic name-drop inside another slide's narration.
-  // 'التحليل وتقييم المخاطر' (ce11-u2-analysis) and 'الفحص والتدقيق
-  // التنظيمي' (ce11-u3-inspection-audit), 'متى ننتقل من الرقابة إلى
-  // الإنفاذ؟' (ce11-u4-transition), and 'صياغة وتطوير السياسات الصحية'
-  // (ce11-u5-policy) all use the pptTimeline layout, which -- unlike
-  // pptSixCards/pptThreeColumns/pptTwoPanels -- has no image slot at all on
-  // this platform (true for every course, not just this one), so a rule
-  // keyed to only that title would never actually render anywhere. Each
-  // rule below carries a second term pulled from that same slide's own
-  // *goals-card* text instead (a pptSixCards slide, which does render
-  // images), so the image still surfaces right next to the matching idea.
-  //
-  // These rules deliberately do NOT point at the 11 real ce11-*.webp
-  // infographics extracted from the guide (see POLICY_GOV2_ICON_POOL_CE11's
-  // own comment) -- every content-slide layout on this platform (pptSixCards
-  // circles, pptThreeColumns squares, pptTwoPanels icons) renders per-card
-  // images at the same small icon size as everywhere else, with no "large
-  // hero" surface outside the welcome/pptIntro slides. Every icon below is
-  // from course/11's own icon-ce11-*.svg family (see POLICY_GOV2_ICON_POOL_CE11)
-  // so a keyword-matched card and its pool-matched neighbours read as one set.
+  // course/11's generated flat icon family. Match the short, exact slide
+  // titles and their authored card phrases to the most meaningful emblem;
+  // Timeline, Matrix, Spotlight, card, activity, quiz, and closing renderers
+  // all consume the same mapping, so no layout falls back to the old mixed
+  // infographic/line-glyph library.
   // Slide-title terms first, then the per-card phrases for the slides whose
   // card labels would otherwise all fall through to positional cycling.
   { style: 'ce11', icon: CE11('analysis'), terms: ['التحليل وتقييم المخاطر', 'تطبيق خطوات تحليل المخاطر الأربع'] },
@@ -2799,7 +2820,7 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   // multi-card slides whose short labels were repeating a pool icon before.
   // ce11-u2-protocols (6 cards) and ce11-u4-decision (5 cards) get one
   // distinct family icon per card here; every other multi-card slide's
-  // labels fall through to positional pool cycling, which -- with 16 icons
+  // labels fall through to positional pool cycling, which -- with 22 icons
   // vs a 6-card maximum -- is already collision-free.
   { style: 'ce11', icon: CE11('target'), terms: ['أهداف واضحة ومحددة للتفتيش'] },
   { style: 'ce11', icon: CE11('balance'), terms: ['معايير تقييم موضوعية', 'تحليل موضوعي'] },
@@ -3146,7 +3167,11 @@ function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boo
   const displayTitle = slide.ppt?.unitTitle ?? slide.title;
   const glyphKind = courseGlyphKind(`${displayTitle} ${slide.ppt?.subtitle ?? ''} ${slide.ppt?.courseName ?? ''}`);
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
-  const brandIcon = showVisual && isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
+  // course/11 cards already carry the generated icon that explains the
+  // visible concept. Suppressing the generic title glyph prevents a second,
+  // unrelated icon language (and a perceived duplicate) in the same shot.
+  const effectiveShowVisual = showVisual && !slide.id.startsWith('ce11');
+  const brandIcon = effectiveShowVisual && isEmergencySlide ? sharedBrandIconFor(`${displayTitle} ${slide.narration}`, slide.index) : null;
   return (
     <div className="mb-4 text-center">
       {slide.ppt?.eyebrow && (
@@ -3162,8 +3187,8 @@ function PptTitle({ slide, showVisual = true }: { slide: Slide; showVisual?: boo
           {slide.ppt.subtitle}
         </p>
       )}
-      <h2 className={`inline-flex items-center justify-center text-[36px] font-extrabold leading-tight text-brand-strong ${showVisual ? 'gap-3' : ''}`}>
-        {showVisual && (
+      <h2 className={`inline-flex items-center justify-center text-[36px] font-extrabold leading-tight text-brand-strong ${effectiveShowVisual ? 'gap-3' : ''}`}>
+        {effectiveShowVisual && (
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-700/16 bg-white/80 p-1.5 shadow-sm">
             {brandIcon ? (
               <BrandIcon src={brandIcon} tone="primary" className="h-full w-full drop-shadow-[0_8px_10px_rgb(24_82_55_/_0.12)]" />
@@ -3196,6 +3221,7 @@ function PptCardView({
   emergencyHint = false,
   isCourse1 = false,
   policyGov2CardMarker = '',
+  visualOverride,
 }: {
   card: PptCard;
   dense?: boolean;
@@ -3219,6 +3245,9 @@ function PptCardView({
    *  style bucket (rich or flat) this string names, instead of bag 1's
    *  old AI-generated scene images -- see POLICY_GOV2_ICON_POOL_RICH/FLAT. */
   policyGov2CardMarker?: string;
+  /** Pre-reserved visual for layouts that render several course/11 cards in
+   *  one frame. This lets the parent guarantee per-shot uniqueness. */
+  visualOverride?: string;
 }) {
   void emoji;
   const tone = card.tone ?? 'green';
@@ -3287,6 +3316,8 @@ function PptCardView({
   const showAnswerDetail = reveal && Boolean(card.answer);
   const showTrainingDetail = reveal && Boolean(detail) && !card.answer;
   const visualLayers = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${emergencyHint ? ' __bag2__' : policyGov2CardMarker}`);
+  const primaryVisual = visualOverride ?? visualLayers[0];
+  const isCourse11Card = policyGov2CardMarker.includes(':ce11');
   const brandIcon = emergencyHint ? sharedBrandIconFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}`, Number(card.index ?? 0)) : null;
 
   return (
@@ -3308,18 +3339,20 @@ function PptCardView({
         aria-hidden="true"
       />
       {active && <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_42%_22%,rgb(255_255_255_/_0.24),transparent_38%)]" />}
-      <span
-        className={`pointer-events-none absolute -left-10 -bottom-8 ${ghostVisualSize} rotate-[-10deg] opacity-[0.075] transition-opacity duration-500 ${
-          active ? 'opacity-[0.18]' : ''
-        }`}
-        aria-hidden="true"
-      >
-        {brandIcon ? (
-          <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} />
-        ) : (
-          <CourseGlyph kind={glyphKind} active={active} />
-        )}
-      </span>
+      {!isCourse11Card && (
+        <span
+          className={`pointer-events-none absolute -left-10 -bottom-8 ${ghostVisualSize} rotate-[-10deg] opacity-[0.075] transition-opacity duration-500 ${
+            active ? 'opacity-[0.18]' : ''
+          }`}
+          aria-hidden="true"
+        >
+          {brandIcon ? (
+            <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, Number(card.index ?? 0))}`} />
+          ) : (
+            <CourseGlyph kind={glyphKind} active={active} />
+          )}
+        </span>
+      )}
       <span
         className={`pointer-events-none absolute right-5 top-5 h-3 w-14 rounded-full ${accentTone} opacity-80`}
         aria-hidden="true"
@@ -3339,9 +3372,9 @@ function PptCardView({
                 <CourseGlyph kind={glyphKind} active={active} compact />
               </span>
             ) : (
-              visualLayers[0] && (
+              primaryVisual && (
                 <img
-                  src={visualLayers[0]}
+                  src={primaryVisual}
                   alt=""
                   className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_14px_18px_rgb(24_82_55_/_0.16)] ${active ? activeVisualAnimationFor(`${card.title} ${card.text ?? ''}`, Number(card.index ?? 0)) : 'animate-float'}`}
                   loading="lazy"
@@ -3894,8 +3927,10 @@ function PptTimelineScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isCourse11Slide = slide.id.startsWith('ce11');
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
-  const primaryVisual = slideVisualPool(slide, cards)[0];
+  const timelineVisualPool = slideVisualPool(slide, cards);
+  const primaryVisual = timelineVisualPool[0];
   // A single-card act's one step already carries its own icon badge below
   // -- the floating illustration above it just duplicates that, and for
   // course/2 in particular reads as a mismatched stock photo rather than
@@ -3913,6 +3948,7 @@ function PptTimelineScene({
   const denseEmergencyTimeline = isEmergencySlide && cards.length >= 5;
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
+  const usedCourse11Visuals = new Set<string>();
   return (
     <div className={`relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-visible px-2 py-2 ${denseEmergencyTimeline ? 'gap-3' : 'gap-5'}`}>
       {/* Centered with a fixed negative margin instead of -translate-x-1/2:
@@ -3942,6 +3978,17 @@ function PptTimelineScene({
           const detail = pptDetailFor(card, isEmergencySlide);
           const showDetail = expandedKey === `${slide.id}:${index}` && Boolean(detail);
           const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
+          const course11VisualCandidates = isCourse11Slide
+            ? uniqueVisualCandidates([
+                ...pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''}${policyGov2Marker(slide.id)}`),
+                ...timelineVisualPool,
+                ...POLICY_GOV2_ICON_POOL_CE11,
+              ])
+            : [];
+          const course11Visual = isCourse11Slide
+            ? course11VisualCandidates.find((src) => !usedCourse11Visuals.has(src)) ?? course11VisualCandidates[0]
+            : null;
+          if (course11Visual) usedCourse11Visuals.add(course11Visual);
           const singleTimelineSummary = cards.length === 1 ? pptSummaryFor(card) : undefined;
           return (
             <div key={index} className="flex items-start">
@@ -3978,7 +4025,17 @@ function PptTimelineScene({
                         : 'border-white bg-white text-green-800 ring-1 ring-green-700/16'
                     }`}
                   >
-                  {brandIcon ? (
+                  {course11Visual ? (
+                    <span className="grid h-[82%] w-[82%] place-items-center rounded-full bg-white p-1 shadow-sm">
+                      <img
+                        src={course11Visual}
+                        alt=""
+                        className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </span>
+                  ) : brandIcon ? (
                     <BrandIcon src={brandIcon} tone={active ? 'white' : 'primary'} className={`h-[68%] w-[68%] ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
                   ) : (
                     // Never the raw step number here -- an icon reads as
@@ -4219,6 +4276,7 @@ function PptSpotlightScene({
   const { isPlaying: narrationLocked } = useNarrationContext();
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
+  const isCourse11Slide = slide.id.startsWith('ce11');
   const isPolicyGov2Slide = slide.id.startsWith('policy') || slide.id.startsWith('gov2') || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9') || slide.id.startsWith('hta10') || slide.id.startsWith('ce11');
   const focusIndex = activeCard >= 0 ? activeCard : 0;
   const focusCard = cards[focusIndex];
@@ -4228,8 +4286,10 @@ function PptSpotlightScene({
   const focusDetail = pptDetailFor(focusCard, isEmergencySlide);
   const showFocusDetail = focusActive && Boolean(focusDetail);
   const primaryVisual = slideVisualPool(slide, cards)[0];
+  const focusGeneratedVisual = isCourse11Slide ? primaryVisual : null;
   const usedBrandIcons = new Set<string>();
   const usedGlyphKinds = new Set<CourseGlyphKind>();
+  const usedCourse11Visuals = new Set<string>(focusGeneratedVisual ? [focusGeneratedVisual] : []);
   const focusBrandIcon = isEmergencySlide ? sharedBrandIconFor(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex, usedBrandIcons) : null;
   // policy/gov2/perf/qual/econ8/econ9 have no brand-icon set (focusBrandIcon
   // is always null for them), so their focus card's own center badge always
@@ -4415,7 +4475,9 @@ function PptSpotlightScene({
           <span className="absolute inset-0 rounded-full border-[3px] border-dashed border-green-500/35" />
           <span className="absolute inset-7 rounded-full bg-green-50/70" />
           <span className="relative z-10 grid h-[76px] w-[76px] animate-pulse-soft place-items-center rounded-3xl bg-white p-3 shadow-card-lg">
-            {focusBrandIcon ? (
+            {focusGeneratedVisual ? (
+              <img src={focusGeneratedVisual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+            ) : focusBrandIcon ? (
               <BrandIcon src={focusBrandIcon} tone="primary" className="h-full w-full" />
             ) : (
               <CourseGlyph kind={courseGlyphKindDeduped(`${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, usedGlyphKinds)} compact />
@@ -4489,11 +4551,21 @@ function PptSpotlightScene({
           </span>
         )}
         <span
-          className={`relative z-10 mx-auto mb-2 grid place-items-center rounded-full bg-white/16 ring-2 ring-white/25 ${
-            focusBrandIcon ? 'h-12 w-12 p-2.5' : hasBulletSubcards ? 'h-14 w-14 p-2.5' : 'h-20 w-20 p-3.5'
+          className={`relative z-10 mx-auto mb-2 grid place-items-center rounded-full ring-2 ${
+            focusGeneratedVisual ? 'bg-white/95 ring-gold-400/55' : 'bg-white/16 ring-white/25'
+          } ${
+            focusGeneratedVisual ? 'h-20 w-20 p-2' : focusBrandIcon ? 'h-12 w-12 p-2.5' : hasBulletSubcards ? 'h-14 w-14 p-2.5' : 'h-20 w-20 p-3.5'
           }`}
         >
-          {focusBrandIcon ? (
+          {focusGeneratedVisual ? (
+            <img
+              src={focusGeneratedVisual}
+              alt=""
+              className={`h-full w-full object-contain ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : focusBrandIcon ? (
             <BrandIcon src={focusBrandIcon} tone="white" className={`h-full w-full ${activeVisualClass(focusVisible, `${focusCard?.title ?? ''} ${focusCard?.text ?? ''}`, focusIndex)}`} />
           ) : (
             // Non-emergency (course/1) focus card has no brand-icon set, so it
@@ -4559,6 +4631,16 @@ function PptSpotlightScene({
             const dense = focusCard!.bullets!.length >= 5;
             const bulletGlyphKind = courseGlyphKindDeduped(bullet, usedGlyphKinds);
             const bulletBrandIcon = isEmergencySlide ? sharedBrandIconFor(bullet, i, usedBrandIcons) : null;
+            const bulletVisualCandidates = isCourse11Slide
+              ? uniqueVisualCandidates([
+                  ...pptGeneratedVisualLayersFor(`${bullet}${policyGov2Marker(slide.id)}`),
+                  ...POLICY_GOV2_ICON_POOL_CE11,
+                ])
+              : [];
+            const bulletVisual = isCourse11Slide
+              ? bulletVisualCandidates.find((src) => !usedCourse11Visuals.has(src)) ?? bulletVisualCandidates[0]
+              : null;
+            if (bulletVisual) usedCourse11Visuals.add(bulletVisual);
             const visible = bulletVisible(i);
             const isActiveBullet = i === activeBulletIndex;
             return (
@@ -4578,7 +4660,9 @@ function PptSpotlightScene({
                   }`}
                   aria-hidden="true"
                 >
-                  {bulletBrandIcon ? (
+                  {bulletVisual ? (
+                    <img src={bulletVisual} alt="" className={`h-full w-full object-contain ${isActiveBullet ? 'subcard-active-icon' : ''}`} loading="lazy" decoding="async" />
+                  ) : bulletBrandIcon ? (
                     <BrandIcon src={bulletBrandIcon} tone="primary" className={`h-full w-full ${isActiveBullet ? 'subcard-active-icon' : ''}`} />
                   ) : (
                     <CourseGlyph kind={bulletGlyphKind} active={isActiveBullet} compact className={isActiveBullet ? 'subcard-active-icon' : undefined} />
@@ -4597,6 +4681,16 @@ function PptSpotlightScene({
             const visible = visibleFor(index);
             const active = expandedKey === `${slide.id}:${index}`;
             const brandIcon = isEmergencySlide ? sharedBrandIconFor(`${card.title} ${card.text ?? ''}`, index, usedBrandIcons) : null;
+            const supportingVisualCandidates = isCourse11Slide
+              ? uniqueVisualCandidates([
+                  ...pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''}${policyGov2Marker(slide.id)}`),
+                  ...POLICY_GOV2_ICON_POOL_CE11,
+                ])
+              : [];
+            const supportingVisual = isCourse11Slide
+              ? supportingVisualCandidates.find((src) => !usedCourse11Visuals.has(src)) ?? supportingVisualCandidates[0]
+              : null;
+            if (supportingVisual) usedCourse11Visuals.add(supportingVisual);
             return (
               <button
                 key={index}
@@ -4615,9 +4709,13 @@ function PptSpotlightScene({
                       : 'border-green-700/14 bg-white/75 text-brand-strong'
                 } ${course1StoryMotionClass(active && visible, isCourse1Slide, index)}`}
               >
-                {brandIcon && (
+                {(supportingVisual || brandIcon) && (
                   <span className={`mx-auto ${denseSupporting ? 'mb-1 h-10 w-10' : 'mb-2 h-14 w-14'} grid place-items-center rounded-2xl border border-green-700/10 bg-white/78 p-1 shadow-sm`} aria-hidden="true">
-                    <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
+                    {supportingVisual ? (
+                      <img src={supportingVisual} alt="" className={`h-full w-full object-contain ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} loading="lazy" decoding="async" />
+                    ) : brandIcon ? (
+                      <BrandIcon src={brandIcon} tone="primary" className={`h-full w-full ${activeVisualClass(active, `${card.title} ${card.text ?? ''}`, index)}`} />
+                    ) : null}
                   </span>
                 )}
                 <span className={`block ${denseSupporting ? 'text-[12.5px]' : 'text-[14.5px]'} font-extrabold leading-snug`}>{card.title}</span>
@@ -5347,6 +5445,8 @@ function PptStyleSlide({
   const isIntroRoadmap = slide.id === 'program-map';
   const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
+  const isCourse11Slide = slide.id.startsWith('ce11');
+  const conclusionVisualPool = isConclusion && isCourse11Slide ? slideVisualPool(slide, cards) : [];
   const isThree = activeLayout === 'pptThreeColumns';
   const isTwoPanel = activeLayout === 'pptTwoPanels';
   const motionStarted = started || spoken > 0 || showDialogue;
@@ -5722,6 +5822,7 @@ function PptStyleSlide({
                   emergencyHint={/^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency')}
                   isCourse1={isCourse1Slide}
                   policyGov2CardMarker={policyGov2Marker(slide.id)}
+                  visualOverride={conclusionVisualPool.length ? conclusionVisualPool[i % conclusionVisualPool.length] : undefined}
                   active={activeCard === i || expandedCardKey === `${slide.id}:${i}`}
                   visible={cardIsVisible(i)}
                   revealAnimation={PPT_REVEAL_ANIMS[i % PPT_REVEAL_ANIMS.length]}
@@ -5819,12 +5920,16 @@ function ActivityChip({ label, showVisual = true }: { label: string; showVisual?
   );
 }
 
-function TitleHead({ slide, showVisual = true }: { slide: Slide; showVisual?: boolean }) {
+function TitleHead({ slide, showVisual = true, visualSrc }: { slide: Slide; showVisual?: boolean; visualSrc?: string }) {
   return (
     <h2 className={`flex shrink-0 items-center text-[26px] font-extrabold leading-tight text-brand-strong animate-fade-up ${showVisual ? 'gap-2.5' : ''}`}>
       {showVisual && (
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-green-500/14 p-1.5 shadow-card">
-          <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
+          {visualSrc ? (
+            <img src={visualSrc} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+          ) : (
+            <CourseGlyph kind={courseGlyphKind(`${slide.title} ${slide.narration}`)} compact />
+          )}
         </span>
       )}
       {slide.title}
@@ -5861,8 +5966,13 @@ function QuizStorySlide({
   };
 
   const isEmergencyQuiz = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
+  const isCourse11Quiz = slide.id.startsWith('ce11');
   const showQuizVisuals = !isEmergencyQuiz || started;
-  const quizVisual = isEmergencyQuiz && started ? slideVisualPool(slide, [])[0] : undefined;
+  const quizVisual = isCourse11Quiz
+    ? slideVisualPool(slide, [])[0]
+    : isEmergencyQuiz && started
+      ? slideVisualPool(slide, [])[0]
+      : undefined;
   return (
     <StorySlideShell
       slide={slide}
@@ -5872,8 +5982,8 @@ function QuizStorySlide({
     >
       <div className="flex h-full flex-col p-5">
         <div className="flex shrink-0 items-center gap-3">
-          <TitleHead slide={slide} showVisual={showQuizVisuals} />
-          {quizVisual && (
+          <TitleHead slide={slide} showVisual={showQuizVisuals} visualSrc={isCourse11Quiz ? quizVisual : undefined} />
+          {quizVisual && !isCourse11Quiz && (
             <span className="relative h-[56px] w-[56px] shrink-0" aria-hidden="true">
               <span className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle,rgb(233_246_239_/_0.9),rgb(255_255_255_/_0))]" />
               <img src={quizVisual} alt="" className="absolute inset-0 h-full w-full object-contain visual-active-pulse" loading="lazy" decoding="async" />
@@ -5881,7 +5991,7 @@ function QuizStorySlide({
           )}
         </div>
         <div className="mt-1.5 flex min-h-0 w-full flex-1 flex-col overflow-visible animate-fade-in">
-          <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} showVisual={showQuizVisuals} />
+          <ActivityChip label={slide.activityLabel ?? 'اختبار المعرفة'} showVisual={showQuizVisuals && !isCourse11Quiz} />
           <div className="min-h-0 flex-1">
             <KnowledgeCheck
               quiz={slide.quiz!}
@@ -6069,15 +6179,60 @@ export function SlideStage({
   // Completion
   if (slide.kind === 'completion') {
     const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
+    const isCourse11Completion = slide.id.startsWith('ce11');
+    const course11CompletionHero = isCourse11Completion ? CE11('clipboard-check') : null;
+    const takeawayBlock = slide.content?.takeaways;
+    const course11TakeawayVisuals =
+      isCourse11Completion && takeawayBlock?.kind === 'points'
+        ? (() => {
+            const used = new Set<string>(course11CompletionHero ? [course11CompletionHero] : []);
+            return takeawayBlock.items.map((item) => {
+              const candidates = uniqueVisualCandidates([
+                ...pptGeneratedVisualLayersFor(`${item.title ?? ''} ${item.text ?? ''}${policyGov2Marker(slide.id)}`),
+                ...POLICY_GOV2_ICON_POOL_CE11,
+              ]);
+              const visual = candidates.find((src) => !used.has(src)) ?? candidates[0];
+              if (visual) used.add(visual);
+              return { item, visual };
+            });
+          })()
+        : null;
     return (
       <StorySlideShell slide={slide} spoken={spoken} showDialogue={showDialogue}>
         <div className="relative flex h-full flex-col items-center justify-center gap-4 p-10 pt-14 text-center">
         <div className="flex justify-center animate-scale-in">
-          <CompletionMedallion className="h-20 w-20 animate-float" />
+          {course11CompletionHero ? (
+            <span className="grid h-20 w-20 place-items-center rounded-[26px] border border-gold-500/30 bg-white p-1.5 shadow-card-lg animate-float">
+              <img src={course11CompletionHero} alt="" className="h-full w-full object-contain" loading="eager" decoding="async" />
+            </span>
+          ) : (
+            <CompletionMedallion className="h-20 w-20 animate-float" />
+          )}
         </div>
         <h2 className="text-3xl font-extrabold text-brand-strong animate-fade-up">{slide.title}</h2>
         <div className="w-full max-w-5xl animate-fade-up text-right">
-          {slide.content?.takeaways && <LessonBlockView block={slide.content.takeaways} />}
+          {course11TakeawayVisuals ? (
+            <div className="grid grid-cols-2 gap-3">
+              {course11TakeawayVisuals.map(({ item, visual }, index) => (
+                <div
+                  key={`${item.title ?? 'takeaway'}-${index}`}
+                  className="flex min-h-[82px] items-center gap-4 rounded-2xl border border-green-700/14 bg-white/94 p-3.5 shadow-card"
+                >
+                  {visual && (
+                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-gold-500/22 bg-green-50/65 p-1 shadow-sm">
+                      <img src={visual} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                    </span>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    {item.title && <p className="text-[16px] font-extrabold leading-tight text-brand-strong">{item.title}</p>}
+                    {item.text && <p className="mt-1 text-[14px] font-bold leading-snug text-ink">{item.text}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : slide.content?.takeaways ? (
+            <LessonBlockView block={slide.content.takeaways} />
+          ) : null}
         </div>
         <div className="flex items-center justify-center gap-8">
           <div className="text-center">
