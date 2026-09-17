@@ -16,6 +16,7 @@ import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
 import { activePptCardForCue, pptCardCueIndexes, pptCardRevealOffsets, scorePptCardCue } from '../../lib/pptTiming';
+import { course11IntroCues, narrationCuePosition } from '../../lib/introTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
 import { useCanvasPortal } from '../../lib/canvasScale';
@@ -1368,32 +1369,13 @@ function IntroMotionScene({
 
   const visualProgress = started ? Math.max(instantVisualProgress, peakVisualProgress) : 0;
   const narrationComplete = started && progress >= 0.985;
-  const normalizeSpeechCue = (text: string) =>
-    text
-      .normalize('NFKD')
-      .replace(/[\u064B-\u065F\u0670]/g, '')
-      .replace(/[إأآا]/g, 'ا')
-      .replace(/ى/g, 'ي')
-      .replace(/ة/g, 'ه')
-      .replace(/[^\p{L}\p{N}]+/gu, ' ')
-      .trim();
-  const normalizedNarration = normalizeSpeechCue(slide.narration);
-  const normalizedIndexRatio = slide.narration.length / Math.max(1, normalizedNarration.length);
-  const speechCuePosition = (needle: string, after = 0) => {
-    const directIndex = needle ? slide.narration.indexOf(needle, Math.max(0, after)) : -1;
-    if (directIndex >= 0) return directIndex;
-    const normalizedNeedle = normalizeSpeechCue(needle);
-    const normalizedStart = Math.max(0, Math.floor(after / Math.max(0.001, normalizedIndexRatio)));
-    const normalizedIndex = normalizedNeedle ? normalizedNarration.indexOf(normalizedNeedle, normalizedStart) : -1;
-    if (normalizedIndex >= 0) return Math.floor(normalizedIndex * normalizedIndexRatio);
-    return -1;
-  };
+  const speechCuePosition = (needle: string, after = 0) => narrationCuePosition(slide.narration, needle, after);
   const spokenPast = (needle: string, fallback: number) => {
     const position = speechCuePosition(needle);
     if (position >= 0) return started && effectiveSpoken >= position;
     return started && visualProgress >= fallback;
   };
-  const licensingPillarCues: Record<string, string[]> = {
+  const introPillarCues: Record<string, readonly string[]> = {
     'lic-u1-welcome': [
       'التحليل المنهجي للبيانات والأدلة التنظيمية',
       'إدارة وقياس مؤشرات الأداء',
@@ -1419,8 +1401,9 @@ function IntroMotionScene({
       'كيف نوثّق ما نراه في تقارير دقيقة',
       'كيف نتابع الأداء لضمان استمرار الامتثال',
     ],
+    ...course11IntroCues,
   };
-  const pillarCue = (index: number) => licensingPillarCues[slide.id]?.[index] ?? pillars[index]?.label ?? '';
+  const pillarCue = (index: number) => introPillarCues[slide.id]?.[index] ?? pillars[index]?.label ?? '';
   const isEmergencyWelcome = slide.id === 'emergency-welcome';
   // Every chapter has its own welcome/pptIntro slide (ec1-welcome,
   // ec2-welcome, ...), not just the bag-2 top-level intro -- all of them
@@ -1480,7 +1463,8 @@ function IntroMotionScene({
   // pillar (5 units) -- every other course caps at 4.
   const fifthPillarShown =
     isEmergencyCourse && pillars[4] ? spokenPast(pillarCue(4), 0.78) : false;
-  const orderedIntroSync = slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
+  const strictIntroSync = slide.id.startsWith('ce11');
+  const orderedIntroSync = strictIntroSync || slide.id.startsWith('perf') || slide.id.startsWith('qual') || slide.id.startsWith('econ8') || slide.id.startsWith('econ9');
   const orderedPillarShown = orderedIntroSync
     ? (() => {
         const fallbacks = [0.2, 0.41, 0.53, 0.65, 0.78];
@@ -1488,9 +1472,20 @@ function IntroMotionScene({
         return pillars.map((_, index) => {
           const fallback = fallbacks[index] ?? 0.78;
           const position = speechCuePosition(pillarCue(index), searchAfter);
-          const threshold = position >= 0 ? position : Math.floor(slide.narration.length * fallback);
+          // Course 11 follows the client rule literally: a card with no
+          // matching spoken phrase must wait until narration has finished;
+          // it must never fall back to an arbitrary percentage of the MP3.
+          const threshold = position >= 0
+            ? position
+            : strictIntroSync
+              ? slide.narration.length
+              : Math.floor(slide.narration.length * fallback);
           searchAfter = threshold + 1;
-          return started && (position >= 0 ? effectiveSpoken >= position : visualProgress >= fallback);
+          return started && (position >= 0
+            ? effectiveSpoken >= position
+            : strictIntroSync
+              ? narrationComplete
+              : visualProgress >= fallback);
         });
       })()
     : null;
@@ -5329,9 +5324,10 @@ function PptStyleSlide({
   const checks = slide.ppt?.checks ?? [];
   const isEmergencySlide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') || slide.id.startsWith('lic');
   const isLicensingSlide = slide.id.startsWith('lic');
+  const isCourse11Slide = slide.id.startsWith('ce11');
   const isCourse2Slide = /^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency');
   const isCourse1Slide = slide.audioKey?.endsWith('-course1') ?? false;
-  const isMotionLedSlide = isEmergencySlide || isCourse1Slide;
+  const isMotionLedSlide = isEmergencySlide || isCourse1Slide || isCourse11Slide;
   const narrationPosition = started ? spoken : 0;
   const revealCueIndexes = pptCardCueIndexes(cards, slide.narration);
   // Character-level reveal timing: several cards are routinely named in the
@@ -5341,7 +5337,7 @@ function PptStyleSlide({
   // each card's own word position instead, so a shared sentence still
   // reveals its cards one at a time, in step with Nasser actually saying
   // each one.
-  const naturalRevealOffsets = pptCardRevealOffsets(cards, slide.narration, !isLicensingSlide);
+  const naturalRevealOffsets = pptCardRevealOffsets(cards, slide.narration, !(isLicensingSlide || isCourse11Slide));
   const naturalFirstOffset = naturalRevealOffsets[0] ?? 0;
   const firstCardNeedsOpeningCue =
     (isLicensingSlide || isCourse2Slide) &&
@@ -5445,7 +5441,6 @@ function PptStyleSlide({
   const isIntroRoadmap = slide.id === 'program-map';
   const isIntroMotion = isIntro || isIntroRoadmap;
   const isConclusion = slide.layout === 'pptConclusion';
-  const isCourse11Slide = slide.id.startsWith('ce11');
   const conclusionVisualPool = isConclusion && isCourse11Slide ? slideVisualPool(slide, cards) : [];
   const isThree = activeLayout === 'pptThreeColumns';
   const isTwoPanel = activeLayout === 'pptTwoPanels';

@@ -390,7 +390,7 @@ const u2AnalysisStepsCards: PptCard[] = [
 
 const u2RiskLevelsCards: PptCard[] = [
   { index: '01', title: 'عالية جدًا', subtitle: 'تخضع لتفتيش أكثر تكرارًا وعمقًا' },
-  { index: '02', title: 'عالية', tone: 'gold' },
+  { index: '02', title: 'عالية', syncText: 'وعالية', tone: 'gold' },
   { index: '03', title: 'متوسطة' },
   { index: '04', title: 'منخفضة', tone: 'gold' },
 ];
@@ -502,8 +502,8 @@ export const ceUnitTwoSlides = indexSlides([
     visual: '🎯',
     layout: 'pptSixCards',
     cards: [
-      { index: '01', title: 'تطبيق خطوات تحليل المخاطر الأربع' },
-      { index: '02', title: 'تصنيف المنشآت حسب مستوى الخطورة', tone: 'gold' },
+      { index: '01', title: 'تطبيق خطوات تحليل المخاطر الأربع', syncText: 'تطبّق خطوات تحليل المخاطر الأربع' },
+      { index: '02', title: 'تصنيف المنشآت حسب مستوى الخطورة', syncText: 'وتصنّف المنشآت حسب مستوى الخطورة', tone: 'gold' },
       { index: '03', title: 'تصميم بروتوكول تفتيش متكامل' },
       { index: '04', title: 'اختيار أسلوب أخذ العينات وتحديد حجمها', tone: 'gold' },
     ],

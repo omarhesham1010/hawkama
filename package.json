@@ -14,6 +14,7 @@
     "audio:check": "node scripts/check-audio-files.js",
     "audio:check:strict": "node scripts/check-audio-files.js --strict",
     "test:sync": "node scripts/validate-slide-sync.js",
+    "test:course11-sync": "node scripts/validate-course11-sync.mjs",
     "dev": "npm run sync-audio && vite",
     "build": "npm run sync-audio && tsc -b && node scripts/build-static.mjs && node scripts/write-scorm-manifest.mjs",
     "build:sample": "npm run sync-audio && tsc -b && node scripts/build-static.mjs --sample && node scripts/write-scorm-manifest.mjs --sample",
