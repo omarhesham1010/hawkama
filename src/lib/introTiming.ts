@@ -38,6 +38,21 @@ export const course11IntroCues: Readonly<Record<string, readonly string[]>> = {
   ],
 };
 
+// If the browser main thread stalls long enough to cross more than one cue,
+// reveal missed Course 11 intro cards one at a time instead of popping the
+// whole backlog into view in a single frame.
+export const COURSE11_CATCH_UP_GAP_MS = 650;
+
+export function contiguousVisibleIntroCards(states: readonly boolean[]) {
+  const firstWaiting = states.findIndex((isShown) => !isShown);
+  return firstWaiting >= 0 ? firstWaiting : states.length;
+}
+
+export function advanceIntroCardSequence(current: number, target: number) {
+  if (target <= current) return target;
+  return Math.min(target, current + 1);
+}
+
 function normalizeSpeechCue(text: string) {
   return text
     .normalize('NFKD')

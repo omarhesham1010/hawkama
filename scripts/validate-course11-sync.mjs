@@ -76,6 +76,7 @@ for (const slide of slides) {
 pass(checkedCardSlides > 0, 'Course 11 contains card-led slides to validate');
 
 const slideStageSource = await readFile('src/components/player/SlideStage.tsx', 'utf8');
+const voiceSyncSource = await readFile('src/hooks/useVoiceSync.ts', 'utf8');
 pass(
   slideStageSource.includes('isMotionLedSlide = isEmergencySlide || isCourse1Slide || isCourse11Slide'),
   'Course 11 hides cards until their narration offsets are reached',
@@ -83,6 +84,22 @@ pass(
 pass(
   slideStageSource.includes('!(isLicensingSlide || isCourse11Slide)'),
   'Course 11 does not force the first card to reveal at narration start',
+);
+pass(
+  introTiming.COURSE11_CATCH_UP_GAP_MS >= 500 &&
+    slideStageSource.includes('introCatchUpRef'),
+  'Course 11 intro backlog reveals one card at a time after a stalled frame',
+);
+pass(
+  introTiming.contiguousVisibleIntroCards([true, true, true, false, true]) === 3 &&
+    introTiming.advanceIntroCardSequence(3, 5) === 4 &&
+    introTiming.advanceIntroCardSequence(4, 5) === 5,
+  'a premature card-5 signal cannot jump the intro directly from three visible cards to five',
+);
+pass(
+  voiceSyncSource.includes("}, [audioKey]);") &&
+    voiceSyncSource.includes('cue.end > spokenRef.current'),
+  'audio alignments preload before Play and the voice clock cannot skip a narration cue',
 );
 
 if (failures.length) {

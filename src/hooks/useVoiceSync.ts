@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNarrationContext } from '../components/audio/NarrationContext';
 import type { AudioAlignment } from '../data/audioAlignments';
-import { activeStoryCue, spokenFromAudioAlignment, spokenFromAudioProgress, spokenFromTtsCue } from '../lib/storyTiming';
+import { spokenFromAudioAlignment, spokenFromAudioProgress, spokenFromTtsCue, storyCues } from '../lib/storyTiming';
 
 const CPS = 10.8; // Arabic TTS fallback estimate when browsers skip word boundaries
 const NO_VOICE_FALLBACK = 10000; // ms: only simulate progress after a genuine start failure
@@ -115,15 +115,20 @@ export function useVoiceSync(
   startedAtRef.current = speechStartedAt;
 
   useEffect(() => {
-    if (!armed) return;
+    if (!audioKey) return;
     let cancelled = false;
+    // Start fetching/parsing the alignment chunk as soon as the slide is
+    // mounted, before the learner presses Play. Loading the 12MB catalog in
+    // the middle of narration can block the main thread for several seconds;
+    // when rendering resumes, the audio clock has already crossed multiple
+    // visual cues and several cards appear together.
     loadAudioAlignments().then((alignments) => {
       if (!cancelled) alignmentsRef.current = alignments;
     });
     return () => {
       cancelled = true;
     };
-  }, [armed, audioKey]);
+  }, [audioKey]);
 
   // Real voice finished (boundaries advanced) → snap to complete. Also snap
   // when narration.completedKey names THIS exact key AND a play() attempt
@@ -250,10 +255,14 @@ export function useVoiceSync(
       // shows it fully revealed; the very next tick (~16ms later) carries
       // on into the following cue as normal, so pacing is unaffected.
       if (val > spokenRef.current) {
-        const { cue: inFlightCue } = activeStoryCue(textRef.current, spokenRef.current);
-        if (inFlightCue && spokenRef.current < inFlightCue.end && val > inFlightCue.end) {
-          val = inFlightCue.end;
-        }
+        // Clamp to the next boundary strictly AFTER the current position.
+        // activeStoryCue() treats a cue end as belonging to that same cue;
+        // the previous implementation therefore stopped clamping on the
+        // following frame and could jump across an entire sentence. That is
+        // exactly how Course 11's cards 4 and 5 could catch up together after
+        // a long alignment-parse frame around card 3.
+        const nextBoundary = storyCues(textRef.current).find((cue) => cue.end > spokenRef.current)?.end;
+        if (nextBoundary != null && val > nextBoundary) val = nextBoundary;
       }
       const next = Math.min(total, Math.max(spokenRef.current, val));
       if (next !== spokenRef.current) {

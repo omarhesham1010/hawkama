@@ -16,7 +16,13 @@ import { SpeechBubble } from '../character/SpeechBubble';
 import { toArabicDigits } from '../../lib/utils';
 import { activeStoryCue, storyCues, timeFromAudioAlignment } from '../../lib/storyTiming';
 import { activePptCardForCue, pptCardCueIndexes, pptCardRevealOffsets, scorePptCardCue } from '../../lib/pptTiming';
-import { course11IntroCues, narrationCuePosition } from '../../lib/introTiming';
+import {
+  COURSE11_CATCH_UP_GAP_MS,
+  advanceIntroCardSequence,
+  contiguousVisibleIntroCards,
+  course11IntroCues,
+  narrationCuePosition,
+} from '../../lib/introTiming';
 import { useNarrationContext } from '../audio/NarrationContext';
 import { useVoiceSync } from '../../hooks/useVoiceSync';
 import { useCanvasPortal } from '../../lib/canvasScale';
@@ -1499,20 +1505,46 @@ function IntroMotionScene({
   // no "everything visible up front" state. Each flag gates both whether
   // its layer/card is shown at all AND (while it's the newest one revealed)
   // the "currently talking about this" active highlight.
-  const activeIndex = displayFifthPillarShown ? 4 : displayFourthPillarShown ? 3 : displayThirdPillarShown ? 2 : displaySecondPillarShown ? 1 : 0;
-  const visiblePillars = started
-    ? displayFifthPillarShown
-      ? 5
-      : displayFourthPillarShown
-      ? 4
-      : displayThirdPillarShown
-        ? 3
-        : displaySecondPillarShown
-          ? 2
-          : displayFirstPillarShown
-            ? 1
-            : 0
-    : 0;
+  const pillarShownStates = [
+    displayFirstPillarShown,
+    displaySecondPillarShown,
+    displayThirdPillarShown,
+    displayFourthPillarShown,
+    displayFifthPillarShown,
+  ].slice(0, pillars.length);
+  const targetVisiblePillars = started ? contiguousVisibleIntroCards(pillarShownStates) : 0;
+  const [sequencedVisiblePillars, setSequencedVisiblePillars] = useState(0);
+  const introCatchUpRef = useRef(false);
+
+  useEffect(() => {
+    setSequencedVisiblePillars(0);
+    introCatchUpRef.current = false;
+  }, [slide.id]);
+
+  useEffect(() => {
+    if (!strictIntroSync || !started) {
+      introCatchUpRef.current = false;
+      if (!started) setSequencedVisiblePillars(0);
+      return;
+    }
+    if (targetVisiblePillars <= sequencedVisiblePillars) {
+      if (targetVisiblePillars === sequencedVisiblePillars) introCatchUpRef.current = false;
+      return;
+    }
+    if (targetVisiblePillars - sequencedVisiblePillars > 1) introCatchUpRef.current = true;
+    const delay = introCatchUpRef.current ? COURSE11_CATCH_UP_GAP_MS : 0;
+    const timer = window.setTimeout(() => {
+      setSequencedVisiblePillars((previous) => {
+        const next = advanceIntroCardSequence(previous, targetVisiblePillars);
+        if (next >= targetVisiblePillars) introCatchUpRef.current = false;
+        return next;
+      });
+    }, delay);
+    return () => window.clearTimeout(timer);
+  }, [sequencedVisiblePillars, started, strictIntroSync, targetVisiblePillars]);
+
+  const visiblePillars = strictIntroSync ? sequencedVisiblePillars : targetVisiblePillars;
+  const activeIndex = Math.max(0, visiblePillars - 1);
   // Bag 2 (emergency response) welcome slides get their own themed hero
   // image instead of bag 1's governance building scene. Only one image --
   // the client wants a single, most-expressive visual here instead of a
