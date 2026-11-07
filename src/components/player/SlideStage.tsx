@@ -2888,6 +2888,7 @@ const HTA10_CARD_ICONS: Record<string, Record<string, string>> = {
     'هيئة الاتصالات والفضاء والتقنية': H10('gear-monitor'),
     'جهات تنظيمية قطاعية': H10('health-shield-hand'),
     'وزارة الصحة (الوكالة)': H10('committee-people-gear'),
+    'نشاط المصفوفة': H10('hands-heart'),
   },
   'hta10-u1-sector-policies': {
     'المفهوم': H10('document-pencil'),
