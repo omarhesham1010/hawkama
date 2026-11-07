@@ -2548,7 +2548,8 @@ function policyGov2Marker(slideId: string): string {
     )
   )
     return '';
-  return ` __policygov2:${policyGov2StyleFor(slideId)}__`;
+  const slideTag = slideId.startsWith('hta10') ? `__slide:${slideId}__` : '';
+  return ` __policygov2:${policyGov2StyleFor(slideId)}__${slideTag}`;
 }
 
 // Picking purely by hash gave every card a real (never-repeated) icon, but
@@ -2856,7 +2857,229 @@ const POLICY_GOV2_KEYWORD_RULES: Array<{ style: PolicyGov2Style; icon: string; t
   { style: 'ce11', icon: CE11('gavel'), terms: ['معايير لاتخاذ القرارات والتوصيات', 'الرجوع إلى سوابق'] },
   { style: 'ce11', icon: CE11('cycle'), terms: ['آليات لضمان الجودة والاتساق', 'الاستفادة من الخبرة'] },
 ];
+// course/10 -- explicit icon per card for the slides added in the client's
+// updated content (and unit 6). Keyed by slide id, then exact card title, so
+// a generic label like "المفهوم" or "نشاط" never leaks into another slide the
+// way the shared keyword rules below would. Within every slide the icons are
+// distinct (no repeats in one shot) and all come from the one hta10 line-icon
+// family (no style mixing). Cards not listed here keep the keyword/pool flow.
+const H10 = (name: string) => `/assets/visual-library/icon-hta10-${name}.svg`;
+const HTA10_CARD_ICONS: Record<string, Record<string, string>> = {
+  'hta10-u1-national-strategy': {
+    'تجربة المريض': H10('person-heart-hand'),
+    'النتائج السريرية': H10('clipboard-heart'),
+    'كفاءة التكلفة': H10('analytics-magnifier'),
+    'الاستراتيجية الوطنية للصحة الرقمية': H10('document-pencil'),
+    'موائمة التقنيات مع الأولويات الوطنية': H10('health-shield-hand'),
+  },
+  'hta10-u1-ministry-roles': {
+    'التحول المؤسسي': H10('committee-people-gear'),
+    'الهيكل ثلاثي الأركان': H10('id-card-people'),
+    'فروع الوزارة': H10('health-shield-hand'),
+    'الوكالة': H10('gear-monitor'),
+    'الامتثال': H10('handshake-gold'),
+    'استشراف التقنيات': H10('eye-magnifier'),
+    'دلالة ذلك للموظف': H10('gear-person'),
+  },
+  'hta10-u1-national-entities': {
+    'هيئة الحكومة الرقمية': H10('computer-shield-check'),
+    'سدايا': H10('analytics-magnifier'),
+    'الهيئة الوطنية للأمن السيبراني': H10('warning-triangle-lightning'),
+    'هيئة الاتصالات والفضاء والتقنية': H10('gear-monitor'),
+    'جهات تنظيمية قطاعية': H10('health-shield-hand'),
+    'وزارة الصحة (الوكالة)': H10('committee-people-gear'),
+  },
+  'hta10-u1-sector-policies': {
+    'المفهوم': H10('document-pencil'),
+    'من المنشأة إلى القطاع': H10('id-card-people'),
+    'أمثلة لسياسات قطاعية': H10('clipboard-heart'),
+    'دورة حياة السياسة': H10('gear-person'),
+    'مصفوفة أصحاب المصلحة': H10('committee-people-gear'),
+    'أدوات الإنفاذ': H10('document-warning'),
+    'نشاط تطبيقي': H10('hands-heart'),
+  },
+  'hta10-u1-enterprise-architecture': {
+    'البنية المؤسسية': H10('gear-monitor'),
+    'طبقاتها': H10('id-card-people'),
+    'على المستوى الوطني': H10('health-shield-hand'),
+    'المبادئ': H10('document-pencil'),
+    'أطر مرجعية': H10('computer-shield-check'),
+    'دور إدارة التقنية بالديوان': H10('committee-people-gear'),
+    'رسم معماري مبسط': H10('magnifier-gears'),
+  },
+  'hta10-u1-digital-risk-governance': {
+    'الحوكمة الرقمية': H10('handshake-green'),
+    'هيكل الحوكمة المقترح': H10('committee-people-gear'),
+    'المخاطر الرقمية القطاعية': H10('person-virus-risk'),
+    'مصفوفة المسؤوليات': H10('id-card-people'),
+    'سجل المخاطر القطاعي': H10('document-warning'),
+    'حلقة الرقابة': H10('gear-person'),
+    'نشاط': H10('hands-heart'),
+  },
+  'hta10-u1-strategic-indicators': {
+    'سلسلة النتائج': H10('gear-monitor'),
+    'مؤشرات تشغيلية': H10('analytics-magnifier'),
+    'مؤشرات نتائج': H10('clipboard-heart'),
+    'مؤشرات أثر استراتيجي': H10('health-shield-hand'),
+    'خصائص المؤشر الجيد': H10('eye-magnifier'),
+    'بطاقة المؤشر': H10('id-card-people'),
+    'ربط بالوكالة': H10('committee-people-gear'),
+  },
+  'hta10-u1-impact-measurement': {
+    'البعد الاقتصادي': H10('analytics-magnifier'),
+    'البعد الاجتماعي': H10('hands-heart'),
+    'البعد البيئي': H10('magnifier-gears'),
+    'أدوات القياس': H10('gear-monitor'),
+    'دراسة تطبيقية: مستشفى صحة الافتراضي': H10('computer-shield-check'),
+    'مصفوفة الأثر': H10('document-pencil'),
+    'نشاط تحليلي': H10('clipboard-heart'),
+  },
+  'hta10-u2-platform-exchange': {
+    'لماذا التبادل؟': H10('gear-person'),
+    'المنصات الوطنية الرئيسية': H10('computer-shield-check'),
+    'أنماط التبادل': H10('gear-monitor'),
+    'رحلة البيانات': H10('magnifier-gears'),
+    'مكونات طبقة التبادل': H10('id-card-people'),
+    'دور الوكالة': H10('committee-people-gear'),
+    'مثال عملي وورشة': H10('hands-heart'),
+  },
+  'hta10-u2-access-management': {
+    'المبدأ': H10('document-pencil'),
+    'نماذج التحكم': H10('id-card-people'),
+    'حوكمة أصول البيانات': H10('clipboard-heart'),
+    'دورة حياة الصلاحيات': H10('gear-person'),
+    'ضوابط تقنية': H10('computer-shield-check'),
+    'ثلاثة سيناريوهات': H10('eye-magnifier'),
+  },
+  'hta10-u3-api-integration': {
+    'الواجهة البرمجية': H10('gear-monitor'),
+    'الأنماط': H10('document-pencil'),
+    'بوابة الواجهات': H10('computer-shield-check'),
+    'إدارة دورة حياة الواجهة': H10('gear-person'),
+    'أمثلة تطبيقية': H10('clipboard-heart'),
+    'دور الوكالة': H10('committee-people-gear'),
+  },
+  'hta10-u3-fhir-case': {
+    'التأهيل': H10('id-card-people'),
+    'النمذجة': H10('document-pencil'),
+    'الأمن': H10('computer-shield-check'),
+    'الاختبار': H10('magnifier-gears'),
+    'الإطلاق والمراقبة': H10('analytics-magnifier'),
+    'أسئلة للتحليل': H10('eye-magnifier'),
+    'ورشة': H10('hands-heart'),
+  },
+  'hta10-u4-ministry-infosec': {
+    'ما المقصود': H10('document-pencil'),
+    'تمييز الأدوار': H10('committee-people-gear'),
+    'الأصول الحرجة بالديوان': H10('document-warning'),
+    'المسؤوليات': H10('id-card-people'),
+    'الضوابط المطبقة': H10('computer-shield-check'),
+    'أمثلة عملية': H10('clipboard-heart'),
+    'الأمن في تصميم المنصات القطاعية': H10('gear-monitor'),
+    'ملاحظة': H10('eye-magnifier'),
+  },
+  'hta10-u4-digital-risk-governance': {
+    'اختراقات البيانات': H10('person-virus-risk'),
+    'واجب الإبلاغ': H10('document-warning'),
+    'أصول المعلومات': H10('id-card-people'),
+    'بوابات المرضى الإلكترونية': H10('computer-shield-check'),
+    'ضوابط البوابات': H10('gear-monitor'),
+    'ما يخص الوكالة': H10('committee-people-gear'),
+    'حلقة الحوكمة': H10('gear-person'),
+    'نشاط': H10('hands-heart'),
+  },
+  'hta10-u6-goals': {
+    'شرح فرص الذكاء الاصطناعي ومخاطره وحوكمته': H10('computer-shield-check'),
+    'تمييز تطبيقات الروبوتات والواقع الافتراضي والمعزز': H10('gear-monitor'),
+    'وصف المستشفى الذكي وتحليل التجارب الوطنية': H10('health-shield-hand'),
+  },
+  'hta10-u6-ai-opportunities': {
+    'المفهوم': H10('computer-shield-check'),
+    'الفرص السريرية': H10('clipboard-heart'),
+    'الفرص التشغيلية': H10('gear-monitor'),
+    'الفرص التنظيمية': H10('committee-people-gear'),
+    'تجارب سعودية': H10('health-shield-hand'),
+    'الأطر الوطنية': H10('document-pencil'),
+    'متطلبات النجاح': H10('analytics-magnifier'),
+  },
+  'hta10-u6-ai-governance': {
+    'المخاطر': H10('person-virus-risk'),
+    'مخاطر تنظيمية': H10('document-warning'),
+    'مبادئ الحوكمة': H10('handshake-green'),
+    'دورة حياة النموذج': H10('gear-person'),
+    'أداة تقييم الملاءمة': H10('eye-magnifier'),
+    'مثال تطبيقي': H10('clipboard-heart'),
+    'دور الوكالة': H10('committee-people-gear'),
+  },
+  'hta10-u6-robotics': {
+    'التصنيف': H10('id-card-people'),
+    'الفوائد': H10('person-heart-hand'),
+    'القيود': H10('prohibited-banned'),
+    'حالة استخدام 1': H10('clipboard-heart'),
+    'حالة استخدام 2': H10('computer-shield-check'),
+    'تقييم الملاءمة': H10('eye-magnifier'),
+    'الدور التنظيمي': H10('committee-people-gear'),
+  },
+  'hta10-u6-xr': {
+    'التعريف': H10('document-pencil'),
+    'التدريب والمحاكاة': H10('gear-person'),
+    'التخطيط الجراحي والتصور': H10('magnifier-gears'),
+    'العلاج': H10('hands-heart'),
+    'تجربة المستفيد': H10('person-heart-hand'),
+    'المتطلبات والقيود': H10('prohibited-banned'),
+    'تقييم الملاءمة': H10('eye-magnifier'),
+  },
+  'hta10-u6-smart-concept': {
+    'المفهوم': H10('document-pencil'),
+    'الركائز': H10('health-shield-hand'),
+    'المكونات التقنية': H10('gear-monitor'),
+    'الخدمات الذكية': H10('person-heart-hand'),
+    'النضج': H10('analytics-magnifier'),
+    'التحديات': H10('warning-triangle-lightning'),
+    'الدور التنظيمي للوزارة': H10('committee-people-gear'),
+  },
+  'hta10-u6-smart-case': {
+    'التقنيات الممكّنة': H10('computer-shield-check'),
+    'الرعاية الافتراضية': H10('gear-monitor'),
+    'نموذج الأثر': H10('analytics-magnifier'),
+    'مبادرات مكملة': H10('hands-heart'),
+    'رحلة مريض في مستشفى ذكي': H10('person-heart-hand'),
+    'ما ينبغي أن تحكمه الوزارة': H10('committee-people-gear'),
+    'أسئلة تحليلية': H10('eye-magnifier'),
+  },
+  'hta10-u6-applied-models': {
+    'صحتي': H10('person-heart-hand'),
+    'نفيس': H10('id-card-people'),
+    'المستشفى الافتراضي': H10('computer-shield-check'),
+    'الملف الصحي الموحد': H10('clipboard-heart'),
+    'دروس مستفادة': H10('document-pencil'),
+    'نشاط تحليلي': H10('eye-magnifier'),
+  },
+  'hta10-u6-case-study': {
+    'المشكلة والفئة': H10('magnifier-gears'),
+    'الحوكمة': H10('committee-people-gear'),
+    'البنية والبيانات': H10('gear-monitor'),
+    'الأمن والامتثال': H10('computer-shield-check'),
+    'الأثر': H10('analytics-magnifier'),
+    'الأخلاقيات والثقة': H10('handshake-green'),
+    'العرض': H10('hands-heart'),
+    'تقييم الأقران': H10('eye-magnifier'),
+  },
+};
+/** Exact icon for a card whose slide+title is listed above, else undefined. */
+function hta10ExplicitCardIcon(slideId: string, title: string): string | undefined {
+  return HTA10_CARD_ICONS[slideId]?.[title];
+}
 function policyGov2KeywordPick(text: string, style: PolicyGov2Style): string | null {
+  if (style === 'hta10') {
+    const slideId = /__slide:([^_]+)__/.exec(text)?.[1];
+    const byTitle = slideId ? HTA10_CARD_ICONS[slideId] : undefined;
+    if (byTitle) {
+      for (const title of Object.keys(byTitle)) {
+        if (text.startsWith(`${title} `)) return byTitle[title];
+      }
+    }
+  }
   const rule = POLICY_GOV2_KEYWORD_RULES.find((r) => r.style === style && hasAny(text, r.terms));
   return rule?.icon ?? null;
 }
@@ -3823,7 +4046,7 @@ function PptMotionVisualScene({
         const cardMarker = policyGov2Marker(slide.id) || (/^ec[1-4]-/.test(slide.id) || slide.id.startsWith('emergency') ? ' __bag2__' : '');
         const cardVisuals = pptGeneratedVisualLayersFor(`${card.title} ${card.text ?? ''} ${card.bullets?.join(' ') ?? ''}${cardMarker}`, visualPool[index % visualPool.length]);
         const cardVisualCandidates = uniqueVisualCandidates([
-          ...(denseMotion ? [visualPool[index % visualPool.length]] : cardVisuals),
+          ...(hta10ExplicitCardIcon(slide.id, card.title) ? [hta10ExplicitCardIcon(slide.id, card.title)!] : denseMotion ? [visualPool[index % visualPool.length]] : cardVisuals),
           ...visualPool,
           primaryVisual,
         ]);

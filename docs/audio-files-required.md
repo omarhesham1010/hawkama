@@ -1,6 +1,6 @@
 # Required Audio Files
 
-Generated from `src/data/audioScripts.ts`. Total required: **2127**.
+Generated from `src/data/audioScripts.ts`. Total required: **2185**.
 
 All files belong in `public/audio/`. Do not regenerate them unless the narration or approved voice changes and the user explicitly approves API usage.
 
@@ -542,6 +542,15 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch1-s7-icer-example.mp3` - مثال تطبيقي: قرار اعتماد دواء جديد
 - `bag10-ch1-s8-activity-3.mp3` - نشاط: قرار اعتماد التقنية
 - `bag10-ch1-s9-policy-governance.mp3` - السياسات الصحية والحوكمة الرقمية
+- `bag10-ch1-s12-national-strategy.mp3` - مواءمة التقنية مع الاستراتيجية الوطنية للصحة الرقمية
+- `bag10-ch1-s13-ministry-roles.mp3` - أدوار وزارة الصحة ووكالة الصحة الإلكترونية والتحول الرقمي
+- `bag10-ch1-s14-national-entities.mp3` - الجهات الحكومية المنظمة للتحول الرقمي وأدوارها
+- `bag10-ch1-s15-activity-4.mp3` - نشاط: تصنيف أدوار الجهات الوطنية
+- `bag10-ch1-s16-sector-policies.mp3` - السياسات الرقمية على المستوى القطاعي
+- `bag10-ch1-s17-enterprise-architecture.mp3` - البنية الهيكلية الرقمية للقطاع الصحي
+- `bag10-ch1-s18-digital-risk-governance.mp3` - الحوكمة الرقمية وإدارة المخاطر الرقمية: الربط بالمسؤوليات
+- `bag10-ch1-s19-strategic-indicators.mp3` - المؤشرات وقياس الأثر على المستوى الاستراتيجي
+- `bag10-ch1-s20-impact-measurement.mp3` - قياس أثر التحول الرقمي اقتصاديًا واجتماعيًا وبيئيًا
 - `bag10-ch1-s10-test.mp3` - اختبار الوحدة الأولى
 - `bag10-ch1-s11-closing.mp3` - ختام الوحدة الأولى
 - `bag10-ch2-s1-welcome.mp3` - المعلوماتية الصحية وإدارة البيانات
@@ -552,6 +561,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch2-s6-activity-2.mp3` - نشاط: ترتيب دورة حياة البيانات
 - `bag10-ch2-s7-governance.mp3` - حوكمة البيانات الصحية
 - `bag10-ch2-s8-activity-3.mp3` - نشاط: بطاقات أدوار حوكمة البيانات
+- `bag10-ch2-s20-platform-exchange.mp3` - تبادل المعلومات بين المنصات الصحية الوطنية
+- `bag10-ch2-s21-access-management.mp3` - إدارة الوصول إلى البيانات: الصلاحيات والضوابط وأصول البيانات
+- `bag10-ch2-s22-activity-4.mp3` - نشاط: صواب أم خطأ حول إدارة الوصول
 - `bag10-ch2-s9-test.mp3` - اختبار الوحدة الثانية
 - `bag10-ch2-s10-closing.mp3` - ختام الوحدة الثانية
 - `bag10-ch3-s1-welcome.mp3` - التشغيل البيني والمعايير الصحية
@@ -561,6 +573,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch3-s5-standards.mp3` - أشهر معايير الرعاية الصحية
 - `bag10-ch3-s6-activity-2.mp3` - نشاط: تصنيف معايير الرعاية الصحية
 - `bag10-ch3-s7-value-design.mp3` - القيمة الاقتصادية للتقنيات وتصميم الحلول الرقمية
+- `bag10-ch3-s20-api-integration.mp3` - الاتصال المباشر بين التطبيقات: واجهات برمجة التطبيقات والتشغيل البيني
+- `bag10-ch3-s21-fhir-case.mp3` - حالة تطبيقية: ربط نظام مستشفى بمنصة وطنية عبر FHIR API
+- `bag10-ch3-s22-activity-3.mp3` - نشاط: ترتيب خطوات الربط عبر فاير
 - `bag10-ch3-s8-test.mp3` - اختبار الوحدة الثالثة
 - `bag10-ch3-s9-closing.mp3` - ختام الوحدة الثالثة
 - `bag10-ch4-s1-welcome.mp3` - الأمن السيبراني والخصوصية والثقة
@@ -571,6 +586,9 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch4-s6-activity-2.mp3` - نشاط: ترتيب مراحل إدارة الحوادث
 - `bag10-ch4-s7-compliance.mp3` - الامتثال والحوكمة والمخاطر
 - `bag10-ch4-s8-activity-3.mp3` - نشاط: التعامل مع حادثة تصيّد احتيالي
+- `bag10-ch4-s20-ministry-infosec.mp3` - أمن المعلومات في ديوان الوزارة: النطاق والمسؤوليات
+- `bag10-ch4-s21-digital-risk-governance.mp3` - الحوكمة الرقمية للمخاطر: اختراقات البيانات، أصول المعلومات، وبوابات المرضى
+- `bag10-ch4-s22-activity-4.mp3` - نشاط: صواب أم خطأ حول الإبلاغ عن التسرب
 - `bag10-ch4-s9-test.mp3` - اختبار الوحدة الرابعة
 - `bag10-ch4-s10-closing.mp3` - ختام الوحدة الرابعة
 - `bag10-ch5-s1-welcome.mp3` - الأطر القانونية، الأخلاقيات، والتعاون
@@ -582,6 +600,20 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s7-ethics-cooperation.mp3` - أخلاقيات استخدام التقنيات الصحية والتعاون
 - `bag10-ch5-s8-test.mp3` - اختبار الوحدة الخامسة
 - `bag10-ch5-s9-closing.mp3` - ختام الوحدة الخامسة
+- `bag10-ch6-s1-welcome.mp3` - التقنيات الناشئة والمستشفيات الذكية
+- `bag10-ch6-s1b-goals.mp3` - أهداف الوحدة السادسة
+- `bag10-ch6-s2-ai-opportunities.mp3` - الذكاء الاصطناعي في القطاع الصحي: المفاهيم والفرص
+- `bag10-ch6-s3-ai-governance.mp3` - الذكاء الاصطناعي: المخاطر والحوكمة ومثال تطبيقي
+- `bag10-ch6-s4-activity-1.mp3` - نشاط: صواب أم خطأ حول الذكاء الاصطناعي
+- `bag10-ch6-s5-robotics.mp3` - الروبوتات الطبية
+- `bag10-ch6-s6-xr.mp3` - الواقع الافتراضي والواقع المعزز في الرعاية الصحية
+- `bag10-ch6-s7-activity-1.mp3` - نشاط: تصنيف حالات استخدام التقنيات الناشئة
+- `bag10-ch6-s8-smart-concept.mp3` - المستشفيات الذكية: المفهوم والمكونات
+- `bag10-ch6-s9-smart-case.mp3` - المستشفيات الذكية: التقنيات وحالة تطبيقية
+- `bag10-ch6-s10-applied-models.mp3` - نماذج وتجارب تطبيقية وأثرها على الكفاءة وتجربة المستفيد
+- `bag10-ch6-s11-case-study.mp3` - حالة دراسية ختامية: تصميم مبادرة رقمية قطاعية
+- `bag10-ch6-s12-test.mp3` - اختبار الوحدة السادسة
+- `bag10-ch6-s13-closing.mp3` - ختام الوحدة السادسة
 - `bag10-final-s1-test.mp3` - نشاط ما بعد الدورة
 - `bag10-final-s2-closing.mp3` - رسالة الختام
 - `bag11-ch0-s1-welcome.mp3` - الرقابة والتفتيش والإنفاذ: الالتزام والمتابعة
@@ -756,15 +788,21 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag9-ch5-s8-activity-3-detail-1.mp3` - نشاط: بطاقات مواءمة السياسات بالدفع - مناقشة 1
 - `bag10-ch1-s4-activity-1-detail-1.mp3` - نشاط: تصنيف فئات التقنيات الصحية - مناقشة 1
 - `bag10-ch1-s6-activity-2-detail-1.mp3` - نشاط: ترتيب مراحل تقييم التقنيات الصحية - مناقشة 1
+- `bag10-ch1-s15-activity-4-detail-1.mp3` - نشاط: تصنيف أدوار الجهات الوطنية - مناقشة 1
 - `bag10-ch2-s4-activity-1-detail-1.mp3` - نشاط: تصنيف مصادر البيانات الصحية - مناقشة 1
 - `bag10-ch2-s6-activity-2-detail-1.mp3` - نشاط: ترتيب دورة حياة البيانات - مناقشة 1
 - `bag10-ch2-s8-activity-3-detail-1.mp3` - نشاط: بطاقات أدوار حوكمة البيانات - مناقشة 1
+- `bag10-ch2-s22-activity-4-detail-1.mp3` - نشاط: صواب أم خطأ حول إدارة الوصول - مناقشة 1
 - `bag10-ch3-s4-activity-1-detail-1.mp3` - نشاط: صواب أم خطأ حول التشغيل البيني - مناقشة 1
 - `bag10-ch3-s6-activity-2-detail-1.mp3` - نشاط: تصنيف معايير الرعاية الصحية - مناقشة 1
+- `bag10-ch3-s22-activity-3-detail-1.mp3` - نشاط: ترتيب خطوات الربط عبر فاير - مناقشة 1
 - `bag10-ch4-s4-activity-1-detail-1.mp3` - نشاط: تصنيف التهديدات السيبرانية - مناقشة 1
 - `bag10-ch4-s6-activity-2-detail-1.mp3` - نشاط: ترتيب مراحل إدارة الحوادث - مناقشة 1
+- `bag10-ch4-s22-activity-4-detail-1.mp3` - نشاط: صواب أم خطأ حول الإبلاغ عن التسرب - مناقشة 1
 - `bag10-ch5-s4-activity-1-detail-1.mp3` - نشاط: صواب أم خطأ حول التشريعات - مناقشة 1
 - `bag10-ch5-s6-activity-2-detail-1.mp3` - نشاط: تصنيف المبادئ الأخلاقية - مناقشة 1
+- `bag10-ch6-s4-activity-1-detail-1.mp3` - نشاط: صواب أم خطأ حول الذكاء الاصطناعي - مناقشة 1
+- `bag10-ch6-s7-activity-1-detail-1.mp3` - نشاط: تصنيف حالات استخدام التقنيات الناشئة - مناقشة 1
 - `bag11-ch1-s7-activity-detail-1.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - مناقشة 1
 - `bag11-ch2-s7-activity-detail-1.mp3` - نشاط: ترتيب مراحل إدارة المخاطر المؤسسية - مناقشة 1
 - `bag11-ch3-s7-activity-detail-1.mp3` - نشاط: تصنيف تفتيش ميداني أم تدقيق مكتبي - مناقشة 1
@@ -1531,6 +1569,16 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s8-test-feedback-bag10-u5-q4-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 4 - إجابة غير صحيحة
 - `bag10-ch5-s8-test-feedback-bag10-u5-q5-correct.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة صحيحة
 - `bag10-ch5-s8-test-feedback-bag10-u5-q5-incorrect.mp3` - اختبار الوحدة الخامسة - السؤال 5 - إجابة غير صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q1-correct.mp3` - اختبار الوحدة السادسة - السؤال 1 - إجابة صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q1-incorrect.mp3` - اختبار الوحدة السادسة - السؤال 1 - إجابة غير صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q2-correct.mp3` - اختبار الوحدة السادسة - السؤال 2 - إجابة صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q2-incorrect.mp3` - اختبار الوحدة السادسة - السؤال 2 - إجابة غير صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q3-correct.mp3` - اختبار الوحدة السادسة - السؤال 3 - إجابة صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q3-incorrect.mp3` - اختبار الوحدة السادسة - السؤال 3 - إجابة غير صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q4-correct.mp3` - اختبار الوحدة السادسة - السؤال 4 - إجابة صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q4-incorrect.mp3` - اختبار الوحدة السادسة - السؤال 4 - إجابة غير صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q5-correct.mp3` - اختبار الوحدة السادسة - السؤال 5 - إجابة صحيحة
+- `bag10-ch6-s12-test-feedback-bag10-u6-q5-incorrect.mp3` - اختبار الوحدة السادسة - السؤال 5 - إجابة غير صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q1-correct.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q1-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 1 - إجابة غير صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q2-correct.mp3` - نشاط ما بعد الدورة - السؤال 2 - إجابة صحيحة
@@ -1547,6 +1595,8 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-final-s1-test-feedback-bag10-final-q7-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 7 - إجابة غير صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q8-correct.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة صحيحة
 - `bag10-final-s1-test-feedback-bag10-final-q8-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 8 - إجابة غير صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q9-correct.mp3` - نشاط ما بعد الدورة - السؤال 9 - إجابة صحيحة
+- `bag10-final-s1-test-feedback-bag10-final-q9-incorrect.mp3` - نشاط ما بعد الدورة - السؤال 9 - إجابة غير صحيحة
 - `bag11-ch0-s3-pre-test-feedback-bag11-pre-q1-correct.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة صحيحة
 - `bag11-ch0-s3-pre-test-feedback-bag11-pre-q1-incorrect.mp3` - نشاط ما قبل الدورة - السؤال 1 - إجابة غير صحيحة
 - `bag11-ch0-s3-pre-test-feedback-bag11-pre-q2-correct.mp3` - نشاط ما قبل الدورة - السؤال 2 - إجابة صحيحة
@@ -2083,6 +2133,10 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch1-s8-activity-3-incorrect.mp3` - نشاط: قرار اعتماد التقنية - إجابة غير صحيحة
 - `bag10-ch1-s8-activity-3-path-correct.mp3` - نشاط: قرار اعتماد التقنية - مسار صحيح
 - `bag10-ch1-s8-activity-3-path-incorrect.mp3` - نشاط: قرار اعتماد التقنية - مسار غير صحيح
+- `bag10-ch1-s15-activity-4-item-hta-u1-ent-1.mp3` - نشاط: تصنيف أدوار الجهات الوطنية - hta-u1-ent-1
+- `bag10-ch1-s15-activity-4-item-hta-u1-ent-2.mp3` - نشاط: تصنيف أدوار الجهات الوطنية - hta-u1-ent-2
+- `bag10-ch1-s15-activity-4-item-hta-u1-ent-3.mp3` - نشاط: تصنيف أدوار الجهات الوطنية - hta-u1-ent-3
+- `bag10-ch1-s15-activity-4-item-hta-u1-ent-4.mp3` - نشاط: تصنيف أدوار الجهات الوطنية - hta-u1-ent-4
 - `bag10-ch2-s4-activity-1-item-hta-u2-class-1.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-1
 - `bag10-ch2-s4-activity-1-item-hta-u2-class-2.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-2
 - `bag10-ch2-s4-activity-1-item-hta-u2-class-3.mp3` - نشاط: تصنيف مصادر البيانات الصحية - hta-u2-class-3
@@ -2106,6 +2160,10 @@ The separate `slide-01.mp3` through `slide-18.mp3` files belong to the archived 
 - `bag10-ch5-s4-activity-1-item-hta-u5-class-2.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-2
 - `bag10-ch5-s4-activity-1-item-hta-u5-class-3.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-3
 - `bag10-ch5-s4-activity-1-item-hta-u5-class-4.mp3` - نشاط: تصنيف المبادئ الأخلاقية - hta-u5-class-4
+- `bag10-ch6-s7-activity-1-item-hta-u6-class-1.mp3` - نشاط: تصنيف حالات استخدام التقنيات الناشئة - hta-u6-class-1
+- `bag10-ch6-s7-activity-1-item-hta-u6-class-2.mp3` - نشاط: تصنيف حالات استخدام التقنيات الناشئة - hta-u6-class-2
+- `bag10-ch6-s7-activity-1-item-hta-u6-class-3.mp3` - نشاط: تصنيف حالات استخدام التقنيات الناشئة - hta-u6-class-3
+- `bag10-ch6-s7-activity-1-item-hta-u6-class-4.mp3` - نشاط: تصنيف حالات استخدام التقنيات الناشئة - hta-u6-class-4
 - `bag11-ch1-s7-activity-item-ce11-u1-class-1.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - ce11-u1-class-1
 - `bag11-ch1-s7-activity-item-ce11-u1-class-2.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - ce11-u1-class-2
 - `bag11-ch1-s7-activity-item-ce11-u1-class-3.mp3` - نشاط: تصنيف خطأ طبي أم إهمال أم مضاعفة - ce11-u1-class-3

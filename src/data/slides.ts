@@ -112,6 +112,7 @@ import {
   htaUnitFiveSlides,
   htaUnitFourSlides,
   htaUnitOneSlides,
+  htaUnitSixSlides,
   htaUnitThreeSlides,
   htaUnitTwoSlides,
 } from './healthTechAssessmentProgram';
@@ -212,6 +213,7 @@ export const allNarratedSlides = [
   ...htaUnitThreeSlides,
   ...htaUnitFourSlides,
   ...htaUnitFiveSlides,
+  ...htaUnitSixSlides,
   ...htaClosingSlides,
   // course/11 -- added once the client approved the revised script (see
   // docs/nasser-video-script-course11.docx and the Aug/Sep 2026 revision
@@ -484,6 +486,7 @@ export const courseCatalog = {
       ...htaUnitThreeSlides,
       ...htaUnitFourSlides,
       ...htaUnitFiveSlides,
+      ...htaUnitSixSlides,
       ...htaClosingSlides,
     ],
   },

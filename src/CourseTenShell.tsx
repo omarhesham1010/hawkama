@@ -8,6 +8,7 @@ import {
   htaUnitFiveSlides,
   htaUnitFourSlides,
   htaUnitOneSlides,
+  htaUnitSixSlides,
   htaUnitThreeSlides,
   htaUnitTwoSlides,
 } from './data/healthTechAssessmentProgram';
@@ -19,6 +20,7 @@ const RAW_GROUPS: { label: string; slides: typeof htaIntroSlides }[] = [
   { label: 'الوحدة الثالثة · التشغيل البيني والمعايير الصحية', slides: htaUnitThreeSlides },
   { label: 'الوحدة الرابعة · الأمن السيبراني والخصوصية والثقة', slides: htaUnitFourSlides },
   { label: 'الوحدة الخامسة · الأطر القانونية، الأخلاقيات، والتعاون', slides: htaUnitFiveSlides },
+  { label: 'الوحدة السادسة · التقنيات الناشئة والمستشفيات الذكية', slides: htaUnitSixSlides },
   { label: 'خاتمة الحقيبة ونشاط ما بعد الدورة', slides: htaClosingSlides },
 ];
 
