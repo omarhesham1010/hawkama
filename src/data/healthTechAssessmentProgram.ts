@@ -166,16 +166,25 @@ const unit1EmergingTechCards: PptCard[] = [
   { index: '04', title: 'التوائم الرقمية', subtitle: 'اختبار العلاجات دون أي مخاطر', tone: 'gold' },
 ];
 
+const unit1HtaOverviewCards: PptCard[] = [
+  { index: '01', title: 'تقييم التقنيات الصحية HTA', syncText: 'أما تقييم التقنيات الصحية', subtitle: 'تقييم منهجي متعدد التخصصات للآثار الطبية والاقتصادية والاجتماعية والأخلاقية' },
+  { index: '02', title: 'مقارنة بالبدائل', syncText: 'يقارن التقنيات الجديدة', subtitle: 'مقارنة التقنيات الجديدة بالبدائل المتاحة لإثراء القرارات القائمة على الأدلة', tone: 'gold' },
+  { index: '03', title: 'الهدف من التقييم', syncText: 'والهدف من ذلك', subtitle: 'نظام صحي عادل وفعّال وعالي الجودة' },
+  { index: '04', title: 'نطاق التقييم', syncText: 'ولا يقتصر نطاق هذا التقييم', subtitle: 'الفعالية السريرية والسلامة والجدوى الاقتصادية والآثار التنظيمية والاجتماعية والأخلاقية', tone: 'gold' },
+  { index: '05', title: 'منهجية التقييم', syncText: 'وتتضمن منهجيته', subtitle: 'بحوث قائمة على الأدلة مثل المراجعات المنهجية' },
+  { index: '06', title: 'المنظمات الرائدة', syncText: 'ومن أبرز المنظمات الرائدة', subtitle: 'منظمة الصحة العالمية والمفوضية الأوروبية والهيئات الوطنية', tone: 'gold' },
+];
+
 const unit1BenefitsChallengesCards: PptCard[] = [
   { title: 'الفوائد', subtitle: 'تحسين الكفاءة والدقة والتخصيص وتمكين المريض', tone: 'gold' },
   { title: 'التحديات', subtitle: 'السرية والخصوصية والبيانات والأخلاقيات والجودة والقوانين' },
 ];
 
 const unit1HtaDefinitionCards: PptCard[] = [
-  { index: '01', title: 'النطاق', subtitle: 'الفعالية السريرية والسلامة والجدوى الاقتصادية والأثر الاجتماعي' },
-  { index: '02', title: 'الهدف', subtitle: 'تخصيص الموارد المحدودة لأكثر العلاجات فعالية', tone: 'gold' },
-  { index: '03', title: 'المنهجية', subtitle: 'بحوث قائمة على الأدلة كالمراجعات المنهجية' },
-  { index: '04', title: 'المنظمات الرئيسية', subtitle: 'منظمة الصحة العالمية والمفوضية الأوروبية والهيئات الوطنية', tone: 'gold' },
+  { index: '01', title: 'النطاق', syncText: 'نطاقه يشمل', subtitle: 'الفعالية السريرية والسلامة والجدوى الاقتصادية والأثر الاجتماعي' },
+  { index: '02', title: 'الهدف', syncText: 'وهدفه', subtitle: 'تخصيص الموارد المحدودة لأكثر العلاجات فعالية', tone: 'gold' },
+  { index: '03', title: 'المنهجية', syncText: 'ومنهجيته', subtitle: 'بحوث قائمة على الأدلة كالمراجعات المنهجية' },
+  { index: '04', title: 'المنظمات الرئيسية', syncText: 'وأبرز المنظمات', subtitle: 'منظمة الصحة العالمية والمفوضية الأوروبية والهيئات الوطنية', tone: 'gold' },
 ];
 
 const unit1HtaSequenceCards: PptCard[] = [
@@ -217,8 +226,8 @@ const unit1SaudiPoliciesCards: PptCard[] = [
 ];
 
 const unit1GovernanceFrameworksCards: PptCard[] = [
-  { title: 'ISO 80001', subtitle: 'إدارة المخاطر لأنظمة تكنولوجيا المعلومات الطبية المتصلة بالشبكة', tone: 'gold' },
-  { title: 'ISO 27001 وCOBIT وITIL', subtitle: 'أطر تحدد التهديدات السيبرانية وتحمي منها وتستجيب لها وتتعافى' },
+  { title: 'ISO 80001', syncText: 'آيزو ثمانية صفر صفر صفر واحد', subtitle: 'إدارة المخاطر لأنظمة تكنولوجيا المعلومات الطبية المتصلة بالشبكة', tone: 'gold' },
+  { title: 'ISO 27001 وCOBIT وITIL', syncText: 'آيزو سبعة وعشرين ألفًا وواحد', subtitle: 'أطر تحدد التهديدات السيبرانية وتحمي منها وتستجيب لها وتتعافى' },
 ];
 
 const unit1VbcCards: PptCard[] = [
@@ -230,11 +239,12 @@ const unit1VbcCards: PptCard[] = [
 ];
 
 const unit1RiskManagementCards: PptCard[] = [
-  { index: '01', title: 'التصعيد', subtitle: 'رفع القرار لمستوى إداري أعلى عند تجاوز المخاطر الصلاحيات المتاحة' },
-  { index: '02', title: 'التجنب', subtitle: 'إلغاء أو تعديل النشاط الذي يولّد الخطر كليًا', tone: 'gold' },
-  { index: '03', title: 'التحويل', subtitle: 'نقل أثر الخطر لطرف آخر، كالتأمين أو التعاقد الخارجي' },
-  { index: '04', title: 'التخفيف', subtitle: 'اتخاذ إجراءات تقلل احتمالية وقوع الخطر أو حجم أثره', tone: 'gold' },
-  { index: '05', title: 'القبول', subtitle: 'الاستمرار في النشاط مع توثيق الخطر ومراقبته دون تدخل إضافي' },
+  { index: '01', title: 'الموازنة قبل الاعتماد', syncText: 'وقبل اعتماد أي تقنية جديدة', subtitle: 'توازن الحوكمة بين المخاطر والعوائد عبر خمس استراتيجيات للتعامل مع التهديدات' },
+  { index: '02', title: 'التصعيد', subtitle: 'رفع القرار لمستوى إداري أعلى عند تجاوز المخاطر الصلاحيات المتاحة' },
+  { index: '03', title: 'التجنب', subtitle: 'إلغاء أو تعديل النشاط الذي يولّد الخطر كليًا', tone: 'gold' },
+  { index: '04', title: 'التحويل', subtitle: 'نقل أثر الخطر لطرف آخر، كالتأمين أو التعاقد الخارجي' },
+  { index: '05', title: 'التخفيف', subtitle: 'اتخاذ إجراءات تقلل احتمالية وقوع الخطر أو حجم أثره', tone: 'gold' },
+  { index: '06', title: 'القبول', subtitle: 'الاستمرار في النشاط مع توثيق الخطر ومراقبته دون تدخل إضافي' },
 ];
 
 const unit1DigitalGovernanceCards: PptCard[] = [
@@ -245,12 +255,12 @@ const unit1DigitalGovernanceCards: PptCard[] = [
 ];
 
 const unit1TechLifecycleCards: PptCard[] = [
-  { index: '01', title: 'مقترح تقنية جديدة', syncText: 'المرحلة الأولى' },
-  { index: '02', title: 'التقييم السريري', syncText: 'المرحلة الثانية', tone: 'gold' },
-  { index: '03', title: 'تقييم الأمن والخصوصية', syncText: 'المرحلة الثالثة' },
-  { index: '04', title: 'تقييم التكنولوجيا الصحية', syncText: 'المرحلة الرابعة', tone: 'gold' },
-  { index: '05', title: 'الشراء والتنفيذ', syncText: 'المرحلة الخامسة' },
-  { index: '06', title: 'المراقبة والتحسين', syncText: 'المرحلة السادسة', tone: 'gold' },
+  { index: '01', title: 'مقترح تقنية جديدة', syncText: 'مقترح التقنية' },
+  { index: '02', title: 'التقييم السريري', syncText: 'فالتقييم السريري', tone: 'gold' },
+  { index: '03', title: 'تقييم الأمن والخصوصية', syncText: 'فتقييم الأمن والخصوصية' },
+  { index: '04', title: 'تقييم التكنولوجيا الصحية', syncText: 'فتقييم التقنية الصحية نفسه', tone: 'gold' },
+  { index: '05', title: 'الشراء والتنفيذ', syncText: 'فالشراء والتنفيذ' },
+  { index: '06', title: 'المراقبة والتحسين', syncText: 'المراقبة والتحسين المستمر', tone: 'gold' },
 ];
 
 const unit1CategoriesActivity: ActivityData = {
@@ -437,8 +447,8 @@ export const htaUnitOneSlides = indexSlides([
     visual: '🧬',
     layout: 'pptSixCards',
     cards: unit1CategoriesCards,
-    laterActs: [unit1EmergingTechCards, unit1BenefitsChallengesCards],
-    actLayouts: ['pptSixCards', 'pptSixCards', 'pptTwoPanels'],
+    laterActs: [unit1EmergingTechCards, unit1HtaOverviewCards, unit1BenefitsChallengesCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptSixCards', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'hta10-u1-activity-1',
@@ -461,9 +471,9 @@ export const htaUnitOneSlides = indexSlides([
       'نتناول الآن تقييم التقنيات الصحية إتش تي إيه: النطاق والتسلسل. نتوقف الآن عند تفاصيل تقييم التقنيات الصحية. نطاقه يشمل الفعالية السريرية والسلامة والجدوى الاقتصادية والأثر الاجتماعي والتنظيمي، وهدفه توفير المعلومات اللازمة لاتخاذ القرارات وتخصيص الموارد المحدودة لأكثر العلاجات فعالية، ومنهجيته تقوم على بحوث قائمة على الأدلة، وأبرز المنظمات المعنية به منظمة الصحة العالمية والمفوضية الأوروبية والهيئات الوطنية. ويمر هذا التقييم بسبع مراحل متسلسلة: تحديد النطاق، ثم مراجعة الأدلة، فبناء النموذج الاقتصادي، فتحليل الميزانية، فتحليل التأثير على النظام، فمراجعة الأثر على المعايير الأخلاقية، وأخيرًا التوصية. ويأخذ هذا التقييم ثلاثة أشكال بحسب الحاجة: تقييم شامل متعدد المجالات على المستوى الوطني، أو تقييم سريع يصلح لمراجعة مختصرة عند اتخاذ قرارات عاجلة، أو تقييم مصغّر خاص بمستشفى بعينه. ولهذا التقييم نطاقان: النطاق السريري، الذي يحدد الفعالية النسبية والسلامة مقارنةً بالممارسات الحالية عبر توليد الأدلة من التجارب العشوائية والبيانات الواقعية؛ والنطاق الرقمي، الذي يقيّم التقنيات القائمة على البرمجيات كالبرمجيات المصنفة أجهزةً طبية إس إيه إم دي وحلول المراقبة عن بُعد، وفق ثلاثة معايير خاصة به: حماية البيانات، والأمن التقني وقابلية التشغيل البيني، وسهولة الاستخدام.',
     visual: '📐',
     layout: 'pptTimeline',
-    cards: unit1HtaSequenceCards,
-    laterActs: [unit1HtaDefinitionCards, unit1HtaTypesCards, unit1DigitalScopeCards],
-    actLayouts: ['pptTimeline', 'pptSixCards', 'pptTwoPanels', 'pptTwoPanels'],
+    cards: unit1HtaDefinitionCards,
+    laterActs: [unit1HtaSequenceCards, unit1HtaTypesCards, unit1DigitalScopeCards],
+    actLayouts: ['pptSixCards', 'pptTimeline', 'pptTwoPanels', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'hta10-u1-activity-2',
@@ -514,8 +524,8 @@ export const htaUnitOneSlides = indexSlides([
     visual: '🧭',
     layout: 'pptMatrix',
     cards: unit1PolicyImportanceCards,
-    laterActs: [unit1SaudiPoliciesCards, unit1VbcCards, unit1DigitalGovernanceCards, unit1TechLifecycleCards, unit1RiskManagementCards, unit1GovernanceFrameworksCards],
-    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTwoPanels', 'pptSixCards', 'pptTimeline', 'pptSixCards', 'pptTwoPanels'],
+    laterActs: [unit1SaudiPoliciesCards, unit1VbcCards, unit1DigitalGovernanceCards, unit1TechLifecycleCards, unit1GovernanceFrameworksCards, unit1RiskManagementCards],
+    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTwoPanels', 'pptSixCards', 'pptTimeline', 'pptTwoPanels', 'pptSixCards'],
   }),
   ...htaUnit1AdditionSlides,
   makeQuizSlide({
@@ -547,8 +557,14 @@ export const htaUnitOneSlides = indexSlides([
 //  الوحدة الثانية — المعلوماتية الصحية وإدارة البيانات
 // ============================================================
 
+const unit2DataIntroCards: PptCard[] = [
+  { index: '01', title: 'البيانات حقائق خام', syncText: 'البيانات مجموعة من الحقائق الخام', subtitle: 'أرقام وكلمات وملاحظات ورموز غير منظمة تُجمع من مصادر مختلفة' },
+  { index: '02', title: 'من البيانات إلى المعلومات', syncText: 'لكنها تتحول عند معالجتها', subtitle: 'تتحول عند معالجتها وتحليلها وتنظيمها إلى معلومات ذات قيمة', tone: 'gold' },
+  { index: '03', title: 'مورد في اقتصاد المعلومات', syncText: 'ولهذا تُعد البيانات موردًا', subtitle: 'تُستخدم المعلومات في اتخاذ القرارات والتخطيط' },
+];
+
 const unit2DataFormsCards: PptCard[] = [
-  { index: '01', title: 'البيانات الكمية والنوعية' },
+  { index: '01', title: 'البيانات الكمية والنوعية', syncText: 'كمية أو نوعية' },
   { index: '02', title: 'البيانات المنظمة وغير المنظمة', tone: 'gold' },
   { index: '03', title: 'البيانات الوصفية' },
   { index: '04', title: 'البيانات الكبيرة', tone: 'gold' },
@@ -567,17 +583,26 @@ const unit2DataValueCards: PptCard[] = [
 ];
 
 const unit2LifecycleCards: PptCard[] = [
-  { index: '01', title: 'الإنشاء أو الجمع', syncText: 'المرحلة الأولى' },
-  { index: '02', title: 'التخزين', syncText: 'المرحلة الثانية', tone: 'gold' },
-  { index: '03', title: 'المعالجة', syncText: 'المرحلة الثالثة' },
-  { index: '04', title: 'التحليل', syncText: 'المرحلة الرابعة', tone: 'gold' },
-  { index: '05', title: 'الأرشفة', syncText: 'المرحلة الخامسة' },
-  { index: '06', title: 'الحذف أو التدمير', syncText: 'المرحلة السادسة', tone: 'gold' },
+  { index: '01', title: 'الإنشاء أو الجمع', syncText: 'الإنشاء أو الجمع' },
+  { index: '02', title: 'التخزين', syncText: 'ثم التخزين', tone: 'gold' },
+  { index: '03', title: 'المعالجة', syncText: 'فالمعالجة' },
+  { index: '04', title: 'التحليل', syncText: 'فالتحليل', tone: 'gold' },
+  { index: '05', title: 'الأرشفة', syncText: 'فالأرشفة' },
+  { index: '06', title: 'الحذف أو التدمير', syncText: 'الحذف أو التدمير', tone: 'gold' },
 ];
 
 const unit2PrinciplesCards: PptCard[] = [
-  { title: 'البيانات أصل مؤسسي', subtitle: 'ذو خصائص فريدة يمكن التعبير عن قيمته اقتصاديًا', tone: 'gold' },
-  { title: 'إدارة البيانات تتطلب تخطيطًا والتزامًا قياديًا', subtitle: 'ومنظورًا مؤسسيًا شاملًا' },
+  { index: '01', title: 'البيانات أصل مؤسسي', syncText: 'تُعد البيانات أصلًا', subtitle: 'أصل من الأصول المؤسسية ذو خصائص فريدة', tone: 'gold' },
+  { index: '02', title: 'قيمة بمصطلحات اقتصادية', syncText: 'ويمكن بل ينبغي التعبير عن قيمتها', subtitle: 'يمكن بل ينبغي التعبير عن قيمة البيانات بمصطلحات اقتصادية' },
+  { index: '03', title: 'إدارة جودة البيانات', syncText: 'إدارة البيانات تعني إدارة جودتها', subtitle: 'وتتطلب تخطيطًا ومنظورًا مؤسسيًا شاملًا', tone: 'gold' },
+  { index: '04', title: 'التزام قيادي فعلي', syncText: 'والتزامًا قياديًا فعليًا', subtitle: 'شرط لنجاح إدارة البيانات' },
+];
+
+const unit2GovernanceIntroCards: PptCard[] = [
+  { index: '01', title: 'حوكمة البيانات', syncText: 'حوكمة البيانات هي ممارسة السلطة', subtitle: 'ممارسة السلطة والتحكم: التخطيط والتنفيذ والمراقبة والإنفاذ في إدارة أصول البيانات' },
+  { index: '02', title: 'إدارة البيانات', syncText: 'أما إدارة البيانات نفسها', subtitle: 'تطوير وتنفيذ الخطط والسياسات التي توفر وتحمي وتعزز قيمة الأصول طوال دورات حياتها', tone: 'gold' },
+  { index: '03', title: 'الحوكمة: ماذا؟', syncText: 'فالحوكمة تحدد', subtitle: 'تحدد «ماذا» يجب فعله' },
+  { index: '04', title: 'الإدارة: كيف؟', syncText: 'والإدارة تتولى', subtitle: 'تتولى «كيف» يتحقق ذلك على أرض الواقع', tone: 'gold' },
 ];
 
 const unit2GovernanceGoalsCards: PptCard[] = [
@@ -588,12 +613,12 @@ const unit2GovernanceGoalsCards: PptCard[] = [
 ];
 
 const unit2RolesCards: PptCard[] = [
-  { index: '01', title: 'كبير مسؤولي البيانات CDO', subtitle: 'استراتيجية البيانات والحوكمة والامتثال' },
-  { index: '02', title: 'مجلس حوكمة البيانات DGC', subtitle: 'إدارة مبادرات الحوكمة والتصعيدات', tone: 'gold' },
-  { index: '03', title: 'مكتب حوكمة البيانات DGO', subtitle: 'تنسيق الأدوار عبر المؤسسة' },
-  { index: '04', title: 'مشرف البيانات Data Steward', subtitle: 'إنشاء البيانات الوصفية ومعالجة الجودة', tone: 'gold' },
-  { index: '05', title: 'لجنة توجيه حوكمة البيانات', subtitle: 'أعلى سلطة إشرافية على منظومة الحوكمة بأكملها' },
-  { index: '06', title: 'مالكو البيانات Data Owners', subtitle: 'المسؤولون المباشرون عن دقة بيانات مجالهم واستخدامها', tone: 'gold' },
+  { index: '01', title: 'لجنة توجيه حوكمة البيانات', subtitle: 'أعلى سلطة إشرافية على منظومة الحوكمة بأكملها' },
+  { index: '02', title: 'كبير مسؤولي البيانات CDO', syncText: 'وكبير مسؤولي البيانات', subtitle: 'استراتيجية البيانات والحوكمة والامتثال', tone: 'gold' },
+  { index: '03', title: 'مجلس حوكمة البيانات DGC', syncText: 'ومجلس حوكمة البيانات', subtitle: 'إدارة مبادرات الحوكمة والتصعيدات' },
+  { index: '04', title: 'مكتب حوكمة البيانات DGO', syncText: 'ومكتب حوكمة البيانات', subtitle: 'تنسيق الأدوار عبر المؤسسة', tone: 'gold' },
+  { index: '05', title: 'مالكو البيانات Data Owners', syncText: 'ومالكو البيانات', subtitle: 'المسؤولون المباشرون عن دقة بيانات مجالهم واستخدامها' },
+  { index: '06', title: 'مشرف البيانات Data Steward', syncText: 'ومشرف البيانات', subtitle: 'إنشاء البيانات الوصفية ومعالجة الجودة', tone: 'gold' },
 ];
 
 const unit2PolicyCategoriesCards: PptCard[] = [
@@ -815,9 +840,9 @@ export const htaUnitTwoSlides = indexSlides([
       'المحور الأول: ماهية البيانات ومصادرها. البيانات مجموعة من الحقائق الخام، مثل الأرقام والكلمات والملاحظات والرموز غير المنظمة، وتُجمع من مصادر مختلفة. لا تحمل البيانات معنى واضحًا بذاتها، لكنها تتحول عند معالجتها وتحليلها وتنظيمها إلى معلومات ذات قيمة تُستخدم في اتخاذ القرارات والتخطيط. ولهذا تُعد البيانات موردًا بالغ الأهمية في اقتصاد المعلومات. وتأخذ البيانات أشكالًا متعددة: كمية أو نوعية، ومنظمة أو غير منظمة أو شبه منظمة، ووصفية، وقد تكون كبيرة الحجم. أما مصادرها، فتُصنّف إلى مصادر أولية مباشرة، مثل الاستبيانات والملاحظات، ومصادر ثانوية جُمعت مسبقًا، مثل التقارير الحكومية. وفي القطاع الصحي، تبرز أربعة مصادر رئيسية: السجلات الصحية الإلكترونية التي توفر تفاصيل دقيقة عن التاريخ الطبي للمريض، والتشخيصات، والعلاجات، ونتائج الفحوصات. والمصدر الثاني هو الأجهزة الطبية الذكية والقابلة للارتداء، مثل الساعات الذكية وأجهزة قياس الضغط، التي تجمع بيانات حيوية في الوقت الفعلي. والمصدر الثالث هو السجلات الحيوية والمسوح الصحية، وهي بيانات وطنية أو إقليمية توفر مؤشرات عن صحة السكان، ومعدلات الأمراض المزمنة، والوفيات. أما المصدر الرابع، فهو بيانات مطالبات التأمين الصحي، التي تقدم معلومات عن تكاليف العلاج، وتكرار استخدام الخدمات الصحية، وأنماط العلاج.',
     visual: '🗃️',
     layout: 'pptSixCards',
-    cards: unit2DataFormsCards,
-    laterActs: [unit2SourcesCards, unit2DataValueCards],
-    actLayouts: ['pptSixCards', 'pptSixCards', 'pptTwoPanels'],
+    cards: unit2DataIntroCards,
+    laterActs: [unit2DataFormsCards, unit2SourcesCards, unit2DataValueCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptSixCards', 'pptTwoPanels'],
   }),
   makeSlide({
     id: 'hta10-u2-activity-1',
@@ -840,9 +865,9 @@ export const htaUnitTwoSlides = indexSlides([
       'المحور الثاني: مبادئ إدارة البيانات ودورة حياتها. تُعد البيانات أصلًا من الأصول المؤسسية ذا خصائص فريدة، ويمكن بل ينبغي التعبير عن قيمتها بمصطلحات اقتصادية. إدارة البيانات تعني إدارة جودتها، وتتطلب تخطيطًا، ومنظورًا مؤسسيًا شاملًا، والتزامًا قياديًا فعليًا لتنجح. وتمر البيانات بست مراحل في دورة حياتها: الإنشاء أو الجمع عبر تفاعلات العملاء أو مستشعرات إنترنت الأشياء، ثم التخزين في قواعد بيانات آمنة، فالمعالجة لتنظيمها وتجهيزها للتحليل، فالتحليل لاستخراج رؤى قيّمة تدعم القرارات الاستراتيجية. فالأرشفة للبيانات نادرة الاستخدام إلى وحدات تخزين غير نشطة لتوفير موارد الأنظمة، وأخيرًا الحذف أو التدمير الآمن والنهائي عند انتهاء الحاجة إليها أو انتهاء فترات الامتثال.',
     visual: '🔄',
     layout: 'pptTimeline',
-    cards: unit2LifecycleCards,
-    laterActs: [unit2PrinciplesCards],
-    actLayouts: ['pptTimeline', 'pptTwoPanels'],
+    cards: unit2PrinciplesCards,
+    laterActs: [unit2LifecycleCards],
+    actLayouts: ['pptSixCards', 'pptTimeline'],
   }),
   makeSlide({
     id: 'hta10-u2-activity-2',
@@ -865,9 +890,9 @@ export const htaUnitTwoSlides = indexSlides([
       'المحور الثالث: حوكمة البيانات الصحية. حوكمة البيانات هي ممارسة السلطة والتحكم، أي التخطيط والتنفيذ والمراقبة والإنفاذ، في إدارة أصول البيانات. أما إدارة البيانات نفسها فهي تطوير وتنفيذ الخطط والسياسات التي توفر وتحمي وتعزز قيمة هذه الأصول طوال دورات حياتها؛ فالحوكمة تحدد «ماذا» يجب فعله، والإدارة تتولى «كيف» يتحقق ذلك على أرض الواقع. في السياق الصحي، تهدف حوكمة البيانات إلى حماية خصوصية المريض وأمنه، وتحسين جودة البيانات وسلامتها، وضمان الامتثال للوائح، وتحسين نتائج المرضى، وتعزيز فائدة البيانات وقابلية التشغيل البيني، وتحديد المسؤوليات بوضوح. وتقوم حوكمة البيانات على ست وظائف أساسية: الاستراتيجية التي تحدد الاتجاه العام، والسياسات التي تضع القواعد الناظمة، والمعايير التي توحّد مقاييس الجودة، والإشراف الذي يتابع الالتزام، والامتثال الذي يضمن التوافق مع اللوائح، وإدارة المشكلات التي ترصد مشكلات الجودة وتعالجها. وتتوزع مسؤوليات إدارة البيانات على أدوار محددة: لجنة توجيه حوكمة البيانات، وهي أعلى سلطة إشرافية على منظومة الحوكمة بأكملها؛ وكبير مسؤولي البيانات المسؤول عن استراتيجية البيانات والامتثال والأمن؛ ومجلس حوكمة البيانات الذي يدير مبادرات الحوكمة والتصعيدات؛ ومكتب حوكمة البيانات الذي ينسّق الأدوار عبر المؤسسة؛ ومالكو البيانات، وهم المسؤولون المباشرون عن دقة بيانات مجالهم واستخدامها؛ ومشرف البيانات المسؤول عن إنشاء البيانات الوصفية وتوثيق القواعد ومعالجة مشكلات الجودة. ويمكن لأي مؤسسة أن تتبنى أحد ثلاثة نماذج لتشغيل حوكمة بياناتها: النموذج المركزي حيث تشرف جهة واحدة على جميع الأنشطة، أو النموذج المتكرر حيث تتبنى كل وحدة أعمال نفس نموذج التشغيل بشكل مستقل، أو النموذج الاتحادي حيث تنسّق جهة واحدة مع وحدات الأعمال المتعددة للحفاظ على تعريفات ومعايير متسقة. وتُبنى سياسات البيانات وفق ستة محاور رئيسية: إدارة البيانات الصحية، وجودة البيانات، وخصوصية البيانات، وأمن البيانات، وإدارة الوصول، ومشاركة البيانات. وتُقاس جودة البيانات عبر ستة معايير: الصلاحية، والاكتمال، والاتساق، والتحديث، والتوقيت، والتفرد، على أن يركز الاهتمام أولًا على البيانات الأكثر أهمية للمؤسسة وعملائها.',
     visual: '🛡️',
     layout: 'pptSixCards',
-    cards: unit2GovernanceGoalsCards,
-    laterActs: [unit2GovernanceFunctionsCards, unit2RolesCards, unit2OperatingModelsCards, unit2PolicyCategoriesCards, unit2QualityCriteriaCards],
-    actLayouts: ['pptSixCards', 'pptMatrix', 'pptSixCards', 'pptTwoPanels', 'pptMatrix', 'pptSixCards'],
+    cards: unit2GovernanceIntroCards,
+    laterActs: [unit2GovernanceGoalsCards, unit2GovernanceFunctionsCards, unit2RolesCards, unit2OperatingModelsCards, unit2PolicyCategoriesCards, unit2QualityCriteriaCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptMatrix', 'pptSixCards', 'pptTwoPanels', 'pptMatrix', 'pptSixCards'],
   }),
   makeSlide({
     id: 'hta10-u2-activity-3',
@@ -913,67 +938,90 @@ export const htaUnitTwoSlides = indexSlides([
 // ============================================================
 
 const unit3ConceptsCards: PptCard[] = [
-  { title: 'تكامل البيانات', subtitle: 'نقل البيانات وتوحيدها داخل وبين المخازن والتطبيقات', tone: 'gold' },
-  { title: 'التشغيل البيني', subtitle: 'قدرة الأنظمة على التواصل وتبادل البيانات بأمان' },
+  { index: '01', title: 'تكامل البيانات', syncText: 'تكامل البيانات هو القدرة', subtitle: 'نقل البيانات وتوحيدها داخل وبين المخازن والتطبيقات', tone: 'gold' },
+  { index: '02', title: 'التشغيل البيني', syncText: 'أما التشغيل البيني', subtitle: 'قدرة الأنظمة على التواصل وتبادل البيانات بأمان' },
+  { index: '03', title: 'فهم المعلومة فور مشاركتها', syncText: 'بحيث تُفهم المعلومة', subtitle: 'من دون إجراءات إضافية معقدة', tone: 'gold' },
 ];
 
 const unit3LevelsCards: PptCard[] = [
-  { index: '01', title: 'التشغيل البيني للنقل', subtitle: 'نقل المعلومات عبر بنية تحتية معتمدة' },
-  { index: '02', title: 'التشغيل البيني التركيبي', subtitle: 'تبادل بتنسيقات وهياكل مفهومة', tone: 'gold' },
-  { index: '03', title: 'التشغيل البيني الدلالي', subtitle: 'فهم موحد لمعنى البيانات المتبادلة' },
-  { index: '04', title: 'التشغيل البيني التنظيمي', subtitle: 'مواءمة السياسات بين المؤسسات', tone: 'gold' },
+  { index: '01', title: 'أربعة مستويات متدرجة', syncText: 'ويُصنَّف التشغيل البيني إلى أربعة مستويات', subtitle: 'من النقل إلى التنظيم' },
+  { index: '02', title: 'التشغيل البيني للنقل', syncText: 'التشغيل البيني للنقل', subtitle: 'نقل المعلومات عبر بنية تحتية معتمدة', tone: 'gold' },
+  { index: '03', title: 'التشغيل البيني التركيبي', syncText: 'فالتشغيل البيني التركيبي', subtitle: 'تبادل بتنسيقات وهياكل مفهومة' },
+  { index: '04', title: 'التشغيل البيني الدلالي', syncText: 'يليه المستوى الدلالي', subtitle: 'فهم موحد لمعنى البيانات المتبادلة', tone: 'gold' },
+  { index: '05', title: 'التشغيل البيني التنظيمي', syncText: 'ثم المستوى التنظيمي', subtitle: 'مواءمة السياسات بين المؤسسات' },
 ];
 
 const unit3BenefitsCards: PptCard[] = [
-  { title: 'وصول أوسع للبيانات وكفاءة محسّنة', tone: 'gold' },
-  { title: 'مرونة أعلى وامتثال أفضل' },
-  { title: 'قرارات أكثر دراسة وتعاون معزز', tone: 'gold' },
+  { title: 'وصول أوسع للبيانات وكفاءة محسّنة', syncText: 'وصول أوسع للبيانات', tone: 'gold' },
+  { title: 'مرونة أعلى وامتثال أفضل', syncText: 'ومرونة أعلى' },
+  { title: 'قرارات أكثر دراسة وتعاون معزز', syncText: 'وقرارات أكثر دراسة', tone: 'gold' },
 ];
 
 const unit3TechVocabCards: PptCard[] = [
-  { index: '01', title: 'الاستخراج والتحويل والتحميل ETL', subtitle: 'نقل البيانات من مصادرها وتحويلها لتناسب النظام المستهدف' },
-  { index: '02', title: 'خرائط المطابقة Mapping', subtitle: 'قواعد تحدد كيفية استخراج البيانات وتحويلها بين الأنظمة', tone: 'gold' },
-  { index: '03', title: 'زمن الاستجابة Latency', subtitle: 'الفارق الزمني بين إنشاء البيانات وتوفرها للاستخدام' },
-  { index: '04', title: 'المعالجة بالحزم أو شبه الفعلي', subtitle: 'نقل البيانات دفعة واحدة أو بشكل شبه لحظي حسب الحاجة', tone: 'gold' },
+  { index: '01', title: 'مفاهيم تقنية أساسية', syncText: 'ويقوم هذا التكامل على مفاهيم', subtitle: 'يقوم عليها تكامل البيانات' },
+  { index: '02', title: 'الاستخراج والتحويل والتحميل ETL', syncText: 'عملية الاستخراج والتحويل والتحميل', subtitle: 'نقل البيانات من مصادرها وتحويلها لتناسب النظام المستهدف', tone: 'gold' },
+  { index: '03', title: 'خرائط المطابقة Mapping', syncText: 'وخرائط المطابقة', subtitle: 'قواعد تحدد كيفية استخراج البيانات وتحويلها بين الأنظمة' },
+  { index: '04', title: 'زمن الاستجابة Latency', syncText: 'وزمن الاستجابة', subtitle: 'الفارق الزمني بين إنشاء البيانات وتوفرها للاستخدام', tone: 'gold' },
+  { index: '05', title: 'المعالجة بالحزم أو شبه الفعلي', syncText: 'والمعالجة بالحزم', subtitle: 'نقل البيانات دفعة واحدة أو بشكل شبه لحظي حسب الحاجة' },
 ];
 
 const unit3AdoptionStatsCards: PptCard[] = [
-  { title: 'إهدار الطاقة الاستيعابية للأجهزة', subtitle: '42% من الأجهزة الطبية غير مستغَلة بالكامل دون تشغيل بيني فعّال', tone: 'gold' },
-  { title: 'التكلفة الزائدة الناتجة', subtitle: 'ما يصل إلى 25% تكلفة إضافية بسبب ضعف تكامل الأنظمة' },
+  { title: 'إهدار الطاقة الاستيعابية للأجهزة', syncText: 'اثنان وأربعون بالمئة من الأجهزة', subtitle: '42% من الأجهزة الطبية غير مستغَلة بالكامل دون تشغيل بيني فعّال', tone: 'gold' },
+  { title: 'التكلفة الزائدة الناتجة', syncText: 'مما يرفع التكلفة التشغيلية', subtitle: 'ما يصل إلى 25% تكلفة إضافية بسبب ضعف تكامل الأنظمة' },
 ];
 
 const unit3SnomedCards: PptCard[] = [
-  { title: 'SNOMED CT', subtitle: 'أشمل معيار عالمي للمصطلحات الطبية السريرية', tone: 'gold' },
-  { title: 'المفاهيم والأوصاف والعلاقات', subtitle: 'لكل مفهوم طبي معرّف رقمي فريد عالميًا' },
+  { index: '01', title: 'SNOMED CT', syncText: 'سنومِد سي تي هو أشمل', subtitle: 'أشمل معيار عالمي للمصطلحات الطبية السريرية', tone: 'gold' },
+  { index: '02', title: 'توحيد تسجيل البيانات', syncText: 'يُستخدم لتوحيد تسجيل البيانات', subtitle: 'داخل الأنظمة الإلكترونية، فتصبح البيانات مفهومة للبشر والأنظمة' },
+  { index: '03', title: 'قابلة للتبادل بدقة', syncText: 'وقابلة للتبادل بين المؤسسات', subtitle: 'بين المؤسسات الصحية بسهولة ودقة', tone: 'gold' },
+  { index: '04', title: 'المفاهيم', syncText: 'المفاهيم، ولكل مفهوم', subtitle: 'لكل مفهوم طبي معرّف رقمي فريد عالميًا' },
+  { index: '05', title: 'الأوصاف', syncText: 'والأوصاف', subtitle: 'الاسم الرسمي والمرادفات', tone: 'gold' },
+  { index: '06', title: 'العلاقات', syncText: 'والعلاقات', subtitle: 'تربط المفاهيم الطبية ببعضها منطقيًا داخل هيكل هرمي' },
 ];
 
 const unit3FhirCards: PptCard[] = [
-  { title: 'HL7 FHIR', subtitle: 'معيار حديث قائم على واجهة برمجة التطبيقات', tone: 'gold' },
-  { title: '"الموارد"', subtitle: 'مكونات صغيرة مثل المريض والحساسية ونتائج المختبر' },
+  { index: '01', title: 'HL7 FHIR', syncText: 'إتش إل سيفن فاير', subtitle: 'معيار حديث قائم على واجهة برمجة التطبيقات', tone: 'gold' },
+  { index: '02', title: 'تبادل سريع وآمن', syncText: 'مصمم لتبادل المعلومات الصحية', subtitle: 'عبر أنظمة متنوعة بسرعة وأمان' },
+  { index: '03', title: '"الموارد"', syncText: 'تسمى الموارد', subtitle: 'مكونات صغيرة مثل المريض والحساسية ونتائج المختبر', tone: 'gold' },
+  { index: '04', title: 'تقنيات الويب الحديثة', syncText: 'باستخدام تقنيات الويب الحديثة', subtitle: 'لتقسيم البيانات الطبية المعقدة إلى مكونات يسهل إدارتها' },
 ];
 
 const unit3IcdCards: PptCard[] = [
-  { title: 'ICD-10/11', subtitle: 'المعيار العالمي لمعلومات التشخيص الصحي', tone: 'gold' },
-  { title: 'أكثر من 17,000 رمز فريد', subtitle: 'دقة محسّنة وتكامل رقمي مع السجلات الحديثة' },
+  { index: '01', title: 'ICD-10/11', syncText: 'آي سي دي عشرة وأحد عشر', subtitle: 'المعيار العالمي لمعلومات التشخيص الصحي', tone: 'gold' },
+  { index: '02', title: 'منظمة الصحة العالمية', syncText: 'طورته وتتولى صيانته', subtitle: 'طورته وتتولى صيانته' },
+  { index: '03', title: 'الإصدار الحادي عشر', syncText: 'ويمثل الإصدار الحادي عشر', subtitle: 'أحدث تطور لهذا النظام بدقة محسّنة', tone: 'gold' },
+  { index: '04', title: 'أكثر من 17,000 رمز فريد', syncText: 'أكثر من سبعة عشر ألف رمز', subtitle: 'وأكثر من 120 ألف مصطلح قابل للترميز' },
+  { index: '05', title: 'تكامل رقمي كامل', syncText: 'مع تكامل رقمي كامل', subtitle: 'مع السجلات الصحية الإلكترونية الحديثة', tone: 'gold' },
 ];
 
 const unit3QualityStandardsCards: PptCard[] = [
-  { index: '01', title: 'DICOM وEDI', subtitle: 'تبادل الصور الطبية والبيانات الإلكترونية بين الأنظمة' },
-  { index: '02', title: 'ISO 13485 وIEC 62304', subtitle: 'إدارة جودة الأجهزة الطبية ودورة حياة البرمجيات الطبية', tone: 'gold' },
-  { index: '03', title: 'إطار NICE للمعايير السريرية', subtitle: 'مرجعية لتقييم الأدلة الرقمية Evidence Standards Framework' },
-  { index: '04', title: 'علامة CE ولائحة EU MDR', subtitle: 'مطابقة الجهاز لمتطلبات السلامة الأوروبية قبل طرحه في السوق', tone: 'gold' },
+  { index: '01', title: 'دور المعايير في الجودة والسلامة', syncText: 'وتلعب المعايير عمومًا دورًا', subtitle: 'توحيد الجودة والسلامة' },
+  { index: '02', title: 'DICOM وEDI', syncText: 'معيار دايكوم', subtitle: 'تبادل الصور الطبية والبيانات الإلكترونية بين الأنظمة', tone: 'gold' },
+  { index: '03', title: 'ISO 13485 وIEC 62304', syncText: 'فمعيار آيزو ثلاثة عشر ألفًا', subtitle: 'إدارة جودة الأجهزة الطبية ودورة حياة البرمجيات الطبية' },
+  { index: '04', title: 'إطار NICE للمعايير السريرية', syncText: 'إطار نايس للمعايير السريرية', subtitle: 'مرجعية لتقييم الأدلة الرقمية Evidence Standards Framework', tone: 'gold' },
+  { index: '05', title: 'علامة CE ولائحة EU MDR', syncText: 'وتضمن علامة سي إي', subtitle: 'مطابقة الجهاز لمتطلبات السلامة الأوروبية قبل طرحه في السوق' },
 ];
 
 const unit3EconomicValueCards: PptCard[] = [
-  { index: '01', title: 'تحسين التكاليف التشغيلية' },
-  { index: '02', title: 'الوقاية من تفاقم الأمراض', tone: 'gold' },
-  { index: '03', title: 'تحسين النتائج الاجتماعية والاقتصادية' },
+  { index: '01', title: 'تحسين التكاليف التشغيلية', syncText: 'تحسين التكاليف التشغيلية', subtitle: 'برفع كفاءة تقديم الرعاية' },
+  { index: '02', title: 'الوقاية من تفاقم الأمراض', syncText: 'والوقاية من تفاقم الأمراض', subtitle: 'عبر التشخيص المبكر والإدارة الفعالة', tone: 'gold' },
+  { index: '03', title: 'تحسين النتائج الاجتماعية والاقتصادية', syncText: 'وتحسين النتائج الاجتماعية والاقتصادية', subtitle: 'للمجتمع ككل' },
+];
+
+const unit3StandardsRoleCards: PptCard[] = [
+  { title: 'المعايير مرجعية علمية', syncText: 'وتلعب المعايير دورًا محوريًا', subtitle: 'مرجعية علمية راسخة وموثقة للسلامة والجودة والفعالية', tone: 'gold' },
+  { title: 'التحقق من موثوقية المنتجات', syncText: 'تُمكّن الهيئات التنظيمية', subtitle: 'تُمكّن الهيئات التنظيمية ومنظمات الشراء من التحقق قبل الاعتماد' },
+];
+
+const unit3HcdIntroCards: PptCard[] = [
+  { title: 'التصميم المتمحور حول الإنسان', syncText: 'أما تصميم الحلول الرقمية', subtitle: 'يضع المستخدمين، من مرضى وأطباء، في صميم التصميم والتطوير', tone: 'gold' },
+  { title: 'فهم الاحتياجات والسلوكيات', syncText: 'من خلال فهم احتياجاتهم', subtitle: 'بدلًا من الاعتماد على افتراضات تقنية أو جمالية بحتة' },
 ];
 
 const unit3HcdCards: PptCard[] = [
-  { index: '01', title: 'الإلهام والتحديد', syncText: 'المرحلة الأولى' },
-  { index: '02', title: 'التفكير الإبداعي', syncText: 'المرحلة الثانية', tone: 'gold' },
-  { index: '03', title: 'التنفيذ والاختبار', syncText: 'المرحلة الثالثة' },
+  { index: '01', title: 'الإلهام والتحديد', syncText: 'الإلهام والتحديد', subtitle: 'البحث في الجمهور المستهدف لتحديد المشكلة الأساسية' },
+  { index: '02', title: 'التفكير الإبداعي', syncText: 'فالتفكير الإبداعي', subtitle: 'العصف الذهني وتوليد حلول متعددة', tone: 'gold' },
+  { index: '03', title: 'التنفيذ والاختبار', syncText: 'فالتنفيذ', subtitle: 'بناء نماذج أولية واختبارها مع المستخدمين وتطبيق أفضل الحلول' },
 ];
 
 const unit3InteropTrueFalse: ActivityData = {
@@ -1147,7 +1195,7 @@ export const htaUnitThreeSlides = indexSlides([
     layout: 'pptTwoPanels',
     cards: unit3ConceptsCards,
     laterActs: [unit3TechVocabCards, unit3LevelsCards, unit3BenefitsCards, unit3AdoptionStatsCards],
-    actLayouts: ['pptTwoPanels', 'pptSixCards', 'pptTimeline', 'pptTwoPanels', 'pptMatrix'],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptTimeline', 'pptTwoPanels', 'pptMatrix'],
   }),
   makeSlide({
     id: 'hta10-u3-activity-1',
@@ -1172,7 +1220,7 @@ export const htaUnitThreeSlides = indexSlides([
     layout: 'pptMatrix',
     cards: unit3SnomedCards,
     laterActs: [unit3FhirCards, unit3IcdCards, unit3QualityStandardsCards],
-    actLayouts: ['pptMatrix', 'pptTwoPanels', 'pptTwoPanels', 'pptSixCards'],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptSixCards', 'pptSixCards'],
   }),
   makeSlide({
     id: 'hta10-u3-activity-2',
@@ -1196,8 +1244,8 @@ export const htaUnitThreeSlides = indexSlides([
     visual: '💡',
     layout: 'pptSixCards',
     cards: unit3EconomicValueCards,
-    laterActs: [unit3HcdCards],
-    actLayouts: ['pptSixCards', 'pptTimeline'],
+    laterActs: [unit3StandardsRoleCards, unit3HcdIntroCards, unit3HcdCards],
+    actLayouts: ['pptSixCards', 'pptTwoPanels', 'pptTwoPanels', 'pptTimeline'],
   }),
   ...htaUnit3AdditionSlides,
   makeQuizSlide({
@@ -1229,6 +1277,14 @@ export const htaUnitThreeSlides = indexSlides([
 //  الوحدة الرابعة — الأمن السيبراني والخصوصية والثقة
 // ============================================================
 
+const unit4CyberIntroCards: PptCard[] = [
+  { index: '01', title: 'الأمن السيبراني في الرعاية الصحية', syncText: 'في مجال الرعاية الصحية تحديدًا', subtitle: 'حماية ما يعتمد عليه الرعاية الصحية رقميًا', tone: 'gold' },
+  { index: '02', title: 'حماية بيانات المرضى الحساسة', syncText: 'حماية بيانات المرضى الحساسة', subtitle: 'بيانات المرضى الحساسة' },
+  { index: '03', title: 'حماية الأجهزة الطبية', syncText: 'والأجهزة الطبية', subtitle: 'الأجهزة الطبية المتصلة', tone: 'gold' },
+  { index: '04', title: 'حماية البنية التحتية', syncText: 'والبنية التحتية لتقنية المعلومات', subtitle: 'البنية التحتية لتقنية المعلومات' },
+  { index: '05', title: 'الغاية: السلامة والاستمرارية', syncText: 'لضمان سلامة المرضى', subtitle: 'ضمان سلامة المرضى واستمرارية العمليات', tone: 'gold' },
+];
+
 const unit4ThreatCategoriesCards: PptCard[] = [
   { index: '01', title: 'برامج الفدية والبرامج الضارة' },
   { index: '02', title: 'التصيّد الاحتيالي والهندسة الاجتماعية', tone: 'gold' },
@@ -1241,39 +1297,70 @@ const unit4ThreatCategoriesCards: PptCard[] = [
 ];
 
 const unit4ThreatStatsCards: PptCard[] = [
-  { title: 'التصيّد الاحتيالي', subtitle: '40% من التهديدات المُبلَّغ عنها', tone: 'gold' },
-  { title: 'اختراقات البيانات', subtitle: '20% من التهديدات المُبلَّغ عنها' },
-  { title: 'برامج الفدية', subtitle: '12% من التهديدات المُبلَّغ عنها', tone: 'gold' },
+  { title: 'التصيّد الاحتيالي', syncText: 'التصيّد الاحتيالي بنسبة أربعين', subtitle: '40% من التهديدات المُبلَّغ عنها', tone: 'gold' },
+  { title: 'اختراقات البيانات', syncText: 'تليه اختراقات البيانات بنسبة', subtitle: '20% من التهديدات المُبلَّغ عنها' },
+  { title: 'برامج الفدية', syncText: 'ثم برامج الفدية بنسبة', subtitle: '12% من التهديدات المُبلَّغ عنها', tone: 'gold' },
+];
+
+const unit4IncidentIntroCards: PptCard[] = [
+  { title: 'إدارة حوادث الأمن السيبراني', syncText: 'وإدارة حوادث الأمن السيبراني هي عملية', subtitle: 'عملية منظمة ودورية للكشف عن الهجمات الإلكترونية واحتوائها وحلها', tone: 'gold' },
+  { title: 'تقليل الأضرار', syncText: 'مع تقليل الأضرار', subtitle: 'تقليل الأضرار إلى أدنى حد، عبر ست مراحل رئيسية' },
 ];
 
 const unit4IncidentStagesCards: PptCard[] = [
-  { index: '01', title: 'الإعداد', syncText: 'المرحلة الأولى' },
-  { index: '02', title: 'الكشف والتحليل', syncText: 'المرحلة الثانية', tone: 'gold' },
-  { index: '03', title: 'الاحتواء', syncText: 'المرحلة الثالثة' },
-  { index: '04', title: 'الاستئصال', syncText: 'المرحلة الرابعة', tone: 'gold' },
-  { index: '05', title: 'التعافي', syncText: 'المرحلة الخامسة' },
-  { index: '06', title: 'الأنشطة اللاحقة للحادث', syncText: 'المرحلة السادسة', tone: 'gold' },
+  { index: '01', title: 'الإعداد', syncText: 'الإعداد ببناء القدرات' },
+  { index: '02', title: 'الكشف والتحليل', syncText: 'فالكشف والتحليل', tone: 'gold' },
+  { index: '03', title: 'الاحتواء', syncText: 'فالاحتواء' },
+  { index: '04', title: 'الاستئصال', syncText: 'فالاستئصال', tone: 'gold' },
+  { index: '05', title: 'التعافي', syncText: 'فالتعافي' },
+  { index: '06', title: 'الأنشطة اللاحقة للحادث', syncText: 'وأخيرًا الأنشطة اللاحقة', tone: 'gold' },
 ];
 
 const unit4ResilienceCards: PptCard[] = [
-  { title: 'الأمن السيبراني', subtitle: 'يركز على منع الاختراقات من خلال الدفاعات', tone: 'gold' },
-  { title: 'المرونة السيبرانية', subtitle: 'تركز على استمرارية العمليات واستعادتها عند وقوع الاختراق' },
+  { index: '01', title: 'المرونة السيبرانية الشاملة', syncText: 'وتمثل المرونة السيبرانية الشاملة', subtitle: 'نهج استراتيجي يتجاوز الوقاية ويتعامل مع احتمال وقوع الاختراقات', tone: 'gold' },
+  { index: '02', title: 'الأمن السيبراني', syncText: 'فبينما يركز الأمن السيبراني', subtitle: 'يركز على منع الاختراقات من خلال الدفاعات' },
+  { index: '03', title: 'المرونة السيبرانية', syncText: 'تركز المرونة السيبرانية', subtitle: 'تركز على استمرارية العمليات واستعادتها عند وقوع الاختراق', tone: 'gold' },
+  { index: '04', title: 'أقل تعرضًا للهجمات المتقدمة', syncText: 'وتقل احتمالية تعرض', subtitle: 'احتمالية تعرض المؤسسات ذات المرونة العالية للهجمات المتقدمة أقل بنسبة 69%' },
+];
+
+const unit4ResiliencePillarsCards: PptCard[] = [
+  { index: '01', title: 'أربعة أركان', syncText: 'وتستند الاستراتيجية المرنة', subtitle: 'ترتكز عليها الاستراتيجية المرنة' },
+  { index: '02', title: 'توقع التهديدات', syncText: 'توقع التهديدات', subtitle: 'استباق التهديدات قبل وقوعها', tone: 'gold' },
+  { index: '03', title: 'مقاومة الهجمات بالاحتواء', syncText: 'ومقاومة الهجمات', subtitle: 'مقاومة الهجمات من خلال الاحتواء' },
+  { index: '04', title: 'التعافي بإجراءات مختبرة', syncText: 'والتعافي باستخدام', subtitle: 'التعافي باستخدام إجراءات مختبرة', tone: 'gold' },
+  { index: '05', title: 'التكيف بالدروس المستفادة', syncText: 'والتكيف بناءً', subtitle: 'التكيف بناءً على الدروس المستفادة' },
 ];
 
 const unit4FrameworksCards: PptCard[] = [
-  { index: '01', title: 'إطار NIST', subtitle: 'ست وظائف: التحديد، الحماية، الكشف، الاستجابة، الاستعادة، الحوكمة' },
-  { index: '02', title: 'المعيار ISO 27001', subtitle: 'نظام إدارة أمن المعلومات القائم على المخاطر', tone: 'gold' },
+  { index: '01', title: 'أطر الأمن السيبراني', syncText: 'وتساعد أطر الأمن السيبراني', subtitle: 'تساعد المؤسسات على إدارة المخاطر والحد منها' },
+  { index: '02', title: 'إطار NIST', syncText: 'ويقوم إطار نِست', subtitle: 'ست وظائف: التحديد، الحماية، الكشف، الاستجابة، الاستعادة، الحوكمة', tone: 'gold' },
+  { index: '03', title: 'المعيار ISO 27001', syncText: 'أما المعيار الدولي آيزو', subtitle: 'نظام إدارة أمن المعلومات القائم على المخاطر' },
+  { index: '04', title: 'نهج قائم على المخاطر', syncText: 'وفق نهج قائم على المخاطر', subtitle: 'تحديد الأصول، ثم التهديدات، ثم نقاط الضعف، ثم تقييم المخاطر، وأخيرًا معالجتها', tone: 'gold' },
+  { index: '05', title: 'خطط ونفّذ وراجع وحسّن', syncText: 'ضمن دورة', subtitle: 'دورة التحسين المستمر لنظام إدارة أمن المعلومات' },
 ];
 
 const unit4AdoptionFactorCards: PptCard[] = [
-  { title: 'الخطأ البشري: حلقة الضعف الأولى', subtitle: '95% من الاختراقات تتضمن خطأً بشريًا كعامل رئيسي', tone: 'gold' },
-  { title: 'حوادث موثقة في القطاع', subtitle: '78% من المؤسسات الصحية سجّلت حادثة سيبرانية خلال عام واحد' },
+  { index: '01', title: 'الأمن عامل حاسم في التبني', syncText: 'يمثل الأمن عاملًا حاسمًا', subtitle: 'تحدٍّ كبير ودافع للابتكار في الوقت نفسه', tone: 'gold' },
+  { index: '02', title: 'الثقة وقبول التقنية', syncText: 'فالتدابير الأمنية القوية', subtitle: 'التدابير الأمنية القوية تعزز الثقة وتسهّل قبول التقنية' },
+  { index: '03', title: 'الخوف من الاختراق', syncText: 'بينما قد يعيق الخوف', subtitle: 'قد يعيق تبني أنظمة جديدة أكثر كفاءة', tone: 'gold' },
+  { index: '04', title: 'الخطأ البشري: حلقة الضعف الأولى', syncText: 'ولا يزال الخطأ البشري', subtitle: '95% من الاختراقات تتضمن خطأً بشريًا كعامل رئيسي' },
+  { index: '05', title: 'حوادث موثقة في القطاع', syncText: 'كما سجلت ثمانية وسبعون', subtitle: '78% من المؤسسات الصحية سجّلت حادثة سيبرانية خلال عام واحد', tone: 'gold' },
+  { index: '06', title: 'التدريب وبناء الثقافة الأمنية', syncText: 'ولهذا يُعد التدريب', subtitle: 'ركيزة أساسية لتحسين معدلات التبني' },
+];
+
+const unit4ComplianceDefinitionCards: PptCard[] = [
+  { index: '01', title: 'تعريف الامتثال', syncText: 'الامتثال يعني الالتزام', subtitle: 'الالتزام بالقوانين واللوائح والسياسات والمعايير التي تحكم نشاط المؤسسة', tone: 'gold' },
+  { index: '02', title: 'قانونيًا وتنظيميًا وأخلاقيًا', syncText: 'من الناحية القانونية والتنظيمية', subtitle: 'من الناحية القانونية والتنظيمية والأخلاقية على حد سواء' },
+  { index: '03', title: 'الحماية القانونية وتقليل المخاطر', syncText: 'وتبرز أهميته في الحماية القانونية', subtitle: 'من أهمية الامتثال', tone: 'gold' },
+  { index: '04', title: 'تعزيز السمعة والثقة', syncText: 'وتعزيز السمعة والثقة', subtitle: 'من أهمية الامتثال' },
+  { index: '05', title: 'تحسين الحوكمة الداخلية', syncText: 'وتحسين الحوكمة الداخلية', subtitle: 'من أهمية الامتثال', tone: 'gold' },
 ];
 
 const unit4GrcCards: PptCard[] = [
-  { title: 'الحوكمة', subtitle: 'إطار قيادي طويل المدى لتوجيه المؤسسة', tone: 'gold' },
-  { title: 'المخاطر', subtitle: 'تحليل وتخطيط وقائي لاستباق الأحداث غير المتوقعة' },
-  { title: 'الامتثال', subtitle: 'تنفيذ وضبط مستمر لضمان الالتزام', tone: 'gold' },
+  { title: 'جي آر سي', syncText: 'تحت مصطلح جي آر سي', subtitle: 'الحوكمة والمخاطر والامتثال معًا', tone: 'gold' },
+  { title: 'الحوكمة', syncText: 'فالحوكمة إطار قيادي', subtitle: 'إطار قيادي طويل المدى لتوجيه المؤسسة' },
+  { title: 'المخاطر', syncText: 'وإدارة المخاطر تحليل', subtitle: 'تحليل وتخطيط وقائي لاستباق الأحداث غير المتوقعة', tone: 'gold' },
+  { title: 'الامتثال', syncText: 'والامتثال تنفيذ', subtitle: 'تنفيذ وضبط مستمر لضمان الالتزام' },
 ];
 
 const unit4ComplianceCategoriesCards: PptCard[] = [
@@ -1286,14 +1373,14 @@ const unit4ComplianceCategoriesCards: PptCard[] = [
 ];
 
 const unit4ComplianceProgramCards: PptCard[] = [
-  { index: '01', title: 'التزام القيادة', syncText: 'المكوّن الأول' },
-  { index: '02', title: 'سياسات وإجراءات واضحة', syncText: 'المكوّن الثاني', tone: 'gold' },
-  { index: '03', title: 'تحديد الأدوار والمسؤوليات', syncText: 'المكوّن الثالث' },
-  { index: '04', title: 'تقييم مخاطر الامتثال', syncText: 'المكوّن الرابع', tone: 'gold' },
-  { index: '05', title: 'برامج تدريب وتوعية', syncText: 'المكوّن الخامس' },
-  { index: '06', title: 'آليات إبلاغ وتحقيق آمنة', syncText: 'المكوّن السادس', tone: 'gold' },
-  { index: '07', title: 'رصد ومراجعة مستمرة', syncText: 'المكوّن السابع' },
-  { index: '08', title: 'تحسين مستمر مبني على الدروس المستفادة', syncText: 'المكوّن الثامن', tone: 'gold' },
+  { index: '01', title: 'التزام القيادة', syncText: 'التزام القيادة' },
+  { index: '02', title: 'سياسات وإجراءات واضحة', syncText: 'وسياسات وإجراءات واضحة', tone: 'gold' },
+  { index: '03', title: 'تحديد الأدوار والمسؤوليات', syncText: 'وتحديد الأدوار والمسؤوليات' },
+  { index: '04', title: 'تقييم مخاطر الامتثال', syncText: 'وتقييم مخاطر الامتثال', tone: 'gold' },
+  { index: '05', title: 'برامج تدريب وتوعية', syncText: 'وبرامج تدريب وتوعية' },
+  { index: '06', title: 'آليات إبلاغ وتحقيق آمنة', syncText: 'وآليات إبلاغ وتحقيق', tone: 'gold' },
+  { index: '07', title: 'رصد ومراجعة مستمرة', syncText: 'ورصدًا ومراجعة مستمرة' },
+  { index: '08', title: 'تحسين مستمر مبني على الدروس المستفادة', syncText: 'وأخيرًا تحسينًا مستمرًا', tone: 'gold' },
 ];
 
 const unit4ThreatsActivity: ActivityData = {
@@ -1473,9 +1560,9 @@ export const htaUnitFourSlides = indexSlides([
       'نتناول الآن الأمن السيبراني في الرعاية الصحية وإدارة الحوادث. المحور الأول: الأمن السيبراني في الرعاية الصحية. في مجال الرعاية الصحية تحديدًا، يشمل الأمن السيبراني حماية بيانات المرضى الحساسة والأجهزة الطبية والبنية التحتية لتقنية المعلومات، لضمان سلامة المرضى واستمرارية العمليات. وتُصنَّف التهديدات إلى ثماني فئات رئيسية: برامج الفدية والبرامج الضارة التي تُشفّر البيانات وتُعطّل الأنظمة السريرية للمطالبة بفدية؛ والتصيّد الاحتيالي والهندسة الاجتماعية التي تستهدف الموظفين لسرقة بيانات اعتمادهم، وهي الأكثر شيوعًا؛ واختراقات البيانات للوصول غير المصرح به لبيانات المرضى الحساسة؛ والتهديدات الداخلية من الموظفين أو الشركاء، عمدًا أو عن طريق الخطأ؛ واختراق إنترنت الأشياء الطبية الذي قد يعرّض سلامة المريض للخطر مباشرة؛ وهجمات الحرمان من الخدمة الموزعة؛ ومخاطر الأطراف الثالثة وسلسلة التوريد؛ واستغلال الأنظمة القديمة التي يصعب تحديثها. وتُعد التقارير واضحة في هذا الشأن: أبرز هذه التهديدات هي التصيّد الاحتيالي بنسبة أربعين بالمئة، تليه اختراقات البيانات بنسبة عشرين بالمئة، ثم برامج الفدية بنسبة اثني عشر بالمئة. وإدارة حوادث الأمن السيبراني هي عملية منظمة ودورية تُستخدم للكشف عن الهجمات الإلكترونية واحتوائها وحلها، مع تقليل الأضرار إلى أدنى حد، وتمر بست مراحل رئيسية: الإعداد ببناء القدرات وتشكيل فريق الاستجابة، فالكشف والتحليل لرصد مؤشرات الاختراق، فالاحتواء للحد من انتشار الهجوم، فالاستئصال لإزالة السبب الجذري، فالتعافي لإعادة الأنظمة لوضعها الطبيعي، وأخيرًا الأنشطة اللاحقة للحادث لتوثيق الدروس المستفادة.',
     visual: '🛡️',
     layout: 'pptSixCards',
-    cards: unit4ThreatCategoriesCards,
-    laterActs: [unit4ThreatStatsCards, unit4IncidentStagesCards],
-    actLayouts: ['pptSixCards', 'pptTwoPanels', 'pptTimeline'],
+    cards: unit4CyberIntroCards,
+    laterActs: [unit4ThreatCategoriesCards, unit4ThreatStatsCards, unit4IncidentIntroCards, unit4IncidentStagesCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptTwoPanels', 'pptTwoPanels', 'pptTimeline'],
   }),
   makeSlide({
     id: 'hta10-u4-activity-1',
@@ -1498,9 +1585,9 @@ export const htaUnitFourSlides = indexSlides([
       'المحور الثاني: المرونة السيبرانية وأطر الأمن السيبراني. يمثل الأمن عاملًا حاسمًا في تبني تقنيات الرعاية الصحية؛ فهو تحدٍّ كبير ودافع للابتكار في الوقت نفسه. فالتدابير الأمنية القوية تعزز الثقة وتسهّل قبول التقنية، بينما قد يعيق الخوف من اختراق البيانات تبني أنظمة جديدة أكثر كفاءة. ولا يزال الخطأ البشري يمثل نقطة ضعف رئيسية؛ إذ تتضمن خمسة وتسعون بالمئة من الاختراقات خطأً بشريًا بوصفه عاملًا رئيسيًا، كما سجلت ثمانية وسبعون بالمئة من المؤسسات الصحية حادثة سيبرانية واحدة على الأقل خلال عام. ولهذا يُعد التدريب وبناء الثقافة الأمنية ركيزة أساسية لتحسين معدلات التبني. وتمثل المرونة السيبرانية الشاملة نهجًا استراتيجيًا يتجاوز الوقاية، لأنه يتعامل مع احتمال وقوع الاختراقات. فبينما يركز الأمن السيبراني على منع الاختراقات من خلال الدفاعات، تركز المرونة السيبرانية على استمرارية العمليات واستعادتها إذا وقع الاختراق. وتقل احتمالية تعرض المؤسسات ذات المرونة العالية للهجمات المتقدمة بنسبة تسعة وستين بالمئة. وتستند الاستراتيجية المرنة إلى أربعة أركان: توقع التهديدات، ومقاومة الهجمات من خلال الاحتواء، والتعافي باستخدام إجراءات مختبرة، والتكيف بناءً على الدروس المستفادة. وتساعد أطر الأمن السيبراني المؤسسات على إدارة المخاطر والحد منها. ويقوم إطار نِست على ست وظائف أساسية: التحديد، والحماية، والكشف، والاستجابة، والاستعادة، والحوكمة. أما المعيار الدولي آيزو سبعة وعشرون ألفًا وواحد، فهو معيار رائد لأنظمة إدارة أمن المعلومات. ويوفر إطارًا من السياسات والإجراءات والضوابط لحماية بيانات المؤسسة، وفق نهج قائم على المخاطر يبدأ بتحديد الأصول، ثم التهديدات، ثم نقاط الضعف، ثم تقييم المخاطر، وأخيرًا معالجتها، ضمن دورة: خطط، ونفّذ، وراجع، وحسّن.',
     visual: '🌀',
     layout: 'pptTwoPanels',
-    cards: unit4ResilienceCards,
-    laterActs: [unit4AdoptionFactorCards, unit4FrameworksCards],
-    actLayouts: ['pptTwoPanels', 'pptTwoPanels', 'pptSixCards'],
+    cards: unit4AdoptionFactorCards,
+    laterActs: [unit4ResilienceCards, unit4ResiliencePillarsCards, unit4FrameworksCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptTimeline', 'pptSixCards'],
   }),
   makeSlide({
     id: 'hta10-u4-activity-2',
@@ -1523,9 +1610,9 @@ export const htaUnitFourSlides = indexSlides([
       'المحور الثالث: الامتثال والحوكمة والمخاطر. الامتثال يعني الالتزام بالقوانين واللوائح والسياسات والمعايير التي تحكم نشاط المؤسسة، من الناحية القانونية والتنظيمية والأخلاقية على حد سواء، وتبرز أهميته في الحماية القانونية وتقليل المخاطر، وتعزيز السمعة والثقة، وتحسين الحوكمة الداخلية. وغالبًا ما تُذكر الحوكمة والمخاطر والامتثال معًا تحت مصطلح جي آر سي؛ فالحوكمة إطار قيادي طويل المدى لتوجيه المؤسسة، وإدارة المخاطر تحليل وتخطيط وقائي لاستباق الأحداث غير المتوقعة، والامتثال تنفيذ وضبط مستمر لضمان الالتزام بالقوانين والمعايير. وتشمل فئات الامتثال في القطاع الصحي ستة محاور رئيسية، ولكل منها معاييره الدولية المرجعية: الامتثال الصحي لسلامة المرضى وجودة الرعاية، وأمن المعلومات وفق لائحة جي دي بي آر ومعيار آيزو سبعة وعشرين ألفًا وواحد. والامتثال الأخلاقي وفق معيار آيزو سبعة وثلاثون ألفًا وواحد لمكافحة الرشوة، والامتثال البيئي وفق معياري آيزو أربعة عشر ألفًا وواحد وآيزو خمسة وأربعون ألفًا وواحد، والامتثال المالي والمحاسبي وفق معايير آي إف آر إس، والامتثال القانوني والتنظيمي والتشغيلي بالالتزام باللوائح الحكومية وإجراءات العمل الداخلية. ولكي يكون برنامج الامتثال المؤسسي متكاملًا وفعّالًا، يجب أن يضم ثمانية مكوّنات مترابطة: التزام القيادة، وسياسات وإجراءات واضحة، وتحديد الأدوار والمسؤوليات، وتقييم مخاطر الامتثال، وبرامج تدريب وتوعية، وآليات إبلاغ وتحقيق آمنة، ورصدًا ومراجعة مستمرة، وأخيرًا تحسينًا مستمرًا مبنيًا على الدروس المستفادة.',
     visual: '📋',
     layout: 'pptMatrix',
-    cards: unit4GrcCards,
-    laterActs: [unit4ComplianceCategoriesCards, unit4ComplianceProgramCards],
-    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTimeline'],
+    cards: unit4ComplianceDefinitionCards,
+    laterActs: [unit4GrcCards, unit4ComplianceCategoriesCards, unit4ComplianceProgramCards],
+    actLayouts: ['pptSixCards', 'pptMatrix', 'pptSixCards', 'pptTimeline'],
   }),
   makeSlide({
     id: 'hta10-u4-activity-3',
@@ -1570,81 +1657,125 @@ export const htaUnitFourSlides = indexSlides([
 //  الوحدة الخامسة — الأطر القانونية، الأخلاقيات، والتعاون
 // ============================================================
 
+const unit5LegislationImportanceCards: PptCard[] = [
+  { index: '01', title: 'ضرورة حتمية', syncText: 'تُعد التشريعات المنظمة', subtitle: 'التشريعات المنظمة للتقنيات الصحية ضرورة حتمية لضمان سلامة المرضى وحماية البيانات الشخصية وجودة الرعاية', tone: 'gold' },
+  { index: '02', title: 'سلامة المرضى والجودة', syncText: 'فهي تضمن سلامة المرضى والجودة', subtitle: 'معايير دقيقة للاستخدام الآمن للأجهزة', tone: 'gold' },
+  { index: '03', title: 'مواكبة التطور التقني', syncText: 'وتواكب التطور التقني', subtitle: 'من ذكاء اصطناعي وطب اتصالي' },
+  { index: '04', title: 'حماية البيانات والخصوصية', syncText: 'وتحمي البيانات الشخصية والخصوصية', subtitle: 'حماية البيانات الشخصية والخصوصية', tone: 'gold' },
+  { index: '05', title: 'المسؤولية القانونية', syncText: 'وتحدد المسؤولية القانونية', subtitle: 'تحديد المسؤولية عند استخدام تقنيات جديدة' },
+  { index: '06', title: 'تنظيم البحث والابتكار', syncText: 'وتنظم البحث العلمي والابتكار', subtitle: 'تنظيم البحث العلمي والابتكار', tone: 'gold' },
+  { index: '07', title: 'تعزيز الثقة', syncText: 'وتعزز الثقة في الرعاية الصحية', subtitle: 'تعزيز الثقة في الرعاية الصحية' },
+];
+
 const unit5RegulatoryRolesCards: PptCard[] = [
-  { index: '01', title: 'وضع المعايير والرقابة' },
-  { index: '02', title: 'التراخيص والاعتماد', tone: 'gold' },
-  { index: '03', title: 'مراقبة ما بعد التسويق' },
-  { index: '04', title: 'إصلاح المنظومة الصحية', tone: 'gold' },
-  { index: '05', title: 'التخطيط والهيكلة الصحية' },
-  { index: '06', title: 'تنظيم العمل الفني عبر لجان متخصصة', tone: 'gold' },
+  { index: '01', title: 'وضع المعايير والرقابة', syncText: 'وضع المعايير والرقابة' },
+  { index: '02', title: 'التراخيص والاعتماد', syncText: 'وإصدار التراخيص والاعتماد', tone: 'gold' },
+  { index: '03', title: 'مراقبة ما بعد التسويق', syncText: 'ومراقبة ما بعد التسويق' },
+  { index: '04', title: 'التخطيط والهيكلة الصحية', syncText: 'والمشاركة في التخطيط والهيكلة', tone: 'gold' },
+  { index: '05', title: 'تنظيم العمل الفني عبر لجان متخصصة', syncText: 'وتنظيم العمل الفني' },
+  { index: '06', title: 'إصلاح المنظومة الصحية', syncText: 'وإصلاح المنظومة الصحية', tone: 'gold' },
+];
+
+const unit5PrivacyHeaderCards: PptCard[] = [
+  { index: '01', title: 'الخصوصية بالتصميم', syncText: 'مبدأ الخصوصية بالتصميم', subtitle: 'القائم على سبعة مبادئ أساسية', tone: 'gold' },
+  { index: '02', title: 'الاستباقية لا رد الفعل', syncText: 'الاستباقية لا رد الفعل', subtitle: 'منع انتهاكات الخصوصية قبل وقوعها' },
+  { index: '03', title: 'الخصوصية كإعداد افتراضي', syncText: 'والخصوصية كإعداد افتراضي', subtitle: 'أعلى مستوى حماية دون أي إجراء إضافي من المستخدم', tone: 'gold' },
+  { index: '04', title: 'دمج الخصوصية في التصميم', syncText: 'ودمج الخصوصية في التصميم', subtitle: 'وظيفة أساسية في البنية، لا إضافة لاحقة' },
 ];
 
 const unit5PrivacyByDesignCards: PptCard[] = [
-  { index: '01', title: 'الاستباقية لا رد الفعل', subtitle: 'منع انتهاكات الخصوصية قبل وقوعها' },
-  { index: '02', title: 'الخصوصية كإعداد افتراضي', subtitle: 'أعلى مستوى حماية دون أي إجراء إضافي من المستخدم', tone: 'gold' },
-  { index: '03', title: 'دمج الخصوصية في التصميم', subtitle: 'وظيفة أساسية في البنية، لا إضافة لاحقة' },
-  { index: '04', title: 'الوظائف الكاملة — محصلة إيجابية لا صفرية', subtitle: 'تحقيق الخصوصية والأمان معًا دون تضحية بأحدهما', tone: 'gold' },
-  { index: '05', title: 'الأمان الشامل', subtitle: 'حماية دورة حياة البيانات الكاملة من الجمع حتى الحذف' },
-  { index: '06', title: 'الشفافية والوضوح', subtitle: 'إبقاء الممارسات مفتوحة وقابلة للتحقق أمام المستخدم والجهات الرقابية', tone: 'gold' },
-  { index: '07', title: 'احترام خصوصية المستخدم', subtitle: 'جعل مصلحة المستخدم محور كل قرار تصميمي' },
+  { index: '05', title: 'الوظائف الكاملة — محصلة إيجابية لا صفرية', syncText: 'وتحقيق الفائدة للجميع', subtitle: 'تحقيق الخصوصية والأمان معًا دون تضحية بأحدهما', tone: 'gold' },
+  { index: '06', title: 'الأمان الشامل', syncText: 'والأمان الشامل', subtitle: 'حماية دورة حياة البيانات الكاملة من الجمع حتى الحذف' },
+  { index: '07', title: 'الشفافية والوضوح', syncText: 'والشفافية والوضوح', subtitle: 'إبقاء الممارسات مفتوحة وقابلة للتحقق أمام المستخدم والجهات الرقابية', tone: 'gold' },
+  { index: '08', title: 'احترام خصوصية المستخدم', syncText: 'وأخيرًا احترام خصوصية المستخدم', subtitle: 'جعل مصلحة المستخدم محور كل قرار تصميمي' },
 ];
 
 const unit5GdprCards: PptCard[] = [
-  { title: 'GDPR', subtitle: 'اللائحة الأوروبية لحماية البيانات — تمنح الأفراد سيطرة كاملة على بياناتهم', tone: 'gold' },
-  { title: 'HIPAA', subtitle: 'القانون الأمريكي لحماية المعلومات الصحية الحساسة للمرضى' },
+  { title: 'الخصوصية بالتصميم', syncText: 'الخصوصية بالتصميم إطار عمل', subtitle: 'دمج الخصوصية في تصميم الأنظمة منذ البداية', tone: 'gold' },
+  { title: 'نهج استباقي', syncText: 'وهو نهج استباقي', subtitle: 'يركز على منع انتهاكات الخصوصية قبل وقوعها' },
+  { title: 'GDPR', syncText: 'أما اللائحة العامة لحماية البيانات', subtitle: 'اللائحة الأوروبية لحماية البيانات', tone: 'gold' },
+  { title: 'سيطرة الأفراد على بياناتهم', syncText: 'يمنح الأفراد سيطرة أكبر', subtitle: 'قانون شامل للاتحاد الأوروبي يمنح الأفراد سيطرة أكبر على بياناتهم' },
 ];
 
 const unit5GdprPrinciplesCards: PptCard[] = [
-  { index: '01', title: 'العدالة والشفافية والمشروعية', syncText: 'مبدأ GDPR' },
-  { index: '02', title: 'تحديد الغرض من جمع البيانات', syncText: 'مبدأ GDPR', tone: 'gold' },
-  { index: '03', title: 'تقليل البيانات للحد الضروري', syncText: 'مبدأ GDPR' },
-  { index: '04', title: 'الدقة', syncText: 'مبدأ GDPR', tone: 'gold' },
-  { index: '05', title: 'تحديد مدة التخزين', syncText: 'مبدأ GDPR' },
-  { index: '06', title: 'النزاهة والسرية والمساءلة', syncText: 'مبدأ GDPR', tone: 'gold' },
+  { index: '01', title: 'العدالة والشفافية والمشروعية', syncText: 'العدالة والشفافية والمشروعية' },
+  { index: '02', title: 'تحديد الغرض من جمع البيانات', syncText: 'وتحديد الغرض من جمع البيانات', tone: 'gold' },
+  { index: '03', title: 'تقليل البيانات للحد الضروري', syncText: 'وتقليل البيانات للحد الضروري' },
+  { index: '04', title: 'الدقة', syncText: 'والدقة', tone: 'gold' },
+  { index: '05', title: 'تحديد مدة التخزين', syncText: 'وتحديد مدة التخزين' },
+  { index: '06', title: 'النزاهة والسرية والمساءلة', syncText: 'والنزاهة والسرية والمساءلة', tone: 'gold' },
+  { index: '07', title: 'غرامات عدم الامتثال', syncText: 'وقد يؤدي عدم الامتثال', subtitle: 'تصل إلى 20 مليون يورو أو 4% من الإيرادات السنوية العالمية' },
 ];
 
 const unit5HipaaRulesCards: PptCard[] = [
-  { title: 'قاعدة الخصوصية Privacy Rule', subtitle: 'تحدد قواعد استخدام المعلومات الصحية والإفصاح عنها', tone: 'gold' },
-  { title: 'قاعدة الأمن Security Rule', subtitle: 'تُلزم بضمانات تقنية ومادية وإدارية لحماية البيانات' },
-  { title: 'قاعدة الإبلاغ عن الاختراقات Breach Notification', subtitle: 'إلزام المؤسسة بإخطار المرضى والجهات المختصة عند وقوع اختراق', tone: 'gold' },
+  { title: 'HIPAA', syncText: 'وقانون هيبا الأمريكي', subtitle: 'القانون الأمريكي لحماية المعلومات الصحية الحساسة للمرضى من الإفصاح غير المصرح به', tone: 'gold' },
+  { title: 'قاعدة الخصوصية Privacy Rule', syncText: 'قاعدة الخصوصية التي', subtitle: 'تحدد قواعد استخدام المعلومات الصحية والإفصاح عنها' },
+  { title: 'قاعدة الأمن Security Rule', syncText: 'وقاعدة الأمن التي', subtitle: 'تُلزم بضمانات تقنية ومادية وإدارية لحماية البيانات', tone: 'gold' },
+  { title: 'قاعدة الإبلاغ عن الاختراقات Breach Notification', syncText: 'وقاعدة الإبلاغ عن الاختراقات', subtitle: 'إلزام المؤسسة بإخطار المرضى والجهات المختصة عند وقوع اختراق' },
+];
+
+const unit5PdplIntroCards: PptCard[] = [
+  { index: '01', title: 'نظام حماية البيانات الشخصية', syncText: 'وفي المملكة العربية السعودية', subtitle: 'ينظم جمع البيانات الشخصية واستخدامها وتخزينها ونقلها', tone: 'gold' },
+  { index: '02', title: 'إشراف سدايا', syncText: 'تشرف عليها الهيئة السعودية', subtitle: 'الهيئة السعودية للبيانات والذكاء الاصطناعي «سدايا»' },
 ];
 
 const unit5PdplCards: PptCard[] = [
-  { index: '01', title: 'المشروعية وتحديد الغرض' },
-  { index: '02', title: 'تقليل البيانات والدقة', tone: 'gold' },
-  { index: '03', title: 'تحديد مدة الاحتفاظ' },
-  { index: '04', title: 'حماية البيانات بالتشفير والتحكم', tone: 'gold' },
+  { index: '03', title: 'المشروعية وتحديد الغرض', syncText: 'المشروعية، وتحديد الغرض', tone: 'gold' },
+  { index: '04', title: 'تقليل البيانات والدقة', syncText: 'وتقليل البيانات، والدقة' },
+  { index: '05', title: 'تحديد مدة الاحتفاظ', syncText: 'وتحديد مدة الاحتفاظ', tone: 'gold' },
+  { index: '06', title: 'حماية البيانات بالتشفير والتحكم', syncText: 'وحماية البيانات عبر التشفير' },
 ];
 
 const unit5PdplRightsCards: PptCard[] = [
-  { title: 'الحق في العلم والوصول', tone: 'gold' },
-  { title: 'الحق في التصحيح والإتلاف' },
-  { title: 'الحق في سحب الموافقة', tone: 'gold' },
+  { title: 'خمسة حقوق أساسية', syncText: 'ويمنح النظام أصحاب البيانات', subtitle: 'يمنحها النظام لأصحاب البيانات', tone: 'gold' },
+  { title: 'الحق في العلم والوصول', syncText: 'الحق في العلم، والحق في الوصول' },
+  { title: 'الحق في التصحيح والإتلاف', syncText: 'والحق في التصحيح', tone: 'gold' },
+  { title: 'الحق في سحب الموافقة', syncText: 'والحق في سحب الموافقة' },
 ];
 
 const unit5PdplComplianceCards: PptCard[] = [
-  { title: 'الأساس القانوني للمعالجة', subtitle: 'الموافقة، أو الالتزام القانوني، أو تنفيذ عقد، أو مصلحة مشروعة', tone: 'gold' },
-  { title: 'شروط الموافقة', subtitle: 'صريحة وواضحة وموثقة وقابلة للسحب' },
-  { title: 'النقل عبر الحدود', subtitle: 'لا يجوز نقل البيانات خارج المملكة إلا وفق ضوابط محددة', tone: 'gold' },
-  { title: 'الإبلاغ عن الاختراقات', subtitle: 'إبلاغ الجهة المختصة والأفراد المتضررين عند الحاجة' },
+  { title: 'الأساس القانوني للمعالجة', syncText: 'أساسًا قانونيًا واضحًا', subtitle: 'الموافقة، أو الالتزام القانوني، أو تنفيذ عقد، أو مصلحة مشروعة', tone: 'gold' },
+  { title: 'شروط الموافقة', syncText: 'على أن تكون الموافقة', subtitle: 'صريحة وواضحة وموثقة وقابلة للسحب' },
+  { title: 'النقل عبر الحدود', syncText: 'ولا يجوز نقل البيانات', subtitle: 'لا يجوز نقل البيانات خارج المملكة إلا وفق ضوابط محددة', tone: 'gold' },
+  { title: 'الإبلاغ عن الاختراقات', syncText: 'ويجب الإبلاغ عن أي اختراق', subtitle: 'إبلاغ الجهة المختصة والأفراد المتضررين عند الحاجة' },
 ];
 
 const unit5EthicsPrinciplesCards: PptCard[] = [
-  { index: '01', title: 'الاستقلالية' },
-  { index: '02', title: 'عدم الإضرار', tone: 'gold' },
-  { index: '03', title: 'الإحسان' },
-  { index: '04', title: 'العدالة', tone: 'gold' },
+  { index: '01', title: 'أخلاقيات استخدام التقنيات الصحية', syncText: 'تشير هذه الأخلاقيات', subtitle: 'مبادئ تنظّم استخدام التقنية بما يحفظ سلامة المرضى وخصوصيتهم وحقوقهم وعدالة الوصول', tone: 'gold' },
+  { index: '02', title: 'أربعة مبادئ راسخة', syncText: 'وتقوم على أربعة مبادئ راسخة', subtitle: 'تقوم عليها أخلاقيات استخدام التقنيات الصحية' },
+  { index: '03', title: 'الاستقلالية', syncText: 'الاستقلالية، أي احترام', subtitle: 'احترام حق المريض في معرفة كيفية استخدام بياناته والموافقة عليها' },
+  { index: '04', title: 'عدم الإضرار', syncText: 'وعدم الإضرار، أي', subtitle: 'عدم استخدام التقنية بطريقة قد تسبب ضررًا للمريض', tone: 'gold' },
+  { index: '05', title: 'الإحسان', syncText: 'والإحسان، أي', subtitle: 'أن تحقق التقنية فائدة حقيقية للمريض' },
+  { index: '06', title: 'العدالة', syncText: 'والعدالة، أي', subtitle: 'ضمان الإنصاف في الوصول إلى الخدمات الصحية الرقمية', tone: 'gold' },
 ];
 
 const unit5AiEthicsCards: PptCard[] = [
-  { title: 'الشفافية والمساءلة', subtitle: 'معرفة كيف يعمل النظام ومن المسؤول عند الخطأ', tone: 'gold' },
-  { title: 'عدم التحيّز والإشراف البشري', subtitle: 'بيانات تدريب متوازنة وقرار طبي بإشراف بشري' },
+  { index: '01', title: 'الذكاء الاصطناعي: ثلاثة اعتبارات', syncText: 'وعند استخدام الذكاء الاصطناعي', subtitle: 'اعتبارات جوهرية عند استخدام الذكاء الاصطناعي', tone: 'gold' },
+  { index: '02', title: 'الشفافية', syncText: 'الشفافية بمعرفة كيف يعمل النظام', subtitle: 'معرفة كيف يعمل النظام وحدود دقته' },
+  { index: '03', title: 'المساءلة', syncText: 'والمساءلة بتحديد المسؤول', subtitle: 'تحديد المسؤول عند حدوث خطأ', tone: 'gold' },
+  { index: '04', title: 'عدم التحيّز', syncText: 'وعدم التحيّز بضمان', subtitle: 'ضمان أن تكون بيانات التدريب متوازنة' },
+  { index: '05', title: 'الإشراف البشري', syncText: 'مع بقاء الإشراف البشري', subtitle: 'داعم للقرار الطبي لا بديل عنه', tone: 'gold' },
+];
+
+const unit5ResearchSharingCards: PptCard[] = [
+  { index: '01', title: 'موافقة المريض الصريحة', syncText: 'موافقة المريض الصريحة', subtitle: 'التزام بموافقة المريض الصريحة', tone: 'gold' },
+  { index: '02', title: 'إخفاء الهوية', syncText: 'وإخفاء الهوية', subtitle: 'إخفاء هوية المريض' },
+  { index: '03', title: 'تحديد الغرض البحثي', syncText: 'وتحديد الغرض البحثي بوضوح', subtitle: 'تحديد الغرض البحثي بوضوح', tone: 'gold' },
+  { index: '04', title: 'منع إعادة التعريف', syncText: 'ومنع أي محاولة', subtitle: 'منع أي محاولة لإعادة التعريف بالمريض' },
+];
+
+const unit5CooperationCards: PptCard[] = [
+  { index: '01', title: 'محور التعاون', syncText: 'بمحور التعاون', subtitle: 'تُختتم به رحلة الحقيبة', tone: 'gold' },
+  { index: '02', title: 'الشراكات مع القطاع الخاص', syncText: 'الشراكات مع القطاع الخاص', subtitle: 'الشراكات مع القطاع الخاص' },
+  { index: '03', title: 'التعاون البحثي والتقني', syncText: 'والتعاون البحثي والتقني', subtitle: 'التعاون البحثي والتقني', tone: 'gold' },
+  { index: '04', title: 'إدارة المصالح المشتركة بشفافية', syncText: 'وإدارة المصالح المشتركة', subtitle: 'إدارة المصالح المشتركة بشفافية' },
+  { index: '05', title: 'تسريع الابتكار المنظم', syncText: 'وتسريع الابتكار المنظم', subtitle: 'عبر أطر واضحة تجمع بين الابتكار والمسؤولية', tone: 'gold' },
 ];
 
 const unit5AppliedEthicsCards: PptCard[] = [
-  { index: '01', title: 'الطب عن بُعد', subtitle: 'سرية الاتصال، والتحقق من هوية الطبيب والمريض، وحماية السجلات الطبية' },
-  { index: '02', title: 'الأجهزة الذكية والقابلة للارتداء', subtitle: 'اختبار الأجهزة واعتمادها تنظيميًا ومراقبة أدائها لتفادي القراءات غير الدقيقة', tone: 'gold' },
-  { index: '03', title: 'مشاركة البيانات للبحث العلمي', subtitle: 'موافقة صريحة، وإخفاء الهوية، وتحديد الغرض البحثي، ومنع إعادة التعريف بالمريض' },
+  { index: '01', title: 'الطب عن بُعد', syncText: 'ففي الطب عن بُعد', subtitle: 'سرية الاتصال، والتحقق من هوية الطبيب والمريض، وحماية السجلات الطبية' },
+  { index: '02', title: 'الأجهزة الذكية والقابلة للارتداء', syncText: 'وفي الأجهزة الذكية والقابلة للارتداء', subtitle: 'اختبار الأجهزة واعتمادها تنظيميًا ومراقبة أدائها لتفادي القراءات غير الدقيقة وتسريب البيانات', tone: 'gold' },
+  { index: '03', title: 'مشاركة البيانات للبحث العلمي', syncText: 'وعند مشاركة البيانات الصحية للبحث العلمي', subtitle: 'أربعة التزامات عند مشاركة البيانات للبحث' },
 ];
 
 const unit5RegulatoryRolesActivity: ActivityData = {
@@ -1839,9 +1970,9 @@ export const htaUnitFiveSlides = indexSlides([
       'المحور الأول: أهمية التشريعات الصحية ودور الجهات التنظيمية. تُعد التشريعات المنظمة للتقنيات الصحية ضرورة حتمية لضمان سلامة المرضى، وحماية البيانات الشخصية، وضمان جودة الرعاية؛ فهي تضمن سلامة المرضى والجودة عبر معايير دقيقة للاستخدام الآمن للأجهزة، وتواكب التطور التقني من ذكاء اصطناعي وطب اتصالي، وتحمي البيانات الشخصية والخصوصية، وتحدد المسؤولية القانونية عند استخدام تقنيات جديدة، وتنظم البحث العلمي والابتكار، وتعزز الثقة في الرعاية الصحية. وتتمثل أدوار الجهات التنظيمية في وضع المعايير والرقابة على المرافق الصحية، وإصدار التراخيص والاعتماد للمؤسسات والمنتجات الطبية، ومراقبة ما بعد التسويق لضمان سلامة الأجهزة المتداولة والحد من انتشار الأجهزة متدنية الجودة أو المغشوشة، والمشاركة في التخطيط والهيكلة الصحية، وتنظيم العمل الفني عبر لجان متخصصة، وإصلاح المنظومة الصحية بشكل مستمر لتعزيز جودة الخدمات وحقوق المرضى. ومن أهم الأطر التي تترجم هذه التشريعات إلى ممارسة يومية مبدأ الخصوصية بالتصميم، القائم على سبعة مبادئ أساسية: الاستباقية لا رد الفعل، والخصوصية كإعداد افتراضي، ودمج الخصوصية في التصميم كوظيفة أساسية. وتحقيق الفائدة للجميع من دون تعارض بين الخصوصية والوظائف، والأمان الشامل لحماية دورة حياة البيانات كاملة، والشفافية والوضوح، وأخيرًا احترام خصوصية المستخدم بجعله محور كل قرار.',
     visual: '🏛️',
     layout: 'pptSixCards',
-    cards: unit5RegulatoryRolesCards,
-    laterActs: [unit5PrivacyByDesignCards],
-    actLayouts: ['pptSixCards', 'pptSixCards'],
+    cards: unit5LegislationImportanceCards,
+    laterActs: [unit5RegulatoryRolesCards, unit5PrivacyHeaderCards, unit5PrivacyByDesignCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptSixCards', 'pptSixCards'],
   }),
   makeSlide({
     id: 'hta10-u5-activity-1',
@@ -1865,8 +1996,8 @@ export const htaUnitFiveSlides = indexSlides([
     visual: '🔏',
     layout: 'pptMatrix',
     cards: unit5GdprCards,
-    laterActs: [unit5GdprPrinciplesCards, unit5HipaaRulesCards, unit5PdplCards, unit5PdplRightsCards, unit5PdplComplianceCards],
-    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTwoPanels', 'pptSixCards', 'pptTwoPanels', 'pptSixCards'],
+    laterActs: [unit5GdprPrinciplesCards, unit5HipaaRulesCards, unit5PdplIntroCards, unit5PdplCards, unit5PdplRightsCards, unit5PdplComplianceCards],
+    actLayouts: ['pptMatrix', 'pptSixCards', 'pptTwoPanels', 'pptSixCards', 'pptSixCards', 'pptSixCards', 'pptSixCards'],
   }),
   makeSlide({
     id: 'hta10-u5-activity-2',
@@ -1890,8 +2021,8 @@ export const htaUnitFiveSlides = indexSlides([
     visual: '🤝',
     layout: 'pptSixCards',
     cards: unit5EthicsPrinciplesCards,
-    laterActs: [unit5AiEthicsCards, unit5AppliedEthicsCards],
-    actLayouts: ['pptSixCards', 'pptTwoPanels', 'pptTimeline'],
+    laterActs: [unit5AiEthicsCards, unit5AppliedEthicsCards, unit5ResearchSharingCards, unit5CooperationCards],
+    actLayouts: ['pptSixCards', 'pptSixCards', 'pptTimeline', 'pptSixCards', 'pptSixCards'],
   }),
   makeQuizSlide({
     id: 'hta10-u5-test',
@@ -2002,7 +2133,10 @@ export const htaClosingSlides = indexSlides([
     cards: [
       { title: 'من التقييم إلى الحوكمة', text: 'رحلة متكاملة عبر ست وحدات في تقييم التقنيات الصحية وحوكمتها', syncText: 'بدأت من فئات التقنيات الصحية' },
       { title: 'الأدلة والقيمة أولًا', text: 'قرارات قائمة على الأدلة، لا مجرد ابتكار تقني', syncText: 'وتقييمها الاقتصادي' },
-      { title: 'صحة الإنسان في القلب', text: 'كل تقنية ومعيار وقانون يخدم في النهاية سلامة المريض وكرامته' },
+      { title: 'البيانات والتشغيل البيني', text: 'إدارة البيانات ودورة حياتها وحوكمتها، ومعايير تبادلها بمعنى موحّد', syncText: 'ثم انتقلنا إلى إدارة البيانات' },
+      { title: 'الأمن والمرونة', text: 'حماية الأنظمة من التهديدات المتصاعدة', syncText: 'كما تناولنا الأمن السيبراني' },
+      { title: 'صحة الإنسان في القلب', text: 'كل تقنية ومعيار وقانون يخدم في النهاية سلامة المريض وكرامته', syncText: 'ثم تناولنا الأطر القانونية' },
+      { title: 'التقنيات الناشئة', text: 'الذكاء الاصطناعي والمستشفيات الذكية ترسم ملامح مستقبل الرعاية', syncText: 'واختتمنا بالتقنيات الناشئة' },
     ],
   }),
 ]);
